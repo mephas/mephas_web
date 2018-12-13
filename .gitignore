@@ -34,7 +34,7 @@ vignettes/*.pdf
 
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
-1MFSdistribution/.DS_Store
 .DS_Store
 *.jpg
 *.png
+assets/*
