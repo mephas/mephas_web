@@ -37,4 +37,8 @@ rsconnect/
 .DS_Store
 *.jpg
 *.png
-assets/*
+assets/
+php/
+cn/
+backshinypage/
+
