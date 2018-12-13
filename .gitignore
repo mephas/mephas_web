@@ -36,3 +36,5 @@ vignettes/*.pdf
 rsconnect/
 1MFSdistribution/.DS_Store
 .DS_Store
+*.jpg
+*.png
