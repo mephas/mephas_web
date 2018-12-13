@@ -127,7 +127,7 @@ navbarPage(
       mainPanel(
         h4(tags$b("予測できる値")), 
         tableOutput("e.t"),
-        helpText("When the expected value in each cell is less than 5, one should do correction or Fisher's exact test"),
+        helpText("各セルの期待値が5未満の場合は、修正またはフィッシャーの正確なテストを行う必要があります"),
         h4(tags$b("Percentages for columns")), 
         tableOutput("p.t"),
         h4(tags$b('Pie Plot of Proportions')), 
@@ -180,8 +180,8 @@ navbarPage(
       tags$b("前提として"),
       HTML("
         <ul>
-        <li> The normal approximation to the binomial distribution is not valid</li>
-        <li> The expected value in each cell is less than 5</li>
+        <li> 二項分布に対する正規近似は有効ではないとする</li>
+        <li> 各セルの期待値は5未満です</li>
         </ul>" )
       ),
 
@@ -194,7 +194,7 @@ navbarPage(
     ),
 
 # 3. Chi-square test for 2 paired-independent sample ---------------------------------------------------------------------------------
-    tabPanel("Two Proportions for Matched-Pair Data",
+    tabPanel("二つのデータの一致対の割合",
 
     titlePanel("マクネマー検定"),
 
@@ -208,21 +208,21 @@ navbarPage(
 
       helpText("仮説"),
       tags$b("帰無仮説"), 
-      HTML("<p> The probabilities of being classified into cells [i,j] and [j,i] are the same</p>"),
+      HTML("<p> セル[i、j]と[j、i]に分類される確率は同じである</p>"),
       tags$b("代替仮説"), 
-      HTML("<p> The probabilities of being classified into cells [i,j] and [j,i] are not same</p>"),
+      HTML("<p> セル[i、j]と[j、i]に分類される確率は同じではない</p>"),
       hr(),
 
       helpText("2 x 2 Table"),
       splitLayout(
         verticalLayout(
-          tags$b("Results of Treatment A"),
-          tags$textarea(id="ra", rows=4, cols = 20, "Result1.A\nResult2.A")
+          tags$b("治療Aの結果 "),
+          tags$textarea(id="ra", rows=4, cols = 20, "結果１.A\n結果２.A")
           ),
         
         verticalLayout(
-          tags$b("Results of Treatment B"), 
-          tags$textarea(id="cb", rows=4, cols = 20, "Result1.B\nResult2.B")
+          tags$b("治療Bの結果 "), 
+          tags$textarea(id="cb", rows=4, cols = 20, "結果１.B\n結果２.B")
           )
         ),
 
@@ -230,11 +230,11 @@ navbarPage(
       tabPanel("手入力",
         splitLayout(
           verticalLayout(
-            tags$b("Column 1"), 
+            tags$b("列1"), 
             tags$textarea(id="xn1", rows=4, "510\n15")
             ),
           verticalLayout(
-            tags$b("Column 2"),
+            tags$b("列２"),
             tags$textarea(id="xn2", rows=4, "16\n90")
             )
           )
@@ -246,9 +246,9 @@ navbarPage(
         tableOutput("n.t"),
         helpText(
           HTML(
-            "<p> When the number of discordant pairs < 20, one should refer to results with correction </p>
+            "<p> 不一致対の数が20未満の場合、訂正した結果を参照すべきである </p>
             <ul>
-            <li> Discordant pair is a matched pair in which the outcome differ for the members of the pair. </li>
+            <li> 不一致対は、対のメンバーの結果が異なる一致対である。 </li>
             </ul>"
             )
           ),
