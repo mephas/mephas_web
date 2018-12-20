@@ -63,8 +63,8 @@ Y <- reactive({
 data <- reactive({cbind.data.frame(Y(), X())})
 
 
-output$table <- renderDataTable({data()},   options = list(pageLength = 5))
-
+output$table.x <- renderDataTable({data()},   options = list(pageLength = 5))
+output$table.y <- 
 # summary variable
 output$x = renderUI({
     selectInput('x', h5('Variable for summary'), selected= colnames(data())[3], choices = colnames(data()))

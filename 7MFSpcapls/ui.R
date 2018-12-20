@@ -8,14 +8,16 @@
 
 shinyUI(
 tagList(
-#shinythemes::themeSelector(),
+
 navbarPage(
  
-  title = "Multivariate Statistics",
+  title = "Multivariate Analysis",
+
+#----------1. dataset panel----------
 
   tabPanel("Dataset",
 
-    titlePanel("Upload your variables"),
+  titlePanel("Upload your variables"),
 
 #helpText("Before user's data is uploaded, the example data (mtcars) is being shown ."),
   sidebarLayout(
