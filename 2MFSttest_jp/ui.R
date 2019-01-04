@@ -185,7 +185,7 @@ navbarPage(
       sidebarPanel(
         helpText("仮説"),
         tags$b("帰無仮説"),
-        HTML("<p> &#956&#8321 = &#956&#8322: X and Y have equal population mean </p>"),
+        HTML("<p> &#956&#8321 = &#956&#8322: XとYの平均は等しい </p>"),
         radioButtons("alt.t2", #p
           label = "帰無仮説",
           choiceNames = list(
