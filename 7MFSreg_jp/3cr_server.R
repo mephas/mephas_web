@@ -1,51 +1,36 @@
-
-# Cox regression
+##----------------------------------------------------------------
+##
+## The regression models: lm, logistic model, cox model, server
+##s
+##    3. Cox regression
+## 
+## DT: 2018-12-14
+##
+##----------------------------------------------------------------
 
 ## 1. input data
 ### training data
-X.c = reactive({
-  inFile = input$file.c
-  if (is.null(inFile))
-  {
-    df = survival::cancer
-    df$status = survival::cancer$status - 1  ##>  example data
-  }
-  else{
-    df = read.csv(
-      ##> user data
-      input$file.c$datapath,
-      header = input$header.c,
-      sep = input$sep.c,
-      quote = input$quote.c
-    )
-  }
-  return(df)
-})
+
 
 ### testing data
 newX.c = reactive({
   inFile = input$newfile.c
   if (is.null(inFile))
   {
-    df = lung[1:10, ]
-    df$status = lung[1:10, ]$status - 1 ##>  example data
+    df = X()[1:10, ]
+    
   }
   else{
     df = read.csv(
       # user data
-      input$newfile.c$datapath,
+      inFile$datapath,
       header = input$newheader.c,
       sep = input$newsep.c,
       quote = input$newquote.c
     )
   }
   return(df)
-  
 })
-
-output$table.c = renderDataTable(## > shiny
-  X.c(),
-  options = list(pageLength = 5))
 
 ## 2. choose variable to put in the model
 output$t1.c = renderUI({
@@ -53,7 +38,7 @@ output$t1.c = renderUI({
     't1.c',
     h5('Follow-up (or start-up time-point)'),
     selected = NULL,
-    choices = names(X.c())
+    choices = names(X())
   )
 })
 
@@ -62,15 +47,15 @@ output$t2.c = renderUI({
     't2.c',
     h5('NULL (or end-up time-point)'),
     selected = "NULL",
-    choices = c("NULL", names(X.c()))
+    choices = c("NULL", names(X()))
   )
 })
 
 output$c.c = renderUI({
   selectInput('c.c',
-              h5('Status Variable'),
+              h5('Status Variable (0=censor, 1=event)'),
               selected = NULL,
-              choices = names(X.c()))
+              choices = names(X()))
 })
 
 output$x.c = renderUI({
@@ -78,7 +63,7 @@ output$x.c = renderUI({
     'x.c',
     h5('Continuous Independent Variable'),
     selected = NULL,
-    choices = names(X.c()),
+    choices = names(X()),
     multiple = TRUE
   )
 })
@@ -88,7 +73,7 @@ output$fx.c = renderUI({
     'fx.c',
     h5('Categorical Independent Variable'),
     selected = NULL,
-    choices = names(X.c()),
+    choices = names(X()),
     multiple = TRUE
   )
 })
@@ -98,7 +83,7 @@ output$sx.c = renderUI({
     'sx.c',
     h5('Stratified Variable'),
     selected = NULL,
-    choices = names(X.c()),
+    choices = names(X()),
     multiple = TRUE
   )
 })
@@ -108,28 +93,7 @@ output$clx.c = renderUI({
     'clx.c',
     h5('Cluster Variable'),
     selected = NULL,
-    choices = names(X.c()),
-    multiple = TRUE
-  )
-})
-
-### for summary
-output$cv.c = renderUI({
-  selectInput(
-    'cv.c',
-    h5('Continuous variable'),
-    selected = NULL,
-    choices = names(X.c()),
-    multiple = TRUE
-  )
-})
-
-output$dv.c = renderUI({
-  selectInput(
-    'dv.c',
-    h5('Categorical variable'),
-    selected = NULL,
-    choices = names(X.c()),
+    choices = names(X()),
     multiple = TRUE
   )
 })
@@ -138,15 +102,15 @@ output$dv.c = renderUI({
 # 3. regression formula
 y = reactive({
   if (input$t2.c == "NULL") {
-    y = paste0("Surv(", input$t1.c, ",", input$c.c, ")")
+    y = paste0("Surv(as.numeric(", input$t1.c, "),as.numeric(", input$c.c, "))")
   }
   else{
-    y = paste0("Surv(", input$t1.c, ",", input$t2.c, ",", input$c.c, ")")
+    y = paste0("Surv(as.numeric(", input$t1.c, "),as.numeric(", input$t2.c, "),as.numeric(", input$c.c, "))")
   }
   return(y)
 })
 
-formula.c = eventReactive(input$F.c, {
+formula_c = eventReactive(input$F.c, {
   f1 = paste0(y(), '~', paste0(input$x.c, collapse = "+"), input$conf.c)
   
   f2 = paste0(f1, "+ as.factor(", input$fx.c, ")")
@@ -230,35 +194,17 @@ formula.c = eventReactive(input$F.c, {
 })
 
 
-output$formula.c = renderPrint({
-  formula.c()
+output$formula_c = renderPrint({
+  formula_c()
 })
 
 ## 4. output results
 ### 4.1. variables' summary
-sum.c = eventReactive(input$Bc.c,
-                      {
-                        pastecs::stat.desc(X.c()[, input$cv.c], desc = FALSE)
-                      })
-fsum.c = eventReactive(input$Bd.c,
-                       {
-                         data = as.data.frame(X.c()[, input$dv.c])
-                         colnames(data) = input$dv.c
-                         lapply(data, table)
-                       })
-
-output$sum.c = renderTable({
-  sum.c()
-},
-rownames = TRUE)
-output$fsum.c = renderPrint({
-  fsum.c()
-})
 
 ### 4.2. model
 fit.c = eventReactive(input$B1.c,
 {
-  coxph(formula.c(), data = X.c())
+  coxph(formula_c(), data = X())
 })
 output$fit.c = renderUI({
   HTML(
@@ -284,23 +230,23 @@ y.c = eventReactive(input$Y.c,
 })
 output$p0.c = renderPlot({
   f = as.formula(paste0(y.c(), "~1"))
-  fit = surv_fit(f, data = X.c())
-  ggsurvplot(fit, data = X.c(), risk.table = TRUE)
+  fit = surv_fit(f, data = X())
+  ggsurvplot(fit, data = X(), risk.table = TRUE)
   #plot(fit)
 })
 output$tx.c = renderUI({
   selectInput(
     'tx.c',
     h5('Categorical variable as group'),
-    selected = names(X.c())[5],
-    choices = names(X.c())
+    selected = names(X())[5],
+    choices = names(X())
   )
 })
 output$p1.c = renderPlot({
   f = as.formula(paste0(y.c(), "~", input$tx.c))
-  fit = surv_fit(f, data = X.c())
+  fit = surv_fit(f, data = X())
   ggsurvplot(fit,
-             data = X.c(),
+             data = X(),
              risk.table = TRUE,
              pval = TRUE)
   #plot(fit)
@@ -320,26 +266,7 @@ output$p2.c = renderPlot({
   #grid.arrange( p1,p2, ncol=2)
 })
 
-# histogram
-output$hx.c = renderUI({
-  selectInput(
-    'hx.c',
-    h5('Variable to Plot'),
-    selected = names(X.c())[4],
-    choices = names(X.c())
-  )
-})
-output$p3.c = renderPlot({
-  ggplot(X.c(), aes(x = X.c()[, input$hx.c])) + geom_histogram(
-    colour = "black",
-    fill = "grey",
-    binwidth = input$bin.c,
-    position = "identity"
-  ) + xlab("") + theme_minimal() + theme(legend.title = element_blank())
-})
-
 # Residual output
-
 
 output$p4.c = renderPlot({
   if (input$res.c=="martingale")
@@ -348,8 +275,8 @@ output$p4.c = renderPlot({
   {ggcoxdiagnostics(fit.c(), type = "deviance") + theme_minimal()}
   else
   {
-  cox.snell = (X.c()[, input$c.c]) - residuals(fit.c(), type = "martingale")
-  coxph.res = survfit(coxph(Surv(cox.snell, X.c()[, input$c.c]) ~ 1, method = 'breslow'), type = 'aalen')
+  cox.snell = (X()[, input$c.c]) - residuals(fit.c(), type = "martingale")
+  coxph.res = survfit(coxph(Surv(cox.snell, X()[, input$c.c]) ~ 1, method = 'breslow'), type = 'aalen')
   d = data.frame(x = coxph.res$time, y = -log(coxph.res$surv))
   ggplot() + geom_step(data = d, mapping = aes(x = x, y = y)) + geom_abline(intercept =0,
                                                                              slope = 1,
@@ -368,7 +295,7 @@ output$fitdt.c = renderDataTable({
 #prediction plot
 # prediction
 pfit.c = eventReactive(input$B2.c, 
-  {coxph(formula.c(), data = X.c())}
+  {coxph(formula_c(), data = X())}
   )
 
 output$pred.c = renderDataTable({
@@ -380,15 +307,3 @@ output$pred.c = renderDataTable({
   )
   cbind(newX.c(), round(df, 4))
 }, options = list(pageLength = 10))
-
-
-output$p6.c = renderPlot({
-  cox.snell = predict(pfit.c(), newdata = newX.c(), type = "expected")
-  res = survfit(coxph(Surv(cox.snell, newX.c()[, input$c.c]) ~ 1, method = 'breslow'), type = 'aalen')
-  d = data.frame(x = res$time, y = -log(res$surv))
-  ggplot() + geom_step(data = d, mapping = aes(x = x, y = y)) + geom_abline(intercept =
-                                                                              0,
-                                                                            slope = 1,
-                                                                            color = "red") +
-    theme_minimal() + xlab("Modified Cox-Snell residuals") + ylab("Cumulative hazard")
-})

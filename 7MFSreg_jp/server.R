@@ -10,29 +10,35 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
   
 ##----------------------------------------------------------------
 ##
-## The univariate regression models: lm, logistic model, cox model, server JP
+## The regression models: lm, logistic model, cox model, server
 ## 
 ## DT: 2018-11-30
 ##
 ##----------------------------------------------------------------
 
 # start server
-function(input, output, session) {
-  #options(warn = -1)
-  #options(digits= 6)
+shinyServer(
 
-# 1. Linear regression
-source("lm_s.R", local=TRUE)
-#---------------------------##
-# 2. logistic regression
-source("log_s.R", local=TRUE)
-#---------------------------##
-# 3. cox regression
-source("cox_s.R", local=TRUE)
+function(input, output, session) {
+
+#----------0. dataset input----------
+source("0data_server.R", local=TRUE) 
+
+#----------1. Linear regression----------
+source("1lm_server.R", local=TRUE)
+
+#----------2. Logistic regression----------
+source("2lr_server.R", local=TRUE)
+
+#----------3. Cox regression----------
+source("3cr_server.R", local=TRUE)
+
+
 #---------------------------##
 observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
+})
 
-#session$allowReconnect(TRUE)
-}
+
+

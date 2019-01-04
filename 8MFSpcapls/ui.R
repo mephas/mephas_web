@@ -11,7 +11,7 @@ tagList(
 
 navbarPage(
  
-  title = "Multivariate Analysis",
+  title = "Principal Components",
 
 #----------1. dataset panel----------
 

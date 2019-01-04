@@ -11,9 +11,10 @@ if (!require(mixOmics)) {install.packages("mixOmics")}; library(mixOmics)
 ##----------------------------------------------------------------
 
 shinyServer(
+  
 function(input, output) {
 
-## data set ----------------------------------------------------------------------------------------
+## data set -------------------------------------------------------
 # input data, variables
 X <- reactive({
  # req(input$file)
