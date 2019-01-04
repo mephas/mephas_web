@@ -1,0 +1,70 @@
+##----------------------------------------------------------------
+##
+## The regression models: lm, logistic model, cox model, ui
+## 
+## DT: 2018-11-30
+##
+##----------------------------------------------------------------
+
+shinyUI(
+tagList(
+
+navbarPage(
+  title = "Regression Model",
+
+#----------0. dataset panel----------
+
+tabPanel("Dataset",
+
+  titlePanel("Data Preparation"),
+
+  source("0data_ui.R", local=TRUE)
+
+        ),
+
+#----------1. LM regression panel----------
+tabPanel("Linear Regression (Continuous Outcomes)",
+
+  titlePanel("Linear Regression"),
+
+  source("1lm_ui.R", local=TRUE)
+
+), ## tabPanel
+
+##-----------------------------------------------------------------------
+## 2. logistic regression---------------------------------------------------------------------------------
+tabPanel("Logistic Regression (1-0 Outcomes)",
+
+  titlePanel("Logistic Regression"),
+
+  source("2lr_ui.R", local=TRUE)
+
+), ## tabPanel(
+
+##----------------------------------------------------------------------
+## 3. cox regression---------------------------------------------------------------------------------
+tabPanel("Cox Regression (Time-Event Outcomes)",
+
+  titlePanel("Cox Regression"),
+
+  source("3cr_ui.R", local=TRUE)
+
+
+) ## tabPanel(
+,
+  tabPanel(
+      tags$button(
+      id = 'close',
+      type = "button",
+      class = "btn action-button",
+      onclick = "setTimeout(function(){window.close();},500);",  # close browser
+      "Stop App")
+)
+
+
+)
+##-----------------------over
+)
+)
+
+
