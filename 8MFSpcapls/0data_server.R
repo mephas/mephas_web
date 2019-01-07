@@ -35,7 +35,7 @@ Y <- reactive({
   inFile <- input$file.y
   if (is.null(inFile))
     # eg data
-  {df = coloncancer[,101:150]
+  {df = coloncancer[,101:110]
   }
   else{
     
@@ -51,8 +51,8 @@ Y <- reactive({
   return(df)
 })
 
-output$table.x <- renderTable({X()[1:5,1:10]})
-output$table.y <- renderTable({Y()[1:5,1:10]})
+output$table.x <- renderTable({X()[1:5,1:5]},  rownames = TRUE, colnames = TRUE)
+output$table.y <- renderTable({Y()[1:5,1]}, rownames = TRUE, colnames = TRUE)
 # summary variable
 
 data <- reactive({
@@ -130,7 +130,7 @@ output$hx = renderUI({
     'hx',
     h5('Histogram of the continuous variable'),
     selected = NULL,
-    choices = names(data()))
+    choices = c("NULL",names(data())))
 })
 
 output$hxd = renderUI({
@@ -138,7 +138,7 @@ output$hxd = renderUI({
     'hxd',
     h5('Histogram of the categorical/discrete variable'),
     selected = NULL,
-    choices = names(data()))
+    choices = c("NULL",names(data())))
 })
 
 output$p2 = renderPlot({

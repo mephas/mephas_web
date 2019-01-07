@@ -66,7 +66,7 @@
 
       tags$b("The first 5 row and first 2 columns of the dataset"), 
 
-      dataTableOutput("data"),
+      tableOutput("data"),
   
       
       selectInput("columns", "Select variables to display the details", choices = NULL, multiple = TRUE), # no choices before uploading 

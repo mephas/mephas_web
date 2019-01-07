@@ -87,9 +87,9 @@ navbarPage(
 
     mainPanel(
       h4(tags$b("Data Display")), 
-      helpText("The first 5 rows and first 10 columns of X matrix"),
+      helpText("The first 5 rows and first 5 columns of X matrix"),
       tableOutput("table.x"),
-      helpText("The first 5 rows and first 10 columns of Y matrix"),
+      helpText("The first 5 rows and first columns of Y matrix"),
       tableOutput("table.y"),
       hr(),  
       h4(tags$b("Basic Descriptives")),
