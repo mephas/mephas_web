@@ -447,6 +447,7 @@ tabPanel(
      id = 'close',
      type = "button",
      class = "btn action-button",
+     onclick ="window.open('https://pharmacometrics.info/mephas/index_jp.html')","Main Page"))
 
   )
 )
