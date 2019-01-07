@@ -32,7 +32,7 @@
               accept = c("text/csv",
                       "text/comma-separated-values,text/plain",
                       ".csv")),
-    helpText("The columns of X are not suggested greater than 500"),
+    #helpText("The columns of X are not suggested greater than 500"),
     # Input: Checkbox if file has header ----
     checkboxInput("header", "Header", TRUE),
 
@@ -64,7 +64,7 @@
 
       tags$br(),
 
-      tags$b("Overview of the first 5 row and 2 columns of the dataset"), 
+      tags$b("The first 5 row and first 2 columns of the dataset"), 
 
       dataTableOutput("data"),
   
@@ -101,8 +101,9 @@
       h4(tags$b("First Exploration of Variables")),  
       tabsetPanel(
         tabPanel("Scatter plot (with line) between two variables",
-          uiOutput('ty'),
           uiOutput('tx'),
+          uiOutput('ty'),
+          
           plotOutput("p1", width = "400px", height = "400px")
           ),
         tabPanel("Bar plots",
