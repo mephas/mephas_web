@@ -7,6 +7,7 @@
 ##----------------------------------------------------------------
 
 shinyUI(
+
 tagList(
 
 navbarPage(
@@ -19,16 +20,17 @@ navbarPage(
 
   titlePanel("Upload your variables"),
 
-#helpText("Before user's data is uploaded, the example data (mtcars) is being shown ."),
   sidebarLayout(
     sidebarPanel(##-------csv file-------##   
     # Input: Select a file as variable----
-    fileInput('file.x', "Upload .csv data set of predictors (X)",
+    helpText("If no data set is uploaded, the example data is shown in the Data Display."),
+  
+    fileInput('file.x', "Upload .csv data set of X matrix (predictors)",
               multiple = TRUE,
               accept = c("text/csv",
                        "text/comma-separated-values,text/plain",
                        ".csv")),
-    helpText("The columns of X are not suggested greater than 500"),
+    #helpText("The columns of X are not suggested greater than 500"),
     # Input: Checkbox if file has header ----
     checkboxInput("header.x", "Header", TRUE),
 
@@ -52,12 +54,12 @@ navbarPage(
     ),
 
     # Input: Select a file as response----
-    fileInput('file.y', "Upload .csv data set of response (Y)",
+    fileInput('file.y', "Upload .csv data set of Y matrix (responders)",
               multiple = TRUE,
               accept = c("text/csv",
                        "text/comma-separated-values,text/plain",
                        ".csv")),
-    helpText("The columns of Y can be more than one"),
+    helpText("The columns of Y can be one or more than one."),
     # Input: Checkbox if file has header ----
     checkboxInput("header.y", "Header", TRUE),
 
@@ -85,25 +87,53 @@ navbarPage(
 
     mainPanel(
       h4(tags$b("Data Display")), 
-      dataTableOutput("table"),
+      helpText("The first 5 rows and first 10 columns of X matrix"),
+      tableOutput("table.x"),
+      helpText("The first 5 rows and first 10 columns of Y matrix"),
+      tableOutput("table.y"),
       hr(),  
-      h4(tags$b("Descriptives")),
-      uiOutput('x'),
-      verbatimTextOutput("sum"),
+      h4(tags$b("Basic Descriptives")),
+      tags$b("Select the variables for descriptives"),
 
-      hr(),  
-      h4(tags$b("Scatter Plot (Y-X)")), 
-      fluidRow(
-        column(6, HTML('</br>'), uiOutput('ty')),
-        column(6, HTML('</br>'), uiOutput('tx'))),
-      plotOutput("p1", width = "400px", height = "400px"),
+        fluidRow(
+          column(6,
+          uiOutput('cv'),
+          actionButton("Bc", "Show descriptives"),
+          tableOutput("sum"),
+          helpText(HTML(
+      "
+      Note:
+      <ul>
+      <li> nbr.: the number of </li>
+      </ul>
+      "
+      ))
+          ),
 
-      hr(),  
-      h4(tags$b("Histogram")), 
-      HTML('</br>'), uiOutput('hx'),
-      plotOutput("p2", width = "400px", height = "400px"),
-      sliderInput("bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.7)
-      
+          column(6,
+          uiOutput('dv'),
+          actionButton("Bd", "Show descriptives"),
+          verbatimTextOutput("fsum")
+          )),
+
+            h4(tags$b("First Exploration of Variables")),  
+
+      tabsetPanel(
+        tabPanel("Scatter plot (with line) between two variables",
+          uiOutput('tx'),
+          uiOutput('ty'),
+          plotOutput("p1", width = "400px", height = "400px")
+          ),
+        tabPanel("Bar plots",
+          fluidRow(
+          column(6,
+            uiOutput('hx'),
+            plotOutput("p2", width = "400px", height = "400px"),
+            sliderInput("bin", "The width of bins in the histogram", min = 10, max = 150, value = 1)),
+          column(6,
+            uiOutput('hxd'),
+            plotOutput("p3", width = "400px", height = "400px"))))
+        )
   )
 
   )),
