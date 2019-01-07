@@ -16,7 +16,7 @@ navbarPage(
 
 #----------1. dataset panel----------
 
-  tabPanel("Dataset",
+  tabPanel("Data Preperation",
 
   titlePanel("Upload your variables"),
 

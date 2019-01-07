@@ -102,54 +102,69 @@ output$fsum = renderPrint({fsum()})
 
 # First Exploration of Variables
 
-output$tx = renderUI({
+output$tx = renderUI({  
   selectInput(
     'tx', h5('Variable in the x-axis'),
-    selected = NULL, 
-    choices = names(X())
-  )
+    selected = "NULL", 
+    choices = c("NULL",names(data())))
+  
 })
 
 output$ty = renderUI({
   selectInput(
     'ty',
     h5('Variable in the y-axis'),
-    selected = NULL, 
-    choices = names(X())
-  )
+    selected = "NULL", 
+    choices = c("NULL",names(data())))
+  
 })
 
 output$p1 <- renderPlot({
+     validate(
+      need(input$tx != "NULL", "Please select one continuous variable")
+    )
+        validate(
+      need(input$ty != "NULL", "Please select one continuous variable")
+    )
   ggplot(data(), aes(x=data()[,input$tx], y=data()[,input$ty])) + geom_point(shape=1) + 
     geom_smooth(method=lm) +xlab(input$tx) +ylab(input$ty)+ theme_minimal()
 })
 
 ## histogram
 output$hx = renderUI({
+
   selectInput(
     'hx',
     h5('Histogram of the continuous variable'),
-    selected = NULL,
+    selected = "NULL",
     choices = c("NULL",names(data())))
 })
+
+
 
 output$hxd = renderUI({
   selectInput(
     'hxd',
     h5('Histogram of the categorical/discrete variable'),
-    selected = NULL,
+    selected = "NULL",
     choices = c("NULL",names(data())))
 })
 
 output$p2 = renderPlot({
-  ggplot(X(), aes(x = data()[, input$hx])) + 
+   validate(
+      need(input$hx != "NULL", "Please select one continuous variable")
+    )
+  ggplot(data(), aes(x = data()[, input$hx])) + 
     geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
     geom_density()+
     xlab("") + theme_minimal() + theme(legend.title = element_blank())
 })
 
 output$p3 = renderPlot({
-  ggplot(X(), aes(x = data()[, input$hxd])) + 
+     validate(
+      need(input$hxd != "NULL", "Please select one categorical/discrete variable")
+    )
+  ggplot(data(), aes(x = data()[, input$hxd])) + 
     geom_histogram(colour = "black",fill = "white",  stat="count") + 
     xlab("") + theme_minimal() + theme(legend.title = element_blank())
 })
