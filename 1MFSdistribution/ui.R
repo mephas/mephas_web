@@ -410,7 +410,13 @@ splitLayout(
       class = "btn action-button",
       onclick = "setTimeout(function(){window.close();},500);",  # close browser
       "Stop App")
-)
+),
+tabPanel(
+     tags$button(
+     id = 'close',
+     type = "button",
+     class = "btn action-button",
+     onclick ="window.open('https://pharmacometrics.info/mephas/index_jp.html')","top"))
 
 
 ))
