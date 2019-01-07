@@ -387,6 +387,7 @@ tabPanel(
       tags$button(
       id = 'close',
       type = "button",
+     style = "margin-top:-10px;",
       class = "btn action-button",
       onclick = "setTimeout(function(){window.close();},500);",  # close browser
       "停止")
@@ -395,6 +396,7 @@ tabPanel(
      tags$button(
      id = 'close',
      type = "button",
+     style = "margin-top:-10px;",
      class = "btn action-button",
      onclick ="window.open('https://pharmacometrics.info/mephas/index_jp.html')","トップ"))
 
