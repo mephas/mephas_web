@@ -8,17 +8,20 @@
 
 shinyUI(
 
+
+
 tagList(
 
 navbarPage(
  
+
   title = "Principal Components",
 
 #----------1. dataset panel----------
 
-  tabPanel("Data Preperation",
+  tabPanel("Dataset",
 
-  titlePanel("Upload your variables"),
+  titlePanel("Data Preparation"),
 
   sidebarLayout(
     sidebarPanel(##-------csv file-------##   
@@ -88,6 +91,7 @@ navbarPage(
     mainPanel(
       h4(tags$b("Data Display")), 
       helpText("The first 5 rows and first 5 columns of X matrix"),
+      tags$head(tags$style(".shiny-output-error{color: blue;}")),
       tableOutput("table.x"),
       helpText("The first 5 rows and first columns of Y matrix"),
       tableOutput("table.y"),

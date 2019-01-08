@@ -51,7 +51,8 @@ Y <- reactive({
   return(df)
 })
 
-output$table.x <- renderTable({X()[1:5,1:5]},  rownames = TRUE, colnames = TRUE)
+output$table.x <- renderTable({
+    X()[1:5,1:5]},  rownames = TRUE, colnames = TRUE)
 output$table.y <- renderTable({Y()[1:5,1]}, rownames = TRUE, colnames = TRUE)
 # summary variable
 

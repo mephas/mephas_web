@@ -66,6 +66,8 @@
 
       tags$b("The first 5 row and first 2 columns of the dataset"), 
 
+      tags$head(tags$style(".shiny-output-error{color: blue;}")),
+
       tableOutput("data"),
   
       
