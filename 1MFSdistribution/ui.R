@@ -1,17 +1,8 @@
-##' This is the description of this function，1
-##'
-##' This is the details of this function, 1
-##' @title MEPHAS Shiny application of the statistical distributions
-##' @return The shiny web page of the distribution
-##'
-##' @import shiny
-##' @import ggplot2
-
 ##----------------------------------------------------------------
 ##
-## FMSdist ui
-##
-## 2018-11-29
+## 1MFSdistribution UI EN
+## 
+## DT: 2019-01-08
 ##
 ##----------------------------------------------------------------
 
@@ -358,9 +349,12 @@ tabPanel("Discrete Random Variable",
 titlePanel("Binomial Distribution, Poisson Distribution"),
 
 tags$b("Notes"),
-p("The blue curve shows the normal approximation"),
-p("Binomial distribution has mean = np and var = npq"),
-p("Poisson distribution has mean = var = parameter"),
+
+tags$ul(
+  tags$li("The blue curve shows the normal approximation"),
+  tags$li("Binomial distribution has mean = np and var = npq"),
+  tags$li("Poisson distribution has mean = var = parameter")
+  ),
 
 splitLayout(
 
@@ -401,23 +395,24 @@ splitLayout(
     #>dataTableOutput("poi")
     )
   )
-)
-,
-  tabPanel(
-      tags$button(
-      id = 'close',
-      type = "button",
-      class = "btn action-button",
-      onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "Stop App")
 ),
-tabPanel(
-     tags$button(
-     id = 'close',
-     type = "button",
-     class = "btn action-button",
-     onclick ="window.open('https://pharmacometrics.info/mephas/')","Main Page))
 
+tabPanel((a("Homepage",
+ style = "margin-top:-30px;",
+ href = paste0("https://pharmacometrics.info/mephas/")))
+ #you can input subfolder and file name in the second ""
+
+ )
+
+
+#  tabPanel(
+ #     tags$button(
+  #    id = 'close',
+   #   type = "button",
+    #  #class = "btn action-button",
+     # onclick = "setTimeout(function(){window.close();},500);",  # close browser
+      #"Stop App")
+#)
 
 
 ))

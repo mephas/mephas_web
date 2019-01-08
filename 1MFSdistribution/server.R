@@ -1,23 +1,20 @@
 if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## MFSdist server
+## 1MFSdistribution SERVER EN
 ## 
-## 2018-11-29
+## DT: 2019-01-08
 ##
-##----------------------------------------------------------------
-
+##----------#----------#----------#----------
 
 shinyServer(
 
 function(input, output) {
-  #options(warn = -1)
-  #options(digits=4)
-  
-  
-  ## 1. Normal Distribution ----------------------------------------------------------------------------------------
+
+##---------- 1. Continuous RV ---------- 
+###---------- 1.1 Normal Distribution ----------
 
 output$norm.plot <- renderPlot({
   
@@ -72,7 +69,7 @@ output$info2 = renderText({
     }
     paste0("Position: ", "\n", xy_str(input$plot_click2))})
 
-## 2. t Distribution ----------------------------------------------------------------------------------------
+###---------- 1.2 t Distribution ----------
 
 output$t.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-input$t.xlim, input$t.xlim)), aes(x)) + 
@@ -115,7 +112,7 @@ output$t.sum = renderTable({
   x = T()
   data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = var(x[,1]))}, digits = 4)
 
-## 3. X Distribution ----------------------------------------------------------------------------------------
+###---------- 1.3 X Distribution ----------
 
 output$x.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$x.xlim)), aes(x)) +
@@ -158,7 +155,8 @@ output$x.sum = renderTable({
   data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = var(x[,1]))
   }, digits = 4)
 
-## 4. F Distribution ----------------------------------------------------------------------------------------
+##---------- 2. Derived from normal distribution ---------- 
+###---------- 2.1 F Distribution ----------
 
 output$f.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$f.xlim)), aes(x)) +
@@ -202,7 +200,7 @@ output$f.sum = renderTable({
   data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = var(x[,1]))
   }, digits = 4)
 
-## 5. exp Distribution ----------------------------------------------------------------------------------------
+###---------- 2.2. exp Distribution ----------
 
 output$e.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$e.xlim)), aes(x)) +
@@ -246,7 +244,7 @@ output$e.sum = renderTable({
   data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = var(x[,1]))
   }, digits = 4)
 
-## 7. Gamma distribution
+###---------- 2.3 Gamma distribution ----------
 
 output$g.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$g.xlim)), aes(x)) +
@@ -289,30 +287,30 @@ output$g.sum = renderTable({
   }, digits = 4)
 
 
-## 6. Discrete Distribution 
-## 6.1 Binomial Distribution ----------------------------------------------------------------------------------------
+##---------- 3. Discrete RV ----------
+###----------3.1 Binomial Distribution ----------
+
 B = reactive({
-x1 = pbinom(0:(input$m-1), input$m, input$p)
-x2 = pbinom(1:input$m, input$m, input$p)
-x = x2-x1
-data = data.frame(x0 = c(0:length(x)), Pr.x0 = round(c(0, x), 6), Pr.x0.lower = round(c(0, x2), 6))
-return(data) 
+  x1 = pbinom(0:(input$m-1), input$m, input$p)
+  x2 = pbinom(1:input$m, input$m, input$p)
+  x = x2-x1
+  data = data.frame(x0 = c(0:length(x)), Pr.x0 = round(c(0, x), 6), Pr.x0.lower = round(c(0, x2), 6))
+  return(data) 
 })
 
 output$b.plot <- renderPlot({
 X = B()
 ggplot(B(), aes("x0", "Pr.x0")) + geom_step() + 
-geom_point(aes(x = X$x0[input$k+1], y = X$Pr.x0[input$k+1]),color = "red", size = 2.5) +
-stat_function(fun = dnorm, args = list(mean = input$m*input$p, sd = sqrt(input$m*input$p*(1-input$p))), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
-xlim(-0.1, input$xlim.b) + xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("")
+  geom_point(aes(x = X$x0[input$k+1], y = X$Pr.x0[input$k+1]),color = "red", size = 2.5) +
+  stat_function(fun = dnorm, args = list(mean = input$m*input$p, sd = sqrt(input$m*input$p*(1-input$p))), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
+  xlim(-0.1, input$xlim.b) + xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("")
 })
 
 output$bino = renderDataTable({head(B(), n = 150L)}, options = list(pageLength = 10))
 
 output$b.k = renderTable({B()[(input$k+1),]})
 
-
-## 6.2 Poisson Distribution ----------------------------------------------------------------------------------------
+###---------- 3.2 Poisson Distribution ----------
 P = reactive({
 x1 = ppois(0:(input$k2-1), input$lad)
 x2 = ppois(1:input$k2, input$lad)
@@ -322,11 +320,10 @@ return(data)
 })
 
 output$p.plot <- renderPlot({
-  X = P()
 ggplot(P(), aes("x0", "Pr.x0")) + geom_step() + 
-geom_point(aes(x = X$x0[input$x0+1], y = X$Pr.x0[input$x0+1]),color = "red", size = 2.5) +
-stat_function(fun = dnorm, args = list(mean = input$lad, sd = sqrt(input$lad)), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
-xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("") + xlim(-0.1, input$xlim2) })
+  geom_point(aes(x = P()$x0[input$x0+1], y = P()$Pr.x0[input$x0+1]),color = "red", size = 2.5) +
+  stat_function(fun = dnorm, args = list(mean = input$lad, sd = sqrt(input$lad)), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
+  xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("") + xlim(-0.1, input$xlim2) })
 
 output$poi = renderDataTable({head(P(), n = 150L)}, options = list(pageLength = 10))
 
