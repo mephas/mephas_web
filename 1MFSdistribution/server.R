@@ -3,7 +3,9 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 
 ##----------#----------#----------#----------
 ##
-## 1MFSdistribution SERVER EN
+## 1MFSdistribution SERVER
+##
+## Language: EN
 ## 
 ## DT: 2019-01-08
 ##
@@ -311,6 +313,7 @@ output$bino = renderDataTable({head(B(), n = 150L)}, options = list(pageLength =
 output$b.k = renderTable({B()[(input$k+1),]})
 
 ###---------- 3.2 Poisson Distribution ----------
+
 P = reactive({
 x1 = ppois(0:(input$k2-1), input$lad)
 x2 = ppois(1:input$k2, input$lad)
@@ -328,6 +331,7 @@ ggplot(P(), aes("x0", "Pr.x0")) + geom_step() +
 output$poi = renderDataTable({head(P(), n = 150L)}, options = list(pageLength = 10))
 
 output$p.k = renderTable({P()[(input$x0+1),]})
+
 
 observe({
       if (input$close > 0) stopApp()                             # stop shiny

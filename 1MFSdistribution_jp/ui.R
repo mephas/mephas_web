@@ -1,10 +1,12 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## FMSdist ui JP
+## 1MFSdistribution UI
 ##
-## 2018-11-29
+## Language: CN
+## 
+## DT: 2019-01-08
 ##
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 
 shinyUI(
   
@@ -14,8 +16,11 @@ navbarPage(
   
   title = "確率分布",
 
-  ## 1. Normal Distribution ---------------------------------------------------------------------------------
+##---------- Panel 1 ---------
+
 tabPanel("離散確率分布",
+
+###---------- 1.1 ---------
 
 titlePanel("正規分布 (ガウス分布)"),
 
@@ -49,6 +54,7 @@ splitLayout(
     helpText("青い色の部分の割合（％）"),
     tableOutput("xs")
     ),
+
   wellPanel(
 
     h3("分布例 (シミュレーション)"),
@@ -74,7 +80,8 @@ splitLayout(
     )
   ),
 
-## Exp distribution
+###---------- 1.2 ---------
+
 titlePanel("指数分布"),
 
 tags$b("パラメータ"), 
@@ -101,6 +108,7 @@ splitLayout(
     p(br()),
     helpText("直線のx座標"),
     tableOutput("e")),
+
   wellPanel(
     h3("サンプル指数分布 (シミュレーション)"),
 
@@ -124,7 +132,7 @@ splitLayout(
     )
   ),
 
-### Gamma
+###---------- 1.3 ---------
 
 titlePanel("ガンマ分布"),
 tags$b("パラメータ"), 
@@ -185,11 +193,12 @@ splitLayout(
 )
 ),
 
+##---------- Panel 2 ---------
 
-## 2. T, Chi2, F ---------------------------------------------------------------------------------
 tabPanel("正規分布からの派生分布",
 
-### 2.1 T
+###---------- 2.1 ---------
+
 titlePanel("スチューデントのt分布"),
 
 tags$b("パラメータ"), 
@@ -219,6 +228,7 @@ splitLayout(
     p(br()),
     helpText("直線のx座標 (青の曲線は正規分布)"),
     tableOutput("t")),
+
   wellPanel(
     h3("スチューデントのt分布 (シミュレーション)"),
 
@@ -240,7 +250,8 @@ splitLayout(
     )
   ),
 
-### 2.2 Chi2
+###---------- 2.2 ---------
+
 titlePanel("カイ二乗分布"),
 
 tags$b("パラメータ"), 
@@ -270,6 +281,7 @@ splitLayout(
     p(br()),
     helpText("直線のx座標"),
     tableOutput("xn")),
+  
   wellPanel(
     h3("カイ二乗分布 (シミュレーション)"),
 
@@ -291,7 +303,8 @@ splitLayout(
     )
   ),
 
-### 2.3 F
+###---------- 2.3 ---------
+
 titlePanel("F分布"),
 
 tags$b("パラメータ"), 
@@ -343,7 +356,8 @@ splitLayout(
   )
 ),
 
-## 3. discrete RV
+##---------- Panel 3 ---------
+
 tabPanel("離散確率変数",
 
 titlePanel("二項分布, ポアソン分布"),
@@ -355,7 +369,8 @@ p("ポワソン分布における平均と分散はパラメータ"),
 
 splitLayout(
 
-### 3.1 Binomial
+###---------- 3.1 ---------
+
   wellPanel(style = "background-color: #ffffff;",
     h3("二項分布"),
     hr(),
@@ -373,7 +388,9 @@ splitLayout(
     tableOutput("b.k")
     #>dataTableOutput("bino")
     ),
-### 3.2 Poisson
+
+###---------- 3.2 ---------
+
   wellPanel(style = "background-color: #ffffff;",
     h3("ポワソン分布"),
     hr(),

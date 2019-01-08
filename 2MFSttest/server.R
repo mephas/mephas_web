@@ -3,21 +3,22 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(gridExtra)) {install.packages("gridExtra")}; library(gridExtra)
 if (!require(reshape)) {install.packages("reshape")}; library(reshape)
 if (!require(pastecs)) {install.packages("pastecs")}; library(pastecs)
-##----------------------
+
+##----------#----------#----------#----------
 ##
-## MFSttest server
+## 2MFSttest SERVER
 ##
-## 2018-11-28
+## Language: EN
+## 
+## DT: 2019-01-08
 ##
-##-----------------------
+##----------#----------#----------#----------
 
 shinyServer(
 
 function(input, output) {
-#options(warn = -1)
-  #options(digits = 4)
 
-## 1. One sample, panel 1 ---------------------------------------------------##
+##---------- 1. One sample t test---------
 X <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
@@ -121,7 +122,7 @@ output$t.test <- renderTable({
   }, 
   width = "500px", rownames = TRUE)
 
-# 2. Two independent groups
+##---------- 2. Two sample t test---------
 Y <- reactive({
   inFile <- input$file2
   if (is.null(inFile)) {
@@ -275,7 +276,7 @@ res.table <- t(
   }, 
   width = "800px", rownames = TRUE)
 
-  ## 2. Two paired groups ----------------------------------------------------------------------------------------
+  ##---------- 3. Paired sample t test ---------
 
   #data
 Z <- reactive({

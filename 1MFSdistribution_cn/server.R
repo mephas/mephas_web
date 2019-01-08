@@ -1,23 +1,23 @@
 if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## MFSdist server CN
+## 1MFSdistribution SERVER
+##
+## Language: CN
 ## 
-## 2018-11-29
+## DT: 2019-01-08
 ##
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 
 
 shinyServer(
 
 function(input, output) {
-  #options(warn = -1)
-  #options(digits=4)
   
-  
-  ## 1. Normal Distribution ----------------------------------------------------------------------------------------
+##---------- 1. Continuous RV ---------- 
+###---------- 1.1 Normal Distribution ----------
 
 output$norm.plot <- renderPlot({
   
@@ -72,7 +72,7 @@ output$info2 = renderText({
     }
     paste0("Position: ", "\n", xy_str(input$plot_click2))})
 
-## 2. t Distribution ----------------------------------------------------------------------------------------
+###---------- 1.2 t Distribution ----------
 
 output$t.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-input$t.xlim, input$t.xlim)), aes(x)) + 
@@ -115,7 +115,7 @@ output$t.sum = renderTable({
   x = T()
   data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = var(x[,1]))}, digits = 4)
 
-## 3. X Distribution ----------------------------------------------------------------------------------------
+###---------- 1.3 X Distribution ----------
 
 output$x.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$x.xlim)), aes(x)) +
@@ -158,7 +158,8 @@ output$x.sum = renderTable({
   data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = var(x[,1]))
   }, digits = 4)
 
-## 4. F Distribution ----------------------------------------------------------------------------------------
+##---------- 2. Derived from normal distribution ---------- 
+###---------- 2.1 F Distribution ----------
 
 output$f.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$f.xlim)), aes(x)) +
@@ -202,7 +203,7 @@ output$f.sum = renderTable({
   data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = var(x[,1]))
   }, digits = 4)
 
-## 5. exp Distribution ----------------------------------------------------------------------------------------
+###---------- 2.2. exp Distribution ----------
 
 output$e.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$e.xlim)), aes(x)) +
@@ -246,7 +247,7 @@ output$e.sum = renderTable({
   data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = var(x[,1]))
   }, digits = 4)
 
-## 7. Gamma distribution
+###---------- 2.3 Gamma distribution ----------
 
 output$g.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$g.xlim)), aes(x)) +
@@ -288,9 +289,9 @@ output$g.sum = renderTable({
   data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = var(x[,1]))
   }, digits = 4)
 
+##---------- 3. Discrete RV ----------
+###----------3.1 Binomial Distribution ----------
 
-## 6. Discrete Distribution 
-## 6.1 Binomial Distribution ----------------------------------------------------------------------------------------
 B = reactive({
 x1 = pbinom(0:(input$m-1), input$m, input$p)
 x2 = pbinom(1:input$m, input$m, input$p)
@@ -312,7 +313,8 @@ output$bino = renderDataTable({head(B(), n = 150L)}, options = list(pageLength =
 output$b.k = renderTable({B()[(input$k+1),]})
 
 
-## 6.2 Poisson Distribution ----------------------------------------------------------------------------------------
+###---------- 3.2 Poisson Distribution ----------
+
 P = reactive({
 x1 = ppois(0:(input$k2-1), input$lad)
 x2 = ppois(1:input$k2, input$lad)

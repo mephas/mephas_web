@@ -1,10 +1,12 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## 1MFSdistribution UI EN
+## 1MFSdistribution UI
+##
+## Language: EN
 ## 
 ## DT: 2019-01-08
 ##
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 
 shinyUI(
   
@@ -14,8 +16,11 @@ navbarPage(
   
   title = "Probability Distributions",
 
-  ## 1. Normal Distribution ---------------------------------------------------------------------------------
+##---------- Panel 1 ---------
+
 tabPanel("Continuous Random Variable",
+
+###---------- 1.1 ---------
 
 titlePanel("Normal Distribution (Gaussian Distribution)"),
 
@@ -74,7 +79,8 @@ splitLayout(
     )
   ),
 
-## Exp distribution
+###---------- 1.2 ---------
+
 titlePanel("Exponential Distribution"),
 
 tags$b("Parameters"), 
@@ -124,7 +130,7 @@ splitLayout(
     )
   ),
 
-### Gamma
+###---------- 1.3 ---------
 
 titlePanel("Gamma Distribution"),
 tags$b("Parameters"), 
@@ -186,10 +192,12 @@ splitLayout(
 ),
 
 
-## 2. T, Chi2, F ---------------------------------------------------------------------------------
+##---------- Panel 2 ---------
+
 tabPanel("Derived from the Normal Distribution",
 
-### 2.1 T
+###---------- 2.1 ---------
+
 titlePanel("Student's t-Distribution"),
 
 tags$b("Parameter"), 
@@ -240,7 +248,8 @@ splitLayout(
     )
   ),
 
-### 2.2 Chi2
+###---------- 2.2 ---------
+
 titlePanel("Chi-square Distribution"),
 
 tags$b("Parameters"), 
@@ -291,7 +300,8 @@ splitLayout(
     )
   ),
 
-### 2.3 F
+###---------- 2.3 ---------
+
 titlePanel("F Distribution"),
 
 tags$b("Parameters"), 
@@ -343,7 +353,8 @@ splitLayout(
   )
 ),
 
-## 3. discrete RV
+##---------- Panel 3 ---------
+
 tabPanel("Discrete Random Variable",
 
 titlePanel("Binomial Distribution, Poisson Distribution"),
@@ -358,7 +369,8 @@ tags$ul(
 
 splitLayout(
 
-### 3.1 Binomial
+###---------- 3.1 ---------
+
   wellPanel(style = "background-color: #ffffff;",
     h3("Binomial Distribution"),
     hr(),
@@ -376,7 +388,9 @@ splitLayout(
     tableOutput("b.k")
     #>dataTableOutput("bino")
     ),
-### 3.2 Poisson
+
+###---------- 3.2 ---------
+
   wellPanel(style = "background-color: #ffffff;",
     h3("Poisson Distribution"),
     hr(),
