@@ -14,6 +14,7 @@
   #titlePanel("Upload your dataset"),
 
 #helpText("Before user's data is uploaded, the example data (mtcars) is being shown ."),
+
   sidebarLayout(
 
     sidebarPanel(

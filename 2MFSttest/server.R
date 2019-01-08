@@ -27,18 +27,17 @@ X <- reactive({
     X <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
     X <- data.frame(X = X)
     names(X) = unlist(strsplit(input$cn, "[\n, \t, ]"))
-    return(X)
     }
   else {
     # CSV data
-    csv <-read.csv(
+    X <-read.csv(
       inFile$datapath,
       header = input$header,
       sep = input$sep
       )
-    csv <- as.data.frame(csv)
-    return(csv)
+    X <- as.data.frame(csv)
     }
+    return(X)
   })
 
 output$table <-renderDataTable({X()}, options = list(pageLength = 5))
@@ -68,19 +67,19 @@ output$nor <- renderTable({
   },   
   width = "200px", rownames = TRUE)
 
-# plot
+# box plot
 output$bp = renderPlot({
   x = X()
   ggplot(x, aes(x = "", y = x[, 1])) + geom_boxplot(width = 0.2, outlier.colour = "red") + geom_jitter(width = 0.1, size = 1.5) + ylab("") + xlab("") + ggtitle("") + theme_minimal()
   })
 
-output$info <- renderText({
+output$info1 <- renderText({
   xy_str = function(e) {
     if (is.null(e))
     return("NULL\n")
     paste0("The approximate value: ", round(e$y, 4))
   }
-  paste0("Horizontal postion: ", "\n", xy_str(input$plot_click))
+  paste0("Horizontal position: ", "\n", xy_str(input$plot_click1))
 })
 
 output$meanp = renderPlot({
@@ -97,10 +96,10 @@ output$meanp = renderPlot({
 output$makeplot <- renderPlot({
   x <- Z()
   plot1 <- ggplot(x, aes(sample = x[, 1])) + stat_qq() + ggtitle("Normal Q-Q Plot") + xlab("") + theme_minimal()  ## add line,
-  #plot2 <- ggplot(x, aes(x = x[, 1])) + geom_histogram(colour = "black",fill = "grey",binwidth = input$bin,position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  plot3 <- ggplot(x, aes(x = x[, 1])) + geom_histogram(aes(y = ..density..)) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
+  plot2 <- ggplot(x, aes(x = x[, 1])) + geom_histogram(colour = "black",fill = "grey",binwidth = input$bin, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
+  plot3 <- ggplot(x, aes(x = x[, 1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
  
-  grid.arrange(plot1, plot3, ncol = 2)
+  grid.arrange(plot1, plot2, plot3, ncol = 3)
   })
 
 output$t.test <- renderTable({
@@ -124,6 +123,7 @@ output$t.test <- renderTable({
   width = "500px", rownames = TRUE)
 
 ##---------- 2. Two sample t test---------
+
 Y <- reactive({
   inFile <- input$file2
   if (is.null(inFile)) {
@@ -143,6 +143,7 @@ Y <- reactive({
       )
     return(csv)
   }
+  
 })
 
 output$table2 <- renderDataTable({Y()}, options = list(pageLength = 5))
@@ -173,21 +174,21 @@ output$nor2 <- renderTable({
 output$bp2 = renderPlot({
   x = Y()
   mx = melt(x, idvar = names(x))
-  ggplot(mx, aes(x = "variable", y = "value", fill = "variable")) + geom_boxplot(width = 0.4,outlier.colour = "red",alpha = .3) + geom_jitter(width = 0.1, size = 1.5) + ylab(" ") + xlab(" ") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
+  ggplot(mx, aes(x = mx[,"variable"], y = mx[,"value"], fill = mx[,"variable"])) + geom_boxplot(width = 0.4,outlier.colour = "red",alpha = .3) + geom_jitter(width = 0.1, size = 1.5) + ylab(" ") + xlab(" ") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
   })
 
 output$meanp2 = renderPlot({
   x = Y()
   des = data.frame(t(stat.desc(x)))
-  p1 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
-    geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev), data = des) + 
-    xlab("") + ylab(expression(Mean %+-% SD)) + geom_point(shape = 21, size =3) + theme_minimal() + theme(legend.title = element_blank())
+  #p1 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
+  #  geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev), data = des) + 
+  #  xlab("") + ylab(expression(Mean %+-% SD)) + geom_point(shape = 21, size =3) + theme_minimal() + theme(legend.title = element_blank())
   p2 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
     xlab("") + ylab(expression(Mean %+-% SD)) + geom_bar(position = position_dodge(), stat = "identity", width = 0.2, alpha = .3) + 
     geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev), data = des) + 
     theme_minimal() + theme(legend.title = element_blank())
 
-  grid.arrange(p1, p2, ncol = 2)
+  grid.arrange(p2)
   })
 
 output$makeplot2 <- renderPlot({
@@ -197,10 +198,10 @@ output$makeplot2 <- renderPlot({
   plot1 <- ggplot(x, aes(sample = x[, 1])) + stat_qq(color = "brown1") + ggtitle(paste0("Normal Q-Q Plot of ", colnames(x[1]))) + theme_minimal()
   plot2 <- ggplot(x, aes(sample = x[, 2])) + stat_qq(color = "forestgreen") + ggtitle(paste0("Normal Q-Q Plot of ", colnames(x[2]))) + theme_minimal()
   # histogram and density
-  plot3 <- ggplot(mx, aes(x = "value", colour = "variable", fill = "variable")) + 
+  plot3 <- ggplot(mx, aes(x = mx[,"value"], colour = mx[,"variable"], fill = mx[,"variable"])) + 
     geom_histogram(binwidth = input$bin2, alpha = .3, position = "identity") + 
     ggtitle("Histogram") + xlab("") + theme_minimal() + theme(legend.title = element_blank())
-  plot4 <- ggplot(mx, aes(x = "value", colour = "variable")) + geom_density() + 
+  plot4 <- ggplot(mx, aes(x = mx[,"value"], colour = mx[,"variable"])) + geom_density() + 
     ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title = element_blank())
 
   grid.arrange(plot1, plot2, plot3, plot4, ncol = 2)
@@ -212,7 +213,7 @@ output$info2 <- renderText({
     return("NULL\n")
     paste0("The approximate value: ", round(e$y, 4))
     }
-  paste0("Horizontal postion: ", "\n", xy_str(input$plot_click))
+  paste0("Horizontal postion: ", "\n", xy_str(input$plot_click2))
   })
 
   # test result
@@ -336,23 +337,23 @@ output$bp.p = renderPlot({
 output$meanp.p = renderPlot({
   x = Z()
   des = data.frame(t(stat.desc(x)))
-  p1 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
-    geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) +
-    xlab("") + ylab(expression(Mean %+-% SD)) + geom_point(shape = 21, size = 3) + theme_minimal() + theme(legend.title = element_blank())
+  #p1 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
+  #  geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) +
+  #  xlab("") + ylab(expression(Mean %+-% SD)) + geom_point(shape = 21, size = 3) + theme_minimal() + theme(legend.title = element_blank())
 
   p2 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + xlab("") + ylab(expression(Mean %+-% SD)) + geom_bar(position = position_dodge(),stat = "identity",width = 0.2,alpha = .3) +
     geom_errorbar(width = .1,position = position_dodge(.9),aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) + theme_minimal() + theme(legend.title = element_blank())
   
-  grid.arrange(p1, p2, ncol = 2)
+  grid.arrange(p2)
   })
 
-output$info.p <- renderText({
+output$info3 <- renderText({
   xy_str = function(e) {
     if (is.null(e))
     return("NULL\n")
     paste0("The approximate value: ", round(e$y, 4))
   }
-  paste0("Horizontal postion: ", "\n", xy_str(input$plot_click))
+  paste0("Horizontal postion: ", "\n", xy_str(input$plot_click3))
   })
 
 output$makeplot.p <- renderPlot({
