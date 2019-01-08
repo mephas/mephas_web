@@ -411,22 +411,21 @@ splitLayout(
   )
 ),
 
-tabPanel((a("Homepage",
+##----------
+
+tabPanel((a("Home",
+ #target = "_blank",
  style = "margin-top:-30px;",
- href = paste0("https://pharmacometrics.info/mephas/")))
- #you can input subfolder and file name in the second ""
+ href = paste0("https://pharmacometrics.info/mephas/")))),
 
- )
+tabPanel(
+      tags$button(
+      id = 'close',
+      type = "button",
+      class = "btn action-button",
+      onclick = "setTimeout(function(){window.close();},500);",  # close browser
+      "Stop App"))
 
-
-#  tabPanel(
- #     tags$button(
-  #    id = 'close',
-   #   type = "button",
-    #  #class = "btn action-button",
-     # onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      #"Stop App")
-#)
 
 
 ))

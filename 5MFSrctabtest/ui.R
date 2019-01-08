@@ -1,10 +1,12 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## Chi-square test  ui EN
+## 5MFSrctabtest UI
 ##
-## 2018-11-30
+## Language: EN
 ## 
-##----------------------------------------------------------------
+## DT: 2019-01-08
+##
+##----------#----------#----------#----------
 
 shinyUI(
 tagList(
@@ -149,20 +151,21 @@ mainPanel(
 
 ))
 ,
-  tabPanel(
+##----------
+
+tabPanel((a("Home",
+ #target = "_blank",
+ style = "margin-top:-30px;",
+ href = paste0("https://pharmacometrics.info/mephas/")))),
+
+tabPanel(
       tags$button(
       id = 'close',
       type = "button",
       class = "btn action-button",
       onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "Stop App")
-),
-tabPanel(
-     tags$button(
-     id = 'close',
-     type = "button",
-     class = "btn action-button",
-     onclick ="window.open('https://pharmacometrics.info/mephas/')","top"))
+      "Stop App"))
+
 
 ))
 )

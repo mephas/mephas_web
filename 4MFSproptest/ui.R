@@ -1,11 +1,12 @@
-##------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## Binary outcome test ui
+## 4MFSproptest UI
 ##
-## Date: 2018-11-30
+## Language: EN
+## 
+## DT: 2019-01-08
 ##
-##------------------------------------------------------
-
+##----------#----------#----------#----------
 
 shinyUI(
 
@@ -260,20 +261,21 @@ navbarPage(
       )
     )
     ,
-  tabPanel(
+##----------
+
+tabPanel((a("Home",
+ #target = "_blank",
+ style = "margin-top:-30px;",
+ href = paste0("https://pharmacometrics.info/mephas/")))),
+
+tabPanel(
       tags$button(
       id = 'close',
       type = "button",
       class = "btn action-button",
       onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "Close window")
-),
-tabPanel(
-     tags$button(
-     id = 'close',
-     type = "button",
-     class = "btn action-button",
-     onclick ="window.open('https://pharmacometrics.info/mephas/')","top"))
+      "Stop App"))
+
   
   )))
 
