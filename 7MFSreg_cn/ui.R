@@ -1,10 +1,13 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## The regression models: lm, logistic model, cox model, ui
+## 7MFSreg UI
+##
+## Language: CN
 ## 
-## DT: 2018-11-30
+## DT: 2019-01-08
 ##
-##----------------------------------------------------------------
+##----------#----------#----------#----------
+
 
 shinyUI(
 tagList(
@@ -52,16 +55,20 @@ tabPanel("Cox Regression (Time-Event Outcomes)",
 
 ) ## tabPanel(
 ,
-  tabPanel(
+##----------
+
+tabPanel((a("主页",
+ #target = "_blank",
+ style = "margin-top:-30px;",
+ href = paste0("https://pharmacometrics.info/mephas/", "index_cn.html")))),
+
+tabPanel(
       tags$button(
       id = 'close',
       type = "button",
       class = "btn action-button",
       onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "Stop App")
-)
-
-
+      "停止"))
 )
 ##-----------------------over
 )

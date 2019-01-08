@@ -406,22 +406,20 @@ splitLayout(
   )
 )
 ,
-  tabPanel(
+##----------
+
+tabPanel((a("主页",
+ #target = "_blank",
+ style = "margin-top:-30px;",
+ href = paste0("https://pharmacometrics.info/mephas/", "index_cn.html")))),
+
+tabPanel(
       tags$button(
       id = 'close',
       type = "button",
       class = "btn action-button",
       onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "停止")
-),
-tabPanel(
-     tags$button(
-     id = 'close',
-     type = "button",
-     class = "btn action-button",
-     onclick ="window.open('https://pharmacometrics.info/mephas/index_cn.html')","主页"))
-
-
+      "停止"))
 ))
 )
 
