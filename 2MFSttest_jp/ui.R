@@ -1,11 +1,13 @@
+##----------#----------#----------#----------
+##
+## 2MFSttest UI
+##
+## Language: JP
+## 
+## DT: 2019-01-08
+##
+##----------#----------#----------#----------
 
-##--------------------------------------------------
-##
-## MFSttest JP
-##
-## 2018-11-28
-##
-##---------------------------------------------------
 
 shinyUI(
 
@@ -427,10 +429,10 @@ navbarPage(
 ,
 
 ##----------
-tabPanel((a("トップ",
+tabPanel((a("ホーム",
  #target = "_blank",
  style = "margin-top:-30px;",
- href = paste0("https://pharmacometrics.info/mephas/", "index_cn.html")))),
+ href = paste0("https://pharmacometrics.info/mephas/", "index_jp.html")))),
 
 tabPanel(
       tags$button(

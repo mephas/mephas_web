@@ -1,10 +1,13 @@
-##------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-##  Non-parametric test ui JP
+## 3MFSnptest UI
 ##
-## 2018-11-28
+## Language: JP
+## 
+## DT: 2019-01-08
 ##
-##-------------------------------------------------------------
+##----------#----------#----------#----------
+
 shinyUI(
 tagList( 
 #shinythemes::themeSelector(),
@@ -383,24 +386,21 @@ mainPanel(
 
 )
 ,
+##----------
+tabPanel((a("ホーム",
+ #target = "_blank",
+ style = "margin-top:-30px;",
+ href = paste0("https://pharmacometrics.info/mephas/", "index_jp.html")))),
+
 tabPanel(
       tags$button(
       id = 'close',
-      type = "button",
      style = "margin-top:-10px;",
+      type = "button",
       class = "btn action-button",
       onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "停止")
-),
-tabPanel(
-     tags$button(
-     id = 'close',
-     type = "button",
-     style = "margin-top:-10px;",
-     class = "btn action-button",
-     onclick ="window.open('https://pharmacometrics.info/mephas/index_jp.html')","トップ"))
+      "停止"))
 
-  
 ))
 
 )

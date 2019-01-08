@@ -1,10 +1,12 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## PCA PLS regressions for n<p data, ui JP
+## 8MFSpcapls UI
 ##
-## 2018-11-30
+## Language: JP
 ## 
-##----------------------------------------------------------------
+## DT: 2019-01-08
+##
+##----------#----------#----------#----------
 
 shinyUI(
 tagList(
@@ -273,14 +275,20 @@ mainPanel(
 #)
 #)
 
-  tabPanel(
+ ##----------
+tabPanel((a("ホーム",
+ #target = "_blank",
+ style = "margin-top:-30px;",
+ href = paste0("https://pharmacometrics.info/mephas/", "index_jp.html")))),
+
+tabPanel(
       tags$button(
       id = 'close',
+     style = "margin-top:-10px;",
       type = "button",
       class = "btn action-button",
       onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "停止")
-)
+      "停止"))
 
 )
 
