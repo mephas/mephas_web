@@ -302,7 +302,7 @@ B = reactive({
 
 output$b.plot <- renderPlot({
 X = B()
-ggplot(B(), aes("x0", "Pr.x0")) + geom_step() + 
+ggplot(X, aes(X[,"x0"], X[,"Pr.x0"])) + geom_step() + 
   geom_point(aes(x = X$x0[input$k+1], y = X$Pr.x0[input$k+1]),color = "red", size = 2.5) +
   stat_function(fun = dnorm, args = list(mean = input$m*input$p, sd = sqrt(input$m*input$p*(1-input$p))), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
   xlim(-0.1, input$xlim.b) + xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("")
@@ -323,8 +323,9 @@ return(data)
 })
 
 output$p.plot <- renderPlot({
-ggplot(P(), aes("x0", "Pr.x0")) + geom_step() + 
-  geom_point(aes(x = P()$x0[input$x0+1], y = P()$Pr.x0[input$x0+1]),color = "red", size = 2.5) +
+X = P()
+ggplot(X, aes(X[,"x0"],X[,"Pr.x0"])) + geom_step() + 
+  geom_point(aes(x = X$x0[input$x0+1], y = X$Pr.x0[input$x0+1]),color = "red", size = 2.5) +
   stat_function(fun = dnorm, args = list(mean = input$lad, sd = sqrt(input$lad)), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
   xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("") + xlim(-0.1, input$xlim2) })
 

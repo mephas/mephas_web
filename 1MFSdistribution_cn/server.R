@@ -11,11 +11,10 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 ##
 ##----------#----------#----------#----------
 
-
 shinyServer(
 
 function(input, output) {
-  
+
 ##---------- 1. Continuous RV ---------- 
 ###---------- 1.1 Normal Distribution ----------
 
@@ -289,29 +288,29 @@ output$g.sum = renderTable({
   data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = var(x[,1]))
   }, digits = 4)
 
+
 ##---------- 3. Discrete RV ----------
 ###----------3.1 Binomial Distribution ----------
 
 B = reactive({
-x1 = pbinom(0:(input$m-1), input$m, input$p)
-x2 = pbinom(1:input$m, input$m, input$p)
-x = x2-x1
-data = data.frame(x0 = c(0:length(x)), Pr.x0 = round(c(0, x), 6), Pr.x0.lower = round(c(0, x2), 6))
-return(data) 
+  x1 = pbinom(0:(input$m-1), input$m, input$p)
+  x2 = pbinom(1:input$m, input$m, input$p)
+  x = x2-x1
+  data = data.frame(x0 = c(0:length(x)), Pr.x0 = round(c(0, x), 6), Pr.x0.lower = round(c(0, x2), 6))
+  return(data) 
 })
 
 output$b.plot <- renderPlot({
 X = B()
-ggplot(B(), aes("x0", "Pr.x0")) + geom_step() + 
-geom_point(aes(x = X$x0[input$k+1], y = X$Pr.x0[input$k+1]),color = "red", size = 2.5) +
-stat_function(fun = dnorm, args = list(mean = input$m*input$p, sd = sqrt(input$m*input$p*(1-input$p))), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
-xlim(-0.1, input$xlim.b) + xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("")
+ggplot(X, aes(X[,"x0"], X[,"Pr.x0"])) + geom_step() + 
+  geom_point(aes(x = X$x0[input$k+1], y = X$Pr.x0[input$k+1]),color = "red", size = 2.5) +
+  stat_function(fun = dnorm, args = list(mean = input$m*input$p, sd = sqrt(input$m*input$p*(1-input$p))), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
+  xlim(-0.1, input$xlim.b) + xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("")
 })
 
 output$bino = renderDataTable({head(B(), n = 150L)}, options = list(pageLength = 10))
 
 output$b.k = renderTable({B()[(input$k+1),]})
-
 
 ###---------- 3.2 Poisson Distribution ----------
 
@@ -324,15 +323,16 @@ return(data)
 })
 
 output$p.plot <- renderPlot({
-  X = P()
-ggplot(P(), aes("x0", "Pr.x0")) + geom_step() + 
-geom_point(aes(x = X$x0[input$x0+1], y = X$Pr.x0[input$x0+1]),color = "red", size = 2.5) +
-stat_function(fun = dnorm, args = list(mean = input$lad, sd = sqrt(input$lad)), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
-xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("") + xlim(-0.1, input$xlim2) })
+X = P()
+ggplot(X, aes(X[,"x0"],X[,"Pr.x0"])) + geom_step() + 
+  geom_point(aes(x = X$x0[input$x0+1], y = X$Pr.x0[input$x0+1]),color = "red", size = 2.5) +
+  stat_function(fun = dnorm, args = list(mean = input$lad, sd = sqrt(input$lad)), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
+  xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("") + xlim(-0.1, input$xlim2) })
 
 output$poi = renderDataTable({head(P(), n = 150L)}, options = list(pageLength = 10))
 
 output$p.k = renderTable({P()[(input$x0+1),]})
+
 
 observe({
       if (input$close > 0) stopApp()                             # stop shiny
