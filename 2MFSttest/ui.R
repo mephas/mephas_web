@@ -104,8 +104,11 @@ navbarPage(
       <li> &#916 is the underlying mean differences between X and Y</li>
       </ul>"
       ),
-    hr(),
-     source("p3_ui.R", local=TRUE)
+
+   hr(),
+
+   source("p3_ui.R", local=TRUE)
+
     ),
 
 ##----------
