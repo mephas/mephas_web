@@ -19,6 +19,7 @@ shinyServer(
 function(input, output) {
 
 ##---------- 1. One sample t test---------
+
 X <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
@@ -40,7 +41,7 @@ X <- reactive({
     }
   })
 
-output$table <-renderDataTable({X()}, options = list(pageLength = 20))
+output$table <-renderDataTable({X()}, options = list(pageLength = 5))
 
 output$bas <- renderTable({
   X <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
@@ -85,21 +86,21 @@ output$info <- renderText({
 output$meanp = renderPlot({
   x <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
   des = data.frame(t(stat.desc(x)))
-  p1 = ggplot(des, aes(x = rownames(des), y = mean)) + geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) +
-    xlab("") + ylab(expression(Mean %+-% SD)) + geom_point(shape = 21, size = 3) + theme_minimal() + theme(legend.title = element_blank())
+  #p1 = ggplot(des, aes(x = rownames(des), y = mean)) + geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) +
+  #  xlab("") + ylab(expression(Mean %+-% SD)) + geom_point(shape = 21, size = 3) + theme_minimal() + theme(legend.title = element_blank())
   p2 = ggplot(des, aes(x = rownames(des), y = mean)) + xlab("") + ylab(expression(Mean %+-% SD)) +  geom_bar(position = position_dodge(),stat = "identity",width = 0.2, alpha = .3) +
     geom_errorbar(width = .1,position = position_dodge(.9),aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) + theme_minimal() + theme(legend.title = element_blank())
  
-  grid.arrange(p1, p2, ncol = 2)
+  grid.arrange(p2)
   })
 
 output$makeplot <- renderPlot({
   x <- Z()
   plot1 <- ggplot(x, aes(sample = x[, 1])) + stat_qq() + ggtitle("Normal Q-Q Plot") + xlab("") + theme_minimal()  ## add line,
-  plot2 <- ggplot(x, aes(x = x[, 1])) + geom_histogram(colour = "black",fill = "grey",binwidth = input$bin,position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  plot3 <- ggplot(x, aes(x = x[, 1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
+  #plot2 <- ggplot(x, aes(x = x[, 1])) + geom_histogram(colour = "black",fill = "grey",binwidth = input$bin,position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
+  plot3 <- ggplot(x, aes(x = x[, 1])) + geom_histogram(aes(y = ..density..)) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
  
-  grid.arrange(plot1, plot2, plot3, ncol = 3)
+  grid.arrange(plot1, plot3, ncol = 2)
   })
 
 output$t.test <- renderTable({
@@ -144,7 +145,7 @@ Y <- reactive({
   }
 })
 
-output$table2 <- renderDataTable({Y()}, options = list(pageLength = 20))
+output$table2 <- renderDataTable({Y()}, options = list(pageLength = 5))
 
 output$bas2 <- renderTable({
   x <- Y()
@@ -276,7 +277,7 @@ res.table <- t(
   }, 
   width = "800px", rownames = TRUE)
 
-  ##---------- 3. Paired sample t test ---------
+##---------- 3. Paired sample t test ---------
 
   #data
 Z <- reactive({
@@ -303,7 +304,7 @@ Z <- reactive({
   }
 })
 
-output$table.p <-renderDataTable({Z()}, options = list(pageLength = 20))
+output$table.p <-renderDataTable({Z()}, options = list(pageLength = 5))
 
 output$bas.p <- renderTable({
   x <- Z()

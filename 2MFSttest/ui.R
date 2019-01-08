@@ -1,11 +1,13 @@
 
-##--------------------------------------------------
+##----------#----------#----------#----------
 ##
-## MFSttest ui
+## 2MFSttest UI
 ##
-## 2018-11-28
+## Language: EN
+## 
+## DT: 2019-01-08
 ##
-##---------------------------------------------------
+##----------#----------#----------#----------
 
 shinyUI(
 
@@ -15,10 +17,13 @@ navbarPage(
   #theme = shinytheme("cosmo"),
   title = "Tests of Means",
 
-  ## 1. One sample -----------------------------------------------------------------
+##---------- Panel 1 ---------
+
   tabPanel(
     "One Sample",
+
     headerPanel("One Sample t-Test"),
+    hr(),
 
     tags$b("Notations"),
     HTML(
@@ -41,10 +46,12 @@ navbarPage(
       "
       ),
 
+    hr(),
+
     sidebarLayout(
       sidebarPanel(
         ##----Configuration----
-        helpText("Configuration"),
+        h4(tags$b("Configuration")),
         numericInput('mu', HTML("Specify the mean, &#956&#8320"), 7), #p
 
         helpText("Hypotheses"),
@@ -62,11 +69,11 @@ navbarPage(
           ),
         hr(),
 
-        ##----Import data----##
-        helpText("Data import"),
+       
+        h4(tags$b("Data")),
 
         tabsetPanel(
-          ##-------input data-------##s
+        
           tabPanel(
             "Manually input",
             p(br()),
@@ -107,10 +114,7 @@ navbarPage(
         hr(),
         h4("Data Display"),
         
-        dataTableOutput("table"),
-        hr(),
-        h4("Figure Configuration"),
-        sliderInput("bin", "The width of bins in histogram",min = 0.01,max = 5,value = 0.2) #p
+        dataTableOutput("table")
         ),
 
       mainPanel(
@@ -434,23 +438,23 @@ navbarPage(
     )
     ##
 ,
-  tabPanel(
+
+##----------
+
+tabPanel((a("Home",
+ #target = "_blank",
+ style = "margin-top:-30px;",
+ href = paste0("https://pharmacometrics.info/mephas/")))),
+
+tabPanel(
       tags$button(
       id = 'close',
       type = "button",
       class = "btn action-button",
       onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "Close window")
-),
-tabPanel(
-     tags$button(
-     id = 'close',
-     type = "button",
-     class = "btn action-button",
-     onclick ="window.open('https://pharmacometrics.info/mephas/')","Main Page"))
-
+      "Stop App"))
 
   )
-)
+ )
 )
 
