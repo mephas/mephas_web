@@ -12,14 +12,16 @@
 shinyUI(
 
 tagList(
-# shinythemes::themeSelector(),
+#
 navbarPage(
-  #theme = shinytheme("cosmo"),
+  
   title = "平均値の差の検定",
 
-  ## 1. One sample -----------------------------------------------------------------
-  tabPanel(
+##---------- Panel 1 --------- 
+  
+   tabPanel(
     "一群",
+    
     headerPanel("一群のt検定"),
 
     tags$b("注"),

@@ -5,7 +5,7 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 ##
 ## 1MFSdistribution SERVER
 ##
-## Language: EN
+## Language: JP
 ## 
 ## DT: 2019-01-08
 ##

@@ -14,7 +14,7 @@ shinyUI(
 tagList(
 
 navbarPage(
-  #theme = shinytheme("cosmo"),
+  
   title = "Tests of Means",
 
 ##---------- Panel 1 ---------

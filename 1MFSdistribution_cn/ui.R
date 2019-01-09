@@ -404,23 +404,15 @@ splitLayout(
     #>dataTableOutput("poi")
     )
   )
-)
-,
-##----------
+),
 
-tabPanel((a("主页",
- #target = "_blank",
- style = "margin-top:-30px;color:DodgerBlue",
- href = paste0("https://pharmacometrics.info/mephas/", "index_cn.html")))),
+##---------- other panels ----------
 
-tabPanel(
-      tags$button(
-      id = 'close',
-      type = "button",
-      class = "btn action-button",
-      style = "margin-top:-8px; color:Tomato; background-color: #F8F8F8  ",
-      onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "停止"))
+source("home_stop_cn.R",local=TRUE),
+#source("stop.R",local=TRUE),
+
+home, 
+stop
 ))
 )
 

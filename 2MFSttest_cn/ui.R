@@ -11,14 +11,16 @@
 shinyUI(
 
 tagList(
-#shinythemes::themeSelector(),
+
 navbarPage(
-  #theme = shinytheme("cosmo"),
+  
   title = "均值检验",
 
-  ## 1. One sample -----------------------------------------------------------------
+##---------- Panel 1 ---------
+
   tabPanel(
     "单样本",
+    
     headerPanel("单样本t检验"),
 
     tags$b("注释"),
