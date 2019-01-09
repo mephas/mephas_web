@@ -9,128 +9,127 @@
 ## DT: 2019-01-08
 ##
 ##----------#----------#----------#----------
-
 sidebarLayout(
 
 sidebarPanel(
         
-        h4(tags$b("Data Preparation")),
+  h4("导入数据"),
 
-        tabsetPanel(
-          ##-------input data-------##
-          tabPanel(
-            "Manual input",
-            p(br()),
-            helpText("Missing value is input as NA"),
-            tags$textarea(id = "x1.p",rows = 10,
-              "4.2\n5.3\n7.6\n6.7\n6.3\n3.5\n5.8\n6.3\n3.2\n4.6\n5.5\n5.2\n4.6\n4.8\n4.5\n5.3\n4.3\n4.3\n6.2\n6.7"
-              ),
-            ## disable on chrome
-            tags$textarea(id = "x2.p",rows = 10,
-              "6.6\n6.9\n6.7\n8.4\n7.8\n6.6\n8.6\n5.5\n4.6\n6.1\n7.1\n4.0\n6.5\n5.6\n8.1\n5.8\n7.9\n6.4\n6.5\n7.4"
-              ),
-            helpText("Change the names of two samples (optinal)"),
-            tags$textarea(id = "cn.p", rows = 2, "X\nY\n(X-Y)")
+  tabsetPanel(
+    ##-------input data-------##
 
-            ),
+      tabPanel("手动输入", p(br()),
 
-          ##-------csv file-------##
-          tabPanel("Upload .csv",
-            p(br()),
-            
-            fileInput(
-              'file.p',
-              'Choose .csv File',
-              accept = c(
-                'text/csv',
-                'text/comma-separated-values,text/plain',
-                '.csv'
-              )
-            ),
-            checkboxInput('header.p', 'Header', TRUE), #p
-       
-            radioButtons("sep.p", "Separator",
-                         choices = c(Comma = ',',
-                                     Semicolon = ';',
-                                     Tab = '\t'),
-                         selected = ',')
-            )
-          ),
+      helpText("如有缺失值，请输入NA"),
 
-        hr(),
-
-        h4("Hypotheses"),
-
-        tags$b("Null hypothesis"),
-        HTML("<p> &#916 = 0: X and Y have equal effect </p>"),
-        
-        radioButtons(
-          "alt.pt",
-          label = "Alternative hypothesis",
-          choiceNames = list(
-            HTML("&#916 &#8800 0: the population mean of X and Y are not equal"),
-            HTML("&#916 < 0: the population mean of X is less than Y"),
-            HTML("&#916 > 0: the population mean of X is greater than Y")
-            ),
-          choiceValues = list("two.sided", "less", "greater")
-          )
-
+      tags$textarea(id = "x1.p",rows = 10,
+        "4.2\n5.3\n7.6\n6.7\n6.3\n3.5\n5.8\n6.3\n3.2\n4.6\n5.5\n5.2\n4.6\n4.8\n4.5\n5.3\n4.3\n4.3\n6.2\n6.7"
+        ),
+      ## disable on chrome
+      tags$textarea(id = "x2.p",rows = 10,
+        "6.6\n6.9\n6.7\n8.4\n7.8\n6.6\n8.6\n5.5\n4.6\n6.1\n7.1\n4.0\n6.5\n5.6\n8.1\n5.8\n7.9\n6.4\n6.5\n7.4"
         ),
 
-      mainPanel(
+      helpText("改变样本的名称（可选)"),
+      tags$textarea(id = "cn.p", rows = 2, "X\nY\n(X-Y)")
+      ),
 
-        h4('Data Description'),
+    ##-------csv file-------##
+    tabPanel("上传 .csv", p(br()),
+      
+      fileInput(
+        'file.p',
+        '选择 .csv',
+        accept = c(
+          'text/csv',
+          'text/comma-separated-values,text/plain',
+          '.csv'
+        )
+      ),
+      checkboxInput('header.p', '标题', TRUE), #p
+ 
+      radioButtons("sep.p", "分隔",
+                   choices = c(Comma = ',',
+                               Semicolon = ';',
+                               Tab = '\t'),
+                   selected = ',')
+      )
+    ),
 
-        tabsetPanel(
+  hr(),
 
-          tabPanel("Data display", p(br()),  
+  h4("假设检验"),
 
-            dataTableOutput("table.p")),
+  tags$b("零假设"),
+  HTML("<p> &#916 = 0: X and Y have equal effect </p>"),
+  
+  radioButtons(
+    "alt.pt",
+    label = "备择假设",
+    choiceNames = list(
+      HTML("&#916 &#8800 0: X组和Y组的总体均值相等"),
+      HTML("&#916 < 0: X组的总体均值小于Y组"),
+      HTML("&#916 > 0: X组的总体均值大于Y组")
+      ),
+    choiceValues = list("two.sided", "less", "greater")
+    )
 
-          tabPanel("Basic descriptives", p(br()), 
-            
-            splitLayout(
-              tableOutput("bas.p"),
-              tableOutput("des.p"),
-              tableOutput("nor.p")
-              )
-            ),
+  ),
 
-          tabPanel("Boxplot of the difference", p(br()), 
-            splitLayout(
-              plotOutput("bp.p",width = "400px",height = "400px",click = "plot_click3"),
-          
-          wellPanel(
-            verbatimTextOutput("info3"), hr(),
-            
-            helpText(
-              HTML(
-                "Notes:
+mainPanel(
+
+  h4('数据描述'),
+
+  tabsetPanel(
+
+    tabPanel("数据显示", p(br()),  
+
+      dataTableOutput("table.p")),
+
+    tabPanel("描述性统计量", p(br()), 
+      
+      splitLayout(
+        tableOutput("bas.p"),
+        tableOutput("des.p"),
+        tableOutput("nor.p")
+        )
+      ),
+
+    tabPanel("组间差异的箱线图", p(br()), 
+      splitLayout(
+        plotOutput("bp.p",width = "400px",height = "400px",click = "plot_click3"),
+    
+    wellPanel(
+      verbatimTextOutput("info3"), hr(),
+      
+        helpText(
+          HTML(
+            "注:
                 <ul>
-                <li> Points are simulated and located randomly in the same horizontal line. </li>
-                <li> Outliers will be highlighted in red, if existing. </li>
-                <li> The red outlier may not cover the simulated point. </li>
-                <li> The red outlier only indicates the value in horizontal line.</li>
+                <li> 图中的各个点是在同一水平线上随机地模拟和定位的 
+                <li> 如果存在，异常值将以红色突出显示
+                <li> 红色异常值可能不覆盖原本的模拟点
+                <li> 红色异常值仅表示同一水平线上（横轴）上的值
                 </ul>"
-                )
-              )
             )
           )
-          ),
-
-          tabPanel("Mean and SD plot", p(br()), 
-
-            plotOutput("meanp.p", width = "400px", height = "400px")),
-
-          tabPanel("Plots of normality", p(br()), 
-
-            plotOutput("makeplot.p", width = "900px", height = "300px"),
-            sliderInput("bin.p","The width of bins in histogram",min = 0.01,max = 5,value = 0.2)
-            )
-          ),
-
-          hr(),
-          h4("Test Results"),
-          tableOutput("t.test.p")
-        )
       )
+    )
+    ),
+
+    tabPanel("均值和标准偏差图", p(br()), 
+
+      plotOutput("meanp.p", width = "400px", height = "400px")),
+
+    tabPanel("正态性图", p(br()), 
+
+      plotOutput("makeplot.p", width = "900px", height = "300px"),
+      sliderInput("bin.p","The width of bins in histogram",min = 0.01,max = 5,value = 0.2)
+      )
+    ),
+
+    hr(),
+  h4("检验结果"),
+    tableOutput("t.test.p")
+  )
+)

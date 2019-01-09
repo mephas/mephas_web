@@ -3,7 +3,7 @@
 ##
 ## 2MFSttest UI
 ##
-## Language: EN
+## Language: CN
 ## 
 ## DT: 2019-01-08
 ##
@@ -15,35 +15,30 @@ tagList(
 
 navbarPage(
   
-  title = "Tests of Means",
+  title = "均值检验",
 
 ##---------- Panel 1 ---------
 
-tabPanel(
-  "One Sample",
+tabPanel("单样本",
+    
+headerPanel("单样本t检验"),
 
-  headerPanel("One Sample t-Test"),
+  HTML("
+    <b> 注 </b>
+      <ul>
+      <li> X 是独立变量 </li>
+      <li> &#956 是来自总体的平均值 </li>
+      <li> &#956&#8320 是特定的待比较的平均值 </li>
+      </ul>
 
-  tags$b("Notations"),
-  HTML(
-    "
-    <ul>
-    <li> X is the dependent observations </li>
-    <li> &#956 is the population mean of X </li>
-    <li> &#956&#8320 is the specific mean </li>
-    </ul>
-    "
-    ),
-
-  tags$b("Assumptions"),
-  HTML(
-    "
-    <ul>
-    <li> X is numeric and continuous and based on the normal distribution </li>
-    <li> Each observation of X (sample) is independent and approximately normally distributed </li>
-    <li> The data collection process was random without replacement </li>
-    "
-    ),
+    <b>前提假设</b>
+    
+      <ul>
+      <li> X 是连续的数值，并且基于正态分布 </li>
+      <li> X的每个观测（样本）是独立的和近似正态分布的 </li>
+      <li> 数据采集过程随机无更换 </li>
+      </ul>
+      "),
 
   hr(),
 
@@ -55,56 +50,60 @@ tabPanel(
 ##---------- Panel 2 ---------
 
   tabPanel(
-    "Two Independent Samples",
+    "两个独立样本",
 
-    headerPanel("Two-Sample t-Test"),
+    headerPanel("双样本t检验"),
 
-    tags$b("Notations"),
     HTML(
-      "
+    "
+    <b> 注 </b>
       <ul>
-      <li> The independent observations are designated X and Y</li>
-      <li> &#956&#8321 = the population mean of X; &#956&#8322 = the population mean of Y </li>
-      </ul>"
+      <li> 两组独立观测值被指定为X和Y
+      <li> &#956&#8321 是X的总体平均，&#956&#8322 是Y的总体平均
+      </ul>
+
+    <b> 前提假设 </b>
+
+      <ul>
+      <li> 被比较的两个样本的总体遵循正态分布
+      <li> X和Y独立地从两个进行比较的总体里分别取样
+      <li> 被比较的两个总体有相同的方差            
+      </ul>
+      "
       ),
 
-    tags$b("Assumptions"),
-    tags$ul(
-      tags$li("Each of the two populations being compared should follow the normal distribution"),
-      tags$li("X and Y should be sampled independently from the two populations being compared"),
-      tags$li("The two populations being compared should have the same variance")
-      ),
 
     hr(),
 
     source("p2_ui.R", local=TRUE)$value
 
     ),
-  ##
+  
+##---------- Panel 3 ---------
 
-  ## 3. Two paried samples ---------------------------------------------------------------------------------
-  tabPanel(
-    "Two Paired Samples",
+  tabPanel("成对样本",
 
-    headerPanel("Paired t-Test"),
+    headerPanel("成对样本的t检验"),
 
-    helpText("A typical example of the pared sample is that the repeated measurements, where subjects are tested prior to a treatment, say for high blood pressure, and the same subjects are tested again after treatment with a blood-pressure lowering medication"),
+    HTML("
 
-    tags$b("Assumption"),
-    tags$ul(
-      tags$li("The differences of paired samples are approximately normally distributed."),
-      tags$li("The differences of paired samples are numeric and continuous and based on the normal distribution"),
-      tags$li("The data collection process was random without replacement.")
-      ),
-
-    tags$b("Notations"),
-    HTML(
-      "
+    <b> 注 </b>
+    
       <ul>
-      <li> The dependent observations are designated X and Y </li>
-      <li> &#916 is the underlying mean differences between X and Y</li>
-      </ul>"
+      <li> 成对的或者相关联的观测值记为X和Y    
+      <li> &#916是X和Y之间的差异的总体平均
+      </ul>
+
+    <b> 前提假设 </b>
+      
+      <ul>
+      <li> 被比较的两个对应的样本的差近似地遵循正态分布
+      <li> 成对样本的差异是基于正态分布的连续值
+      <li> 数据抽样为无替换随机抽样                                     
+      "
       ),
+
+helpText("一个典型的成对样本的例子是对某种治疗结果的重复测定，比如对高血压患者的降血压药物治疗前后的血压测定，前后两次的结果组成了两组成对样本"),
 
    hr(),
 
@@ -114,8 +113,8 @@ tabPanel(
 
 ##---------- other panels ----------
 
-source("../0tabs/home.R",local=TRUE)$value,
-source("../0tabs/stop.R",local=TRUE)$value
+source("../0tabs/home_cn.R",local=TRUE)$value,
+source("../0tabs/stop_cn.R",local=TRUE)$value
 
   )
  )

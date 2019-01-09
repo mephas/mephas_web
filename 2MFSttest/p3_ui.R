@@ -14,7 +14,7 @@ sidebarLayout(
 
 sidebarPanel(
         
-        h4(tags$b("Data Preparation")),
+        h4("Data Preparation"),
 
         tabsetPanel(
           ##-------input data-------##

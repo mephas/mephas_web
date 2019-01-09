@@ -13,13 +13,13 @@ sidebarLayout(
 
 sidebarPanel(
    
-  h4("Data Preparation"),
+  h4("导入数据"),
 
   tabsetPanel(
   
-    tabPanel("Manual input", p(br()),
+    tabPanel("手动输入", p(br()),
 
-      helpText("Missing value is input as NA"),
+      helpText("如有缺失值，请输入NA"),
 
       tags$textarea(
         id = "x", #p
@@ -27,23 +27,23 @@ sidebarPanel(
         "4.2\n5.3\n7.6\n6.7\n6.3\n3.5\n5.8\n6.3\n3.2\n4.6\n5.5\n5.2\n4.6\n4.8\n4.5\n5.3\n4.3\n4.3\n6.2\n6.7"
         ),
 
-      helpText("Change the name of sample (optional)"),
+      helpText("改变样本的名称（可选)"),
       tags$textarea(id = "cn", rows = 1, "X") ), #tabPanel(
 
 
-    tabPanel("Upload .csv", p(br()),
+    tabPanel("上传 .csv", p(br()),
 
         ##-------csv file-------##   
-        fileInput('file', "Upload .csv",
+        fileInput('file', "选择 .csv",
                   accept = c("text/csv",
                           "text/comma-separated-values,text/plain",
                           ".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
-        checkboxInput("header", "Header", TRUE),
+        checkboxInput("header", "标题", TRUE),
 
              # Input: Select separator ----
-        radioButtons("sep", "Separator",
+        radioButtons("sep", "分隔",
                      choices = c(Comma = ',',
                                  Semicolon = ';',
                                  Tab = '\t'),
@@ -54,21 +54,21 @@ sidebarPanel(
 
 hr(),
 
-  h4("Configuration"),
-  numericInput('mu', HTML("Specify the mean, &#956&#8320"), 7), #p
+  h4("参数设置"),
+  numericInput('mu', HTML("待比较的指定的平均值, &#956&#8320"), 7), #p
 
-  h4("Hypotheses"),
+  h4("假设检验"),
 
-  tags$b("Null hypothesis"),
-  HTML("<p> &#956 = &#956&#8320: the population mean of X is &#956&#8320 </p>"),
+  tags$b("零假设"),
+  HTML("<p> &#956 = &#956&#8320，X的总体平均值是 &#956&#8320 </p>"),
   
   radioButtons(
     "alt", 
-    label = "Alternative hypothesis",
+    label = "备择假设",
     choiceNames = list(
-      HTML("&#956 &#8800 &#956&#8320: the population mean of X is not &#956&#8320"),
-      HTML("&#956 < &#956&#8320: the population mean of X is less than &#956&#8320"),
-      HTML("&#956 > &#956&#8320: the population mean of X is greater than &#956&#8320")
+      HTML("&#956 &#8800 &#956&#8320: X组的总体平均值不是 &#956&#8320"),
+      HTML("&#956 < &#956&#8320: X组的总体平均值小于 &#956&#8320"),
+      HTML("&#956 > &#956&#8320: X组的总体平均值大于 &#956&#8320")
       ),
     choiceValues = list("two.sided", "less", "greater"))
 
@@ -77,22 +77,22 @@ hr(),
 
 mainPanel(
 
-  h4("Data Description"),
+  h4("数据描述"),
 
   tabsetPanel(
 
-    tabPanel("Data display", p(br()),  
+    tabPanel("数据显示", p(br()),  
 
       dataTableOutput("table")),
 
-    tabPanel("Basic descriptives", p(br()), 
+    tabPanel("描述性统计量", p(br()), 
 
       splitLayout(
         tableOutput("bas"), 
         tableOutput("des"), 
         tableOutput("nor"))  ),
 
-    tabPanel("Boxplot", p(br()), 
+    tabPanel("箱线图", p(br()), 
       splitLayout(
         plotOutput("bp", width = "400px", height = "400px", click = "plot_click1"),
 
@@ -101,30 +101,30 @@ mainPanel(
 
         helpText(
           HTML(
-            "Notes:
-            <ul>
-            <li> Points are simulated and located randomly in the same horizontal line. </li>
-            <li> Outliers will be highlighted in red, if existing. </li>
-            <li> The red outlier may not cover the simulated point. </li>
-            <li> The red outlier only indicates the value in horizontal line.</li>
-            </ul>"
+            "注:
+                <ul>
+                <li> 图中的各个点是在同一水平线上随机地模拟和定位的 
+                <li> 如果存在，异常值将以红色突出显示
+                <li> 红色异常值可能不覆盖原本的模拟点
+                <li> 红色异常值仅表示同一水平线上（横轴）上的值
+                </ul>"
             )
           )
         )
       ) ),
 
-    tabPanel("Mean and SD plot", p(br()), 
+    tabPanel("均值和标准偏差图", p(br()), 
 
       plotOutput("meanp", width = "400px", height = "400px")),
 
-    tabPanel("Plots of normality", p(br()), 
+    tabPanel("正态性图", p(br()), 
 
       plotOutput("makeplot", width = "900px", height = "300px"), 
-      sliderInput("bin","The width of bins in histogram",min = 0.01,max = 5,value = 0.2))
+      sliderInput("bin","直方图柱子的宽度",min = 0.01,max = 5,value = 0.2))
   ),
 
   hr(),
-  h4("Test Results"),
+  h4("检验结果"),
   tableOutput("t.test")
 
  )
