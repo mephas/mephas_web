@@ -1,19 +1,14 @@
 ##----------#----------#----------#----------
 ##
-## Home and stop tabs
+## Stop tab
 ##
-## Language: EN
+## Language: JP
 ## 
 ## DT: 2019-01-09
 ##
 ##----------#----------#----------#----------
 
-home <- tabPanel((a("ホーム",
-            #target = "_blank",
-            style = "margin-top:-30px; color:DodgerBlue",
-            href = paste0("https://pharmacometrics.info/mephas/"))))
-
-stop <- tabPanel(
+tabPanel(
   tags$button(
     id = 'close',
     type = "button",

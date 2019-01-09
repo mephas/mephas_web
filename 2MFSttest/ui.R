@@ -19,37 +19,38 @@ navbarPage(
 
 ##---------- Panel 1 ---------
 
-  tabPanel(
-    "One Sample",
+tabPanel(
+  "One Sample",
 
-    headerPanel("One Sample t-Test"),
+  headerPanel("One Sample t-Test"),
 
-    tags$b("Notations"),
-    HTML(
-      "
-      <ul>
-      <li> X is the dependent observations </li>
-      <li> &#956 is the population mean of X </li>
-      <li> &#956&#8320 is the specific mean </li>
-      </ul>
-      "
-      ),
-
-    tags$b("Assumptions"),
-    HTML(
-      "
-      <ul>
-      <li> X is numeric and continuous and based on the normal distribution </li>
-      <li> Each observation of X (sample) is independent and approximately normally distributed </li>
-      <li> The data collection process was random without replacement </li>
-      "
-      ),
-
-    hr(),
-
-    source("p1_ui.R", local=TRUE)
-    
+  tags$b("Notations"),
+  HTML(
+    "
+    <ul>
+    <li> X is the dependent observations </li>
+    <li> &#956 is the population mean of X </li>
+    <li> &#956&#8320 is the specific mean </li>
+    </ul>
+    "
     ),
+
+  tags$b("Assumptions"),
+  HTML(
+    "
+    <ul>
+    <li> X is numeric and continuous and based on the normal distribution </li>
+    <li> Each observation of X (sample) is independent and approximately normally distributed </li>
+    <li> The data collection process was random without replacement </li>
+    "
+    ),
+
+  hr(),
+
+  source("p1_ui.R", local=TRUE)$value
+
+
+),
 
 ##---------- Panel 2 ---------
 
@@ -76,7 +77,7 @@ navbarPage(
 
     hr(),
 
-    source("p2_ui.R", local=TRUE)
+    source("p2_ui.R", local=TRUE)$value
 
     ),
   ##
@@ -107,24 +108,14 @@ navbarPage(
 
    hr(),
 
-   source("p3_ui.R", local=TRUE)
+   source("p3_ui.R", local=TRUE)$value
 
     ),
 
-##----------
+##---------- other panels ----------
 
-tabPanel((a("Home",
- #target = "_blank",
- style = "margin-top:-30px;",
- href = paste0("https://pharmacometrics.info/mephas/")))),
-
-tabPanel(
-      tags$button(
-      id = 'close',
-      type = "button",
-      class = "btn action-button",
-      onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "Stop App"))
+source("../0tabs/home.R",local=TRUE)$value,
+source("../0tabs/stop.R",local=TRUE)$value
 
   )
  )

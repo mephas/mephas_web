@@ -413,11 +413,8 @@ splitLayout(
 
 ##---------- other panels ----------
 
-source("../0tabs/home_stop_jp.R",local=TRUE),
-#source("stop.R",local=TRUE),
-
-home, 
-stop
+source("../0tabs/home_jp.R",local=TRUE)$value,
+source("../0tabs/stop_jp.R",local=TRUE)$value
 
 ))
 )

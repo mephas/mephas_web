@@ -8,9 +8,8 @@
 ##
 ##----------#----------#----------#----------
 
-
 shinyUI(
-  
+
 tagList(
 #shinythemes::themeSelector(),
 navbarPage(
@@ -414,11 +413,8 @@ splitLayout(
 
 ##---------- other panels ----------
 
-source("../0tabs/home_stop.R",local=TRUE),
-#source("stop.R",local=TRUE),
-
-home, 
-stop
+source("../0tabs/home.R",local=TRUE)$value,
+source("../0tabs/stop.R",local=TRUE)$value
 
 
 ))

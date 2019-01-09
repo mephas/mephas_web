@@ -14,6 +14,7 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 shinyServer(
 
 function(input, output) {
+  #options(warn=-1)
 
 ##---------- 1. Continuous RV ---------- 
 ###---------- 1.1 Normal Distribution ----------
