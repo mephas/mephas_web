@@ -4,22 +4,22 @@
 ##
 ##    >Panel 1
 ##
-## Language: EN
+## Language: JP
 ## 
-## DT: 2019-01-08
+## DT: 2019-01-09
 ##
 ##----------#----------#----------#----------
 sidebarLayout(
 
 sidebarPanel(
    
-  h4("Data Preparation"),
+  h4("データ挿入"),
 
   tabsetPanel(
   
-    tabPanel("Manual input", p(br()),
+  tabPanel("手入力", p(br()),
 
-      helpText("Missing value is input as NA"),
+  helpText("間違った値はNAと表示されます"),
 
       tags$textarea(
         id = "x", #p
@@ -27,14 +27,14 @@ sidebarPanel(
         "4.2\n5.3\n7.6\n6.7\n6.3\n3.5\n5.8\n6.3\n3.2\n4.6\n5.5\n5.2\n4.6\n4.8\n4.5\n5.3\n4.3\n4.3\n6.2\n6.7"
         ),
 
-      helpText("Change the name of sample (optional)"),
+      helpText("サンプルの名称変更"),
       tags$textarea(id = "cn", rows = 1, "X") ), #tabPanel(
 
 
-    tabPanel("Upload .csv", p(br()),
+    tabPanel("アップロード .csv", p(br()),
 
         ##-------csv file-------##   
-        fileInput('file', "Upload .csv",
+        fileInput('file', ".csvファイルを指定してください",
                   accept = c("text/csv",
                           "text/comma-separated-values,text/plain",
                           ".csv")),
@@ -54,21 +54,21 @@ sidebarPanel(
 
 hr(),
 
-  h4("Configuration"),
-  numericInput('mu', HTML("Specify the mean, &#956&#8320"), 7), #p
+  h4("パラメータ変数"),
+  numericInput('mu', HTML("特定の値, &#956&#8320"), 7), #p
 
-  h4("Hypotheses"),
+  h4("仮説"),
 
-  tags$b("Null hypothesis"),
-  HTML("<p> &#956 = &#956&#8320: the population mean of X is &#956&#8320 </p>"),
+  tags$b("帰無仮説"),
+  HTML("<p> &#956 = &#956&#8320: xの平均は is &#956&#8320 </p>"),
   
   radioButtons(
     "alt", 
-    label = "Alternative hypothesis",
+    label = "代替仮説",
     choiceNames = list(
-      HTML("&#956 &#8800 &#956&#8320: the population mean of X is not &#956&#8320"),
-      HTML("&#956 < &#956&#8320: the population mean of X is less than &#956&#8320"),
-      HTML("&#956 > &#956&#8320: the population mean of X is greater than &#956&#8320")
+      HTML("&#956 &#8800 &#956&#8320: xの平均は &#956&#8320　ではない"),
+      HTML("&#956 < &#956&#8320: xの平均は &#956&#8320　より小さい"),
+      HTML("&#956 > &#956&#8320: xの平均は &#956&#8320　より大きい")
       ),
     choiceValues = list("two.sided", "less", "greater"))
 
@@ -85,14 +85,14 @@ mainPanel(
 
       dataTableOutput("table")),
 
-    tabPanel("Basic descriptives", p(br()), 
+    tabPanel("記述統計", p(br()), 
 
       splitLayout(
         tableOutput("bas"), 
         tableOutput("des"), 
         tableOutput("nor"))  ),
 
-    tabPanel("Boxplot", p(br()), 
+    tabPanel("箱ヒゲ図", p(br()), 
       splitLayout(
         plotOutput("bp", width = "400px", height = "400px", click = "plot_click1"),
 
@@ -101,30 +101,27 @@ mainPanel(
 
         helpText(
           HTML(
-            "Notes:
+            "注:
             <ul>
-            <li> Points are simulated and located randomly in the same horizontal line. </li>
-            <li> Outliers will be highlighted in red, if existing. </li>
-            <li> The red outlier may not cover the simulated point. </li>
-            <li> The red outlier only indicates the value in horizontal line.</li>
+            <li> 外れ値は赤い点として表示されます </li>
             </ul>"
             )
           )
         )
       ) ),
 
-    tabPanel("Mean and SD plot", p(br()), 
+    tabPanel("平均と標準偏差プロット", p(br()), 
 
       plotOutput("meanp", width = "400px", height = "400px")),
 
     tabPanel("Plots of normality", p(br()), 
 
       plotOutput("makeplot", width = "900px", height = "300px"), 
-      sliderInput("bin","The width of bins in histogram",min = 0.01,max = 5,value = 0.2))
+      sliderInput("bin","ヒストグラムの棒幅",min = 0.01,max = 5,value = 0.2))
   ),
 
   hr(),
-  h4("Test Results"),
+  h4("検定結果"),
   tableOutput("t.test")
 
  )

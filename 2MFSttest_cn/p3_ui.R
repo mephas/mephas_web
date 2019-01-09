@@ -4,7 +4,7 @@
 ##
 ##    >Panel 3
 ##
-## Language: EN
+## Language: CN
 ## 
 ## DT: 2019-01-08
 ##

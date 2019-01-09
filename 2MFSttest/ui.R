@@ -38,7 +38,8 @@ headerPanel("One Sample t-Test"),
       <ul>
       <li> X is numeric, continuous                                                             
       <li> Each observation of X (sample) is independent and approximately normally distributed 
-      <li> The data collection process is random without replacement                            
+      <li> The data collection process is random without replacement       
+      </ul>                     
     "
     ),
 
@@ -99,7 +100,8 @@ tabPanel("Two Paired Samples",
       <ul>
       <li> The differences of paired samples are approximately normally distributed                           
       <li> The differences of paired samples are numeric and continuous and based on the normal distribution  
-      <li> The data collection process was random without replacement                                           
+      <li> The data collection process was random without replacement  
+      </ul>                                         
       "
       ),
 

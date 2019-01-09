@@ -8,7 +8,7 @@ if (!require(pastecs)) {install.packages("pastecs")}; library(pastecs)
 ##
 ## 2MFSttest SERVER
 ##
-## Language: EN
+## Language: CN
 ## 
 ## DT: 2019-01-08
 ##
