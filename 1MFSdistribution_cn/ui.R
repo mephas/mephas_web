@@ -32,30 +32,30 @@ tags$ul(
 splitLayout(
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("正态分布（基于数学）"),
+    h4(tags$b("正态分布（基于数学）")),
 
     hr(),
     tags$b("参数设置"),
     fluidRow(
       column(3, numericInput("xlim", "x轴的范围", value = 5, min = 1, max = 20)),
       column(3, numericInput("ylim", "y轴的范围", value = 0.5, min = 0.1, max = 1)),
-      column(3, numericInput("pr", "线左边的面积; Pr(X <= value)", value = 0.025, min = 0, max = 1, step = 0.05))),
+      column(3, numericInput("pr", "线左边的面积, Pr(X <= value)", value = 0.025, min = 0, max = 1, step = 0.05))),
 
     fluidRow(
-      column(3, numericInput("mu", HTML("平均值 (&#956): "), value = 0, min = -100, max = 100)),
-      column(3, numericInput("sigma", HTML("标准差 (&#963):"), value = 1, min = 0.1, max = 10)),
-      column(3, numericInput("n", HTML("N倍标准差中间的面积:"), value = 1, min = 0, max = 10))),
+      column(3, numericInput("mu", HTML("平均值 (&#956) "), value = 0, min = -100, max = 100)),
+      column(3, numericInput("sigma", HTML("标准差 (&#963)"), value = 1, min = 0.1, max = 10)),
+      column(3, numericInput("n", HTML("N倍标准差中间的面积"), value = 1, min = 0, max = 10))),
     p(br()),
     plotOutput("norm.plot", click = "plot_click", width = "400px", height = "300px"),
     hr(),  
     verbatimTextOutput("info"),
     p(br()),
-    helpText("x的位置和区域(%)为蓝色"),
+    helpText("x的位置和蓝色区域的面积(%)"),
     tableOutput("xs")
     ),
   wellPanel(
 
-    h3("正态分布（模拟的样本）"),
+  h4(tags$b("正态分布（模拟的样本）")),
 
     hr(),
     tags$b("参数设置"),
@@ -89,7 +89,7 @@ tags$ul(
 splitLayout(
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("指数分布（基于数学）"),
+  h4(tags$b("指数分布（基于数学）")),
     
     hr(),
     tags$b("参数设置"),
@@ -107,7 +107,7 @@ splitLayout(
     helpText("x的位置"),
     tableOutput("e")),
   wellPanel(
-    h3("指数分布（模拟的样本）"),
+  h4(tags$b("指数分布（模拟的样本）")),
 
     hr(),
     tags$b("参数设置"),
@@ -137,7 +137,6 @@ tags$ul(
   tags$li(HTML("&#945: 形状参数")),
   tags$li(HTML("&#952: 尺度参数"))
   ),
-hr(),
 tags$b("注释"), 
 tags$ul(
   tags$li(HTML("&#946=1/&#952: 率参数")),
@@ -147,7 +146,7 @@ tags$ul(
 splitLayout(
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("伽马分布（基于数学）"),
+  h4(tags$b("伽马分布（基于数学）")),
     
     hr(),
     tags$b("参数设置"),
@@ -167,7 +166,7 @@ splitLayout(
     tableOutput("g")),
 
   wellPanel(
-    h3("伽马分布（模拟的样本）"),
+  h4(tags$b("伽马分布（模拟的样本）")),
 
     hr(),
     tags$b("设置"),
@@ -209,7 +208,7 @@ tags$ul(
 
 splitLayout(
   wellPanel(style = "background-color: #ffffff;",
-    h3("学生氏t分布（基于数学）"),
+  h4(tags$b("学生氏t分布（基于数学）")),
 
     hr(),
     tags$b("参数设置"),
@@ -226,7 +225,7 @@ splitLayout(
     helpText("x的位置（蓝色曲线是标准正态分布）"),
     tableOutput("t")),
   wellPanel(
-    h3("学生氏t分布（模拟的样本）"),
+  h4(tags$b("学生氏t分布（模拟的样本）")),
 
     hr(),
     tags$b("参数设置"),
@@ -260,7 +259,7 @@ tags$ul(
 
 splitLayout(
   wellPanel(style = "background-color: #ffffff;",
-    h3("卡方分布（数学）"),
+  h4(tags$b("卡方分布（数学）")),
    
     hr(),
     tags$b("参数设置"),
@@ -278,7 +277,7 @@ splitLayout(
     helpText("x的位置"),
     tableOutput("xn")),
   wellPanel(
-    h3("卡方分布样本（模拟的样本）"),
+  h4(tags$b("卡方分布样本（模拟的样本）")),
 
     hr(),
     tags$b("设置"),
@@ -309,7 +308,7 @@ tags$ul(
 
 splitLayout(
   wellPanel(style = "background-color: #ffffff;",
-    h3("F分布（基于数学）"),
+  h4(tags$b("F分布（基于数学）")),
     
     hr(),
     tags$b("参数设置"),
@@ -328,7 +327,7 @@ splitLayout(
     helpText("x的位置"),
     tableOutput("f")),
   wellPanel(
-    h3("F分布（模拟的样本）"),
+  h4(tags$b("F分布（模拟的样本）")),
 
     hr(),
     tags$b("参数设置"),
@@ -358,16 +357,17 @@ tabPanel("离散型随机变量",
 titlePanel("二项分布，泊松分布"),
 
 tags$b("注释"),
-p("蓝色曲线是标准正态分布"),
-p("二项分布的均值 ＝ np，  方差＝ npq"),
-p("泊松分布的均值 ＝ 方差＝ 参数"),
+tags$ul(
+  tags$li("蓝色曲线是标准正态分布"),
+  tags$li("二项分布的均值 ＝ np，  方差＝ npq"),
+  tags$li("泊松分布的均值 ＝ 方差＝ 参数")),
 
 splitLayout(
   
 ###---------- 3.1 ---------
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("二项分布"),
+  h4(tags$b("二项分布")),
     hr(),
     tags$b("参数设置"),
 
@@ -387,7 +387,7 @@ splitLayout(
 ###---------- 3.2 ---------
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("泊松分布"),
+  h4(tags$b("泊松分布")),
     hr(),
     tags$b("参数设置"),
 
@@ -410,7 +410,7 @@ splitLayout(
 
 tabPanel((a("主页",
  #target = "_blank",
- style = "margin-top:-30px;",
+ style = "margin-top:-30px;color:DodgerBlue",
  href = paste0("https://pharmacometrics.info/mephas/", "index_cn.html")))),
 
 tabPanel(
@@ -418,6 +418,7 @@ tabPanel(
       id = 'close',
       type = "button",
       class = "btn action-button",
+      style = "margin-top:-8px; color:Tomato; background-color: #F8F8F8  ",
       onclick = "setTimeout(function(){window.close();},500);",  # close browser
       "停止"))
 ))

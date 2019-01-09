@@ -33,19 +33,19 @@ tags$ul(
 splitLayout(
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("正規分布 (理論上)"),
+    h4(tags$b("正規分布 (理論上)")),
 
     hr(),
     tags$b("パラメータ設定"),
     fluidRow(
       column(3, numericInput("xlim", "X軸の範囲", value = 5, min = 1, max = 20)),
       column(3, numericInput("ylim", "Y軸の範囲", value = 0.5, min = 0.1, max = 1)),
-      column(3, numericInput("pr", "線分の左側の確率; Pr(X <= value)", value = 0.025, min = 0, max = 1, step = 0.05))),
+      column(3, numericInput("pr", "線分の左側の確率, Pr(X <= value)", value = 0.025, min = 0, max = 1, step = 0.05))),
 
     fluidRow(
-      column(3, numericInput("mu", HTML("平均 (&#956): "), value = 0, min = -100, max = 100)),
-      column(3, numericInput("sigma", HTML("標準偏差 (&#963):"), value = 1, min = 0.1, max = 10)),
-      column(3, numericInput("n", HTML("標準偏差＊Nの範囲:"), value = 1, min = 0, max = 10))),
+      column(3, numericInput("mu", HTML("平均 (&#956)"), value = 0, min = -100, max = 100)),
+      column(3, numericInput("sigma", HTML("標準偏差 (&#963)"), value = 1, min = 0.1, max = 10)),
+      column(3, numericInput("n", HTML("標準偏差＊Nの範囲"), value = 1, min = 0, max = 10))),
     p(br()),
     plotOutput("norm.plot", click = "plot_click", width = "400px", height = "300px"),
     hr(),  
@@ -57,7 +57,7 @@ splitLayout(
 
   wellPanel(
 
-    h3("分布例 (シミュレーション)"),
+    h4(tags$b("分布例 (シミュレーション)")),
 
     hr(),
     tags$b("パラメータ設定"),
@@ -91,7 +91,7 @@ tags$ul(
 splitLayout(
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("指数分布 (理論上)"),
+    h4(tags$b("指数分布 (理論上)")),
     
     hr(),
     tags$b("パラメータ設定"),
@@ -110,7 +110,7 @@ splitLayout(
     tableOutput("e")),
 
   wellPanel(
-    h3("サンプル指数分布 (シミュレーション)"),
+    h4(tags$b("サンプル指数分布 (シミュレーション)")),
 
     hr(),
     tags$b("パラメータ設定"),
@@ -140,7 +140,6 @@ tags$ul(
   tags$li(HTML("&#945: 形状母数")),
   tags$li(HTML("&#952: 尺度母数"))
   ),
-hr(),
 tags$b("注"), 
 tags$ul(
   tags$li(HTML("&#946=1/&#952: 倍率パラメータ")),
@@ -150,7 +149,7 @@ tags$ul(
 splitLayout(
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("ガンマ分布 (理論上)"),
+    h4(tags$b("ガンマ分布 (理論上)")),
     
     hr(),
     tags$b("パラメータ設定"),
@@ -170,7 +169,7 @@ splitLayout(
     tableOutput("g")),
 
   wellPanel(
-    h3("サンプルのガンマ分布 (シミュレーション)"),
+    h4(tags$b("サンプルのガンマ分布 (シミュレーション)")),
 
     hr(),
     tags$b("パラメータ設定"),
@@ -212,7 +211,7 @@ tags$ul(
 
 splitLayout(
   wellPanel(style = "background-color: #ffffff;",
-    h3("スチューデントのt分布 (理論上)"),
+    h4(tags$b("スチューデントのt分布 (理論上)")),
 
     hr(),
     tags$b("パラメータ設定"),
@@ -230,7 +229,7 @@ splitLayout(
     tableOutput("t")),
 
   wellPanel(
-    h3("スチューデントのt分布 (シミュレーション)"),
+    h4(tags$b("スチューデントのt分布 (シミュレーション)")),
 
     hr(),
     tags$b("パラメータ設定"),
@@ -264,7 +263,7 @@ tags$ul(
 
 splitLayout(
   wellPanel(style = "background-color: #ffffff;",
-    h3("カイ二乗分布 (理論上)"),
+    h4(tags$b("カイ二乗分布 (理論上)")),
    
     hr(),
     tags$b("パラメータ設定"),
@@ -283,7 +282,7 @@ splitLayout(
     tableOutput("xn")),
   
   wellPanel(
-    h3("カイ二乗分布 (シミュレーション)"),
+    h4(tags$b("カイ二乗分布 (シミュレーション)")),
 
     hr(),
     tags$b("パラメータ設定"),
@@ -314,7 +313,7 @@ tags$ul(
 
 splitLayout(
   wellPanel(style = "background-color: #ffffff;",
-    h3("F分布 (理論上)"),
+    h4(tags$b("F分布 (理論上)")),
     
     hr(),
     tags$b("パラメータ設定"),
@@ -333,7 +332,7 @@ splitLayout(
     helpText("直線のx座標"),
     tableOutput("f")),
   wellPanel(
-    h3("サンプルのF分布 (シミュレーション)"),
+    h4(tags$b("サンプルのF分布 (シミュレーション)")),
 
     hr(),
     tags$b("パラメータ設定"),
@@ -363,16 +362,17 @@ tabPanel("離散確率変数",
 titlePanel("二項分布, ポアソン分布"),
 
 tags$b("注"),
-p("青の曲線は正規近似を表す"),
-p("二項分布における平均はnp、分散はnpq"),
-p("ポワソン分布における平均と分散はパラメータ"),
+tags$ul(
+  tags$li("青の曲線は正規近似を表す"),
+  tags$li("二項分布における平均はnp、分散はnpq"),
+  tags$li("ポワソン分布における平均と分散はパラメータ")),
 
 splitLayout(
 
 ###---------- 3.1 ---------
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("二項分布"),
+    h4(tags$b("二項分布")),
     hr(),
     tags$b("パラメータ設定"),
 
@@ -392,7 +392,7 @@ splitLayout(
 ###---------- 3.2 ---------
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("ポワソン分布"),
+    h4(tags$b("ポワソン分布")),
     hr(),
     tags$b("パラメータ設定"),
 
@@ -414,7 +414,7 @@ splitLayout(
 ##----------
 tabPanel((a("ホーム",
  #target = "_blank",
- style = "margin-top:-30px;",
+ style = "margin-top:-30px; color:DodgerBlue",
  href = paste0("https://pharmacometrics.info/mephas/", "index_jp.html")))),
 
 tabPanel(
@@ -423,6 +423,7 @@ tabPanel(
      style = "margin-top:-10px;",
       type = "button",
       class = "btn action-button",
+      style = "margin-top:-8px; color:Tomato; background-color: #F8F8F8  ",
       onclick = "setTimeout(function(){window.close();},500);",  # close browser
       "停止"))
 

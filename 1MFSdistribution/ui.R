@@ -33,19 +33,19 @@ tags$ul(
 splitLayout(
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("Normal Distribution (Mathematical-based)"),
+    h4(tags$b("Normal Distribution (Mathematical-based)")),
 
     hr(),
-    tags$b("Configurations"),
+    tags$b("Configuration"),
     fluidRow(
       column(3, numericInput("xlim", "Range of x-asis", value = 5, min = 1, max = 20)),
       column(3, numericInput("ylim", "Range of y-asis", value = 0.5, min = 0.1, max = 1)),
       column(3, numericInput("pr", "Area left to the line; Pr(X <= value)", value = 0.025, min = 0, max = 1, step = 0.05))),
 
     fluidRow(
-      column(3, numericInput("mu", HTML("Mean (&#956): "), value = 0, min = -100, max = 100)),
-      column(3, numericInput("sigma", HTML("Standard Deviation (&#963):"), value = 1, min = 0.1, max = 10)),
-      column(3, numericInput("n", HTML("The space between N-fold SD:"), value = 1, min = 0, max = 10))),
+      column(3, numericInput("mu", HTML("Mean (&#956) "), value = 0, min = -100, max = 100)),
+      column(3, numericInput("sigma", HTML("Standard Deviation (&#963)"), value = 1, min = 0.1, max = 10)),
+      column(3, numericInput("n", HTML("The space between N-fold SD"), value = 1, min = 0, max = 10))),
     p(br()),
     plotOutput("norm.plot", click = "plot_click", width = "400px", height = "300px"),
     hr(),  
@@ -56,10 +56,10 @@ splitLayout(
     ),
   wellPanel(
 
-    h3("Normal Distributed Sample (Simulation)"),
+    h4(tags$b("Normal Distributed Sample (Simulation)")),
 
     hr(),
-    tags$b("Configurations"),
+    tags$b("Configuration"),
 
     fluidRow(
       column(3, numericInput("bin", "Binwidth of histogram", value = 0.1, min = 0.01, max = 5, step = 0.1))),
@@ -83,14 +83,14 @@ splitLayout(
 
 titlePanel("Exponential Distribution"),
 
-tags$b("Parameters"), 
+tags$b("Parameter"), 
 tags$ul(
   tags$li(HTML("r: rate or the inverse scale parameter"))),
 
 splitLayout(
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("Exponential Distribution (Mathematical)"),
+    h4(tags$b("Exponential Distribution (Mathematical)")),
     
     hr(),
     tags$b("Configuration"),
@@ -99,7 +99,7 @@ splitLayout(
       column(3, numericInput("e.ylim", "Range of y-asis", value = 2.5, min = 0.1, max = 3, step = 0.1)),
       column(3, numericInput("e.pr", "Area left to the line", value = 0.5, min = 0, max = 1, step = 0.01))),
     fluidRow(
-      column(5, sliderInput("r", HTML("parameter"), min = 0, max = 10, value =1, step = 0.1))),
+      column(5, sliderInput("r", HTML("Parameter"), min = 0, max = 10, value =1, step = 0.1))),
 
     plotOutput("e.plot", click = "plot_click9", width = "400px", height = "300px"),
     hr(),
@@ -108,7 +108,7 @@ splitLayout(
     helpText("The position of x"),
     tableOutput("e")),
   wellPanel(
-    h3("Exponential Distributed Sample (Simulation)"),
+    h4(tags$b("Exponential Distributed Sample (Simulation)")),
 
     hr(),
     tags$b("Configuration"),
@@ -138,7 +138,7 @@ tags$ul(
   tags$li(HTML("&#945: shape parameter")),
   tags$li(HTML("&#952: scale parameter"))
   ),
-hr(),
+
 tags$b("Notes"), 
 tags$ul(
   tags$li(HTML("&#946=1/&#952: rate parameter")),
@@ -148,7 +148,7 @@ tags$ul(
 splitLayout(
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("Gamma Distribution (Mathematical)"),
+    h4(tags$b("Gamma Distribution (Mathematical)")),
     
     hr(),
     tags$b("Configuration"),
@@ -168,7 +168,7 @@ splitLayout(
     tableOutput("g")),
 
   wellPanel(
-    h3("Gamma Distributed Sample (Simulation)"),
+    h4(tags$b("Gamma Distributed Sample (Simulation)")),
 
     hr(),
     tags$b("Configuration"),
@@ -211,7 +211,7 @@ tags$ul(
 
 splitLayout(
   wellPanel(style = "background-color: #ffffff;",
-    h3("Student's t-Distribution (Mathematical)"),
+    h4(tags$b("Student's t-Distribution (Mathematical)")),
 
     hr(),
     tags$b("Configuration"),
@@ -228,7 +228,7 @@ splitLayout(
     helpText("The position of x (The blue curve is standard normal distribution)"),
     tableOutput("t")),
   wellPanel(
-    h3("Student's t Distributed Sample (Simulation)"),
+    h4(tags$b("Student's t Distributed Sample (Simulation)")),
 
     hr(),
     tags$b("Configuration"),
@@ -262,7 +262,7 @@ tags$ul(
 
 splitLayout(
   wellPanel(style = "background-color: #ffffff;",
-    h3("Chi-square Distribution (Mathematical)"),
+    h4(tags$b("Chi-square Distribution (Mathematical)")),
    
     hr(),
     tags$b("Configuration"),
@@ -280,7 +280,7 @@ splitLayout(
     helpText("The position of x"),
     tableOutput("xn")),
   wellPanel(
-    h3("Chi-square Distributed Sample (Simulation)"),
+    h4(tags$b("Chi-square Distributed Sample (Simulation)")),
 
     hr(),
     tags$b("Configuration"),
@@ -311,7 +311,7 @@ tags$ul(
 
 splitLayout(
   wellPanel(style = "background-color: #ffffff;",
-    h3("F Distribution (Mathematical)"),
+    h4(tags$b("F Distribution (Mathematical)")),
     
     hr(),
     tags$b("Configuration"),
@@ -330,7 +330,7 @@ splitLayout(
     helpText("The position of x"),
     tableOutput("f")),
   wellPanel(
-    h3("F Distributed Sample (Simulation)"),
+    h4(tags$b("F Distributed Sample (Simulation)")),
 
     hr(),
     tags$b("Configuration"),
@@ -372,7 +372,7 @@ splitLayout(
 ###---------- 3.1 ---------
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("Binomial Distribution"),
+    h4(tags$b("Binomial Distribution")),
     hr(),
     tags$b("Configuration"),
 
@@ -392,7 +392,7 @@ splitLayout(
 ###---------- 3.2 ---------
 
   wellPanel(style = "background-color: #ffffff;",
-    h3("Poisson Distribution"),
+    h4(tags$b("Poisson Distribution")),
     hr(),
     tags$b("Configuration"),
 
