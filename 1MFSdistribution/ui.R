@@ -415,7 +415,7 @@ splitLayout(
 
 tabPanel((a("Home",
  #target = "_blank",
- style = "margin-top:-30px;",
+ style = "margin-top:-30px; color:DodgerBlue",
  href = paste0("https://pharmacometrics.info/mephas/")))),
 
 tabPanel(
@@ -423,6 +423,7 @@ tabPanel(
       id = 'close',
       type = "button",
       class = "btn action-button",
+      style = "margin-top:-8px; color:Tomato; background-color:WhiteSmoke  ",
       onclick = "setTimeout(function(){window.close();},500);",  # close browser
       "Stop App"))
 
