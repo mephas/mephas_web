@@ -413,7 +413,7 @@ splitLayout(
 
 ##---------- other panels ----------
 
-source("home_stop_jp.R",local=TRUE),
+source("../0tabs/home_stop_jp.R",local=TRUE),
 #source("stop.R",local=TRUE),
 
 home, 
