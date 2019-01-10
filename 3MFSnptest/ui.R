@@ -4,142 +4,57 @@
 ##
 ## Language: EN
 ## 
-## DT: 2019-01-08
+## DT: 2019-01-09
 ##
 ##----------#----------#----------#----------
+source("p1_ui.R", local=TRUE)
+
 shinyUI(
+
 tagList( 
-#shinythemes::themeSelector(),
 
 navbarPage(
 
 title = "Non-parametric Test",  
 
-## 1. One sample test ---------------------------------------------------------------------------------
+##---------- Panel 1 ----------
 tabPanel("One Sample",
 
 headerPanel("Sign Test, Wilcoxon Signed-Rank Test"),
-p("Both can be used to test whether the median of a collection of numbers is significantly greater than or less than a specified value."),
 
-tags$b("Assumptions"),
-tags$ul(
-  tags$li("Each observation is independent and comes from the same population"),
-  tags$li("X could be continuous (i.e., interval or ratio) and ordinal")),
+HTML(" 
 
-tags$b("Notations"),
-HTML("
+<p> Both can be used to test whether the median of a collection of numbers is significantly greater than or less than a specified value. </p>
+
+<b> Assumptions </b>
+
   <ul>
-  <li> X is the randomly collected sample </li>
-  <li> m is the population median of X, meaning the 50 percentile of the underlying distribution of the X </li>
-  <li> m&#8320 is the specified value</li>
+  <li>Each observation is independent and comes from the same population
+  <li>X could be continuous (i.e., interval or ratio) and ordinal
   </ul>
+
+<b> Notations </b>
+
+  <ul>
+  <li> X is the randomly collected sample 
+  <li> m is the population median of X, meaning the 50 percentile of the underlying distribution of the X 
+  <li> m&#8320 is the specified value 
+  </ul>
+
   "),
-
-helpText("Configuration"),
-numericInput("med", HTML("The specific value, m&#8320"), 4), #p
-
-sidebarLayout(
-
-sidebarPanel(
-
-  ##-------explanation-------##
-h4(tags$b("Sign Test")),
-helpText("The sign test makes very few assumptions about the nature of the distributions under test, but may lack the statistical power of the alternative tests."),
-
-helpText("Hypotheses"),
-tags$b("Null hypothesis"),
-HTML("<p> m = m&#8320: the population median is equal to the specified value </p>"),
-
-radioButtons("alt.st", label = "Alternative hypothesis", 
-  choiceNames = list(
-  HTML("m &#8800 m&#8320: the population median of X is not equal to the specified value"),
-  HTML("m < m&#8320: the population median of X is less than the specified value"),
-  HTML("m > m&#8320: the population median of X is greater than the specified value")),
-choiceValues = list("two.sided", "less", "greater"))),
-
-  mainPanel(h3(tags$b('Results')), 
-    tableOutput("sign.test")
-    )  ),
-
-sidebarLayout(
-  sidebarPanel(
-
-h4(tags$b("Wilcoxon Signed-Rank Test")),
-helpText("Alternative to one-sample t-test when the data cannot be assumed to be normally distributed. It is used to determine whether the median of the sample is equal to a specified value."),
-
-tags$b("Supplementary Assumptions"),
-tags$ul(
-  tags$li("The distribution of X is symmetric."),
-  tags$li("No ties (same values) in X")),
-
-helpText("Hypotheses"),
-tags$b("Null hypothesis"),
-HTML("<p> m = m&#8320: the population median is equal to the specified value; the distribution of the data set is symmetric about the default value </p>"),
-
-radioButtons("alt.wsr", label = "Alternative hypothesis", 
-  choiceNames = list(
-  HTML("m &#8800 m&#8320: the population median of X is not equal to the specified value; or, the distribution of the data set is not symmetric about the default value"),
-  HTML("m < m&#8320: the population median of X is less than the specified value"),
-  HTML("m > m&#8320: the population median of X is greater than the specified value")),
-choiceValues = list("two.sided", "less", "greater")),
-
-helpText("Correction"),
-radioButtons("nap.wsr", label = "Normal Approximation", 
-  choices = list("Sample size is not large" = FALSE,
-                 "Sample size is moderate large" = TRUE, 
-                 "Small sample size" = TRUE), selected = FALSE),
-helpText("Normal approximation is applicable when sample size > 10.")),
-
-  mainPanel(h3(tags$b('Results')), 
-    tableOutput("ws.test"), 
-    helpText("When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction'")
-  )
-),
-
-sidebarLayout(  
-sidebarPanel(
-
-helpText("Two ways to import your data"),
-
-  tabsetPanel(
-  ##-------input data-------## 
-  tabPanel("Manually input values", p(br()),
-    helpText("Missing value is input NA"),
-    tags$textarea(id="a", rows=10, "1.8\n3.3\n6.7\n1.4\n2.2\n1.6\n13.6\n2.8\n1.0\n2.8\n6.5\n6.8\n0.7\n0.9\n3.4\n3.3\n1.4\n0.9\n1.4\n1.8"),
-    helpText("Change the names of two samples (optinal)"), tags$textarea(id="cn", rows=2, "X")),
-
-  ##-------csv file-------##   
-  tabPanel("Upload .csv file", p(br()),
-    fileInput('file', 'Choose .csv File', accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
-    checkboxInput('header', 'Header', TRUE), #p
-    radioButtons('sep', 'Separator', c(Comma=',', Semicolon=';', Tab='\t'), ',')) ),
-
 hr(),
-h4("Data Display"), 
 
-dataTableOutput("table"),
+L1,
 hr(),
-h4("Figure Configuration"), sliderInput("bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2)),
+L2,
+hr(),
+L3
 
-mainPanel(
-  h3(tags$b('Boxplot')), splitLayout(
-    plotOutput("bp", width = "400px", height = "400px", click = "plot_click"),
-    wellPanel(verbatimTextOutput("info"), hr(),
-      helpText(HTML("Notes:
-                    <ul> 
-                    <li> Outliers will be highlighted in red, if existing. </li>
-                    <li> The red outlier may not cover the simulated point. </li>
-                    <li> The red outlier only indicates the value in horizontal line.</li>  
-                    </ul>")))),
-  hr(),
-  h3(tags$b('Histogram')), plotOutput("makeplot", width = "600px", height = "300px"),
-  hr(),
-  h3(tags$b('Descriptive statistics')), 
-  splitLayout(tableOutput("bas"), tableOutput("des"), tableOutput("nor"))) )
 
 ),
 
-## 2 Two independent samples test ---------------------------------------------------------------------------------
+##---------- Panel 2 ----------
+
 tabPanel("Two Independent Samples",
 
 headerPanel("Wilcoxon Rank-Sum Test (Mann-Whitney U Test), Mood's Median Test"),
@@ -158,6 +73,8 @@ HTML("<ul>
       <li> m&#8321 is the population median of X, or the 50 percentile of the underlying distribution of X </li>  
       <li> m&#8322 is the population median of Y, or the 50 percentile of the underlying distribution of Y </li> 
       </ul>" ),
+
+##---------- 2.1 ----------
 
 sidebarLayout(
 sidebarPanel(
@@ -202,6 +119,8 @@ mainPanel(
       <li> When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction' </li>  
       </ul>" ))
   )),
+
+##---------- 2.2 ----------
 
 sidebarLayout(
 sidebarPanel(
@@ -266,7 +185,8 @@ mainPanel(
   h3(tags$b('Descriptive statistics')), 
   splitLayout(tableOutput("bas2"), tableOutput("des2"), tableOutput("nor2")))  )),
 
-  ## 3. Paired samples ---------------------------------------------------------------------------------
+##---------- Panel 3 ----------
+
 tabPanel("Two Paired Samples",    
 
 headerPanel("Sign Test & Wilcoxon Signed-Rank Test"),
@@ -284,6 +204,8 @@ tags$ul(
   tags$li("The paired observations are designated X and Y"),
   tags$li("D = X-Y, the differences between paired (X, Y)"),
   tags$li("m is the population median of D, or the 50 percentile of the underlying distribution of the D.")),
+
+##---------- 3.1 ----------
 
 sidebarLayout(
 
@@ -306,6 +228,8 @@ sidebarPanel(
 mainPanel(h3(tags$b('Results')), tableOutput("psign.test"), 
           helpText("Notes: 'Estimated.d' denotes the estimated differences of medians")
           )),
+
+##---------- 3.2 ----------
 
 sidebarLayout(
   sidebarPanel(
@@ -342,7 +266,7 @@ sidebarLayout(
     helpText("When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction'")
     ) ),
 
-# data input
+
 sidebarLayout(  
 sidebarPanel(
 
@@ -386,20 +310,10 @@ mainPanel(
 
 )
 ,
-##----------
+##---------- other panels ----------
 
-tabPanel((a("Home",
- #target = "_blank",
- style = "margin-top:-30px;",
- href = paste0("https://pharmacometrics.info/mephas/")))),
-
-tabPanel(
-      tags$button(
-      id = 'close',
-      type = "button",
-      class = "btn action-button",
-      onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "Stop App"))
+source("../0tabs/home.R",local=TRUE)$value,
+source("../0tabs/stop.R",local=TRUE)$value
 
   
 ))

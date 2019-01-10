@@ -5,18 +5,18 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(DescTools)) {install.packages("DescTools")}; library(DescTools)  #SignTest
 if (!require(RVAideMemoire)) {install.packages("RVAideMemoire")}; library(RVAideMemoire)  
 if (!require(pastecs)) {install.packages("pastecs")}; library(pastecs)
-##------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-##  Non-parametric test server 
+## 3MFSnptest SERVER
 ##
-## 2018-11-28
+## Language: EN
+## 
+## DT: 2019-01-09
 ##
-##-------------------------------------------------------------
+##----------#----------#----------#----------
 shinyServer(
 
  function(input, output) {
-  #options(warn = -1)
-
 
   ## 1. One sample ----------------------------------------------------------------------------------------
   A <- reactive({
@@ -31,7 +31,7 @@ shinyServer(
       return(csv)} })
 
   #table 
-  output$table <- renderDataTable({A()}, options = list(pageLength = 10))
+  output$table <- renderDataTable({A()}, options = list(pageLength = 5))
 
   output$bas <- renderTable({  
     X <- as.numeric(unlist(strsplit(input$a, "[\n, \t, ]")))
