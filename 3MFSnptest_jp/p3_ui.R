@@ -127,6 +127,6 @@ mainPanel(
     tabPanel("ヒストグラム", p(br()), 
 
       plotOutput("makeplot3", width = "800px", height = "400px"),
-      sliderInput("bin3", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2)
+      sliderInput("bin3", "ヒストグラムの棒幅", min = 0.01, max = 5, value = 0.2)
       )
     ))  )
