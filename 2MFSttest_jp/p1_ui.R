@@ -19,7 +19,7 @@ sidebarPanel(
   
   tabPanel("手入力", p(br()),
 
-  helpText("間違った値はNAと表示されます"),
+  helpText(HTML('間違った値はNAと表示されます')),
 
       tags$textarea(
         id = "x", #p
@@ -31,10 +31,10 @@ sidebarPanel(
       tags$textarea(id = "cn", rows = 1, "X") ), #tabPanel(
 
 
-    tabPanel("アップロード .csv", p(br()),
+    tabPanel(HTML("アップロード .csv"), p(br()),
 
         ##-------csv file-------##   
-        fileInput('file', ".csvファイルを指定してください",
+        fileInput('file', HTML(".csvファイルを指定してください"),
                   accept = c("text/csv",
                           "text/comma-separated-values,text/plain",
                           ".csv")),

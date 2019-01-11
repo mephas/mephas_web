@@ -40,7 +40,7 @@ splitLayout(
     fluidRow(
       column(3, numericInput("xlim", "X軸の範囲", value = 5, min = 1, max = 20)),
       column(3, numericInput("ylim", "Y軸の範囲", value = 0.5, min = 0.1, max = 1)),
-      column(3, numericInput("pr", "線分の左側の確率, Pr(X <= value)", value = 0.025, min = 0, max = 1, step = 0.05))),
+      column(3, numericInput("pr", HTML('線分の左側の確率, Pr(X <= value)'), value = 0.025, min = 0, max = 1, step = 0.05))),
 
     fluidRow(
       column(3, numericInput("mu", HTML("平均 (&#956)"), value = 0, min = -100, max = 100)),

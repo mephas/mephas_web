@@ -44,7 +44,7 @@ sidebarPanel(
 
   ##-------explanation-------##
 h4(tags$b("符号検定")),
-helpText("The sign test makes very few assumptions about the nature of the distributions under test, but may lack the statistical power of the alternative tests.符号検定は、テスト中のディストリビューションの性質についてはほとんど仮定していませんが、代替テストの統計力が不足している可能性があります。"),
+helpText("符号検定は、テスト中の分布の性質についてはほとんど仮定していませんが、代替テストの統計力が不足している可能性があります。"),
 
 helpText("仮説"),
 tags$b("帰無仮説"),
@@ -65,7 +65,7 @@ sidebarLayout(
   sidebarPanel(
 
 h4(tags$b("ウィルコクソンの符号順位検定")),
-helpText("データが正規分布していると仮定できない場合の1標本t検定の代替案。 これは、サンプルの中央値が指定された値と等しいかどうかを判断するために使用されます。Alternative to one-sample t-test when the data cannot be assumed to be normally distributed. It’s used to determine whether the median of the sample is equal to a specified value."),
+helpText("データが正規分布していると仮定できない場合の1標本t検定の代替案。 これは、サンプルの中央値が指定された値と等しいかどうかを判断するために使用されます。"),
 
 tags$b("補足仮定"),
 tags$ul(
@@ -74,25 +74,25 @@ tags$ul(
 
 helpText("仮説"),
 tags$b("帰無仮説"),
-HTML("<p> m = m&#8320: the population median is equal to the specified value; the distribution of the data set is symmetric about the default value </p>"),
+HTML("<p> m = m&#8320: 母集団の中央値は指定された値と同じです。 データセットの分布はデフォルト値に対して対称です </p>"),
 
 radioButtons("alt.wsr", label = "帰無仮説", 
   choiceNames = list(
-  HTML("m &#8800 m&#8320: the population median of X is not equal to the specified value; or, the distribution of the data set is not symmetric about the default value"),
-  HTML("m < m&#8320: the population median of X is less than the specified value"),
-  HTML("m > m&#8320: the population median of X is greater than the specified value")),
+  HTML("m &#8800 m&#8320: Xの母集団中央値が指定された値と等しくありません。 または、データセットの分布がデフォルト値に対して対称的ではない"),
+  HTML("m < m&#8320: Xの母集団中央値が指定された値より小さい"),
+  HTML("m > m&#8320: Xの母集団中央値が指定された値より大きい")),
 choiceValues = list("two.sided", "less", "greater")),
 
-helpText("Correction"),
-radioButtons("nap.wsr", label = "Normal Approximation", 
-  choices = list("Sample size is not large" = FALSE,
-                 "Sample size is moderate large" = TRUE, 
-                 "Small sample size" = TRUE), selected = FALSE),
-helpText("Normal approximation is applicable when sample size > 10.")),
+helpText("補正"),
+radioButtons("nap.wsr", label = "正規近似", 
+  choices = list("標本は大きくない" = FALSE,
+                 "標本は中程度の大きさ" = TRUE, 
+                 "小さい標本サイズ" = TRUE), selected = FALSE),
+helpText("標本サイズが１０より大きい場合、通常の近似値が適用可能です。")),
 
   mainPanel(h3(tags$b('結果')), 
     tableOutput("ws.test"), 
-    helpText("When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction'")
+    helpText("正規近似が適用されると、検定の名前は '連続性補正付きWilcoxon符号付き順位検定'になります。")
   )
 ),
 
@@ -122,14 +122,14 @@ hr(),
 h4("パラメータ設定"), sliderInput("bin", "ヒストグラムの棒幅", min = 0.01, max = 5, value = 0.2)),
 
 mainPanel(
-  h3(tags$b('Boxplot')), splitLayout(
+  h3(tags$b('箱ひげ図')), splitLayout(
     plotOutput("bp", width = "400px", height = "400px", click = "plot_click"),
     wellPanel(verbatimTextOutput("info"), hr(),
       helpText(HTML("注:
                     <ul> 
-                    <li> Outliers will be highlighted in red, if existing. </li>
-                    <li> The red outlier may not cover the simulated point. </li>
-                    <li> The red outlier only indicates the value in horizontal line.</li>  
+                    <li> 外れ値が存在する場合は、外れ値が赤で強調表示されます。 </li>
+                    <li> 赤の外れ値はシミュレートポイントをカバーしていない可能性があります。 </li>
+                    <li> 赤い外れ値は、横線の値のみを示します。</li>  
                     </ul>")))),
   hr(),
   h3(tags$b('ヒストグラム')), plotOutput("makeplot", width = "600px", height = "300px"),
@@ -275,7 +275,7 @@ p("Given pairs of observations (such as weight pre- and post-treatment) for each
 
 tags$b("前提として"),
 tags$ul(
-  tags$li("The observations of (X, Y) are paired and come from the same population"),
+  tags$li("（X、Y）の観測値は対になっており、同じ母集団からのものです。"),
   tags$li("X's and Y's could be continuous (i.e., interval or ratio) and ordinal"),
   tags$li("D's are independent and come from the same population")),
 
@@ -311,7 +311,7 @@ sidebarLayout(
   sidebarPanel(
 
   h4(tags$b("ウィルコクソンの符号順位検定")),
-  helpText("An alternative to the paired t-test for matched pairs, when the population cannot be assumed to be normally distributed. It can also be used to determine whether two dependent samples were selected from populations having the same distribution."),
+  helpText("母集団が正規分布していると仮定できない場合の、マッチドペアの対応のあるt検定の代替方法。 また、2つの従属サンプルが同じ分布を持つ集団から選択されたかどうかを判断するためにも使用できます。"),
   
   tags$b("Supplementary Assumptions"),
   tags$ul(
