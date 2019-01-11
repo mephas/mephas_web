@@ -4,7 +4,7 @@
 ##
 ## Language: JP
 ## 
-## DT: 2019-01-08
+## DT: 2019-01-11
 ##
 ##----------#----------#----------#----------
 
@@ -90,8 +90,8 @@ HTML("
 
 <b> 前提として </b>
 <ul>
-  <li> The expected value in each cell is greater than 5
-  <li> 各セルの期待値が5未満の場合は、修正またはフィッシャーの正確なテスト（Fisher's Exact Test）を行う必要があります
+  <li> 各セルの期待値は5より大きい
+  <li> 各セルの期待値が5未満の場合は、修正またはフィッシャーの正確なテスト（Fisher's Exact Test）を行う必要がある
 </ul>
 
   "),
@@ -100,23 +100,23 @@ HTML("
     sidebarLayout(
 
       sidebarPanel(
-        h4("Data Preparation"),
+        h4("データ準備"),
         helpText("2 x 2 Table"),
-        tags$b("Input groups' names"),
+        tags$b("入力するグループ名"),
         splitLayout(
           verticalLayout(
             tags$b("グループ名"),
-            tags$textarea(id="cn", label = "Group names", rows=4, cols = 20, "Group1\nGroup2")
+            tags$textarea(id="cn", label = "グループ名", rows=4, cols = 20, "Group1\nGroup2")
             ),
           
           verticalLayout(
             tags$b("状態"), 
-            tags$textarea(id="rn", label = "Status", rows=4, cols = 20, "Case\nControl")
+            tags$textarea(id="rn", label = "状態", rows=4, cols = 20, "Case\nControl")
             )
           ),
         p(br()),
 
-        tags$b("Input data"), 
+        tags$b("入力データ"), 
 
           splitLayout(
             verticalLayout(
@@ -132,7 +132,7 @@ HTML("
 
   mainPanel(
 
-    h4("Data description"),
+    h4("データの説明"),
 
       tabsetPanel(
         tabPanel("データ", 
@@ -143,10 +143,10 @@ HTML("
           tableOutput("e.t")
           ),
 
-        tabPanel("Percentages for columns", 
+        tabPanel("列の割合", 
           tableOutput("p.t")
           ),
-        tabPanel("Pie Plot of Proportions", 
+        tabPanel("割合の円グラフ", 
           plotOutput("makeplot2", width = "800px", height = "400px") 
           ) )
         )
@@ -160,21 +160,21 @@ HTML("
         
       h4("仮説"),
       tags$b("帰無仮説"), 
-      HTML("<p> p&#8321 = p&#8322: the probabilities of cases are equal in both group. </p>"),
+      HTML("<p> p&#8321 = p&#8322: 症例の確率は両方の群で等しい </p>"),
       
       radioButtons("alt1", label = "対立仮説", 
         choiceNames = list(
-          HTML("p&#8321 &#8800 p&#8322: the probabilities of cases are not equal"),
-          HTML("p&#8321 < p&#8322: the probability of case in the first group is less than the second group"),
-          HTML("p&#8321 > p&#8322: the probability of case in the first group is greater than the second group")
+          HTML("p&#8321 &#8800 p&#8322: 症例の確率が等しくない"),
+          HTML("p&#8321 < p&#8322: 最初のグループの症例の確率は2番目のグループよりも小さい"),
+          HTML("p&#8321 > p&#8322: 最初のグループの症例の確率が2番目のグループよりも大きい")
           ),
         choiceValues = list("two.sided", "less", "greater")
         ),
 
-      radioButtons("cr", label = "Yates-correction", 
+      radioButtons("cr", label = "イェーツ補正", 
         choiceNames = list(
-          HTML("No: no cell has an expected value less than 5"),
-          HTML("Yes: at least one cell has an expected value less than 5")
+          HTML("No: 期待値が5未満のセルはない"),
+          HTML("Yes: 少なくとも1つのセルの期待値が5未満")
           ),
         choiceValues = list(FALSE, TRUE)
         )
@@ -187,7 +187,7 @@ HTML("
       ),
 
 
-      h4("Fisher's Exact Test"),
+      h4("フィッシャーの正確検定"),
     sidebarLayout(
 
       sidebarPanel(
@@ -197,7 +197,7 @@ HTML("
       HTML("
         <ul>
         <li> 二項分布に対する正規近似は有効ではないとする
-        <li> 各セルの期待値は5未満です
+        <li> 各セルの期待値は5未満
         </ul>" )
       ),
 
@@ -229,10 +229,10 @@ HTML("
       HTML("<p> セル[i、j]と[j、i]に分類される確率は同じではない </p>"),
       hr(),
 
-      h4("Data Preparation"),
-      helpText("2 x 2 Table"),
+      h4("データ準備"),
+      helpText("2 x 2 テーブル"),
 
-      tags$b("Input groups' names"),
+      tags$b("入力するグループ名"),
       splitLayout(
         verticalLayout(
           tags$b("治療Aの結果"),
@@ -245,7 +245,7 @@ HTML("
           )
         ),
       p(br()),
-      tags$b("Input data"),
+      tags$b("入力データ"),
         splitLayout(
           verticalLayout(
             tags$b("列 1"), 
