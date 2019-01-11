@@ -30,7 +30,7 @@ sidebarPanel(
 mainPanel(
   h4('符号検定の検定結果'), 
   tableOutput("psign.test"), 
-  helpText("Notes: 'Estimated.d' denotes the estimated differences of medians")
+  helpText("注: 'Estimated.d'は中央値の推定差を示す")
           )
 )
 
@@ -44,11 +44,11 @@ wstest.p <- sidebarLayout(
 
   h4("仮説"),
   tags$b("帰無仮説"),
-  p("m = 0: XとYの中央値の差はゼロではない。 対になった値の差の分布はゼロを中心に対称です。"),
+  p("m = 0: XとYの中央値の差はゼロではない。 対になった値の差の分布はゼロを中心に対称"),
 
   radioButtons("alt.pwsr", label = "対立仮説", 
     choiceNames = list(
-      HTML("m &#8800 0: XとYの中央値の差はゼロではありません。 対になった値の差の分布は、ゼロを中心に対称ではありません。"),
+      HTML("m &#8800 0: XとYの中央値の差はゼロではない。 対になった値の差の分布は、ゼロを中心に対称ではない"),
       HTML("m < 0: Yの母集団中央値がより大きい"),
       HTML("m > 0: Xの母集団中央値がより大きい")),
     choiceValues = list("two.sided", "less", "greater")),
@@ -58,10 +58,10 @@ wstest.p <- sidebarLayout(
   choices = list("標本は大きくない" = FALSE,
                  "標本は中程度の大きさ" = TRUE, 
                  "小さい標本サイズ" = TRUE), selected = FALSE),
-helpText("標本サイズが１０より大きい場合、通常の近似値が適用可能です")),
+helpText("標本サイズが１０より大きい場合、通常の近似値が適用可能")),
 
   mainPanel(h4('ウィルコクソンの符号順位検定の検定結果'), tableOutput("psr.test"), 
-    helpText("正規近似が適用されると、検定の名前は '連続性補正付きWilcoxon符号付き順位検定'になります")
+    helpText("正規近似が適用されると、検定の名前は '連続性補正付きWilcoxon符号付き順位検定'になる")
     ) )
 
 ##---------- data ----------
@@ -117,9 +117,9 @@ mainPanel(
       helpText(
         HTML("注:
                     <ul> 
-                    <li> 外れ値が存在する場合は、外れ値が赤で強調表示されます。 </li>
-                    <li> 赤の外れ値はシミュレートポイントをカバーしていない可能性があります。 </li>
-                    <li> 赤い外れ値は、横線の値のみを示します。</li>  
+                    <li> 外れ値が存在する場合は、外れ値が赤で強調表示される。 </li>
+                    <li> 赤の外れ値はシミュレートポイントをカバーしていない可能性がある。 </li>
+                    <li> 赤い外れ値は、横線の値のみを示す。</li>  
                     </ul>"))
         )
         ) ),
