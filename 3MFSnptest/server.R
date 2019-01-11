@@ -18,7 +18,7 @@ shinyServer(
 
  function(input, output) {
 
-  ## 1. One sample ----------------------------------------------------------------------------------------
+##---------- 1. one sample ----------
   A <- reactive({
     inFile <- input$file
     if (is.null(inFile)) {
@@ -90,8 +90,8 @@ shinyServer(
     colnames(res.table) <- res$method
     return(res.table)}, width = "500px", rownames = TRUE)
 
-  ## 2. Two independent samples ----------------------------------------------------------------------------------------
-  # data
+##---------- 2. two samples ----------
+
   B <- reactive({
     inFile <- input$file2
     if (is.null(inFile)) {
@@ -106,7 +106,7 @@ shinyServer(
        })
   
   #table
-  output$table2 <- renderDataTable({B()}, options = list(pageLength = 10))
+  output$table2 <- renderDataTable({B()}, options = list(pageLength = 5))
 
   output$bas2 <- renderTable({  ## don't use renerPrint to do renderTable
     x <- B()
@@ -141,8 +141,8 @@ shinyServer(
     x <- B()
     mx <- melt(B(), idvar = colnames(x))
     # density plot
-    plot1 <- ggplot(mx, aes(x="value", fill="variable")) + geom_histogram(binwidth=input$bin2, alpha=.5, position="identity") + ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
-    plot2 <- ggplot(mx, aes(x="value", colour="variable")) + geom_density()+ ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    plot1 <- ggplot(mx, aes(x=mx[,"value"], fill=mx[,"variable"])) + geom_histogram(binwidth=input$bin2, alpha=.5, position="identity") + ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    plot2 <- ggplot(mx, aes(x=mx[,"value"], colour=mx[,"variable"])) + geom_density()+ ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
     grid.arrange(plot1, plot2, ncol=2)  })
 
 #test
@@ -162,7 +162,7 @@ shinyServer(
     colnames(res.table) <- c(res$method)
     return(res.table)}, width = "500px", rownames = TRUE)
 
-  ## 2. two paired samples ----------------------------------------------------------------------------------------
+##---------- 3. paired sample ----------
 
   C <- reactive({
     inFile <- input$file3
@@ -179,7 +179,7 @@ shinyServer(
       return(csv)} })
   
   #table
-  output$table3 <- renderDataTable({C()}, options = list(pageLength = 10))
+  output$table3 <- renderDataTable({C()}, options = list(pageLength = 5))
 
   output$bas3 <- renderTable({  ## don't use renerPrint to do renderTable
     x <- C()
