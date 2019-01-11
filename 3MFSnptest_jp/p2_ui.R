@@ -18,7 +18,7 @@ sidebarPanel(
 h4("仮説"),
 tags$b("帰無仮説"),
 
-HTML("<p> m&#8321 = m&#8322: 各グループの中央値は等しいです。 各グループの値の分布は等しい </p>"),
+HTML("<p> m&#8321 = m&#8322: 各グループの中央値は等しい。 各グループの値の分布は等しい </p>"),
 
 radioButtons("alt.mwt", label = "対立仮説", 
   choiceNames = list(
@@ -37,7 +37,7 @@ mainPanel(
   h4("ウィルコクソン順位和検定の結果"), tableOutput("mwu.test"), 
   helpText(HTML("<ul>
       <li> 'Estimated.diff'は中央値の推定差を示します
-      <li> 正規近似が適用されると、検定の名前は '連続性補正付きWilcoxon符号付き順位検定'になります。 </li>  
+      <li> 正規近似が適用されると、検定の名前は '連続性補正付きWilcoxon符号付き順位検定'になる </li>  
       </ul>" ))
   )
 
@@ -50,7 +50,7 @@ sidebarPanel(
 
 h4("仮説"),
 tags$b("帰無仮説"),
-HTML("m&#8321 = m&#8322, 各グループの値の中央値は等しい"),
+HTML(p("m&#8321 = m&#8322, 各グループの値の中央値は等しい")),
 
 radioButtons("alt.md", label = "対立仮説", 
   choiceNames = list(
