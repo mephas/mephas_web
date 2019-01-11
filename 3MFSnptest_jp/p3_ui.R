@@ -21,9 +21,9 @@ sidebarPanel(
 
   radioButtons("alt.ps", label = "対立仮説", 
     choiceNames = list(
-      HTML("m &#8800 0: the difference of medians between X and Y is not zero; X and Y are not equally effective"),
-      HTML("m < 0: the population median of X is greater; X is more effective"),
-      HTML("m > 0: the population median of Y is greater; Y is more effective")),
+      HTML("m &#8800 0: XとYの中央値の差はない。 XとYは等しく効果的ではない"),
+      HTML("m < 0: Xの母集団中央値は大きい。 Xがより効果的である"),
+      HTML("m > 0: Yの母集団中央値は大きい。 Yがより効果的である")),
       choiceValues = list("two.sided", "less", "greater")) 
   ),
 
@@ -44,13 +44,13 @@ wstest.p <- sidebarLayout(
 
   h4("仮説"),
   tags$b("帰無仮説"),
-  p("m = 0: the difference of medians between X and Y is not zero; the distribution of the differences in paired values is symmetric around zero."),
+  p("m = 0: XとYの中央値の差はゼロではない。 対になった値の差の分布はゼロを中心に対称です。"),
 
   radioButtons("alt.pwsr", label = "対立仮説", 
     choiceNames = list(
-      HTML("m &#8800 0: the difference of medians between X and Y is not zero; the distribution of the differences in paired values is not symmetric around zero"),
-      HTML("m < 0: the population median of Y is greater"),
-      HTML("m > 0: the population median of X is greater")),
+      HTML("m &#8800 0: XとYの中央値の差はゼロではありません。 対になった値の差の分布は、ゼロを中心に対称ではありません。"),
+      HTML("m < 0: Yの母集団中央値がより大きい"),
+      HTML("m > 0: Xの母集団中央値がより大きい")),
     choiceValues = list("two.sided", "less", "greater")),
 
   h4("補正"),

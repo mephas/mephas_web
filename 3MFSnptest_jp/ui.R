@@ -151,22 +151,22 @@ HTML("
 <b> 注 </b>
 
 <ul>
-  <li> The paired observations are designated X and Y ,
-  <li> D = X-Y, the differences between paired (X, Y) 
-  <li> m is the population median of D, or the 50 percentile of the underlying distribution of the D. 
+  <li> 対になった観測値はXとYとします ,
+  <li> D = X-Y、（X、Y）間の差 
+  <li> mはDの母集団中央値、またはDの分布の50パーセンタイルです。 
 </ul>
 
 <b> 前提として </b>
 
 <ul>
   <li>（X、Y）の観測値は対になっており、同じ母集団からのものです
-  <li> X's and Y's could be continuous (i.e., interval or ratio) and ordinal 
-  <li> D's are independent and come from the same population 
+  <li> ＸおよびＹは連続的（すなわち、間隔または比率）および序数であり得る。 
+  <li>Dは独立しており、同じ集団から来ています
 </ul>
 
 
 
-<p> Given pairs of observations (such as weight pre- and post-treatment) for each subject, both test determine if one of the pair (such as pre-treatment) tends to be greater than (or less than) the other pair (such as post-treatment).</p>
+<p> 各被験者について一対の観察結果（体重の前後処理など）を考慮して、両方の検定で、ペアの1つ（治療前など）が他のペア（たとえば以下）よりも大きい（または小さい）傾向があるかどうかを判断します。 後処理）.</p>
 
 "),
 
@@ -192,13 +192,13 @@ HTML("
   <b> 補足仮定 </b>
   
   <ul>
-    <li> The distribution of D's is symmetric
-    <li> No ties in D's
+    <li> Dの分布は対称です
+    <li> それぞれDは独立
   </ul>
 
   "),
   
-helpText("Ties means the same values"),
+helpText("独立とはすべての値の価値が同じであるとします"),
 
 wstest.p
 
