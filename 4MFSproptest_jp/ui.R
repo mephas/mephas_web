@@ -63,8 +63,8 @@ HTML("
 
     hr(),
 
-    h4("Data Preparation"),  
-      numericInput("x", "H出来事の数 x", value = 5, min = 0, max = 10000, step = 1),
+    h4("データ準備"),  
+      numericInput("x", "出来事の数 x", value = 5, min = 0, max = 10000, step = 1),
       numericInput("n", "試行回数 n", value = 10, min = 1, max = 50000, step = 1),
       numericInput('p', HTML("確率 p&#8320"), value = 0.5, min = 0, max = 1, step = 0.1)
     ),
