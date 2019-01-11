@@ -73,21 +73,21 @@ hr(),
 h4("Contingency Table Description"),
 tabsetPanel(
 
-tabPanel("テーブル", 
+tabPanel("テーブル", p(br()),
   dataTableOutput("ct")
   ),
 
-tabPanel("割合",
+tabPanel("割合", p(br()),
   h4("行の割合"), tableOutput("prt"),
   h4("列の割合"), tableOutput("pct"),
   h4("全体の割合"), tableOutput("pt")
   ),
 
-tabPanel("Expected value in each cell",
+tabPanel("Expected value in each cell", p(br()),
   tableOutput("c.e")
   ),
 
-tabPanel("頻度の棒グラフ (回数)",
+tabPanel("頻度の棒グラフ (回数)", p(br()),
   plotOutput("makeplot", width = "800px", height = "400px")
   )
   )
@@ -134,12 +134,12 @@ hr(),
 
   h4("Contingency Table Description"),
   tabsetPanel(
-    tabPanel("分割表",
+    tabPanel("分割表", p(br()),
       dataTableOutput("ct.tr"),
       helpText("注: パーセンテージ ＝ ケース/合計")
       ),
 
-    tabPanel("パーセンテージの棒グラフ",
+    tabPanel("パーセンテージの棒グラフ", p(br()),
     plotOutput("makeplot.tr", width = "800px", height = "400px")
       )
     )

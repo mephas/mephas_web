@@ -73,21 +73,21 @@ hr(),
 h4("Contingency Table Description"),
 tabsetPanel(
 
-tabPanel("Contingency table", 
+tabPanel("Contingency table", p(br()),
   dataTableOutput("ct")
   ),
 
-tabPanel("Percentages",
+tabPanel("Percentages", p(br()),
   h4("Percentages for rows"), tableOutput("prt"),
   h4("Percentages for columns"), tableOutput("pct"),
   h4("Percentages for total"), tableOutput("pt")
   ),
 
-tabPanel("Expected value in each cell",
+tabPanel("Expected value in each cell",p(br()),
   tableOutput("c.e")
   ),
 
-tabPanel("Barplot of frequency (counts)",
+tabPanel("Barplot of frequency (counts)",p(br()),
   plotOutput("makeplot", width = "800px", height = "400px")
   )
   )
@@ -134,12 +134,12 @@ hr(),
 
   h4("Contingency Table Description"),
   tabsetPanel(
-    tabPanel("Contingency Table",
+    tabPanel("Contingency Table",p(br()),
       dataTableOutput("ct.tr"),
       helpText("Note: Percentage = Case/Total")
       ),
 
-    tabPanel("Barplot of Case Percentage",
+    tabPanel("Barplot of Case Percentage",p(br()),
     plotOutput("makeplot.tr", width = "800px", height = "400px")
       )
     )

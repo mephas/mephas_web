@@ -7,14 +7,18 @@
 ## DT: 2019-01-08
 ##
 ##----------#----------#----------#----------
+
+
+
 shinyUI(
 
 tagList(
+# shinythemes::themeSelector(),
 navbarPage(
-
+  #theme = shinytheme("cosmo"),
   title = "分散分析",
 
-##---------- Panel 1 ----------
+  ## 2. One way anova ---------------------------------------------------------------------------------
   tabPanel(
     "一元",
 
@@ -27,54 +31,46 @@ navbarPage(
       tags$li("標本は、同じ分散を有する集団からのものである。")
       ),
 
-
     sidebarLayout(
       sidebarPanel(
-        h4("仮説"),
+        helpText("仮説"),
         tags$b("帰無仮説"),
         HTML("<p>すべてのグループの平均は等しい</p>"),
-        tags$b("対立仮説"),
+        tags$b("代替仮説"),
         HTML("<p>グループの平均はすべて等しいわけではない</p>"),
         hr(),
         ##----Import data----##
-        h4("Data Preparation"),
+        helpText("インポート"),
 
         tabsetPanel(
           ##-------input data-------##s
           tabPanel(
             "手入力",
             p(br()),
-            helpText("Please input the values and factors' name (missing value is input as NA)"),
-
-            splitLayout(
-
-              verticalLayout(
-              tags$b("Values"),
-              tags$textarea(
-              id = "x1",
+            helpText("誤った値はNAとして表示されます"),
+            tags$textarea(
+              id = "x1", #p
               rows = 10,
               "0.55\n3.22\n1.08\n1.99\n0.93\n2.98\n2.93\n2.41\n1.98\n1.94\n2.27\n2.69\n2.23\n3.87\n1.43\n3.6\n1.51\n1.7\n2.79\n2.96\n4.67\n5.37\n1.77\n3.52\n5.62\n4.22\n3.33\n3.91\n4.85\n3.4"
-              )),
-
-            verticalLayout(
-            tags$b("Factors"), 
+              ),
+            p(br()),
+            
+            helpText("The factor"),
             tags$textarea(
               id = "f11", #p
               rows = 10,
               "A1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3"
-              ))
-            )
-            ,
+              ),
 
-        helpText("標本の名前変更"),
+        helpText("標本の名前を変えることができます"),
         tags$textarea(id = "cn1", rows = 2, "X\nA")),
 
                     ##-------csv file-------##
           tabPanel(
-            "アップロード.csv",
+            "アップロード.csv ファイルのみ",
             p(br()),
             fileInput(
-              'file1', '.csvファイルを選んでください', #p
+              'file1', ' .csvファイルを選んでください', #p
                 accept = c(
                 'text/csv',
                 'text/comma-separated-values,text/plain',
@@ -84,39 +80,38 @@ navbarPage(
             checkboxInput('header1', 'Header', TRUE), #p
             radioButtons('sep1', 'Separator', #p
               c(
-                Comma = ',',
-                Semicolon = ';',
-                Tab = '\t'
+                カンマ = ',',
+                セミコロン　= ';',
+                タブ = '\t'
                 ),
               ','
               ))
-          )
-        ),
+          ),
+
+        hr(),
+        h4("データ"),
+        dataTableOutput("table1")),
 
       mainPanel(
-        h4("ANOVA Table"),
+        h3(tags$b("検定結果")),
         tableOutput("anova1"),
+        #tags$b('Interpretation'), p("NULL"),
+
         hr(),
+        h3(tags$b('記述統計')),
+        verbatimTextOutput("bas1"),
 
-        h4("Data Description"),
-        tabsetPanel(
-          tabPanel("データ",p(br()),
-          dataTableOutput("table1")
-            ),
+        hr(),
+        h3(tags$b("平均値の差のプロット")),
+        plotOutput("mmean1", width = "500px", height = "300px")
 
-          tabPanel('記述統計',p(br()),
-          verbatimTextOutput("bas1")),
 
-          tabPanel("Marginal means plot",p(br()),
-            plotOutput("mmean1", width = "500px", height = "300px")
-            )
-          )
         )
+
       )
     ),
 
-##---------- Panel 2 ----------
-
+ ## 2. two way anova ---------------------------------------------------------------------------------
   tabPanel(
     "二元",
 
@@ -124,10 +119,10 @@ navbarPage(
 
     tags$b("前提として"),
     tags$ul(
-      tags$li("標本から得られた集団は、正規分布に分布している、もしくはそれに近い"),
+      tags$li("標本から得られた集団は、正規分布に分布している、もしくはそれに近い。"),
       tags$li("標本はそれぞれ独立する"),
-      tags$li("母集団の分散は等しい"),
-      tags$li("グループの標本サイズは同じ")
+      tags$li("母集団の分散は等しい。"),
+      tags$li("グループの標本サイズは同じ。")
 
       ),
 
@@ -141,42 +136,35 @@ navbarPage(
         tags$b("帰無仮説 3"),
         HTML("<p>二つの因子の間に相関はない</p>"),
         hr(),
+        
         ##----Import data----##
-        h4("Data Preparation"),
+        helpText("インポート"),
 
         tabsetPanel(
           ##-------input data-------##s
           tabPanel(
             "手入力",
             p(br()),
-            helpText("Missing value is input as NA"),
-
-            splitLayout(
-
-            verticalLayout(
-            tags$b("Values"), 
+            helpText("誤った値はNAとして表示されます"),
             tags$textarea(
               id = "x", #p
               rows = 10,
               "0.55\n3.22\n1.08\n1.99\n0.93\n2.98\n2.93\n2.41\n1.98\n1.94\n2.27\n2.69\n2.23\n3.87\n1.43\n3.6\n1.51\n1.7\n2.79\n2.96\n4.67\n5.37\n1.77\n3.52\n5.62\n4.22\n3.33\n3.91\n4.85\n3.4"
-              )),
-
-            verticalLayout(
-            tags$b("因子 1"), 
+              ),
+            p(br()),
+            splitLayout(
+            helpText("第一因子"),
             tags$textarea(
               id = "f1", #p
               rows = 10,
               "A1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3"
-              )),
-
-            verticalLayout(
-            tags$b("因子 2"), 
+              ),
+            helpText("第二因子"),
             tags$textarea(
               id = "f2", #p
               rows = 10,
               "T1\nT1\nT1\nT1\nT1\nT1\nT1\nT1\nT1\nT1\nT1\nT1\nT1\nT1\nT1\nT2\nT2\nT2\nT2\nT2\nT2\nT2\nT2\nT2\nT2\nT2\nT2\nT2\nT2\nT2"
-              ))
-            ),
+              )),
             
         helpText("標本の名前変更"),
         tags$textarea(id = "cn", rows = 3, "X\nA\nB") #p
@@ -184,7 +172,7 @@ navbarPage(
 
           ##-------csv file-------##
           tabPanel(
-            "アップロード.csv",
+            "アップロード.csv ファイル",
             p(br()),
             fileInput(
               'file', '.csv ファイルを選ぶ', #p
@@ -197,50 +185,44 @@ navbarPage(
             checkboxInput('header', 'Header', TRUE), #p
             radioButtons('sep', 'Separator', #p
               c(
-                Comma = ',',
-                Semicolon = ';',
-                Tab = '\t'
+                コンマ = ',',
+                セミコロン = ';',
+                タブ = '\t'
                 ),
               ','
               )
-            ))
-        ),
+            )),
+
+        hr(),
+        h4("データ"),
+        dataTableOutput("table")),
 
 
       mainPanel(
-
-        h3(tags$b("ANOVA Table")),
+        h3(tags$b("結果")),
         checkboxInput('inter', 'Interaction', TRUE), #p
         tableOutput("anova"),
+        #tags$b('Interpretation'), p("NULL"),
 
         hr(),
+        h3(tags$b('記述統計')),
+          numericInput("grp", 'Choose the factor in the Data Display column', 2, 2, 3, 1),
+          verbatimTextOutput("bas"),
 
-        tabsetPanel(
-        tabPanel("データ", p(br()),
-        dataTableOutput("table")
-        ),
-
-        tabPanel('記述統計',p(br()),
-        numericInput("grp", 'Choose the factor in the Data Display column', 2, 2, 3, 1),
-        verbatimTextOutput("bas")
-            ),
-
-        tabPanel("平均プロット",p(br()),
+        hr(),
+        h3(tags$b("平均プロット")),
         checkboxInput('tick', 'Untick to change the group and x-axis', TRUE), #p
-        plotOutput("meanp.a", width = "500px", height = "300px")
-          ),
+        plotOutput("meanp.a", width = "500px", height = "300px"),
 
-        tabPanel("Marginal means plot",p(br()),
-          checkboxInput('tick2', 'Untick to change the x-axis', TRUE), #p
+        hr(),
+        h3(tags$b("平均の差のプロット")),
+        checkboxInput('tick2', 'Untick to change the x-axis', TRUE), #p
         plotOutput("mmean.a", width = "500px", height = "300px")
-          )
-          )
         )
       )
     ), ##
 
-##---------- Panel 3 ----------
-
+  ## 3. multiple comparision ---------------------------------------------------------------------------------
   tabPanel(
     "多重比較",
     headerPanel("多重比較"),
@@ -260,40 +242,34 @@ navbarPage(
         hr(),
         
         ##----Import data----##
-        h4("Data Preparation"),
+        helpText("データインポート"),
 
         tabsetPanel(
           ##-------input data-------##s
           tabPanel(
             "手入力",
             p(br()),
-            helpText("Missing value is input as NA"),
-
-            splitLayout(
-            verticalLayout(
-            tags$b("Values"), 
+            helpText("誤った値はNAとして表示されます"),
             tags$textarea(
               id = "xm", #p
               rows = 10,
               "0.55\n3.22\n1.08\n1.99\n0.93\n2.98\n2.93\n2.41\n1.98\n1.94\n2.27\n2.69\n2.23\n3.87\n1.43\n3.6\n1.51\n1.7\n2.79\n2.96\n4.67\n5.37\n1.77\n3.52\n5.62\n4.22\n3.33\n3.91\n4.85\n3.4"
-              )),
-
-            verticalLayout(
-            tags$b("因子"), 
+              ),
+            p(br()),
+            helpText("因子"),
             tags$textarea(
               id = "fm", #p
               rows = 10,
               "A1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3\nA1\nA2\nA3"
-              ))
-            ),
+              ),
 
-        helpText("Change the names of sample (optinal)"),
+        helpText("標本の名前変更"),
         tags$textarea(id = "cnm", rows = 2, "X\nA") #p
             ),
         
          ##-------csv file-------##
           tabPanel(
-            "アップロード .csv",
+            "アップロード .csv ファイル",
             p(br()),
             fileInput(
               'filem', '.csvファイルを選ぶ', #p
@@ -306,22 +282,24 @@ navbarPage(
             checkboxInput('headerm', 'Header', TRUE), #p
             radioButtons('sepm', 'Separator', #p
               c(
-                Comma = ',',
-                Semicolon = ';',
-                Tab = '\t'
+                カンマ = ',',
+                セミコロン = ';',
+                タブ = '\t'
                 ),
               ','
               ) 
-          ))
-        ),
+          )),
+
+        hr(),
+        h4("データ"),
+        
+        dataTableOutput("tablem")),
 
        mainPanel(
-        h4("結果"),
+        h3(tags$b("結果")),
+        h3("Pairwise t-test"),
 
-        tabsetPanel(
-
-          tabPanel("Pairwise t-test", p(br()),
-          radioButtons("method", "Choose one method", 
+        radioButtons("method", "Method", 
           c(Bonferroni = 'bonferroni',
             Holm = 'holm',
             Hochberg = 'hochberg',
@@ -330,29 +308,28 @@ navbarPage(
             Benjamini_Yekutieli = 'BY'
             ), 
           "bonferroni"),
-        verbatimTextOutput("multiple")
-            ),
+        verbatimTextOutput("multiple"),
 
-          tabPanel("Tukey Honest Significant Differences", p(br()),
-            verbatimTextOutput("hsd")
-            )
-          ),
-
-        h4("データ"),
-        dataTableOutput("tablem")
-
+        hr(),
+        h3("Tukey Honest Significant Differences"),
+        verbatimTextOutput("hsd")
         )
       ) 
   ),
+##----------
+tabPanel((a("ホーム",
+ #target = "_blank",
+ style = "margin-top:-30px;",
+ href = paste0("https://pharmacometrics.info/mephas/", "index_jp.html")))),
 
-##---------- other panels ----------
-
-source("../0tabs/home_jp.R",local=TRUE)$value,
-source("../0tabs/stop_jp.R",local=TRUE)$value
-
-
-
+tabPanel(
+      tags$button(
+      id = 'close',
+     style = "margin-top:-10px;",
+      type = "button",
+      class = "btn action-button",
+      onclick = "setTimeout(function(){window.close();},500);",  # close browser
+      "停止"))
 
 
 )))
-

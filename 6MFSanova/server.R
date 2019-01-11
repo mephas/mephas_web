@@ -3,21 +3,21 @@ if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(psych)) {install.packages("psych")}; library(psych)
 if (!require(Rmisc)) {install.packages("Rmisc")}; library(Rmisc)
-##----------------------
+##----------#----------#----------#----------
 ##
-## anova server
+## 6MFSanova SERVER
 ##
-## 2018-11-30
+## Language: EN
+## 
+## DT: 2019-01-11
 ##
-##-----------------------
+##----------#----------#----------#----------
 
 shinyServer(
 
 function(input, output) {
-#options(warn = -1)
-#options(digits = 4)
 
-# One way ANOVA
+##---------- 1.One way ANOVA ----------
 Y1 <- reactive({
   inFile <- input$file1
   if (is.null(inFile)) {
@@ -39,7 +39,7 @@ Y1 <- reactive({
   }
 })
 
-output$table1 <- renderDataTable({Y1()}, options = list(pageLength = 20))
+output$table1 <- renderDataTable({Y1()}, options = list(pageLength = 5))
 
 output$bas1 <- renderPrint({
   x <- Y1()
@@ -75,7 +75,7 @@ output$anova1 <- renderTable({
   width = "500px", rownames = TRUE)
 
 
-# 2. two way ANOVA
+##---------- 2. two way ANOVA ----------
 Y <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
@@ -98,7 +98,7 @@ Y <- reactive({
   }
 })
 
-output$table <- renderDataTable({Y()}, options = list(pageLength = 20))
+output$table <- renderDataTable({Y()}, options = list(pageLength = 5))
 
 output$bas <- renderPrint({
   x <- Y()
@@ -106,10 +106,6 @@ output$bas <- renderPrint({
   #rownames(res) = c("number.var", "number.null", "number.na")
   return(res)
   })
-
-
-  #plots
-
 
 output$meanp.a = renderPlot({
   x = Y()
@@ -175,7 +171,7 @@ output$anova <- renderTable({
   width = "500px", rownames = TRUE)
 
  
-# 2. multiple comparision
+##---------- 2. multiple comparison ----------
 Ym <- reactive({
   inFile <- input$filem
   if (is.null(inFile)) {
@@ -198,7 +194,7 @@ Ym <- reactive({
   }
 })
 
-output$tablem <- renderDataTable({Ym()}, options = list(pageLength = 20))
+output$tablem <- renderDataTable({Ym()}, options = list(pageLength = 5))
 
 
 output$multiple <- renderPrint({
@@ -213,6 +209,8 @@ output$hsd <- renderPrint({
   res <- TukeyHSD(aov(x[,names(x)[1]]~x[,names(x)[2]]))
   return(res)
   })
+
+
 
 observe({
       if (input$close > 0) stopApp()                             # stop shiny
