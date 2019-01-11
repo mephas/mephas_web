@@ -42,11 +42,11 @@ sidebarPanel(
 h4("仮説"),
 
 tags$b("帰無仮説"),
-HTML("<p> m = m&#8320: 母集団の中央値は指定された値と同じです。 データセットの分布はデフォルト値に対して対称です </p>"),
+HTML("<p> m = m&#8320: 母集団の中央値は指定された値と同じである。 データセットの分布はデフォルト値に対して対称である </p>"),
 
 radioButtons("alt.wsr", label = "対立仮説", 
   choiceNames = list(
-  HTML("m &#8800 m&#8320: Xの母集団中央値が指定された値と等しくありません。 または、データセットの分布がデフォルト値に対して対称的ではない"),
+  HTML("m &#8800 m&#8320: Xの母集団中央値が指定された値と等しくない。 または、データセットの分布がデフォルト値に対して対称的ではない"),
   HTML("m < m&#8320: Xの母集団中央値が指定された値より小さい"),
   HTML("m > m&#8320: Xの母集団中央値が指定された値より大きい")),
 choiceValues = list("two.sided", "less", "greater")),
@@ -56,12 +56,12 @@ radioButtons("nap.wsr", label = "正規近似",
   choices = list("標本は大きくない" = FALSE,
                  "標本は中程度の大きさ" = TRUE, 
                  "小さい標本サイズ" = TRUE), selected = FALSE),
-helpText("標本サイズが１０より大きい場合、通常の近似値が適用可能です")),
+helpText("標本サイズが１０より大きい場合、通常の近似値が適用可能である")),
 
   mainPanel(
     h4('ウィルコクソンの符号順位検定の検定結果'), 
     tableOutput("ws.test"), 
-    helpText("正規近似が適用されると、検定の名前は '連続性補正付きWilcoxon符号付き順位検定'になります")
+    helpText("正規近似が適用されると、検定の名前は '連続性補正付きWilcoxon符号付き順位検定'になる")
   )
 )
 
@@ -75,7 +75,7 @@ h4("データ挿入"),
   tabsetPanel(
   ##-------input data-------## 
   tabPanel("手入力", p(br()),
-    helpText("違った値はNAと表示されます"),
+    helpText("違った値はNAと表示される"),
 
     tags$textarea(id="a", rows=10, "1.8\n3.3\n6.7\n1.4\n2.2\n1.6\n13.6\n2.8\n1.0\n2.8\n6.5\n6.8\n0.7\n0.9\n3.4\n3.3\n1.4\n0.9\n1.4\n1.8"),
     helpText("サンプルの名称変更"), 
@@ -84,7 +84,7 @@ h4("データ挿入"),
 
   ##-------csv file-------##   
   tabPanel("アップロード .csv", p(br()),
-    fileInput('file', '.csvファイルを指定してください', 
+    fileInput('file', '.csvファイルを指定', 
       accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
     checkboxInput('header', 'ヘッダー', TRUE), #p
     radioButtons('sep', '区切り', c(Comma=',', Semicolon=';', Tab='\t'), ',')) 
@@ -123,9 +123,9 @@ mainPanel(
       helpText(
         HTML("注:
                     <ul> 
-                    <li> 外れ値が存在する場合は、外れ値が赤で強調表示されます。 </li>
-                    <li> 赤の外れ値はシミュレートポイントをカバーしていない可能性があります。 </li>
-                    <li> 赤い外れ値は、横線の値のみを示します。</li>  
+                    <li> 外れ値が存在する場合は、外れ値が赤で強調表示される </li>
+                    <li> 赤の外れ値はシミュレートポイントをカバーしていない可能性がある </li>
+                    <li> 赤い外れ値は、横線の値のみを示す</li>  
                     </ul>"))
         )
         ) ),
