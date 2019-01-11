@@ -97,11 +97,11 @@ h4("データ挿入"),
 
 mainPanel(
 
-  h4("Data Description"),
+  h4("データの説明"),
 
   tabsetPanel(
 
-    tabPanel("Data display", p(br()),  
+    tabPanel("データの表示", p(br()),  
 
       dataTableOutput("table")),
 
