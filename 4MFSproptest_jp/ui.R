@@ -135,15 +135,15 @@ HTML("
     h4("データの説明"),
 
       tabsetPanel(
-        tabPanel("データ", 
+        tabPanel("データ", p(br()),
           tableOutput("t")
           ),
 
-        tabPanel("予測できる値", 
+        tabPanel("予測できる値", p(br()),
           tableOutput("e.t")
           ),
 
-        tabPanel("列の割合", 
+        tabPanel("列の割合", p(br()),
           tableOutput("p.t")
           ),
         tabPanel("割合の円グラフ", 

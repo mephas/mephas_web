@@ -137,18 +137,18 @@ HTML("
     h4("Data description"),
 
       tabsetPanel(
-        tabPanel("Display of Table", 
+        tabPanel("Display of Table", p(br()),
           tableOutput("t")
           ),
 
-        tabPanel("Expected values", 
+        tabPanel("Expected values", p(br()),
           tableOutput("e.t")
           ),
 
-        tabPanel("Percentages for columns", 
+        tabPanel("Percentages for columns", p(br()),
           tableOutput("p.t")
           ),
-        tabPanel("Pie Plot of Proportions", 
+        tabPanel("Pie Plot of Proportions", p(br()),
           plotOutput("makeplot2", width = "800px", height = "400px") 
           ) )
         )

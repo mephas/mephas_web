@@ -1,20 +1,14 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## The regression models: lm, logistic model, cox model, ui
-## 
-##    0. data preparation
-## 
-## DT: 2018-12-13
+## 7MFSreg UI
 ##
-##----------------------------------------------------------------
-
-
-#tabPanel("Dataset",
-
-  #titlePanel("Upload your dataset"),
-
-#helpText("Before user's data is uploaded, the example data (mtcars) is being shown ."),
-
+##    >data
+##
+## Language: EN
+## 
+## DT: 2019-01-11
+##
+##----------#----------#----------#----------
   sidebarLayout(
 
     sidebarPanel(

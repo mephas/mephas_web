@@ -8,7 +8,7 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 ##
 ## 4MFSproptest SERVER
 ##
-## Language: EN
+## Language: CN
 ## 
 ## DT: 2019-01-11
 ##
