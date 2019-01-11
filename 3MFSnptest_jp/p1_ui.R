@@ -120,17 +120,13 @@ mainPanel(
       wellPanel(
         verbatimTextOutput("info"), hr(),
 
-        helpText(
-          HTML(
-            ":
-            <ul>
-            <li> Points are simulated and located randomly in the same horizontal line 
-            <li> Outliers will be highlighted in red, if existing
-            <li> The red outlier may not cover the simulated point
-            <li> The red outlier only indicates the value in horizontal line
-            </ul>"
-            )
-          )
+      helpText(
+        HTML("注:
+                    <ul> 
+                    <li> 外れ値が存在する場合は、外れ値が赤で強調表示されます。 </li>
+                    <li> 赤の外れ値はシミュレートポイントをカバーしていない可能性があります。 </li>
+                    <li> 赤い外れ値は、横線の値のみを示します。</li>  
+                    </ul>"))
         )
         ) ),
 
