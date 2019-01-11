@@ -82,26 +82,26 @@ wstest
 
 ##---------- Panel 2 ----------
 
-tabPanel("Two Independent Samples",
+tabPanel("2つの独立した標本",
 
-headerPanel("Wilcoxon Rank-Sum Test (Mann-Whitney U Test), Mood's Median Test"),
+headerPanel("ウィルコクソン順位和検定（Mann-Whitney U検定）、気分の中央値検定"),
 
 HTML("
 
-<p> To determine whether a randomly selected sample will be less than or greater than a second randomly selected sample. </p>
+<p> 無作為に選択されたサンプルが、2番目の無作為に選択されたサンプルよりも小さいか大きいかを決定すること。 </p>
 
 <b> 注 </b>
   <ul>
-  <li> X is the first randomly selected sample, while Y is the second</li>
-  <li> m&#8321 is the population median of X, or the 50 percentile of the underlying distribution of X </li>  
-  <li> m&#8322 is the population median of Y, or the 50 percentile of the underlying distribution of Y </li> 
+  <li> Xは最初にランダムに選択されたサンプルであり、Yは2番目のサンプルです。</li>
+  <li> m&#8321 はXの母集団中央値、またはXの根底にある分布の50パーセンタイルです </li>  
+  <li> m&#8322 は、Yの母集団中央値、またはYの根底にある分布の50パーセンタイルです </li> 
   </ul>
 
 <b> 前提として </b>  
   <ul>
-  <li> All the observations from both groups are independent of each other, no paired or repeated data </li>
-  <li> X and Y could be continuous (i.e., interval or ratio) and ordinal (i.e., at least, of any two observations, which is the greater) </li>  
-  <li> X and Y are similar in distribution's shape </li> 
+  <li> 両方のグループからのすべての観測値は互いに独立しており、ペアデータまたは繰り返しデータはありません。 </li>
+  <li> ＸおよびＹは、連続的（すなわち、間隔または比率）および序数的（すなわち、少なくとも、任意の２つの観測値のうち、より大きい方）であり得る。 </li>  
+  <li> XとYは、分布の形が似ています </li> 
   </ul>
 
   "),
@@ -112,29 +112,29 @@ twosample,
 hr(),
 
 ##---------- 2.2 ----------
-h4("Wilcoxon Rank-Sum Test, Mann-Whitney U Test, Mann-Whitney-Wilcoxon Test, Wilcoxon-Mann-Whitney Test"),
+h4("ウィルコクソン順位和検定、マン - ホイットニーU検定、マン - ホイットニー - ウィルコクソン検定、ウィルコクソン - マン - ホイットニー検定"),
 
 HTML("
 
-<p> Not require the assumption of normal distributions; nearly as efficient as the t-test on normal distributions. </p>
+<p> 正規分布の仮定を必要としません。 正規分布のt検定とほぼ同じくらい効率的です。 </p>
 
 <b> 補足仮定  </b>
 
 <ul>
-<li> No outliers (to determine if the distributions of the two groups are similar in shape and spread)
-<li> If outliers exist, the test is used for testing distributions (to determine if the distributions of the two groups are different in shape and spread)
+<li> 外れ値なし（2つのグループの分布の形状と広がりが似ているかどうかを判断するため）
+<li> 外れ値が存在する場合、検定は分布の検定に使用されます（2つのグループの分布の形状と広がりが異なるかどうかを判断するため）
 </ul>
 
-<p> Outliers will affect the spread of data  </p>
+<p> 外れ値はデータの拡散に影響します  </p>
   "),
 
 wrtest,
 hr(),
 
 ##---------- 2.3 ----------
-h4("Mood's Median Test"),
+h4("気分の中央値検定"),
 
-p("A special case of Pearson's chi-squared test. It has low power (efficiency) for moderate to large sample sizes. "),
+p("ピアソンのカイ2乗検定の特別な場合、適度なサンプルサイズから大きなサンプルサイズまで、効率的です。"),
 
 mmtest
 
