@@ -18,26 +18,26 @@ sidebarPanel(
 h4("仮説"),
 tags$b("帰無仮説"),
 
-HTML("<p> m&#8321 = m&#8322: the medians of each group are equal; the distribution of values for each group are equal </p>"),
+HTML("<p> m&#8321 = m&#8322: 各グループの中央値は等しいです。 各グループの値の分布は等しい </p>"),
 
 radioButtons("alt.mwt", label = "対立仮説", 
   choiceNames = list(
-    HTML("m&#8321 &#8800 m&#8322: the population medians of each group are not equal; there is systematic difference in the distribution of values for the groups"),
-    HTML("m&#8321 < m&#8322: the population median of X is greater"),
-    HTML("m&#8321 > m&#8322: the population median of Y is greater")),
+    HTML("m&#8321 &#8800 m&#8322: 各グループの母集団中央値は等しくない。 グループの値の分布に体系的な違いがある"),
+    HTML("m&#8321 < m&#8322: Xの母集団中央値が大きい"),
+    HTML("m&#8321 > m&#8322: Yの母集団中央値が大きい")),
   choiceValues = list("two.sided", "less", "greater")),
 
 h4("補正"),
 radioButtons("nap.mwt", label = "正規近似", 
-  choices = list("Sample size is not large" = FALSE,
-                 "Sample size is moderate large" = TRUE, 
-                 "Small sample size" = TRUE), selected = FALSE)),
+  choices = list("標本サイズは大きくない" = FALSE,
+                 "標本は中程度の大きさ" = TRUE, 
+                 "小さい標本サイズ" = TRUE), selected = FALSE)),
 
 mainPanel(
   h4("Results of Wilcoxon Rank-Sum Test"), tableOutput("mwu.test"), 
   helpText(HTML("<ul>
-      <li> 'Estimated.diff' denotes the estimated differences of medians
-      <li> When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction' </li>  
+      <li> 'Estimated.diff'は中央値の推定差を示します
+      <li> 正規近似が適用されると、検定の名前は '連続性補正付きWilcoxon符号付き順位検定'になります。 </li>  
       </ul>" ))
   )
 
@@ -50,17 +50,17 @@ sidebarPanel(
 
 h4("仮説"),
 tags$b("帰無仮説"),
-HTML("m&#8321 = m&#8322, the medians of values for each group are equal"),
+HTML("m&#8321 = m&#8322, 各グループの値の中央値は等しい"),
 
 radioButtons("alt.md", label = "対立仮説", 
   choiceNames = list(
-    HTML("m&#8321 &#8800 m&#8322: the population medians of each group are not equal"),
-    HTML("m&#8321 < m&#8322: the population median of X is greater"),
-    HTML("m&#8321 > m&#8322: the population median of Y is greater")),
+    HTML("m&#8321 &#8800 m&#8322: 各グループの母集団中央値が等しくない"),
+    HTML("m&#8321 < m&#8322: Xの母集団中央値がより大きい"),
+    HTML("m&#8321 > m&#8322: Yの母集団中央値がより大きい")),
   choiceValues = list("two.sided", "less", "greater"))),
 
 mainPanel(
-  h4("Results of Mood's Median Test"), tableOutput("mood.test") 
+  h4("ムード中央値検定の結果"), tableOutput("mood.test") 
   ) 
 )
 
@@ -87,11 +87,11 @@ h4("データ挿入"),
 
 mainPanel(
 
-  h4("Data Description"),
+  h4("データの説明"),
 
   tabsetPanel(
 
-    tabPanel("Data display", p(br()),  
+    tabPanel("データ表示", p(br()),  
 
       dataTableOutput("table2")),
 
@@ -120,7 +120,7 @@ mainPanel(
       ))
            ),
 
-    tabPanel("Histogram", p(br()), 
+    tabPanel("ヒストグラム", p(br()), 
 
       plotOutput("makeplot2", width = "800px", height = "400px"),
       sliderInput("bin2", "ヒストグラムの棒幅", min = 0.01, max = 5, value = 0.2)
