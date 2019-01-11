@@ -91,11 +91,11 @@ h4("データ挿入"),
 
 mainPanel(
 
-  h4("Data Description"),
+  h4("データの説明"),
 
   tabsetPanel(
 
-    tabPanel("Data display", p(br()),  
+    tabPanel("データ表示", p(br()),  
 
       dataTableOutput("table3")),
 
@@ -124,7 +124,7 @@ mainPanel(
         )
         ) ),
 
-    tabPanel("Histogram", p(br()), 
+    tabPanel("ヒストグラム", p(br()), 
 
       plotOutput("makeplot3", width = "800px", height = "400px"),
       sliderInput("bin3", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2)
