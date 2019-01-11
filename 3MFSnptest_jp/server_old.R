@@ -5,20 +5,20 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(DescTools)) {install.packages("DescTools")}; library(DescTools)  #SignTest
 if (!require(RVAideMemoire)) {install.packages("RVAideMemoire")}; library(RVAideMemoire)  
 if (!require(pastecs)) {install.packages("pastecs")}; library(pastecs)
-##----------#----------#----------#----------
+##------------------------------------------------------------
 ##
-## 3MFSnptest SERVER
+##  Non-parametric test server JP
 ##
-## Language: EN
-## 
-## DT: 2019-01-09
+## 2018-11-28
 ##
-##----------#----------#----------#----------
+##-------------------------------------------------------------
 shinyServer(
 
  function(input, output) {
+ # options(warn = -1)
+  #options(digits=4)
 
-##---------- 1. one sample ----------
+  ## 1. One sample ----------------------------------------------------------------------------------------
   A <- reactive({
     inFile <- input$file
     if (is.null(inFile)) {
@@ -31,7 +31,7 @@ shinyServer(
       return(csv)} })
 
   #table 
-  output$table <- renderDataTable({A()}, options = list(pageLength = 5))
+  output$table <- renderDataTable({A()}, options = list(pageLength = 10))
 
   output$bas <- renderTable({  
     X <- as.numeric(unlist(strsplit(input$a, "[\n, \t, ]")))
@@ -59,15 +59,15 @@ shinyServer(
   
   output$info <- renderText({
     xy_str = function(e) {
-      if(is.null(e)) return("NULL\n")
-      paste0("The approximate value: ", round(e$y, 4))
+      if(is.null(e)) return("表をクリックしてください\n")
+      paste0("値: ", round(e$y, 4))
     }
-    paste0("Horizontal postion: ", "\n", xy_str(input$plot_click))})
+    paste0("縦の値: ", "\n", xy_str(input$plot_click))})
 
   output$makeplot <- renderPlot({  #shinysession 
     x <- A()
-    plot1 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour="black", fill = "grey", binwidth=input$bin, position="identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title=element_blank())
-    plot2 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title=element_blank())
+    plot1 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour="black", fill = "grey", binwidth=input$bin, position="identity") + xlab("") + ggtitle("ヒストグラム") + theme_minimal() + theme(legend.title=element_blank())
+    plot2 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("密度プロット") + xlab("") + theme_minimal() + theme(legend.title=element_blank())
     grid.arrange(plot1, plot2, ncol=2)  })
   
   output$sign.test<-renderTable({
@@ -90,8 +90,8 @@ shinyServer(
     colnames(res.table) <- res$method
     return(res.table)}, width = "500px", rownames = TRUE)
 
-##---------- 2. two samples ----------
-
+  ## 2. Two independent samples ----------------------------------------------------------------------------------------
+  # data
   B <- reactive({
     inFile <- input$file2
     if (is.null(inFile)) {
@@ -106,7 +106,7 @@ shinyServer(
        })
   
   #table
-  output$table2 <- renderDataTable({B()}, options = list(pageLength = 5))
+  output$table2 <- renderDataTable({B()}, options = list(pageLength = 10))
 
   output$bas2 <- renderTable({  ## don't use renerPrint to do renderTable
     x <- B()
@@ -132,17 +132,17 @@ shinyServer(
 
   output$info2 <- renderText({
     xy_str = function(e) {
-      if(is.null(e)) return("NULL\n")
-      paste0("The approximate value: ", round(e$y, 4))
+      if(is.null(e)) return("表をクリックしてください\n")
+      paste0("値: ", round(e$y, 4))
     }
-    paste0("Horizontal postion: ", "\n", xy_str(input$plot_click2))})
+    paste0("縦の値: ", "\n", xy_str(input$plot_click2))})
 
   output$makeplot2 <- renderPlot({
     x <- B()
     mx <- melt(B(), idvar = colnames(x))
     # density plot
-    plot1 <- ggplot(mx, aes(x=mx[,"value"], fill=mx[,"variable"])) + geom_histogram(binwidth=input$bin2, alpha=.5, position="identity") + ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
-    plot2 <- ggplot(mx, aes(x=mx[,"value"], colour=mx[,"variable"])) + geom_density()+ ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    plot1 <- ggplot(mx, aes(x="value", fill="variable")) + geom_histogram(binwidth=input$bin2, alpha=.5, position="identity") + ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    plot2 <- ggplot(mx, aes(x="value", colour="variable")) + geom_density()+ ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
     grid.arrange(plot1, plot2, ncol=2)  })
 
 #test
@@ -162,7 +162,7 @@ shinyServer(
     colnames(res.table) <- c(res$method)
     return(res.table)}, width = "500px", rownames = TRUE)
 
-##---------- 3. paired sample ----------
+  ## 2. two paired samples ----------------------------------------------------------------------------------------
 
   C <- reactive({
     inFile <- input$file3
@@ -179,7 +179,7 @@ shinyServer(
       return(csv)} })
   
   #table
-  output$table3 <- renderDataTable({C()}, options = list(pageLength = 5))
+  output$table3 <- renderDataTable({C()}, options = list(pageLength = 10))
 
   output$bas3 <- renderTable({  ## don't use renerPrint to do renderTable
     x <- C()
@@ -205,15 +205,15 @@ shinyServer(
 
   output$info3 <- renderText({
     xy_str = function(e) {
-      if(is.null(e)) return("NULL\n")
-      paste0("The approximate value: ", round(e$y, 4))
+      if(is.null(e)) return("表をクリックしてください\n")
+      paste0("値: ", round(e$y, 4))
     }
-    paste0("Horizontal postion: ", "\n", xy_str(input$plot_click3))})
+    paste0("縦の値: ", "\n", xy_str(input$plot_click3))})
 
   output$makeplot3 <- renderPlot({
     x <- C()
-    plot1 <- ggplot(x, aes(x=x[,3])) + geom_histogram(binwidth=.3, alpha=.5, position="identity") + ylab("Frequncy") + xlab("") +  ggtitle("Histogram") + theme_minimal() + theme(legend.title=element_blank())
-    plot2 <- ggplot(x, aes(x=x[,3])) + geom_density() + ggtitle("Density Plot") + theme_minimal() + ylab("Density") + xlab("") + theme(legend.title=element_blank())
+    plot1 <- ggplot(x, aes(x=x[,3])) + geom_histogram(binwidth=.3, alpha=.5, position="identity") + ylab("頻度") + xlab("") +  ggtitle("ヒストグラム") + theme_minimal() + theme(legend.title=element_blank())
+    plot2 <- ggplot(x, aes(x=x[,3])) + geom_density() + ggtitle("密度プロット") + theme_minimal() + ylab("密度") + xlab("") + theme(legend.title=element_blank())
     grid.arrange(plot1, plot2, ncol=2)  })
 
 
@@ -246,5 +246,3 @@ observe({
 
 
 })
-
-
