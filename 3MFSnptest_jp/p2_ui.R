@@ -50,7 +50,7 @@ sidebarPanel(
 
 h4("仮説"),
 tags$b("帰無仮説"),
-HTML(p("m&#8321 = m&#8322, 各グループの値の中央値は等しい")),
+HTML("<p>m&#8321 = m&#8322, 各グループの値の中央値は等しい </p>"),
 
 radioButtons("alt.md", label = "対立仮説", 
   choiceNames = list(
