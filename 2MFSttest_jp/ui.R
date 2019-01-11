@@ -60,8 +60,8 @@ headerPanel("二群のt検定"),
     "
     <b> 注 </b>
       <ul>
-      <li> The independent observations are designated X and Y
-      <li> &#956&#8321 is the population mean of X; &#956&#8322 is the population mean of Y 
+      <li> 独立した観測値はXとYと指定されます。
+      <li> &#956&#8321 はXの母集団の平均です。; &#956&#8322 ＆＃956＆＃8322はYの母集団の平均です
       </ul>
 
     <b> 前提として </b>
@@ -91,20 +91,20 @@ tabPanel("関連した二群",
     <b> 注 </b>
     
       <ul>
-      <li> The dependent observations are designated X and Y        
-      <li> &#916 is the underlying mean differences between X and Y 
+      <li> 従属観測はXおよびYと指定されます。        
+      <li> &#916 はXとYの根本的な平均差です 
       </ul>
 
     <b> 前提として </b>
       
       <ul>
-      <li> The differences of paired samples are approximately normally distributed                           
-      <li> The differences of paired samples are numeric and continuous and based on the normal distribution  
-      <li> The data collection process was random without replacement                                           
+      <li> 対になったサンプルの差はほぼ正規分布しています                           
+      <li> 対になった標本の違いは数値で連続的で、正規分布に基づいています  
+      <li> データ収集プロセスは置き換えずにランダムに行われました                                           
       "
       ),
 
-  helpText("A typical example of the pared sample is that the repeated measurements, where subjects are tested prior to a treatment, say for high blood pressure, and the same subjects are tested again after treatment with a blood-pressure lowering medication"),
+  helpText("対を成すサンプルの典型的な例は、繰り返しの測定で、被験者は治療前に高血圧についてテストされ、同じ被験者は血圧降下薬による治療後に再びテストされます。"),
 
 
    hr(),
