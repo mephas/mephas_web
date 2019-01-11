@@ -40,15 +40,14 @@ sidebarPanel(
                           ".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
-        checkboxInput("header", "Header", TRUE),
+        checkboxInput("header", "ヘッダー", TRUE),
 
              # Input: Select separator ----
-        radioButtons("sep", "Separator",
+        radioButtons("sep", "区切り",
                      choices = c(Comma = ',',
                                  Semicolon = ';',
                                  Tab = '\t'),
                      selected = ',')
-
       ) 
     ),
 
@@ -77,11 +76,11 @@ hr(),
 
 mainPanel(
 
-  h4("Data Description"),
+  h4("データの説明"),
 
   tabsetPanel(
 
-    tabPanel("Data display", p(br()),  
+    tabPanel("データ表示", p(br()),  
 
       dataTableOutput("table")),
 
@@ -114,7 +113,7 @@ mainPanel(
 
       plotOutput("meanp", width = "400px", height = "400px")),
 
-    tabPanel("Plots of normality", p(br()), 
+    tabPanel("正規性のプロット", p(br()), 
 
       plotOutput("makeplot", width = "900px", height = "300px"), 
       sliderInput("bin","ヒストグラムの棒幅",min = 0.01,max = 5,value = 0.2))

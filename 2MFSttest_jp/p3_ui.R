@@ -46,9 +46,9 @@ sidebarPanel(
                 '.csv'
               )
             ),
-            checkboxInput('header.p', 'Header', TRUE), #p
+            checkboxInput('header.p', 'ヘッダー', TRUE), #p
        
-            radioButtons("sep.p", "Separator",
+            radioButtons("sep.p", "区切り",
                          choices = c(Comma = ',',
                                      Semicolon = ';',
                                      Tab = '\t'),
@@ -61,15 +61,15 @@ sidebarPanel(
         h4("仮説"),
 
         tags$b("帰無仮説"),
-        HTML("<p> &#916 = 0: X and Y have equal effect </p>"),
+        HTML("<p> &#916 = 0: XとYは同等の効果があります </p>"),
         
         radioButtons(
           "alt.pt",
           label = "代替仮説",
           choiceNames = list(
-            HTML("&#916 &#8800 0: the population mean of X and Y are not equal"),
-            HTML("&#916 < 0: the population mean of X is less than Y"),
-            HTML("&#916 > 0: the population mean of X is greater than Y")
+            HTML("&#916 &#8800 0: XとYの母集団平均は等しくない"),
+            HTML("&#916 < 0: Xの母集団平均がYより小さい"),
+            HTML("&#916 > 0: Xの母集団平均がYより大きい")
             ),
           choiceValues = list("two.sided", "less", "greater")
           )
@@ -78,11 +78,11 @@ sidebarPanel(
 
       mainPanel(
 
-        h4('Data Description'),
+        h4('データの説明'),
 
         tabsetPanel(
 
-          tabPanel("Data display", p(br()),  
+          tabPanel("データ表示", p(br()),  
 
             dataTableOutput("table.p")),
 
@@ -118,7 +118,7 @@ sidebarPanel(
 
             plotOutput("meanp.p", width = "400px", height = "400px")),
 
-          tabPanel("Plots of normality", p(br()), 
+          tabPanel("正規性のプロット", p(br()), 
 
             plotOutput("makeplot.p", width = "900px", height = "300px"),
             sliderInput("bin.p","ヒストグラムの棒幅",min = 0.01,max = 5,value = 0.2)

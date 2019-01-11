@@ -41,8 +41,8 @@ sidebarPanel(
             '.csv'
             )
           ),
-        checkboxInput('header2', 'Header', TRUE), #p
-        radioButtons("sep2", "Separator",
+        checkboxInput('header2', 'ヘッダー', TRUE), #p
+        radioButtons("sep2", "区切り",
                      choices = c(Comma = ',',
                                  Semicolon = ';',
                                  Tab = '\t'),
@@ -55,14 +55,14 @@ sidebarPanel(
     h4("仮説"),
 
     tags$b("帰無仮説"),
-    HTML("<p> &#956&#8321 = &#956&#8322: X and Y have equal population mean </p>"),
+    HTML("<p> &#956&#8321 = &#956&#8322: XとYの人口平均は等しい </p>"),
     
     radioButtons("alt.t2", #p
       label = "代替仮説",
       choiceNames = list(
-        HTML("&#956&#8321 &#8800 &#956&#8322: the population means of X and Y are not equal"),
-        HTML("&#956&#8321 < &#956&#8322: the population means of X is less than Y"),
-        HTML("&#956&#8321 > &#956&#8322: the population means of X is greater than Y")
+        HTML("&#956&#8321 &#8800 &#956&#8322: XとYの人口平均は等しくありません"),
+        HTML("&#956&#8321 < &#956&#8322: Xの母集団平均がYより小さい"),
+        HTML("&#956&#8321 > &#956&#8322: Xの母集団平均がYより大きい")
         ),
       choiceValues = list("two.sided", "less", "greater")
       )
@@ -70,11 +70,11 @@ sidebarPanel(
 
   mainPanel(
 
-    h4("Data Description"),
+    h4("データの説明"),
 
     tabsetPanel(
 
-      tabPanel("Data display",p(br()), 
+      tabPanel("データ表示",p(br()), 
 
         dataTableOutput("table2")),
 
@@ -109,7 +109,7 @@ sidebarPanel(
 
         plotOutput("meanp2", width = "400px", height = "400px")),
 
-      tabPanel("Plots of normality", p(br()), 
+      tabPanel("正規性のプロット", p(br()), 
 
         plotOutput("makeplot2", width = "600px", height = "600px"),
         sliderInput("bin2","ヒストグラムの棒幅",min = 0.01,max = 5,value = 0.2))
@@ -119,7 +119,7 @@ sidebarPanel(
     hr(),
     h4(tags$b("検定結果")),
     tableOutput("var.test"),
-    helpText("When P value<0.05, please go to the 'Welch Two Sample t-test'"),
+    helpText("P値<0.05の場合は、 'Welch Two Sample t-test'に進んでください。"),
     tableOutput("t.test2")
     
     )
