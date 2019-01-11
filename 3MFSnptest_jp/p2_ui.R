@@ -34,7 +34,7 @@ radioButtons("nap.mwt", label = "正規近似",
                  "小さい標本サイズ" = TRUE), selected = FALSE)),
 
 mainPanel(
-  h4("Results of Wilcoxon Rank-Sum Test"), tableOutput("mwu.test"), 
+  h4("ウィルコクソン順位和検定の結果"), tableOutput("mwu.test"), 
   helpText(HTML("<ul>
       <li> 'Estimated.diff'は中央値の推定差を示します
       <li> 正規近似が適用されると、検定の名前は '連続性補正付きWilcoxon符号付き順位検定'になります。 </li>  

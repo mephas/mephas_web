@@ -86,13 +86,13 @@ h4("データ挿入"),
   tabPanel("アップロード .csv", p(br()),
     fileInput('file', '.csvファイルを指定してください', 
       accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
-    checkboxInput('header', 'Header', TRUE), #p
-    radioButtons('sep', 'Separator', c(Comma=',', Semicolon=';', Tab='\t'), ',')) 
+    checkboxInput('header', 'ヘッダー', TRUE), #p
+    radioButtons('sep', '区切り', c(Comma=',', Semicolon=';', Tab='\t'), ',')) 
   ),
 
   hr(),
   h4("パラメータ変数"),
-  numericInput("med", HTML("特定の値, m&#8320"), 4)#p),
+  numericInput("med", HTML("特定の中央値, m&#8320"), 4)#p),
   ),
 
 mainPanel(
