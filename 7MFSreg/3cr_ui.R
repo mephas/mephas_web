@@ -1,16 +1,14 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## The regression models: lm, logistic model, cox model, ui
-## 
-##    3. cox regression
-## 
-## DT: 2018-12-13
+## 7MFSreg UI
 ##
-##----------------------------------------------------------------
-
-#tabPanel("Cox Regression (Time-Event Outcomes)",
-
-#titlePanel("Cox Regression"),
+##    >Cox regression
+##
+## Language: EN
+## 
+## DT: 2019-01-11
+##
+##----------#----------#----------#----------
 
 sidebarLayout(
 

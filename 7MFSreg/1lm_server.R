@@ -1,12 +1,14 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## The regression models: lm, logistic model, cox model, server
-##s
-##    1. Linear regression
+## 7MFSreg SERVER
+##
+##    >Linear regression
+##
+## Language: EN
 ## 
-## DT: 2018-12-13
+## DT: 2019-01-11
 ##
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 
 ## 2. choose variable to put in the model/ and summary
 output$y = renderUI({

@@ -1,16 +1,14 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## The regression models: lm, logistic model, cox model, ui
+## 7MFSreg UI
+##
+##    >Logistic regression
+##
+## Language: EN
 ## 
-##    2. logistic regression
-## 1lm_ui
-## DT: 2018-12-14
+## DT: 2019-01-11
 ##
-##----------------------------------------------------------------
-
-#tabPanel("Logistic Regression (1-0 Outcomes)",
-
-#titlePanel("Logistic Regression"),
+##----------#----------#----------#----------
 
 sidebarLayout(
 sidebarPanel(
