@@ -130,7 +130,7 @@ mainPanel(
         )
         ) ),
 
-    tabPanel("Histogram", p(br()), 
+    tabPanel("ヒストグラム", p(br()), 
 
       plotOutput("makeplot", width = "800px", height = "400px"),
       sliderInput("bin", "ヒストグラムの棒幅", min = 0.01, max = 5, value = 0.2)
