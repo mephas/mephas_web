@@ -3,21 +3,21 @@ if (!require(psych)) {install.packages("psych")}; library(psych)
 if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## Chi-square test server CN
+## 5MFSrctabtest SERVER
 ##
-## 2018-11-30
+## Language: EN
 ## 
-##----------------------------------------------------------------
+## DT: 2019-01-11
+##
+##----------#----------#----------#----------
 
 shinyServer(
 function(input, output) {
-  #options(warn = -1)
-  #options(digits= 6)
   
 
-  ## 1. Chi-square test for R by C table ----------------------------------------------------------------------------------------
+##---------- 1. Chi-square test for R by C table ----------
 T = reactive({ # prepare dataset
   x = as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
   T = matrix(x, input$r, input$c)
@@ -57,11 +57,11 @@ output$pt = renderTable({prop.table(T())}, width = "50" ,rownames = TRUE, digits
 output$makeplot <- renderPlot({  #shinysession 
     x <- as.data.frame(T())
     mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
-    plot1 = ggplot(mx, aes(x = "time", y = mx[,2], fill = "id"))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
-    plot2 = ggplot(mx, aes(x = "id", y = mx[,2], fill = "time"))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
+    plot1 = ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
+    plot2 = ggplot(mx, aes(x = mx[,"id"], y = mx[,2], fill = mx[,"time"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
     grid.arrange(plot1, plot2, ncol=2)})
 
-## 2. Chi-square test for 2 by C table ----------------------------------------------------------------------------------------
+##---------- 2. Chi-square test for 2 by C table ----------
 TR = reactive({ # prepare dataset
   inFile <- input$file2
     if (is.null(inFile)) {
@@ -73,12 +73,12 @@ TR = reactive({ # prepare dataset
       #names(x) = unlist(strsplit(input$cn2, "[\n, \t, ]"))
       return(x)}
     else {
-      csv <- as.data.frame(read.csv(inFile$datapath, header=TRUE, sep=input$sep, quote=input$quote))
+      csv <- as.data.frame(read.csv(inFile$datapath, header=TRUE, sep=input$sep))
       return(csv)}
     })
 
 #output$ct.tr = renderDataTable({addmargins(TR(), margin = seq_along(dim(TR())), FUN = sum, quiet = TRUE)},  width = "50" ,rownames = TRUE)
-output$ct.tr = renderDataTable({t(TR())})
+output$ct.tr = renderDataTable({TR()})
 
 #output$pct.tr = renderTable({prop.table(TR(), 2)}, width = "50" ,rownames = TRUE, digits = 4)
 
@@ -93,10 +93,10 @@ output$tr.test = renderTable({
 
 output$makeplot.tr <- renderPlot({  #shinysession 
     x <- TR()
-    ggplot(x, aes(x = rownames(x), y = "Percentage"))+geom_bar(stat = "identity", width = 0.5, position = position_dodge()) + ylab("Proportion") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
+    ggplot(x, aes(x = rownames(x), y = x[,"Percentage"]))+geom_bar(stat = "identity", width = 0.5, position = position_dodge()) + ylab("Proportion") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
 })
 
-## 3. Kappa test for K by K table ----------------------------------------------------------------------------------------
+##---------- 3. Kappa test for K by K table ----------
 
 K = reactive({ # prepare dataset
   x = as.numeric(unlist(strsplit(input$k, "[\n, \t, ]")))

@@ -153,56 +153,51 @@ tabPanel("Kappa Statistic (K x K Table)",
 
 titlePanel("Kappa Statistic"),
 
-tags$b("Introduction"),
-
 p("To qualify the degree of association. This is particularly true in reliability studies, where the researcher want to qualify the reproducibility of the same variable measured more than once."),
 
 sidebarLayout(
 sidebarPanel(
 
-helpText("Configurations of the table"),
+h4("Configurations"),
   numericInput("r.k", "How many raters in both survey, R", value = 2, min = 2, max = 9, step = 1, width = "50%"),
   verticalLayout(
   tags$b("Rater names"), 
-  tags$textarea(id="rater", rows=4, cols = 30, "Yes\nNo"))),
+  tags$textarea(id="rater", rows=4, cols = 30, "Yes\nNo")),
 
-mainPanel(
-  h4(tags$b("Input Data")),
-  helpText("Input the counts by column, for example, the second column follows the first column"),
+h4("Input Data"),
   tabPanel("Manually input values",
   tags$textarea(id="k", rows=10, "136\n69\n92\n240")),
-  hr(),
-  h4("Display of the Contingency table"), dataTableOutput("kt"),
-  helpText("Row is the rater of measurement-A, while Column is measurement-B"),
-  hr(),
-  h3(tags$b("Results of the Kappa Statistic, k")), tableOutput("k.test"),
+  helpText("Input the counts by column, for example, the second column follows the first column")
+
+  ),
+
+mainPanel(
+
+  h4("Results of the Kappa Statistic, k"), tableOutput("k.test"),
   tags$b("Notes"),
   HTML("
   <ul>
   <li> k > 0.75 denotes excellent reproducibility </li>
   <li> 0.4 < k < 0.75 denotes good  reproducibility</li>
   <li> 0 < k < 0.4 denotes marginal reproducibility </li>
-  </ul>" )
+  </ul>" ),
 
-  #tags$b("Interpretation"), p("The meaning")
+  hr(),
+  h4("Contingency table"), dataTableOutput("kt"),
+  HTML("
+    <b> Notes</b>
+    <ul>
+    <li> Row is the rater of measurement-A, while column is measurement-B
+    <li> The last row is the sum of above rows
+    </ul>
+    ")
   )
 
-))
-,
-##----------
+)),
+##---------- other panels ----------
 
-tabPanel((a("Home",
- #target = "_blank",
- style = "margin-top:-30px;",
- href = paste0("https://pharmacometrics.info/mephas/")))),
-
-tabPanel(
-      tags$button(
-      id = 'close',
-      type = "button",
-      class = "btn action-button",
-      onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "Stop App"))
+source("../0tabs/home.R",local=TRUE)$value,
+source("../0tabs/stop.R",local=TRUE)$value
 
 
 ))
