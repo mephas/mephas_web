@@ -5,20 +5,20 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(DescTools)) {install.packages("DescTools")}; library(DescTools)  #SignTest
 if (!require(RVAideMemoire)) {install.packages("RVAideMemoire")}; library(RVAideMemoire)  
 if (!require(pastecs)) {install.packages("pastecs")}; library(pastecs)
-##----------#----------#----------#----------
+##------------------------------------------------------------
 ##
-## 3MFSnptest SERVER
+##  Non-parametric test server CN
 ##
-## Language: EN
-## 
-## DT: 2019-01-09
+## 2018-11-28
 ##
-##----------#----------#----------#----------
+##-------------------------------------------------------------
 shinyServer(
 
  function(input, output) {
+  #options(warn = -1)
 
-##---------- 1. one sample ----------
+
+  ## 1. One sample ----------------------------------------------------------------------------------------
   A <- reactive({
     inFile <- input$file
     if (is.null(inFile)) {
@@ -31,7 +31,7 @@ shinyServer(
       return(csv)} })
 
   #table 
-  output$table <- renderDataTable({A()}, options = list(pageLength = 5))
+  output$table <- renderDataTable({A()}, options = list(pageLength = 10))
 
   output$bas <- renderTable({  
     X <- as.numeric(unlist(strsplit(input$a, "[\n, \t, ]")))
@@ -90,8 +90,8 @@ shinyServer(
     colnames(res.table) <- res$method
     return(res.table)}, width = "500px", rownames = TRUE)
 
-##---------- 2. two samples ----------
-
+  ## 2. Two independent samples ----------------------------------------------------------------------------------------
+  # data
   B <- reactive({
     inFile <- input$file2
     if (is.null(inFile)) {
@@ -106,7 +106,7 @@ shinyServer(
        })
   
   #table
-  output$table2 <- renderDataTable({B()}, options = list(pageLength = 5))
+  output$table2 <- renderDataTable({B()}, options = list(pageLength = 10))
 
   output$bas2 <- renderTable({  ## don't use renerPrint to do renderTable
     x <- B()
@@ -141,8 +141,8 @@ shinyServer(
     x <- B()
     mx <- melt(B(), idvar = colnames(x))
     # density plot
-    plot1 <- ggplot(mx, aes(x=mx[,"value"], fill=mx[,"variable"])) + geom_histogram(binwidth=input$bin2, alpha=.5, position="identity") + ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
-    plot2 <- ggplot(mx, aes(x=mx[,"value"], colour=mx[,"variable"])) + geom_density()+ ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    plot1 <- ggplot(mx, aes(x="value", fill="variable")) + geom_histogram(binwidth=input$bin2, alpha=.5, position="identity") + ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    plot2 <- ggplot(mx, aes(x="value", colour="variable")) + geom_density()+ ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
     grid.arrange(plot1, plot2, ncol=2)  })
 
 #test
@@ -162,7 +162,7 @@ shinyServer(
     colnames(res.table) <- c(res$method)
     return(res.table)}, width = "500px", rownames = TRUE)
 
-##---------- 3. paired sample ----------
+  ## 2. two paired samples ----------------------------------------------------------------------------------------
 
   C <- reactive({
     inFile <- input$file3
@@ -179,7 +179,7 @@ shinyServer(
       return(csv)} })
   
   #table
-  output$table3 <- renderDataTable({C()}, options = list(pageLength = 5))
+  output$table3 <- renderDataTable({C()}, options = list(pageLength = 10))
 
   output$bas3 <- renderTable({  ## don't use renerPrint to do renderTable
     x <- C()

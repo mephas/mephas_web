@@ -4,32 +4,31 @@ if (!require(reshape)) {install.packages("reshape")}; library(reshape)
 if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 
-##------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## Binary outcome test server JP
+## 4MFSproptest SERVER
 ##
-## Date: 2018-11-30
+## Language: JP
+## 
+## DT: 2019-01-11
 ##
-##------------------------------------------------------
-shinyServer(
-  
+##----------#----------#----------#----------
+
+shinyServer( 
 function(input, output) {
-#options(warn = -1)
-  #options(digits= 6)
-  
 
-## 1. Chi-square test for single sample ----------------------------------------------------------------------------------------
 
+##----------1. Chi-square test for single sample ----------
 output$b.test = renderTable({
 
   res = binom.test(x = input$x, n= input$n, p = input$p, alternative = input$alt)
 
   res.table = t(data.frame(
-    成功回数 = res$statistic,
-    試行回数 = res$parameter,
-    予測される成功確率 = res$estimate,
-    p値 = round(res$p.value,6),
-    信頼区間0.95 = paste0("(", round(res$conf.int[1],4),",",round(res$conf.int[2],4), ")")
+    Num.success = res$statistic,
+    Num.trial = res$parameter,
+    Estimated.prob.success = res$estimate,
+    p.value = round(res$p.value,6),
+    Confidence.Interval.95 = paste0("(", round(res$conf.int[1],4),",",round(res$conf.int[2],4), ")")
     ))
 
   colnames(res.table) = res$method
@@ -39,14 +38,13 @@ output$b.test = renderTable({
 
 output$makeplot <- renderPlot({  #shinysession 
   x = data.frame(
-    group = c("成功", "失敗"), 
+    group = c("Success", "Failure"), 
     value = c(input$x, input$n-input$x)
     )
-  ggplot(x, aes(x="", y="value", fill="group"))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  ggplot(x, aes(x="", y=x[,"value"], fill=x[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })
 
-## 2. Chi-square test for 2 by C table ----------------------------------------------------------------------------------------
-
+##---------- 2. Chi-square test for 2 by C table ----------
 P = reactive({ # prepare dataset
 
   X <- as.numeric(unlist(strsplit(input$x1, "[\n, \t, ]")))
@@ -103,7 +101,7 @@ output$e.t = renderTable({
   return(res.table)}, 
   rownames = TRUE)
 
-## 3. Mcnemar test for 2 matched data ----------------------------------------------------------------------------------------
+##---------- 3. Mcnemar test for 2 matched data ----------
 
 N = reactive({ # prepare dataset
   X <- as.numeric(unlist(strsplit(input$xn1, "[\n, \t, ]")))
@@ -144,3 +142,5 @@ observe({
 
 }
 )
+
+
