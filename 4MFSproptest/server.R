@@ -4,21 +4,21 @@ if (!require(reshape)) {install.packages("reshape")}; library(reshape)
 if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 
-##------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## Binary outcome test server
+## 4MFSproptest SERVER
 ##
-## Date: 2018-11-30
+## Language: EN
+## 
+## DT: 2019-01-11
 ##
-##------------------------------------------------------
+##----------#----------#----------#----------
 
 shinyServer( 
 function(input, output) {
-#options(warn = -1)
-  #options(digits= 6) 
 
-## 1. Chi-square test for single sample ----------------------------------------------------------------------------------------
 
+##----------1. Chi-square test for single sample ----------
 output$b.test = renderTable({
 
   res = binom.test(x = input$x, n= input$n, p = input$p, alternative = input$alt)
@@ -41,11 +41,10 @@ output$makeplot <- renderPlot({  #shinysession
     group = c("Success", "Failure"), 
     value = c(input$x, input$n-input$x)
     )
-  ggplot(x, aes(x="", y="value", fill="group"))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  ggplot(x, aes(x="", y=x[,"value"], fill=x[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })
 
-## 2. Chi-square test for 2 by C table ----------------------------------------------------------------------------------------
-
+##---------- 2. Chi-square test for 2 by C table ----------
 P = reactive({ # prepare dataset
 
   X <- as.numeric(unlist(strsplit(input$x1, "[\n, \t, ]")))
@@ -102,7 +101,7 @@ output$e.t = renderTable({
   return(res.table)}, 
   rownames = TRUE)
 
-## 3. Mcnemar test for 2 matched data ----------------------------------------------------------------------------------------
+##---------- 3. Mcnemar test for 2 matched data ----------
 
 N = reactive({ # prepare dataset
   X <- as.numeric(unlist(strsplit(input$xn1, "[\n, \t, ]")))
