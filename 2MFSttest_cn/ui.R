@@ -42,7 +42,7 @@ headerPanel("单样本t检验"),
 
   hr(),
 
-  source("p1_ui.R", local=TRUE)$value
+  source("p1_ui.R", local=TRUE,encoding = "UTF-8")$value
 
 
 ),
@@ -75,7 +75,7 @@ headerPanel("单样本t检验"),
 
     hr(),
 
-    source("p2_ui.R", local=TRUE)$value
+    source("p2_ui.R", local=TRUE,encoding = "UTF-8")$value
 
     ),
   
@@ -108,14 +108,14 @@ helpText("一个典型的成对样本的例子是对某种治疗结果的重复�
 
    hr(),
 
-   source("p3_ui.R", local=TRUE)$value
+   source("p3_ui.R", local=TRUE,encoding = "UTF-8")$value
 
     ),
 
 ##---------- other panels ----------
 
-source("../0tabs/home_cn.R",local=TRUE)$value,
-source("../0tabs/stop_cn.R",local=TRUE)$value
+source("../0tabs/home_cn.R",local=TRUE,encoding = "UTF-8")$value,
+source("../0tabs/stop_cn.R",local=TRUE,encoding = "UTF-8")$value
 
   )
  )

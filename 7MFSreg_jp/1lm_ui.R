@@ -1,16 +1,15 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## The regression models: lm, logistic model, cox model, ui
-## 
-##    1. linear regression
-## 
-## DT: 2018-12-13
+## 7MFSreg UI
 ##
-##----------------------------------------------------------------
+##    >Linear regressoion
+##
+## Language: JP
+## 
+## DT: 2019-01-11
+##
+##----------#----------#----------#----------
 
-#tabPanel("Linear Regression (Continuous Outcomes)",
-
-#titlePanel("Linear Regression"),
 
 sidebarLayout(
 

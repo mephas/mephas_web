@@ -4,7 +4,7 @@
 ##
 ##    >Panel 2
 ##
-## Language: EN
+## Language: JP
 ## 
 ## DT: 2019-01-10
 ##

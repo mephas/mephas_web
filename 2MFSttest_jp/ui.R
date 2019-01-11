@@ -45,7 +45,7 @@ headerPanel("一群のt検定"),
 
   hr(),
 
-source("p1_ui.R", local=TRUE)$value
+source("p1_ui.R", local=TRUE,encoding = "UTF-8")$value
 
 
 ),
@@ -76,7 +76,7 @@ headerPanel("二群のt検定"),
 
     hr(),
 
-source("p2_ui.R", local=TRUE)$value
+source("p2_ui.R", local=TRUE,encoding = "UTF-8")$value
 
     ),
 
@@ -109,14 +109,14 @@ tabPanel("関連した二群",
 
    hr(),
 
-   source("p3_ui.R", local=TRUE)$value
+   source("p3_ui.R", local=TRUE, encoding = "UTF-8")$value
 
     ),
 
 ##---------- other panels ----------
 
-source("../0tabs/home_jp.R",local=TRUE)$value,
-source("../0tabs/stop_jp.R",local=TRUE)$value
+source("../0tabs/home_jp.R",local=TRUE,encoding = "UTF-8")$value,
+source("../0tabs/stop_jp.R",local=TRUE,encoding = "UTF-8")$value
 
   )
  )
