@@ -137,7 +137,7 @@ shinyUI(
                  tags$li(HTML("&#945: 形状参数")),
                  tags$li(HTML("&#952: 尺度参数"))
                ),
-               tags$b("注释"), 
+               tags$b("注"), 
                tags$ul(
                  tags$li(HTML("&#946=1/&#952: 率参数")),
                  tags$li(HTML("平均值是 &#945*&#952"))
@@ -202,7 +202,7 @@ shinyUI(
                  tags$li(HTML("v: 自由度"))
                ),
                
-               tags$b("注释"),
+               tags$b("注"),
                tags$ul(
                  tags$li(HTML("当v非常大时，t分布近似于标准正态分布."))), 
                
@@ -253,7 +253,7 @@ shinyUI(
                tags$ul(
                  tags$li(HTML("v: 自由度"))),
                
-               tags$b("注释"),
+               tags$b("注"),
                tags$ul(
                  tags$li(HTML("平均值 = v; 方差 = 2v"))),
                
@@ -356,7 +356,7 @@ shinyUI(
                
                titlePanel("二项分布，泊松分布"),
                
-               tags$b("注释"),
+               tags$b("注"),
                tags$ul(
                  tags$li("蓝色曲线是标准正态分布"),
                  tags$li("二项分布的均值 ＝ np，  方差＝ npq"),
