@@ -62,7 +62,7 @@ shinyServer(
       if(is.null(e)) return("NULL\n")
       paste0("The approximate value: ", round(e$y, 4))
     }
-    paste0("Horizontal postion: ", "\n", xy_str(input$plot_click))})
+    paste0("Horizontal position: ", "\n", xy_str(input$plot_click))})
 
   output$makeplot <- renderPlot({  #shinysession 
     x <- A()
@@ -135,7 +135,7 @@ shinyServer(
       if(is.null(e)) return("NULL\n")
       paste0("The approximate value: ", round(e$y, 4))
     }
-    paste0("Horizontal postion: ", "\n", xy_str(input$plot_click2))})
+    paste0("Horizontal position: ", "\n", xy_str(input$plot_click2))})
 
   output$makeplot2 <- renderPlot({
     x <- B()
@@ -208,7 +208,7 @@ shinyServer(
       if(is.null(e)) return("NULL\n")
       paste0("The approximate value: ", round(e$y, 4))
     }
-    paste0("Horizontal postion: ", "\n", xy_str(input$plot_click3))})
+    paste0("Horizontal position: ", "\n", xy_str(input$plot_click3))})
 
   output$makeplot3 <- renderPlot({
     x <- C()

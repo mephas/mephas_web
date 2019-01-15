@@ -17,7 +17,7 @@ navbarPage(
 title = "非参数检验",  
 
 ## 1. One sample test ---------------------------------------------------------------------------------
-tabPanel("单样本",
+title = "非参数检验",  
 
 headerPanel("符号检验，威尔科克森(Wilcoxon)符号秩检验"),
 p("两者都可用于测试一组数字的中值是否显著大于或小于指定值。"),
@@ -143,7 +143,7 @@ mainPanel(
 ## 2 Two independent samples test ---------------------------------------------------------------------------------
 tabPanel("两个独立样本",
 
-headerPanel("Wilcoxon秩和检验（Mann-Whitney U检验）， 穆德(Mood's)中数检验"),
+headerPanel("Wilcoxon秩和检验（Mann-Whitney U检验）， (Mood's)中数检验"),
 
 p("以确定随机选择的样本是否小于或大于第二随机选择的样本."),
 

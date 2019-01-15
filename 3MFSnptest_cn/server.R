@@ -9,7 +9,7 @@ if (!require(pastecs)) {install.packages("pastecs")}; library(pastecs)
 ##
 ## 3MFSnptest SERVER
 ##
-## Language: EN
+## Language: CN
 ## 
 ## DT: 2019-01-09
 ##

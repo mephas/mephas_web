@@ -20,7 +20,7 @@ tabPanel("データセット",
 
   titlePanel("データ挿入"),
 
-  source("0data_ui.R", local=TRUE)$value
+  source("0data_ui.R", local=TRUE,encoding = "UTF-8")$value
 
         ),
 
@@ -29,7 +29,7 @@ tabPanel("線形回帰 (連続目的変数)",
 
   titlePanel("線形回帰"),
 
-  source("1lm_ui.R", local=TRUE)$value
+  source("1lm_ui.R", local=TRUE,encoding = "UTF-8")$value
 
 ), ## tabPanel
 
@@ -39,7 +39,7 @@ tabPanel("Lロジスティック回帰 (1-0 目的変数)",
 
   titlePanel("ロジスティック回帰"),
 
-  source("2lr_ui.R", local=TRUE)$value
+  source("2lr_ui.R", local=TRUE,encoding = "UTF-8")$value
 
 ), ## tabPanel(
 
@@ -56,8 +56,8 @@ tabPanel("Cox 回帰(Time-Event 目的変数)",
 ,
 ##---------- other panels ----------
 
-source("../0tabs/home_jp.R",local=TRUE)$value,
-source("../0tabs/stop_jp.R",local=TRUE)$value
+source("../0tabs/home_jp.R",local=TRUE,encoding = "UTF-8")$value,
+source("../0tabs/stop_jp.R",local=TRUE,encoding = "UTF-8")$value
 
 )
 ##-----------------------over

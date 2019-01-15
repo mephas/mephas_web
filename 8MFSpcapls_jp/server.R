@@ -18,7 +18,7 @@ function(input, output, session) {
 
 #----------0. dataset input----------
 
-source("0data_server.R", local=TRUE) 
+source("0data_server.R", local=TRUE,encoding = "UTF-8") 
 
 #----------1. PCA ----------
 output$nc <- renderText({ input$nc })

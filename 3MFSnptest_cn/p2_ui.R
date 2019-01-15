@@ -4,7 +4,7 @@
 ##
 ##    >Panel 2
 ##
-## Language: EN
+## Language: CN
 ## 
 ## DT: 2019-01-10
 ##
@@ -79,19 +79,19 @@ h4("Data Preparation"),
     helpText("Change the names of two samples (optional)"), tags$textarea(id="cn2", rows=2, "X\nY")),
 
   ##-------csv file-------##   
-  tabPanel("Upload .csv", p(br()),
-    fileInput('file2', 'Choose .csv', accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
+  tabPanel("Upload CSV file", p(br()),
+    fileInput('file2', 'Choose CSV file', accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
     checkboxInput('header2', 'Header', TRUE), #p
     radioButtons('sep2', 'Separator', c(Comma=',', Semicolon=';', Tab='\t'), ',')) )
 ),
 
 mainPanel(
 
-  h4("Data Description"),
+  h4("Descriptive Statistics"),
 
   tabsetPanel(
 
-    tabPanel("Data display", p(br()),  
+    tabPanel("Data Display", p(br()),  
 
       dataTableOutput("table2")),
 

@@ -22,16 +22,16 @@ shinyServer(
 function(input, output, session) {
 
 #----------0. dataset input----------
-source("0data_server.R", local=TRUE) 
+source("0data_server.R", local=TRUE,encoding = "UTF-8") 
 
 #----------1. Linear regression----------
-source("1lm_server.R", local=TRUE)
+source("1lm_server.R", local=TRUE,encoding = "UTF-8")
 
 #----------2. Logistic regression----------
-source("2lr_server.R", local=TRUE)
+source("2lr_server.R", local=TRUE,encoding = "UTF-8")
 
 #----------3. Cox regression----------
-source("3cr_server.R", local=TRUE)
+source("3cr_server.R", local=TRUE,encoding = "UTF-8")
 
 
 #---------------------------##

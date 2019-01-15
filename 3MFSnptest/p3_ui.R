@@ -81,8 +81,8 @@ h4("Data Preparation"),
     tags$textarea(id="cn3", rows=2, "X\nY\n(X-Y)")),
 
   ##-------csv file-------##   
-  tabPanel("Upload .csv", p(br()),
-    fileInput('file3', 'Choose .csv', accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
+  tabPanel("Upload CSV file", p(br()),
+    fileInput('file3', 'Choose CSV file', accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
     checkboxInput('header3', 'Header', TRUE), #p
     radioButtons('sep3', 'Separator', c(Comma=',', Semicolon=';', Tab='\t'), ',')
     ) 
@@ -91,11 +91,11 @@ h4("Data Preparation"),
 
 mainPanel(
 
-  h4("Data Description"),
+  h4("Descriptive Statistics"),
 
   tabsetPanel(
 
-    tabPanel("Data display", p(br()),  
+    tabPanel("Data Display", p(br()),  
 
       dataTableOutput("table3")),
 
