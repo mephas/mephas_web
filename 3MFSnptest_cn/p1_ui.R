@@ -4,7 +4,7 @@
 ##
 ##    >Panel 1
 ##
-## Language: EN
+## Language: CN
 ## 
 ## DT: 2019-01-09
 ##
@@ -15,20 +15,20 @@ signtest<-sidebarLayout(
 
 sidebarPanel(
 
-h4("Hypotheses"),
+h4("假设检验"),
 
-tags$b("Null hypothesis"),
-HTML("<p> m = m&#8320: the population median is equal to the specified value </p>"),
+  tags$b("零假设"),
+HTML("<p> m = m&#8320: 总体X的中位值等于指定值.</p>"),
 
-radioButtons("alt.st", label = "Alternative hypothesis", 
+radioButtons("alt.st", label = "备择假设", 
   choiceNames = list(
-  HTML("m &#8800 m&#8320: the population median of X is not equal to the specified value"),
-  HTML("m < m&#8320: the population median of X is less than the specified value"),
-  HTML("m > m&#8320: the population median of X is greater than the specified value")),
-choiceValues = list("two.sided", "less", "greater"))),
+  HTML("m &#8800 m&#8320: 总体X的中位值不等于指定值"),
+  HTML("m < m&#8320: 总体X的中位值小于指定值"),
+  HTML("m > m&#8320: 总体X的中位值大于指定值")),
+  choiceValues = list("two.sided", "less", "greater"))),
 
   mainPanel(
-    h4('Results of Sign Test'), 
+    h4('符号检验的结果'), 
     tableOutput("sign.test")
     )  
   )
@@ -39,29 +39,29 @@ wstest<-sidebarLayout(
 
 sidebarPanel(
 
-h4("Hypotheses"),
+h4("假设检验"),
 
-tags$b("Null hypothesis"),
-HTML("<p> m = m&#8320: the population median is equal to the specified value; the distribution of the data set is symmetric about the default value </p>"),
+tags$b("零假设"),
+HTML("<p> m = m&#8320: 总体X的中位值等于指定值；数据集的分布与指定值相同</p>"),
 
-radioButtons("alt.wsr", label = "Alternative hypothesis", 
+radioButtons("alt.wsr", label = "备择假设", 
   choiceNames = list(
-  HTML("m &#8800 m&#8320: the population median of X is not equal to the specified value; or, the distribution of the data set is not symmetric about the default value"),
-  HTML("m < m&#8320: the population median of X is less than the specified value"),
-  HTML("m > m&#8320: the population median of X is greater than the specified value")),
+  HTML("m &#8800 m&#8320: 总体X的中位值不等于指定值"),
+  HTML("m < m&#8320: 总体X的中位值小于指定值"),
+  HTML("m > m&#8320: 总体X的中位值大于指定值")),
 choiceValues = list("two.sided", "less", "greater")),
 
-helpText("Correction"),
-radioButtons("nap.wsr", label = "Normal Approximation", 
-  choices = list("Sample size is not large" = FALSE,
-                 "Sample size is moderate large" = TRUE, 
-                 "Small sample size" = TRUE), selected = FALSE),
-helpText("Normal approximation is applicable when sample size > 10.")),
+helpText("校正"),
+radioButtons("nap.wsr", label = "正态近似", 
+  choices = list("样本量不很大" = FALSE,
+                 "样本大小适中" = TRUE, 
+                 "样本量小" = TRUE), selected = FALSE),
+helpText("当样本量＞10时，可以应用正态近似.")),
 
   mainPanel(
-    h4('Results of Wilcoxon Signed-Rank Test'), 
+    h4('Wilcoxon符号秩检验的结果'), 
     tableOutput("ws.test"), 
-    helpText("When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction'")
+    helpText("当应用正态近似时，测试名称变成“具有连续性校正的Wilcoxon符号秩检验”")
   )
 )
 
@@ -70,34 +70,34 @@ onesample<- sidebarLayout(
 
 sidebarPanel(
 
-h4("Data Preparation"),
+h4("数据准备"),
 
   tabsetPanel(
   ##-------input data-------## 
-  tabPanel("Manual input", p(br()),
-    helpText("Missing value is input as NA"),
+  tabPanel("手动输入", p(br()),
+      helpText("缺失值请输入NA"),
 
     tags$textarea(id="a", rows=10, "1.8\n3.3\n6.7\n1.4\n2.2\n1.6\n13.6\n2.8\n1.0\n2.8\n6.5\n6.8\n0.7\n0.9\n3.4\n3.3\n1.4\n0.9\n1.4\n1.8"),
-    helpText("Change the names of the samples (optional)"), 
+      helpText("改变样本的名称（可选)"),
     tags$textarea(id="cn", rows=2, "X")
     ),
 
   ##-------csv file-------##   
-  tabPanel("Upload .csv", p(br()),
-    fileInput('file', 'Choose .csv', 
+  tabPanel("上传CSV文件", p(br()),
+    fileInput('file', '选择CSV文件', 
       accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
-    checkboxInput('header', 'Header', TRUE), #p
-    radioButtons('sep', 'Separator', c(Comma=',', Semicolon=';', Tab='\t'), ',')) 
+    checkboxInput('header', '第一行为变量名', TRUE), #p
+    radioButtons('sep', '分隔符', c(Comma=',', Semicolon=';', Tab='\t'), ',')) 
   ),
 
   hr(),
-  h4("Configuration"),
-  numericInput("med", HTML("The specific value, m&#8320"), 4)#p),
+  h4("参数设置"),
+  numericInput("med", HTML("待比较的指定的中位值, m&#8320"), 4)#p),
   ),
 
 mainPanel(
 
-  h4("Data Description"),
+  h4("Descriptive Statistics"),
 
   tabsetPanel(
 

@@ -83,8 +83,8 @@ h4("Data Preparation"),
     ),
 
   ##-------csv file-------##   
-  tabPanel("Upload .csv", p(br()),
-    fileInput('file', 'Choose .csv', 
+  tabPanel("Upload CSV file", p(br()),
+    fileInput('file', 'Choose CSV file', 
       accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
     checkboxInput('header', 'Header', TRUE), #p
     radioButtons('sep', 'Separator', c(Comma=',', Semicolon=';', Tab='\t'), ',')) 
@@ -97,11 +97,11 @@ h4("Data Preparation"),
 
 mainPanel(
 
-  h4("Data Description"),
+  h4("Descriptive Statistics"),
 
   tabsetPanel(
 
-    tabPanel("Data display", p(br()),  
+    tabPanel("Data Display", p(br()),  
 
       dataTableOutput("table")),
 

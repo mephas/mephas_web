@@ -2,7 +2,7 @@
 ##
 ## 3MFSnptest UI
 ##
-## Language: EN
+## Language: CN
 ## 
 ## DT: 2019-01-09
 ##
@@ -17,33 +17,33 @@ tagList(
 
 navbarPage(
 
-title = "Non-parametric Test",  
+title = "非参数检验",  
 
 ##---------- Panel 1 ----------
 tabPanel("One Sample",
 
-headerPanel("Sign Test, Wilcoxon Signed-Rank Test"),
+headerPanel("符号检验，Wilcoxon符号秩检验"),
 
 HTML(" 
 
-<b> Notations </b>
+<b> 注 </b>
 
   <ul>
-  <li> X is the randomly collected sample 
-  <li> m is the population median of X, meaning the 50 percentile of the underlying distribution of the X 
-  <li> m&#8320 is the specified value 
+  <li> X是随机采集的样本 
+  <li> m是总体X的中位数，即X的分布的50百分位数 
+  <li> m&#8320 是指定值. 
   </ul>
 
 
-<b> Assumptions </b>
+<b> 前提假设 </b>
 
   <ul>
-  <li>Each observation is independent and comes from the same population
-  <li>X could be continuous (i.e., interval or ratio) and ordinal
+  <li> 每个观察是独立的，来自同一总体
+  <li> X是连续的（即间隔或比率）和序数
   </ul>
 
 
-<p> Both can be used to test whether the median of a collection of numbers is significantly greater than or less than a specified value. </p>
+<p> 两者都可用于测试一组数字的中值是否显著大于或小于指定值 </p>
 
   "),
 hr(),
@@ -54,25 +54,25 @@ hr(),
 
 ##---------- 1.2 ----------
 
-h4("Sign Test"),
-p("The sign test makes very few assumptions about the nature of the distributions under test, but may lack the statistical power of the alternative tests."),
+h4("符号检验"),
+p("符号检验对被检验的数据的分布性质基本不做出假设，但是其统计功效（statistical power）可能不如其他方法"),
 
 signtest,
 hr(),
 
 ##---------- 1.3 ----------
 
-h4("Wilcoxon Signed-Rank Test"),
+h4("Wilcoxon符号秩检验"),
 
 HTML("
 
-<p> Alternative to one-sample t-test when the data cannot be assumed to be normally distributed. It is used to determine whether the median of the sample is equal to a specified value.</p>
+<p> 当数据不能被假定为正态分布时，可以使用这个方法来替代一个样本t检验，来确定样本的中值是否等于指定的值</p>
 
-<b> Supplementary Assumptions </b>
+<b> 补充假设 </b>
 
 <ul>
-  <li> The distribution of X is symmetric
-  <li> No ties (same values) in X
+  <li> X的分布是对称的
+  <li> X中没有相同的值 (No ties)
 </ul>
 
   "),
@@ -83,26 +83,26 @@ wstest
 
 ##---------- Panel 2 ----------
 
-tabPanel("Two Independent Samples",
+tabPanel("两个独立样本",
 
-headerPanel("Wilcoxon Rank-Sum Test (Mann-Whitney U Test), Mood's Median Test"),
+headerPanel("Wilcoxon秩和检验（Mann-Whitney U检验），(Mood's)中数检验"),
 
 HTML("
 
 <p> To determine whether a randomly selected sample will be less than or greater than a second randomly selected sample. </p>
 
-<b> Notations </b>
+<b> 注 </b>
   <ul>
-  <li> X is the first randomly selected sample, while Y is the second</li>
-  <li> m&#8321 is the population median of X, or the 50 percentile of the underlying distribution of X </li>  
-  <li> m&#8322 is the population median of Y, or the 50 percentile of the underlying distribution of Y </li> 
+  <li> X是第一个随机选择的样本，而Y是第二个
+  <li> m&#8321 是X的总体中位值, 即位于X的分布的百分之五十位的数
+  <li> m&#8322 是Y的总体中位值, 即位于Y的分布的百分之五十位的数
   </ul>
 
-<b> Assumptions </b>  
+<b> 前提假设 </b>  
   <ul>
-  <li> All the observations from both groups are independent of each other, no paired or repeated data </li>
-  <li> X and Y could be continuous (i.e., interval or ratio) and ordinal (i.e., at least, of any two observations, which is the greater) </li>  
-  <li> X and Y are similar in distribution's shape </li> 
+  <li> 两组的观察结果相互独立，没有成对或重复的数据
+  <li> m&#8321 是X的总体中位值, 即位于X的分布的百分之五十位的数
+  <li> m&#8322 是Y的总体中位值, 即位于Y的分布的百分之五十位的数
   </ul>
 
   "),
@@ -113,29 +113,29 @@ twosample,
 hr(),
 
 ##---------- 2.2 ----------
-h4("Wilcoxon Rank-Sum Test, Mann-Whitney U Test, Mann-Whitney-Wilcoxon Test, Wilcoxon-Mann-Whitney Test"),
+h4("(Wilcoxon)秩和检验, Mann-Whitney U检验, Mann-Whitney－Wilcoxon检验, Wilcoxon Mann-Whitney检验"),
 
 HTML("
 
-<p> Not require the assumption of normal distributions; nearly as efficient as the t-test on normal distributions. </p>
+<p> 不需要假设正态分布，几乎与正态分布上的t检验一样有效 </p>
 
-<b> Supplementary Assumptions  </b>
+<b> 补充假设  </b>
 
 <ul>
-<li> No outliers (to determine if the distributions of the two groups are similar in shape and spread)
-<li> If outliers exist, the test is used for testing distributions (to determine if the distributions of the two groups are different in shape and spread)
+<li> 无离群值（确定两组在形状和分布上的分布是否相似）
+<li> 如果存在离群值，该检验试用于检验分布的一致性（确定两组在形状和分布上的分布是否不同）
 </ul>
 
-<p> Outliers will affect the spread of data  </p>
+<p> 离群值会影响数据的分布  </p>
   "),
 
 wrtest,
 hr(),
 
 ##---------- 2.3 ----------
-h4("Mood's Median Test"),
+h4("Mood's 中数检验"),
 
-p("A special case of Pearson's chi-squared test. It has low power (efficiency) for moderate to large sample sizes. "),
+p("皮尔森卡方检验（Pearson's chi-squared test）的一个特例"),
 
 mmtest
 
@@ -143,30 +143,29 @@ mmtest
 
 ##---------- Panel 3 ----------
 
-tabPanel("Two Paired Samples",    
+tabPanel("两个成对样本",    
 
-headerPanel("Sign Test & Wilcoxon Signed-Rank Test"),
+headerPanel("符号检验，Wilcoxon符号秩检验"),
 
 HTML("
 
-<b> Assumptions </b>
+<b> 前提假设 </b>
 
 <ul>
-  <li> The observations of (X, Y) are paired and come from the same population 
-  <li> X's and Y's could be continuous (i.e., interval or ratio) and ordinal 
-  <li> D's are independent and come from the same population 
+  <li> （X，Y）的观测是成对的，来自同一总体
+  <li> X和Y可以是连续的变量
+  <li> D是独立的，来自同一总体
 </ul>
 
-<b> Notations </b>
+<b> 注 </b>
 
 <ul>
-  <li> The paired observations are designated X and Y ,
-  <li> D = X-Y, the differences between paired (X, Y) 
-  <li> m is the population median of D, or the 50 percentile of the underlying distribution of the D. 
+  <li> 成对观测值被指定为x和y.
+  <li> D = X-Y, 成对（x，y）之间的差异
+  <li> m 是D的总体中位数，或D的分布的百分之五十位的数
 </ul>
 
-<p> Given pairs of observations (such as weight pre- and post-treatment) for each subject, both test determine if one of the pair (such as pre-treatment) tends to be greater than (or less than) the other pair (such as post-treatment).</p>
-
+<p> 给定每位受试者的一对观察值（如治疗前和治疗后的体重），这两个检测都可以用来确定其中一个（如治疗前）是否倾向于大于（或小于）另一个（如治疗后）</p>
 "),
 
 psample,
@@ -174,38 +173,36 @@ psample,
 hr(),
 ##---------- 3.1 ----------
 
-h4("Sign Test"),
-p("The sign test makes very few assumptions about the nature of the distributions under test, but may lack the statistical power of the alternative tests."),
+h4("符号检验"),
+p("这种方法使用很少假设，并且具有非常普遍的适用性，但其统计效能可能不如其他方法"),
 
 signtest.p,
 
 hr(),
 ##---------- 3.2 ----------
 
-h4("Wilcoxon Signed-Rank Test"),
+h4("Wilcoxon符号秩检验"),
 
 HTML("
 
-  <p> An alternative to the paired t-test for matched pairs, when the population cannot be assumed to be normally distributed. It can also be used to determine whether two dependent samples were selected from populations having the same distribution. </p>
+  <p> 此方法是当总体不能被假定为正态分布时，配对的t检验的替代方案。此方法也可以用于检验是否从具有相同分布的总体中选择两个相关样本 </p>
 
-  <b> Supplementary Assumptions </b>
+  <b> 补充假设 </b>
   
   <ul>
-    <li> The distribution of D's is symmetric
-    <li> No ties in D's
+    <li> D的分布是对称的.
+    <li> D变量之中没有相同的值
   </ul>
 
   "),
   
-helpText("Ties means the same values"),
-
 wstest.p
 
 ),
 ##---------- other panels ----------
 
-source("../0tabs/home.R",local=TRUE)$value,
-source("../0tabs/stop.R",local=TRUE)$value
+source("../0tabs/home_cn.R",local=TRUE)$value,
+source("../0tabs/stop_cn.R",local=TRUE)$value
 
   
 ))
