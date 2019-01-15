@@ -73,21 +73,21 @@ h4("データ挿入"),
   tabsetPanel(
   ##-------input data-------## 
   tabPanel("手入力", p(br()),
-    helpText("違った値はNAと表示される"),
+    helpText("欠損値はNAと表示される"),
     tags$textarea(id="x1", rows=10, "1.8\n3.3\n6.7\n1.4\n2.2\n1.6\n13.6\n2.8\n1.0\n2.8\n6.5\n6.8\n0.7\n0.9\n3.4\n3.3\n1.4\n0.9\n1.4\n1.8"),  ## disable on chrome
     tags$textarea(id="x2", rows=10, "8.7\n6.6\n6.0\n3.9\n1.6\n16.0\n14.1\n3.1\n4.0\n3.7\n3.1\n7.4\n6.0\n1.1\n3.0\n2.0\n5.0\n4.2\n5.0\n4.9"),
     helpText("サンプルの名称変更"), tags$textarea(id="cn2", rows=2, "X\nY")),
 
   ##-------csv file-------##   
-  tabPanel("アップロード .csv", p(br()),
-    fileInput('file2', '.csvファイルを指定', accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
+  tabPanel("アップロード CSV ファイル", p(br()),
+    fileInput('file2', 'CSV ファイルを指定してください', accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
     checkboxInput('header2', 'ヘッダー', TRUE), #p
     radioButtons('sep2', '区切り', c(Comma=',', Semicolon=';', Tab='\t'), ',')) )
 ),
 
 mainPanel(
 
-  h4("データの説明"),
+  h4("データの記述統計"),
 
   tabsetPanel(
 

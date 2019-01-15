@@ -145,7 +145,7 @@ mmtest
 
 tabPanel("Two Paired Samples",    
 
-headerPanel("Sign Test & Wilcoxon Signed-Rank Test"),
+headerPanel("Sign Test, Wilcoxon Signed-Rank Test"),
 
 HTML("
 

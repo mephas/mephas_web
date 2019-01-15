@@ -61,13 +61,13 @@ X_var = eventReactive(input$choice,{
 
 output$cv = renderUI({
   selectInput(
-    'cv', h5('Select continuous variables'),
+    'cv', h5('Select 連続変数'),
     selected = NULL, choices = names(X()), multiple = TRUE)
 })
 
 output$dv = renderUI({
   selectInput(
-    'dv', h5('Select categorical/discrete variables'), 
+    'dv', h5('Select 離散変数'), 
     selected = NULL, choices = names(X()), multiple = TRUE)
 })
 
@@ -117,7 +117,7 @@ output$p1 = renderPlot({
 output$hx = renderUI({
   selectInput(
     'hx',
-    h5('Histogram of the continuous variable'),
+    h5('連続変数のヒストグラム'),
     selected = NULL,
     choices = names(X()))
 })
@@ -125,7 +125,7 @@ output$hx = renderUI({
 output$hxd = renderUI({
   selectInput(
     'hxd',
-    h5('Histogram of the categorical/discrete variable'),
+    h5('離散変数のヒストグラム'),
     selected = NULL,
     choices = names(X()))
 })

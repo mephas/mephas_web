@@ -2,112 +2,36 @@ if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(mixOmics)) {install.packages("mixOmics")}; library(mixOmics)
 
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## PCA PLS regressions for n<p data, server EN
+## 8MFSpcapls SERVER
 ##
-## 2018-11-30
+## Language: EN
 ## 
-##----------------------------------------------------------------
+## DT: 2019-01-15
+##
+##----------#----------#----------#----------
 
 shinyServer(
-function(input, output) {
-  #options(warn = -1)
-  #options(digits= 6)
-  
 
-## data set ----------------------------------------------------------------------------------------
-# input data, variables
-X <- reactive({
- # req(input$file)
-  inFile <- input$file.x
-  if (is.null(inFile)) 
-  # eg data
-    {df = liver.toxicity$gene[,1:100]
-    return(df)
-  } 
-  else{
-    # user data
-    df <- as.data.frame(
-      read.csv(
-        inFile$datapath.x,
-        header = input$header.x,
-        sep = input$sep.x,
-        quote = input$quote.x
-        )
-      )
-      return(df)
-   }
-})
+function(input, output, session) {
 
-Y <- reactive({
- # req(input$file)
-  inFile <- input$file.y
-  if (is.null(inFile)) 
-  # eg data
-    {df = liver.toxicity$clinic
-    return(df)
-  } 
-  else{
-    # user data
-    df <- as.data.frame(
-      read.csv(
-        inFile$datapath.y,
-        header = input$header.y,
-        sep = input$sep.y,
-        quote = input$quote.y
-        )
-      )
-      return(df)
-   }
-})
+#----------0. dataset input----------
 
-data <- reactive({cbind.data.frame(Y(), X())})
+source("0data_server.R", local=TRUE) 
 
-
-output$table <- renderDataTable({data()},   options = list(pageLength = 5))
-
-# summary variable
-output$x = renderUI({
-    selectInput('x', h5('サマリーの変数'), selected= colnames(data())[3], choices = colnames(data()))
-  })
-sum <- reactive({summary(data()[,input$x])})
-output$sum <- renderPrint({sum()})
-
-# scatter plot
-output$tx = renderUI({
-    selectInput('tx', h5('プロットする独立変数（X）'), selected= colnames(data())[3], choices = colnames(data()))
-  })
-output$ty = renderUI({
-    selectInput('ty', h5('プロットする従属変数（Y）'), selected= colnames(data())[1], choices = colnames(data()))
-  })
-output$p1 <- renderPlot({ 
-    ggplot(data(), aes(x=data()[,input$tx], y=data()[,input$ty])) + geom_point(shape=1) + geom_smooth(method=lm) +xlab(input$tx) +ylab(input$ty)+ theme_minimal()
-  })
-
-# histogram
-output$hx = renderUI({
-    selectInput('hx', h5('プロットする変数'), selected= colnames(data())[1], choices = colnames(data()))
-  })
-output$p2 <- renderPlot({ 
-    ggplot(data(), aes(x = data()[,input$hx])) + geom_histogram(colour="black", fill = "grey", binwidth=input$bin, position="identity") + xlab("") + theme_minimal() + theme(legend.title=element_blank())
-  })
-
-
-##-------------------------------------------------------------------
-##1. PCA
-# input data
+#----------1. PCA ----------
 output$nc <- renderText({ input$nc })
 # model
-pca <- reactive({ 
+pca <- reactive({
   pca = mixOmics::pca(as.matrix(X()), ncomp = input$nc, scale = TRUE)
   pca})
 
 pca.x <- reactive({ pca()$x })
 
-output$fit  <- renderPrint({  
+output$fit  <- renderPrint({
   res <- rbind(pca()$explained_variance,pca()$cum.var)
-  rownames(res) <- c("explained_variance", "cumulative_variance") 
+  rownames(res) <- c("explained_variance", "cumulative_variance")
   res})
 
 output$comp <- renderDataTable({ round(pca.x(),3)}, options = list(pageLength = 5))
@@ -126,13 +50,9 @@ output$pca.var  <- renderPlot({ plotVar(pca(),   comp=c(input$c1, input$c2))})
 output$pca.bp   <- renderPlot({ biplot(pca())})
 output$pca.plot <- renderPlot({ plot(pca())})
 
-##-------------------------------------------------------------------
+#----------2. PLS ----------
 
-##2. PLS
-# input data
-#output$nc.pls <- renderText({ input$nc.pls })
-# model
-pls <- reactive({ 
+pls <- reactive({
   pls = mixOmics::pls(as.matrix(X()),as.matrix(Y()), ncomp = input$nc.pls, scale = TRUE)
   pls})
 
@@ -163,12 +83,9 @@ output$downloadData.pls.y <- downloadHandler(
 output$pls.ind  <- renderPlot({ plotIndiv(pls(), comp=c(input$c1.pls, input$c2.pls)) })
 output$pls.var  <- renderPlot({ plotVar(pls(),   comp=c(input$c1.pls, input$c2.pls)) })
 
-##-------------------------------------------------------------------
+#----------3. SPLS ----------
 
-##3. SPLS
-# input data
-# model
-spls <- reactive({ 
+spls <- reactive({
   spls = mixOmics::spls(as.matrix(X()),as.matrix(Y()), ncomp = input$nc.spls, scale = TRUE,
     keepX=input$x.spls, keepY=input$y.spls)
   spls})
@@ -201,32 +118,14 @@ output$spls.ind  <- renderPlot({ plotIndiv(spls(), comp=c(input$c1.spls, input$c
 output$spls.var  <- renderPlot({ plotVar(spls(),   comp=c(input$c1.spls, input$c2.spls)) })
 output$spls.load <- renderPlot({ plotLoadings(spls()) })
 
+#---------------------------##
 
-##-------------------------------------------------------------------
-
-##4. elastic net
-# input data
-# model
-#lambda <- reactive({
- # cv.fit = glmnet::cv.glmnet(as.matrix(X()),as.matrix(Y()), family=input$family, alpha = input$alf)
- # cv.fit$lambda.1se
- # })
-
-#output$lambda <- renderPrint({lambda()})
-
-#ela <- reactive({ 
- # fit = glmnet::glmnet(as.matrix(X()),as.matrix(Y()),
-  #  family=input$family, alpha = input$alf)
- # fit
- # })
-
-#output$ela <- renderPrint({ coef(ela()) })
-
-#output$plot.ela  <- renderPlot({ plot(ela()) })
 observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
 
 
-}
-)
+})
+
+
+

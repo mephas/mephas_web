@@ -17,94 +17,125 @@ navbarPage(
 
   tabPanel("データセット",
 
-    titlePanel("アップロード"),
+    titlePanel("データ挿入"),
 
 #helpText("Before user's data is uploaded, the example data (mtcars) is being shown ."),
   sidebarLayout(
     sidebarPanel(##-------csv file-------##   
     # Input: Select a file as variable----
-    fileInput('file.x', "アップロード .csv ファイル (説明変数X)",
+    fileInput('file.x', "CSV ファイルを指定してください（説明変数X）",
               multiple = TRUE,
               accept = c("text/csv",
                        "text/comma-separated-values,text/plain",
                        ".csv")),
-    helpText("Xの列は500より大きくできません"),
+    #helpText("Xの列は500より大きくできません"),
     # Input: Checkbox if file has header ----
-    checkboxInput("header.x", "Header", TRUE),
+    checkboxInput("header.x", "ヘッダー", TRUE),
 
     fluidRow(
 
     column(4, 
        # Input: Select separator ----
-    radioButtons("sep.x", "Separator",
-                 choices = c(コンマ = ',',
-                             セミコロン = ';',
-                             タブ = '\t'),
-                 selected = ',')),
+    radioButtons("sep.x", "区切り",
+                   choices = c(Comma = ',',
+                               Semicolon = ';',
+                               Tab = '\t'),
+                   selected = ',')),
 
     column(4,
     # Input: Select quotes ----
-    radioButtons("quote.x", "クォート",
-                 choices = c(None = "",
-                             "ダブルクォーテーション" = '"',
-                             "シングルクォーテーション" = "'"),
-                 selected = '"'))
+    radioButtons("quote", "クオート",
+                   choices = c(None = "",
+                               "Double Quote" = '"',
+                               "Single Quote" = "'"),
+                   selected = '"'))
     ),
 
     # Input: Select a file as response----
-    fileInput('file.y', "アップロード.csv データセット(目的変数Y)",
+    fileInput('file.y', "CSV ファイルを指定してください　(目的変数Y)",
               multiple = TRUE,
               accept = c("text/csv",
                        "text/comma-separated-values,text/plain",
                        ".csv")),
     helpText("Yの列は一つ以上にできます"),
     # Input: Checkbox if file has header ----
-    checkboxInput("header.y", "Header", TRUE),
+    checkboxInput("header.y", "ヘッダー", TRUE),
 
     fluidRow(
 
     column(4, 
        # Input: Select separator ----
-    radioButtons("sep.y", "Separator",
-                 choices = c(コンマ = ',',
-                             セミコロン = ';',
-                             タブ = '\t'),
-                 selected = ',')),
+    radioButtons("sep.y", "区切り",
+                   choices = c(Comma = ',',
+                               Semicolon = ';',
+                               Tab = '\t'),
+                   selected = ',')),
+
 
     column(4,
     # Input: Select quotes ----
-    radioButtons("quote.y", "クォート",
-                 choices = c(なし = "",
-                             "ダブルクォーテーション" = '"',
-                             "シングルクォーテーション" = "'"),
-                 selected = '"'))
+    radioButtons("quote.y", "クオート",
+                   choices = c(None = "",
+                               "Double Quote" = '"',
+                               "Single Quote" = "'"),
+                   selected = '"'))
     )
 
     ),
 
 
-    mainPanel(
-      h4(tags$b("データ")), 
-      dataTableOutput("表"),
+ mainPanel(
+      h4(("データ表示")), 
+      helpText("The first 5 rows and first 5 columns of X matrix"),
+      tags$head(tags$style(".shiny-output-error{color: blue;}")),
+      tableOutput("table.x"),
+      helpText("The first 5 rows and first columns of Y matrix"),
+      tableOutput("table.y"),
       hr(),  
-      h4(tags$b("Descriptives")),
-      uiOutput('x'),
-      verbatimTextOutput("sum"),
+      h4(("記述統計")),
+      tags$b("Select the variables for 記述統計"),
 
-      hr(),  
-      h4(tags$b("分布図 (Y-X)")), 
-      fluidRow(
-        column(6, HTML('</br>'), uiOutput('ty')),
-        column(6, HTML('</br>'), uiOutput('tx'))),
-      plotOutput("p1", width = "400px", height = "400px"),
+        fluidRow(
+          column(6,
+          uiOutput('cv'),
+          actionButton("Bc", "Show 記述統計"),
+          tableOutput("sum"),
+          helpText(HTML(
+      "
+      Note:
+      <ul>
+      <li> nbr.: the number of </li>
+      </ul>
+      "
+      ))
+          ),
 
-      hr(),  
-      h4(tags$b("ヒストグラム")), 
-      HTML('</br>'), uiOutput('hx'),
-      plotOutput("p2", width = "400px", height = "400px"),
-      sliderInput("bin", "ヒストグラムの棒幅", min = 0.01, max = 5, value = 0.7)
-      
+          column(6,
+          uiOutput('dv'),
+          actionButton("Bd", "Show 記述統計"),
+          verbatimTextOutput("fsum")
+          )),
+
+            h4(("First Exploration of Variables")),  
+
+      tabsetPanel(
+        tabPanel("散布図 (with line) between two variables",
+          uiOutput('tx'),
+          uiOutput('ty'),
+          plotOutput("p1", width = "400px", height = "400px")
+          ),
+        tabPanel("ヒストグラム",
+          fluidRow(
+          column(6,
+            uiOutput('hx'),
+            plotOutput("p2", width = "400px", height = "400px"),
+            sliderInput("bin", "ヒストグラムの棒幅", min = 10, max = 150, value = 1)),
+          column(6,
+            uiOutput('hxd'),
+            plotOutput("p3", width = "400px", height = "400px"))))
+        )
   )
+
 
   )),
  
@@ -164,7 +195,7 @@ titlePanel("部分最小二乗（Partial Least Squares）"),
 
 sidebarLayout(
 sidebarPanel(
-  h3("モデル設定"),
+  h3("モデルの設定"),
   numericInput("nc.pls", "要素の数:", 4, min = 2, max = 20),
 
   h3("パラメータ設定"),
@@ -198,7 +229,7 @@ titlePanel("スパース部分最小二乗Sparse Partial Least Squares"),
 
 sidebarLayout(
 sidebarPanel(
-  h3("モデル設定"),
+  h3("モデルの設定"),
   numericInput("nc.spls", "要素の数:", 4, min = 2, max = 20),
   numericInput("x.spls", "Xのローディングで保持する変数の数:", 10, min = 2, max = 20),
   numericInput("y.spls", "Yのローディングで保持する変数の数:", 5, min = 2, max = 20),
@@ -275,20 +306,10 @@ mainPanel(
 #)
 #)
 
- ##----------
-tabPanel((a("ホーム",
- #target = "_blank",
- style = "margin-top:-30px;",
- href = paste0("https://pharmacometrics.info/mephas/", "index_jp.html")))),
+##---------- other panels ----------
 
-tabPanel(
-      tags$button(
-      id = 'close',
-     style = "margin-top:-10px;",
-      type = "button",
-      class = "btn action-button",
-      onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "停止"))
+source("../0tabs/home_jp.R",local=TRUE)$value,
+source("../0tabs/stop_jp.R",local=TRUE)$value
 
 )
 

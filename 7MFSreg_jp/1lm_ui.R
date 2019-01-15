@@ -15,16 +15,16 @@ sidebarLayout(
 
   sidebarPanel(
 
-  h4(tags$b("Given that dataset has been imported, please design you model")),      
+  h4(("Given that dataset has been imported, please design you model")),      
   uiOutput('y'),    
   uiOutput('x'),
   uiOutput('fx'),
   
-  radioButtons("intercept", "Intercept", ##> intercept or not
-               choices = c("Remove Intercept" = "-1",
-                           "Keep intercept" = ""),
+  radioButtons("intercept", "定数項", ##> intercept or not
+               choices = c("定数項を取り除く" = "-1",
+                           "定数項を取り除かない" = ""),
                selected = "-1"),
-  h5("Additional terms (confounding or interaction)"), 
+  h5("Additional terms (confounding交絡因子 or interaction交互作用)"), 
   helpText('Note: Start with "+". For interactive term, please type "+ as.factor(var1):var2"'), 
   tags$textarea(id='conf', cols=40, " " ), 
   p(br()),
@@ -34,7 +34,7 @@ sidebarLayout(
  
 mainPanel(
 
-  h4(tags$b("Linear Regression Model")),
+  h4(("線形回帰")),
   
   tags$style(type='text/css', '#formula {background-color: rgba(0,0,255,0.10); color: blue;}'),
   verbatimTextOutput("formula", placeholder = TRUE),
@@ -42,7 +42,7 @@ mainPanel(
   hr(),
 
 
-  h4(tags$b("Results of the linear regression")),
+  h4(("結果")),
   actionButton("B1", "Show the results"),
   p(br()),
   tabsetPanel(
@@ -50,15 +50,15 @@ mainPanel(
     tabPanel("Parameters' estimation",
       p(br()),
      #sliderInput("range", label = h3("choose subset"), min = 1, max = 100, value = c(1,10)),
-      tags$b("1. Regression's coefficients"),
+      tags$b("1. 偏回帰係数"),
       htmlOutput("fit"), p(br()),
-      tags$b("2. ANOVA Table"), tableOutput("anova"),p(br()),
+      tags$b("2. ANOVA テーブル"), tableOutput("anova"),p(br()),
       tags$b("3. Select a formula-based model by AIC"), verbatimTextOutput("step")
       ),
 
-    tabPanel("Model's diagnostics", 
+    tabPanel("回帰診断", 
       p(br()),
-      tags$b("Diagnostic Plots"), 
+      tags$b("診断プロット"), 
       radioButtons("num", "Choose plot",
                    choices = c("Residuals vs fitted plot" = 1,
                                "Normal Q-Q" = 2,
@@ -74,7 +74,7 @@ mainPanel(
       tags$b("Estimation is based on import dataset"),
       dataTableOutput("fitdt0")),
 
-      tabPanel("Prediction on new data", p(br()),
+      tabPanel("Prediction予測 on new data", p(br()),
       #prediction part
         ##-------csv file for prediction -------##   
       # Input: Select a file ----
@@ -84,12 +84,12 @@ mainPanel(
                          "text/comma-separated-values,text/plain",
                          ".csv")),
        # Input: Checkbox if file has header ----
-      checkboxInput("newheader", "Header", TRUE),
+      checkboxInput("newheader", "ヘッダー", TRUE),
 
       fluidRow(
       column(3, 
          # Input: Select separator ----
-      radioButtons("newsep", "Separator",
+      radioButtons("newsep", "区切り",
                    choices = c(Comma = ",",
                                Semicolon = ";",
                                Tab = "\t"),
@@ -97,7 +97,7 @@ mainPanel(
 
       column(3,
         # Input: Select quotes ----
-      radioButtons("newquote", "Quote",
+      radioButtons("newquote", "クオート",
                    choices = c(None = "",
                                "Double Quote" = '"',
                                "Single Quote" = "'"),
@@ -106,8 +106,8 @@ mainPanel(
        # prediction type
       radioButtons("interval", "Choose predictive interval (0.95-level)",
                    choices = c(
-                               "Confidence Interval" = "confidence",
-                               "Prediction Interval" = "prediction"),
+                               "信頼区間" = "confidence",
+                               "予測区間" = "prediction"),
                    selected = 'confidence'))
                 ), ##fluidRow(
 

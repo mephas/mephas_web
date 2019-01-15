@@ -13,10 +13,10 @@ tagList(
 #shinythemes::themeSelector(),
 navbarPage(
  
-  title = "Contingency Table of Counts",
+  title = "Contingency Table of Counts 分割表",
 
 ##---------- Panel 1 ----------
-tabPanel("カイ二乗検定（クロステーブル）",
+tabPanel("カイ二乗検定（R x C クロステーブル）",
 
 titlePanel("カイ二乗検定"),
 
@@ -59,18 +59,18 @@ sidebarPanel(
   helpText("列名の数は列数に一致する必要があります")),
   hr(),
 
-  h4("データ挿入"),
+  h4("データ準備"),
   helpText("Input your values by column, i.e., the second column follows the first column"),
   tags$textarea(id="x", rows=10, "10\n20\n30\n35")
     ),
 
 mainPanel(
 
-h4("カイ二乗検定結果"), 
+h4("検定結果"), 
 tableOutput("c.test"),
 hr(),
 
-h4("Contingency Table Description"),
+h4("分割表の記述統計"),
 tabsetPanel(
 
 tabPanel("テーブル", p(br()),
@@ -83,7 +83,7 @@ tabPanel("割合", p(br()),
   h4("全体の割合"), tableOutput("pt")
   ),
 
-tabPanel("Expected value in each cell", p(br()),
+tabPanel("期待値Expected value in each cell", p(br()),
   tableOutput("c.e")
   ),
 
@@ -98,7 +98,7 @@ tabPanel("頻度の棒グラフ (回数)", p(br()),
 
 ##---------- Panel 2 ----------
 
-tabPanel("傾向性の検定 (2 x K Table)",
+tabPanel("傾向性の検定 (2 x K クロステーブル）)",
 
 titlePanel("傾向性の検定"),
 
@@ -121,20 +121,20 @@ h4("データ挿入"),
     helpText("ケース群は左, コントロール群は右"),
 
   ##-------csv file-------##   
-  tabPanel("アップロード.csv", p(br()),
-    fileInput('file2', '.csv ファイル選ぶ', accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
-    checkboxInput('header', 'Header', TRUE),
-    radioButtons('sep', 'Separator', c(Comma=',', Semicolon=';', Tab='\t'), ',')))),
+  tabPanel("アップロード CSV ファイル", p(br()),
+    fileInput('file2', 'CSV ファイルを指定してください', accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
+    checkboxInput('header', 'ヘッダー', TRUE),
+    radioButtons('sep', '区切り', c(Comma=',', Semicolon=';', Tab='\t'), ',')))),
 
   mainPanel(
 
-h4("Results of the Test for Trend, Case out of Total"), 
+h4("検定結果"), 
 tableOutput("tr.test"),
 hr(),
 
-  h4("Contingency Table Description"),
+  h4("分割表の述統計"),
   tabsetPanel(
-    tabPanel("分割表", p(br()),
+    tabPanel("テーブル", p(br()),
       dataTableOutput("ct.tr"),
       helpText("注: パーセンテージ ＝ ケース/合計")
       ),
@@ -149,7 +149,7 @@ hr(),
 
 ##---------- Panel 3 ----------
 
-tabPanel("κ統計量（カッパ） (K x K Table)",
+tabPanel("κ統計量（カッパ） (K x K クロステーブル）)",
 
 titlePanel("κ統計"),
 
@@ -173,7 +173,7 @@ h4("データ挿入"),
 
 mainPanel(
 
-  h4("Results of the Kappa Statistic, k"), tableOutput("k.test"),
+  h4("検定結果"), tableOutput("k.test"),
   tags$b("注"),
   HTML("
   <ul>

@@ -12,63 +12,52 @@ shinyUI(
 tagList(
 
 navbarPage(
-  title = "Regression Model",
+  title = "回帰分析",
 
 #----------0. dataset panel----------
 
-tabPanel("Dataset",
+tabPanel("データセット",
 
-  titlePanel("Data Preparation"),
+  titlePanel("データ挿入"),
 
-  source("0data_ui.R", local=TRUE)
+  source("0data_ui.R", local=TRUE)$value
 
         ),
 
 #----------1. LM regression panel----------
-tabPanel("Linear Regression (Continuous Outcomes)",
+tabPanel("線形回帰 (連続目的変数)",
 
-  titlePanel("Linear Regression"),
+  titlePanel("線形回帰"),
 
-  source("1lm_ui.R", local=TRUE)
+  source("1lm_ui.R", local=TRUE)$value
 
 ), ## tabPanel
 
 ##-----------------------------------------------------------------------
 ## 2. logistic regression---------------------------------------------------------------------------------
-tabPanel("Logistic Regression (1-0 Outcomes)",
+tabPanel("Lロジスティック回帰 (1-0 目的変数)",
 
-  titlePanel("Logistic Regression"),
+  titlePanel("ロジスティック回帰"),
 
-  source("2lr_ui.R", local=TRUE)
+  source("2lr_ui.R", local=TRUE)$value
 
 ), ## tabPanel(
 
 ##----------------------------------------------------------------------
 ## 3. cox regression---------------------------------------------------------------------------------
-tabPanel("Cox Regression (Time-Event Outcomes)",
+tabPanel("Cox 回帰(Time-Event 目的変数)",
 
-  titlePanel("Cox Regression"),
+  titlePanel("Cox 回帰"),
 
-  source("3cr_ui.R", local=TRUE)
+  source("3cr_ui.R", local=TRUE)$value
 
 
 ) ## tabPanel(
 ,
-##----------
-tabPanel((a("ホーム",
- #target = "_blank",
- style = "margin-top:-30px;",
- href = paste0("https://pharmacometrics.info/mephas/", "index_jp.html")))),
+##---------- other panels ----------
 
-tabPanel(
-      tags$button(
-      id = 'close',
-     style = "margin-top:-10px;",
-      type = "button",
-      class = "btn action-button",
-      onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "停止"))
-
+source("../0tabs/home_jp.R",local=TRUE)$value,
+source("../0tabs/stop_jp.R",local=TRUE)$value
 
 )
 ##-----------------------over

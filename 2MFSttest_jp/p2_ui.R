@@ -14,13 +14,13 @@ sidebarLayout(
 
 sidebarPanel(
   
-    h4("データ挿入n"),
+    h4("データ挿入"),
 
     tabsetPanel(
       ##-------input data-------##
     tabPanel("手入力", p(br()),
 
-    helpText("間違った値はNAと表示されます"),
+    helpText("欠損値はNAと表示されます"),
         tags$textarea(id = "x1",rows = 10,"4.2\n5.3\n7.6\n6.7\n6.3\n3.5\n5.8\n6.3\n3.2\n4.6\n5.5\n5.2\n4.6\n4.8\n4.5\n5.3\n4.3\n4.3\n6.2\n6.7"),
         ## disable on chrome
         tags$textarea(id = "x2",rows = 10,"6.6\n6.9\n6.9\n8.4\n7.8\n6.6\n8.6\n5.5\n4.6\n6.1\n7.1\n4.0\n6.5\n5.6\n8.1\n5.8\n7.9\n6.4\n6.5\n7.4"),
@@ -31,10 +31,10 @@ sidebarPanel(
 
       ##-------csv file-------##
       tabPanel(
-        "アップロード .csv",
+        "アップロード CSV ファイル",
         p(br()),
         
-        fileInput('file', ".csvファイルを指定してください",
+        fileInput('file', "CSV ファイルを指定してください",
           accept = c(
             'text/csv',
             'text/comma-separated-values,text/plain',
@@ -58,7 +58,7 @@ sidebarPanel(
     HTML("<p> &#956&#8321 = &#956&#8322: XとYの人口平均は等しい </p>"),
     
     radioButtons("alt.t2", #p
-      label = "代替仮説",
+      label = "対立仮説",
       choiceNames = list(
         HTML("&#956&#8321 &#8800 &#956&#8322: XとYの人口平均は等しくありません"),
         HTML("&#956&#8321 < &#956&#8322: Xの母集団平均がYより小さい"),
@@ -70,7 +70,7 @@ sidebarPanel(
 
   mainPanel(
 
-    h4("データの説明"),
+    h4("データの記述統計"),
 
     tabsetPanel(
 
@@ -96,10 +96,12 @@ sidebarPanel(
               
               helpText(
                 HTML(
-                "注:
-                <ul>
-                <li> 外れ値は赤い点として表示されます </li>
-                </ul>"
+          "注:
+          <ul> 
+          <li> 外れ値が存在する場合は、外れ値が赤で強調表示される </li>
+          <li> 赤の外れ値はシミュレートポイントをカバーしていない可能性がある </li>
+          <li> 赤い外れ値は、横線の値のみを示す</li>  
+          </ul>"
                   )
                 )
               )              

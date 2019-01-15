@@ -2,13 +2,15 @@ if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(mixOmics)) {install.packages("mixOmics")}; library(mixOmics)
 
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## PCA PLS regressions for n<p data, server EN
+## 8MFSpcapls SERVER
 ##
-## 2018-11-30
+## Language: EN
 ## 
-##----------------------------------------------------------------
+## DT: 2019-01-15
+##
+##----------#----------#----------#----------
 
 shinyServer(
 

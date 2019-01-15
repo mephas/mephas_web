@@ -22,7 +22,7 @@ title = "ノンパラメトリック検定",
 ##---------- Panel 1 ----------
 tabPanel("一群に対する検定",
 
-headerPanel("符号検定, ウィルコクソンの符号順位検定"),
+headerPanel("符号検定, ウィルコクソンの符号順位検定（Sign Test, Wilcoxon Signed-Rank Test）"),
 
 HTML(" 
 
@@ -84,7 +84,7 @@ wstest
 
 tabPanel("2つの独立した標本",
 
-headerPanel("ウィルコクソン順位和検定（Mann-Whitney U検定）、気分の中央値検定"),
+headerPanel("ウィルコクソン順位和検定、中央値検定（Wilcoxon Rank-Sum Test (Mann-Whitney U Test), Mood's Median Test）"),
 
 HTML("
 
@@ -132,7 +132,7 @@ wrtest,
 hr(),
 
 ##---------- 2.3 ----------
-h4("ムードの中央値検定(Mood's median test)　"),
+h4("中央値検定(Mood's median test)　"),
 
 p("ピアソンのカイ2乗検定の特別な場合、適度なサンプルサイズから大きなサンプルサイズまで、効率的である"),
 
@@ -144,7 +144,7 @@ mmtest
 
 tabPanel("関連する二群に対する検定",    
 
-headerPanel("符号検定 と ウィルコクソンの符号順位検定"),
+headerPanel("符号検定、ウィルコクソンの符号順位検定（Sign Test, Wilcoxon Signed-Rank Test）"),
 
 HTML("
 

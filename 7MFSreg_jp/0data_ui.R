@@ -22,7 +22,7 @@
 
     ##----------example datasets----------
 
-    selectInput("edata", "Choose data:", 
+    selectInput("edata", "データを Choose data:", 
                             choices =  c("insurance","advertisement","lung"), 
                             selected = "insurance"),
                 ## render dynamic checkboxes
@@ -30,19 +30,19 @@
 
 
     ##-------csv file-------##   
-    fileInput('file', "Upload .csv",
+    fileInput('file', "CSV ファイルを指定してください",
               accept = c("text/csv",
                       "text/comma-separated-values,text/plain",
                       ".csv")),
     helpText("The columns of X are not suggested greater than 500"),
     # Input: Checkbox if file has header ----
-    checkboxInput("header", "Header", TRUE),
+    checkboxInput("header", "ヘッダー", TRUE),
 
       fluidRow(
 
       column(4, 
          # Input: Select separator ----
-      radioButtons("sep", "Separator",
+      radioButtons("sep", "区切り",
                    choices = c(Comma = ',',
                                Semicolon = ';',
                                Tab = '\t'),
@@ -50,19 +50,19 @@
 
       column(4,
       # Input: Select quotes ----
-      radioButtons("quote", "Quote",
+      radioButtons("quote", "クオート",
                    choices = c(None = "",
                                "Double Quote" = '"',
                                "Single Quote" = "'"),
                    selected = '"'))
       ),
 
-      actionButton("choice", "Import dataset", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")),
+      actionButton("choice", "データ挿入", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")),
 
 
     mainPanel(
       
-      h4(tags$b("Data Display")),
+      h4("データ表示"),
 
       tags$br(),
 
@@ -76,7 +76,7 @@
       dataTableOutput("data_var"),
       hr(),
 
-      h4(tags$b("Basic Descriptives")), 
+      h4("記述統計"), 
       tags$b("Select the variables for descriptives"),
 
         fluidRow(
@@ -100,19 +100,19 @@
           verbatimTextOutput("fsum")
           )),
 
-      h4(tags$b("First Exploration of Variables")),  
+      h4(("First Exploration of Variables")),  
       tabsetPanel(
         tabPanel("Scatter plot (with line) between two variables",
           uiOutput('ty'),
           uiOutput('tx'),
           plotOutput("p1", width = "400px", height = "400px")
           ),
-        tabPanel("Bar plots",
+        tabPanel("ヒストグラム",
           fluidRow(
           column(6,
             uiOutput('hx'),
             plotOutput("p2", width = "400px", height = "400px"),
-            sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 50, value = 1)),
+            sliderInput("bin", "ヒストグラムの棒幅", min = 0.01, max = 50, value = 1)),
           column(6,
             uiOutput('hxd'),
             plotOutput("p3", width = "400px", height = "400px"))))

@@ -61,7 +61,7 @@ output$c.c = renderUI({
 output$x.c = renderUI({
   selectInput(
     'x.c',
-    h5('Continuous Independent Variable'),
+    h5('連続独立変数'),
     selected = NULL,
     choices = names(X()),
     multiple = TRUE
@@ -71,7 +71,7 @@ output$x.c = renderUI({
 output$fx.c = renderUI({
   selectInput(
     'fx.c',
-    h5('Categorical Independent Variable'),
+    h5('離散独立変数'),
     selected = NULL,
     choices = names(X()),
     multiple = TRUE

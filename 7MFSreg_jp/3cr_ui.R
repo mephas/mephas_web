@@ -27,7 +27,7 @@ sidebarPanel(
   uiOutput('sx.c'),
   uiOutput('clx.c'),
 
-  h5("Additional terms (confounding or interaction)"), 
+  h5("Additional terms (confounding交絡因子 or interaction交互作用)"), 
   helpText('Note: Start with "+". For interactive term, please type "+ as.factor(var1):var2"'), 
   tags$textarea(id='conf.c', cols=40, " " ), 
   p(br()),
@@ -37,12 +37,12 @@ sidebarPanel(
 
 mainPanel( 
 
-  h4(tags$b("Cox Regression Model")),
+  h4(("Cox 回帰")),
   tags$style(type='text/css', '#formula_c {background-color: rgba(0,0,255,0.10); color: blue;}'),
   verbatimTextOutput("formula_c", placeholder = TRUE),
   hr(),
 
-  h4(tags$b("Results of the linear regression")),
+  h4(("結果")),
   actionButton("B1.c", "Show the results"),
   p(br()),
 
@@ -63,17 +63,17 @@ mainPanel(
     tabPanel("Parameters' estimation", 
       p(br()),
   
-      tags$b("1. Regression's coefficients"), 
+      tags$b("1. 偏回帰係数"), 
       htmlOutput("fit.c"), p(br()),
-      tags$b("2. ANOVA Table"), tableOutput("anova.c"),p(br()),
+      tags$b("2. ANOVA テーブル"), tableOutput("anova.c"),p(br()),
       tags$b("3. Select a formula-based model by AIC"), verbatimTextOutput("step.c")
       ),
-    tabPanel("Model's diagnostics", 
+    tabPanel("回帰診断", 
       p(br()),
       tags$b("1. Check for constant hazard ratio over time"),
       tableOutput("zph.c"), 
       plotOutput("p2.c",width = "500px", height = "500px"),
-      tags$b("2. Diagnostic Plot"), 
+      tags$b("2. 診断プロット"), 
       radioButtons("res.c", "Residual type",
                choices = c("Martingale" = "martingale",
                            "Deviance" = "deviance",
@@ -86,7 +86,7 @@ mainPanel(
       tags$b("Estimation is based on import dataset"),
       dataTableOutput("fitdt.c")),
 
-    tabPanel("Prediction on new data", 
+    tabPanel("Prediction予測 on new data", 
       p(br()),
       #prediction part
       ##-------csv file for prediction -------##   
@@ -98,12 +98,12 @@ mainPanel(
                          ".csv")),
 
        # Input: Checkbox if file has header ----
-      checkboxInput("newheader.c", "Header", TRUE),
+      checkboxInput("newheader.c", "ヘッダー", TRUE),
 
       fluidRow(
       column(3, 
          # Input: Select separator ----
-      radioButtons("newsep.c", "Separator",
+      radioButtons("newsep.c", "区切り",
                    choices = c(Comma = ",",
                                Semicolon = ";",
                                Tab = "\t"),
@@ -111,7 +111,7 @@ mainPanel(
 
       column(3,
         # Input: Select quotes ----
-      radioButtons("newquote.c", "Quote",
+      radioButtons("newquote.c", "クオート",
                    choices = c(None = "",
                                "Double Quote" = '"',
                                "Single Quote" = "'"),

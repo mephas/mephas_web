@@ -91,14 +91,14 @@ navbarPage(
 
 
     mainPanel(
-      h4(tags$b("Data Display")), 
+      h4(("Data Display")), 
       helpText("The first 5 rows and first 5 columns of X matrix"),
       tags$head(tags$style(".shiny-output-error{color: blue;}")),
       tableOutput("table.x"),
       helpText("The first 5 rows and first columns of Y matrix"),
       tableOutput("table.y"),
       hr(),  
-      h4(tags$b("Basic Descriptives")),
+      h4(("Basic Descriptives")),
       tags$b("Select the variables for descriptives"),
 
         fluidRow(
@@ -122,7 +122,7 @@ navbarPage(
           verbatimTextOutput("fsum")
           )),
 
-            h4(tags$b("First Exploration of Variables")),  
+            h4(("First Exploration of Variables")),  
 
       tabsetPanel(
         tabPanel("Scatter plot (with line) between two variables",
@@ -153,40 +153,40 @@ titlePanel("Principal component analysis"),
 sidebarLayout(
 
 sidebarPanel(
-  h3("Model's configuration"),
+  h4("Model's configuration"),
   numericInput("nc", "Number of components in PCA:", 4, min = 2, max = 20),
   helpText("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
   
-  h3("Figure's configuration"),
+  h4("Figure's configuration"),
   numericInput("c1", "Component at x-axis", 1, min = 1, max = 20),
   numericInput("c2", "Component at y-axis", 2, min = 1, max = 20)
 
 ),
 
 mainPanel(
-  h3("Results"),
+  h4("Results"),
   #h4(tags$b("PCA output")), ,
   
-  h4(tags$b("Explained and cumulative variance")), verbatimTextOutput("fit"),
+  (tags$b("Explained and cumulative variance")), verbatimTextOutput("fit"),
 
-  h4(tags$b("New PCA components")), dataTableOutput("comp"),
+  (tags$b("New PCA components")), dataTableOutput("comp"),
 
   downloadButton("downloadData", "Download new components"),
 
   hr(),
 
-  h3("Plots"),
+  h4("Plots"),
 
-  h4(tags$b("Plot of the explained variance")),
+  (tags$b("Plot of the explained variance")),
   plotOutput("pca.plot", width = "500px", height = "500px"),
 
-  h4(tags$b("Plot of individuals")),
+  (tags$b("Plot of individuals")),
   plotOutput("pca.ind", width = "500px", height = "500px"),
 
-  h4(tags$b("Plot of variables' correlation circle")),
+  (tags$b("Plot of variables' correlation circle")),
   plotOutput("pca.var", width = "500px", height = "500px"),
 
-  h4(tags$b("Biplot of the first two components")),
+  (tags$b("Biplot of the first two components")),
   plotOutput("pca.bp", width = "500px", height = "500px")
 
   )
@@ -200,28 +200,28 @@ titlePanel("Partial Least Squares"),
 
 sidebarLayout(
 sidebarPanel(
-  h3("Model's configuration"),
+  h4("Model's configuration"),
   numericInput("nc.pls", "Number of Components:", 4, min = 2, max = 20),
 
-  h3("Figure's configuration"),
+  h4("Figure's configuration"),
   numericInput("c1.pls", "Component at x-axis", 1, min = 1, max = 20),
   numericInput("c2.pls", "Component at y-axis", 2, min = 1, max = 20)
 ),
 
 mainPanel(
-  h3("Results"),
+  h4("Results"),
   #h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
-  h4(tags$b("New PLS components from predictors (X)")), dataTableOutput("comp.x"),
+  (tags$b("New PLS components from predictors (X)")), dataTableOutput("comp.x"),
   downloadButton("downloadData.pls.x", "Download the new components"),
-  h4(tags$b("New PLS components from responses (Y)")), dataTableOutput("comp.y"),
+  (tags$b("New PLS components from responses (Y)")), dataTableOutput("comp.y"),
   downloadButton("downloadData.pls.y", "Download the new components"),
   hr(),
 
-  h3("Plots"),
-  h4(tags$b("Plot of individuals")),
+  h4("Plots"),
+  (tags$b("Plot of individuals")),
   plotOutput("pls.ind", width = "900px", height = "500px"),
 
-  h4(tags$b("Plot of variables' correlation circle")),
+  (tags$b("Plot of variables' correlation circle")),
   plotOutput("pls.var", width = "500px", height = "500px")
 )
 
@@ -234,33 +234,33 @@ titlePanel("Sparse Partial Least Squares"),
 
 sidebarLayout(
 sidebarPanel(
-  h3("Model's configuration"),
+  h4("Model's configuration"),
   numericInput("nc.spls", "Number of components:", 4, min = 2, max = 20),
   numericInput("x.spls", "Number of variables to keep in X-loadings:", 10, min = 2, max = 20),
   numericInput("y.spls", "Number of variables to keep in Y-loadings:", 5, min = 2, max = 20),
 
-  h3("Figure's configuration"),
+  h4("Figure's configuration"),
   numericInput("c1.spls", "Component at x-axis", 1, min = 1, max = 20),
   numericInput("c2.spls", "Component at y-axis", 2, min = 1, max = 20)
 ),
 
 mainPanel(
-  h3("Results"),
+  h4("Results"),
   #h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
-  h4(tags$b("New PLS components from predictors (X)")), dataTableOutput("comp.sx"),
+  (tags$b("New PLS components from predictors (X)")), dataTableOutput("comp.sx"),
   downloadButton("downloadData.spls.x", "Download the new components"),
-  h4(tags$b("New PLS components from responses (Y)")), dataTableOutput("comp.sy"),
+  (tags$b("New PLS components from responses (Y)")), dataTableOutput("comp.sy"),
   downloadButton("downloadData.spls.y", "Download the new components"),
   hr(),
 
-  h3("Plots"),
-  h4(tags$b("Plot of individuals")),
+  h4("Plots"),
+  (tags$b("Plot of individuals")),
   plotOutput("spls.ind", width = "900px", height = "500px"),
 
-  h4(tags$b("Plot of variables' correlation circle")),
+  (tags$b("Plot of variables' correlation circle")),
   plotOutput("spls.var", width = "500px", height = "500px"),
 
-  h4(tags$b("Plot of loadings")),
+  (tags$b("Plot of loadings")),
   plotOutput("spls.load", width = "900px", height = "500px")
   ))
 ),
@@ -275,7 +275,7 @@ mainPanel(
 #sidebarLayout(
 #sidebarPanel(
 
-#  h3("Model's configuration"),
+#  h4("Model's configuration"),
   
 #  sliderInput("alf", "Alpha parameter", min = 0, max = 1, value = 1),
 #  helpText(HTML("
@@ -300,10 +300,10 @@ mainPanel(
 #  ),
 
 #mainPanel(
-#  h3("Results"),
+#  h4("Results"),
   #plotOutput("plot.ela", width = "500px", height = "500px"),
 #  verbatimTextOutput("ela")
-  #h3("Cross-validated lambda"),
+  #h4("Cross-validated lambda"),
   #verbatimTextOutput("lambda"),
   #helpText("Lambda is merely suggested to be put into the model.")
 
@@ -311,21 +311,10 @@ mainPanel(
 #)
 #)
 
-##----------
+##---------- other panels ----------
 
-tabPanel((a("Home",
- #target = "_blank",
- style = "margin-top:-30px;",
- href = paste0("https://pharmacometrics.info/mephas/")))),
-
-tabPanel(
-      tags$button(
-      id = 'close',
-      type = "button",
-      class = "btn action-button",
-      onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "Stop App"))
-
+source("../0tabs/home.R",local=TRUE)$value,
+source("../0tabs/stop.R",local=TRUE)$value
 
 ))
 )

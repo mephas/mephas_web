@@ -37,19 +37,19 @@ navbarPage(
         HTML("<p>グループの平均はすべて等しいわけではない</p>"),
         hr(),
         ##----Import data----##
-        h4("Data Preparation"),
+        h4("データ挿入"),
 
         tabsetPanel(
           ##-------input data-------##s
           tabPanel(
             "手入力",
             p(br()),
-            helpText("Please input the values and factors' name (missing value is input as NA)"),
+            helpText("Please input the values and factors' name (欠損値はNAと表示されます)"),
 
             splitLayout(
 
               verticalLayout(
-              tags$b("Values"),
+              tags$b("値"),
               tags$textarea(
               id = "x1",
               rows = 10,
@@ -57,7 +57,7 @@ navbarPage(
               )),
 
             verticalLayout(
-            tags$b("Factors"), 
+            tags$b("因子"), 
             tags$textarea(
               id = "f11", #p
               rows = 10,
@@ -66,23 +66,23 @@ navbarPage(
             )
             ,
 
-        helpText("標本の名前変更"),
+        helpText("サンプルの名称変更"),
         tags$textarea(id = "cn1", rows = 2, "X\nA")),
 
                     ##-------csv file-------##
           tabPanel(
-            "アップロード.csv",
+            "アップロード CSV ファイル",
             p(br()),
             fileInput(
-              'file1', '.csvファイルを選んでください', #p
+              'file1', 'CSV ファイルを指定してください', #p
                 accept = c(
                 'text/csv',
                 'text/comma-separated-values,text/plain',
                 '.csv'
                 )
               ),
-            checkboxInput('header1', 'Header', TRUE), #p
-            radioButtons('sep1', 'Separator', #p
+            checkboxInput('header1', 'ヘッダー', TRUE), #p
+            radioButtons('sep1', '区切り', #p
               c(
                 Comma = ',',
                 Semicolon = ';',
@@ -94,13 +94,13 @@ navbarPage(
         ),
 
       mainPanel(
-        h4("ANOVA Table"),
+        h4("ANOVA テーブル"),
         tableOutput("anova1"),
         hr(),
 
-        h4("Data Description"),
+        h4("データの記述統計"),
         tabsetPanel(
-          tabPanel("データ",p(br()),
+          tabPanel("データ表示",p(br()),
           dataTableOutput("table1")
             ),
 
@@ -134,7 +134,7 @@ navbarPage(
     sidebarLayout(
       sidebarPanel(
         helpText("仮説"),
-        tags$b("帰無仮説1"),
+        tags$b("帰無仮説　1"),
         HTML("<p>第1因子の母集団平均は等しい。 </p>"),
         tags$b("帰無仮説 2"),
         HTML("<p第２因子の母集団平均は等しい。</p>"),
@@ -142,19 +142,19 @@ navbarPage(
         HTML("<p>二つの因子の間に相関はない</p>"),
         hr(),
         ##----Import data----##
-        h4("Data Preparation"),
+        h4("データ挿入"),
 
         tabsetPanel(
           ##-------input data-------##s
           tabPanel(
             "手入力",
             p(br()),
-            helpText("Missing value is input as NA"),
+            helpText("欠損値はNAと表示されます"),
 
             splitLayout(
 
             verticalLayout(
-            tags$b("Values"), 
+            tags$b("値"), 
             tags$textarea(
               id = "x", #p
               rows = 10,
@@ -178,24 +178,24 @@ navbarPage(
               ))
             ),
             
-        helpText("標本の名前変更"),
+        helpText("サンプルの名称変更"),
         tags$textarea(id = "cn", rows = 3, "X\nA\nB") #p
             ), #tabPanel(
 
           ##-------csv file-------##
           tabPanel(
-            "アップロード.csv",
+            "アップロード CSV ファイル",
             p(br()),
             fileInput(
-              'file', '.csv ファイルを選ぶ', #p
+              'file', 'CSV ファイルを指定してください', #p
               accept = c(
                 'text/csv',
                 'text/comma-separated-values,text/plain',
                 '.csv'
                 )
               ),
-            checkboxInput('header', 'Header', TRUE), #p
-            radioButtons('sep', 'Separator', #p
+            checkboxInput('header', 'ヘッダー', TRUE), #p
+            radioButtons('sep', '区切り', #p
               c(
                 Comma = ',',
                 Semicolon = ';',
@@ -209,14 +209,15 @@ navbarPage(
 
       mainPanel(
 
-        h3(tags$b("ANOVA Table")),
+        h3(tags$b("ANOVA テーブル")),
         checkboxInput('inter', 'Interaction', TRUE), #p
         tableOutput("anova"),
 
         hr(),
 
+        h4("データの記述統計"),
         tabsetPanel(
-        tabPanel("データ", p(br()),
+        tabPanel("データ表示", p(br()),
         dataTableOutput("table")
         ),
 
@@ -260,7 +261,7 @@ navbarPage(
         hr(),
         
         ##----Import data----##
-        h4("Data Preparation"),
+        h4("データ挿入"),
 
         tabsetPanel(
           ##-------input data-------##s
@@ -271,7 +272,7 @@ navbarPage(
 
             splitLayout(
             verticalLayout(
-            tags$b("Values"), 
+            tags$b("値"), 
             tags$textarea(
               id = "xm", #p
               rows = 10,
@@ -287,24 +288,24 @@ navbarPage(
               ))
             ),
 
-        helpText("Change the names of sample (optinal)"),
+        helpText("サンプルの名称変更"),
         tags$textarea(id = "cnm", rows = 2, "X\nA") #p
             ),
         
          ##-------csv file-------##
           tabPanel(
-            "アップロード .csv",
+            "アップロード CSV ファイル",
             p(br()),
             fileInput(
-              'filem', '.csvファイルを選ぶ', #p
+              'filem', 'CSV ファイルを指定してください', #p
               accept = c(
                 'text/csv',
                 'text/comma-separated-values,text/plain',
                 '.csv'
                 )
               ),
-            checkboxInput('headerm', 'Header', TRUE), #p
-            radioButtons('sepm', 'Separator', #p
+            checkboxInput('headerm', 'ヘッダー', TRUE), #p
+            radioButtons('sepm', '区切り', #p
               c(
                 Comma = ',',
                 Semicolon = ';',
@@ -338,7 +339,7 @@ navbarPage(
             )
           ),
 
-        h4("データ"),
+        h4("データ表示"),
         dataTableOutput("tablem")
 
         )

@@ -14,7 +14,7 @@
 output$y.l = renderUI({
   selectInput(
     'y.l',
-    h5('Binary dependent Variable (Y)'),
+    h5('二項目的変数 (Y)'),
     selected = NULL,
     choices = names(X())
     )
@@ -23,7 +23,7 @@ output$y.l = renderUI({
 output$x.l = renderUI({
   selectInput(
     'x.l',
-    h5('Continuous independent variable (X)'),
+    h5('連続独立変数 (X)'),
     selected = NULL,
     choices = names(X()),
     multiple = TRUE
@@ -33,7 +33,7 @@ output$x.l = renderUI({
 output$fx.l = renderUI({
   selectInput(
     'fx.l',
-    h5('Categorical independent variable (X)'),
+    h5('離散独立変数 (X)'),
     selected = NULL,
     choices = names(X()),
     multiple = TRUE

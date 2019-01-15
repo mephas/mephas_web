@@ -216,12 +216,13 @@ navbarPage(
 
         hr(),
 
+        h4("Descriptive Statistics")
         tabsetPanel(
-        tabPanel("Data Display", p(br()),
+        tabPanel("Data display", p(br()),
         dataTableOutput("table")
         ),
 
-        tabPanel('Descriptive statistics',p(br()),
+        tabPanel('Basic statistics',p(br()),
         numericInput("grp", 'Choose the factor in the Data Display column', 2, 2, 3, 1),
         verbatimTextOutput("bas")
             ),

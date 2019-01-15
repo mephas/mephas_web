@@ -75,7 +75,7 @@ h4("データ挿入"),
   tabsetPanel(
   ##-------input data-------## 
   tabPanel("手入力", p(br()),
-    helpText("違った値はNAと表示される"),
+    helpText("欠損値はNAと表示される"),
 
     tags$textarea(id="a", rows=10, "1.8\n3.3\n6.7\n1.4\n2.2\n1.6\n13.6\n2.8\n1.0\n2.8\n6.5\n6.8\n0.7\n0.9\n3.4\n3.3\n1.4\n0.9\n1.4\n1.8"),
     helpText("サンプルの名称変更"), 
@@ -83,8 +83,8 @@ h4("データ挿入"),
     ),
 
   ##-------csv file-------##   
-  tabPanel("アップロード .csv", p(br()),
-    fileInput('file', '.csvファイルを指定', 
+  tabPanel("アップロード CSV ファイル", p(br()),
+    fileInput('file', 'CSV ファイルを指定してください', 
       accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
     checkboxInput('header', 'ヘッダー', TRUE), #p
     radioButtons('sep', '区切り', c(Comma=',', Semicolon=';', Tab='\t'), ',')) 
@@ -97,11 +97,11 @@ h4("データ挿入"),
 
 mainPanel(
 
-  h4("データの説明"),
+  h4("データの記述統計"),
 
   tabsetPanel(
 
-    tabPanel("データの表示", p(br()),  
+    tabPanel("データ表示", p(br()),  
 
       dataTableOutput("table")),
 
@@ -121,12 +121,14 @@ mainPanel(
         verbatimTextOutput("info"), hr(),
 
       helpText(
-        HTML("注:
-                    <ul> 
-                    <li> 外れ値が存在する場合は、外れ値が赤で強調表示される </li>
-                    <li> 赤の外れ値はシミュレートポイントをカバーしていない可能性がある </li>
-                    <li> 赤い外れ値は、横線の値のみを示す</li>  
-                    </ul>"))
+        HTML(
+          "注:
+          <ul> 
+          <li> 外れ値が存在する場合は、外れ値が赤で強調表示される </li>
+          <li> 赤の外れ値はシミュレートポイントをカバーしていない可能性がある </li>
+          <li> 赤い外れ値は、横線の値のみを示す</li>  
+          </ul>"
+          ))
         )
         ) ),
 

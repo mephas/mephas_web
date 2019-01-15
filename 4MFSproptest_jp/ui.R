@@ -70,7 +70,7 @@ HTML("
     ),
 
   mainPanel(
-    h4("結果"), 
+    h4("検定結果"), 
     p(br()), 
     tableOutput("b.test"),
   #tags$b("Interpretation"), wellPanel(p("When p-value is less than 0.05, it indicates that the underlying probability is far away from the specified value.")),
@@ -84,7 +84,7 @@ HTML("
 ##----------  Panel 2 ----------
 tabPanel("二つの独立した群に対する検定",
 
-    titlePanel("カイ二乗検定, フィッシャーの正確確率検定"),
+    titlePanel("カイ二乗検定、フィッシャーの正確確率検定(Chi-square Test, Fisher's Exact Test)"),
 
 HTML("
 
@@ -116,15 +116,15 @@ HTML("
           ),
         p(br()),
 
-        tags$b("入力データ"), 
+        tags$b("手入力"), 
 
           splitLayout(
             verticalLayout(
-              tags$b("最初のグループ"), 
+              tags$b("グループ 1"), 
               tags$textarea(id="x1", rows=4, "10\n20")
               ),
             verticalLayout(
-              tags$b("二個目のグループ"),
+              tags$b("グループ 2"),
               tags$textarea(id="x2", rows=4, "30\n35")
               )
             )
@@ -132,7 +132,7 @@ HTML("
 
   mainPanel(
 
-    h4("データの説明"),
+    h4("データの記述統計"),
 
       tabsetPanel(
         tabPanel("データ", p(br()),
@@ -171,7 +171,7 @@ HTML("
         choiceValues = list("two.sided", "less", "greater")
         ),
 
-      radioButtons("cr", label = "イェーツ補正", 
+      radioButtons("cr", label = "イェーツ補正(Yates-correction)", 
         choiceNames = list(
           HTML("No: 期待値が5未満のセルはない"),
           HTML("Yes: 少なくとも1つのセルの期待値が5未満")
@@ -181,7 +181,7 @@ HTML("
       ),
 
       mainPanel(
-        h4("結果"), tableOutput("p.test")
+        h4("検定結果"), tableOutput("p.test")
         #tags$b("Interpretation"), p("Chi-square.test")
         )
       ),
@@ -212,7 +212,7 @@ HTML("
 ##---------- Panel 3 ----------
     tabPanel("二つのデータの一致対の割合",
 
-    titlePanel("マクネマー検定 McNemar's Test"),
+    titlePanel("マクネマー検定（McNemar's Test）"),
 
 #tags$b("Introduction"),
 #p("To test the difference between the sample proportions"),
@@ -245,7 +245,7 @@ HTML("
           )
         ),
       p(br()),
-      tags$b("入力データ"),
+      tags$b("手入力"),
         splitLayout(
           verticalLayout(
             tags$b("列 1"), 
@@ -272,7 +272,7 @@ HTML("
             "
             )
           ),
-        h4("結果"), 
+        h4("検定結果"), 
         tableOutput("n.test")
   #tags$b("Interpretation"), p("bbb")
         )

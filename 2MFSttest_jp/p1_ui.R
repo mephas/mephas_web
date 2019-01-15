@@ -19,7 +19,7 @@ sidebarPanel(
   
   tabPanel("手入力", p(br()),
 
-  helpText(HTML('間違った値はNAと表示されます')),
+  helpText(HTML('欠損値はNAと表示されます')),
 
       tags$textarea(
         id = "x", #p
@@ -31,10 +31,10 @@ sidebarPanel(
       tags$textarea(id = "cn", rows = 1, "X") ), #tabPanel(
 
 
-    tabPanel(HTML("アップロード .csv"), p(br()),
+    tabPanel(HTML("アップロード CSV ファイル"), p(br()),
 
         ##-------csv file-------##   
-        fileInput('file', HTML(".csvファイルを指定してください"),
+        fileInput('file', HTML("CSVファイルを指定してください"),
                   accept = c("text/csv",
                           "text/comma-separated-values,text/plain",
                           ".csv")),
@@ -63,7 +63,7 @@ hr(),
   
   radioButtons(
     "alt", 
-    label = "代替仮説",
+    label = "対立仮説",
     choiceNames = list(
       HTML("&#956 &#8800 &#956&#8320: xの平均は &#956&#8320　ではない"),
       HTML("&#956 < &#956&#8320: xの平均は &#956&#8320　より小さい"),
@@ -76,7 +76,7 @@ hr(),
 
 mainPanel(
 
-  h4("データの説明"),
+  h4("データの記述統計"),
 
   tabsetPanel(
 
@@ -100,10 +100,12 @@ mainPanel(
 
         helpText(
           HTML(
-            "注:
-            <ul>
-            <li> 外れ値は赤い点として表示されます </li>
-            </ul>"
+          "注:
+          <ul> 
+          <li> 外れ値が存在する場合は、外れ値が赤で強調表示される </li>
+          <li> 赤の外れ値はシミュレートポイントをカバーしていない可能性がある </li>
+          <li> 赤い外れ値は、横線の値のみを示す</li>  
+          </ul>"
             )
           )
         )

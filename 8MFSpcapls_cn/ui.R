@@ -84,26 +84,55 @@ navbarPage(
 
 
     mainPanel(
-      h4(tags$b("显示数据")), 
-      dataTableOutput("table"),
+      h4(("Data Display")), 
+      helpText("The first 5 rows and first 5 columns of X matrix"),
+      tags$head(tags$style(".shiny-output-error{color: blue;}")),
+      tableOutput("table.x"),
+      helpText("The first 5 rows and first columns of Y matrix"),
+      tableOutput("table.y"),
       hr(),  
-      h4(tags$b("记述统计")),
-      uiOutput('x'),
-      verbatimTextOutput("sum"),
+      h4(("Basic Descriptives")),
+      tags$b("Select the variables for descriptives"),
 
-      hr(),  
-      h4(tags$b("散点图（Y-X）")), 
-      fluidRow(
-        column(6, HTML('</br>'), uiOutput('ty')),
-        column(6, HTML('</br>'), uiOutput('tx'))),
-      plotOutput("p1", width = "400px", height = "400px"),
+        fluidRow(
+          column(6,
+          uiOutput('cv'),
+          actionButton("Bc", "Show descriptives"),
+          tableOutput("sum"),
+          helpText(HTML(
+      "
+      Note:
+      <ul>
+      <li> nbr.: the number of </li>
+      </ul>
+      "
+      ))
+          ),
 
-      hr(),  
-      h4(tags$b("直方图")), 
-      HTML('</br>'), uiOutput('hx'),
-      plotOutput("p2", width = "400px", height = "400px"),
-      sliderInput("bin", "直方图中桶的宽度", min = 0.01, max = 5, value = 0.7)
-      
+          column(6,
+          uiOutput('dv'),
+          actionButton("Bd", "Show descriptives"),
+          verbatimTextOutput("fsum")
+          )),
+
+            h4(("First Exploration of Variables")),  
+
+      tabsetPanel(
+        tabPanel("Scatter plot (with line) between two variables",
+          uiOutput('tx'),
+          uiOutput('ty'),
+          plotOutput("p1", width = "400px", height = "400px")
+          ),
+        tabPanel("Bar plots",
+          fluidRow(
+          column(6,
+            uiOutput('hx'),
+            plotOutput("p2", width = "400px", height = "400px"),
+            sliderInput("bin", "The width of bins in the histogram", min = 10, max = 150, value = 1)),
+          column(6,
+            uiOutput('hxd'),
+            plotOutput("p3", width = "400px", height = "400px"))))
+        )
   )
 
   )),
@@ -275,20 +304,10 @@ mainPanel(
 #)
 #)
 
-##----------
+##---------- other panels ----------
 
-tabPanel((a("主页",
- #target = "_blank",
- style = "margin-top:-30px;",
- href = paste0("https://pharmacometrics.info/mephas/", "index_cn.html")))),
-
-tabPanel(
-      tags$button(
-      id = 'close',
-      type = "button",
-      class = "btn action-button",
-      onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "停止"))
+source("../0tabs/home_cn.R",local=TRUE)$value,
+source("../0tabs/stop_cn.R",local=TRUE)$value
 
 ))
 )
