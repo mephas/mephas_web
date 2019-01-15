@@ -114,7 +114,7 @@ output$k.test = renderTable({
   res.table = data.frame(k.estimate = c(round(k$kappa, digits = 4), round(k$weighted.kappa, digits = 4)),
                CI.0.95 = c(paste0("(",round(k$confid[1], digits = 4),", ",round(k$confid[5], digits = 4), ")"),
                           paste0("(",round(k$confid[2], digits = 4),", ",round(k$confid[6], digits = 4), ")")),
-               row.names = c("Kappa", "Weighted.kappa"))
+               row.names = c("カッパー", "Weighted.kappa"))
   return(res.table)}, rownames = TRUE)
 
 

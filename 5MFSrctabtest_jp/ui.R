@@ -13,7 +13,7 @@ tagList(
 #shinythemes::themeSelector(),
 navbarPage(
  
-  title = "Contingency Table of Counts 分割表",
+  title = "分割表",
 
 ##---------- Panel 1 ----------
 tabPanel("カイ二乗検定（R x C クロステーブル）",
@@ -34,8 +34,8 @@ HTML("
 
 <ul>
 
-<li> No more than 1/5 of the cells have expected values < 5
-<li> No cell has an expected value < 1
+<li> セルの期待値が5未満であるセルの数は1/5
+<li> 期待値が1未満のセルは存在しない
 
 </ul>
 
@@ -51,16 +51,16 @@ sidebarPanel(
   verticalLayout(
   tags$b("行の名前"), 
   tags$textarea(id="rn", rows=4, cols = 30, "R1\nR2"),
-  helpText("Row names must be corresponding to number of rows")),
+  helpText("行名は行数に対応している必要がある")),
   numericInput("c", "列数　C", value = 2, min = 2, max = 9, step = 1, width = "50%"),
   verticalLayout(
   tags$b("列の名前"),
   tags$textarea(id="cn", rows=4, cols = 30, "C1\nC2"),
-  helpText("列名の数は列数に一致する必要があります")),
+  helpText("列名の数は列数に一致する必要がある")),
   hr(),
 
   h4("データ準備"),
-  helpText("Input your values by column, i.e., the second column follows the first column"),
+  helpText("列ごとに値を入力する。つまり、2列目が1列目の後に続く"),
   tags$textarea(id="x", rows=10, "10\n20\n30\n35")
     ),
 
@@ -83,7 +83,7 @@ tabPanel("割合", p(br()),
   h4("全体の割合"), tableOutput("pt")
   ),
 
-tabPanel("期待値Expected value in each cell", p(br()),
+tabPanel("それぞれのセルの期待値", p(br()),
   tableOutput("c.e")
   ),
 
@@ -167,7 +167,7 @@ h4("設定"),
 h4("データ挿入"),
   tabPanel("手入力",
   tags$textarea(id="k", rows=10, "136\n69\n92\n240")),
-  helpText("Input the counts by column, for example, the second column follows the first column")
+  helpText("列ごとにカウントを入力する。たとえば、2列目が1列目の後に続く")
 
   ),
 
@@ -187,8 +187,8 @@ mainPanel(
   HTML("
     <b> 注</b>
     <ul>
-    <li> Row is the rater of measurement-A, while column is measurement-B
-    <li> The last row is the sum of above rows
+    <li> 行は測定Aの評価値であり、列は測定Bの評価値
+    <li> 最後の行は上記の行の合計
     </ul>
     ")
   )
