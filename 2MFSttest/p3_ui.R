@@ -35,12 +35,12 @@ sidebarPanel(
             ),
 
           ##-------csv file-------##
-          tabPanel("Upload .csv",
+          tabPanel("Upload CSV file",
             p(br()),
             
             fileInput(
               'file.p',
-              'Choose .csv File',
+              'Choose CSV File',
               accept = c(
                 'text/csv',
                 'text/comma-separated-values,text/plain',
@@ -79,7 +79,7 @@ sidebarPanel(
 
       mainPanel(
 
-        h4('Data Description'),
+    h4("Descriptive Statistics"),
 
         tabsetPanel(
 
@@ -87,7 +87,7 @@ sidebarPanel(
 
             dataTableOutput("table.p")),
 
-          tabPanel("Basic descriptives", p(br()), 
+      tabPanel("Basic Statistics",p(br()), 
             
             splitLayout(
               tableOutput("bas.p"),
@@ -118,11 +118,11 @@ sidebarPanel(
           )
           ),
 
-          tabPanel("Mean and SD plot", p(br()), 
+          tabPanel("Mean and SD Plot", p(br()), 
 
             plotOutput("meanp.p", width = "400px", height = "400px")),
 
-          tabPanel("Plots of normality", p(br()), 
+          tabPanel("Plots of Normality", p(br()), 
 
             plotOutput("makeplot.p", width = "900px", height = "300px"),
             sliderInput("bin.p","The width of bins in histogram",min = 0.01,max = 5,value = 0.2)

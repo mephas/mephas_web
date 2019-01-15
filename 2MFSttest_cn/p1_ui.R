@@ -13,13 +13,13 @@ sidebarLayout(
 
 sidebarPanel(
    
-  h4("导入数据"),
+  h4("数据准备"),
 
   tabsetPanel(
   
     tabPanel("手动输入", p(br()),
 
-      helpText("如有缺失值，请输入NA"),
+      helpText("缺失值请输入NA"),
 
       tags$textarea(
         id = "x", #p
@@ -31,19 +31,19 @@ sidebarPanel(
       tags$textarea(id = "cn", rows = 1, "X") ), #tabPanel(
 
 
-    tabPanel("上传 .csv", p(br()),
+    tabPanel("上传CSV文件", p(br()),
 
         ##-------csv file-------##   
-        fileInput('file', "选择 .csv",
+        fileInput('file', "选择CSV文件",
                   accept = c("text/csv",
                           "text/comma-separated-values,text/plain",
                           ".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
-        checkboxInput("header", "标题", TRUE),
+        checkboxInput("header", "第一行为变量名", TRUE),
 
              # Input: Select separator ----
-        radioButtons("sep", "分隔",
+        radioButtons("sep", "分隔符",
                      choices = c(Comma = ',',
                                  Semicolon = ';',
                                  Tab = '\t'),
@@ -77,7 +77,7 @@ hr(),
 
 mainPanel(
 
-  h4("数据描述"),
+  h4("数据的描述统计"),
 
   tabsetPanel(
 

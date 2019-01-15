@@ -42,7 +42,7 @@ headerPanel("单样本t检验"),
 
   hr(),
 
-  source("p1_ui.R", local=TRUE,encoding = "UTF-8")$value
+  source("p1_ui.R", local=TRUE, encoding = "UTF-8")$value
 
 
 ),
@@ -52,7 +52,7 @@ headerPanel("单样本t检验"),
   tabPanel(
     "两个独立样本",
 
-    headerPanel("双样本t检验"),
+    headerPanel("两样本t检验"),
 
     HTML(
     "

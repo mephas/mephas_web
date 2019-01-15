@@ -13,13 +13,13 @@ sidebarLayout(
 
 sidebarPanel(
   
-  h4("导入数据"),
+  h4("数据准备"),
 
   tabsetPanel(
     ##-------input data-------##
     tabPanel("手动输入", p(br()),
     
-      helpText("如有缺失值，请输入NA"),
+      helpText("缺失值请输入NA"),
 
       tags$textarea(id = "x1",rows = 10,"4.2\n5.3\n7.6\n6.7\n6.3\n3.5\n5.8\n6.3\n3.2\n4.6\n5.5\n5.2\n4.6\n4.8\n4.5\n5.3\n4.3\n4.3\n6.2\n6.7"),
       ## disable on chrome
@@ -30,17 +30,17 @@ sidebarPanel(
       ),
 
     ##-------csv file-------##
-    tabPanel("上传 .csv", p(br()),
+    tabPanel("上传CSV文件", p(br()),
       
-      fileInput('file2','选择 .csv', #p
+      fileInput('file2','选择CSV文件', #p
         accept = c(
           'text/csv',
           'text/comma-separated-values,text/plain',
           '.csv'
           )
         ),
-      checkboxInput('header2', '标题', TRUE), #p
-      radioButtons("sep2", "分隔",
+      checkboxInput('header2', '第一行为变量名', TRUE), #p
+      radioButtons("sep2", "分隔符",
                    choices = c(Comma = ',',
                                Semicolon = ';',
                                Tab = '\t'),
@@ -53,7 +53,7 @@ sidebarPanel(
   h4("假设检验"),
 
   tags$b("零假设"),
-  HTML("<p> &#956&#8321 = &#956&#8322: X and Y have equal population mean </p>"),
+  HTML("<p> &#956&#8321 = &#956&#8322: X组和Y组没有差异n </p>"),
   
   radioButtons("alt.t2", #p
     label = "备则假设",
@@ -68,7 +68,7 @@ sidebarPanel(
 
 mainPanel(
 
-  h4("数据描述"),
+  h4("数据的描述统计"),
 
   tabsetPanel(
 

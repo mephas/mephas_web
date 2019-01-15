@@ -32,10 +32,10 @@ sidebarPanel(
 
       ##-------csv file-------##
       tabPanel(
-        "Upload .csv",
+        "Upload CSV file",
         p(br()),
         
-        fileInput('file2','Choose .csv File', #p
+        fileInput('file2','Choose CSV file', #p
           accept = c(
             'text/csv',
             'text/comma-separated-values,text/plain',
@@ -71,7 +71,7 @@ sidebarPanel(
 
   mainPanel(
 
-    h4("Data Description"),
+    h4("Descriptive Statistics"),
 
     tabsetPanel(
 
@@ -79,7 +79,7 @@ sidebarPanel(
 
         dataTableOutput("table2")),
 
-      tabPanel("Basic Descriptives",p(br()), 
+      tabPanel("Basic Statistics",p(br()), 
         
         splitLayout(
           tableOutput("bas2"),
@@ -109,11 +109,11 @@ sidebarPanel(
               )              
            )),
 
-      tabPanel("Mean and SD plot", p(br()), 
+      tabPanel("Mean and SD Plot", p(br()), 
 
         plotOutput("meanp2", width = "400px", height = "400px")),
 
-      tabPanel("Plots of normality", p(br()), 
+      tabPanel("Plots of Normality", p(br()), 
 
         plotOutput("makeplot2", width = "600px", height = "600px"),
         sliderInput("bin2","The width of bins in histogram",min = 0.01,max = 5,value = 0.2))
@@ -121,7 +121,7 @@ sidebarPanel(
       ),
 
     hr(),
-    h4(tags$b("Test Results")),
+    h4(("Results")),
     tableOutput("var.test"),
     helpText("When P value<0.05, please go to the 'Welch Two Sample t-test'"),
     tableOutput("t.test2")

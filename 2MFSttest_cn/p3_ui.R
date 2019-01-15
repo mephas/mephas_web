@@ -13,14 +13,14 @@ sidebarLayout(
 
 sidebarPanel(
         
-  h4("导入数据"),
+  h4("数据准备"),
 
   tabsetPanel(
     ##-------input data-------##
 
       tabPanel("手动输入", p(br()),
 
-      helpText("如有缺失值，请输入NA"),
+      helpText("缺失值请输入NA"),
 
       tags$textarea(id = "x1.p",rows = 10,
         "4.2\n5.3\n7.6\n6.7\n6.3\n3.5\n5.8\n6.3\n3.2\n4.6\n5.5\n5.2\n4.6\n4.8\n4.5\n5.3\n4.3\n4.3\n6.2\n6.7"
@@ -35,20 +35,20 @@ sidebarPanel(
       ),
 
     ##-------csv file-------##
-    tabPanel("上传 .csv", p(br()),
+    tabPanel("上传CSV文件", p(br()),
       
       fileInput(
         'file.p',
-        '选择 .csv',
+        '选择CSV文件',
         accept = c(
           'text/csv',
           'text/comma-separated-values,text/plain',
           '.csv'
         )
       ),
-      checkboxInput('header.p', '标题', TRUE), #p
+      checkboxInput('header.p', '第一行为变量名', TRUE), #p
  
-      radioButtons("sep.p", "分隔",
+      radioButtons("sep.p", "分隔符",
                    choices = c(Comma = ',',
                                Semicolon = ';',
                                Tab = '\t'),
@@ -61,7 +61,7 @@ sidebarPanel(
   h4("假设检验"),
 
   tags$b("零假设"),
-  HTML("<p> &#916 = 0: X and Y have equal effect </p>"),
+  HTML("<p> &#916 = 0: X组和Y组没有差异 </p>"),
   
   radioButtons(
     "alt.pt",
@@ -78,7 +78,7 @@ sidebarPanel(
 
 mainPanel(
 
-  h4('数据描述'),
+  h4('数据的描述统计'),
 
   tabsetPanel(
 
@@ -107,7 +107,7 @@ mainPanel(
             "注:
                 <ul>
                 <li> 图中的各个点是在同一水平线上随机地模拟和定位的 
-                <li> 如果存在，异常值将以红色突出显示
+                <li> 异常值将以红色突出显示（如果存在）
                 <li> 红色异常值可能不覆盖原本的模拟点
                 <li> 红色异常值仅表示同一水平线上（横轴）上的值
                 </ul>"
