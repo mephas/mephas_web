@@ -89,7 +89,7 @@ headerPanel("Wilcoxon秩和检验（Mann-Whitney U检验），(Mood's)中数检�
 
 HTML("
 
-<p> To determine whether a randomly selected sample will be less than or greater than a second randomly selected sample. </p>
+<p>  来确定随机选择的样本是否小于或大于第二随机选择的样本 </p>
 
 <b> 注 </b>
   <ul>

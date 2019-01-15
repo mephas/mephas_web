@@ -97,22 +97,22 @@ h4("数据准备"),
 
 mainPanel(
 
-  h4("Descriptive Statistics"),
+  h4("数据的描述统计"),
 
   tabsetPanel(
 
-    tabPanel("Data display", p(br()),  
+    tabPanel("数据显示", p(br()),  
 
       dataTableOutput("table")),
 
-    tabPanel("Basic descriptives", p(br()), 
+    tabPanel("描述性统计量", p(br()), 
 
       splitLayout(
         tableOutput("bas"), 
         tableOutput("des"), 
         tableOutput("nor"))  ),
 
-    tabPanel("Boxplot", p(br()), 
+    tabPanel("箱线图", p(br()), 
 
       splitLayout(
         plotOutput("bp", width = "400px", height = "400px", click = "plot_click"),
@@ -122,22 +122,22 @@ mainPanel(
 
         helpText(
           HTML(
-            "Notes:
-            <ul>
-            <li> Points are simulated and located randomly in the same horizontal line 
-            <li> Outliers will be highlighted in red, if existing
-            <li> The red outlier may not cover the simulated point
-            <li> The red outlier only indicates the value in horizontal line
-            </ul>"
+             "注:
+                <ul>
+                <li> 图中的各个点是在同一水平线上随机地模拟和定位的 
+                <li> 如果存在，异常值将以红色突出显示
+                <li> 红色异常值可能不覆盖原本的模拟点
+                <li> 红色异常值仅表示同一水平线上（横轴）上的值
+                </ul>"
             )
           )
         )
         ) ),
 
-    tabPanel("Histogram", p(br()), 
+    tabPanel("直方图", p(br()), 
 
       plotOutput("makeplot", width = "800px", height = "400px"),
-      sliderInput("bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2)
+      sliderInput("bin", "直方图柱子的宽度", min = 0.01, max = 5, value = 0.2)
       )
     )
   )
