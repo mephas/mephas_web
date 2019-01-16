@@ -12,7 +12,7 @@
 output$y = renderUI({
   selectInput(
     'y',
-    h5('Continuous dependent variable (Y)'),
+    h5('连续型因变量 (Y)'),
     selected = NULL,
     choices = names(X())
     )
@@ -21,7 +21,7 @@ output$y = renderUI({
 output$x = renderUI({
   selectInput(
     'x',
-    h5('Continuous independent variable (X)'),
+    h5('连续型自变量 (X)'),
     selected = NULL,
     choices = names(X()),
     multiple = TRUE
@@ -32,7 +32,7 @@ output$x = renderUI({
 output$fx = renderUI({
   selectInput(
     'fx',
-    h5('Categorical/discrete independent variable (X)'),
+    h5('离散型自变量 (X)'),
     selected = NULL,
     choices = names(X()),
     multiple = TRUE
@@ -145,7 +145,7 @@ output$pred = renderDataTable({
 output$px = renderUI({
   selectInput(
     'px',
-    h5('Choose one independent Variable (X)'),
+    h5('选择一个自变量 (X)'),
     selected = NULL,
     choices = names(newX())
   )

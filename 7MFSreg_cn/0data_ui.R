@@ -1,12 +1,14 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## The regression models: lm, logistic model, cox model, ui
-## 
-##    0. data preparation
-## 
-## DT: 2018-12-13
+## 7MFSreg SERVER
 ##
-##----------------------------------------------------------------
+##    >data
+##
+## Language: CN
+## 
+## DT: 2019-01-16
+##
+##----------#----------#----------#----------
 
 
 #tabPanel("Dataset",
@@ -20,7 +22,7 @@
 
     ##----------example datasets----------
 
-    selectInput("edata", "Choose data:", 
+    selectInput("edata", "选择数据:", 
                             choices =  c("insurance","advertisement","lung"), 
                             selected = "insurance"),
                 ## render dynamic checkboxes
@@ -28,19 +30,19 @@
 
 
     ##-------csv file-------##   
-    fileInput('file', "Upload .csv",
+    fileInput('file', "上传CSV文件",
               accept = c("text/csv",
                       "text/comma-separated-values,text/plain",
                       ".csv")),
-    helpText("The columns of X are not suggested greater than 500"),
+    #helpText("The columns of X are not suggested greater than 500"),
     # Input: Checkbox if file has header ----
-    checkboxInput("header", "Header", TRUE),
+    checkboxInput("header", "第一行为变量名", TRUE),
 
       fluidRow(
 
       column(4, 
          # Input: Select separator ----
-      radioButtons("sep", "Separator",
+      radioButtons("sep", "分隔符",
                    choices = c(Comma = ',',
                                Semicolon = ';',
                                Tab = '\t'),
@@ -48,45 +50,45 @@
 
       column(4,
       # Input: Select quotes ----
-      radioButtons("quote", "Quote",
+      radioButtons("quote", "引用符",
                    choices = c(None = "",
                                "Double Quote" = '"',
                                "Single Quote" = "'"),
                    selected = '"'))
       ),
 
-      actionButton("choice", "Import dataset", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")),
+      actionButton("choice", "导入数据", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")),
 
 
     mainPanel(
       
-      h4(tags$b("Data Display")),
+      h4(tags$b("数据显示")),
 
       tags$br(),
 
-      tags$b("Overview of the first 5 row and 2 columns of the dataset"), 
+      tags$b("暂时只显示前5行和前2列"), 
 
       dataTableOutput("data"),
   
       
-      selectInput("columns", "Select variables to display the details", choices = NULL, multiple = TRUE), # no choices before uploading 
+      selectInput("columns", "请选择更多变量来观察数据", choices = NULL, multiple = TRUE), # no choices before uploading 
   
       dataTableOutput("data_var"),
       hr(),
 
-      h4(tags$b("Basic Descriptives")), 
-      tags$b("Select the variables for descriptives"),
+      h4(tags$b("基本统计量")), 
+      tags$b("选择变量"),
 
         fluidRow(
           column(6,
           uiOutput('cv'),
-          actionButton("Bc", "Show descriptives"),
+          actionButton("Bc", "计算统计量"),
           tableOutput("sum"),
           helpText(HTML(
       "
       Note:
       <ul>
-      <li> nbr.: the number of </li>
+      <li> nbr.: 表示个数 the number of 的缩写 </li>
       </ul>
       "
       ))
@@ -94,23 +96,23 @@
 
           column(6,
           uiOutput('dv'),
-          actionButton("Bd", "Show descriptives"),
+          actionButton("Bd", "计算统计量"),
           verbatimTextOutput("fsum")
           )),
 
-      h4(tags$b("First Exploration of Variables")),  
+      h4(tags$b("变量的初步探索")),  
       tabsetPanel(
-        tabPanel("Scatter plot (with line) between two variables",
+        tabPanel("两个变量关系的散点图",
           uiOutput('ty'),
           uiOutput('tx'),
           plotOutput("p1", width = "400px", height = "400px")
           ),
-        tabPanel("Bar plots",
+        tabPanel("直方图",
           fluidRow(
           column(6,
             uiOutput('hx'),
             plotOutput("p2", width = "400px", height = "400px"),
-            sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 50, value = 1)),
+            sliderInput("bin", "直方图柱子的宽度", min = 0.01, max = 50, value = 1)),
           column(6,
             uiOutput('hxd'),
             plotOutput("p3", width = "400px", height = "400px"))))
