@@ -1,12 +1,14 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## The regression models: lm, logistic model, cox model, server
-##s
-##    2. Logistic regression
+## 7MFSreg SERVER
+##
+##    >Logistic regression
+##
+## Language: CN
 ## 
-## DT: 2018-12-14
+## DT: 2019-01-16
 ##
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 
 
 
@@ -14,7 +16,7 @@
 output$y.l = renderUI({
   selectInput(
     'y.l',
-    h5('Binary dependent Variable (Y)'),
+    h5('二项（0-1）因变量 (Y)'),
     selected = NULL,
     choices = names(X())
     )
@@ -23,7 +25,7 @@ output$y.l = renderUI({
 output$x.l = renderUI({
   selectInput(
     'x.l',
-    h5('Continuous independent variable (X)'),
+    h5('连续型自变量 (X)'),
     selected = NULL,
     choices = names(X()),
     multiple = TRUE
@@ -33,7 +35,7 @@ output$x.l = renderUI({
 output$fx.l = renderUI({
   selectInput(
     'fx.l',
-    h5('Categorical independent variable (X)'),
+    h5('离散型自变量 (X)'),
     selected = NULL,
     choices = names(X()),
     multiple = TRUE

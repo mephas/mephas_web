@@ -13,29 +13,29 @@ tagList(
 #shinythemes::themeSelector(),
 navbarPage(
  
-  title = "Contingency Table of Counts",
+  title = "计数列联表",
 
 ##---------- Panel 1 ----------
-tabPanel("Chi-square Test (R x C Table)",
+tabPanel("卡方检验（R × C 表）",
 
-titlePanel("Chi-square Test"),
+titlePanel("卡方检验"),
 
 HTML("
-<b> Notes </b>
+<b> 注 </b>
 
 <ul>
 
-<li> R x C contingency table is a table with R rows (R categories) and C columns (C categories)
-<li> To determine whether there is significant relationship between two discrete variables, where one variable has R categories and the other has C categories
+<li> RXC列联表是具有R行（R类）和C列（C类）的表
+<li> 用来确定两个离散变量之间是否存在显著关系，其中一个变量具有R类别，另一个变量具有C类别
 
 </ul>
 
-<b> Assumptions </b>
+<b> 前提假设 </b>
 
 <ul>
 
-<li> No more than 1/5 of the cells have expected values < 5
-<li> No cell has an expected value < 1
+<li> 不超过行列单元格子总数的1/5格子的期望值小于5
+<li> 不存在单元的期望值＜1的格子
 
 </ul>
 
@@ -46,48 +46,48 @@ sidebarLayout(
 
 sidebarPanel(
 
-  h4("Configurations"),
-  numericInput("r", "How many rows, R", value = 2, min = 2, max = 9, step = 1, width = "50%"),
+  h4("参数设置"),
+  numericInput("r", "行数, R", value = 2, min = 2, max = 9, step = 1, width = "50%"),
   verticalLayout(
-  tags$b("Row names"), 
+  tags$b("行名称"), 
   tags$textarea(id="rn", rows=4, cols = 30, "R1\nR2"),
-  helpText("Row names must be corresponding to number of rows")),
-  numericInput("c", "How many columns, C", value = 2, min = 2, max = 9, step = 1, width = "50%"),
+  helpText("行名的个数必须对应行数")),
+  numericInput("c", "列数, C", value = 2, min = 2, max = 9, step = 1, width = "50%"),
   verticalLayout(
-  tags$b("Column names"),
+  tags$b("列名称"),
   tags$textarea(id="cn", rows=4, cols = 30, "C1\nC2"),
-  helpText("Column names must be corresponding to number of columns")),
+  helpText("行名的个数必须对应行数")),
   hr(),
 
-  h4("Input Data"),
-  helpText("Input your values by column, i.e., the second column follows the first column"),
+  h4("数据输入"),
+  helpText("按列输入值，例如，第二列跟随第一列."),
   tags$textarea(id="x", rows=10, "10\n20\n30\n35")
     ),
 
 mainPanel(
 
-h4("Results of the Chi-Square Test"), 
+h4("卡方检验的结果"), 
 tableOutput("c.test"),
 hr(),
 
-h4("Contingency Table Description"),
+h4("列联表的描述统计"),
 tabsetPanel(
 
-tabPanel("Contingency table", 
+tabPanel("列联表", p(br()),
   dataTableOutput("ct")
   ),
 
-tabPanel("Percentages",
-  h4("Percentages for rows"), tableOutput("prt"),
-  h4("Percentages for columns"), tableOutput("pct"),
-  h4("Percentages for total"), tableOutput("pt")
+tabPanel("百分比", p(br()),
+  h4("行的百分比"), tableOutput("prt"),
+  h4("列的百分比"), tableOutput("pct"),
+  h4("总体的百分比"), tableOutput("pt"),
   ),
 
-tabPanel("Expected value in each cell",
+tabPanel("期望值",
   tableOutput("c.e")
   ),
 
-tabPanel("Barplot of frequency (counts)",
+tabPanel("频数的条形图",
   plotOutput("makeplot", width = "800px", height = "400px")
   )
   )
@@ -98,48 +98,48 @@ tabPanel("Barplot of frequency (counts)",
 
 ##---------- Panel 2 ----------
 
-tabPanel("Test for Trend (2 x K Table)",
+tabPanel("趋势检验 (2 x K 表)",
 
-titlePanel("Test for Trend"),
+titlePanel("趋势检验"),
 
 
-p("To determine whether an increasing or decreasing trend in proportions"),
+p("用来检验比例的增加或减少趋势"),
 
 p(br()),
 sidebarLayout(
 
 sidebarPanel(
 
-h4("Data Preparation"),
+h4("数据准备"),
 
   tabsetPanel(
   ##-------input data-------## 
-  tabPanel("Manual input", p(br()),
-    helpText("Missing value is input as NA"),
+  tabPanel("手动输入", p(br()),
+    helpText("如有缺失值，请输入NA"),
     tags$textarea(id="suc", rows=10, "320\n1206\n1011\n463\n220"),
     tags$textarea(id="fail", rows=10, "1422\n4432\n2893\n1092\n406")), 
-    helpText("Case data are input left, while control data are input right"),
+    helpText("案例数据（case）请输入到左边，而对比数据（control）输入到右边"),
 
   ##-------csv file-------##   
-  tabPanel("Upload .csv", p(br()),
-    fileInput('file2', 'Choose .csv File', accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
-    checkboxInput('header', 'Header', TRUE),
-    radioButtons('sep', 'Separator', c(Comma=',', Semicolon=';', Tab='\t'), ',')))),
+  tabPanel("上传CSV文件", p(br()),
+    fileInput('file2', '选择CSV文件', accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
+    checkboxInput('header', '第一行为变量名', TRUE),
+    radioButtons('sep', '分隔符', c(Comma=',', Semicolon=';', Tab='\t'), ',')))),
 
   mainPanel(
 
-h4("Results of the Test for Trend, Case out of Total"), 
+h4("结果"), 
 tableOutput("tr.test"),
 hr(),
 
-  h4("Contingency Table Description"),
+  h4("列联表的描述统计"),
   tabsetPanel(
-    tabPanel("Contingency Table",
+    tabPanel("列联表",
       dataTableOutput("ct.tr"),
-      helpText("Note: Percentage = Case/Total")
+      helpText("注: 百分比 = 事件数/总数")
       ),
 
-    tabPanel("Barplot of Case Percentage",
+    tabPanel("百分比趋势的条形图",
     plotOutput("makeplot.tr", width = "800px", height = "400px")
       )
     )
@@ -149,46 +149,46 @@ hr(),
 
 ##---------- Panel 3 ----------
 
-tabPanel("Kappa Statistic (K x K Table)",
+tabPanel("Kappa 统计量 (K x K 表)",
 
 titlePanel("Kappa Statistic"),
 
-p("To qualify the degree of association. This is particularly true in reliability studies, where the researcher want to qualify the reproducibility of the same variable measured more than once."),
+p("这是自由度相关的定量研究，特别适用于研究人员希望对同一变量的重现性进行多次测量时的可靠性分析"),
 
 sidebarLayout(
 sidebarPanel(
 
-h4("Configurations of the table"),
-  numericInput("r.k", "How many raters in both survey, R", value = 2, min = 2, max = 9, step = 1, width = "50%"),
+h4("参数设置"),
+  numericInput("r.k", "两个调查的共通评价数, R", value = 2, min = 2, max = 9, step = 1, width = "50%"),
   verticalLayout(
-  tags$b("Rater names"), 
+  tags$b("评价名称"), 
   tags$textarea(id="rater", rows=4, cols = 30, "Yes\nNo")),
 
-h4("Input Data"),
-  tabPanel("Manually input values",
+h4("数据输入"),
+  tabPanel("手动输入",
   tags$textarea(id="k", rows=10, "136\n69\n92\n240")),
-  helpText("Input the counts by column, for example, the second column follows the first column")
+  helpText("按列输入计数，例如，第二列跟随第一列"),
 
   ),
 
 mainPanel(
 
-  h4("Results of the Kappa Statistic, k"), tableOutput("k.test"),
+  h4("结果"), tableOutput("k.test"),
   tags$b("Notes"),
   HTML("
   <ul>
-  <li> k > 0.75 denotes excellent reproducibility </li>
-  <li> 0.4 < k < 0.75 denotes good  reproducibility</li>
-  <li> 0 < k < 0.4 denotes marginal reproducibility </li>
+  <li> k > 0.75 表示优良的重现性. </li>
+  <li> 0.4 < k < 0.75 表示良好的再现性.</li>
+  <li> 0 < k < 0.4 表示微弱的再现性.</li>
   </ul>" ),
 
   hr(),
-  h4("Contingency table"), dataTableOutput("kt"),
+  h4("列联表"), dataTableOutput("kt"),
   HTML("
-    <b> Notes</b>
+    <b> 注</b>
     <ul>
-    <li> Row is the rater of measurement-A, while column is measurement-B
-    <li> The last row is the sum of above rows
+    <li> 行是度量A，而列是度量B
+    <li> 最后一行是总数
     </ul>
     ")
   )
@@ -196,8 +196,8 @@ mainPanel(
 )),
 ##---------- other panels ----------
 
-source("../0tabs/home.R",local=TRUE)$value,
-source("../0tabs/stop.R",local=TRUE)$value
+source("../0tabs/home_cn.R",local=TRUE)$value,
+source("../0tabs/stop_cn.R",local=TRUE)$value
 
 
 ))

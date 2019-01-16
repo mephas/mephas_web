@@ -1,12 +1,14 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## The regression models: lm, logistic model, cox model, server
+## 7MFSreg SERVER
 ##
-##    0. data preparation
+##    >data
+##
+## Language: CN
 ## 
-## DT: 2018-12-13
+## DT: 2019-01-16
 ##
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 
 load("reg.Rdata")
 
@@ -43,7 +45,7 @@ X_var = eventReactive(input$choice,{
         quote = input$quote)
   }
     vars <- names(df)
-    updateSelectInput(session, "columns","Select Columns", choices = vars)
+    updateSelectInput(session, "columns","选择列", choices = vars)
     return(df)
   })
 
@@ -59,13 +61,13 @@ X_var = eventReactive(input$choice,{
 
 output$cv = renderUI({
   selectInput(
-    'cv', h5('Select continuous variables'),
+    'cv', h5('请选择连续型变量'),
     selected = NULL, choices = names(X()), multiple = TRUE)
 })
 
 output$dv = renderUI({
   selectInput(
-    'dv', h5('Select categorical/discrete variables'), 
+    'dv', h5('请选择离散型变量'), 
     selected = NULL, choices = names(X()), multiple = TRUE)
 })
 
@@ -90,7 +92,7 @@ output$fsum = renderPrint({fsum()})
 
 output$tx = renderUI({
   selectInput(
-    'tx', h5('Variable in the x-axis'),
+    'tx', h5('x轴的变量'),
     selected = NULL, 
     choices = names(X())
     )
@@ -99,7 +101,7 @@ output$tx = renderUI({
 output$ty = renderUI({
   selectInput(
     'ty',
-    h5('Variable in the y-axis'),
+    h5('y轴的变量'),
     selected = NULL, 
     choices = names(X())
     )
@@ -115,7 +117,7 @@ output$p1 = renderPlot({
 output$hx = renderUI({
   selectInput(
     'hx',
-    h5('Histogram of the continuous variable'),
+    h5('连续型变量的直方图'),
     selected = NULL,
     choices = names(X()))
 })
@@ -123,7 +125,7 @@ output$hx = renderUI({
 output$hxd = renderUI({
   selectInput(
     'hxd',
-    h5('Histogram of the categorical/discrete variable'),
+    h5('离散型变量的直方图'),
     selected = NULL,
     choices = names(X()))
 })

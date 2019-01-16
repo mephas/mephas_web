@@ -2,7 +2,7 @@
 ##
 ## 4MFSproptest UI
 ##
-## Language: EN
+## Language: CN
 ## 
 ## DT: 2019-01-08
 ##
@@ -266,13 +266,10 @@ HTML("
         tableOutput("n.t"),
         helpText(
           HTML(
-            "<p> 不一致对（Discordant pair）的数目 < 20, 应对结果进行校正 </p>
-            <ul>
-            <li> Discordant pair is a matched pair in which the outcome differ for the members of the pair. </li>
-            </ul>"
+            "<p> 不一致对（Discordant pair）的数目 < 20, 应对结果进行校正 </p>"
             )
           ),
-        h4("Results"), 
+        h4("结果"), 
         tableOutput("n.test")
   #tags$b("Interpretation"), p("bbb")
         )

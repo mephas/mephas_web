@@ -1,12 +1,14 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## The regression models: lm, logistic model, cox model, server
-##s
-##    3. Cox regression
+## 7MFSreg SERVER
+##
+##    >Linear Regression
+##
+## Language: CN
 ## 
-## DT: 2018-12-14
+## DT: 2019-01-16
 ##
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 
 ## 1. input data
 ### training data
@@ -36,7 +38,7 @@ newX.c = reactive({
 output$t1.c = renderUI({
   selectInput(
     't1.c',
-    h5('Follow-up (or start-up time-point)'),
+    h5('随访时间 (或者起始时间点)'),
     selected = NULL,
     choices = names(X())
   )
@@ -45,7 +47,7 @@ output$t1.c = renderUI({
 output$t2.c = renderUI({
   selectInput(
     't2.c',
-    h5('NULL (or end-up time-point)'),
+    h5('无 (或者结束时间点)'),
     selected = "NULL",
     choices = c("NULL", names(X()))
   )
@@ -53,7 +55,7 @@ output$t2.c = renderUI({
 
 output$c.c = renderUI({
   selectInput('c.c',
-              h5('Status Variable (0=censor, 1=event)'),
+              h5('状态变量 (0=删失, 1=事件)'),
               selected = NULL,
               choices = names(X()))
 })
@@ -61,7 +63,7 @@ output$c.c = renderUI({
 output$x.c = renderUI({
   selectInput(
     'x.c',
-    h5('Continuous Independent Variable'),
+    h5('连续型自变量'),
     selected = NULL,
     choices = names(X()),
     multiple = TRUE
@@ -71,7 +73,7 @@ output$x.c = renderUI({
 output$fx.c = renderUI({
   selectInput(
     'fx.c',
-    h5('Categorical Independent Variable'),
+    h5('离散型自变量'),
     selected = NULL,
     choices = names(X()),
     multiple = TRUE
@@ -81,7 +83,7 @@ output$fx.c = renderUI({
 output$sx.c = renderUI({
   selectInput(
     'sx.c',
-    h5('Stratified Variable'),
+    h5('分层变量'),
     selected = NULL,
     choices = names(X()),
     multiple = TRUE
@@ -91,7 +93,7 @@ output$sx.c = renderUI({
 output$clx.c = renderUI({
   selectInput(
     'clx.c',
-    h5('Cluster Variable'),
+    h5('分类变量'),
     selected = NULL,
     choices = names(X()),
     multiple = TRUE
@@ -237,7 +239,7 @@ output$p0.c = renderPlot({
 output$tx.c = renderUI({
   selectInput(
     'tx.c',
-    h5('Categorical variable as group'),
+    h5('分类变量作为分组'),
     selected = names(X())[5],
     choices = names(X())
   )
