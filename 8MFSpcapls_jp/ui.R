@@ -86,19 +86,19 @@ navbarPage(
 
  mainPanel(
       h4(("データ表示")), 
-      helpText("The first 5 rows and first 5 columns of X matrix"),
+      helpText("X行列の最初の5行と最初の5列"),
       tags$head(tags$style(".shiny-output-error{color: blue;}")),
       tableOutput("table.x"),
-      helpText("The first 5 rows and first columns of Y matrix"),
+      helpText("Y行列の最初の5行と最初の列"),
       tableOutput("table.y"),
       hr(),  
       h4(("記述統計")),
-      tags$b("Select the variables for 記述統計"),
+      tags$b("記述統計の変数を選択"),
 
         fluidRow(
           column(6,
           uiOutput('cv'),
-          actionButton("Bc", "Show 記述統計"),
+          actionButton("Bc", "記述統計を表示"),
           tableOutput("sum"),
           helpText(HTML(
       "
@@ -112,14 +112,14 @@ navbarPage(
 
           column(6,
           uiOutput('dv'),
-          actionButton("Bd", "Show 記述統計"),
+          actionButton("Bd", "記述統計を表示"),
           verbatimTextOutput("fsum")
           )),
 
-            h4(("First Exploration of Variables")),  
+            h4(("変数の最初の探査")),  
 
       tabsetPanel(
-        tabPanel("散布図 (with line) between two variables",
+        tabPanel("2つの変数間の散布図（線付き）",
           uiOutput('tx'),
           uiOutput('ty'),
           plotOutput("p1", width = "400px", height = "400px")
@@ -150,7 +150,7 @@ sidebarLayout(
 sidebarPanel(
   h3("モデルの設定"),
   numericInput("nc", "PCAの要素の数:", 4, min = 2, max = 20),
-  helpText("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
+  helpText("データが完全な場合 'pca'は特異値分解を使用、 欠損値がある場合は、NIPALSアルゴリズムを使用"),
   
   h3("パラメータ設定"),
   numericInput("c1", "x軸の要素", 1, min = 1, max = 20),
@@ -207,9 +207,9 @@ mainPanel(
   h3("結果"),
   #h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
   h4(tags$b("説明変数からの新しいPLS要素 (X)")), dataTableOutput("comp.x"),
-  downloadButton("downloadData.pls.x", "Download the new components"),
+  downloadButton("downloadData.pls.x", "新しいコンポーネントをダウンロードする"),
   h4(tags$b("目的変数からの新しいPLS要素 (Y)")), dataTableOutput("comp.y"),
-  downloadButton("downloadData.pls.y", "Download the new components"),
+  downloadButton("downloadData.pls.y", "新しいコンポーネントをダウンロードする"),
   hr(),
 
   h3("プロット"),
