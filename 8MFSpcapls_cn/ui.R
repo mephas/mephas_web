@@ -85,25 +85,25 @@ navbarPage(
 
     mainPanel(
       h4(("Data Display")), 
-      helpText("The first 5 rows and first 5 columns of X matrix"),
+      helpText("X矩阵的前5行和前5列"),
       tags$head(tags$style(".shiny-output-error{color: blue;}")),
       tableOutput("table.x"),
-      helpText("The first 5 rows and first columns of Y matrix"),
+      helpText("Y矩阵的前5行和前5列"),
       tableOutput("table.y"),
       hr(),  
-      h4(("Basic Descriptives")),
-      tags$b("Select the variables for descriptives"),
+      h4(("基本统计量")),
+      tags$b("选择变量"),
 
         fluidRow(
           column(6,
           uiOutput('cv'),
-          actionButton("Bc", "Show descriptives"),
+          actionButton("Bc", "计算统计量"),
           tableOutput("sum"),
           helpText(HTML(
       "
       Note:
       <ul>
-      <li> nbr.: the number of </li>
+      <li> nbr.: 表示 the number of </li>
       </ul>
       "
       ))
@@ -111,24 +111,24 @@ navbarPage(
 
           column(6,
           uiOutput('dv'),
-          actionButton("Bd", "Show descriptives"),
+          actionButton("Bd", "计算统计量"),
           verbatimTextOutput("fsum")
           )),
 
-            h4(("First Exploration of Variables")),  
+            h4(("变量的初步探索")),  
 
       tabsetPanel(
-        tabPanel("Scatter plot (with line) between two variables",
+        tabPanel("两个变量之间的散点图",
           uiOutput('tx'),
           uiOutput('ty'),
           plotOutput("p1", width = "400px", height = "400px")
           ),
-        tabPanel("Bar plots",
+        tabPanel("直方图",
           fluidRow(
           column(6,
             uiOutput('hx'),
             plotOutput("p2", width = "400px", height = "400px"),
-            sliderInput("bin", "The width of bins in the histogram", min = 10, max = 150, value = 1)),
+            sliderInput("bin", "直方图柱子的宽度", min = 10, max = 150, value = 1)),
           column(6,
             uiOutput('hxd'),
             plotOutput("p3", width = "400px", height = "400px"))))
