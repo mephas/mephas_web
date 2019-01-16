@@ -30,11 +30,11 @@
 
 
     ##-------csv file-------##   
-    fileInput('file', "CSV ファイルを指定してください",
+    fileInput('file', "CSV ファイルを指定",
               accept = c("text/csv",
                       "text/comma-separated-values,text/plain",
                       ".csv")),
-    helpText("The columns of X are not suggested greater than 500"),
+    helpText("Xの列は500を超えない"),
     # Input: Checkbox if file has header ----
     checkboxInput("header", "ヘッダー", TRUE),
 
@@ -66,27 +66,27 @@
 
       tags$br(),
 
-      tags$b("Overview of the first 5 row and 2 columns of the dataset"), 
+      tags$b("データセットの最初の5行2列の概要"), 
 
       dataTableOutput("data"),
   
       
-      selectInput("columns", "Select variables to display the details", choices = NULL, multiple = TRUE), # no choices before uploading 
+      selectInput("columns", "詳細を表示する変数を選択", choices = NULL, multiple = TRUE), # no choices before uploading 
   
       dataTableOutput("data_var"),
       hr(),
 
       h4("記述統計"), 
-      tags$b("Select the variables for descriptives"),
+      tags$b("説明変数を選択"),
 
         fluidRow(
           column(6,
           uiOutput('cv'),
-          actionButton("Bc", "Show descriptives"),
+          actionButton("Bc", "記述"),
           tableOutput("sum"),
           helpText(HTML(
       "
-      Note:
+      注:
       <ul>
       <li> nbr.: the number of </li>
       </ul>
@@ -96,13 +96,13 @@
 
           column(6,
           uiOutput('dv'),
-          actionButton("Bd", "Show descriptives"),
+          actionButton("Bd", "記述"),
           verbatimTextOutput("fsum")
           )),
 
-      h4(("First Exploration of Variables")),  
+      h4(("変数の最初の探査")),  
       tabsetPanel(
-        tabPanel("Scatter plot (with line) between two variables",
+        tabPanel("2つの変数間の散布図（線付き）",
           uiOutput('ty'),
           uiOutput('tx'),
           plotOutput("p1", width = "400px", height = "400px")

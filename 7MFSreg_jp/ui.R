@@ -49,7 +49,7 @@ tabPanel("Cox 回帰(Time-Event 目的変数)",
 
   titlePanel("Cox 回帰"),
 
-  source("3cr_ui.R", local=TRUE)$value
+  source("3cr_ui.R", local=TRUE,encoding = "UTF-8")$value
 
 
 ) ## tabPanel(

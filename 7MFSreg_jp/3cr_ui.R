@@ -18,7 +18,7 @@ sidebarPanel(
   ##<<-----------------------------<<
 
   ##>>---------cox formula---------->>
-  h4(tags$b("Given that dataset has been imported, please design you model")),
+  h4(tags$b("データセットがインポートされたら、モデルをデザインしてください")),
   uiOutput('t1.c'),
   uiOutput('t2.c'),
   uiOutput('c.c'),    
@@ -27,8 +27,8 @@ sidebarPanel(
   uiOutput('sx.c'),
   uiOutput('clx.c'),
 
-  h5("Additional terms (confounding交絡因子 or interaction交互作用)"), 
-  helpText('Note: Start with "+". For interactive term, please type "+ as.factor(var1):var2"'), 
+  h5("追加の用語 (confounding交絡因子 or interaction交互作用)"), 
+  helpText('注: "+"で始める、 交互作用では、「+ as.factor（var1）：var2」と入力'), 
   tags$textarea(id='conf.c', cols=40, " " ), 
   p(br()),
   actionButton("F.c", "Create formula", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
@@ -43,34 +43,34 @@ mainPanel(
   hr(),
 
   h4(("結果")),
-  actionButton("B1.c", "Show the results"),
+  actionButton("B1.c", "結果表示"),
   p(br()),
 
   tabsetPanel(
-    tabPanel("Exploration of Variables",
+    tabPanel("変数の探査",
       p(br()),
-      actionButton("Y.c", "Plot after the creation of formula"),
+      actionButton("Y.c", "式作成後にプロットする"),
       p(br()),
-      tags$b("1. K-M Survival Plot (null model)"), 
+      tags$b("1. K-M生存プロット（ヌルモデル）"), 
       helpText("Formula: Surv(time, status)~1 "),
       plotOutput("p0.c", width = "400px", height = "400px"),
 
-      tags$b("2. K-M Survival Plot (by group)"), 
-      helpText("Formula: Surv(time, status) ~ group"),
+      tags$b("2. K-M生存プロット（グループ別）"), 
+      helpText("計算式：Surv（time、status）〜グループ"),
       uiOutput('tx.c'),
       plotOutput("p1.c", width = "400px", height = "400px")
       ),
-    tabPanel("Parameters' estimation", 
+    tabPanel("パラメータの推定", 
       p(br()),
   
       tags$b("1. 偏回帰係数"), 
       htmlOutput("fit.c"), p(br()),
       tags$b("2. ANOVA テーブル"), tableOutput("anova.c"),p(br()),
-      tags$b("3. Select a formula-based model by AIC"), verbatimTextOutput("step.c")
+      tags$b("3. AICで式ベースのモデルを選択"), verbatimTextOutput("step.c")
       ),
     tabPanel("回帰診断", 
       p(br()),
-      tags$b("1. Check for constant hazard ratio over time"),
+      tags$b("1. 経時的に一定のハザード比をチェックする"),
       tableOutput("zph.c"), 
       plotOutput("p2.c",width = "500px", height = "500px"),
       tags$b("2. 診断プロット"), 
@@ -81,17 +81,17 @@ mainPanel(
                selected = "martingale") ,
       plotOutput("p4.c", width = "400px", height = "400px")),
 
-    tabPanel("Estimated fitting values",
+    tabPanel("フィッティング推定値",
       p(br()),
-      tags$b("Estimation is based on import dataset"),
+      tags$b("推定はインポートデータセットに基づく"),
       dataTableOutput("fitdt.c")),
 
-    tabPanel("Prediction予測 on new data", 
+    tabPanel("新しいデータの予測", 
       p(br()),
       #prediction part
       ##-------csv file for prediction -------##   
       # Input: Select a file ----
-      fileInput("newfile.c", "Upload new .csv data set",
+      fileInput("newfile.c", "新しい.csvデータセットをアップロード",
                 multiple = TRUE,
                 accept = c("text/csv",
                          "text/comma-separated-values,text/plain",
@@ -118,9 +118,9 @@ mainPanel(
                    selected = '"'))
 
       ),
-      actionButton("B2.c", "Submit"), 
+      actionButton("B2.c", "モデルの推定後に送信"), 
       p(br()),
-      tags$b("Data display with prediction results"), 
+      tags$b("結果の表示"), 
       p(br()),
       dataTableOutput("pred.c")
       )
