@@ -44,7 +44,7 @@ navbarPage(
           tabPanel(
             "手入力",
             p(br()),
-            helpText("Please input the values and factors' name (欠損値はNAと表示されます)"),
+            helpText("値と要素の名前を入力 (欠損値はNAと表示される)"),
 
             splitLayout(
 
@@ -74,7 +74,7 @@ navbarPage(
             "アップロード CSV ファイル",
             p(br()),
             fileInput(
-              'file1', 'CSV ファイルを指定してください', #p
+              'file1', 'CSV ファイルを指定', #p
                 accept = c(
                 'text/csv',
                 'text/comma-separated-values,text/plain',
@@ -94,7 +94,7 @@ navbarPage(
         ),
 
       mainPanel(
-        h4("ANOVA テーブル"),
+        h4("分散分析 テーブル"),
         tableOutput("anova1"),
         hr(),
 
@@ -107,7 +107,7 @@ navbarPage(
           tabPanel('記述統計',p(br()),
           verbatimTextOutput("bas1")),
 
-          tabPanel("Marginal means plot",p(br()),
+          tabPanel("周辺平均プロット",p(br()),
             plotOutput("mmean1", width = "500px", height = "300px")
             )
           )
@@ -149,7 +149,7 @@ navbarPage(
           tabPanel(
             "手入力",
             p(br()),
-            helpText("欠損値はNAと表示されます"),
+            helpText("欠損値はNAと表示される"),
 
             splitLayout(
 
@@ -187,7 +187,7 @@ navbarPage(
             "アップロード CSV ファイル",
             p(br()),
             fileInput(
-              'file', 'CSV ファイルを指定してください', #p
+              'file', 'CSV ファイルを指定', #p
               accept = c(
                 'text/csv',
                 'text/comma-separated-values,text/plain',
@@ -209,7 +209,7 @@ navbarPage(
 
       mainPanel(
 
-        h3(tags$b("ANOVA テーブル")),
+        h3(tags$b("分散分析 テーブル")),
         checkboxInput('inter', 'Interaction', TRUE), #p
         tableOutput("anova"),
 
@@ -222,7 +222,7 @@ navbarPage(
         ),
 
         tabPanel('記述統計',p(br()),
-        numericInput("grp", 'Choose the factor in the Data Display column', 2, 2, 3, 1),
+        numericInput("grp", 'データ表示列で係数を選択', 2, 2, 3, 1),
         verbatimTextOutput("bas")
             ),
 
@@ -231,7 +231,7 @@ navbarPage(
         plotOutput("meanp.a", width = "500px", height = "300px")
           ),
 
-        tabPanel("Marginal means plot",p(br()),
+        tabPanel("周辺平均プロット",p(br()),
           checkboxInput('tick2', 'Untick to change the x-axis', TRUE), #p
         plotOutput("mmean.a", width = "500px", height = "300px")
           )
@@ -268,7 +268,7 @@ navbarPage(
           tabPanel(
             "手入力",
             p(br()),
-            helpText("Missing value is input as NA"),
+            helpText("欠損値はNAと表示される"),
 
             splitLayout(
             verticalLayout(
@@ -297,7 +297,7 @@ navbarPage(
             "アップロード CSV ファイル",
             p(br()),
             fileInput(
-              'filem', 'CSV ファイルを指定してください', #p
+              'filem', 'CSV ファイルを指定', #p
               accept = c(
                 'text/csv',
                 'text/comma-separated-values,text/plain',
@@ -321,8 +321,8 @@ navbarPage(
 
         tabsetPanel(
 
-          tabPanel("Pairwise t-test", p(br()),
-          radioButtons("method", "Choose one method", 
+          tabPanel("対応のあるt検定", p(br()),
+          radioButtons("method", "方法を1つ選択", 
           c(Bonferroni = 'bonferroni',
             Holm = 'holm',
             Hochberg = 'hochberg',
@@ -334,7 +334,7 @@ navbarPage(
         verbatimTextOutput("multiple")
             ),
 
-          tabPanel("Tukey Honest Significant Differences", p(br()),
+          tabPanel("テューキーの範囲検定", p(br()),
             verbatimTextOutput("hsd")
             )
           ),
