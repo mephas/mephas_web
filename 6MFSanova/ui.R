@@ -104,7 +104,7 @@ navbarPage(
           dataTableOutput("table1")
             ),
 
-          tabPanel('Descriptive statistics',p(br()),
+          tabPanel('Basic Statistics',p(br()),
           verbatimTextOutput("bas1")),
 
           tabPanel("Marginal means plot",p(br()),
@@ -216,14 +216,14 @@ navbarPage(
 
         hr(),
 
-        h4("Descriptive Statistics")
+        h4("Descriptive Statistics"),
         tabsetPanel(
         tabPanel("Data display", p(br()),
         dataTableOutput("table")
         ),
 
         tabPanel('Basic statistics',p(br()),
-        numericInput("grp", 'Choose the factor in the Data Display column', 2, 2, 3, 1),
+        numericInput("grp", 'Choose the factor', 2, 2, 3, 1),
         verbatimTextOutput("bas")
             ),
 

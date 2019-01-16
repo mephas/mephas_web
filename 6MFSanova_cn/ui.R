@@ -2,7 +2,7 @@
 ##
 ## 6MFSanova UI
 ##
-## Language: EN
+## Language: CN
 ## 
 ## DT: 2019-01-08
 ##
@@ -12,44 +12,44 @@ shinyUI(
 tagList(
 navbarPage(
 
-  title = "Analysis of Variance",
+  title = "方差分析",
 
 ##---------- Panel 1 ----------
   tabPanel(
-    "One-way",
+    "单因素",
 
-    headerPanel("One-way ANOVA"),
+    headerPanel("单因素方差分析"),
 
-    tags$b("Assumptions"),
+    tags$b("前提假设"),
     tags$ul(
-      tags$li("The differences of samples are numeric and continuous and based on the normal distribution"),
-      tags$li("The data collection process was random without replacement."),
-      tags$li("The samples are from the populations with same variances.")
+      tags$li("连续的，数字型的，并且基于正态分布的样本的差异比较"),
+      tags$li("数据收集过程是非置换随机的"),
+      tags$li("样本来自具有相同方差的群体")
       ),
 
     sidebarLayout(
       sidebarPanel(
-        h4("Hypotheses"),
-        tags$b("Null hypothesis"),
-        p("All group means are equal"),
+        h4("假设检验"),
+        tags$b("零假设"),
+        p("所有的分组的平均值都相同"),
 
-        tags$b("Alternative hypothesis"),
-        p("At least two of the group means are not the same"),
+        tags$b("备择检验"),
+        p("至少两组的平均值不相同"),
         hr(),
         ##----Import data----##
-        h4("Data Preparation"),
+        h4("数据准备"),
 
         tabsetPanel(
           ##-------input data-------##s
           tabPanel(
-            "Manual input",
+            "手动输入",
             p(br()),
-            helpText("Please input the values and factors' name (missing value is input as NA)"),
+            helpText("请输入数值和因子的名字（缺失值请输入NA）"),
 
             splitLayout(
 
               verticalLayout(
-              tags$b("Values"),
+              tags$b("数值"),
               tags$textarea(
               id = "x1",
               rows = 10,
@@ -57,7 +57,7 @@ navbarPage(
               )),
 
             verticalLayout(
-            tags$b("Factors"), 
+            tags$b("因子"), 
             tags$textarea(
               id = "f11", #p
               rows = 10,
@@ -66,23 +66,23 @@ navbarPage(
             )
             ,
 
-        helpText("Change the names of sample (optinal)"),
+      helpText("改变样本的名称（可选)"),
         tags$textarea(id = "cn1", rows = 2, "X\nA")),
 
                     ##-------csv file-------##
           tabPanel(
-            "Upload .csv",
+            "上传CSV文件",
             p(br()),
             fileInput(
-              'file1', 'Choose .csv', #p
+              'file1', '选择CSV文件', #p
                 accept = c(
                 'text/csv',
                 'text/comma-separated-values,text/plain',
                 '.csv'
                 )
               ),
-            checkboxInput('header1', 'Header', TRUE), #p
-            radioButtons('sep1', 'Separator', #p
+            checkboxInput('header1', '第一行为变量名', TRUE), #p
+            radioButtons('sep1', '分隔符', #p
               c(
                 Comma = ',',
                 Semicolon = ';',
@@ -94,20 +94,20 @@ navbarPage(
         ),
 
       mainPanel(
-        h4("ANOVA Table"),
+        h4("ANOVA 表"),
         tableOutput("anova1"),
         hr(),
 
-        h4("Data Description"),
+     h4("数据的描述统计"),
         tabsetPanel(
-          tabPanel("Data Display",p(br()),
+          tabPanel("数据显示",p(br()),
           dataTableOutput("table1")
             ),
 
-          tabPanel('Descriptive statistics',p(br()),
+          tabPanel('描述性统计量',p(br()),
           verbatimTextOutput("bas1")),
 
-          tabPanel("Marginal means plot",p(br()),
+          tabPanel("边际均值图",p(br()),
             plotOutput("mmean1", width = "500px", height = "300px")
             )
           )
@@ -118,44 +118,44 @@ navbarPage(
 ##---------- Panel 2 ----------
 
   tabPanel(
-    "Two-way",
+    "双因素",
 
-    headerPanel("Two-way ANOVA"),
+    headerPanel("双因素方差分析"),
 
-    tags$b("Assumptions"),
+    tags$b("前提假设"),
     tags$ul(
-      tags$li("The populations from which the samples were obtained are normally or approximately normally distributed."),
-      tags$li("The samples are independent."),
-      tags$li("The variances of the populations are equal."),
-      tags$li("The groups have the same sample size.")
+      tags$li("获得样本的总体为正态分布或近似正态分布"),
+      tags$li("样本是独立的"),
+      tags$li("总体的差异是相等的"),
+      tags$li("这些组具有相同的样本大小")
 
       ),
 
     sidebarLayout(
       sidebarPanel(
-        h4("Hypotheses"),
-        tags$b("Null hypothesis 1"),
-        HTML("<p>The population means of the first factor are equal. </p>"),
-        tags$b("Null hypothesis 2"),
-        HTML("<p>The population means of the second factor are equal.</p>"),
-        tags$b("Null hypothesis 3"),
-        HTML("<p>There is no interaction between the two factors.</p>"),
+        helpText("假设"),
+        tags$b("零假设 1"),
+        HTML("<p>第一因素的总体平均值相等. </p>"),
+        tags$b("零假设 2"),
+        HTML("<p>第二因素的总体平均值相等.</p>"),
+        tags$b("零假设 3"),
+        HTML("<p>两个因素之间没有相互作用.</p>"),
         hr(),
         
         ##----Import data----##
-        h4("Data Preparation"),
+        h4("导入数据"),
 
         tabsetPanel(
           ##-------input data-------##s
           tabPanel(
-            "Manual input",
+            "手动输入",
             p(br()),
-            helpText("Missing value is input as NA"),
+            helpText("缺失值请输入NA"),
 
             splitLayout(
 
             verticalLayout(
-            tags$b("Values"), 
+            tags$b("数值"), 
             tags$textarea(
               id = "x", #p
               rows = 10,
@@ -163,7 +163,7 @@ navbarPage(
               )),
 
             verticalLayout(
-            tags$b("Factor 1"), 
+            tags$b("因子 1"), 
             tags$textarea(
               id = "f1", #p
               rows = 10,
@@ -171,7 +171,7 @@ navbarPage(
               )),
 
             verticalLayout(
-            tags$b("Factor 2"), 
+            tags$b("因子 2"), 
             tags$textarea(
               id = "f2", #p
               rows = 10,
@@ -179,24 +179,24 @@ navbarPage(
               ))
             ),
             
-        helpText("Change the names of sample (optinal)"),
+        helpText("改变样本的名称（可选)"),
         tags$textarea(id = "cn", rows = 3, "X\nA\nB") #p
             ), #tabPanel(
 
           ##-------csv file-------##
           tabPanel(
-            "Upload .csv",
+            "上传CSV文件",
             p(br()),
             fileInput(
-              'file', 'Choose .csv', #p
+              'file', '选择CSV文件', #p
               accept = c(
                 'text/csv',
                 'text/comma-separated-values,text/plain',
                 '.csv'
                 )
               ),
-            checkboxInput('header', 'Header', TRUE), #p
-            radioButtons('sep', 'Separator', #p
+            checkboxInput('header', '第一行为变量名', TRUE), #p
+            radioButtons('sep', '分隔符', #p
               c(
                 Comma = ',',
                 Semicolon = ';',
@@ -210,29 +210,29 @@ navbarPage(
 
       mainPanel(
 
-        h3(tags$b("ANOVA Table")),
-        checkboxInput('inter', 'Interaction', TRUE), #p
+        h3(tags$b("ANOVA 表")),
+        checkboxInput('inter', '交互项', TRUE), #p
         tableOutput("anova"),
 
         hr(),
 
         tabsetPanel(
-        tabPanel("Data Display", p(br()),
+        tabPanel("数据显示", p(br()),
         dataTableOutput("table")
         ),
 
-        tabPanel('Descriptive statistics',p(br()),
-        numericInput("grp", 'Choose the factor in the Data Display column', 2, 2, 3, 1),
+        tabPanel('描述性统计量',p(br()),
+        numericInput("grp", '选择因子', 2, 2, 3, 1),
         verbatimTextOutput("bas")
             ),
 
-        tabPanel("Means plot",p(br()),
-        checkboxInput('tick', 'Untick to change the group and x-axis', TRUE), #p
+        tabPanel("均值图",p(br()),
+        checkboxInput('tick', '取消打勾改变分组和x轴', TRUE), #p
         plotOutput("meanp.a", width = "500px", height = "300px")
           ),
 
-        tabPanel("Marginal means plot",p(br()),
-          checkboxInput('tick2', 'Untick to change the x-axis', TRUE), #p
+        tabPanel("边际均值图",p(br()),
+          checkboxInput('tick2', '取消打勾改变x轴', TRUE), #p
         plotOutput("mmean.a", width = "500px", height = "300px")
           )
           )
@@ -243,36 +243,36 @@ navbarPage(
 ##---------- Panel 3 ----------
 
   tabPanel(
-    "Multiple Comparison",
-    headerPanel("Multiple Comparison"),
+    "多重比较",
+    headerPanel("多重比较"),
 
-    tags$b("Assumptions"),
+    tags$b("前提假设"),
     tags$ul(
-      tags$li("Significant effects have been found when there are three or more levels of a factor"),
-      tags$li("After an ANOVA, the means of your response variable may differ significantly across the factor, but it is unknown which pairs of the factor levels are significantly different from each other")
+      tags$li("寻找三个或更多个级别的因子的统计学差异"),
+      tags$li("在因素方差分析（ANOVA分析）之后，响应变量的平均值可能在因素之间存在统计学显著差异，但是在哪对因素水平间存在统计学差异是不明的")
       ),
 
     sidebarLayout(
 
         sidebarPanel(
-        h4("Hypotheses"),
-        tags$b("Null hypothesis"),
-        HTML("<p>The population means of the factor are equal. </p>"),
+        h4("假设检验"),
+        tags$b("零假设"),
+        HTML("<p>各组平均值是相等的</p>"),
         hr(),
         
         ##----Import data----##
-        h4("Data Preparation"),
+        h4("数据准备"),
 
         tabsetPanel(
           ##-------input data-------##s
           tabPanel(
-            "Manual input",
+            "M手动输入",
             p(br()),
-            helpText("Missing value is input as NA"),
+            helpText("缺失值请输入NAA"),
 
             splitLayout(
             verticalLayout(
-            tags$b("Values"), 
+            tags$b("数值"), 
             tags$textarea(
               id = "xm", #p
               rows = 10,
@@ -280,7 +280,7 @@ navbarPage(
               )),
 
             verticalLayout(
-            tags$b("Factors"), 
+            tags$b("因子"), 
             tags$textarea(
               id = "fm", #p
               rows = 10,
@@ -288,24 +288,24 @@ navbarPage(
               ))
             ),
 
-        helpText("Change the names of sample (optinal)"),
+       helpText("改变样本的名称（可选)"),
         tags$textarea(id = "cnm", rows = 2, "X\nA") #p
             ),
         
          ##-------csv file-------##
           tabPanel(
-            "Upload .csv",
+            "上传CSV文件",
             p(br()),
             fileInput(
-              'filem', 'Choose .csv', #p
+              'filem', '选择CSV文件', #p
               accept = c(
                 'text/csv',
                 'text/comma-separated-values,text/plain',
                 '.csv'
                 )
               ),
-            checkboxInput('headerm', 'Header', TRUE), #p
-            radioButtons('sepm', 'Separator', #p
+            checkboxInput('headerm', '第一行为变量名', TRUE), #p
+            radioButtons('sepm', '分隔符', #p
               c(
                 Comma = ',',
                 Semicolon = ';',
@@ -317,12 +317,12 @@ navbarPage(
         ),
 
        mainPanel(
-        h4("Results"),
+        h4("结果"),
 
         tabsetPanel(
 
-          tabPanel("Pairwise t-test", p(br()),
-          radioButtons("method", "Choose one method", 
+          tabPanel("成对的t检验", p(br()),
+          radioButtons("method", "选择一种方法", 
           c(Bonferroni = 'bonferroni',
             Holm = 'holm',
             Hochberg = 'hochberg',
@@ -334,12 +334,12 @@ navbarPage(
         verbatimTextOutput("multiple")
             ),
 
-          tabPanel("Tukey Honest Significant Differences", p(br()),
+          tabPanel("Tukey Honest Significant Differences检验", p(br()),
             verbatimTextOutput("hsd")
             )
           ),
 
-        h4("Data Display"),
+        h4("数据显示"),
         dataTableOutput("tablem")
 
         )
@@ -348,8 +348,8 @@ navbarPage(
 
 ##---------- other panels ----------
 
-source("../0tabs/home.R",local=TRUE)$value,
-source("../0tabs/stop.R",local=TRUE)$value
+source("../0tabs/home_cn.R",local=TRUE)$value,
+source("../0tabs/stop_cn.R",local=TRUE)$value
 
 
 

@@ -55,20 +55,10 @@ tabPanel("Cox Regression (Time-Event Outcomes)",
 
 ) ## tabPanel(
 ,
-##----------
+##---------- other panels ----------
 
-tabPanel((a("主页",
- #target = "_blank",
- style = "margin-top:-30px;",
- href = paste0("https://pharmacometrics.info/mephas/", "index_cn.html")))),
-
-tabPanel(
-      tags$button(
-      id = 'close',
-      type = "button",
-      class = "btn action-button",
-      onclick = "setTimeout(function(){window.close();},500);",  # close browser
-      "停止"))
+source("../0tabs/home_cn.R",local=TRUE)$value,
+source("../0tabs/stop_cn.R",local=TRUE)$value
 )
 ##-----------------------over
 )
