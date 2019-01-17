@@ -63,7 +63,7 @@
 
      # tags$head(tags$style(".shiny-output-error{color: blue;}")),
 
-      tableOutput("data"),
+      dataTableOutput("data"),
   
       
       selectInput("columns", "Select variables to display the details", choices = NULL, multiple = TRUE), # no choices before uploading 

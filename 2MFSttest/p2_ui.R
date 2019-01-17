@@ -75,7 +75,7 @@ sidebarPanel(
 
     tabsetPanel(
 
-      tabPanel("Data display",p(br()), 
+      tabPanel("Data Display",p(br()), 
 
         dataTableOutput("table2")),
 
@@ -121,7 +121,7 @@ sidebarPanel(
       ),
 
     hr(),
-    h4(("Results")),
+    h4(("Test Results")),
     tableOutput("var.test"),
     helpText("When P value<0.05, please go to the 'Welch Two Sample t-test'"),
     tableOutput("t.test2")

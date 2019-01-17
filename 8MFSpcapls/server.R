@@ -34,7 +34,7 @@ output$fit  <- renderPrint({
   rownames(res) <- c("explained_variance", "cumulative_variance")
   res})
 
-output$comp <- renderDataTable({ round(pca.x(),3)}, options = list(pageLength = 5))
+output$comp <- renderDataTable({ round(pca.x(),3)}, options = list(pageLength = 5, scrollX = TRUE))
 
 output$downloadData <- downloadHandler(
     filename = function() {
@@ -59,8 +59,8 @@ pls <- reactive({
 pls.x <- reactive({ pls()$variates$X })
 pls.y <- reactive({ pls()$variates$Y })
 
-output$comp.x <- renderDataTable({ round(pls.x(),3)}, options = list(pageLength = 5))
-output$comp.y <- renderDataTable({ round(pls.x(),3)}, options = list(pageLength = 5))
+output$comp.x <- renderDataTable({ round(pls.x(),3)}, options = list(pageLength = 5, scrollX = TRUE))
+output$comp.y <- renderDataTable({ round(pls.x(),3)}, options = list(pageLength = 5, scrollX = TRUE))
 
 output$downloadData.pls.x <- downloadHandler(
     filename = function() {
@@ -93,8 +93,8 @@ spls <- reactive({
 spls.x <- reactive({ spls()$variates$X })
 spls.y <- reactive({ spls()$variates$Y })
 
-output$comp.sx <- renderDataTable({ round(spls.x(),3)}, options = list(pageLength = 5))
-output$comp.sy <- renderDataTable({ round(spls.x(),3)}, options = list(pageLength = 5))
+output$comp.sx <- renderDataTable({ round(spls.x(),3)}, options = list(pageLength = 5, scrollX = TRUE))
+output$comp.sy <- renderDataTable({ round(spls.x(),3)}, options = list(pageLength = 5, scrollX = TRUE))
 
 output$downloadData.spls.x <- downloadHandler(
     filename = function() {

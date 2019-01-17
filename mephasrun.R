@@ -10,7 +10,7 @@ sink( tempfile() )
 ## Run app
 #setwd("/Users/yi/Documents/biostatshiny")
 #setwd("/home/yi/github/biostatshiny")
-setwd("/Users/yi/Documents/Github/mephas_web/")
+setwd("/Users/yi/Documents/mephas_web/")
 
 shiny::runApp("./1MFSdistribution")
 shiny::runApp("./1MFSdistribution_cn")

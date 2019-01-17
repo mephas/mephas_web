@@ -10,8 +10,6 @@
 
 shinyUI(
 
-
-
 tagList(
 
 navbarPage(
@@ -92,11 +90,12 @@ navbarPage(
 
     mainPanel(
       h4(("Data Display")), 
-      helpText("The first 5 rows and first 5 columns of X matrix"),
+      helpText("The first 5 rows of X"),
       tags$head(tags$style(".shiny-output-error{color: blue;}")),
-      tableOutput("table.x"),
-      helpText("The first 5 rows and first columns of Y matrix"),
-      tableOutput("table.y"),
+      dataTableOutput("table.x"),
+      p(br()),
+      helpText("The first 5 rows of Y"),
+      dataTableOutput("table.y"),
       hr(),  
       h4(("Basic Descriptives")),
       tags$b("Select the variables for descriptives"),
@@ -167,9 +166,9 @@ mainPanel(
   h4("Results"),
   #h4(tags$b("PCA output")), ,
   
-  (tags$b("Explained and cumulative variance")), verbatimTextOutput("fit"),
-
-  (tags$b("New PCA components")), dataTableOutput("comp"),
+  (tags$b("1. Explained and cumulative variance")), p(br()),verbatimTextOutput("fit"),
+p(br()),
+  (tags$b("2. New PCA components")), p(br()),dataTableOutput("comp"),
 
   downloadButton("downloadData", "Download new components"),
 
@@ -177,17 +176,21 @@ mainPanel(
 
   h4("Plots"),
 
-  (tags$b("Plot of the explained variance")),
-  plotOutput("pca.plot", width = "500px", height = "500px"),
+tabsetPanel(
 
-  (tags$b("Plot of individuals")),
-  plotOutput("pca.ind", width = "500px", height = "500px"),
+tabPanel("Plot of the explained variance" ,p(br()),
+  plotOutput("pca.plot", width = "400px", height = "400px")),
 
-  (tags$b("Plot of variables' correlation circle")),
-  plotOutput("pca.var", width = "500px", height = "500px"),
+tabPanel("Plot of individuals" ,p(br()),
+  plotOutput("pca.ind", width = "400px", height = "400px")),
 
-  (tags$b("Biplot of the first two components")),
-  plotOutput("pca.bp", width = "500px", height = "500px")
+tabPanel("Plot of variables' correlation circle" ,p(br()),
+  plotOutput("pca.var", width = "400px", height = "400px")),
+
+tabPanel("Biplot of the first two components" ,p(br()),
+  plotOutput("pca.bp", width = "400px", height = "400px"))
+
+  )
 
   )
 )
@@ -211,18 +214,21 @@ sidebarPanel(
 mainPanel(
   h4("Results"),
   #h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
-  (tags$b("New PLS components from predictors (X)")), dataTableOutput("comp.x"),
+  (tags$b("1. New PLS components from predictors (X)")), p(br()),dataTableOutput("comp.x"),
   downloadButton("downloadData.pls.x", "Download the new components"),
-  (tags$b("New PLS components from responses (Y)")), dataTableOutput("comp.y"),
+  p(br()),
+  (tags$b("2. New PLS components from responses (Y)")), p(br()),dataTableOutput("comp.y"),
   downloadButton("downloadData.pls.y", "Download the new components"),
   hr(),
 
   h4("Plots"),
-  (tags$b("Plot of individuals")),
-  plotOutput("pls.ind", width = "900px", height = "500px"),
+  tabsetPanel(
+    tabPanel("Plot of individuals", p(br()),
+      plotOutput("pls.ind", width = "800px", height = "400px")),
 
-  (tags$b("Plot of variables' correlation circle")),
-  plotOutput("pls.var", width = "500px", height = "500px")
+    tabPanel("Plot of variables' correlation circle",p(br()),
+      plotOutput("pls.var", width = "400px", height = "400px"))
+    )
 )
 
 )),
@@ -247,21 +253,26 @@ sidebarPanel(
 mainPanel(
   h4("Results"),
   #h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
-  (tags$b("New PLS components from predictors (X)")), dataTableOutput("comp.sx"),
+  (tags$b("1. New PLS components from predictors (X)")), p(br()),dataTableOutput("comp.sx"),
   downloadButton("downloadData.spls.x", "Download the new components"),
-  (tags$b("New PLS components from responses (Y)")), dataTableOutput("comp.sy"),
+  p(br()),
+  (tags$b("2. New PLS components from responses (Y)")), p(br()),dataTableOutput("comp.sy"),
   downloadButton("downloadData.spls.y", "Download the new components"),
   hr(),
 
   h4("Plots"),
-  (tags$b("Plot of individuals")),
-  plotOutput("spls.ind", width = "900px", height = "500px"),
+  tabsetPanel(
+  tabPanel("Plot of individuals", p(br()),
+  plotOutput("spls.ind", width = "800px", height = "400px")),
 
-  (tags$b("Plot of variables' correlation circle")),
-  plotOutput("spls.var", width = "500px", height = "500px"),
+  tabPanel("Plot of variables' correlation circle",  p(br()),
+  plotOutput("spls.var", width = "400px", height = "400px")),
 
-  (tags$b("Plot of loadings")),
-  plotOutput("spls.load", width = "900px", height = "500px")
+  tabPanel("Plot of loadings", p(br()),
+  plotOutput("spls.load", width = "800px", height = "400px"))
+
+    )
+
   ))
 ),
  #penal tab end

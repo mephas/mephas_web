@@ -23,12 +23,12 @@ navbarPage(
   sidebarLayout(
     sidebarPanel(##-------csv file-------##   
     # Input: Select a file as variable----
-    fileInput('file.x', "上传 .csv 格式的预测器（x）的数据集",
+    fileInput('file.x', "上传 CSV 格式的预测器的数据集（X）",
               multiple = TRUE,
               accept = c("text/csv",
                        "text/comma-separated-values,text/plain",
                        ".csv")),
-    helpText("x的列不建议大于500."),
+   # helpText("x的列不建议大于500."),
     # Input: Checkbox if file has header ----
     checkboxInput("header.x", "标题行", TRUE),
 
@@ -52,7 +52,7 @@ navbarPage(
     ),
 
     # Input: Select a file as response----
-    fileInput('file.y', "上传 .csv 格式的响应数据集（Y）",
+    fileInput('file.y', "上传 CSV 格式的响应数据集（Y）",
               multiple = TRUE,
               accept = c("text/csv",
                        "text/comma-separated-values,text/plain",
@@ -84,12 +84,13 @@ navbarPage(
 
 
     mainPanel(
-      h4(("Data Display")), 
-      helpText("X矩阵的前5行和前5列"),
+      h4(("数据显示")), 
+      helpText("X矩阵的前5行"),
       tags$head(tags$style(".shiny-output-error{color: blue;}")),
-      tableOutput("table.x"),
-      helpText("Y矩阵的前5行和前5列"),
-      tableOutput("table.y"),
+      p(br()),
+      dataTableOutput("table.x"),
+      helpText("Y矩阵的前5行"),
+      dataTableOutput("table.y"),
       hr(),  
       h4(("基本统计量")),
       tags$b("选择变量"),
@@ -114,8 +115,8 @@ navbarPage(
           actionButton("Bd", "计算统计量"),
           verbatimTextOutput("fsum")
           )),
-
-            h4(("变量的初步探索")),  
+  hr(),
+     h4(("变量的初步探索")),  
 
       tabsetPanel(
         tabPanel("两个变量之间的散点图",
@@ -146,42 +147,44 @@ titlePanel("主成分分析(PCA)"),
 sidebarLayout(
 
 sidebarPanel(
-  h3("模型的设置"),
+  h4("模型的设置"),
   numericInput("nc", "主成分分析中的主元个数:", 4, min = 2, max = 20),
   helpText("如果数据是完整的，“PCA”使用奇异值分解；如果有一些缺失值，使用NIPALS算法."),
   
-  h3("图形设置"),
+  h4("图形设置"),
   numericInput("c1", "X轴分量", 1, min = 1, max = 20),
   numericInput("c2", "y轴分量", 2, min = 1, max = 20)
 
 ),
 
 mainPanel(
-  h3("结果"),
+  h4("结果"),
   #h4(tags$b("PCA output")), ,
   
-  h4(tags$b("解释的和累积的方差")), verbatimTextOutput("fit"),
-
-  h4(tags$b("新主成分主元")), dataTableOutput("comp"),
+  tags$b(("1. 解释的和累积的方差")),p(br()), verbatimTextOutput("fit"),
+p(br()),
+  tags$b(("2. 新主成分主元")), p(br()),dataTableOutput("comp"),
 
   downloadButton("下载数据", "新主成分主元"),
 
   hr(),
 
-  h3("作图"),
+  h4("图"),
 
-  h4(tags$b("解释的方差")),
-  plotOutput("pca.plot", width = "500px", height = "500px"),
+  tabsetPanel(
+    tabPanel("解释的方差", p(br()),
+      plotOutput("pca.plot", width = "400px", height = "400px")),
 
-  h4(tags$b("个别要素图")),
-  plotOutput("pca.ind", width = "500px", height = "500px"),
+    tabPanel("个别要素图", p(br()),
+      plotOutput("pca.ind", width = "400px", height = "400px")),
 
-  h4(tags$b("变量相关圆图")),
-  plotOutput("pca.var", width = "500px", height = "500px"),
+    tabPanel("变量相关圆图", p(br()),
+      plotOutput("pca.var", width = "400px", height = "400px")),
 
-  h4(tags$b("前两个主元的双图")),
-  plotOutput("pca.bp", width = "500px", height = "500px")
+    tabPanel("前两个主元的双图", p(br()),
+      plotOutput("pca.bp", width = "400px", height = "400px"))
 
+    )
   )
 )
 ), #penal tab end
@@ -193,31 +196,34 @@ titlePanel("偏最小二乘法(PLS)"),
 
 sidebarLayout(
 sidebarPanel(
-  h3("模型的设置"),
+  h4("模型的设置"),
   numericInput("nc.pls", "成分维数:", 4, min = 2, max = 20),
 
-  h3("图形设置"),
+  h4("图形设置"),
   numericInput("c1.pls", "X轴分量", 1, min = 1, max = 20),
   numericInput("c2.pls", "y轴分量", 2, min = 1, max = 20)
 ),
 
 mainPanel(
-  h3("结果"),
+  h4("结果"),
   #h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
-  h4(tags$b("预测器（X）的新PLS成分")), dataTableOutput("comp.x"),
+  tags$b(("1. 预测器（X）的新PLS成分")), p(br()),dataTableOutput("comp.x"),
   downloadButton("downloadData.pls.x", "下载新成分"),
-  h4(tags$b("响应变量（Y）的新PLS成分")), dataTableOutput("comp.y"),
+  p(br()),
+  tags$b(("2. 响应变量（Y）的新PLS成分")),p(br()), dataTableOutput("comp.y"),
   downloadButton("downloadData.pls.y", "下载新成分"),
   hr(),
 
-  h3("作图"),
-  h4(tags$b("个别要素图")),
-  plotOutput("pls.ind", width = "900px", height = "500px"),
+  h4("作图"),
+  tabsetPanel(
+    tabPanel("个别要素图", p(br()),
+      plotOutput("pls.ind", width = "800px", height = "400px")),
 
-  h4(tags$b("变量相关圆图")),
-  plotOutput("pls.var", width = "500px", height = "500px")
+    tabPanel("变量相关圆图", p(br()),
+      plotOutput("pls.var", width = "400px", height = "400px"))
+
+    )  
 )
-
 )),
 
 ## 3. SPLS, ---------------------------------------------------------------------------------
@@ -227,34 +233,40 @@ titlePanel("稀疏偏最小二乘法(SPLS)"),
 
 sidebarLayout(
 sidebarPanel(
-  h3("模型的设置"),
+  h4("模型的设置"),
   numericInput("nc.spls", "成分维数:", 4, min = 2, max = 20),
   numericInput("x.spls", "x负载中保持的变量数:", 10, min = 2, max = 20),
   numericInput("y.spls", "y负载中保持的变量数:", 5, min = 2, max = 20),
 
-  h3("图形设置"),
+  h4("图形设置"),
   numericInput("c1.spls", "X轴分量", 1, min = 1, max = 20),
   numericInput("c2.spls", "y轴分量", 2, min = 1, max = 20)
 ),
 
 mainPanel(
-  h3("结果"),
+  h4("结果"),
   #h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
-  h4(tags$b("预测器（X）的新PLS成分")), dataTableOutput("comp.sx"),
+  (tags$b("1. 预测器（X）的新PLS成分")), p(br()),dataTableOutput("comp.sx"),
   downloadButton("downloadData.spls.x", "下载新成分"),
-  h4(tags$b("响应变量（Y）的新PLS成分")), dataTableOutput("comp.sy"),
+  p(br()),
+  (tags$b("2. 响应变量（Y）的新PLS成分")), p(br()),dataTableOutput("comp.sy"),
   downloadButton("downloadData.spls.y", "下载新成分"),
   hr(),
 
-  h3("作图"),
-  h4(tags$b("个别要素图")),
-  plotOutput("spls.ind", width = "900px", height = "500px"),
+  h4("作图"),
 
-  h4(tags$b("变量相关圆图")),
-  plotOutput("spls.var", width = "500px", height = "500px"),
+  tabsetPanel(
+    tabPanel("个别要素图", p(br()),
+      plotOutput("spls.ind", width = "800px", height = "400px")),
 
-  h4(tags$b("荷载图")),
-  plotOutput("spls.load", width = "900px", height = "500px")
+    tabPanel("变量相关圆图", p(br()),
+      plotOutput("spls.var", width = "400px", height = "400px")),
+
+    tabPanel("荷载图", p(br()),
+      plotOutput("spls.load", width = "800px", height = "800px"))
+
+    )
+
   ))
 ),
  #penal tab end

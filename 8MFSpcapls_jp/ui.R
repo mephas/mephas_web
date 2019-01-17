@@ -28,7 +28,7 @@ navbarPage(
               accept = c("text/csv",
                        "text/comma-separated-values,text/plain",
                        ".csv")),
-    #helpText("Xの列は500より大きくできません"),
+    #helpText("Xの列は400より大きくできません"),
     # Input: Checkbox if file has header ----
     checkboxInput("header.x", "ヘッダー", TRUE),
 
@@ -86,11 +86,11 @@ navbarPage(
 
  mainPanel(
       h4(("データ表示")), 
-      helpText("X行列の最初の5行と最初の5列"),
+      helpText("X行列の最初の5行"),
       tags$head(tags$style(".shiny-output-error{color: blue;}")),
-      tableOutput("table.x"),
-      helpText("Y行列の最初の5行と最初の列"),
-      tableOutput("table.y"),
+      dataTableOutput("table.x"),
+      helpText("Y行列の最初の5行"),
+      dataTableOutput("table.y"),
       hr(),  
       h4(("記述統計")),
       tags$b("記述統計の変数を選択"),
@@ -115,6 +115,7 @@ navbarPage(
           actionButton("Bd", "記述統計を表示"),
           verbatimTextOutput("fsum")
           )),
+        hr(),
 
             h4(("変数の最初の探査")),  
 
@@ -148,42 +149,42 @@ titlePanel("主成分分析（Principal component analysis）"),
 sidebarLayout(
 
 sidebarPanel(
-  h3("モデルの設定"),
+  h4("モデルの設定"),
   numericInput("nc", "PCAの要素の数:", 4, min = 2, max = 20),
   helpText("データが完全な場合 'pca'は特異値分解を使用、 欠損値がある場合は、NIPALSアルゴリズムを使用"),
   
-  h3("パラメータ設定"),
+  h4("パラメータ設定"),
   numericInput("c1", "x軸の要素", 1, min = 1, max = 20),
   numericInput("c2", "Y軸の要素", 2, min = 1, max = 20)
 
 ),
 
 mainPanel(
-  h3("結果"),
+  h4("結果"),
   #h4(tags$b("PCA output")), ,
   
-  h4(tags$b("説明された累積分散")), verbatimTextOutput("fit"),
-
-  h4(tags$b("新しいPCA要素")), dataTableOutput("comp"),
-
+  (tags$b("1. 説明された累積分散")),p(br()), verbatimTextOutput("fit"),
+p(br()),
+  (tags$b("2. 新しいPCA要素")), p(br()),dataTableOutput("comp"),
   downloadButton("downloadData", "Download new components"),
 
   hr(),
 
-  h3("Plots"),
+  h4("プロット"),
 
-  h4(tags$b("説明変数のプロット")),
-  plotOutput("pca.plot", width = "500px", height = "500px"),
+  tabsetPanel(
+    tabPanel("説明変数のプロット",p(br()),
+      plotOutput("pca.plot", width = "400px", height = "400px")),
 
-  h4(tags$b("個々のプロット")),
-  plotOutput("pca.ind", width = "500px", height = "500px"),
+    tabPanel("個々のプロット",p(br()),
+      plotOutput("pca.ind", width = "400px", height = "400px")),
 
-  h4(tags$b("変数の相関円のプロット")),
-  plotOutput("pca.var", width = "500px", height = "500px"),
+    tabPanel("変数の相関円のプロット",p(br()),
+      plotOutput("pca.var", width = "400px", height = "400px")),
 
-  h4(tags$b("最初の二つのプロット")),
-  plotOutput("pca.bp", width = "500px", height = "500px")
-
+    tabPanel("最初の二つのプロット",p(br()),
+      plotOutput("pca.bp", width = "400px", height = "400px"))
+    )
   )
 )
 ), #penal tab end
@@ -195,29 +196,32 @@ titlePanel("部分最小二乗（Partial Least Squares）"),
 
 sidebarLayout(
 sidebarPanel(
-  h3("モデルの設定"),
+  h4("モデルの設定"),
   numericInput("nc.pls", "要素の数:", 4, min = 2, max = 20),
 
-  h3("パラメータ設定"),
+  h4("パラメータ設定"),
   numericInput("c1.pls", "X軸の要素", 1, min = 1, max = 20),
   numericInput("c2.pls", "Y軸の要素", 2, min = 1, max = 20)
 ),
 
 mainPanel(
-  h3("結果"),
+  h4("結果"),
   #h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
-  h4(tags$b("説明変数からの新しいPLS要素 (X)")), dataTableOutput("comp.x"),
+  (tags$b("説明変数からの新しいPLS要素 (X)")),p(br()),  dataTableOutput("comp.x"),
   downloadButton("downloadData.pls.x", "新しいコンポーネントをダウンロードする"),
-  h4(tags$b("目的変数からの新しいPLS要素 (Y)")), dataTableOutput("comp.y"),
+  p(br()), 
+  (tags$b("目的変数からの新しいPLS要素 (Y)")),p(br()),  dataTableOutput("comp.y"),
   downloadButton("downloadData.pls.y", "新しいコンポーネントをダウンロードする"),
   hr(),
 
-  h3("プロット"),
-  h4(tags$b("個々のプロット")),
-  plotOutput("pls.ind", width = "900px", height = "500px"),
+  h4("プロット"),
+  tabsetPanel(
+tabPanel("個々のプロット",p(br()), 
+  plotOutput("pls.ind", width = "800px", height = "400px")),
 
-  h4(tags$b("変数の相関円のプロット")),
-  plotOutput("pls.var", width = "500px", height = "500px")
+tabPanel("変数の相関円のプロット",p(br()), 
+  plotOutput("pls.var", width = "400px", height = "400px"))
+    )
 )
 
 )),
@@ -229,34 +233,39 @@ titlePanel("スパース部分最小二乗Sparse Partial Least Squares"),
 
 sidebarLayout(
 sidebarPanel(
-  h3("モデルの設定"),
+  h4("モデルの設定"),
   numericInput("nc.spls", "要素の数:", 4, min = 2, max = 20),
   numericInput("x.spls", "Xのローディングで保持する変数の数:", 10, min = 2, max = 20),
   numericInput("y.spls", "Yのローディングで保持する変数の数:", 5, min = 2, max = 20),
 
-  h3("パラメータ設定"),
+  h4("パラメータ設定"),
   numericInput("c1.spls", "X軸の要素", 1, min = 1, max = 20),
   numericInput("c2.spls", "Y軸の要素", 2, min = 1, max = 20)
 ),
 
 mainPanel(
-  h3("結果"),
+  h4("結果"),
   #h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
-  h4(tags$b("説明変数からの新しいPLS要素 (X)")), dataTableOutput("comp.sx"),
+  (tags$b("1. 説明変数からの新しいPLS要素 (X)")), p(br()),dataTableOutput("comp.sx"),
   downloadButton("downloadData.spls.x", "Download the new components"),
-  h4(tags$b("目的変数からの新しいPLS要素 (Y)")), dataTableOutput("comp.sy"),
+  p(br()),
+  (tags$b("2. 目的変数からの新しいPLS要素 (Y)")), p(br()),dataTableOutput("comp.sy"),
   downloadButton("downloadData.spls.y", "Download the new components"),
   hr(),
 
-  h3("プロット"),
-  h4(tags$b("個々のプロット")),
-  plotOutput("spls.ind", width = "900px", height = "500px"),
+  h4("プロット"),
+  tabsetPanel(
+    tabPanel("個々のプロット",p(br()),
+      plotOutput("spls.ind", width = "800px", height = "400px")),
 
-  h4(tags$b("変数の相関円のプロット")),
-  plotOutput("spls.var", width = "500px", height = "500px"),
+    tabPanel("変数の相関円のプロット",p(br()),
+      plotOutput("spls.var", width = "400px", height = "400px")),
 
-  h4(tags$b("ローディングプロット")),
-  plotOutput("spls.load", width = "900px", height = "500px")
+    tabPanel("ローディングプロット",p(br()),
+      plotOutput("spls.load", width = "800px", height = "400px"))
+
+    )
+  
   ))
 ),
  #penal tab end
@@ -270,7 +279,7 @@ mainPanel(
 #sidebarLayout(
 #sidebarPanel(
 
-#  h3("Model's configuration"),
+#  h4("Model's configuration"),
   
 #  sliderInput("alf", "Alpha parameter", min = 0, max = 1, value = 1),
 #  helpText(HTML("
@@ -295,10 +304,10 @@ mainPanel(
 #  ),
 
 #mainPanel(
-#  h3("Results"),
-  #plotOutput("plot.ela", width = "500px", height = "500px"),
+#  h4("Results"),
+  #plotOutput("plot.ela", width = "400px", height = "400px"),
 #  verbatimTextOutput("ela")
-  #h3("Cross-validated lambda"),
+  #h4("Cross-validated lambda"),
   #verbatimTextOutput("lambda"),
   #helpText("Lambda is merely suggested to be put into the model.")
 

@@ -37,7 +37,7 @@ Y <- reactive({
   inFile <- input$file.y
   if (is.null(inFile))
     # eg data
-  {df = coloncancer[,101:110]
+  {df = coloncancer[,101:105]
   }
   else{
     
@@ -53,9 +53,11 @@ Y <- reactive({
   return(df)
 })
 
-output$table.x <- renderTable({
-    X()[1:5,1:5]},  rownames = TRUE, colnames = TRUE)
-output$table.y <- renderTable({Y()[1:5,1]}, rownames = TRUE, colnames = TRUE)
+ output$table.x <- renderDataTable(
+    head(X()), options = list(pageLength = 5, scrollX = TRUE))
+ output$table.y <- renderDataTable(
+    head(Y()), options = list(pageLength = 5, scrollX = TRUE))
+
 # summary variable
 
 data <- reactive({
