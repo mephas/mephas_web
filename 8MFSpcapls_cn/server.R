@@ -6,7 +6,7 @@ if (!require(mixOmics)) {install.packages("mixOmics")}; library(mixOmics)
 ##
 ## 8MFSpcapls SERVER
 ##
-## Language: EN
+## Language: CN
 ## 
 ## DT: 2019-01-15
 ##
