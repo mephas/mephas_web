@@ -39,7 +39,7 @@ Y1 <- reactive({
   }
 })
 
-output$table1 <- renderDataTable({Y1()}, options = list(pageLength = 5))
+output$table1 <- renderDataTable({Y1()}, options = list(pageLength = 5, scrollX = TRUE))
 
 output$bas1 <- renderPrint({
   x <- Y1()
@@ -98,7 +98,7 @@ Y <- reactive({
   }
 })
 
-output$table <- renderDataTable({Y()}, options = list(pageLength = 5))
+output$table <- renderDataTable({Y()}, options = list(pageLength = 5, scrollX = TRUE))
 
 output$bas <- renderPrint({
   x <- Y()
@@ -194,7 +194,7 @@ Ym <- reactive({
   }
 })
 
-output$tablem <- renderDataTable({Ym()}, options = list(pageLength = 5))
+output$tablem <- renderDataTable({Ym()}, options = list(pageLength = 5, scrollX = TRUE))
 
 
 output$multiple <- renderPrint({

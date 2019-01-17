@@ -13,7 +13,7 @@ shinyUI(
 tagList(
 #shinythemes::themeSelector(),
 navbarPage(
-  
+  theme="mephas_jp.css",
   title = "確率分布",
 
 ##---------- Panel 1 ---------

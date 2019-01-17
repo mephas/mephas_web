@@ -289,7 +289,7 @@ output$fitdt.c = renderDataTable({
     Residual = round(fit.c()$residuals, 4),
     Linear.predictors = round(fit.c()$linear.predictors, 4)
   )
-}, options = list(pageLength = 5))
+}, options = list(pageLength = 5, scrollX = TRUE))
 
 #prediction plot
 # prediction
@@ -305,4 +305,4 @@ output$pred.c = renderDataTable({
     linear.predictors = predict(pfit.c(), newdata = newX.c(), type = "lp")
   )
   cbind(newX.c(), round(df, 4))
-}, options = list(pageLength = 10))
+}, options = list(pageLength = 5, scrollX = TRUE))

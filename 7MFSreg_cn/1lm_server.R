@@ -111,7 +111,7 @@ output$fitdt0 = renderDataTable({
     Residuals = round(fit()$residuals, 4)
     )
   }, 
-  options = list(pageLength = 5))
+  options = list(pageLength = 5, scrollX = TRUE))
 
 newX = reactive({
   inFile = input$newfile
@@ -140,7 +140,7 @@ pred = eventReactive(input$B2,
 output$pred = renderDataTable({
   cbind(newX(), round(pred(), 4))
   }, 
-  options = list(pageLength = 10, digits = 4))
+  options = list(pageLength = 5, scrollX = TRUE))
 
 output$px = renderUI({
   selectInput(

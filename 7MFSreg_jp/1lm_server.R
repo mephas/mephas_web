@@ -1,12 +1,14 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## The regression models: lm, logistic model, cox model, server
-##s
-##    1. Linear regression
+## 7MFSreg SERVER
+##
+##    >Linear regression
+##
+## Language: JP
 ## 
-## DT: 2018-12-13
+## DT: 2019-01-11
 ##
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 
 ## 2. choose variable to put in the model/ and summary
 output$y = renderUI({
@@ -111,7 +113,7 @@ output$fitdt0 = renderDataTable({
     Residuals = round(fit()$residuals, 4)
     )
   }, 
-  options = list(pageLength = 5))
+  options = list(pageLength = 5, scrollX = TRUE))
 
 newX = reactive({
   inFile = input$newfile
@@ -140,7 +142,7 @@ pred = eventReactive(input$B2,
 output$pred = renderDataTable({
   cbind(newX(), round(pred(), 4))
   }, 
-  options = list(pageLength = 10, digits = 4))
+  options = list(pageLength = 5, scrollX = TRUE))
 
 output$px = renderUI({
   selectInput(

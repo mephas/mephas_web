@@ -9,12 +9,15 @@ if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
   
 ##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## The regression models: lm, logistic model, cox model, server
+## 7MFSreg SERVER
+##
+## Language: JP
 ## 
-## DT: 2018-11-30
+## DT: 2019-01-08
 ##
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 
 # start server
 shinyServer(

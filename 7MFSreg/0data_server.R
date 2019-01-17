@@ -53,7 +53,7 @@ X_var = eventReactive(input$choice,{
 
   output$data_var <- renderDataTable(
     subset(X_var(), select = input$columns),
-    options = list(pageLength = 5)
+    options = list(pageLength = 5, scrollX = TRUE)
     )
 
 # Basic Descriptives

@@ -1,12 +1,14 @@
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 ##
-## The regression models: lm, logistic model, cox model, server
-##s
-##    2. Logistic regression
+## 7MFSreg SERVER
+##
+##    >Logistic regression
+##
+## Language: JP
 ## 
-## DT: 2018-12-14
+## DT: 2019-01-11
 ##
-##----------------------------------------------------------------
+##----------#----------#----------#----------
 
 
 
@@ -106,7 +108,7 @@ fitdf = reactive({
 })
 output$fitdt = renderDataTable({
   fitdf()
-}, options = list(pageLength = 10))
+}, options = list(pageLength = 5, scrollX = TRUE))
 
 output$p2.l = renderPlot({
   df = data.frame(predictor = fit.l()$fitted.values,
@@ -152,5 +154,5 @@ pred.v = eventReactive(input$B2.l,
                        })
 output$preddt.l = renderDataTable({
   data.frame(newX.l(), fit.prob = round(pred.l(), 4), fit = pred.v())
-}, options = list(pageLength = 10))
+}, options = list(pageLength = 5, scrollX = TRUE))
 
