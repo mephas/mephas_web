@@ -1,0 +1,11 @@
+/*!
+mephas style sheet
+*/
+
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+JP|Noto+Sans+SC");
+* {
+	font-family: "Noto Sans JP","Noto Sans SC", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;	
+}
+
+
+  
