@@ -12,7 +12,7 @@ shinyUI(
   tagList(
     #shinythemes::themeSelector(),
     navbarPage(
-      theme="mephas.css",
+      theme="mephas_cn.css",
       title = "概率分布",
       
       ##---------- Panel 1 ---------

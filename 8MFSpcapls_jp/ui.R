@@ -24,7 +24,7 @@ navbarPage(
     sidebarPanel(##-------csv file-------##   
     # Input: Select a file as variable----
     fileInput('file.x', "CSV ファイルを指定してください（説明変数X）",
-              multiple = TRUE,
+              multiple = TRUE,　
               accept = c("text/csv",
                        "text/comma-separated-values,text/plain",
                        ".csv")),
@@ -57,7 +57,7 @@ navbarPage(
               accept = c("text/csv",
                        "text/comma-separated-values,text/plain",
                        ".csv")),
-    helpText("Yの列は一つ以上にできます"),
+    helpText("Yの列は一つ以上にできる"),
     # Input: Checkbox if file has header ----
     checkboxInput("header.y", "ヘッダー", TRUE),
 

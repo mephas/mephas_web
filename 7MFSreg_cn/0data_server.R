@@ -10,7 +10,7 @@
 ##
 ##----------#----------#----------#----------
 
-load("reg.Rdata")
+load("reg.RData")
 
 
 data <- reactive({
