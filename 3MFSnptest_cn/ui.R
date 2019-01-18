@@ -7,13 +7,14 @@
 ## DT: 2019-01-09
 ##
 ##----------#----------#----------#----------
-source("p1_ui.R", local=TRUE)
-source("p2_ui.R", local=TRUE)
-source("p3_ui.R", local=TRUE)
+source("p1_ui.R", local=TRUE,encoding = "UTF-8")
+source("p2_ui.R", local=TRUE,encoding = "UTF-8")
+source("p3_ui.R", local=TRUE,encoding = "UTF-8")
 
 shinyUI(
 
 tagList( 
+source("../0tabs/font_cn.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
 
@@ -201,8 +202,8 @@ wstest.p
 ),
 ##---------- other panels ----------
 
-source("../0tabs/home_cn.R",local=TRUE)$value,
-source("../0tabs/stop_cn.R",local=TRUE)$value
+source("../0tabs/home_cn.R",local=TRUE,encoding = "UTF-8")$value,
+source("../0tabs/stop_cn.R",local=TRUE,encoding = "UTF-8")$value
 
   
 ))

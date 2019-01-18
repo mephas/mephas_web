@@ -12,6 +12,7 @@
 shinyUI(
 
 tagList(
+source("../0tabs/font_cn.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
   
