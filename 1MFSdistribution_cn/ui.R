@@ -8,13 +8,9 @@
 ##
 ##----------#----------#----------#----------
 
-source("../0tabs/home.R",local=TRUE)
-source("../0tabs/stop.R",local=TRUE)
-source("../0tabs/font.R",local=TRUE)
-
 shinyUI(
 tagList(
-CN, 
+source("../0tabs/font_cn.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 title = "概率分布",
@@ -411,10 +407,9 @@ tableOutput("p.k")
 ),
 
 ##---------- other panels ----------
-home_cn,
-stop_cn
-#source("../0tabs/home_cn.R",local=TRUE,encoding = "UTF-8")$value,
-#source("../0tabs/stop_cn.R",local=TRUE,encoding = "UTF-8")$value
+
+source("../0tabs/home_cn.R",local=TRUE,encoding = "UTF-8")$value,
+source("../0tabs/stop_cn.R",local=TRUE,encoding = "UTF-8")$value
 
 ))
 )

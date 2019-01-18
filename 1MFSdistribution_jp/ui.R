@@ -7,16 +7,13 @@
 ## DT: 2019-01-08
 ##
 ##----------#----------#----------#----------
-source("../0tabs/home.R",local=TRUE)
-source("../0tabs/stop.R",local=TRUE)
-source("../0tabs/font.R",local=TRUE)
 
 shinyUI(
 
 tagList(
-JP,
+source("../0tabs/font_jp.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
-theme="mephas_jp.css",
+
 title = "確率分布",
 
 ##---------- Panel 1 ---------
@@ -415,11 +412,9 @@ tableOutput("p.k")
 ),
 
 ##---------- other panels ----------
-home_jp,
-stop_jp
 
-#source("../0tabs/home_jp.R",local=TRUE,encoding="UTF-8")$value,
-#source("../0tabs/stop_jp.R",local=TRUE,encoding="UTF-8")$value
+source("../0tabs/home_jp.R",local=TRUE,encoding="UTF-8")$value,
+source("../0tabs/stop_jp.R",local=TRUE,encoding="UTF-8")$value
 
 
 ))

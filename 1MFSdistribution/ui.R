@@ -8,15 +8,10 @@
 ##
 ##----------#----------#----------#----------
 
-source("../0tabs/home.R",local=TRUE)
-source("../0tabs/stop.R",local=TRUE)
-source("../0tabs/font.R",local=TRUE)
-
 shinyUI(
 
 tagList(
-
-EN,
+source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
 
@@ -418,12 +413,9 @@ tableOutput("p.k")
 ),
 
 ##---------- other panels ----------
-home,
 
-stop
-
-#source("../0tabs/home.R",local=TRUE)$value,
-#source("../0tabs/stop.R",local=TRUE)$value
+source("../0tabs/home.R",local=TRUE)$value,
+source("../0tabs/stop.R",local=TRUE)$value
 
 
 ))
