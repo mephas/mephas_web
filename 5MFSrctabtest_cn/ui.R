@@ -11,6 +11,7 @@
 shinyUI(
 tagList(
 #shinythemes::themeSelector(),
+source("../0tabs/font_cn.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
  
   title = "计数列联表",

@@ -11,6 +11,7 @@
 shinyUI(
 tagList(
 #shinythemes::themeSelector(),
+source("../0tabs/font_jp.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
  
   title = "多変量解析",
