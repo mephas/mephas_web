@@ -81,14 +81,14 @@ tabPanel("列联表", p(br()),
 tabPanel("百分比", p(br()),
   h4("行的百分比"), tableOutput("prt"),
   h4("列的百分比"), tableOutput("pct"),
-  h4("总体的百分比"), tableOutput("pt"),
+  h4("总体的百分比"), tableOutput("pt")
   ),
 
-tabPanel("期望值",
+tabPanel("期望值", p(br()),
   tableOutput("c.e")
   ),
 
-tabPanel("频数的条形图",
+tabPanel("频数的条形图", p(br()),
   plotOutput("makeplot", width = "800px", height = "400px")
   )
   )
@@ -135,7 +135,7 @@ hr(),
 
   h4("列联表的描述统计"),
   tabsetPanel(
-    tabPanel("列联表",
+    tabPanel("列联表", p(br()),
       dataTableOutput("ct.tr"),
       helpText("注: 百分比 = 事件数/总数")
       ),
@@ -168,7 +168,7 @@ h4("参数设置"),
 h4("数据输入"),
   tabPanel("手动输入",
   tags$textarea(id="k", rows=10, "136\n69\n92\n240")),
-  helpText("按列输入计数，例如，第二列跟随第一列"),
+  helpText("按列输入计数，例如，第二列跟随第一列")
 
   ),
 
