@@ -8,10 +8,16 @@
 ##
 ##----------#----------#----------#----------
 
+source("../0tabs/home.R",local=TRUE)
+source("../0tabs/stop.R",local=TRUE)
+source("../0tabs/font.R",local=TRUE)
+
 shinyUI(
 
 tagList(
-includeCSS("../font_cn.css"),
+
+EN,
+
 navbarPage(
 
 title = "Probability Distributions",
@@ -412,9 +418,12 @@ tableOutput("p.k")
 ),
 
 ##---------- other panels ----------
+home,
 
-source("../0tabs/home.R",local=TRUE)$value,
-source("../0tabs/stop.R",local=TRUE)$value
+stop
+
+#source("../0tabs/home.R",local=TRUE)$value,
+#source("../0tabs/stop.R",local=TRUE)$value
 
 
 ))
