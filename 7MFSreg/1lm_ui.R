@@ -14,7 +14,7 @@ sidebarLayout(
 
   sidebarPanel(
 
-  h4(tags$b("Given that dataset has been imported, please design you model")),      
+  h4(("Given that dataset (insurance) has been imported, please design you model")),      
   uiOutput('y'),    
   uiOutput('x'),
   uiOutput('fx'),
@@ -33,7 +33,7 @@ sidebarLayout(
  
 mainPanel(
 
-  h4(tags$b("Linear Regression Model")),
+  h4(("Linear Regression Model")),
   
   tags$style(type='text/css', '#formula {background-color: rgba(0,0,255,0.10); color: blue;}'),
   verbatimTextOutput("formula", placeholder = TRUE),
@@ -41,7 +41,7 @@ mainPanel(
   hr(),
 
 
-  h4(tags$b("Results of the linear regression")),
+  h4(("Results of the linear regression")),
   actionButton("B1", "Show the results"),
   p(br()),
   tabsetPanel(

@@ -15,8 +15,8 @@ output$y = renderUI({
   selectInput(
     'y',
     h5('Continuous dependent variable (Y)'),
-    selected = NULL,
-    choices = names(X())
+    selected = "NULL",
+    choices = c("NULL", names(X()))
     )
   })
 
@@ -48,17 +48,19 @@ output$fx = renderUI({
 formula = eventReactive(input$F, {
   if (is.null(input$fx)) {
     fm = as.formula(paste0(
+      "as.numeric(",
       input$y,
-      '~',
-      paste0(input$x, collapse = "+"),
+      ')~',
+      paste0("as.numeric(",input$x, ")",collapse = "+"),
       input$conf,
       input$intercept
     ))
   }
   else{
     fm = as.formula(paste0(
+      "as.numeric(",
       input$y,
-      '~',
+      ')~',
       paste0("as.numeric(", input$x, ")",collapse = "+"),
       paste0("+ as.factor(", input$fx, ")", collapse = ""),
       input$conf,
@@ -94,7 +96,9 @@ output$fit = renderUI({
       align = TRUE,
       ci = TRUE,
       single.row = TRUE,
-      model.names = TRUE
+      model.names = TRUE,
+      header = FALSE
+
       )
     )
   })
@@ -142,7 +146,7 @@ pred = eventReactive(input$B2,
 output$pred = renderDataTable({
   cbind(newX(), round(pred(), 4))
   }, 
-  options = list(pageLength = 10, , scrollX = TRUE))
+  options = list(pageLength = 10, scrollX = TRUE))
 
 output$px = renderUI({
   selectInput(

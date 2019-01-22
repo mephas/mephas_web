@@ -17,8 +17,8 @@ output$y.l = renderUI({
   selectInput(
     'y.l',
     h5('Binary dependent Variable (Y)'),
-    selected = NULL,
-    choices = names(X())
+    selected = "NULL",
+    choices = c("NULL", names(X()))
     )
   })
 
@@ -46,18 +46,20 @@ output$fx.l = renderUI({
 formula_l = eventReactive(input$F.l, {
   if (is.null(input$fx.l)) {
     fm = as.formula(paste0(
+      "as.numeric(",
       input$y.l,
-      '~',
-      paste0(input$x.l, collapse = "+"),
+      ')~',
+      paste0("as.numeric(", input$x.l, ")", collapse = "+"),
       input$conf.l,
       input$intercept.l
     ))
   }
   else{
     fm = as.formula(paste0(
+      "as.numeric(",
       input$y.l,
-      '~',
-      paste0(input$x.l, collapse = "+"),
+      ')~',
+      paste0("as.numeric(", input$x.l, ")",collapse = "+"),
       paste0("+ as.factor(", input$fx.l, ")", collapse = ""),
       input$conf.l,
       input$intercept.l
@@ -113,7 +115,7 @@ output$fitdt = renderDataTable({
 output$p2.l = renderPlot({
   df = data.frame(predictor = fit.l()$fitted.values,
                   y = X()[, input$y.l])
-  ggplot(df, aes(d = "y", m = "predictor", model = NULL)) + geom_roc(n.cuts = 0) + theme_minimal()
+  ggplot(df, aes(d = df[,"y"], m = df[,"predictor"], model = NULL)) + geom_roc(n.cuts = 0) + theme_minimal()
 })
 
 output$auc = renderPrint({

@@ -10,7 +10,7 @@ sink( tempfile() )
 ## Run app
 #setwd("/Users/yi/Documents/biostatshiny")
 #setwd("/home/yi/github/biostatshiny")
-setwd("/Users/yi/Documents/Github/mephas_web/")
+setwd("/Users/yi/Documents/mephas_web/")
 
 shiny::runApp("./1MFSdistribution")
 shiny::runApp("./1MFSdistribution_cn")
@@ -61,7 +61,7 @@ if (!require(gridExtra)) {install.packages("gridExtra")}; library(gridExtra)
 if (!require(reshape)) {install.packages("reshape")}; library(reshape)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(DescTools)) {install.packages("DescTools")}; library(DescTools)  #SignTest
-if (!require(RVAideMemoire)) {install.packages("RVAideMemoire")}; library(RVAideMemoire)  
+if (!require(RVAideMemoire)) {install.packages("RVAideMemoire")}; library(RVAideMemoire)
 if (!require(pastecs)) {install.packages("pastecs")}; library(pastecs)
 shiny::runApp("./3nptest_en", launch.browser=TRUE, quiet = TRUE)
 

@@ -9,8 +9,9 @@
 ## DT: 2019-01-11
 ##
 ##----------#----------#----------#----------
-load("reg.Rdata")
-
+load("advertisement.Rdata")
+load("insurance.Rdata")
+load("lung.Rdata")
 
 data <- reactive({
                 switch(input$edata,
@@ -140,7 +141,7 @@ output$p2 = renderPlot({
       need(input$hx != "NULL", "Please select one continuous variable")
     )
   ggplot(X(), aes(x = X()[, input$hx])) + 
-    geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
+    geom_histogram(binwidth = input$bin, colour = "black",fill = "white") + 
     geom_density()+
     xlab("") + theme_minimal() + theme(legend.title = element_blank())
   })

@@ -20,7 +20,7 @@ tabPanel("Dataset",
 
   titlePanel("Data Preparation"),
 
-  source("0data_ui.R", local=TRUE)
+  source("0data_ui.R", local=TRUE, encoding="UTF-8")$value
 
         ),
 
@@ -29,7 +29,7 @@ tabPanel("Linear Regression (Continuous Outcomes)",
 
   titlePanel("Linear Regression"),
 
-  source("1lm_ui.R", local=TRUE)
+  source("1lm_ui.R", local=TRUE, encoding="UTF-8")$value
 
 ), ## tabPanel
 
@@ -39,7 +39,7 @@ tabPanel("Logistic Regression (1-0 Outcomes)",
 
   titlePanel("Logistic Regression"),
 
-  source("2lr_ui.R", local=TRUE)
+  source("2lr_ui.R", local=TRUE, encoding="UTF-8")$value
 
 ), ## tabPanel(
 
@@ -49,7 +49,7 @@ tabPanel("Cox Regression (Time-Event Outcomes)",
 
   titlePanel("Cox Regression"),
 
-  source("3cr_ui.R", local=TRUE)
+  source("3cr_ui.R", local=TRUE, encoding="UTF-8")$value
 
 
 ) ## tabPanel(
