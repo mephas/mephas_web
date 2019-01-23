@@ -30,7 +30,7 @@ helpText(HTML("
 ")),
 
 ##-------csv file-------##   
-fileInput('file', "Upload .csv",
+fileInput('file', "Upload CSV file",
 accept = c("text/csv",
   "text/comma-separated-values,text/plain",
   ".csv")),
@@ -62,7 +62,7 @@ actionButton("choice", "Import dataset", style="color: #fff; background-color: #
 
 mainPanel(
 
-h4(tags$b("Data Display")),
+h4(("Data Display")),
 
 tags$br(),
 
@@ -78,7 +78,7 @@ selectInput("columns", "Select variables to display the details", choices = NULL
 dataTableOutput("data_var"),
 hr(),
 
-h4(tags$b("Basic Descriptives")), 
+h4(("Basic Descriptives")), 
 tags$b("Select the variables for descriptives"),
 
 fluidRow(

@@ -2,16 +2,16 @@
 ##
 ## 7MFSreg SERVER
 ##
-##    >Data
+##    >data
 ##
 ## Language: JP
 ## 
 ## DT: 2019-01-11
 ##
 ##----------#----------#----------#----------
-
-load("reg.Rdata")
-
+load("advertisement.Rdata")
+load("insurance.Rdata")
+load("lung.Rdata")
 
 data <- reactive({
                 switch(input$edata,
@@ -61,13 +61,13 @@ X_var = eventReactive(input$choice,{
 
 output$cv = renderUI({
   selectInput(
-    'cv', h5('Select 連続変数'),
+    'cv', h5('Select continuous variables'),
     selected = NULL, choices = names(X()), multiple = TRUE)
 })
 
 output$dv = renderUI({
   selectInput(
-    'dv', h5('Select 離散変数'), 
+    'dv', h5('Select categorical/discrete variables'), 
     selected = NULL, choices = names(X()), multiple = TRUE)
 })
 
@@ -93,22 +93,28 @@ output$fsum = renderPrint({fsum()})
 output$tx = renderUI({
   selectInput(
     'tx', h5('Variable in the x-axis'),
-    selected = NULL, 
-    choices = names(X())
-    )
+    selected = "NULL", 
+    choices = c("NULL",names(X())))
+  
   })
 
 output$ty = renderUI({
   selectInput(
     'ty',
     h5('Variable in the y-axis'),
-    selected = NULL, 
-    choices = names(X())
-    )
+    selected = "NULL", 
+    choices = c("NULL",names(X())))
+  
 })
 
 ## scatter plot
 output$p1 = renderPlot({
+   validate(
+      need(input$tx != "NULL", "Please select one continuous variable")
+    )
+        validate(
+      need(input$ty != "NULL", "Please select one continuous variable")
+    )
   ggplot(X(), aes(x = X()[, input$tx], y = X()[, input$ty])) + geom_point(shape = 1) + 
     geom_smooth(method = lm) + xlab(input$tx) + ylab(input$ty) + theme_minimal()
   })
@@ -117,20 +123,23 @@ output$p1 = renderPlot({
 output$hx = renderUI({
   selectInput(
     'hx',
-    h5('連続変数のヒストグラム'),
-    selected = NULL,
-    choices = names(X()))
+    h5('Histogram of the continuous variable'),
+    selected = "NULL", 
+    choices = c("NULL",names(X())))
 })
 
 output$hxd = renderUI({
   selectInput(
     'hxd',
-    h5('離散変数のヒストグラム'),
-    selected = NULL,
-    choices = names(X()))
+    h5('Histogram of the categorical/discrete variable'),
+    selected = "NULL", 
+    choices = c("NULL",names(X())))
 })
 
 output$p2 = renderPlot({
+  validate(
+      need(input$hx != "NULL", "Please select one continuous variable")
+    )
   ggplot(X(), aes(x = X()[, input$hx])) + 
     geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
     geom_density()+
@@ -138,6 +147,9 @@ output$p2 = renderPlot({
   })
 
 output$p3 = renderPlot({
+  validate(
+      need(input$hxd != "NULL", "Please select one categorical/discrete variable")
+    )
   ggplot(X(), aes(x = X()[, input$hxd])) + 
     geom_histogram(colour = "black",fill = "white",  stat="count") + 
     xlab("") + theme_minimal() + theme(legend.title = element_blank())

@@ -141,7 +141,7 @@ output$p2 = renderPlot({
       need(input$hx != "NULL", "Please select one continuous variable")
     )
   ggplot(X(), aes(x = X()[, input$hx])) + 
-    geom_histogram(binwidth = input$bin, colour = "black",fill = "white") + 
+    geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
     geom_density()+
     xlab("") + theme_minimal() + theme(legend.title = element_blank())
   })

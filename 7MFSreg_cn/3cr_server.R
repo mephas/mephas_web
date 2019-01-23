@@ -39,8 +39,8 @@ output$t1.c = renderUI({
   selectInput(
     't1.c',
     h5('随访时间 (或者起始时间点)'),
-    selected = NULL,
-    choices = names(X())
+  selected = "NULL",
+  choices = c("NULL", names(X()))
   )
 })
 
@@ -56,8 +56,8 @@ output$t2.c = renderUI({
 output$c.c = renderUI({
   selectInput('c.c',
               h5('状态变量 (0=删失, 1=事件)'),
-              selected = NULL,
-              choices = names(X()))
+  selected = "NULL",
+  choices = c("NULL", names(X()))
 })
 
 output$x.c = renderUI({
@@ -240,13 +240,16 @@ output$tx.c = renderUI({
   selectInput(
     'tx.c',
     h5('分类变量作为分组'),
-    selected = names(X())[5],
-    choices = names(X())
+  selected = "NULL",
+  choices = c("NULL",names(X()))
   )
 })
 output$p1.c = renderPlot({
-  f = as.formula(paste0(y.c(), "~", input$tx.c))
-  fit = surv_fit(f, data = X())
+validate(
+  need(input$tx.c != "NULL", "Please select one group variable")
+)
+f = as.formula(paste0(y.c(), "~", "as.factor(",input$tx.c, ")"))
+fit = surv_fit(f, data = X())
   ggsurvplot(fit,
              data = X(),
              risk.table = TRUE,
@@ -280,7 +283,7 @@ output$p4.c = renderPlot({
   cox.snell = (X()[, input$c.c]) - residuals(fit.c(), type = "martingale")
   coxph.res = survfit(coxph(Surv(cox.snell, X()[, input$c.c]) ~ 1, method = 'breslow'), type = 'aalen')
   d = data.frame(x = coxph.res$time, y = -log(coxph.res$surv))
-  ggplot() + geom_step(data = d, mapping = aes(x = x, y = y)) + geom_abline(intercept =0,
+  ggplot() + geom_step(data = d, mapping = aes(x = d[,"x"], y = d[,"y"])) + geom_abline(intercept =0,
                                                                              slope = 1,
                                                                             color = "red") +
     theme_minimal() + xlab("Modified Cox-Snell residuals") + ylab("Cumulative hazard")

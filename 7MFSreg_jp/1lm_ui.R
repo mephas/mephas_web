@@ -2,7 +2,7 @@
 ##
 ## 7MFSreg UI
 ##
-##    >Linear regressoion
+##    >Linear regression
 ##
 ## Language: JP
 ## 

@@ -9,8 +9,9 @@
 ## DT: 2019-01-16
 ##
 ##----------#----------#----------#----------
-
-load("reg.RData")
+load("advertisement.Rdata")
+load("insurance.Rdata")
+load("lung.Rdata")
 
 
 data <- reactive({
@@ -93,8 +94,8 @@ output$fsum = renderPrint({fsum()})
 output$tx = renderUI({
   selectInput(
     'tx', h5('x轴的变量'),
-    selected = NULL, 
-    choices = names(X())
+    selected = "NULL", 
+    choices = c("NULL",names(X())))
     )
   })
 
@@ -102,13 +103,19 @@ output$ty = renderUI({
   selectInput(
     'ty',
     h5('y轴的变量'),
-    selected = NULL, 
-    choices = names(X())
+    selected = "NULL", 
+    choices = c("NULL",names(X())))
     )
 })
 
 ## scatter plot
 output$p1 = renderPlot({
+     validate(
+      need(input$tx != "NULL", "请选择一个连续变量")
+    )
+        validate(
+      need(input$ty != "NULL", "请选择一个连续变量")
+    )
   ggplot(X(), aes(x = X()[, input$tx], y = X()[, input$ty])) + geom_point(shape = 1) + 
     geom_smooth(method = lm) + xlab(input$tx) + ylab(input$ty) + theme_minimal()
   })
@@ -118,19 +125,22 @@ output$hx = renderUI({
   selectInput(
     'hx',
     h5('连续型变量的直方图'),
-    selected = NULL,
-    choices = names(X()))
+    selected = "NULL", 
+    choices = c("NULL",names(X())))
 })
 
 output$hxd = renderUI({
   selectInput(
     'hxd',
     h5('离散型变量的直方图'),
-    selected = NULL,
-    choices = names(X()))
+    selected = "NULL", 
+    choices = c("NULL",names(X())))
 })
 
 output$p2 = renderPlot({
+    validate(
+      need(input$hx != "NULL", "请选择一个连续变量")
+    )
   ggplot(X(), aes(x = X()[, input$hx])) + 
     geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
     geom_density()+
@@ -138,6 +148,9 @@ output$p2 = renderPlot({
   })
 
 output$p3 = renderPlot({
+    validate(
+      need(input$hxd != "NULL", "请选择一个离散变量")
+    )
   ggplot(X(), aes(x = X()[, input$hxd])) + 
     geom_histogram(colour = "black",fill = "white",  stat="count") + 
     xlab("") + theme_minimal() + theme(legend.title = element_blank())
