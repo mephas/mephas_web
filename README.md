@@ -1,37 +1,39 @@
-## Welcome to GitHub Pages
+## Mephas 
 
-You can use the [editor on GitHub](https://github.com/mephas/mephas_web/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## Introduction
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Mephas is one shiny application which integrates the medical and pharmaceutical data analysis methods in order to facilate researchers analyze or explore their data at the first step.
 
-### Markdown
+The old version is [here](http://www.gen-info.osaka-u.ac.jp/MEPHAS/).
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## The structure of mephas application
 
-```markdown
-Syntax highlighted code block
+### The outlines
 
-# Header 1
-## Header 2
-### Header 3
+#### 1. [Probability Distributions](https://pharmacometrics.info/mephas/1MFSdistribution/)
+ 
+#### 2. [Tests of Means](https://pharmacometrics.info/mephas/2MFSttest/)
 
-- Bulleted
-- List
+#### 3. [Non-parametric Tests](https://pharmacometrics.info/mephas/3MFSnptest/)
 
-1. Numbered
-2. List
+#### 4. [Test for Binomial Proportions](https://pharmacometrics.info/mephas/4MFSproptest/)
 
-**Bold** and _Italic_ and `Code` text
+#### 5. [Contingency Table of Counts](https://pharmacometrics.info/mephas/5MFSrctabtest/)
 
-[Link](url) and ![Image](src)
-```
+#### 6. [Analysis of Variance](https://pharmacometrics.info/mephas/6MFSanova/)
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+#### 7. [Regression Model](https://pharmacometrics.info/mephas/7MFSreg/)
 
-### Jekyll Themes
+#### 8. [Principal Components](https://pharmacometrics.info/mephas/8MFSpcapls/)
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mephas/mephas_web/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+More apllications are still under construction.
 
-### Support or Contact
+### The contents in each applications
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+#### 1. Data's descriptive statistics
+
+#### 2. Assumptions and hypotheses
+
+#### 3. Test results
+
+#### 4. Tables and figures
