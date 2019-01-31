@@ -56,8 +56,8 @@ tabPanel("Cox Regression (Time-Event Outcomes)",
 ,
 ##---------- other panels ----------
 
-source("../0tabs/home.R",local=TRUE)$value,
-source("../0tabs/stop.R",local=TRUE)$value
+source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value
 
 )
 ##-----------------------over

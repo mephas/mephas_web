@@ -24,134 +24,9 @@ tabPanel("Dataset",
 
 titlePanel("Data Preparation"),
 
-sidebarLayout(
-sidebarPanel(##-------csv file-------##   
-# Input: Select a file as variable----
-helpText("If no data set is uploaded, the example data is shown in the Data Display."),
-
-selectInput("edata.x", "Choose data as X matrix", 
-        choices =  c("Gene sample1","Gene sample2"), 
-        selected = "Gene sample1"),
-
-fileInput('file.x', "Upload .csv data set of X matrix (numeric predictors)",
-  multiple = TRUE,
-  accept = c("text/csv",
-           "text/comma-separated-values,text/plain",
-           ".csv")),
-#helpText("The columns of X are not suggested greater than 500"),
-# Input: Checkbox if file has header ----
-checkboxInput("header.x", "Header", TRUE),
-
-#fluidRow(
-
-#column(4, 
-# Input: Select separator ----
-radioButtons("sep.x", "Separator",
-     choices = c(Comma = ',',
-                 Semicolon = ';',
-                 Tab = '\t'),
-     selected = ','),
-
-#column(4,
-# Input: Select quotes ----
-radioButtons("quote.x", "Quote",
-     choices = c(None = "",
-                 "Double Quote" = '"',
-                 "Single Quote" = "'"),
-     selected = '"'),
-
-hr(),
-# Input: Select a file as response----
-checkboxInput("add.y", "Add Y data (necessary in PLS and SPLS)", FALSE), 
-selectInput("edata.y", "Choose data as Y matrix", 
-        choices =  c("Y group","Y array", "Y matrix"), 
-        selected = "Y group"),
-
-fileInput('file.y', "Upload .csv data set of Y matrix (Group variable or numeric responder matrix)",
-  multiple = TRUE,
-  accept = c("text/csv",
-           "text/comma-separated-values,text/plain",
-           ".csv")),
-helpText("The columns of Y can be one or more than one."),
-# Input: Checkbox if file has header ----
-checkboxInput("header.y", "Header", TRUE),
-
-# Input: Select separator ----
-radioButtons("sep.y", "Separator",
-     choices = c(Comma = ',',
-                 Semicolon = ';',
-                 Tab = '\t'),
-     selected = ','),
-
-# Input: Select quotes ----
-radioButtons("quote.y", "Quote",
-     choices = c(None = "",
-                 "Double Quote" = '"',
-                 "Single Quote" = "'"),
-     selected = '"')
+source("0data_ui.R", local=TRUE, encoding="UTF-8")$value
 
 ),
-
-
-mainPanel(
-h4(("Data Display")), 
-tags$head(tags$style(".shiny-output-error{color: blue;}")),
-tabsetPanel(
-  tabPanel("X matrix", p(br()),
-    dataTableOutput("table.x")),
-
-  tabPanel("Y matrix", p(br()),
-    dataTableOutput("table.y"))
-  ),
-
-hr(),  
-h4(("Basic Descriptives")),
-
-tabsetPanel(
-
-tabPanel("Continuous variables", p(br()),
-
-uiOutput('cv'), 
-actionButton("Bc", "Show descriptives"),p(br()),
-tableOutput("sum"),
-helpText(HTML(
-"
-Note:
-<ul>
-<li> nbr.: the number of </li>
-</ul>
-"
-))),
-
-tabPanel("Discrete variables", p(br()),
-
-  uiOutput('dv'),
-actionButton("Bd", "Show descriptives"),p(br()),
-verbatimTextOutput("fsum")
-  )
-),
-
-h4(("First Exploration of Variables")),  
-
-tabsetPanel(
-tabPanel("Scatter plot (with line) between two variables",
-uiOutput('tx'),
-uiOutput('ty'),
-plotOutput("p1", width = "400px", height = "400px")
-),
-tabPanel("Bar plots",
-fluidRow(
-column(6,
-uiOutput('hx'),
-plotOutput("p2", width = "400px", height = "400px"),
-sliderInput("bin", "The width of bins in the histogram", min = 10, max = 150, value = 1)),
-column(6,
-uiOutput('hxd'),
-plotOutput("p3", width = "400px", height = "400px"))))
-)
-)
-
-)),
 
 
 ## 1. PCA ---------------------------------------------------------------------------------
@@ -164,7 +39,7 @@ sidebarLayout(
 sidebarPanel(
 h4("Model's configuration"),
 
-checkboxInput("scale1", "Scale the data (X)", TRUE),
+checkboxInput("scale1", "Scale the data (X)", FALSE),
 
 numericInput("nc", "Number of components in PCA:", 5, min = 2, max = NA),
 helpText("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
@@ -234,165 +109,98 @@ tabPanel("PLS(R)",
 
 titlePanel("Partial Least Squares (Regression)"),
 
+source("pls_ui.R", local=TRUE, encoding="UTF-8")$value
+),
+
+## 3. SPLS, ---------------------------------------------------------------------------------
+tabPanel("SPLS(R)",
+
+titlePanel("Sparse Partial Least Squares (Regression)"),
+
 sidebarLayout(
 sidebarPanel(
-h4("Model's configuration"),
-checkboxInput("scale2", "Scale the data (X)", TRUE),
-numericInput("nc.pls", "Number of Components", 4, min = 2, max = NA),
 
-radioButtons("mtd.pls", "PLSR Algorithms",
+h4("Cross-validation's configuration"),
+numericInput("cv1", "Minimum number of components", 2, min = 2, max = NA),
+numericInput("cv2", "Maximum number of components", 5, min = 2, max = NA),
+radioButtons("s.select", "Variables' selection method (SPLSR)",
+ choices = c("PLS" = 'pls2',
+             "SIMPLS" = "simpls"),
+ selected = "pls2"),
+
+radioButtons("s.fit", "Model fitting method (PLSR)",
  choices = c(
              "Kernel" = "kernelpls",
              "Wide kernel" = "widekernelpls",
              "SIMPLS" = "simpls",
-             "Classical orthogonal scores"="oscorespls",
-             "CPPLS" = "cppls"),
- selected = "kernelpls"),
+             "Classical orthogonal scores"="oscorespls"),
+ selected = "simpls"),
 
-radioButtons("val", "Validation method",
- choices = c("No validation" = 'none',
-             "Cross validation" = "CV",
-             "Leave-one-out validation" = "LOO"),
- selected = "CV"),
-
+checkboxInput("sc.x", "Scale the predictors (X)", FALSE),
+checkboxInput("sc.y", "Scale the responders (Y)", FALSE),
 
 hr(),
-h4("Figure's configuration"),
-numericInput("c1.pls", "Component at x-axis", 1, min = 1, max = 20),
-numericInput("c2.pls", "Component at y-axis", 2, min = 1, max = 20)
-
-),
-
-mainPanel(
-
-h4("Explained and cumulative variance"),
-p(br()),
-verbatimTextOutput("pls.sum"),
-hr(),
-
-h4("Plots"),
-tabsetPanel(
-tabPanel("Plot of scores and loadings", p(br()),
-plotOutput("pls.pbiplot", width = "500px", height = "500px"),
-radioButtons("which", "Choose the elements in the figure",
- choices = c("X scores and loadings" = "x",
-             "Y scores and loadings" = "y",
-             "X and Y scores" = "scores",
-             "X and Y loadings"= "loadings"),
- selected = "x")
-),
-
-tabPanel("Plot of X scores",p(br()),
-plotOutput("pls.pscore", width = "500px", height = "500px")),
-
-tabPanel("Plot of X loadings",p(br()),
-plotOutput("pls.pload", width = "500px", height = "500px")),
-
-tabPanel("Plot of coefficients",p(br()),
-plotOutput("pls.pcoef", width = "500px", height = "500px")),
-
-tabPanel("Plot of prediction",p(br()),
-plotOutput("pls.pred", width = "500px", height = "500px"),
-numericInput("snum", "Which component", 1, min = 1, max = NA)),
-
-tabPanel("Plot of validation",p(br()),
-plotOutput("pls.pval", width = "500px", height = "500px"))
-
-
-),
-
-hr(),
-h4("Results"),
-
-tabsetPanel(
-  tabPanel("New components", p(br()),
-
-(tags$b("1. New PLS components from predictors (X)")), p(br()),
-dataTableOutput("comp.x"),
-downloadButton("downloadData.pls.x", "Download1"),
-p(br()),
-(tags$b("2. New PLS components from responses (Y)")), p(br()),
-dataTableOutput("comp.y"),
-downloadButton("downloadData.pls.y", "Download2")
-
-),
-
-  tabPanel("Loadings", p(br()),
-(tags$b("1. New PLS loadings from predictors (X)")), p(br()),
-dataTableOutput("load.x"),
-downloadButton("downloadData.pls.xload", "Download3"),
-p(br()),
-(tags$b("2. New PLS loadings from responses (Y)")), p(br()),
-dataTableOutput("load.y"),
-downloadButton("downloadData.pls.yload", "Download4")
-    ),
-
-  tabPanel("Coefficients and projects", p(br()),
-(tags$b("1. Coefficients")), p(br()),
-dataTableOutput("coef"),
-downloadButton("downloadData.pls.coef", "Download5"),
-p(br()),
-(tags$b("2. Projects")), p(br()),
-dataTableOutput("proj"),
-downloadButton("downloadData.pls.proj", "Download6")
-
-    ),
-
-  tabPanel("Fittings and residuals", p(br()),
-(tags$b("1. Fittings")), p(br()),
-dataTableOutput("fit.pls"),
-downloadButton("downloadData.pls.fit", "Download7"),
-p(br()),
-(tags$b("2. Residuals")), p(br()),
-dataTableOutput("res.pls"),
-downloadButton("downloadData.pls.res", "Download8")
-    )
-
-  )
-
-)
-
-)),
-
-## 3. SPLS, ---------------------------------------------------------------------------------
-tabPanel("SPLS",
-
-titlePanel("Sparse Partial Least Squares"),
-
-sidebarLayout(
-sidebarPanel(
 h4("Model's configuration"),
-numericInput("nc.spls", "Number of components:", 4, min = 2, max = 20),
-numericInput("x.spls", "Number of variables to keep in X-loadings:", 10, min = 2, max = 20),
-numericInput("y.spls", "Number of variables to keep in Y-loadings:", 5, min = 2, max = 20),
+numericInput("nc.spls", "Number of components:", 2, min = 2, max = NA),
+numericInput("eta", "Number of components:", 0.5, min = 0, max = 1),
+numericInput("kappa", "Number of components:", 0.5, min = 0, max = 0.5),
+checkboxInput("trace", "Show the process of variable selection", FALSE),
 
+
+hr(),
 h4("Figure's configuration"),
 numericInput("c1.spls", "Component at x-axis", 1, min = 1, max = 20),
 numericInput("c2.spls", "Component at y-axis", 2, min = 1, max = 20)
 ),
 
 mainPanel(
-h4("Results"),
-#h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
-(tags$b("1. New PLS components from predictors (X)")), p(br()),dataTableOutput("comp.sx"),
-downloadButton("downloadData.spls.x", "Download the new components"),
+h4("Results of Cross-validation"),
 p(br()),
-(tags$b("2. New PLS components from responses (Y)")), p(br()),dataTableOutput("comp.sy"),
-downloadButton("downloadData.spls.y", "Download the new components"),
+verbatimTextOutput("spls.cv"),
+
 hr(),
 
 h4("Plots"),
 tabsetPanel(
-tabPanel("Plot of individuals", p(br()),
-plotOutput("spls.ind", width = "800px", height = "400px")),
+tabPanel("Heatmap of cross-validated MSPE", p(br()),
+plotOutput("heat.cv", width = "600px", height = "400px")),
 
-tabPanel("Plot of variables' correlation circle",  p(br()),
-plotOutput("spls.var", width = "400px", height = "400px")),
+tabPanel("Plot of variables' correlation circle",  p(br())
+#plotOutput("spls.var", width = "400px", height = "400px")
+),
 
-tabPanel("Plot of loadings", p(br()),
-plotOutput("spls.load", width = "800px", height = "400px"))
-
+tabPanel("Plot of loadings", p(br())
+#plotOutput("spls.load", width = "800px", height = "400px")
 )
+
+),
+hr(),
+tabsetPanel(
+  tabPanel("Selected vairbales (X)",p(br()),
+    downloadButton("downloadData.s.sv", "Download1"), p(br()),
+  dataTableOutput("spls.sv") ),
+
+  tabPanel("New components based on selected variables (X)",p(br()),
+    downloadButton("downloadData.s.comp", "Download2"), p(br()),
+  dataTableOutput("spls.comp") ),
+
+  tabPanel("Coefficients",p(br()),
+    downloadButton("downloadData.s.cf", "Download3"), p(br()),
+  dataTableOutput("spls.cf") ),
+
+  tabPanel("Projection",p(br()),
+    downloadButton("downloadData.s.pj", "Download4"), p(br()),
+  dataTableOutput("spls.pj") ),
+
+  tabPanel("Prediction", p(br()),
+    downloadButton("downloadData.s.pd", "Download5"), p(br()),
+  dataTableOutput("spls.pd"))
+  )
+#(tags$b("1. New PLS components from predictors (X)")), p(br()),dataTableOutput("comp.sx"),
+#downloadButton("downloadData.spls.x", "Download the new components"),
+#p(br()),
+#(tags$b("2. New PLS components from responses (Y)")), p(br()),dataTableOutput("comp.sy"),
+#downloadButton("downloadData.spls.y", "Download the new components")
 
 ))
 ),
