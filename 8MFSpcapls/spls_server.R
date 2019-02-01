@@ -39,6 +39,14 @@ output$spls <- renderPrint({
   spls()
   })
 
+output$coef.var <- renderPlot({ 
+  plot(spls(), yvar=input$yn)
+   })
+
+#output$coef.spls <- renderPlot({
+#  coefplot.spls(spls(),nwin=c(2,2), xvar=c(input$xn1:input$xn1+3))
+#  })
+
 spls.sv <- reactive({ as.data.frame(X()[spls()$A])})
 spls.comp <- reactive({ data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))})
 spls.cf <- reactive({ coef(spls()) })

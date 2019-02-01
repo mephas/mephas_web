@@ -148,13 +148,7 @@ helpText("Results from cross-validation can be used as references"),
 numericInput("nc.spls", "Number of components", 2, min = 2, max = NA),
 numericInput("eta", "Eta (0 to 1)", 0.5, min = 0, max = 1, step=0.1 ),
 numericInput("kappa", "Kappa (0 to 0.5, default is 0.5)", 0.5, min = 0, max = 0.5, step=0.1),
-checkboxInput("trace", "Show the process of variable selection", FALSE),
-
-
-hr(),
-h4("Figure's configuration"),
-numericInput("c1.spls", "Component at x-axis", 1, min = 1, max = 20),
-numericInput("c2.spls", "Component at y-axis", 2, min = 1, max = 20)
+checkboxInput("trace", "Show the process of variable selection", FALSE)
 ),
 
 mainPanel(
@@ -172,14 +166,20 @@ hr(),
 h4("Plots"),
 tabsetPanel(
 tabPanel("Heatmap of cross-validated MSPE", p(br()),
-plotOutput("heat.cv", width = "600px", height = "400px"))
+plotOutput("heat.cv", width = "600px", height = "400px")),
 
-#tabPanel("Plot of variables' correlation circle",  p(br())
-#plotOutput("spls.var", width = "400px", height = "400px")
-#),
+tabPanel("Coefficient path plot of SPLS",  p(br()),
+numericInput("yn", "The N'th Y vector", 1, min = 1, max = NA),
+#numericInput("c2.spls", "Component at y-axis", 2, min = 1, max = 20)
+plotOutput("coef.var", width = "400px", height = "400px")
+)
 
-#tabPanel("Plot of loadings", p(br())
-#plotOutput("spls.load", width = "800px", height = "400px")
+#tabPanel("Coefficients of SPLS", p(br()),
+#  numericInput("xn1", "The N'th X vector", 1, min = 1, max = NA),
+#  numericInput("xn2", "The N'th X vector", 2, min = 1, max = NA),
+#  numericInput("xn3", "The N'th X vector", 3, min = 1, max = NA),
+#  numericInput("xn4", "The N'th X vector", 4, min = 1, max = NA),
+#plotOutput("coef.spls", width = "800px", height = "800px"))
 #)
 
 ),
