@@ -18,7 +18,7 @@ data <- reactive({
                "lung_cox_regression" = lung_cox_regression)  
                 })
 
-X = eventReactive(input$choice,{
+X = reactive({
   inFile = input$file
   if (is.null(inFile)){
       df <- data() ##>  example data

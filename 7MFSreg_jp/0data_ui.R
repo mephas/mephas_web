@@ -56,9 +56,9 @@ radioButtons("quote", "クオート",
                  "Double Quote" = '"',
                  "Single Quote" = "'"),
      selected = '"'))
-),
+)),
 
-actionButton("choice", "データ挿入", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")),
+#actionButton("choice", "データ挿入", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")),
 
 
 mainPanel(

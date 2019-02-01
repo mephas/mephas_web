@@ -15,9 +15,9 @@ sidebarPanel(
 
 ##----------example datasets----------
 
-selectInput("edata", "Choose data:", 
+selectInput("edata", "Choose data", 
         choices =  c("insurance_linear_regression","advertisement_logistic_regression","lung_cox_regression"), 
-        selected = insurance_linear_regression),
+        selected = "insurance_linear_regression"),
 
 
 helpText(HTML("
@@ -30,6 +30,7 @@ helpText(HTML("
 
 ")),
 
+hr(),
 ##-------csv file-------##   
 fileInput('file', "Upload CSV file",
 accept = c("text/csv",
@@ -39,24 +40,22 @@ accept = c("text/csv",
 # Input: Checkbox if file has header ----
 checkboxInput("header", "Header", TRUE),
 
-fluidRow(
-
-column(4, 
+ 
 # Input: Select separator ----
 radioButtons("sep", "Separator",
-choices = c(Comma = ',',
-           Semicolon = ';',
-           Tab = '\t'),
-selected = ',')),
+choices = c("Comma" = ',',
+           "Semicolon" = ';',
+           "Tab" = '\t'),
+selected = ','),
 
-column(4,
+
 # Input: Select quotes ----
 radioButtons("quote", "Quote",
-choices = c(None = "",
+choices = c("None" = "",
            "Double Quote" = '"',
            "Single Quote" = "'"),
-selected = '"'))
-)),
+selected = '"')
+),
 
 #actionButton("choice", "Import dataset", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")),
 
@@ -67,60 +66,60 @@ h4(("Data Display")),
 
 tags$br(),
 
-tags$b("The first 5 row and first 2 columns of the dataset"), 
+#tags$b("The first 5 row and first 2 columns of the dataset"), 
 
 # tags$head(tags$style(".shiny-output-error{color: blue;}")),
 
 dataTableOutput("data"),
 
 
-selectInput("columns", "Select variables to display the details", choices = NULL, multiple = TRUE), # no choices before uploading 
+#selectInput("columns", "Select variables to display the details", choices = NULL, multiple = TRUE), # no choices before uploading 
 
-dataTableOutput("data_var"),
+#dataTableOutput("data_var"),
 hr(),
 
-h4(("Basic Descriptives")), 
-tags$b("Select the variables for descriptives"),
-
-fluidRow(
-column(6,
+h4("Basic Descriptives"),
+tabsetPanel(
+tabPanel("Continuous variables", p(br()),
 uiOutput('cv'),
 actionButton("Bc", "Show descriptives"),
 tableOutput("sum"),
-helpText(HTML(
+helpText(
+HTML(
 "
 Note:
 <ul>
-<li> nbr.: the number of </li>
+<li> nbr.: the number of 
 </ul>
 "
 ))
 ),
 
-column(6,
+tabPanel("Discrete / categorical variables", p(br()),
 uiOutput('dv'),
 actionButton("Bd", "Show descriptives"),
-verbatimTextOutput("fsum")
-)),
+verbatimTextOutput("fsum"))
+), 
 
-h4(tags$b("First Exploration of Variables")),  
+hr(),
+
+h4(("First Exploration of Variables")),  
 tabsetPanel(
 tabPanel("Scatter plot (with line) between two variables",
 uiOutput('tx'),
 uiOutput('ty'),
-
 plotOutput("p1", width = "400px", height = "400px")
 ),
-tabPanel("Bar plots",
-fluidRow(
-column(6,
+tabPanel("Histogram", p(br()),
 uiOutput('hx'),
 plotOutput("p2", width = "400px", height = "400px"),
 sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 50, value = 1)),
-column(6,
+
+tabPanel("Bar plot", p(br()),
 uiOutput('hxd'),
-plotOutput("p3", width = "400px", height = "400px"))))
+plotOutput("p3", width = "400px", height = "400px")	)
+)
 )
 
 
-))
+)
