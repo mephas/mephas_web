@@ -30,7 +30,7 @@ tabPanel("线性回归 (连续型 结局)",
 
   titlePanel("线性回归"),
 
-  source("1lm_ui.R", local=TRUE, encoding="UTF-8",)
+  source("1lm_ui.R", local=TRUE, encoding="UTF-8")
 
 ), ## tabPanel
 

@@ -15,11 +15,11 @@ sidebarPanel(
 
 ##----------example datasets----------
 
-selectInput("edata", "Choose data:", 
+selectInput("edata", "Choose data", 
         choices =  c("insurance_linear_regression","advertisement_logistic_regression","lung_cox_regression"), 
-        selected = insurance_linear_regression),
+        selected = "insurance_linear_regression"),
 
-  ## render dynamic checkboxes
+
 helpText(HTML("
 <b> Datasets: </b>
 <ul>
@@ -30,94 +30,96 @@ helpText(HTML("
 
 ")),
 
+hr(),
 ##-------csv file-------##   
-fileInput('file', "CSV ファイルを指定",
+fileInput('file', "Upload CSV file",
 accept = c("text/csv",
-        "text/comma-separated-values,text/plain",
-        ".csv")),
-helpText("Xの列は500を超えない"),
+  "text/comma-separated-values,text/plain",
+  ".csv")),
+#helpText("The columns of X are not suggested greater than 500"),
 # Input: Checkbox if file has header ----
-checkboxInput("header", "ヘッダー", TRUE),
+checkboxInput("header", "Header", TRUE),
 
-fluidRow(
-
-column(4, 
+ 
 # Input: Select separator ----
-radioButtons("sep", "区切り",
-     choices = c(Comma = ',',
-                 Semicolon = ';',
-                 Tab = '\t'),
-     selected = ',')),
+radioButtons("sep", "Separator",
+choices = c("Comma" = ',',
+           "Semicolon" = ';',
+           "Tab" = '\t'),
+selected = ','),
 
-column(4,
+
 # Input: Select quotes ----
-radioButtons("quote", "クオート",
-     choices = c(None = "",
-                 "Double Quote" = '"',
-                 "Single Quote" = "'"),
-     selected = '"'))
-)),
+radioButtons("quote", "Quote",
+choices = c("None" = "",
+           "Double Quote" = '"',
+           "Single Quote" = "'"),
+selected = '"')
+),
 
-#actionButton("choice", "データ挿入", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")),
+#actionButton("choice", "Import dataset", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")),
 
 
 mainPanel(
 
-h4("データ表示"),
+h4(("Data Display")),
 
 tags$br(),
 
-tags$b("データセットの最初の5行2列の概要"), 
+#tags$b("The first 5 row and first 2 columns of the dataset"), 
+
+# tags$head(tags$style(".shiny-output-error{color: blue;}")),
 
 dataTableOutput("data"),
 
 
-selectInput("columns", "詳細を表示する変数を選択", choices = NULL, multiple = TRUE), # no choices before uploading 
+#selectInput("columns", "Select variables to display the details", choices = NULL, multiple = TRUE), # no choices before uploading 
 
-dataTableOutput("data_var"),
+#dataTableOutput("data_var"),
 hr(),
 
-h4("記述統計"), 
-tags$b("説明変数を選択"),
-
-fluidRow(
-column(6,
+h4("Basic Descriptives"),
+tabsetPanel(
+tabPanel("Continuous variables", p(br()),
 uiOutput('cv'),
-actionButton("Bc", "記述"),
+actionButton("Bc", "Show descriptives"),
 tableOutput("sum"),
-helpText(HTML(
+helpText(
+HTML(
 "
-注:
+Note:
 <ul>
-<li> nbr.: the number of </li>
+<li> nbr.: the number of 
 </ul>
 "
 ))
 ),
 
-column(6,
+tabPanel("Discrete / categorical variables", p(br()),
 uiOutput('dv'),
-actionButton("Bd", "記述"),
-verbatimTextOutput("fsum")
-)),
+actionButton("Bd", "Show descriptives"),
+verbatimTextOutput("fsum"))
+), 
 
-h4(("変数の最初の探査")),  
+hr(),
+
+h4(("First Exploration of Variables")),  
 tabsetPanel(
-tabPanel("2つの変数間の散布図（線付き）",
-uiOutput('ty'),
+tabPanel("Scatter plot (with line) between two variables",
 uiOutput('tx'),
+uiOutput('ty'),
 plotOutput("p1", width = "400px", height = "400px")
 ),
-tabPanel("ヒストグラム",
-fluidRow(
-column(6,
+tabPanel("Histogram", p(br()),
 uiOutput('hx'),
 plotOutput("p2", width = "400px", height = "400px"),
-sliderInput("bin", "ヒストグラムの棒幅", min = 0.01, max = 50, value = 1)),
-column(6,
+sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 50, value = 1)),
+
+tabPanel("Bar plot", p(br()),
 uiOutput('hxd'),
-plotOutput("p3", width = "400px", height = "400px"))))
+plotOutput("p3", width = "400px", height = "400px")	)
+)
 )
 
 
-))
+)

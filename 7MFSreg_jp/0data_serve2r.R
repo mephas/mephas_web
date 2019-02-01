@@ -4,12 +4,12 @@
 ##
 ##    >data
 ##
-## Language: EN
+## Language: JP
 ## 
 ## DT: 2019-01-11
 ##
 ##----------#----------#----------#----------
-load("regression.RData")
+load("regression.Rdata")
 
 data <- reactive({
                 switch(input$edata,
@@ -17,7 +17,6 @@ data <- reactive({
                "advertisement_logistic_regression" = advertisement_logistic_regression,
                "lung_cox_regression" = lung_cox_regression)  
                 })
-
 
 X = reactive({
   inFile = input$file
@@ -33,29 +32,29 @@ X = reactive({
     return(df)
   })
 
-#X_var = eventReactive(input$choice,{
-#  inFile = input$file
-#  if (is.null(inFile)){
-#      df <- data() ##>  example data
-#    }
-#  else{
-#    df <- read.csv(inFile$datapath,
-#        header = input$header,
-#        sep = input$sep,
-#        quote = input$quote)
-#  }
-#    vars <- names(df)
-#    updateSelectInput(session, "columns","Select Columns", choices = vars)
-#    return(df)
-#  })
+X_var = eventReactive(input$choice,{
+  inFile = input$file
+  if (is.null(inFile)){
+      df <- data() ##>  example data
+    }
+  else{
+    df <- read.csv(inFile$datapath,
+        header = input$header,
+        sep = input$sep,
+        quote = input$quote)
+  }
+    vars <- names(df)
+    updateSelectInput(session, "columns","Select Columns", choices = vars)
+    return(df)
+  })
 
   output$data <- renderDataTable(
-    head(X()), options = list(pageLength = 6, scrollX = TRUE))
+    head(X()), options = list(pageLength = 5, scrollX = TRUE))
 
-#  output$data_var <- renderDataTable(
-#    subset(X_var(), select = input$columns),
-#    options = list(pageLength = 5, scrollX = TRUE)
-#    )
+  output$data_var <- renderDataTable(
+    subset(X_var(), select = input$columns),
+    options = list(pageLength = 5, scrollX = TRUE)
+    )
 
 # Basic Descriptives
 
@@ -67,7 +66,7 @@ output$cv = renderUI({
 
 output$dv = renderUI({
   selectInput(
-    'dv', h5('Select discrete / categorical variables'), 
+    'dv', h5('Select categorical/discrete variables'), 
     selected = NULL, choices = names(X()), multiple = TRUE)
 })
 
@@ -92,7 +91,7 @@ output$fsum = renderPrint({fsum()})
 
 output$tx = renderUI({
   selectInput(
-    'tx', h5('Variable at the x-axis'),
+    'tx', h5('Variable in the x-axis'),
     selected = "NULL", 
     choices = c("NULL",names(X())))
   
@@ -101,7 +100,7 @@ output$tx = renderUI({
 output$ty = renderUI({
   selectInput(
     'ty',
-    h5('Variable at the y-axis'),
+    h5('Variable in the y-axis'),
     selected = "NULL", 
     choices = c("NULL",names(X())))
   

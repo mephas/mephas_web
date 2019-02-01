@@ -6,10 +6,10 @@
 ##
 ## Language: CN
 ## 
-## DT: 2019-01-16
+## DT: 2019-01-11
 ##
 ##----------#----------#----------#----------
-load("regression.Rdata")
+load("regression.RData")
 
 data <- reactive({
                 switch(input$edata,
@@ -19,7 +19,7 @@ data <- reactive({
                 })
 
 
-X = eventReactive(input$choice,{
+X = reactive({
   inFile = input$file
   if (is.null(inFile)){
       df <- data() ##>  example data
@@ -33,29 +33,29 @@ X = eventReactive(input$choice,{
     return(df)
   })
 
-X_var = eventReactive(input$choice,{
-  inFile = input$file
-  if (is.null(inFile)){
-      df <- data() ##>  example data
-    }
-  else{
-    df <- read.csv(inFile$datapath,
-        header = input$header,
-        sep = input$sep,
-        quote = input$quote)
-  }
-    vars <- names(df)
-    updateSelectInput(session, "columns","选择列", choices = vars)
-    return(df)
-  })
+#X_var = eventReactive(input$choice,{
+#  inFile = input$file
+#  if (is.null(inFile)){
+#      df <- data() ##>  example data
+#    }
+#  else{
+#    df <- read.csv(inFile$datapath,
+#        header = input$header,
+#        sep = input$sep,
+#        quote = input$quote)
+#  }
+#    vars <- names(df)
+#    updateSelectInput(session, "columns","Select Columns", choices = vars)
+#    return(df)
+#  })
 
   output$data <- renderDataTable(
-    head(X()), options = list(pageLength = 5, scrollX = TRUE))
+    head(X()), options = list(pageLength = 6, scrollX = TRUE))
 
-  output$data_var <- renderDataTable(
-    subset(X_var(), select = input$columns),
-    options = list(pageLength = 5, scrollX = TRUE)
-    )
+#  output$data_var <- renderDataTable(
+#    subset(X_var(), select = input$columns),
+#    options = list(pageLength = 5, scrollX = TRUE)
+#    )
 
 # Basic Descriptives
 
@@ -95,6 +95,7 @@ output$tx = renderUI({
     'tx', h5('x轴的变量'),
     selected = "NULL", 
     choices = c("NULL",names(X())))
+  
   })
 
 output$ty = renderUI({
@@ -103,11 +104,12 @@ output$ty = renderUI({
     h5('y轴的变量'),
     selected = "NULL", 
     choices = c("NULL",names(X())))
+  
 })
 
 ## scatter plot
 output$p1 = renderPlot({
-     validate(
+   validate(
       need(input$tx != "NULL", "请选择一个连续变量")
     )
         validate(
@@ -135,7 +137,7 @@ output$hxd = renderUI({
 })
 
 output$p2 = renderPlot({
-    validate(
+  validate(
       need(input$hx != "NULL", "请选择一个连续变量")
     )
   ggplot(X(), aes(x = X()[, input$hx])) + 
@@ -145,7 +147,7 @@ output$p2 = renderPlot({
   })
 
 output$p3 = renderPlot({
-    validate(
+  validate(
       need(input$hxd != "NULL", "请选择一个离散变量")
     )
   ggplot(X(), aes(x = X()[, input$hxd])) + 
