@@ -120,9 +120,15 @@ titlePanel("Sparse Partial Least Squares (Regression)"),
 sidebarLayout(
 sidebarPanel(
 
+h4("Whether to scale data"),
+checkboxInput("sc.x", "Scale the predictors (X)", FALSE),
+checkboxInput("sc.y", "Scale the responders (Y)", FALSE),
+hr(),
+
 h4("Cross-validation's configuration"),
+helpText("Find the optimal number of component (K)"),
 numericInput("cv1", "Minimum number of components", 2, min = 2, max = NA),
-numericInput("cv2", "Maximum number of components", 5, min = 2, max = NA),
+numericInput("cv2", "Maximum number of components", 4, min = 3, max = NA),
 radioButtons("s.select", "Variables' selection method (SPLSR)",
  choices = c("PLS" = 'pls2',
              "SIMPLS" = "simpls"),
@@ -136,14 +142,12 @@ radioButtons("s.fit", "Model fitting method (PLSR)",
              "Classical orthogonal scores"="oscorespls"),
  selected = "simpls"),
 
-checkboxInput("sc.x", "Scale the predictors (X)", FALSE),
-checkboxInput("sc.y", "Scale the responders (Y)", FALSE),
-
 hr(),
 h4("Model's configuration"),
-numericInput("nc.spls", "Number of components:", 2, min = 2, max = NA),
-numericInput("eta", "Number of components:", 0.5, min = 0, max = 1),
-numericInput("kappa", "Number of components:", 0.5, min = 0, max = 0.5),
+helpText("Results from cross-validation can be used as references"),
+numericInput("nc.spls", "Number of components", 2, min = 2, max = NA),
+numericInput("eta", "Eta (0 to 1)", 0.5, min = 0, max = 1, step=0.1 ),
+numericInput("kappa", "Kappa (0 to 0.5, default is 0.5)", 0.5, min = 0, max = 0.5, step=0.1),
 checkboxInput("trace", "Show the process of variable selection", FALSE),
 
 
@@ -154,47 +158,54 @@ numericInput("c2.spls", "Component at y-axis", 2, min = 1, max = 20)
 ),
 
 mainPanel(
-h4("Results of Cross-validation"),
-p(br()),
-verbatimTextOutput("spls.cv"),
+h4("SPLS Results"),
+tabsetPanel(
+  tabPanel("Cross validation", p(br()),
+  verbatimTextOutput("spls.cv")),
+
+  tabPanel("SPLS", p(br()),
+  verbatimTextOutput("spls") )
+  ),
 
 hr(),
 
 h4("Plots"),
 tabsetPanel(
 tabPanel("Heatmap of cross-validated MSPE", p(br()),
-plotOutput("heat.cv", width = "600px", height = "400px")),
+plotOutput("heat.cv", width = "600px", height = "400px"))
 
-tabPanel("Plot of variables' correlation circle",  p(br())
+#tabPanel("Plot of variables' correlation circle",  p(br())
 #plotOutput("spls.var", width = "400px", height = "400px")
-),
+#),
 
-tabPanel("Plot of loadings", p(br())
+#tabPanel("Plot of loadings", p(br())
 #plotOutput("spls.load", width = "800px", height = "400px")
-)
+#)
 
 ),
 hr(),
+
+h4("Results"),
 tabsetPanel(
   tabPanel("Selected vairbales (X)",p(br()),
     downloadButton("downloadData.s.sv", "Download1"), p(br()),
-  dataTableOutput("spls.sv") ),
+  dataTableOutput("s.sv") ),
 
   tabPanel("New components based on selected variables (X)",p(br()),
     downloadButton("downloadData.s.comp", "Download2"), p(br()),
-  dataTableOutput("spls.comp") ),
+  dataTableOutput("s.comp") ),
 
   tabPanel("Coefficients",p(br()),
     downloadButton("downloadData.s.cf", "Download3"), p(br()),
-  dataTableOutput("spls.cf") ),
+  dataTableOutput("s.cf") ),
 
   tabPanel("Projection",p(br()),
     downloadButton("downloadData.s.pj", "Download4"), p(br()),
-  dataTableOutput("spls.pj") ),
+  dataTableOutput("s.pj") ),
 
   tabPanel("Prediction", p(br()),
     downloadButton("downloadData.s.pd", "Download5"), p(br()),
-  dataTableOutput("spls.pd"))
+  dataTableOutput("s.pd"))
   )
 #(tags$b("1. New PLS components from predictors (X)")), p(br()),dataTableOutput("comp.sx"),
 #downloadButton("downloadData.spls.x", "Download the new components"),
