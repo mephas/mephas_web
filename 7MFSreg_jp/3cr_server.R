@@ -57,7 +57,7 @@ output$c.c = renderUI({
   selectInput('c.c',
               h5('Status Variable (0=censor, 1=event)'),
   selected = "NULL",
-  choices = c("NULL", names(X()))
+  choices = c("NULL", names(X())))
 })
 
 output$x.c = renderUI({

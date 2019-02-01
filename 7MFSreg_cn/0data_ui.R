@@ -15,12 +15,12 @@ sidebarPanel(
 
 ##----------example datasets----------
 
-selectInput("edata", "选择数据:", 
-          choices =  c("insurance","advertisement","lung"), 
-          selected = "insurance"),
-## render dynamic checkboxes
+selectInput("edata", "Choose data:", 
+        choices =  c("insurance_linear_regression","advertisement_logistic_regression","lung_cox_regression"), 
+        selected = insurance_linear_regression),
+
 helpText(HTML("
-<b> Datasets: </b>
+<b> 数据集解释: </b>
 <ul>
 <li> insurance: 线性回归的数据集例子
 <li> advertisement: 逻辑回归的数据集例子

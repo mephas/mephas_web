@@ -57,7 +57,7 @@ output$c.c = renderUI({
   selectInput('c.c',
               h5('状态变量 (0=删失, 1=事件)'),
   selected = "NULL",
-  choices = c("NULL", names(X()))
+  choices = c("NULL", names(X())))
 })
 
 output$x.c = renderUI({

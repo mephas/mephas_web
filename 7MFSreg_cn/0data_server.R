@@ -9,17 +9,16 @@
 ## DT: 2019-01-16
 ##
 ##----------#----------#----------#----------
-load("advertisement.Rdata")
-load("insurance.Rdata")
-load("lung.Rdata")
-
+load("regression.Rdata")
 
 data <- reactive({
                 switch(input$edata,
-               "insurance" = insurance,
-               "advertisement" = advertisement,
-               "lung" = lung)
-        })
+               "insurance_linear_regression" = insurance_linear_regression,
+               "advertisement_logistic_regression" = advertisement_logistic_regression,
+               "lung_cox_regression" = lung_cox_regression)  
+                })
+
+
 X = eventReactive(input$choice,{
   inFile = input$file
   if (is.null(inFile)){
@@ -96,7 +95,6 @@ output$tx = renderUI({
     'tx', h5('x轴的变量'),
     selected = "NULL", 
     choices = c("NULL",names(X())))
-    )
   })
 
 output$ty = renderUI({
@@ -105,7 +103,6 @@ output$ty = renderUI({
     h5('y轴的变量'),
     selected = "NULL", 
     choices = c("NULL",names(X())))
-    )
 })
 
 ## scatter plot

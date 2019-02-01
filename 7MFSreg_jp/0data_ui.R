@@ -15,9 +15,10 @@ sidebarPanel(
 
 ##----------example datasets----------
 
-selectInput("edata", "データを Choose data:", 
-              choices =  c("insurance","advertisement","lung"), 
-              selected = "insurance"),
+selectInput("edata", "Choose data:", 
+        choices =  c("insurance_linear_regression","advertisement_logistic_regression","lung_cox_regression"), 
+        selected = insurance_linear_regression),
+
   ## render dynamic checkboxes
 helpText(HTML("
 <b> Datasets: </b>

@@ -16,9 +16,10 @@ sidebarPanel(
 ##----------example datasets----------
 
 selectInput("edata", "Choose data:", 
-        choices =  c("insurance","advertisement","lung"), 
-        selected = "insurance"),
-## render dynamic checkboxes
+        choices =  c("insurance_linear_regression","advertisement_logistic_regression","lung_cox_regression"), 
+        selected = insurance_linear_regression),
+
+
 helpText(HTML("
 <b> Datasets: </b>
 <ul>
@@ -55,9 +56,9 @@ choices = c(None = "",
            "Double Quote" = '"',
            "Single Quote" = "'"),
 selected = '"'))
-),
+)),
 
-actionButton("choice", "Import dataset", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")),
+#actionButton("choice", "Import dataset", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")),
 
 
 mainPanel(
