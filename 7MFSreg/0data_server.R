@@ -9,7 +9,7 @@
 ## DT: 2019-01-11
 ##
 ##----------#----------#----------#----------
-load("regression.Rdata")
+load("regression.RData")
 
 data <- reactive({
                 switch(input$edata,
