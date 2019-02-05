@@ -66,7 +66,7 @@ h4(("Data Display")),
 
 tags$br(),
 
-#tags$b("The first 5 row and first 2 columns of the dataset"), 
+tags$b("The first 6 row of dataset"), 
 
 # tags$head(tags$style(".shiny-output-error{color: blue;}")),
 

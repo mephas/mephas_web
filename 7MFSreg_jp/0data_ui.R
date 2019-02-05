@@ -32,17 +32,16 @@ helpText(HTML("
 
 hr(),
 ##-------csv file-------##   
-fileInput('file', "Upload CSV file",
+fileInput('file', "CSV ファイルを指定",
 accept = c("text/csv",
   "text/comma-separated-values,text/plain",
   ".csv")),
 #helpText("The columns of X are not suggested greater than 500"),
 # Input: Checkbox if file has header ----
-checkboxInput("header", "Header", TRUE),
+checkboxInput("header", "ヘッダー", TRUE),
 
- 
 # Input: Select separator ----
-radioButtons("sep", "Separator",
+radioButtons("sep", "区切り",
 choices = c("Comma" = ',',
            "Semicolon" = ';',
            "Tab" = '\t'),
@@ -50,7 +49,7 @@ selected = ','),
 
 
 # Input: Select quotes ----
-radioButtons("quote", "Quote",
+radioButtons("quote", "クオート",
 choices = c("None" = "",
            "Double Quote" = '"',
            "Single Quote" = "'"),
@@ -62,11 +61,11 @@ selected = '"')
 
 mainPanel(
 
-h4(("Data Display")),
+h4("データ表示"),
 
 tags$br(),
 
-#tags$b("The first 5 row and first 2 columns of the dataset"), 
+tags$b("データセットの最初の6行の概要"), 
 
 # tags$head(tags$style(".shiny-output-error{color: blue;}")),
 
@@ -78,7 +77,7 @@ dataTableOutput("data"),
 #dataTableOutput("data_var"),
 hr(),
 
-h4("Basic Descriptives"),
+h4("記述統計"), 
 tabsetPanel(
 tabPanel("Continuous variables", p(br()),
 uiOutput('cv'),
@@ -87,7 +86,7 @@ tableOutput("sum"),
 helpText(
 HTML(
 "
-Note:
+注:
 <ul>
 <li> nbr.: the number of 
 </ul>
@@ -103,17 +102,17 @@ verbatimTextOutput("fsum"))
 
 hr(),
 
-h4(("First Exploration of Variables")),  
+h4(("変数の最初の探査")),  
 tabsetPanel(
-tabPanel("Scatter plot (with line) between two variables",
+tabPanel("2つの変数間の散布図（線付き）",
 uiOutput('tx'),
 uiOutput('ty'),
 plotOutput("p1", width = "400px", height = "400px")
 ),
-tabPanel("Histogram", p(br()),
+tabPanel("ヒストグラム", p(br()),
 uiOutput('hx'),
 plotOutput("p2", width = "400px", height = "400px"),
-sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 50, value = 1)),
+sliderInput("bin", "ヒストグラムの棒幅", min = 0.01, max = 50, value = 1)),
 
 tabPanel("Bar plot", p(br()),
 uiOutput('hxd'),
