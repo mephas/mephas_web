@@ -4,14 +4,14 @@
 ##
 ##    > PLS
 ##
-## Language: EN
+## Language: JP
 ## 
 ## DT: 2019-01-08
 ##
 ##----------#----------#----------#----------
 sidebarLayout(
 sidebarPanel(
-h4("Model's configuration"),
+h4("モデルの設定"),
 checkboxInput("scale2", "Scale the data (X)", FALSE),
 numericInput("nc.pls", "Number of Components", 4, min = 2, max = NA),
 
@@ -32,15 +32,15 @@ radioButtons("val", "Validation method",
 
 
 hr(),
-h4("Figure's configuration"),
-numericInput("c1.pls", "Component at x-axis", 1, min = 1, max = 20),
-numericInput("c2.pls", "Component at y-axis", 2, min = 1, max = 20)
+h4("プロットの設定"),
+numericInput("c1.pls", "x軸の要素", 1, min = 1, max = 20),
+numericInput("c2.pls", "Y軸の要素", 2, min = 1, max = 20)
 
 ),
 
 mainPanel(
 
-h4("Explained and cumulative variance"),
+h4("Explained and累積分散"),
 p(br()),
 verbatimTextOutput("pls.sum"),
 hr(),
@@ -57,47 +57,47 @@ radioButtons("which", "Choose the elements in the figure",
  selected = "x")
 ),
 
-tabPanel("Plot of X scores",p(br()),
+tabPanel(" X scoresのプロット",p(br()),
 plotOutput("pls.pscore", width = "500px", height = "500px")),
 
-tabPanel("Plot of X loadings",p(br()),
+tabPanel("X loadingsのプロット",p(br()),
 plotOutput("pls.pload", width = "500px", height = "500px")),
 
-tabPanel("Plot of coefficients",p(br()),
+tabPanel("coefficientsのプロット",p(br()),
 plotOutput("pls.pcoef", width = "500px", height = "500px")),
 
-tabPanel("Plot of prediction",p(br()),
+tabPanel("predictionのプロット",p(br()),
 plotOutput("pls.pred", width = "500px", height = "500px"),
 numericInput("snum", "Which component", 1, min = 1, max = NA)),
 
-tabPanel("Plot of validation",p(br()),
+tabPanel("validationのプロット",p(br()),
 plotOutput("pls.pval", width = "500px", height = "500px"))
 
 
 ),
 
 hr(),
-h4("Results"),
+h4("結果"),
 
 tabsetPanel(
-  tabPanel("New components", p(br()),
+  tabPanel("新しい要素", p(br()),
 
-(tags$b("1. New PLS components from predictors (X)")), p(br()),
+(tags$b("1. 新しい要素 from predictors (X)")), p(br()),
 dataTableOutput("comp.x"),
 downloadButton("downloadData.pls.x", "Download1"),
 p(br()),
-(tags$b("2. New PLS components from responses (Y)")), p(br()),
+(tags$b("2. 新しい要素 from responses (Y)")), p(br()),
 dataTableOutput("comp.y"),
 downloadButton("downloadData.pls.y", "Download2")
 
 ),
 
   tabPanel("Loadings", p(br()),
-(tags$b("1. New PLS loadings from predictors (X)")), p(br()),
+(tags$b("1. 新しい PLS loadings from predictors (X)")), p(br()),
 dataTableOutput("load.x"),
 downloadButton("downloadData.pls.xload", "Download3"),
 p(br()),
-(tags$b("2. New PLS loadings from responses (Y)")), p(br()),
+(tags$b("2. 新しい PLS loadings from responses (Y)")), p(br()),
 dataTableOutput("load.y"),
 downloadButton("downloadData.pls.yload", "Download4")
     ),

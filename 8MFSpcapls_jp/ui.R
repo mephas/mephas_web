@@ -2,7 +2,7 @@
 ##
 ## 8MFSpcapls UI
 ##
-## Language: EN
+## Language: JP
 ## 
 ## DT: 2019-01-08
 ##
@@ -16,13 +16,13 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 
-title = "Principal Components",
+title = "多変量解析",
 
 #----------1. dataset panel----------
 
-tabPanel("Dataset",
+tabPanel("データセット",
 
-titlePanel("Data Preparation"),
+titlePanel("データ挿入"),
 
 source("0data_ui.R", local=TRUE, encoding="UTF-8")$value
 
@@ -32,22 +32,21 @@ source("0data_ui.R", local=TRUE, encoding="UTF-8")$value
 ## 1. PCA ---------------------------------------------------------------------------------
 tabPanel("PCA",
 
-titlePanel("Principal component analysis"),
+titlePanel("主成分分析（Principal component analysis）"),
 
 sidebarLayout(
 
 sidebarPanel(
-h4("Model's configuration"),
-
+h4("モデルの設定"),
 checkboxInput("scale1", "Scale the data (X)", FALSE),
 
-numericInput("nc", "Number of components in PCA:", 5, min = 2, max = NA),
-helpText("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
+numericInput("nc", "PCAの要素の数", 5, min = 2, max = NA),
+helpText("データが完全な場合 'pca'は特異値分解を使用、 欠損値がある場合は、NIPALSアルゴリズムを使用"),
 
 hr(),
 h4("Figure's configuration"),
-numericInput("c1", "Component at x-axis", 1, min = 1, max = NA),
-numericInput("c2", "Component at y-axis", 2, min = 1, max = NA),
+numericInput("c1", "X軸の要素", 1, min = 1, max = NA),
+numericInput("c2", "Y軸の要素", 2, min = 1, max = NA),
 helpText("x and y must be different"),
 p(br()),
 checkboxInput("frame", "Add group circle in the plot", FALSE)
@@ -57,12 +56,12 @@ checkboxInput("frame", "Add group circle in the plot", FALSE)
 
 mainPanel(
 
-h4("Explained and cumulative variance"),
+h4("Explained and累積分散"),
 p(br()),
 verbatimTextOutput("fit"),
 
 hr(),
-h4("Plots"),
+h4("プロット"),
 
 tabsetPanel(
 
@@ -80,22 +79,22 @@ radioButtons("type", "The shape of circle by group",
 #tabPanel("Plot of variables' correlation circle" ,p(br()),
 #  plotOutput("pca.var", width = "400px", height = "400px")),
 
-tabPanel("Plot of the loadings of two components" ,p(br()),
+tabPanel("loadings of two componentsのプロット" ,p(br()),
 plotOutput("pca.bp", width = "400px", height = "400px")),
 
-tabPanel("Plot of the explained variance" ,p(br()),
+tabPanel("explained varianceのプロット" ,p(br()),
 plotOutput("pca.plot", width = "400px", height = "400px"))
 
 ),
 
 hr(),
 
-h4("Data Display"), 
+h4("データの結果"), 
 tabsetPanel(
 tabPanel("Raw data" , p(br()),
 dataTableOutput("table.z")),
 
-tabPanel("New components", p(br()),
+tabPanel("新しい要素", p(br()),
 downloadButton("downloadData", "Download new components"), p(br()),
 dataTableOutput("comp")
 )
@@ -107,7 +106,7 @@ dataTableOutput("comp")
 ## 2.  PLS, ---------------------------------------------------------------------------------
 tabPanel("PLS(R)",
 
-titlePanel("Partial Least Squares (Regression)"),
+titlePanel("部分最小二乗　Partial Least Squares (Regression)"),
 
 source("pls_ui.R", local=TRUE, encoding="UTF-8")$value
 ),
@@ -115,7 +114,7 @@ source("pls_ui.R", local=TRUE, encoding="UTF-8")$value
 ## 3. SPLS, ---------------------------------------------------------------------------------
 tabPanel("SPLS(R)",
 
-titlePanel("Sparse Partial Least Squares (Regression)"),
+titlePanel("スパース部分最小二乗　Sparse Partial Least Squares (Regression)"),
 
 sidebarLayout(
 sidebarPanel(

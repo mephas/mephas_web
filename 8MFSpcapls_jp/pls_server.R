@@ -4,7 +4,7 @@
 ##
 ##		>pls
 ##
-## Language: EN
+## Language: JP
 ## 
 ## DT: 2019-01-15
 ##

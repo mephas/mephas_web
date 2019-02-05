@@ -10,7 +10,7 @@
 ##
 ##----------#----------#----------#----------
 
-load("pcapla.RData")
+load("pcapls.RData")
 
 example.x <- reactive({
                 switch(input$edata.x,
