@@ -4,7 +4,7 @@
 ##
 ##    > data
 ##
-## Language: EN
+## Language: CN
 ## 
 ## DT: 2019-01-08
 ##
@@ -13,26 +13,26 @@
 sidebarLayout(
 sidebarPanel(##-------csv file-------##   
 # Input: Select a file as variable----
-helpText("If no data set is uploaded, the example data is shown in the Data Display."),
+helpText("如果没有数据上传，将使用测试数据"),
 
-selectInput("edata.x", "Choose data as X matrix", 
+selectInput("edata.x", "选择 X 矩阵（预测集）", 
         choices =  c("Gene sample1","Gene sample2"), 
         selected = "Gene sample1"),
 
-fileInput('file.x', "Upload .csv data set of X matrix (numeric predictors)",
+fileInput('file.x', "上传 X 矩阵（预测集）",
   multiple = TRUE,
   accept = c("text/csv",
            "text/comma-separated-values,text/plain",
            ".csv")),
 #helpText("The columns of X are not suggested greater than 500"),
 # Input: Checkbox if file has header ----
-checkboxInput("header.x", "Header", TRUE),
+checkboxInput("header.x", "标题行", TRUE),
 
 #fluidRow(
 
 #column(4, 
 # Input: Select separator ----
-radioButtons("sep.x", "Separator",
+radioButtons("sep.x", "分隔符",
      choices = c(Comma = ',',
                  Semicolon = ';',
                  Tab = '\t'),
@@ -40,7 +40,7 @@ radioButtons("sep.x", "Separator",
 
 #column(4,
 # Input: Select quotes ----
-radioButtons("quote.x", "Quote",
+radioButtons("quote.x", "引号",
      choices = c(None = "",
                  "Double Quote" = '"',
                  "Single Quote" = "'"),
@@ -48,29 +48,29 @@ radioButtons("quote.x", "Quote",
 
 hr(),
 # Input: Select a file as response----
-checkboxInput("add.y", "Add Y data (necessary in PLS and SPLS)", FALSE), 
-selectInput("edata.y", "Choose data as Y matrix", 
+checkboxInput("add.y", "添加 Y 反应集 (用于PLS 和 SPLS)", FALSE), 
+selectInput("edata.y", "选择 Y 反应集", 
         choices =  c("Y_group_pca","Y_array_s_pls", "Y_matrix_s_pls"), 
         selected = "Y_group_pca"),
 
-fileInput('file.y', "Upload .csv data set of Y matrix (Group variable or numeric responder matrix)",
+fileInput('file.y', "上传 CSV 格式的反应数据集（Y） (分组变量或者矩阵)",
   multiple = TRUE,
   accept = c("text/csv",
            "text/comma-separated-values,text/plain",
            ".csv")),
-helpText("The columns of Y can be one or more than one."),
+helpText("Y的列可以不止一个"),
 # Input: Checkbox if file has header ----
-checkboxInput("header.y", "Header", TRUE),
+checkboxInput("header.y", "标题行", TRUE),
 
 # Input: Select separator ----
-radioButtons("sep.y", "Separator",
+radioButtons("sep.y", "分隔符",
      choices = c(Comma = ',',
                  Semicolon = ';',
                  Tab = '\t'),
      selected = ','),
 
 # Input: Select quotes ----
-radioButtons("quote.y", "Quote",
+radioButtons("quote.y", "引号",
      choices = c(None = "",
                  "Double Quote" = '"',
                  "Single Quote" = "'"),
@@ -80,57 +80,57 @@ radioButtons("quote.y", "Quote",
 
 
 mainPanel(
-h4(("Data Display")), 
+h4(("数据显示")), 
 tags$head(tags$style(".shiny-output-error{color: blue;}")),
 tabsetPanel(
-  tabPanel("X matrix", p(br()),
+  tabPanel("X 矩阵（预测集）", p(br()),
     dataTableOutput("table.x")),
 
-  tabPanel("Y matrix", p(br()),
+  tabPanel("Y 矩阵（反应集）", p(br()),
     dataTableOutput("table.y"))
   ),
 
 hr(),  
-h4(("Basic Descriptives")),
+h4(("基础统计量")),
 
 tabsetPanel(
 
-tabPanel("Continuous variables", p(br()),
+tabPanel("连续型变量", p(br()),
 
 uiOutput('cv'), 
-actionButton("Bc", "Show descriptives"),p(br()),
+actionButton("Bc", "计算"),p(br()),
 tableOutput("sum"),
 helpText(HTML(
 "
-Note:
+注:
 <ul>
 <li> nbr.: the number of </li>
 </ul>
 "
 ))),
 
-tabPanel("Discrete variables", p(br()),
+tabPanel("离散型变量", p(br()),
 
   uiOutput('dv'),
-actionButton("Bd", "Show descriptives"),p(br()),
+actionButton("Bd", "计算"),p(br()),
 verbatimTextOutput("fsum")
   )
 ),
 
-h4(("First Exploration of Variables")),  
+h4(("变量的初步探索")),  
 
 tabsetPanel(
-tabPanel("Scatter plot (with line) between two variables",
+tabPanel("两个变量之间的散点图", p(br()),
 uiOutput('tx'),
 uiOutput('ty'),
 plotOutput("p1", width = "400px", height = "400px")
 ),
-tabPanel("Bar plots",
+tabPanel("直方图", p(br()),
 fluidRow(
 column(6,
 uiOutput('hx'),
 plotOutput("p2", width = "400px", height = "400px"),
-sliderInput("bin", "The width of bins in the histogram", min = 10, max = 150, value = 1)),
+sliderInput("bin", "直方图柱子的宽度", min = 10, max = 150, value = 1)),
 column(6,
 uiOutput('hxd'),
 plotOutput("p3", width = "400px", height = "400px"))))

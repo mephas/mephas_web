@@ -10,19 +10,25 @@
 ##
 ##----------#----------#----------#----------
 
-load("coloncancer.RData")
+load("pcapls.RData")
 
+
+example.x <- reactive({
+                switch(input$edata.x,
+               "Gene sample1" = genesample1,
+               "Gene sample2" = genesample2)
+        })
 
 X <- reactive({
   # req(input$file)
   inFile <- input$file.x
   if (is.null(inFile)){
-    df = coloncancer[,1:100]
+    df = example.x()
   }
   else{
     df <- as.data.frame(
       read.csv(
-        inFile$datapath.x,
+        inFile$datapath,
         header = input$header.x,
         sep = input$sep.x,
         quote = input$quote.x
@@ -32,36 +38,55 @@ X <- reactive({
   return(df)
 })
 
+example.y <- reactive({
+                switch(input$edata.y,
+               "Y_group_pca" = ygroup_pca,
+               "Y_array_s_pls" = yarray_s_pls,
+               "Y_matrix_s_pls"= ymatrix_s_pls)
+        })
+
+
 Y <- reactive({
-  # req(input$file)
-  inFile <- input$file.y
+  if (input$add.y == FALSE)
+  {
+    df = NULL
+  }
+  else
+  {
+    inFile <- input$file.y
   if (is.null(inFile))
     # eg data
-  {df = coloncancer[,101:105]
+  {
+    df = example.y()
   }
   else{
-    
-    df <- as.data.frame(
-      read.csv(
-        inFile$datapath.y,
-        header = input$header.y,
-        sep = input$sep.y,
-        quote = input$quote.y
+  df <- as.data.frame(
+    read.csv(
+      inFile$datapath,
+      header = input$header.y,
+      sep = input$sep.y,
+      quote = input$quote.y
       )
     )
   }
+  }
+  
   return(df)
 })
 
+
  output$table.x <- renderDataTable(
-    head(X()), options = list(pageLength = 5, scrollX = TRUE))
+    X(), options = list(pageLength = 5, scrollX = TRUE))
  output$table.y <- renderDataTable(
-    head(Y()), options = list(pageLength = 5, scrollX = TRUE))
- 
+    Y(), options = list(pageLength = 5, scrollX = TRUE))
 
 data <- reactive({
-  cbind.data.frame(X(),Y())
-})
+  if (input$add.y == FALSE) X()
+  else cbind.data.frame(Y(),X())})
+
+output$table.z <- renderDataTable(
+    data(), options = list(pageLength = 5, scrollX = TRUE))
+
 
 # Basic Descriptives
 
@@ -73,32 +98,32 @@ output$cv = renderUI({
 })
 
 output$dv = renderUI({
-  selectInput(
+selectInput(
     'dv', h5('从X和Y矩阵中选择离散型变量'), 
-    selected = NULL, choices = names(data()), multiple = TRUE)
+selected = NULL, choices = names(data()), multiple = TRUE)
 })
 
 sum = eventReactive(input$Bc,  ##> cont var
-                    {
-                      pastecs::stat.desc(data()[, input$cv], desc = TRUE, norm=TRUE)
-                      #Hmisc::describe(X()[,input$cv])
-                    })
+{
+pastecs::stat.desc(data()[, input$cv], desc = TRUE, norm=TRUE)
+#Hmisc::describe(X()[,input$cv])
+})
 
 fsum = eventReactive(input$Bd, ##> dis var
-                     {
-                       data = as.data.frame(data()[, input$dv])
-                       colnames(data) = input$dv
-                       lapply(data, table)
-                     })
+{
+data = as.data.frame(data()[, input$dv])
+colnames(data) = input$dv
+lapply(data, table)
+})
 
 output$sum <- renderTable({sum()}, rownames = TRUE)
 
 fsum = eventReactive(input$Bd, ##> dis var
-                     {
-                       data = as.data.frame(data()[, input$dv])
-                       colnames(data) = input$dv
-                       lapply(data, table)
-                     })
+{
+data = as.data.frame(data()[, input$dv])
+colnames(data) = input$dv
+lapply(data, table)
+})
 
 output$sum = renderTable({sum()}, rownames = TRUE)
 
@@ -128,7 +153,7 @@ output$p1 <- renderPlot({
       need(input$tx != "NULL", "请选一个连续型变量")
     )
         validate(
-      need(input$ty != "NULL", "请选一个连续型变量")
+      need(input$tx != "NULL", "请选一个连续型变量")
     )
   ggplot(data(), aes(x=data()[,input$tx], y=data()[,input$ty])) + geom_point(shape=1) + 
     geom_smooth(method=lm) +xlab(input$tx) +ylab(input$ty)+ theme_minimal()

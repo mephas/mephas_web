@@ -10,19 +10,24 @@
 ##
 ##----------#----------#----------#----------
 
-load("coloncancer.RData")
+load("pcapla.RData")
 
+example.x <- reactive({
+                switch(input$edata.x,
+               "Gene sample1" = genesample1,
+               "Gene sample2" = genesample2)
+        })
 
 X <- reactive({
   # req(input$file)
   inFile <- input$file.x
   if (is.null(inFile)){
-    df = coloncancer[,1:100]
+    df = example.x()
   }
   else{
     df <- as.data.frame(
       read.csv(
-        inFile$datapath.x,
+        inFile$datapath,
         header = input$header.x,
         sep = input$sep.x,
         quote = input$quote.x
@@ -32,74 +37,91 @@ X <- reactive({
   return(df)
 })
 
+example.y <- reactive({
+                switch(input$edata.y,
+               "Y_group_pca" = ygroup_pca,
+               "Y_array_s_pls" = yarray_s_pls,
+               "Y_matrix_s_pls"= ymatrix_s_pls)
+        })
+
 Y <- reactive({
-  # req(input$file)
-  inFile <- input$file.y
+  if (input$add.y == FALSE)
+  {
+    df = NULL
+  }
+  else
+  {
+    inFile <- input$file.y
   if (is.null(inFile))
     # eg data
-  {df = coloncancer[,101:105]
+  {
+    df = example.y()
   }
   else{
-    
-    df <- as.data.frame(
-      read.csv(
-        inFile$datapath.y,
-        header = input$header.y,
-        sep = input$sep.y,
-        quote = input$quote.y
+  df <- as.data.frame(
+    read.csv(
+      inFile$datapath,
+      header = input$header.y,
+      sep = input$sep.y,
+      quote = input$quote.y
       )
     )
   }
+  }
+  
   return(df)
 })
 
- output$table.x <- renderDataTable(
-    head(X()), options = list(pageLength = 5, scrollX = TRUE))
- output$table.y <- renderDataTable(
-    head(Y()), options = list(pageLength = 5, scrollX = TRUE))
 
-    # summary variable
+ output$table.x <- renderDataTable(
+    X(), options = list(pageLength = 5, scrollX = TRUE))
+ output$table.y <- renderDataTable(
+    Y(), options = list(pageLength = 5, scrollX = TRUE))
 
 data <- reactive({
-  cbind.data.frame(X(),Y())
-})
+  if (input$add.y == FALSE) X()
+  else cbind.data.frame(Y(),X())})
+
+output$table.z <- renderDataTable(
+    data(), options = list(pageLength = 5, scrollX = TRUE))
+
 
 # Basic Descriptives
 
 
 output$cv = renderUI({
   selectInput(
-    'cv', h5('Select continuous variables from X or Y matrices'), 
+    'cv', h5('Select continuous variables from data'), 
     selected = NULL, choices = names(data()), multiple = TRUE)
 })
 
 output$dv = renderUI({
-  selectInput(
-    'dv', h5('Select categorical/discrete variables from X or Y matrices'), 
-    selected = NULL, choices = names(data()), multiple = TRUE)
+selectInput(
+'dv', h5('Select categorical/discrete variables from data'), 
+selected = NULL, choices = names(data()), multiple = TRUE)
 })
 
 sum = eventReactive(input$Bc,  ##> cont var
-                    {
-                      pastecs::stat.desc(data()[, input$cv], desc = TRUE, norm=TRUE)
-                      #Hmisc::describe(X()[,input$cv])
-                    })
+{
+pastecs::stat.desc(data()[, input$cv], desc = TRUE, norm=TRUE)
+#Hmisc::describe(X()[,input$cv])
+})
 
 fsum = eventReactive(input$Bd, ##> dis var
-                     {
-                       data = as.data.frame(data()[, input$dv])
-                       colnames(data) = input$dv
-                       lapply(data, table)
-                     })
+{
+data = as.data.frame(data()[, input$dv])
+colnames(data) = input$dv
+lapply(data, table)
+})
 
 output$sum <- renderTable({sum()}, rownames = TRUE)
 
 fsum = eventReactive(input$Bd, ##> dis var
-                     {
-                       data = as.data.frame(data()[, input$dv])
-                       colnames(data) = input$dv
-                       lapply(data, table)
-                     })
+{
+data = as.data.frame(data()[, input$dv])
+colnames(data) = input$dv
+lapply(data, table)
+})
 
 output$sum = renderTable({sum()}, rownames = TRUE)
 

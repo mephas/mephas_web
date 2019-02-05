@@ -2,274 +2,220 @@
 ##
 ## 8MFSpcapls UI
 ##
-## Language: JP
+## Language: EN
 ## 
 ## DT: 2019-01-08
 ##
 ##----------#----------#----------#----------
 
 shinyUI(
+
 tagList(
-#shinythemes::themeSelector(),
-source("../0tabs/font_jp.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
+
 navbarPage(
- 
-  title = "多変量解析",
-
-  tabPanel("データセット",
-
-    titlePanel("データ挿入"),
-
-#helpText("Before user's data is uploaded, the example data (mtcars) is being shown ."),
-  sidebarLayout(
-    sidebarPanel(##-------csv file-------##   
-    # Input: Select a file as variable----
-    fileInput('file.x', "CSV ファイルを指定してください（説明変数X）",
-              multiple = TRUE,　
-              accept = c("text/csv",
-                       "text/comma-separated-values,text/plain",
-                       ".csv")),
-    #helpText("Xの列は400より大きくできません"),
-    # Input: Checkbox if file has header ----
-    checkboxInput("header.x", "ヘッダー", TRUE),
-
-    fluidRow(
-
-    column(4, 
-       # Input: Select separator ----
-    radioButtons("sep.x", "区切り",
-                   choices = c(Comma = ',',
-                               Semicolon = ';',
-                               Tab = '\t'),
-                   selected = ',')),
-
-    column(4,
-    # Input: Select quotes ----
-    radioButtons("quote", "クオート",
-                   choices = c(None = "",
-                               "Double Quote" = '"',
-                               "Single Quote" = "'"),
-                   selected = '"'))
-    ),
-
-    # Input: Select a file as response----
-    fileInput('file.y', "CSV ファイルを指定してください　(目的変数Y)",
-              multiple = TRUE,
-              accept = c("text/csv",
-                       "text/comma-separated-values,text/plain",
-                       ".csv")),
-    helpText("Yの列は一つ以上にできる"),
-    # Input: Checkbox if file has header ----
-    checkboxInput("header.y", "ヘッダー", TRUE),
-
-    fluidRow(
-
-    column(4, 
-       # Input: Select separator ----
-    radioButtons("sep.y", "区切り",
-                   choices = c(Comma = ',',
-                               Semicolon = ';',
-                               Tab = '\t'),
-                   selected = ',')),
 
 
-    column(4,
-    # Input: Select quotes ----
-    radioButtons("quote.y", "クオート",
-                   choices = c(None = "",
-                               "Double Quote" = '"',
-                               "Single Quote" = "'"),
-                   selected = '"'))
-    )
+title = "Principal Components",
 
-    ),
+#----------1. dataset panel----------
 
+tabPanel("Dataset",
 
- mainPanel(
-      h4(("データ表示")), 
-      helpText("X行列の最初の5行"),
-      tags$head(tags$style(".shiny-output-error{color: blue;}")),
-      dataTableOutput("table.x"),
-      helpText("Y行列の最初の5行"),
-      dataTableOutput("table.y"),
-      hr(),  
-      h4(("記述統計")),
-      tags$b("記述統計の変数を選択"),
+titlePanel("Data Preparation"),
 
-        fluidRow(
-          column(6,
-          uiOutput('cv'),
-          actionButton("Bc", "記述統計を表示"),
-          tableOutput("sum"),
-          helpText(HTML(
-      "
-      Note:
-      <ul>
-      <li> nbr.: the number of </li>
-      </ul>
-      "
-      ))
-          ),
+source("0data_ui.R", local=TRUE, encoding="UTF-8")$value
 
-          column(6,
-          uiOutput('dv'),
-          actionButton("Bd", "記述統計を表示"),
-          verbatimTextOutput("fsum")
-          )),
-        hr(),
+),
 
-            h4(("変数の最初の探査")),  
-
-      tabsetPanel(
-        tabPanel("2つの変数間の散布図（線付き）",
-          uiOutput('tx'),
-          uiOutput('ty'),
-          plotOutput("p1", width = "400px", height = "400px")
-          ),
-        tabPanel("ヒストグラム",
-          fluidRow(
-          column(6,
-            uiOutput('hx'),
-            plotOutput("p2", width = "400px", height = "400px"),
-            sliderInput("bin", "ヒストグラムの棒幅", min = 10, max = 150, value = 1)),
-          column(6,
-            uiOutput('hxd'),
-            plotOutput("p3", width = "400px", height = "400px"))))
-        )
-  )
-
-
-  )),
- 
 
 ## 1. PCA ---------------------------------------------------------------------------------
 tabPanel("PCA",
 
-titlePanel("主成分分析（Principal component analysis）"),
+titlePanel("Principal component analysis"),
 
 sidebarLayout(
 
 sidebarPanel(
-  h4("モデルの設定"),
-  numericInput("nc", "PCAの要素の数:", 4, min = 2, max = 20),
-  helpText("データが完全な場合 'pca'は特異値分解を使用、 欠損値がある場合は、NIPALSアルゴリズムを使用"),
-  
-  h4("パラメータ設定"),
-  numericInput("c1", "x軸の要素", 1, min = 1, max = 20),
-  numericInput("c2", "Y軸の要素", 2, min = 1, max = 20)
+h4("Model's configuration"),
+
+checkboxInput("scale1", "Scale the data (X)", FALSE),
+
+numericInput("nc", "Number of components in PCA:", 5, min = 2, max = NA),
+helpText("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
+
+hr(),
+h4("Figure's configuration"),
+numericInput("c1", "Component at x-axis", 1, min = 1, max = NA),
+numericInput("c2", "Component at y-axis", 2, min = 1, max = NA),
+helpText("x and y must be different"),
+p(br()),
+checkboxInput("frame", "Add group circle in the plot", FALSE)
+
 
 ),
 
 mainPanel(
-  h4("結果"),
-  #h4(tags$b("PCA output")), ,
-  
-  (tags$b("1. 説明された累積分散")),p(br()), verbatimTextOutput("fit"),
+
+h4("Explained and cumulative variance"),
 p(br()),
-  (tags$b("2. 新しいPCA要素")), p(br()),dataTableOutput("comp"),
-  downloadButton("downloadData", "Download new components"),
+verbatimTextOutput("fit"),
 
-  hr(),
+hr(),
+h4("Plots"),
 
-  h4("プロット"),
+tabsetPanel(
 
-  tabsetPanel(
-    tabPanel("説明変数のプロット",p(br()),
-      plotOutput("pca.plot", width = "400px", height = "400px")),
+tabPanel("Plot of two components" ,p(br()),
+plotOutput("pca.ind", width = "400px", height = "400px"),
 
-    tabPanel("個々のプロット",p(br()),
-      plotOutput("pca.ind", width = "400px", height = "400px")),
+radioButtons("type", "The shape of circle by group",
+ choices = c(T = 't',
+             Normal = "norm",
+             Convex = "convex",
+             Euclid = "euclid"),
+ selected = 't')
+),
 
-    tabPanel("変数の相関円のプロット",p(br()),
-      plotOutput("pca.var", width = "400px", height = "400px")),
+#tabPanel("Plot of variables' correlation circle" ,p(br()),
+#  plotOutput("pca.var", width = "400px", height = "400px")),
 
-    tabPanel("最初の二つのプロット",p(br()),
-      plotOutput("pca.bp", width = "400px", height = "400px"))
-    )
-  )
+tabPanel("Plot of the loadings of two components" ,p(br()),
+plotOutput("pca.bp", width = "400px", height = "400px")),
+
+tabPanel("Plot of the explained variance" ,p(br()),
+plotOutput("pca.plot", width = "400px", height = "400px"))
+
+),
+
+hr(),
+
+h4("Data Display"), 
+tabsetPanel(
+tabPanel("Raw data" , p(br()),
+dataTableOutput("table.z")),
+
+tabPanel("New components", p(br()),
+downloadButton("downloadData", "Download new components"), p(br()),
+dataTableOutput("comp")
+)
+)
+)
 )
 ), #penal tab end
 
 ## 2.  PLS, ---------------------------------------------------------------------------------
-tabPanel("PLS",
+tabPanel("PLS(R)",
 
-titlePanel("部分最小二乗（Partial Least Squares）"),
+titlePanel("Partial Least Squares (Regression)"),
 
-sidebarLayout(
-sidebarPanel(
-  h4("モデルの設定"),
-  numericInput("nc.pls", "要素の数:", 4, min = 2, max = 20),
-
-  h4("パラメータ設定"),
-  numericInput("c1.pls", "X軸の要素", 1, min = 1, max = 20),
-  numericInput("c2.pls", "Y軸の要素", 2, min = 1, max = 20)
+source("pls_ui.R", local=TRUE, encoding="UTF-8")$value
 ),
-
-mainPanel(
-  h4("結果"),
-  #h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
-  (tags$b("説明変数からの新しいPLS要素 (X)")),p(br()),  dataTableOutput("comp.x"),
-  downloadButton("downloadData.pls.x", "新しいコンポーネントをダウンロードする"),
-  p(br()), 
-  (tags$b("目的変数からの新しいPLS要素 (Y)")),p(br()),  dataTableOutput("comp.y"),
-  downloadButton("downloadData.pls.y", "新しいコンポーネントをダウンロードする"),
-  hr(),
-
-  h4("プロット"),
-  tabsetPanel(
-tabPanel("個々のプロット",p(br()), 
-  plotOutput("pls.ind", width = "800px", height = "400px")),
-
-tabPanel("変数の相関円のプロット",p(br()), 
-  plotOutput("pls.var", width = "400px", height = "400px"))
-    )
-)
-
-)),
 
 ## 3. SPLS, ---------------------------------------------------------------------------------
-tabPanel("SPLS",
+tabPanel("SPLS(R)",
 
-titlePanel("スパース部分最小二乗Sparse Partial Least Squares"),
+titlePanel("Sparse Partial Least Squares (Regression)"),
 
 sidebarLayout(
 sidebarPanel(
-  h4("モデルの設定"),
-  numericInput("nc.spls", "要素の数:", 4, min = 2, max = 20),
-  numericInput("x.spls", "Xのローディングで保持する変数の数:", 10, min = 2, max = 20),
-  numericInput("y.spls", "Yのローディングで保持する変数の数:", 5, min = 2, max = 20),
 
-  h4("パラメータ設定"),
-  numericInput("c1.spls", "X軸の要素", 1, min = 1, max = 20),
-  numericInput("c2.spls", "Y軸の要素", 2, min = 1, max = 20)
+h4("Whether to scale data"),
+checkboxInput("sc.x", "Scale the predictors (X)", FALSE),
+checkboxInput("sc.y", "Scale the responders (Y)", FALSE),
+hr(),
+
+h4("Cross-validation's configuration"),
+helpText("Find the optimal number of component (K)"),
+numericInput("cv1", "Minimum number of components", 2, min = 2, max = NA),
+numericInput("cv2", "Maximum number of components", 4, min = 3, max = NA),
+radioButtons("s.select", "Variables' selection method (SPLSR)",
+ choices = c("PLS" = 'pls2',
+             "SIMPLS" = "simpls"),
+ selected = "pls2"),
+
+radioButtons("s.fit", "Model fitting method (PLSR)",
+ choices = c(
+             "Kernel" = "kernelpls",
+             "Wide kernel" = "widekernelpls",
+             "SIMPLS" = "simpls",
+             "Classical orthogonal scores"="oscorespls"),
+ selected = "simpls"),
+
+hr(),
+h4("Model's configuration"),
+helpText("Results from cross-validation can be used as references"),
+numericInput("nc.spls", "Number of components", 2, min = 2, max = NA),
+numericInput("eta", "Eta (0 to 1)", 0.5, min = 0, max = 1, step=0.1 ),
+numericInput("kappa", "Kappa (0 to 0.5, default is 0.5)", 0.5, min = 0, max = 0.5, step=0.1),
+checkboxInput("trace", "Show the process of variable selection", FALSE)
 ),
 
 mainPanel(
-  h4("結果"),
-  #h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
-  (tags$b("1. 説明変数からの新しいPLS要素 (X)")), p(br()),dataTableOutput("comp.sx"),
-  downloadButton("downloadData.spls.x", "Download the new components"),
-  p(br()),
-  (tags$b("2. 目的変数からの新しいPLS要素 (Y)")), p(br()),dataTableOutput("comp.sy"),
-  downloadButton("downloadData.spls.y", "Download the new components"),
-  hr(),
+h4("SPLS Results"),
+tabsetPanel(
+  tabPanel("Cross validation", p(br()),
+  verbatimTextOutput("spls.cv")),
 
-  h4("プロット"),
-  tabsetPanel(
-    tabPanel("個々のプロット",p(br()),
-      plotOutput("spls.ind", width = "800px", height = "400px")),
+  tabPanel("SPLS", p(br()),
+  verbatimTextOutput("spls") )
+  ),
 
-    tabPanel("変数の相関円のプロット",p(br()),
-      plotOutput("spls.var", width = "400px", height = "400px")),
+hr(),
 
-    tabPanel("ローディングプロット",p(br()),
-      plotOutput("spls.load", width = "800px", height = "400px"))
+h4("Plots"),
+tabsetPanel(
+tabPanel("Heatmap of cross-validated MSPE", p(br()),
+plotOutput("heat.cv", width = "600px", height = "400px")),
 
-    )
-  
-  ))
+tabPanel("Coefficient path plot of SPLS",  p(br()),
+numericInput("yn", "The N'th Y vector", 1, min = 1, max = NA),
+#numericInput("c2.spls", "Component at y-axis", 2, min = 1, max = 20)
+plotOutput("coef.var", width = "400px", height = "400px")
+)
+
+#tabPanel("Coefficients of SPLS", p(br()),
+#  numericInput("xn1", "The N'th X vector", 1, min = 1, max = NA),
+#  numericInput("xn2", "The N'th X vector", 2, min = 1, max = NA),
+#  numericInput("xn3", "The N'th X vector", 3, min = 1, max = NA),
+#  numericInput("xn4", "The N'th X vector", 4, min = 1, max = NA),
+#plotOutput("coef.spls", width = "800px", height = "800px"))
+#)
+
 ),
- #penal tab end
+hr(),
+
+h4("Results"),
+tabsetPanel(
+  tabPanel("Selected vairbales (X)",p(br()),
+    downloadButton("downloadData.s.sv", "Download1"), p(br()),
+  dataTableOutput("s.sv") ),
+
+  tabPanel("New components based on selected variables (X)",p(br()),
+    downloadButton("downloadData.s.comp", "Download2"), p(br()),
+  dataTableOutput("s.comp") ),
+
+  tabPanel("Coefficients",p(br()),
+    downloadButton("downloadData.s.cf", "Download3"), p(br()),
+  dataTableOutput("s.cf") ),
+
+  tabPanel("Projection",p(br()),
+    downloadButton("downloadData.s.pj", "Download4"), p(br()),
+  dataTableOutput("s.pj") ),
+
+  tabPanel("Prediction", p(br()),
+    downloadButton("downloadData.s.pd", "Download5"), p(br()),
+  dataTableOutput("s.pd"))
+  )
+#(tags$b("1. New PLS components from predictors (X)")), p(br()),dataTableOutput("comp.sx"),
+#downloadButton("downloadData.spls.x", "Download the new components"),
+#p(br()),
+#(tags$b("2. New PLS components from responses (Y)")), p(br()),dataTableOutput("comp.sy"),
+#downloadButton("downloadData.spls.y", "Download the new components")
+
+))
+),
+#penal tab end
 
 ##----------------------------------------------------------------------
 ## 4. Regularization ---------------------------------------------------------------------------------
@@ -281,7 +227,7 @@ mainPanel(
 #sidebarPanel(
 
 #  h4("Model's configuration"),
-  
+
 #  sliderInput("alf", "Alpha parameter", min = 0, max = 1, value = 1),
 #  helpText(HTML("
 #  <ul>
@@ -306,11 +252,11 @@ mainPanel(
 
 #mainPanel(
 #  h4("Results"),
-  #plotOutput("plot.ela", width = "400px", height = "400px"),
+#plotOutput("plot.ela", width = "500px", height = "500px"),
 #  verbatimTextOutput("ela")
-  #h4("Cross-validated lambda"),
-  #verbatimTextOutput("lambda"),
-  #helpText("Lambda is merely suggested to be put into the model.")
+#h4("Cross-validated lambda"),
+#verbatimTextOutput("lambda"),
+#helpText("Lambda is merely suggested to be put into the model.")
 
 #  )
 #)
@@ -318,12 +264,11 @@ mainPanel(
 
 ##---------- other panels ----------
 
-source("../0tabs/home_jp.R",local=TRUE,encoding = "UTF-8")$value,
-source("../0tabs/stop_jp.R",local=TRUE,encoding = "UTF-8")$value
+source("../0tabs/home.R",local=TRUE)$value,
+source("../0tabs/stop.R",local=TRUE)$value
 
+))
 )
 
-)   
-)   
- 
+
 

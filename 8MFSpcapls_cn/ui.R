@@ -9,268 +9,212 @@
 ##----------#----------#----------#----------
 
 shinyUI(
+
 tagList(
-#shinythemes::themeSelector(),
-source("../0tabs/font_cn.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
+
 navbarPage(
- 
-  title = "多变量统计",
-
-  tabPanel("数据集",
-
-    titlePanel("上传变量"),
-
-#helpText("Before user's data is uploaded, the example data (mtcars) is being shown ."),
-  sidebarLayout(
-    sidebarPanel(##-------csv file-------##   
-    # Input: Select a file as variable----
-    fileInput('file.x', "上传 CSV 格式的预测器的数据集（X）",
-              multiple = TRUE,
-              accept = c("text/csv",
-                       "text/comma-separated-values,text/plain",
-                       ".csv")),
-   # helpText("x的列不建议大于500."),
-    # Input: Checkbox if file has header ----
-    checkboxInput("header.x", "标题行", TRUE),
-
-    fluidRow(
-
-    column(4, 
-       # Input: Select separator ----
-    radioButtons("sep.x", "分隔符",
-                 choices = c(Comma = ',',
-                             Semicolon = ';',
-                             Tab = '\t'),
-                 selected = ',')),
-
-    column(4,
-    # Input: Select quotes ----
-    radioButtons("quote.x", "引号",
-                 choices = c(None = "",
-                             "Double Quote" = '"',
-                             "Single Quote" = "'"),
-                 selected = '"'))
-    ),
-
-    # Input: Select a file as response----
-    fileInput('file.y', "上传 CSV 格式的响应数据集（Y）",
-              multiple = TRUE,
-              accept = c("text/csv",
-                       "text/comma-separated-values,text/plain",
-                       ".csv")),
-    helpText("Y的列可以不止一个"),
-    # Input: Checkbox if file has header ----
-    checkboxInput("header.y", "标题行", TRUE),
-
-    fluidRow(
-
-    column(4, 
-       # Input: Select separator ----
-    radioButtons("sep.y", "分隔符",
-                 choices = c(Comma = ',',
-                             Semicolon = ';',
-                             Tab = '\t'),
-                 selected = ',')),
-
-    column(4,
-    # Input: Select quotes ----
-    radioButtons("quote.y", "引号",
-                 choices = c(None = "",
-                             "Double Quote" = '"',
-                             "Single Quote" = "'"),
-                 selected = '"'))
-    )
-
-    ),
 
 
-    mainPanel(
-      h4(("数据显示")), 
-      helpText("X矩阵的前5行"),
-      tags$head(tags$style(".shiny-output-error{color: blue;}")),
-      p(br()),
-      dataTableOutput("table.x"),
-      helpText("Y矩阵的前5行"),
-      dataTableOutput("table.y"),
-      hr(),  
-      h4(("基本统计量")),
-      tags$b("选择变量"),
+title = "多变量统计",
 
-        fluidRow(
-          column(6,
-          uiOutput('cv'),
-          actionButton("Bc", "计算统计量"),
-          tableOutput("sum"),
-          helpText(HTML(
-      "
-      Note:
-      <ul>
-      <li> nbr.: 表示 the number of </li>
-      </ul>
-      "
-      ))
-          ),
+#----------1. dataset panel----------
 
-          column(6,
-          uiOutput('dv'),
-          actionButton("Bd", "计算统计量"),
-          verbatimTextOutput("fsum")
-          )),
-  hr(),
-     h4(("变量的初步探索")),  
+tabPanel("数据集",
 
-      tabsetPanel(
-        tabPanel("两个变量之间的散点图",
-          uiOutput('tx'),
-          uiOutput('ty'),
-          plotOutput("p1", width = "400px", height = "400px")
-          ),
-        tabPanel("直方图",
-          fluidRow(
-          column(6,
-            uiOutput('hx'),
-            plotOutput("p2", width = "400px", height = "400px"),
-            sliderInput("bin", "直方图柱子的宽度", min = 10, max = 150, value = 1)),
-          column(6,
-            uiOutput('hxd'),
-            plotOutput("p3", width = "400px", height = "400px"))))
-        )
-  )
+titlePanel("数据准备"),
 
-  )),
- 
+source("0data_ui.R", local=TRUE, encoding="UTF-8")$value
+
+),
+
 
 ## 1. PCA ---------------------------------------------------------------------------------
-tabPanel("主成分分析(PCA)",
+tabPanel("PCA",
 
-titlePanel("主成分分析(PCA)"),
+titlePanel("主成分分析"),
 
 sidebarLayout(
 
 sidebarPanel(
-  h4("模型的设置"),
-  numericInput("nc", "主成分分析中的主元个数:", 4, min = 2, max = 20),
-  helpText("如果数据是完整的，“PCA”使用奇异值分解；如果有一些缺失值，使用NIPALS算法."),
-  
-  h4("图形设置"),
-  numericInput("c1", "X轴分量", 1, min = 1, max = 20),
-  numericInput("c2", "y轴分量", 2, min = 1, max = 20)
+h4("模型的设置"),
+checkboxInput("scale1", "标准化 (X)", FALSE),
+
+numericInput("nc", "主成分分析中的主元个数", 4, min = 2, max = NA),
+helpText("如果数据是完整的，“PCA”使用奇异值分解；如果有一些缺失值，使用NIPALS算法."),
+
+hr(),
+h4("图形设置"),
+numericInput("c1", "x轴分量", 1, min = 1, max = NA),
+numericInput("c2", "y轴分量", 2, min = 1, max = NA),
+helpText("x 和 y 需要不同"),
+p(br()),
+checkboxInput("frame", "增加分组圈", FALSE)
+
 
 ),
 
 mainPanel(
-  h4("结果"),
-  #h4(tags$b("PCA output")), ,
-  
-  tags$b(("1. 解释的和累积的方差")),p(br()), verbatimTextOutput("fit"),
+
+h4("解释方差和累积方差"),
 p(br()),
-  tags$b(("2. 新主成分主元")), p(br()),dataTableOutput("comp"),
+verbatimTextOutput("fit"),
 
-  downloadButton("下载数据", "新主成分主元"),
+hr(),
+h4("结果图"),
 
-  hr(),
+tabsetPanel(
 
-  h4("图"),
+tabPanel("两个成分的关系图" ,p(br()),
+plotOutput("pca.ind", width = "400px", height = "400px"),
 
-  tabsetPanel(
-    tabPanel("解释的方差", p(br()),
-      plotOutput("pca.plot", width = "400px", height = "400px")),
+radioButtons("type", "分组聚类方式",
+ choices = c(T = 't',
+             Normal = "norm",
+             Convex = "convex",
+             Euclid = "euclid"),
+ selected = 't')
+),
 
-    tabPanel("个别要素图", p(br()),
-      plotOutput("pca.ind", width = "400px", height = "400px")),
+#tabPanel("Plot of variables' correlation circle" ,p(br()),
+#  plotOutput("pca.var", width = "400px", height = "400px")),
 
-    tabPanel("变量相关圆图", p(br()),
-      plotOutput("pca.var", width = "400px", height = "400px")),
+tabPanel("两个成分的loading" ,p(br()),
+plotOutput("pca.bp", width = "400px", height = "400px")),
 
-    tabPanel("前两个主元的双图", p(br()),
-      plotOutput("pca.bp", width = "400px", height = "400px"))
+tabPanel("解释方差的图" ,p(br()),
+plotOutput("pca.plot", width = "400px", height = "400px"))
 
-    )
-  )
+),
+
+hr(),
+
+h4("数据结果"), 
+tabsetPanel(
+tabPanel("原始数据" , p(br()),
+dataTableOutput("table.z")),
+
+tabPanel("新成分", p(br()),
+downloadButton("downloadData", "下载"), p(br()),
+dataTableOutput("comp")
+)
+)
+)
 )
 ), #penal tab end
 
 ## 2.  PLS, ---------------------------------------------------------------------------------
-tabPanel("偏最小二乘法(PLS)",
+tabPanel("PLS(R)",
 
-titlePanel("偏最小二乘法(PLS)"),
+titlePanel("偏最小二乘（回归）"),
 
-sidebarLayout(
-sidebarPanel(
-  h4("模型的设置"),
-  numericInput("nc.pls", "成分维数:", 4, min = 2, max = 20),
-
-  h4("图形设置"),
-  numericInput("c1.pls", "X轴分量", 1, min = 1, max = 20),
-  numericInput("c2.pls", "y轴分量", 2, min = 1, max = 20)
+source("pls_ui.R", local=TRUE, encoding="UTF-8")$value
 ),
-
-mainPanel(
-  h4("结果"),
-  #h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
-  tags$b(("1. 预测器（X）的新PLS成分")), p(br()),dataTableOutput("comp.x"),
-  downloadButton("downloadData.pls.x", "下载新成分"),
-  p(br()),
-  tags$b(("2. 响应变量（Y）的新PLS成分")),p(br()), dataTableOutput("comp.y"),
-  downloadButton("downloadData.pls.y", "下载新成分"),
-  hr(),
-
-  h4("作图"),
-  tabsetPanel(
-    tabPanel("个别要素图", p(br()),
-      plotOutput("pls.ind", width = "800px", height = "400px")),
-
-    tabPanel("变量相关圆图", p(br()),
-      plotOutput("pls.var", width = "400px", height = "400px"))
-
-    )  
-)
-)),
 
 ## 3. SPLS, ---------------------------------------------------------------------------------
-tabPanel("稀疏偏最小二乘法(SPLS)",
+tabPanel("SPLS(R)",
 
-titlePanel("稀疏偏最小二乘法(SPLS)"),
+titlePanel("Sparse 偏最小二乘（回归）"),
 
 sidebarLayout(
 sidebarPanel(
-  h4("模型的设置"),
-  numericInput("nc.spls", "成分维数:", 4, min = 2, max = 20),
-  numericInput("x.spls", "x负载中保持的变量数:", 10, min = 2, max = 20),
-  numericInput("y.spls", "y负载中保持的变量数:", 5, min = 2, max = 20),
 
-  h4("图形设置"),
-  numericInput("c1.spls", "X轴分量", 1, min = 1, max = 20),
-  numericInput("c2.spls", "y轴分量", 2, min = 1, max = 20)
+h4("Whether to scale data"),
+checkboxInput("sc.x", "标准化预测集 (X)", FALSE),
+checkboxInput("sc.y", "标准化反应集 (Y)", FALSE),
+hr(),
+
+h4("交叉验证（Cross-validation）的参数"),
+helpText("探索最优化的成分数目 (K)"),
+numericInput("cv1", "成分范围数目的最小值", 2, min = 2, max = NA),
+numericInput("cv2", "成分范围数目的最大值", 4, min = 3, max = NA),
+radioButtons("s.select", "变量选择时的方法 (SPLSR)",
+ choices = c("PLS" = 'pls2',
+             "SIMPLS" = "simpls"),
+ selected = "pls2"),
+
+radioButtons("s.fit", "模型拟合时的算法 (PLSR)",
+ choices = c(
+             "Kernel" = "kernelpls",
+             "Wide kernel" = "widekernelpls",
+             "SIMPLS" = "simpls",
+             "Classical orthogonal scores"="oscorespls"),
+ selected = "simpls"),
+
+hr(),
+h4("模型的设置"),
+helpText("参数的选择可以参考交叉验证的结果"),
+numericInput("nc.spls", "成分的数目", 2, min = 2, max = NA),
+numericInput("eta", "Eta (0 to 1)", 0.5, min = 0, max = 1, step=0.1 ),
+numericInput("kappa", "Kappa (0 to 0.5, default is 0.5)", 0.5, min = 0, max = 0.5, step=0.1),
+checkboxInput("trace", "显示变量选择的过程", FALSE)
 ),
 
 mainPanel(
-  h4("结果"),
-  #h4(tags$b("PLS output")), verbatimTextOutput("fit.pls"),
-  (tags$b("1. 预测器（X）的新PLS成分")), p(br()),dataTableOutput("comp.sx"),
-  downloadButton("downloadData.spls.x", "下载新成分"),
-  p(br()),
-  (tags$b("2. 响应变量（Y）的新PLS成分")), p(br()),dataTableOutput("comp.sy"),
-  downloadButton("downloadData.spls.y", "下载新成分"),
-  hr(),
+h4("SPLS 结果"),
+tabsetPanel(
+  tabPanel("交叉验证（Cross validation）", p(br()),
+  verbatimTextOutput("spls.cv")),
 
-  h4("作图"),
+  tabPanel("SPLS", p(br()),
+  verbatimTextOutput("spls") )
+  ),
 
-  tabsetPanel(
-    tabPanel("个别要素图", p(br()),
-      plotOutput("spls.ind", width = "800px", height = "400px")),
+hr(),
 
-    tabPanel("变量相关圆图", p(br()),
-      plotOutput("spls.var", width = "400px", height = "400px")),
+h4("结果图"),
+tabsetPanel(
+tabPanel("交叉验证的均方误（cross-validated MSPE）的热图", p(br()),
+plotOutput("heat.cv", width = "600px", height = "400px")),
 
-    tabPanel("荷载图", p(br()),
-      plotOutput("spls.load", width = "800px", height = "800px"))
+tabPanel("系数的路径图（Coefficient path plot）",  p(br()),
+numericInput("yn", "反应集 Y 的第N列", 1, min = 1, max = NA),
+#numericInput("c2.spls", "Component at y-axis", 2, min = 1, max = 20)
+plotOutput("coef.var", width = "400px", height = "400px")
+)
 
-    )
+#tabPanel("Coefficients of SPLS", p(br()),
+#  numericInput("xn1", "The N'th X vector", 1, min = 1, max = NA),
+#  numericInput("xn2", "The N'th X vector", 2, min = 1, max = NA),
+#  numericInput("xn3", "The N'th X vector", 3, min = 1, max = NA),
+#  numericInput("xn4", "The N'th X vector", 4, min = 1, max = NA),
+#plotOutput("coef.spls", width = "800px", height = "800px"))
+#)
 
-  ))
 ),
- #penal tab end
+hr(),
+
+h4("数据结果"),
+tabsetPanel(
+  tabPanel("选择的预测变量 (X)",p(br()),
+    downloadButton("downloadData.s.sv", "下载1"), p(br()),
+  dataTableOutput("s.sv") ),
+
+  tabPanel("基于选择出的变量计算得到的主成分(X)",p(br()),
+    downloadButton("downloadData.s.comp", "下载2"), p(br()),
+  dataTableOutput("s.comp") ),
+
+  tabPanel("系数 Coefficients",p(br()),
+    downloadButton("downloadData.s.cf", "下载3"), p(br()),
+  dataTableOutput("s.cf") ),
+
+  tabPanel("Projection",p(br()),
+    downloadButton("downloadData.s.pj", "下载5"), p(br()),
+  dataTableOutput("s.pj") ),
+
+  tabPanel("预测e", p(br()),
+    downloadButton("downloadData.s.pd", "下载6"), p(br()),
+  dataTableOutput("s.pd"))
+  )
+#(tags$b("1. New PLS components from predictors (X)")), p(br()),dataTableOutput("comp.sx"),
+#downloadButton("downloadData.spls.x", "Download the new components"),
+#p(br()),
+#(tags$b("2. New PLS components from responses (Y)")), p(br()),dataTableOutput("comp.sy"),
+#downloadButton("downloadData.spls.y", "Download the new components")
+
+))
+),
+#penal tab end
 
 ##----------------------------------------------------------------------
 ## 4. Regularization ---------------------------------------------------------------------------------
@@ -281,8 +225,8 @@ mainPanel(
 #sidebarLayout(
 #sidebarPanel(
 
-#  h3("Model's configuration"),
-  
+#  h4("Model's configuration"),
+
 #  sliderInput("alf", "Alpha parameter", min = 0, max = 1, value = 1),
 #  helpText(HTML("
 #  <ul>
@@ -306,12 +250,12 @@ mainPanel(
 #  ),
 
 #mainPanel(
-#  h3("Results"),
-  #plotOutput("plot.ela", width = "500px", height = "500px"),
+#  h4("Results"),
+#plotOutput("plot.ela", width = "500px", height = "500px"),
 #  verbatimTextOutput("ela")
-  #h3("Cross-validated lambda"),
-  #verbatimTextOutput("lambda"),
-  #helpText("Lambda is merely suggested to be put into the model.")
+#h4("Cross-validated lambda"),
+#verbatimTextOutput("lambda"),
+#helpText("Lambda is merely suggested to be put into the model.")
 
 #  )
 #)
@@ -319,11 +263,11 @@ mainPanel(
 
 ##---------- other panels ----------
 
-source("../0tabs/home_cn.R",local=TRUE)$value,
-source("../0tabs/stop_cn.R",local=TRUE)$value
+source("../0tabs/home.R",local=TRUE)$value,
+source("../0tabs/stop.R",local=TRUE)$value
 
 ))
 )
-  
+
 
 
