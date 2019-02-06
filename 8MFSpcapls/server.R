@@ -2,9 +2,6 @@ if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggfortify)) {install.packages("ggfortify")}; library(ggfortify)
 if (!require(pls)) {install.packages("pls")}; library(pls)
 if (!require(spls)) {install.packages("spls")}; library(spls)
-#if (!requireNamespace("BiocManager", quietly = TRUE)) {install.packages("BiocManager")}
-#if (!require(mixOmics)) {BiocManager::install("mixOmics", version = "3.8")}; library(mixOmics)
-
 ##----------#----------#----------#----------
 ##
 ## 8MFSpcapls SERVER
