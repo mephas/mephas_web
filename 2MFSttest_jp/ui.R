@@ -117,7 +117,8 @@ tabPanel("関連した二群",
 ##---------- other panels ----------
 
 source("../0tabs/home_jp.R",local=TRUE,encoding = "UTF-8")$value,
-source("../0tabs/stop_jp.R",local=TRUE,encoding = "UTF-8")$value
+source("../0tabs/stop_jp.R",local=TRUE,encoding = "UTF-8")$value,
+source("../0tabs/help2.R",local=TRUE, encoding="UTF-8")$value
 
   )
  )

@@ -93,7 +93,8 @@ sidebarPanel(
               tableOutput("bas.p"),
               tableOutput("des.p"),
               tableOutput("nor.p")
-              )
+              ),p(br()), 
+            downloadButton("download5", "Download Results")
             ),
 
           tabPanel("Boxplot of the difference", p(br()), 
@@ -131,6 +132,7 @@ sidebarPanel(
 
           hr(),
           h4("Test Results"),
-          tableOutput("t.test.p")
+          tableOutput("t.test.p"),p(br()), 
+          downloadButton("download6", "Download Results")
         )
       )

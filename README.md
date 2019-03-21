@@ -22,6 +22,10 @@ The main page is [here](https://pharmacometrics.info/mephas_web/).
     + Binomial Distribution, Poisson Distribution
        
 #### 2. [Tests of Means](https://pharmacometrics.info/mephas_web/2MFSttest/)
+  
+  - One Sample t-Test
+  - Two Samples t-Test
+  - Paired Samples
 
 #### 3. [Non-parametric Tests](https://pharmacometrics.info/mephas_web/3MFSnptest/)
 
@@ -37,7 +41,7 @@ The main page is [here](https://pharmacometrics.info/mephas_web/).
 
 More apllications are still under construction.
 
-### The main output in each applications
+### The main contains in each applications
 
 #### 1. Data's descriptive statistics
 
@@ -47,21 +51,21 @@ More apllications are still under construction.
 
 #### 4. Tables and figures
 
-### The helps
+### The help files
 
 #### 1. [Probability Distributions](https://pharmacometrics.info/mephas/help1.html)
  
-#### 2. [Tests of Means](https://pharmacometrics.info/mephas_web/2MFSttest/)
+#### 2. [Tests of Means](https://pharmacometrics.info/mephas/help2.html/)
 
-#### 3. [Non-parametric Tests](https://pharmacometrics.info/mephas_web/3MFSnptest/)
+#### 3. [Non-parametric Tests](https://pharmacometrics.info/mephas/help3.html/)
 
-#### 4. [Test for Binomial Proportions](https://pharmacometrics.info/mephas_web/4MFSproptest/)
+#### 4. [Test for Binomial Proportions](https://pharmacometrics.info/mephas/help4.html/)
 
-#### 5. [Contingency Table of Counts](https://pharmacometrics.info/mephas_web/5MFSrctabtest/)
+#### 5. [Contingency Table of Counts](https://pharmacometrics.info/mephas/help5.html/)
 
-#### 6. [Analysis of Variance](https://pharmacometrics.info/mephas_web/6MFSanova/)
+#### 6. [Analysis of Variance](https://pharmacometrics.info/mephas/help6.html/)
 
-#### 7. [Regression Model](https://pharmacometrics.info/mephas_web/7MFSreg/)
+#### 7. [Regression Model](https://pharmacometrics.info/mephas/help7.html/)
 
-#### 8. [Principal Components](https://pharmacometrics.info/mephas_web/8MFSpcapls/)
+#### 8. [Principal Components](https://pharmacometrics.info/mephas/help8.html/)
 

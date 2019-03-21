@@ -409,7 +409,8 @@ tableOutput("p.k")
 ##---------- other panels ----------
 
 source("../0tabs/home_cn.R",local=TRUE,encoding = "UTF-8")$value,
-source("../0tabs/stop_cn.R",local=TRUE,encoding = "UTF-8")$value
+source("../0tabs/stop_cn.R",local=TRUE,encoding = "UTF-8")$value,
+source("../0tabs/help1.R",local=TRUE, encoding="UTF-8")$value
 
 ))
 )

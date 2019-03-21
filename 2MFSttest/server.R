@@ -41,30 +41,33 @@ X <- reactive({
 
 output$table <-renderDataTable({X()}, options = list(pageLength = 5))
 
+
+basic_desc <- reactive({
+  x <- X()
+  res <- stat.desc(x, norm = TRUE)
+  return(res)})
+
 output$bas <- renderTable({
-  X <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
-  res <- stat.desc(X)[1:3]
+  res <- basic_desc()[1:3,]
   names(res) = c("number.var", "number.null", "number.na")
-  #names(res) = unlist(strsplit(input$cn, "[\n, \t, ]"))
   return(res)
   },   
   width = "200px", rownames = TRUE, digits = 0)
 
 output$des <- renderTable({
-  X <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
-  res <- stat.desc(X)[4:14]
-  #names = unlist(strsplit(input$cn, "[\n, \t, ]"))
-  return(res)
-  },   
-  width = "200px", rownames = TRUE)
+  basic_desc()[4:14,]},   width = "200px", rownames = TRUE)
 
 output$nor <- renderTable({
-  X <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
-  res <- stat.desc(X, norm = TRUE)[15:20]
-  #names(res) = unlist(strsplit(input$cn, "[\n, \t, ]"))
-  return(res)
-  },   
-  width = "200px", rownames = TRUE)
+  basic_desc()[15:20,]},   width = "200px", rownames = TRUE)
+
+output$download0 <- downloadHandler(
+    filename = function() {
+      "basic_desc.csv"
+    },
+    content = function(file) {
+      write.csv(basic_desc(), file, row.names = TRUE)
+    }
+  )
 
 # box plot
 output$bp = renderPlot({
@@ -101,7 +104,7 @@ output$makeplot <- renderPlot({
   grid.arrange(plot1, plot2, plot3, ncol = 3)
   })
 
-output$t.test <- renderTable({
+t.test0 <- reactive({
   x <- X()
   res <-t.test(
     as.vector(x[, 1]),
@@ -118,8 +121,19 @@ output$t.test <- renderTable({
     )
   colnames(res.table) <- res$method
   return(res.table)
-  }, 
-  width = "500px", rownames = TRUE)
+  })
+
+output$t.test <- renderTable({
+  t.test0()}, width = "500px", rownames = TRUE)
+
+output$download1 <- downloadHandler(
+    filename = function() {
+      "t_test.csv"
+    },
+    content = function(file) {
+      write.csv(t.test0(), file, row.names = TRUE)
+    }
+  )
 
 ##---------- 2. Two sample t test---------
 
@@ -147,27 +161,37 @@ Y <- reactive({
 
 output$table2 <- renderDataTable({Y()}, options = list(pageLength = 5))
 
-output$bas2 <- renderTable({
+basic_desc2 <- reactive({
   x <- Y()
-  res <- stat.desc(x)[1:3,]
+  res <- stat.desc(x, norm = TRUE)
+  return(res)})
+
+output$bas2 <- renderTable({
+  res <- basic_desc2()[1:3,]
   rownames(res) = c("number.var", "number.null", "number.na")
   return(res)
   },   
   width = "200px", rownames = TRUE, digits = 0)
 
 output$des2 <- renderTable({
-  x <- Y()
-  res <- stat.desc(x)[4:14,]
-  return(res)
+  basic_desc2()[4:14,]
   },   
   width = "200px", rownames = TRUE)
 
 output$nor2 <- renderTable({
-  x <- Y()
-  res <- stat.desc(x, norm = TRUE)[15:20,]
-  return(res)
+  basic_desc2()[15:20,]
   },   
   width = "200px", rownames = TRUE)
+
+
+output$download3 <- downloadHandler(
+    filename = function() {
+      "basic_desc.csv"
+    },
+    content = function(file) {
+      write.csv(basic_desc2(), file, row.names = TRUE)
+    }
+  )
 
   #plots
 output$bp2 = renderPlot({
@@ -216,7 +240,8 @@ output$info2 <- renderText({
   })
 
   # test result
-output$var.test <- renderTable({
+
+var.test0 <- reactive({
   x <- Y()
   res <- var.test(as.vector(x[, 1]), as.vector(x[, 2]))
   res.table <- t(
@@ -229,10 +254,12 @@ output$var.test <- renderTable({
     )
   colnames(res.table) <- res$method
   return(res.table)
-  }, 
-  width = "500px", rownames = TRUE)
+  })
 
-output$t.test2 <- renderTable({
+output$var.test <- renderTable({
+  var.test0() }, width = "500px", rownames = TRUE)
+
+t.test20 <- reactive({
   x <- Y()
   res <- t.test(
     as.vector(x[, 1]),
@@ -273,9 +300,27 @@ res.table <- t(
   res2.table <- cbind(res.table, res1.table)
   colnames(res2.table) <- c(res$method, res1$method)
   return(res2.table)
+  })
+output$t.test2 <- renderTable({
+  t.test20()},  width = "800px", rownames = TRUE)
 
-  }, 
-  width = "800px", rownames = TRUE)
+output$download2 <- downloadHandler(
+    filename = function() {
+      "var_test.csv"
+    },
+    content = function(file) {
+      write.csv(var.test0(), file, row.names = TRUE)
+    }
+  )
+output$download4 <- downloadHandler(
+    filename = function() {
+      "t2_test.csv"
+    },
+    content = function(file) {
+      write.csv(t.test20(), file, row.names = TRUE)
+    }
+  )
+
 
 ##---------- 3. Paired sample t test ---------
 
@@ -306,27 +351,38 @@ Z <- reactive({
 
 output$table.p <-renderDataTable({Z()}, options = list(pageLength = 5))
 
+basic_desc3 <- reactive({
+  x <- Z()
+  res <- stat.desc(x, norm = TRUE)
+  return(res)})
+
 output$bas.p <- renderTable({
   x <- Z()
-  res <- stat.desc(x)[1:3,]
+  res <- basic_desc3()[1:3,]
   rownames(res) = c("number.var", "number.null", "number.na")
   return(res)
   },   
   width = "200px", rownames = TRUE, digits = 0)
 
 output$des.p <- renderTable({
-  x <- Z()
-  res <- stat.desc(x)[4:14,]
-  return(res)
+  basic_desc3()[4:14,]
   },   
   width = "200px", rownames = TRUE)
 
 output$nor.p <- renderTable({
-  x <- Z()
-  res <- stat.desc(x, norm = TRUE)[15:20,]
-  return(res)
+  basic_desc3()[15:20,]
   },   
   width = "200px", rownames = TRUE)
+
+
+output$download5 <- downloadHandler(
+    filename = function() {
+      "basic_desc.csv"
+    },
+    content = function(file) {
+      write.csv(basic_desc3(), file, row.names = TRUE)
+    }
+  )
 
 output$bp.p = renderPlot({
   x = Z()
@@ -364,7 +420,7 @@ output$makeplot.p <- renderPlot({
   grid.arrange(plot1, plot2, plot3, ncol = 3)
   })
 
-output$t.test.p <- renderTable({
+t.test.p0 <- reactive({
   x <- Z()
   res <-t.test(
     x[, 1],
@@ -385,9 +441,19 @@ output$t.test.p <- renderTable({
     )
   colnames(res.table) <- res$method
   return(res.table)
-  }, 
-  width = "500px", rownames = TRUE)
 
+  })
+output$t.test.p <- renderTable({
+  t.test.p0()}, width = "500px", rownames = TRUE)
+
+output$download6 <- downloadHandler(
+    filename = function() {
+      "tp_test.csv"
+    },
+    content = function(file) {
+      write.csv(t.test.p0(), file, row.names = TRUE)
+    }
+  )
 
 observe({
       if (input$close > 0) stopApp()                             # stop shiny

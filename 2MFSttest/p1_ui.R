@@ -90,7 +90,8 @@ mainPanel(
       splitLayout(
         tableOutput("bas"), 
         tableOutput("des"), 
-        tableOutput("nor"))  ),
+        tableOutput("nor")), p(br()),
+        downloadButton("download0", "Download Results")),
 
     tabPanel("Boxplot", p(br()), 
       splitLayout(
@@ -124,8 +125,11 @@ mainPanel(
   ),
 
   hr(),
-  h4("Test Results"),
-  tableOutput("t.test")
+  h4("Test Results"),p(br()), 
+  tableOutput("t.test"),p(br()), 
+  downloadButton("download1", "Download Results")
+
+
 
  )
 
