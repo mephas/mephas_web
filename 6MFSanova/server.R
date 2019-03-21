@@ -63,17 +63,25 @@ output$mmean1 = renderPlot({
 
   })
 
-output$anova1 <- renderTable({
+anova10 <- reactive({
   x <- Y1()
-
     res <- aov(x[,1]~x[,2])
     res.table <- summary(res)[[1]]
     rownames(res.table)[1] <- c(names(x)[2])
-
   return(res.table)
-  }, 
+  })
+output$anova1 <- renderTable({
+  anova10()}, 
   width = "500px", rownames = TRUE)
 
+output$download1 <- downloadHandler(
+    filename = function() {
+      "anv1.csv"
+    },
+    content = function(file) {
+      write.csv(anova10(), file, row.names = TRUE)
+    }
+  )
 
 ##---------- 2. two way ANOVA ----------
 Y <- reactive({
@@ -151,7 +159,7 @@ output$mmean.a = renderPlot({
 
   })
 
-output$anova <- renderTable({
+anova0 <- reactive({
   x <- Y()
 
   if (input$inter == "TRUE"){
@@ -167,10 +175,20 @@ output$anova <- renderTable({
   }
   
   return(res.table)
+  })
+output$anova <- renderTable({
+  anova0()
   }, 
   width = "500px", rownames = TRUE)
 
- 
+ output$download2 <- downloadHandler(
+    filename = function() {
+      "anv2.csv"
+    },
+    content = function(file) {
+      write.csv(anova0(), file, row.names = TRUE)
+    }
+  )
 ##---------- 2. multiple comparison ----------
 Ym <- reactive({
   inFile <- input$filem
