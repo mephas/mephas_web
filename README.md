@@ -49,7 +49,7 @@ More apllications are still under construction.
 
 ### The helps
 
-#### 1. [Probability Distributions](https://pharmacometrics.info/mephas_web/1MFSdistribution/)
+#### 1. [Probability Distributions](https://pharmacometrics.info/mephas_web/help1.html)
  
 #### 2. [Tests of Means](https://pharmacometrics.info/mephas_web/2MFSttest/)
 
