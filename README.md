@@ -13,6 +13,13 @@ The main page is [here](https://pharmacometrics.info/mephas_web/).
 ### The outlines
 
 #### 1. [Probability Distributions](https://pharmacometrics.info/mephas_web/1MFSdistribution/)
+
+    - Continuous Random Variables 
+    
+        - Normal/Gaussian distribution, Expotential Distribution, Gamma Distribution
+        - 
+
+    - 
  
 #### 2. [Tests of Means](https://pharmacometrics.info/mephas_web/2MFSttest/)
 
