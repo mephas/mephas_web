@@ -28,9 +28,10 @@ sidebarPanel(
   ),
 
 mainPanel(
-  h4('Results of Sign Test'), 
-  tableOutput("psign.test"), 
-  helpText("Notes: 'Estimated.d' denotes the estimated differences of medians")
+  h4('Results of Sign Test'), p(br()),
+  tableOutput("psign.test"), p(br()),
+  helpText("Notes: 'Estimated.d' denotes the estimated differences of medians"),p(br()),
+  downloadButton("download3.1", "Download Results")
           )
 )
 
@@ -61,7 +62,8 @@ wstest.p <- sidebarLayout(
   helpText("Normal approximation is applicable when n > 10.")),
 
   mainPanel(h4('Results of Wilcoxon Signed-Rank Test'), tableOutput("psr.test"), 
-    helpText("When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction'")
+    helpText("When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction'"),p(br()),
+  downloadButton("download3.2", "Download Results")
     ) )
 
 ##---------- data ----------
@@ -104,7 +106,8 @@ mainPanel(
       splitLayout(
         tableOutput("bas3"), 
         tableOutput("des3"), 
-        tableOutput("nor3"))  ),
+        tableOutput("nor3")),
+  downloadButton("download3b", "Download Results")  ),
 
     tabPanel("Boxplot", p(br()), 
 

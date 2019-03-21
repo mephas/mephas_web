@@ -34,11 +34,13 @@ radioButtons("nap.mwt", label = "Normal Approximation",
                  "Small sample size" = TRUE), selected = FALSE)),
 
 mainPanel(
-  h4("Results of Wilcoxon Rank-Sum Test"), tableOutput("mwu.test"), 
+  h4("Results of Wilcoxon Rank-Sum Test"), p(br()),
+  tableOutput("mwu.test"), p(br()),
   helpText(HTML("<ul>
       <li> 'Estimated.diff' denotes the estimated differences of medians
       <li> When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction' </li>  
-      </ul>" ))
+      </ul>" )), p(br()),
+  downloadButton("download2.1", "Download Results")
   )
 
 )
@@ -60,7 +62,8 @@ radioButtons("alt.md", label = "Alternative hypothesis",
   choiceValues = list("two.sided", "less", "greater"))),
 
 mainPanel(
-  h4("Results of Mood's Median Test"), tableOutput("mood.test") 
+  h4("Results of Mood's Median Test"), p(br()),
+  tableOutput("mood.test")
   ) 
 )
 
@@ -100,7 +103,8 @@ mainPanel(
       splitLayout(
         tableOutput("bas2"), 
         tableOutput("des2"), 
-        tableOutput("nor2"))  ),
+        tableOutput("nor2")),
+        downloadButton("download2b", "Download Results") ),
 
     tabPanel("Boxplot", p(br()), 
 

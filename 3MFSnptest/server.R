@@ -33,25 +33,32 @@ shinyServer(
   #table 
   output$table <- renderDataTable({A()}, options = list(pageLength = 5))
 
+  A.des <- reactive({
+    X <- A()
+    res <- stat.desc(X,norm=TRUE)
+    return(res)
+    })
   output$bas <- renderTable({  
-    X <- as.numeric(unlist(strsplit(input$a, "[\n, \t, ]")))
-    res <- stat.desc(X)[1:3]
+    res <- A.des()[1:3,]
     names(res) = c("number.var", "number.null", "number.na")
-    #names(res) = unlist(strsplit(input$cn, "[\n, \t, ]"))
     return(res)},   width = "200px", rownames = TRUE, digits = 0)
 
   output$des <- renderTable({  
-    X <- as.numeric(unlist(strsplit(input$a, "[\n, \t, ]")))
-    res <- stat.desc(X)[4:14 ]
-    #names = unlist(strsplit(input$cn, "[\n, \t, ]"))
-    return(res)},   width = "200px", rownames = TRUE)
+    A.des()[4:14, ]},   width = "200px", rownames = TRUE)
 
   output$nor <- renderTable({  
-    X <- as.numeric(unlist(strsplit(input$a, "[\n, \t, ]")))
-    res <- stat.desc(X, norm = TRUE)[15:20]
-    #names(res) = unlist(strsplit(input$cn, "[\n, \t, ]"))
-    return(res)},   width = "200px", rownames = TRUE)
+    A.des()[15:20,]},   width = "200px", rownames = TRUE)
   
+  output$download1b <- downloadHandler(
+    filename = function() {
+      "des.csv"
+    },
+    content = function(file) {
+      write.csv(A.des(), file, row.names = TRUE)
+    }
+  )
+
+
   #plot
    output$bp = renderPlot({
     x = A()
@@ -70,7 +77,7 @@ shinyServer(
     plot2 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title=element_blank())
     grid.arrange(plot1, plot2, ncol=2)  })
   
-  output$sign.test<-renderTable({
+  sign.test0 <- reactive({
     x <- A()
     res <- SignTest(as.vector(x[,1]), mu = input$med, alternative = input$alt.st)
     res.table <- t(data.frame(S_statistic = res$statistic,
@@ -78,17 +85,40 @@ shinyServer(
                               Estimated_median = res$estimate,
                               Confidence_interval_0.95 = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
     colnames(res.table) <- res$method
-    return(res.table)}, width = "500px", rownames = TRUE)
+    return(res.table)
+    })
+  output$sign.test<-renderTable({
+    sign.test0()}, width = "500px", rownames = TRUE)
 
-  output$ws.test<-renderTable({
-    x <- A()
+  ws.test0 <- reactive({x <- A()
     res <- wilcox.test(as.vector(x[,1]), mu = input$med, alternative = input$alt.wsr, correct = input$nap.wsr, conf.int = TRUE, conf.level = 0.95)
     res.table <- t(data.frame(Z_statistic = res$statistic,
                               P_value = res$p.value,
                               Estimated_median = res$estimate,
                               Confidence_interval_0.95 = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
     colnames(res.table) <- res$method
-    return(res.table)}, width = "500px", rownames = TRUE)
+    return(res.table)})
+  output$ws.test<-renderTable({
+    ws.test0()}, width = "500px", rownames = TRUE)
+
+  output$download1.1 <- downloadHandler(
+    filename = function() {
+      "sign.csv"
+    },
+    content = function(file) {
+      write.csv(sign.test0(), file, row.names = TRUE)
+    }
+  )
+
+output$download1.2 <- downloadHandler(
+    filename = function() {
+      "ws.csv"
+    },
+    content = function(file) {
+      write.csv(ws.test0(), file, row.names = TRUE)
+    }
+  )
+
 
 ##---------- 2. two samples ----------
 
@@ -108,21 +138,30 @@ shinyServer(
   #table
   output$table2 <- renderDataTable({B()}, options = list(pageLength = 5))
 
-  output$bas2 <- renderTable({  ## don't use renerPrint to do renderTable
+  B.des <- reactive({
     x <- B()
-    res <- stat.desc(x)[1:3, ]
+    res <- stat.desc(x, norm = TRUE)
+    return(res)
+    })
+  output$bas2 <- renderTable({  ## don't use renerPrint to do renderTable
+    res <- B.des()[1:3, ]
     rownames(res) = c("number.var", "number.null", "number.na")
     return(res)},   width = "200px", rownames = TRUE, digits = 0)
 
   output$des2 <- renderTable({  
-    x <- B()
-    res <- stat.desc(x)[4:14, ]
-    return(res)},   width = "200px", rownames = TRUE)
+    B.des()[4:14, ]},   width = "200px", rownames = TRUE)
 
   output$nor2 <- renderTable({  
-    x <- B()
-    res <- stat.desc(x, norm = TRUE)[15:20, ]
-    return(res)},   width = "200px", rownames = TRUE)
+    B.des()[15:20, ]},   width = "200px", rownames = TRUE)
+
+  output$download2b <- downloadHandler(
+    filename = function() {
+      "desc2.csv"
+    },
+    content = function(file) {
+      write.csv(B.des(), file, row.names = TRUE)
+    }
+  )
 
   #plot
   output$bp2 = renderPlot({
@@ -146,13 +185,25 @@ shinyServer(
     grid.arrange(plot1, plot2, ncol=2)  })
 
 #test
-  output$mwu.test<-renderTable({
+  mwu.test0 <- reactive({
     x <- B()
     res <- wilcox.test(x[,1], x[,2], paired = FALSE, alternative = input$alt.mwt, correct = input$nap.mwt, conf.int = TRUE)
     res.table <- t(data.frame(W_statistic = res$statistic, P_value = res$p.value, Estimated_diff = res$estimate,
                               Confidence_interval_0.95 = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
     colnames(res.table) <- c(res$method)
-    return(res.table)}, width = "500px", rownames = TRUE)
+    return(res.table)
+    })
+  output$mwu.test<-renderTable({
+    mwu.test0()}, width = "500px", rownames = TRUE)
+
+  output$download2.1 <- downloadHandler(
+    filename = function() {
+      "mwu.csv"
+    },
+    content = function(file) {
+      write.csv(mwu.test0(), file, row.names = TRUE)
+    }
+  )
 
   output$mood.test<-renderTable({
     X <- B()[,1]; Y <- B()[,2]
@@ -181,22 +232,31 @@ shinyServer(
   #table
   output$table3 <- renderDataTable({C()}, options = list(pageLength = 5))
 
+  C.des <- reactive({
+     x<- C()
+    res <- stat.desc(x, norm=TRUE)
+    return(res)
+    })
+
   output$bas3 <- renderTable({  ## don't use renerPrint to do renderTable
-    x <- C()
-    res <- stat.desc(x)[1:3, ]
+    res <- C.des()[1:3, ]
     rownames(res) = c("number.var", "number.null", "number.na")
     return(res)},   width = "200px", rownames = TRUE, digits = 0)
 
   output$des3 <- renderTable({  
-    x <- C()
-    res <- stat.desc(x)[4:14, ]
-    return(res)},   width = "200px", rownames = TRUE)
+    C.des()[4:14, ]},   width = "200px", rownames = TRUE)
 
   output$nor3 <- renderTable({  
-    x <- C()
-    res <- stat.desc(x, norm = TRUE)[15:20, ]
-    return(res)},   width = "200px", rownames = TRUE)
+    C.des()[15:20, ]},   width = "200px", rownames = TRUE)
   
+  output$download3b <- downloadHandler(
+    filename = function() {
+      "desc3.csv"
+    },
+    content = function(file) {
+      write.csv(C.des(), file, row.names = TRUE)
+    }
+  )
   # plots
   output$bp3 = renderPlot({
     x <- C()
@@ -216,18 +276,21 @@ shinyServer(
     plot2 <- ggplot(x, aes(x=x[,3])) + geom_density() + ggtitle("Density Plot") + theme_minimal() + ylab("Density") + xlab("") + theme(legend.title=element_blank())
     grid.arrange(plot1, plot2, ncol=2)  })
 
-
-  output$psr.test <- renderTable({
-    x <- C()
+psr.test0 <- reactive({
+  x <- C()
     res <- wilcox.test(x[,1], x[,2], paired = TRUE, alternative = input$alt.pwsr, correct = input$nap, conf.int = TRUE)
     res.table <- t(data.frame(W_statistic = res$statistic,
                               P_value = res$p.value,
                               Estimated_diff = res$estimate,
                               Confidence_interval_0.95 = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
     colnames(res.table) <- c(res$method)
-    return(res.table)}, width = "500px", rownames = TRUE)
+    return(res.table)
+  })
 
- output$psign.test <- renderTable({
+  output$psr.test <- renderTable({
+    psr.test0()}, width = "500px", rownames = TRUE)
+
+  psign.test0 <- reactive({
     x <- C()
     res <- SignTest(x[,1], x[,2], alternative = input$alt.ps)
     res.table <- t(data.frame(S_statistic = res$statistic,
@@ -235,9 +298,28 @@ shinyServer(
                               Estimated_diff = res$estimate,
                               Confidence_interval_0.95 = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
     colnames(res.table) <- res$method
-    return(res.table)}, width = "500px", rownames = TRUE)
+    return(res.table)
+    })
+ output$psign.test <- renderTable({
+    psign.test0()}, width = "500px", rownames = TRUE)
 
 
+output$download3.1 <- downloadHandler(
+    filename = function() {
+      "psign.csv"
+    },
+    content = function(file) {
+      write.csv(psign.test0(), file, row.names = TRUE)
+    }
+  )
+output$download3.2 <- downloadHandler(
+    filename = function() {
+      "psr.csv"
+    },
+    content = function(file) {
+      write.csv(psr.test0(), file, row.names = TRUE)
+    }
+  )
  
 observe({
       if (input$close > 0) stopApp()                             # stop shiny

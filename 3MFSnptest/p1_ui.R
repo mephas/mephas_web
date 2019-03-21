@@ -28,8 +28,9 @@ radioButtons("alt.st", label = "Alternative hypothesis",
 choiceValues = list("two.sided", "less", "greater"))),
 
   mainPanel(
-    h4('Results of Sign Test'), 
-    tableOutput("sign.test")
+    h4('Results of Sign Test'), p(br()), 
+    tableOutput("sign.test"),p(br()), 
+    downloadButton("download1.1", "Download Results")
     )  
   )
 
@@ -61,7 +62,8 @@ helpText("Normal approximation is applicable when sample size > 10.")),
   mainPanel(
     h4('Results of Wilcoxon Signed-Rank Test'), 
     tableOutput("ws.test"), 
-    helpText("When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction'")
+    helpText("When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction'"),p(br()), 
+    downloadButton("download1.2", "Download Results")
   )
 )
 
@@ -110,7 +112,9 @@ mainPanel(
       splitLayout(
         tableOutput("bas"), 
         tableOutput("des"), 
-        tableOutput("nor"))  ),
+        tableOutput("nor"))
+        ,p(br()), 
+    downloadButton("download1b", "Download Results")  ),
 
     tabPanel("Boxplot", p(br()), 
 
