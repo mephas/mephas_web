@@ -14,13 +14,13 @@ The main page is [here](https://pharmacometrics.info/mephas_web/).
 
 #### 1. [Probability Distributions](https://pharmacometrics.info/mephas_web/1MFSdistribution/)
 
-    - Continuous Random Variables 
-    
-        - Normal/Gaussian distribution, Expotential Distribution, Gamma Distribution
-        - 
-
-    - 
- 
+  - Continuous Random Variable
+    + Normal/Gaussian distribution, Expotential Distribution, Gamma Distribution
+  - Derived from the Normal Distribution
+    + Student's t Distribution, Chi-square Distribution, F Distribution
+  - Discrete Random Variable
+    + Binomial Distribution, Poisson Distribution
+       
 #### 2. [Tests of Means](https://pharmacometrics.info/mephas_web/2MFSttest/)
 
 #### 3. [Non-parametric Tests](https://pharmacometrics.info/mephas_web/3MFSnptest/)

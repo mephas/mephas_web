@@ -297,14 +297,14 @@ B = reactive({
   x1 = pbinom(0:(input$m-1), input$m, input$p)
   x2 = pbinom(1:input$m, input$m, input$p)
   x = x2-x1
-  data = data.frame(x0 = c(0:length(x)), Pr.x0 = round(c(0, x), 6), Pr.x0.lower = round(c(0, x2), 6))
+  data = data.frame(x0 = c(0:length(x)), Pr.at.x0 = round(c(0, x), 6), Pr.x0.cumulated = round(c(0, x2), 6))
   return(data) 
 })
 
 output$b.plot <- renderPlot({
 X = B()
-ggplot(X, aes(X[,"x0"], X[,"Pr.x0"])) + geom_step() + 
-  geom_point(aes(x = X$x0[input$k+1], y = X$Pr.x0[input$k+1]),color = "red", size = 2.5) +
+ggplot(X, aes(X[,"x0"], X[,"Pr.at.x0"])) + geom_step() + 
+  geom_point(aes(x = X$x0[input$k+1], y = X$Pr.at.x0[input$k+1]),color = "red", size = 2.5) +
   stat_function(fun = dnorm, args = list(mean = input$m*input$p, sd = sqrt(input$m*input$p*(1-input$p))), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
   xlim(-0.1, input$xlim.b) + xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("")
 })
@@ -319,14 +319,14 @@ P = reactive({
 x1 = ppois(0:(input$k2-1), input$lad)
 x2 = ppois(1:input$k2, input$lad)
 x = x2-x1
-data = data.frame(x0 = c(0:length(x)), Pr.x0 = round(c(0, x), 6), Pr.x0.lower = round(c(0, x2), 6))
+data = data.frame(x0 = c(0:length(x)), Pr.at.x0 = round(c(0, x), 6), Pr.x0.cumulated = round(c(0, x2), 6))
 return(data) 
 })
 
 output$p.plot <- renderPlot({
 X = P()
-ggplot(X, aes(X[,"x0"],X[,"Pr.x0"])) + geom_step() + 
-  geom_point(aes(x = X$x0[input$x0+1], y = X$Pr.x0[input$x0+1]),color = "red", size = 2.5) +
+ggplot(X, aes(X[,"x0"],X[,"Pr.at.x0"])) + geom_step() + 
+  geom_point(aes(x = X$x0[input$x0+1], y = X$Pr.at.x0[input$x0+1]),color = "red", size = 2.5) +
   stat_function(fun = dnorm, args = list(mean = input$lad, sd = sqrt(input$lad)), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
   xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("") + xlim(-0.1, input$xlim2) })
 
