@@ -55,10 +55,15 @@ output$bas <- renderTable({
   width = "200px", rownames = TRUE, digits = 0)
 
 output$des <- renderTable({
-  basic_desc()[4:14,]},   width = "200px", rownames = TRUE)
+  res <- basic_desc()[4:14,]
+  names(res) = c("min","max","range","sum","median","mean","SE.mean","CI.mean.0.95","var","std.dev","coef.var")
+  return(res)}, 
+    width = "200px", rownames = TRUE)
 
 output$nor <- renderTable({
-  basic_desc()[15:20,]},   width = "200px", rownames = TRUE)
+  res <- basic_desc()[15:20,]
+  names(res) = c("skewness","skew.2SE","kurtosis","kurt.2SE","normtest.W","normtest.p")
+  return(res)},   width = "200px", rownames = TRUE)
 
 output$download0 <- downloadHandler(
     filename = function() {

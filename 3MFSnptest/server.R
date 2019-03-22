@@ -44,10 +44,14 @@ shinyServer(
     return(res)},   width = "200px", rownames = TRUE, digits = 0)
 
   output$des <- renderTable({  
-    A.des()[4:14, ]},   width = "200px", rownames = TRUE)
+    res <- A.des()[4:14, ]
+    names(res) = c("min","max","range","sum","median","mean","SE.mean","CI.mean.0.95","var","std.dev","coef.var")
+    return(res)},   width = "200px", rownames = TRUE)
 
   output$nor <- renderTable({  
-    A.des()[15:20,]},   width = "200px", rownames = TRUE)
+    res <- A.des()[15:20,]
+    names(res) =c("skewness","skew.2SE","kurtosis","kurt.2SE","normtest.W","normtest.p")
+    return(res)},   width = "200px", rownames = TRUE)
   
   output$download1b <- downloadHandler(
     filename = function() {
