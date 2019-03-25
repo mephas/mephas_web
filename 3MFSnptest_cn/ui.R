@@ -203,7 +203,8 @@ wstest.p
 ##---------- other panels ----------
 
 source("../0tabs/home_cn.R",local=TRUE,encoding = "UTF-8")$value,
-source("../0tabs/stop_cn.R",local=TRUE,encoding = "UTF-8")$value
+source("../0tabs/stop_cn.R",local=TRUE,encoding = "UTF-8")$value,
+source("../0tabs/help3.R",local=TRUE, encoding="UTF-8")$value
 
   
 ))

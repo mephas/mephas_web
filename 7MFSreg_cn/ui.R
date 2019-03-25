@@ -58,7 +58,8 @@ tabPanel("Cox 回归 (时间-事件 结局)",
 ##---------- other panels ----------
 
 source("../0tabs/home_cn.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/stop_cn.R",local=TRUE, encoding="UTF-8")$value
+source("../0tabs/stop_cn.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/help7.R",local=TRUE, encoding="UTF-8")$value
 )
 ##-----------------------over
 )

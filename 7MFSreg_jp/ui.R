@@ -58,7 +58,8 @@ tabPanel("Cox 回帰(Time-Event 目的変数)",
 ##---------- other panels ----------
 
 source("../0tabs/home_jp.R",local=TRUE,encoding = "UTF-8")$value,
-source("../0tabs/stop_jp.R",local=TRUE,encoding = "UTF-8")$value
+source("../0tabs/stop_jp.R",local=TRUE,encoding = "UTF-8")$value,
+source("../0tabs/help7.R",local=TRUE, encoding="UTF-8")$value
 
 )
 ##-----------------------over

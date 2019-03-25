@@ -349,8 +349,9 @@ navbarPage(
 
 ##---------- other panels ----------
 
-source("../0tabs/home_cn.R",local=TRUE)$value,
-source("../0tabs/stop_cn.R",local=TRUE)$value
+source("../0tabs/home_cn.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/stop_cn.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/help6.R",local=TRUE, encoding="UTF-8")$value
 
 
 
