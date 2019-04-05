@@ -14,17 +14,17 @@ sidebarLayout(
 
 sidebarPanel(
 
-h4(("Given that dataset (insurance) has been imported, please design you model")),      
+h4(("Example data: insurance_linear_regression")),      
 uiOutput('y'),    
 uiOutput('x'),
 uiOutput('fx'),
 
-radioButtons("intercept", "Intercept", ##> intercept or not
-     choices = c("Remove Intercept" = "-1",
+radioButtons("intercept", "Intercept/constant", ##> intercept or not
+     choices = c("Remove intercept/constant" = "-1",
                  "Keep intercept" = ""),
-     selected = "-1"),
-h5("Additional terms (confounding or interaction)"), 
-helpText('Note: Start with "+". For interactive term, please type "+ as.factor(var1):var2"'), 
+     selected = ""),
+h5("Interaction between categorical variables"), 
+helpText('Note: + var1:var2'), 
 tags$textarea(id='conf', cols=40, " " ), 
 p(br()),
 actionButton("F", "Create formula", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
@@ -33,8 +33,13 @@ actionButton("F", "Create formula", style="color: #fff; background-color: #337ab
 
 mainPanel(
 
-h4(("Linear Regression Model")),
+h4("Browse Data"),
+dataTableOutput("data.h1"),
+verbatimTextOutput("str1"),
 
+hr(),
+
+h4(("Linear Regression Model")),
 tags$style(type='text/css', '#formula {background-color: rgba(0,0,255,0.10); color: blue;}'),
 verbatimTextOutput("formula", placeholder = TRUE),
 helpText("Note: '-1' in the formula indicates that intercept has been removed"),
@@ -49,7 +54,8 @@ tabsetPanel(
 tabPanel("Parameters' estimation",
 p(br()),
 #sliderInput("range", label = h3("choose subset"), min = 1, max = 100, value = c(1,10)),
-tags$b("1. Regression's coefficients"),
+tags$b("1. Regression's coefficients"),p(br()),
+helpText("TXT file will be created on local device"),
 htmlOutput("fit"), p(br()),
 tags$b("2. ANOVA Table"), tableOutput("anova"),p(br()),
 tags$b("3. Select a formula-based model by AIC"), verbatimTextOutput("step")

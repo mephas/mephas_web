@@ -15,17 +15,24 @@ sidebarLayout(
 sidebarPanel(
 
 ##>>---------cox formula---------->>
-h4(("Given that dataset (lung) has been imported, please design you model")),
+h4(("Example data: lung_cox_regression")),
 uiOutput('t1.c'),
 uiOutput('t2.c'),
 uiOutput('c.c'),    
 uiOutput('x.c'),
-uiOutput('fx.c'),
-uiOutput('sx.c'),
-uiOutput('clx.c'),
+hr(),
 
-h5("Additional terms (confounding or interaction)"), 
-helpText('Note: Start with "+". For interactive term, please type "+ as.factor(var1):var2"'), 
+p("Choose one effect from the following three"),
+uiOutput('fx.c'),
+radioButtons("effect", "Strata/Cluster/Frailty terms",
+     choices = c("Strata" = "Strata",
+                 "Cluster" = "Cluster",
+                 "Frailty" = "Frailty",
+                 "None" = ""),
+     selected = ""),
+
+h5("Interaction between categorical variables"), 
+helpText('Note: + var1:var2'), 
 tags$textarea(id='conf.c', cols=40, " " ), 
 p(br()),
 actionButton("F.c", "Create formula", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
@@ -33,6 +40,10 @@ actionButton("F.c", "Create formula", style="color: #fff; background-color: #337
 ), ## sidebarPanel(
 
 mainPanel( 
+h4("Browse Data"),
+dataTableOutput("data.h3"),
+verbatimTextOutput("str3"),
+hr(),
 
 h4(("Cox Regression Model")),
 tags$style(type='text/css', '#formula_c {background-color: rgba(0,0,255,0.10); color: blue;}'),

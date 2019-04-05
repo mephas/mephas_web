@@ -16,7 +16,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 
-title = "Principal Components",
+title = "Dimensional Analysis",
 
 #----------1. dataset panel----------
 

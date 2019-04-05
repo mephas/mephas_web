@@ -19,7 +19,8 @@ data <- reactive({
                 })
 
 
-X = reactive({
+
+XR = reactive({
   inFile = input$file
   if (is.null(inFile)){
       df <- data() ##>  example data
@@ -30,45 +31,112 @@ X = reactive({
         sep = input$sep,
         quote = input$quote)
   }
-    return(df)
+  
+  #fac <- as.data.frame(lapply(df[,input$factor], factor))
+  #df2 <- cbind.data.frame(df, fac)
+  return(df)
   })
 
-#X_var = eventReactive(input$choice,{
-#  inFile = input$file
-#  if (is.null(inFile)){
-#      df <- data() ##>  example data
-#    }
-#  else{
-#    df <- read.csv(inFile$datapath,
-#        header = input$header,
-#        sep = input$sep,
-#        quote = input$quote)
-#  }
-#    vars <- names(df)
-#    updateSelectInput(session, "columns","Select Columns", choices = vars)
-#    return(df)
-#  })
 
-  output$data <- renderDataTable(
-    head(X()), options = list(pageLength = 6, scrollX = TRUE))
+#output$data <- renderDataTable(
+#    XR(), options = list(pageLength = 5, scrollX = TRUE))
 
-#  output$data_var <- renderDataTable(
-#    subset(X_var(), select = input$columns),
-#    options = list(pageLength = 5, scrollX = TRUE)
-#    )
+output$factor1 = renderUI({
+selectInput(
+  'factor1',
+  h5('Change the variables into the factor/categorical'),
+  selected = NULL,
+  choices = names(XR()),
+  multiple = TRUE
+)
+})
+
+output$lvl = renderUI({
+selectInput(
+'lvl',
+h5('Only one variable that needs to set the reference level'),
+selected = "NULL",
+choices = c("NULL", names(XR()))
+)
+})
+
+output$factor2 = renderUI({
+selectInput(
+  'factor2',
+  h5('Change the variables into the numeric'),
+  selected = NULL,
+  choices = names(XR()),
+  multiple = TRUE
+)
+})
+
+X <- reactive({
+  df2 <- XR()
+
+  F <- N <- data.frame(NULL)
+  F <- as.data.frame(lapply(XR()[input$factor1], as.factor))
+  N <- as.data.frame(lapply(XR()[input$factor2], as.numeric))
+
+  if (!is.null(input$factor1) & !is.null(input$factor2)) {df2 <- data.frame(F,N, XR())}
+  if (!is.null(input$factor1) &  is.null(input$factor2)) {df2 <- data.frame(F, XR())}
+  if ( is.null(input$factor1) & !is.null(input$factor2)) {df2 <- data.frame(N, XR())}
+  if ( is.null(input$factor1) &  is.null(input$factor2)) {df2 <- XR()}
+
+  if (input$lvl!="NULL") {df2[,input$lvl] <- relevel(df2[,input$lvl], input$ref)}
+
+  return(df2)
+  })
+
+Xdata <- eventReactive(input$changevar,{
+    X()})
+
+X
+output$Xdata2 <- renderDataTable(
+    Xdata(), options = list(pageLength = 5,scrollX = TRUE))
+
+## variable type
+type.num <- reactive({
+con.names = X() %>% select_if(is.numeric) %>% colnames()
+return(con.names)
+})
+
+type.fac <- reactive({
+cat.names = X() %>% select_if(is.factor) %>% colnames()
+return(cat.names)
+})
+
+output$str.num <- renderPrint({type.num()})
+output$str.fac <- renderPrint({str(X()[,type.fac()])})
+
+
+  output$data.h1 <- renderDataTable(
+    head(X()), options = list(scrollX = TRUE))
+  output$data.h2 <- renderDataTable(
+    head(X()), options = list(scrollX = TRUE))
+  output$data.h3 <- renderDataTable(
+    head(X()), options = list(scrollX = TRUE))
+
+  output$str1 <- renderPrint({str(head(X()))})
+  output$str2 <- renderPrint({str(head(X()))})
+  output$str3 <- renderPrint({str(head(X()))})
+
 
 # Basic Descriptives
 
 output$cv = renderUI({
   selectInput(
     'cv', h5('Select continuous variables'),
-    selected = NULL, choices = names(X()), multiple = TRUE)
+    selected = NULL, 
+    choices = type.num(), 
+    multiple = TRUE)
 })
 
 output$dv = renderUI({
   selectInput(
     'dv', h5('Select discrete / categorical variables'), 
-    selected = NULL, choices = names(X()), multiple = TRUE)
+    selected = NULL, 
+    choices = type.fac(), 
+    multiple = TRUE)
 })
 
 sum = eventReactive(input$Bc,  ##> cont var

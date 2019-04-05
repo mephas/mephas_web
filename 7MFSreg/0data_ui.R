@@ -61,26 +61,29 @@ selected = '"')
 
 
 mainPanel(
+h4("Data Display"),
+tags$head(tags$style(".shiny-output-error{color: blue;}")),
+dataTableOutput("Xdata2"),
+hr(),		
 
-h4(("Data Display")),
+h4("Re-generate variables"),
+		uiOutput("factor1"),
+		uiOutput("lvl"),
+		helpText("Type the reference"),
+		tags$textarea(id='ref', column=40, ""), 
+		uiOutput("factor2"),
+		helpText("Click the button the generate new data set, the old variables will become xxx.1"),
+		actionButton("changevar", "Activate dataset",
+      style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
 
-tags$br(),
-
-tags$b("The first 6 row of dataset"), 
-
-# tags$head(tags$style(".shiny-output-error{color: blue;}")),
-
-dataTableOutput("data"),
-
-
-#selectInput("columns", "Select variables to display the details", choices = NULL, multiple = TRUE), # no choices before uploading 
-
-#dataTableOutput("data_var"),
 hr(),
 
 h4("Basic Descriptives"),
 tabsetPanel(
 tabPanel("Continuous variables", p(br()),
+helpText("The list"),
+verbatimTextOutput("str.num"),
+
 uiOutput('cv'),
 actionButton("Bc", "Show descriptives"),
 tableOutput("sum"),
@@ -96,6 +99,8 @@ Note:
 ),
 
 tabPanel("Discrete / categorical variables", p(br()),
+helpText("The list"),
+verbatimTextOutput("str.fac"),
 uiOutput('dv'),
 actionButton("Bd", "Show descriptives"),
 verbatimTextOutput("fsum"))

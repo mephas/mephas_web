@@ -25,46 +25,19 @@ choices = c("NULL", names(X()))
 output$x.l = renderUI({
 selectInput(
 'x.l',
-h5('Continuous independent variable (X)'),
+h5('Independent variable (X)'),
 selected = NULL,
 choices = names(X()),
 multiple = TRUE
 )
 })
 
-output$fx.l = renderUI({
-selectInput(
-'fx.l',
-h5('Categorical independent variable (X)'),
-selected = NULL,
-choices = names(X()),
-multiple = TRUE
-)
-})
 
 # 3. regression formula
 formula_l = eventReactive(input$F.l, {
-if (is.null(input$fx.l)) {
-fm = as.formula(paste0(
-"as.numeric(",
-input$y.l,
-')~',
-paste0("as.numeric(", input$x.l, ")", collapse = "+"),
-input$conf.l,
-input$intercept.l
-))
-}
-else{
-fm = as.formula(paste0(
-"as.numeric(",
-input$y.l,
-')~',
-paste0("as.numeric(", input$x.l, ")",collapse = "+"),
-paste0("+ as.factor(", input$fx.l, ")", collapse = ""),
-input$conf.l,
-input$intercept.l
-))
-}
+fm = as.formula(paste0(input$y.l, '~', paste0(input$x.l, collapse = "+"), 
+  input$conf.l, input$intercept.l)
+)
 return(fm)
 })
 
@@ -79,19 +52,47 @@ fit.l = eventReactive(input$B1.l,
                 family = binomial(link = "logit"),
                 data = X())
           })
+
 output$fit.l = renderUI({
 HTML(
 stargazer::stargazer(
 fit.l(),
+out="logistic.txt",
+header=FALSE,
+dep.var.caption="Logistic Regression",
+dep.var.labels = paste(input$y.l, "(estimate with 95% CI, t, p)"),
 type = "html",
 style = "all",
 align = TRUE,
 ci = TRUE,
-single.row = TRUE,
-model.names = TRUE
+single.row = FALSE,
+title=paste("Logistic Regression", Sys.time()),
+model.names = FALSE
 )
 )
 })
+
+output$fit.le = renderUI({
+HTML(
+stargazer::stargazer(
+fit.l(),
+out="logistic.exp.txt",
+header=FALSE,
+dep.var.caption="Logistic Regression with OR",
+dep.var.labels = paste(input$y.l, "(OR=Exp(estimate) with 95% CI, t, p)"),
+type = "html",
+style = "all",
+apply.coef = exp,
+apply.ci = exp,
+align = TRUE,
+ci = TRUE,
+single.row = FALSE,
+title=paste("Logistic Regression with OR", Sys.time()),
+model.names = FALSE
+)
+)
+})
+
 output$anova.l = renderTable({
 xtable::xtable(anova(fit.l()))
 }, rownames = TRUE)
@@ -104,7 +105,8 @@ step(fit.l()) })
 fitdf = reactive({
 df = data.frame(
 fit.prob = round(fit.l()$fitted.values, 2),
-fit.value = ifelse(fit.l()$fitted.values > 0.5, 1, 0)
+fit.value = ifelse(fit.l()$fitted.values > 0.5, 1, 0),
+Y = X()[, input$y.l]
 )
 return(df)
 })

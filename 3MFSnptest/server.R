@@ -102,6 +102,7 @@ shinyServer(
                               Confidence_interval_0.95 = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
     colnames(res.table) <- res$method
     return(res.table)})
+  
   output$ws.test<-renderTable({
     ws.test0()}, width = "500px", rownames = TRUE)
 

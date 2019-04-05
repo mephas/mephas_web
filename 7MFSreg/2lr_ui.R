@@ -13,17 +13,17 @@
 sidebarLayout(
 sidebarPanel(
 
-h4(("Given that dataset (advertisement) has been imported, please design you model")),       
+h4(("Example data: advertisement_logistic _regression")),       
 uiOutput('y.l'),    
 uiOutput('x.l'),
-uiOutput('fx.l'),
+
 # select intercept
-radioButtons("intercept.l", "Intercept",
-     choices = c("Remove Intercept" = "-1",
-                 "Keep intercept" = ""),
-     selected = "-1"),
-h5("Additional terms (confounding or interaction)"), 
-helpText('Start with "+". For interception term, please type "+as.factor(var1):var2"'), 
+radioButtons("intercept.l", "Intercept/constant",
+     choices = c("Remove intercept/constant" = "-1",
+                 "Keep intercept/constant" = ""),
+     selected = ""),
+h5("Interaction between categorical variables"), 
+helpText('Note: + var1:var2'), 
 tags$textarea(id='conf.l', column=40, ""), 
 p(br()),
 actionButton("F.l", "Create formula", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
@@ -31,6 +31,10 @@ actionButton("F.l", "Create formula", style="color: #fff; background-color: #337
 ), ## sidebarPanel(
 
 mainPanel(
+h4("Browse Data"),
+dataTableOutput("data.h2"),
+verbatimTextOutput("str2"),
+hr(),
 
 h4(("Logistics Regression Model")),
 
@@ -48,7 +52,18 @@ p(br()),
 
 p(br()),
 tags$b("1. Regression's coefficients"), 
-htmlOutput("fit.l"), p(br()),
+helpText("TXT file will be created on local device"),
+
+ fluidRow(
+    column(6, htmlOutput("fit.l")
+      
+    ),
+    column(6, htmlOutput("fit.le")
+    )
+  ),
+
+
+p(br()),
 tags$b("2. ANOVA Table"), tableOutput("anova.l"), p(br()),
 tags$b("3. Select a formula-based model by AIC"), verbatimTextOutput("step.l")
 ),

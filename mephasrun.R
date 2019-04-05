@@ -3,7 +3,7 @@
 ##----------------------------------##
 
 ## hide messages
-sink( tempfile() )
+#sink( tempfile() )
 ## install shiny package if necessary
 #if (!require(shiny)) {install.pacakages("shiny")}; library(shiny)
 

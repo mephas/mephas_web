@@ -23,50 +23,23 @@ choices = c("NULL", names(X()))
 output$x = renderUI({
 selectInput(
 'x',
-h5('Continuous independent variable (X)'),
+h5('Independent variable (X)'),
 selected = NULL,
 choices = names(X()),
 multiple = TRUE
 )
 })
 
-
-output$fx = renderUI({
-selectInput(
-'fx',
-h5('Categorical/discrete independent variable (X)'),
-selected = NULL,
-choices = names(X()),
-multiple = TRUE
-)
-})
 
 ### for summary
 
 
 ##3. regression formula
 formula = eventReactive(input$F, {
-if (is.null(input$fx)) {
-fm = as.formula(paste0(
-"as.numeric(",
-input$y,
-')~',
-paste0("as.numeric(",input$x, ")",collapse = "+"),
-input$conf,
-input$intercept
-))
-}
-else{
-fm = as.formula(paste0(
-"as.numeric(",
-input$y,
-')~',
-paste0("as.numeric(", input$x, ")",collapse = "+"),
-paste0("+ as.factor(", input$fx, ")", collapse = ""),
-input$conf,
-input$intercept
-))
-}
+
+fm = as.formula(paste0(input$y, '~', paste0(input$x, collapse = "+"), 
+	input$conf, input$intercept)
+)
 return(fm)
 })
 
@@ -86,20 +59,25 @@ sp = eventReactive(input$B1, {step(lm(formula(),  data = X()))})
 afit = eventReactive(input$B1, {anova(lm(formula(),  data = X()))})
 
 output$fit = renderUI({
-#xtable(summary(gfit()), auto = TRUE)
-#list(Model = summary(fit()), AIC = summary(gfit())$aic)
+
 HTML(
 stargazer::stargazer(
 fit(),
+out="linear.txt",
+header=FALSE,
+dep.var.caption = "Linear Regression",
+dep.var.labels = paste("Y = ",input$y, "(estimate with 95% CI, t, p)"),
 type = "html",
 style = "all",
 align = TRUE,
 ci = TRUE,
-single.row = TRUE,
-model.names = TRUE
+single.row = FALSE,
+no.space=FALSE,
+title=paste("Linear Regression", Sys.time()),
+model.names =FALSE)
 
 )
-)
+
 })
 
 output$anova = renderTable({xtable::xtable(afit())}, rownames = TRUE)
@@ -111,8 +89,8 @@ output$p.lm = renderPlot({autoplot(fit(), which = as.numeric(input$num)) + theme
 
 
 output$fitdt0 = renderDataTable({
-data.frame(
-Linear.redictors = round(predict(fit()), 4),
+data.frame(Y=X()[,input$y],
+Linear.predictors = round(predict(fit()), 4),
 Residuals = round(fit()$residuals, 4)
 )
 }, 

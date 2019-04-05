@@ -61,7 +61,7 @@ selectInput('c.c',
 output$x.c = renderUI({
 selectInput(
   'x.c',
-  h5('Continuous independent variable'),
+  h5('Independent variable'),
   selected = NULL,
   choices = names(X()),
   multiple = TRUE
@@ -71,126 +71,31 @@ selectInput(
 output$fx.c = renderUI({
 selectInput(
   'fx.c',
-  h5('Categorical independent variable'),
-  selected = NULL,
-  choices = names(X()),
-  multiple = TRUE
+  h5('Factor variable as additional effect'),
+  selected = "NULL",
+  choices = c("NULL", names(X()))
 )
 })
-
-output$sx.c = renderUI({
-selectInput(
-  'sx.c',
-  h5('Stratified variable'),
-  selected = NULL,
-  choices = names(X()),
-  multiple = TRUE
-)
-})
-
-output$clx.c = renderUI({
-selectInput(
-  'clx.c',
-  h5('Cluster variable'),
-  selected = NULL,
-  choices = names(X()),
-  multiple = TRUE
-)
-})
-
 
 # 3. regression formula
 y = reactive({
 if (input$t2.c == "NULL") {
-  y = paste0("Surv(as.numeric(", input$t1.c, "),as.numeric(", input$c.c, "))")
+  y = paste0("Surv(", input$t1.c, ",", input$c.c, ")")
 }
 else{
-  y = paste0("Surv(as.numeric(", input$t1.c, "),as.numeric(", input$t2.c, "),as.numeric(", input$c.c, "))")
+  y = paste0("Surv(", input$t1.c, ",", input$t2.c, ",", input$c.c, ")")
 }
 return(y)
 })
 
 formula_c = eventReactive(input$F.c, {
-f1 = paste0(y(), '~', paste0(input$x.c, collapse = "+"), input$conf.c)
 
-f2 = paste0(f1, "+ as.factor(", input$fx.c, ")")
-f3 = paste0(f1, "+ strata(",    input$sx.c, ")")
-f4 = paste0(f1, "+ cluster(",   input$clx.c, ")")
+if (input$effect=="") {f = paste0(y(), '~', paste0(input$x.c, collapse = "+"), input$conf.c)}
+if (input$effect=="Strata") {f = paste0(y(), '~', paste0(input$x.c, collapse = "+"), "+strata(", input$fx.c, ")",input$conf.c)}
+if (input$effect=="Cluster") {f = paste0(y(), '~', paste0(input$x.c, collapse = "+"), "+cluster(", input$fx.c, ")", input$conf.c)}
+if (input$effect=="Frailty") {f = paste0(y(), '~', paste0(input$x.c, collapse = "+"), "+frailty(", input$fx.c, ")", input$conf.c)}
 
-f5 = paste0(f1,
-            "+ as.factor(",
-            input$fx.c,
-            ")",
-            "+ strata(",
-            input$sx.c,
-            ")")
-f6 = paste0(f1,
-            "+ as.factor(",
-            input$fx.c,
-            ")",
-            "+ cluster(",
-            input$clx.c,
-            ")")
-f7 = paste0(f1, "+ strata(",  input$sx.c, ")", "+ cluster(", input$clx.c, ")")
-
-f8 = paste0(
-  f1,
-  "+ as.factor(",
-  input$fx.c,
-  ")",
-  "+ strata(",
-  input$sx.c,
-  ")",
-  "+ cluster(",
-  input$clx.c,
-  ")"
-)
-
-if (is.null(input$fx.c) &&
-    is.null(input$sx.c) && is.null(input$clx.c))
-{
-  f = as.formula(f1)
-}
-if (is.null(input$fx.c) &&
-    is.null(input$sx.c) && (!is.null(input$clx.c)))
-{
-  f = as.formula(f4)
-}
-
-if (is.null(input$fx.c) &&
-    !is.null(input$sx.c) && is.null(input$clx.c))
-{
-  f = as.formula(f3)
-}
-if (is.null(input$fx.c) &&
-    !is.null(input$sx.c) && !is.null(input$clx.c))
-{
-  f = as.formula(f7)
-}
-
-if (!is.null(input$fx.c) &&
-    is.null(input$sx.c) && is.null(input$clx.c))
-{
-  f = as.formula(f2)
-}
-if (!is.null(input$fx.c) &&
-    is.null(input$sx.c) && !is.null(input$clx.c))
-{
-  f = as.formula(f6)
-}
-
-if (!is.null(input$fx.c) &&
-    !is.null(input$sx.c) && is.null(input$clx.c))
-{
-  f = as.formula(f5)
-}
-if (!is.null(input$fx.c) &&
-    !is.null(input$sx.c) && !is.null(input$clx.c))
-{
-  f = as.formula(f8)
-}
-
-return(f)
+return(as.formula(f))
 })
 
 
@@ -210,12 +115,17 @@ output$fit.c = renderUI({
 HTML(
   stargazer::stargazer(
     fit.c(),
+    out="cox.txt",
+    header=FALSE,
+    dep.var.caption="Cox Regression",
+    dep.var.labels = "Estimate with 95% CI, t, p",
     type = "html",
     style = "all",
     align = TRUE,
     ci = TRUE,
-    single.row = TRUE,
-    model.names = TRUE
+    single.row = FALSE,
+    title=paste("Cox Regression", Sys.time()),
+    model.names = FALSE
   )
 )
 })
@@ -250,7 +160,7 @@ output$p1.c = renderPlot({
 validate(
   need(input$tx.c != "NULL", "Please select one group variable")
 )
-f = as.formula(paste0(y.c(), "~", "as.factor(",input$tx.c, ")"))
+f = as.formula(paste0(y.c(), "~",input$tx.c))
 fit = surv_fit(f, data = X())
 
 ggsurvplot(fit,

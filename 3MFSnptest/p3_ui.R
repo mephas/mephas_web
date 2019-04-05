@@ -106,7 +106,7 @@ mainPanel(
       splitLayout(
         tableOutput("bas3"), 
         tableOutput("des3"), 
-        tableOutput("nor3")),
+        tableOutput("nor3")), p(br()),
   downloadButton("download3b", "Download Results")  ),
 
     tabPanel("Boxplot", p(br()), 

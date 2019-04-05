@@ -306,6 +306,7 @@ res.table <- t(
   colnames(res2.table) <- c(res$method, res1$method)
   return(res2.table)
   })
+
 output$t.test2 <- renderTable({
   t.test20()},  width = "800px", rownames = TRUE)
 
