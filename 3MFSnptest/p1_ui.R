@@ -12,7 +12,7 @@
 ##---------- Sign Test ----------
 signtest<-sidebarLayout(
 
-
+##########----------##########----------##########
 sidebarPanel(
 
 h4("Hypotheses"),
@@ -32,12 +32,14 @@ choiceValues = list("two.sided", "less", "greater"))),
     tableOutput("sign.test"),p(br()), 
     downloadButton("download1.1", "Download Results")
     )  
+##########----------##########----------##########
   )
 
 ##---------- Wilcoxon Signed-Rank Test ----------
 
 wstest<-sidebarLayout(
 
+##########----------##########----------##########
 sidebarPanel(
 
 h4("Hypotheses"),
@@ -65,11 +67,13 @@ helpText("Normal approximation is applicable when sample size > 10.")),
     helpText("When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction'"),p(br()), 
     downloadButton("download1.2", "Download Results")
   )
+##########----------##########----------##########
 )
 
 ##---------- data ----------
 onesample<- sidebarLayout(  
 
+##########----------##########----------##########
 sidebarPanel(
 
 h4("Data Preparation"),
@@ -145,6 +149,7 @@ mainPanel(
       )
     )
   )
+##########----------##########----------##########
 )
 
 

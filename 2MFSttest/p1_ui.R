@@ -5,18 +5,18 @@
 ##    >Panel 1
 ##
 ## Language: EN
-## 
-## DT: 2019-01-08
+##
+## DT: 2019-04-07
 ##
 ##----------#----------#----------#----------
 sidebarLayout(
 
 sidebarPanel(
-   
+
   h4("Data Preparation"),
 
   tabsetPanel(
-  
+
     tabPanel("Manual input", p(br()),
 
       helpText("Missing value is input as NA"),
@@ -33,7 +33,7 @@ sidebarPanel(
 
     tabPanel("Upload CSV file", p(br()),
 
-        ##-------csv file-------##   
+        ##-------csv file-------##
         fileInput('file', "Choose CSV file",
                   accept = c("text/csv",
                           "text/comma-separated-values,text/plain",
@@ -49,7 +49,7 @@ sidebarPanel(
                                  Tab = '\t'),
                      selected = ',')
 
-      ) 
+      )
     ),
 
 hr(),
@@ -61,9 +61,9 @@ hr(),
 
   tags$b("Null hypothesis"),
   HTML("<p> &#956 = &#956&#8320: the population mean of X is &#956&#8320 </p>"),
-  
+
   radioButtons(
-    "alt", 
+    "alt",
     label = "Alternative hypothesis",
     choiceNames = list(
       HTML("&#956 &#8800 &#956&#8320: the population mean of X is not &#956&#8320"),
@@ -81,19 +81,19 @@ mainPanel(
 
   tabsetPanel(
 
-    tabPanel("Data Display", p(br()),  
+    tabPanel("Data Display", p(br()),
 
       dataTableOutput("table")),
 
-    tabPanel("Basic Descriptives", p(br()), 
+    tabPanel("Basic Descriptives", p(br()),
 
       splitLayout(
-        tableOutput("bas"), 
-        tableOutput("des"), 
+        tableOutput("bas"),
+        tableOutput("des"),
         tableOutput("nor")), p(br()),
         downloadButton("download0", "Download Results")),
 
-    tabPanel("Boxplot", p(br()), 
+    tabPanel("Boxplot", p(br()),
       splitLayout(
         plotOutput("bp", width = "400px", height = "400px", click = "plot_click1"),
 
@@ -114,19 +114,19 @@ mainPanel(
         )
       ) ),
 
-    tabPanel("Mean and SD Plot", p(br()), 
+    tabPanel("Mean and SD Plot", p(br()),
 
       plotOutput("meanp", width = "400px", height = "400px")),
 
-    tabPanel("Plots of Normality", p(br()), 
+    tabPanel("Plots of Normality", p(br()),
 
-      plotOutput("makeplot", width = "900px", height = "300px"), 
+      plotOutput("makeplot", width = "900px", height = "300px"),
       sliderInput("bin","The width of bins in histogram",min = 0.01,max = 5,value = 0.2))
   ),
 
   hr(),
-  h4("Test Results"),p(br()), 
-  tableOutput("t.test"),p(br()), 
+  h4("Test Results"),p(br()),
+  tableOutput("t.test"),p(br()),
   downloadButton("download1", "Download Results")
 
 

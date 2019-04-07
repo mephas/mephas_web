@@ -13,6 +13,8 @@
 
 signtest.p<- sidebarLayout(
 
+##########----------##########----------##########
+
 sidebarPanel(
 
   h4("Hypotheses"),
@@ -33,11 +35,17 @@ mainPanel(
   helpText("Notes: 'Estimated.d' denotes the estimated differences of medians"),p(br()),
   downloadButton("download3.1", "Download Results")
           )
+
+##########----------##########----------##########
+
 )
 
 ##---------- 3.2 ----------
 
 wstest.p <- sidebarLayout(
+
+##########----------##########----------##########
+
   sidebarPanel(
 
   #h4("Wilcoxon Signed-Rank Test"),
@@ -64,10 +72,16 @@ wstest.p <- sidebarLayout(
   mainPanel(h4('Results of Wilcoxon Signed-Rank Test'), tableOutput("psr.test"), 
     helpText("When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction'"),p(br()),
   downloadButton("download3.2", "Download Results")
-    ) )
+    ) 
+
+##########----------##########----------##########
+
+  )
 
 ##---------- data ----------
 psample <- sidebarLayout(  
+
+##########----------##########----------##########
 
 sidebarPanel(
 
@@ -136,4 +150,8 @@ mainPanel(
       plotOutput("makeplot3", width = "800px", height = "400px"),
       sliderInput("bin3", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2)
       )
-    ))  )
+    ))  
+
+##########----------##########----------##########
+
+)

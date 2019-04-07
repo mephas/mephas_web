@@ -17,6 +17,7 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 shinyServer( 
 function(input, output) {
 
+##########----------##########----------##########
 
 ##----------1. Chi-square test for single sample ----------
 output$b.test = renderTable({
@@ -135,6 +136,8 @@ output$n.test = renderTable({
   colnames(res.table) = c(res1$method, res2$method)
   return(res.table)}, 
   rownames = TRUE)
+
+##########----------##########----------##########
 
 observe({
       if (input$close > 0) stopApp()                             # stop shiny

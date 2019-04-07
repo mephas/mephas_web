@@ -4,7 +4,7 @@
 ##
 ## Language: EN
 ## 
-## DT: 2019-01-08
+## DT: 2019-04-07
 ##
 ##----------#----------#----------#----------
 
@@ -13,14 +13,17 @@ shinyUI(
 tagList(
 #shinythemes::themeSelector(),
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
+
+##########----------##########----------##########
+
 navbarPage(
  
-  title = "Test for Binomial Proportions",
+title = "Test for Binomial Proportions",
 
 ##---------- 1. Panel 1 ----------
-  tabPanel("One Single Proportion",
+tabPanel("One Single Proportion",
 
-    titlePanel("Exact Binomial Test"),
+titlePanel("Exact Binomial Test"),
 
 #tags$b("Introduction"),
 
@@ -280,6 +283,8 @@ HTML("
         )
       )
     )
+
+##########----------##########----------##########
     ,
 ##---------- other panels ----------
 

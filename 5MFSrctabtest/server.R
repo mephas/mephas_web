@@ -16,7 +16,7 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 shinyServer(
 function(input, output) {
   
-
+##########----------##########----------##########
 ##---------- 1. Chi-square test for R by C table ----------
 T = reactive({ # prepare dataset
   x = as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
@@ -117,10 +117,12 @@ output$k.test = renderTable({
                row.names = c("Kappa", "Weighted.kappa"))
   return(res.table)}, rownames = TRUE)
 
+##########----------##########----------##########
 
 observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
+
 
 })
 

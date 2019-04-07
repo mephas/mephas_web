@@ -14,6 +14,8 @@ shinyUI(
 tagList(
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
+##########----------##########----------##########
+
 navbarPage(
   
   title = "Tests of Means",
@@ -114,6 +116,8 @@ tabPanel("Two Paired Samples",
    source("p3_ui.R", local=TRUE)$value
 
     ),
+
+##########----------##########----------##########
 
 ##---------- other panels ----------
 

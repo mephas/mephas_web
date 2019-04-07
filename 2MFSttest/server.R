@@ -18,6 +18,7 @@ shinyServer(
 
 function(input, output) {
 
+##########----------##########----------##########
 ##---------- 1. One sample t test---------
 
 X <- reactive({
@@ -460,6 +461,8 @@ output$download6 <- downloadHandler(
       write.csv(t.test.p0(), file, row.names = TRUE)
     }
   )
+
+##########----------##########----------##########
 
 observe({
       if (input$close > 0) stopApp()                             # stop shiny

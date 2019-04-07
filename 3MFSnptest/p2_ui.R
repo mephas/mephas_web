@@ -12,8 +12,9 @@
 ##---------- Wilcoxon Rank-Sum Test ----------
 wrtest<- sidebarLayout(
 
+##########----------##########----------##########
+
 sidebarPanel(
-##-------explanation-------##
 
 h4("Hypotheses"),
 tags$b("Null hypothesis"),
@@ -43,11 +44,16 @@ mainPanel(
   downloadButton("download2.1", "Download Results")
   )
 
+##########----------##########----------##########
+
 )
 
 ##---------- 2.2 ----------
 
 mmtest<- sidebarLayout(
+
+##########----------##########----------##########
+
 sidebarPanel(
 
 h4("Hypotheses"),
@@ -65,10 +71,16 @@ mainPanel(
   h4("Results of Mood's Median Test"), p(br()),
   tableOutput("mood.test")
   ) 
+
+##########----------##########----------##########
+
 )
 
 ##---------- data ----------
 twosample<- sidebarLayout(  
+
+##########----------##########----------##########
+
 sidebarPanel(
 
 h4("Data Preparation"),
@@ -134,4 +146,8 @@ mainPanel(
       sliderInput("bin2", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2),
       sliderInput("bin2", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2)
       )
-    ))  )
+    )) 
+
+##########----------##########----------##########
+
+ )

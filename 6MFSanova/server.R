@@ -9,7 +9,7 @@ if (!require(Rmisc)) {install.packages("Rmisc")}; library(Rmisc)
 ##
 ## Language: EN
 ## 
-## DT: 2019-01-11
+## DT: 2019-04-07
 ##
 ##----------#----------#----------#----------
 
@@ -17,6 +17,7 @@ shinyServer(
 
 function(input, output) {
 
+##########----------##########----------##########
 ##---------- 1.One way ANOVA ----------
 Y1 <- reactive({
   inFile <- input$file1
@@ -228,7 +229,7 @@ output$hsd <- renderPrint({
   return(res)
   })
 
-
+##########----------##########----------##########
 
 observe({
       if (input$close > 0) stopApp()                             # stop shiny
