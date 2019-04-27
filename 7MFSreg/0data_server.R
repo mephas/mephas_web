@@ -179,6 +179,8 @@ output$ty = renderUI({
 output$p1 = renderPlot({
    validate(
       need(input$tx != "NULL", "Please select one continuous variable")
+   )
+  validate(
       need(input$ty != "NULL", "Please select one continuous variable")
     )
   ggplot(X(), aes(x = X()[, input$tx], y = X()[, input$ty])) + geom_point(shape = 1) + 
