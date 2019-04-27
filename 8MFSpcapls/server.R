@@ -38,7 +38,7 @@ output$fit  <- renderPrint({
   summary(pca())
   })
 
-output$comp <- renderDataTable({ round(pca.x(),3)}, options = list(pageLength = 5, scrollX = TRUE))
+output$comp <- renderDataTable({ round(pca.x(),3)}, options = list(pageLength = 6, scrollX = TRUE))
 
 output$downloadData <- downloadHandler(
     filename = function() {

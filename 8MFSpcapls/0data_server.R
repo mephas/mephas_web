@@ -85,8 +85,11 @@ data <- reactive({
   else cbind.data.frame(Y(),X())})
 
 output$table.z <- renderDataTable(
-    data(), options = list(pageLength = 5, scrollX = TRUE))
-
+    head(data()), options = list(pageLength = 6, scrollX = TRUE))
+output$table.z2 <- renderDataTable(
+    head(data()), options = list(pageLength = 6, scrollX = TRUE))
+output$table.z3 <- renderDataTable(
+    head(data()), options = list(pageLength = 6, scrollX = TRUE))
 
 # Basic Descriptives
 

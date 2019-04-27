@@ -13,9 +13,9 @@
 sidebarLayout(
 sidebarPanel(##-------csv file-------##   
 # Input: Select a file as variable----
-helpText("If no data set is uploaded, the example data is shown in the Data Display."),
+helpText("If no dataset is uploaded, the example data is shown in the Data Display."),
 
-selectInput("edata.x", "Choose data as X matrix", 
+selectInput("edata.x", "Choose X matrix", 
         choices =  c("Gene sample1","Gene sample2"), 
         selected = "Gene sample1"),
 
@@ -48,10 +48,23 @@ radioButtons("quote.x", "Quote",
 
 hr(),
 # Input: Select a file as response----
-checkboxInput("add.y", "Add Y data (necessary in PLS and SPLS)", FALSE), 
-selectInput("edata.y", "Choose data as Y matrix", 
+p(br("Necessary step in PLS and SPLS")),
+
+helpText(HTML("
+<b> Y data: </b>
+<ul>
+<li> Y_group_pca: the group variable for PCA 
+<li> Y_array_s_pls: the univariate Y for PLS and SPLS
+<li> Y_matrix_s_pls: the matrix/multivariate Y for PLS and SPLS
+</ul>
+
+")),
+
+selectInput("edata.y", "Choose Y matrix", 
         choices =  c("Y_group_pca","Y_array_s_pls", "Y_matrix_s_pls"), 
         selected = "Y_group_pca"),
+
+checkboxInput("add.y", "Add Y data", FALSE), 
 
 fileInput('file.y', "Upload .csv data set of Y matrix (Group variable or numeric responder matrix)",
   multiple = TRUE,

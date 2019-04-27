@@ -40,11 +40,67 @@ numericInput("c2.pls", "Component at y-axis", 2, min = 1, max = 20)
 
 mainPanel(
 
-h4("Explained and cumulative variance"),
-p(br()),
-verbatimTextOutput("pls.sum"),
+#--------------------------------------------------
+h4("Browse Data"),
+dataTableOutput("table.z2"),
 hr(),
 
+#--------------------------------------------------
+p("If Error happened, please check X and Y data."),
+h4("Results"),
+
+tabsetPanel(
+
+tabPanel("Explained and cumulative variance", p(br()),
+verbatimTextOutput("pls.sum")
+),
+
+tabPanel("New components", p(br()),
+
+tags$b("1. New PLS components from predictors (X)"), p(br()),
+dataTableOutput("comp.x"),
+downloadButton("downloadData.pls.x", "Download1"),
+p(br()),
+(tags$b("2. New PLS components from responses (Y)")), p(br()),
+dataTableOutput("comp.y"),
+downloadButton("downloadData.pls.y", "Download2")
+
+),
+
+tabPanel("Loadings", p(br()),
+tags$b("1. New PLS loadings from predictors (X)"), p(br()),
+dataTableOutput("load.x"),
+downloadButton("downloadData.pls.xload", "Download3"),
+p(br()),
+tags$b("2. New PLS loadings from responses (Y)"), p(br()),
+dataTableOutput("load.y"),
+downloadButton("downloadData.pls.yload", "Download4")
+    ),
+
+tabPanel("Coefficients and projects", p(br()),
+tags$b("1. Coefficients"), p(br()),
+dataTableOutput("coef"),
+downloadButton("downloadData.pls.coef", "Download5"),
+p(br()),
+tags$b("2. Projects"), p(br()),
+dataTableOutput("proj"),
+downloadButton("downloadData.pls.proj", "Download6")
+
+    ),
+
+tabPanel("Fittings and residuals", p(br()),
+(tags$b("1. Fittings")), p(br()),
+dataTableOutput("fit.pls"),
+downloadButton("downloadData.pls.fit", "Download7"),
+p(br()),
+(tags$b("2. Residuals")), p(br()),
+dataTableOutput("res.pls"),
+downloadButton("downloadData.pls.res", "Download8")
+    )
+  ),
+hr(),
+
+#--------------------------------------------------
 h4("Plots"),
 tabsetPanel(
 tabPanel("Plot of scores and loadings", p(br()),
@@ -73,57 +129,8 @@ numericInput("snum", "Which component", 1, min = 1, max = NA)),
 tabPanel("Plot of validation",p(br()),
 plotOutput("pls.pval", width = "500px", height = "500px"))
 
+)
 
-),
-
-hr(),
-h4("Results"),
-
-tabsetPanel(
-  tabPanel("New components", p(br()),
-
-(tags$b("1. New PLS components from predictors (X)")), p(br()),
-dataTableOutput("comp.x"),
-downloadButton("downloadData.pls.x", "Download1"),
-p(br()),
-(tags$b("2. New PLS components from responses (Y)")), p(br()),
-dataTableOutput("comp.y"),
-downloadButton("downloadData.pls.y", "Download2")
-
-),
-
-  tabPanel("Loadings", p(br()),
-(tags$b("1. New PLS loadings from predictors (X)")), p(br()),
-dataTableOutput("load.x"),
-downloadButton("downloadData.pls.xload", "Download3"),
-p(br()),
-(tags$b("2. New PLS loadings from responses (Y)")), p(br()),
-dataTableOutput("load.y"),
-downloadButton("downloadData.pls.yload", "Download4")
-    ),
-
-  tabPanel("Coefficients and projects", p(br()),
-(tags$b("1. Coefficients")), p(br()),
-dataTableOutput("coef"),
-downloadButton("downloadData.pls.coef", "Download5"),
-p(br()),
-(tags$b("2. Projects")), p(br()),
-dataTableOutput("proj"),
-downloadButton("downloadData.pls.proj", "Download6")
-
-    ),
-
-  tabPanel("Fittings and residuals", p(br()),
-(tags$b("1. Fittings")), p(br()),
-dataTableOutput("fit.pls"),
-downloadButton("downloadData.pls.fit", "Download7"),
-p(br()),
-(tags$b("2. Residuals")), p(br()),
-dataTableOutput("res.pls"),
-downloadButton("downloadData.pls.res", "Download8")
-    )
-
-  )
 
 )
 

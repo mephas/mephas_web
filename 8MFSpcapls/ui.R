@@ -57,9 +57,21 @@ checkboxInput("frame", "Add group circle in the plot", FALSE)
 
 mainPanel(
 
-h4("Explained and cumulative variance"),
-p(br()),
-verbatimTextOutput("fit"),
+h4("Browse Data"), p(br()),
+dataTableOutput("table.z"),
+
+hr(),
+
+h4("Results"),
+tabsetPanel(
+tabPanel("Explained and cumulative variance",p(br()),
+  verbatimTextOutput("fit")),
+
+tabPanel("New components derived", p(br()),
+  dataTableOutput("comp"),
+  downloadButton("downloadData", "Download")
+  )
+  ),
 
 hr(),
 h4("Plots"),
@@ -77,31 +89,17 @@ radioButtons("type", "The shape of circle by group",
  selected = 't')
 ),
 
-#tabPanel("Plot of variables' correlation circle" ,p(br()),
-#  plotOutput("pca.var", width = "400px", height = "400px")),
-
 tabPanel("Plot of the loadings of two components" ,p(br()),
 plotOutput("pca.bp", width = "400px", height = "400px")),
 
 tabPanel("Plot of the explained variance" ,p(br()),
 plotOutput("pca.plot", width = "400px", height = "400px"))
 
-),
+)
+)
 
-hr(),
+)
 
-h4("Data Display"), 
-tabsetPanel(
-tabPanel("Raw data" , p(br()),
-dataTableOutput("table.z")),
-
-tabPanel("New components", p(br()),
-downloadButton("downloadData", "Download new components"), p(br()),
-dataTableOutput("comp")
-)
-)
-)
-)
 ), #penal tab end
 
 ## 2.  PLS, ---------------------------------------------------------------------------------
@@ -152,42 +150,25 @@ checkboxInput("trace", "Show the process of variable selection", FALSE)
 ),
 
 mainPanel(
-h4("SPLS Results"),
-tabsetPanel(
-  tabPanel("Cross validation", p(br()),
-  verbatimTextOutput("spls.cv")),
 
-  tabPanel("SPLS", p(br()),
-  verbatimTextOutput("spls") )
-  ),
-
+#--------------------------------------------------
+h4("Browse Data"),
+dataTableOutput("table.z3"),
 hr(),
+p("If Error happened, please check X and Y data."),
+#--------------------------------------------------
+h4("Cross Validation Results"),
+p(br()),
+verbatimTextOutput("spls.cv"),
 
-h4("Plots"),
-tabsetPanel(
-tabPanel("Heatmap of cross-validated MSPE", p(br()),
-plotOutput("heat.cv", width = "600px", height = "400px")),
-
-tabPanel("Coefficient path plot of SPLS",  p(br()),
-numericInput("yn", "The N'th Y vector", 1, min = 1, max = NA),
-#numericInput("c2.spls", "Component at y-axis", 2, min = 1, max = 20)
-plotOutput("coef.var", width = "400px", height = "400px")
-)
-
-#tabPanel("Coefficients of SPLS", p(br()),
-#  numericInput("xn1", "The N'th X vector", 1, min = 1, max = NA),
-#  numericInput("xn2", "The N'th X vector", 2, min = 1, max = NA),
-#  numericInput("xn3", "The N'th X vector", 3, min = 1, max = NA),
-#  numericInput("xn4", "The N'th X vector", 4, min = 1, max = NA),
-#plotOutput("coef.spls", width = "800px", height = "800px"))
-#)
-
-),
-hr(),
-
+#--------------------------------------------------
 h4("Results"),
+
 tabsetPanel(
-  tabPanel("Selected vairbales (X)",p(br()),
+  tabPanel("SPLS", p(br()),
+  verbatimTextOutput("spls") ),
+
+  tabPanel("Selected variables (X)", p(br()),
     downloadButton("downloadData.s.sv", "Download1"), p(br()),
   dataTableOutput("s.sv") ),
 
@@ -206,7 +187,24 @@ tabsetPanel(
   tabPanel("Prediction", p(br()),
     downloadButton("downloadData.s.pd", "Download5"), p(br()),
   dataTableOutput("s.pd"))
-  )
+  ),
+
+hr(),
+
+#--------------------------------------------------
+h4("Plots"),
+tabsetPanel(
+tabPanel("Heatmap of cross-validated MSPE", p(br()),
+plotOutput("heat.cv", width = "600px", height = "400px")),
+
+tabPanel("Coefficient path plot of SPLS",  p(br()),
+numericInput("yn", "The N'th Y vector", 1, min = 1, max = NA),
+#numericInput("c2.spls", "Component at y-axis", 2, min = 1, max = 20)
+plotOutput("coef.var", width = "400px", height = "400px")
+)
+)
+
+
 #(tags$b("1. New PLS components from predictors (X)")), p(br()),dataTableOutput("comp.sx"),
 #downloadButton("downloadData.spls.x", "Download the new components"),
 #p(br()),
