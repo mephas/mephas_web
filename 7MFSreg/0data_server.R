@@ -44,7 +44,7 @@ XR = reactive({
 output$factor1 = renderUI({
 selectInput(
   'factor1',
-  h5('Change the variables into the factor/categorical'),
+  h5('Change the continuous numeric variables into discrete/factor/categorical ones'),
   selected = NULL,
   choices = names(XR()),
   multiple = TRUE
@@ -54,7 +54,7 @@ selectInput(
 output$lvl = renderUI({
 selectInput(
 'lvl',
-h5('Only one variable that needs to set the reference level'),
+h5('Single choice of variable that needs to re-set the referential level'),
 selected = "NULL",
 choices = c("NULL", names(XR()))
 )
@@ -63,7 +63,7 @@ choices = c("NULL", names(XR()))
 output$factor2 = renderUI({
 selectInput(
   'factor2',
-  h5('Change the variables into the numeric'),
+  h5('Change the discrete/factor/categorical variables into continuous ones'),
   selected = NULL,
   choices = names(XR()),
   multiple = TRUE

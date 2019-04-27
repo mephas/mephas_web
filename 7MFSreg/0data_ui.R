@@ -14,21 +14,20 @@ sidebarLayout(
 sidebarPanel(
 
 ##----------example datasets----------
+helpText(HTML("
+<b> Datasets: </b>
+<ul>
+<li> insurance_linear_regression: the example data for linear regression
+<li> advertisement_logistic_regression: the example data for logistic regression
+<li> lung_cox_regression: the example data for cox regression
+</ul>
+
+")),
 
 selectInput("edata", "Choose data", 
         choices =  c("insurance_linear_regression","advertisement_logistic_regression","lung_cox_regression"), 
         selected = "insurance_linear_regression"),
 
-
-helpText(HTML("
-<b> Datasets: </b>
-<ul>
-<li> insurance: the example data for linear regression
-<li> advertisement: the example data for logistic regression
-<li> lung: the example data for cox regression
-</ul>
-
-")),
 
 hr(),
 ##-------csv file-------##   
@@ -67,11 +66,12 @@ dataTableOutput("Xdata2"),
 hr(),		
 
 h4("Re-generate variables"),
+    uiOutput("factor2"),
 		uiOutput("factor1"),
 		uiOutput("lvl"),
 		helpText("Type the reference"),
 		tags$textarea(id='ref', column=40, ""), 
-		uiOutput("factor2"),
+		
 		helpText("Click the button the generate new data set, the old variables will become xxx.1"),
 		actionButton("changevar", "Activate dataset",
       style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),

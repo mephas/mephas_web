@@ -18,7 +18,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
   
-  title = "Tests of Means",
+  title = "T Test",
 
 ##---------- Panel 1 ---------
 

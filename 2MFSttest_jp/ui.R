@@ -16,7 +16,7 @@ source("../0tabs/font_jp.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
   
-  title = "平均値の差の検定",
+  title = "Tの検定",
 
 ##---------- Panel 1 ---------
 

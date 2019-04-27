@@ -18,7 +18,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
  
-title = "Test for Binomial Proportions",
+title = "Test for Binomial Proportion",
 
 ##---------- 1. Panel 1 ----------
 tabPanel("One Single Proportion",

@@ -16,7 +16,7 @@ source("../0tabs/font_cn.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
   
-  title = "均值检验",
+  title = "T检验",
 
 ##---------- Panel 1 ---------
 

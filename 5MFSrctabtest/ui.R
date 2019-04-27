@@ -17,7 +17,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
  
-  title = "Contingency Table of Counts",
+  title = "Test for Contingency Table",
 
 ##---------- Panel 1 ----------
 tabPanel("Chi-square Test (R x C Table)",
