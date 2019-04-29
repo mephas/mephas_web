@@ -10,7 +10,7 @@
 ##
 ##----------#----------#----------#----------
 
-pls <- reactive({
+pls <- eventReactive(input$pls2, {
   Y <- as.matrix(Y())
   X <- as.matrix(X())
   pls = mvr(Y~X, ncomp = input$nc.pls, scale = input$scale2, 
@@ -21,33 +21,33 @@ output$pls.sum  <- renderPrint({
   summary(pls())
   })
 
-pls.x <- reactive({ 
+pls.x <- eventReactive(input$pls2, { 
   xs <- as.matrix.data.frame(pls()$scores)
   dimnames(xs) <- dimnames(pls()$scores) 
   xs
   })
-pls.y <- reactive({ 
+pls.y <- eventReactive(input$pls2, { 
   ys <- as.matrix.data.frame(pls()$Yscores) 
   dimnames(ys) <- dimnames(pls()$Yscores) 
   ys
   })
 
-pls.xload <- reactive({ 
+pls.xload <- eventReactive(input$pls2, { 
   xl <- as.matrix.data.frame(pls()$loadings)
   dimnames(xl) <- dimnames(pls()$loadings) 
   xl
   })
-pls.yload <- reactive({ 
+pls.yload <- eventReactive(input$pls2, { 
   yl <- as.matrix.data.frame(pls()$Yloadings)
   dimnames(yl) <- dimnames(pls()$Yloadings) 
   yl
   })
 
-pls.coef <- reactive({ as.data.frame(pls()$coefficients) })
-pls.proj <- reactive({ as.data.frame(pls()$projection) })
+pls.coef <- eventReactive(input$pls2, { as.data.frame(pls()$coefficients) })
+pls.proj <- eventReactive(input$pls2, { as.data.frame(pls()$projection) })
 
-pls.fit <- reactive({ as.data.frame(pls()$fitted.values) })
-pls.res <- reactive({ as.data.frame(pls()$residuals) })
+pls.fit <- eventReactive(input$pls2, { as.data.frame(pls()$fitted.values) })
+pls.res <- eventReactive(input$pls2, { as.data.frame(pls()$residuals) })
 
 #table
 

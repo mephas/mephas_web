@@ -27,7 +27,7 @@ output$heat.cv <- renderPlot({
     select=input$s.select, fit = input$s.fit, scale.x = input$sc.x, scale.y = input$sc.y, plot.it = TRUE) })
 
 
-spls <- reactive({
+spls <- eventReactive(input$spls3,{
   ss <- spls::spls(as.matrix(X()),as.matrix(Y()), K=input$nc.spls, eta=input$eta, kappa=input$kappa, 
     select=input$s.select, fit=input$s.fit, scale.x=input$sc.x, scale.y=input$sc.y, 
     eps=1e-4, maxstep=100, trace=input$trace)
@@ -47,11 +47,11 @@ output$coef.var <- renderPlot({
 #  coefplot.spls(spls(),nwin=c(2,2), xvar=c(input$xn1:input$xn1+3))
 #  })
 
-spls.sv <- reactive({ as.data.frame(X()[spls()$A])})
-spls.comp <- reactive({ data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))})
-spls.cf <- reactive({ coef(spls()) })
-spls.pj <- reactive({ spls()$projection})
-spls.pd <- reactive({ predict(spls(), type="fit")})
+spls.sv <- eventReactive(input$spls3,{ as.data.frame(X()[spls()$A])})
+spls.comp <- eventReactive(input$spls3,{ data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))})
+spls.cf <- eventReactive(input$spls3,{ coef(spls()) })
+spls.pj <- eventReactive(input$spls3,{ spls()$projection})
+spls.pd <- eventReactive(input$spls3,{ predict(spls(), type="fit")})
 
 output$s.sv <- renderDataTable({ spls.sv()}, options = list(pageLength = 5, scrollX = TRUE))
 output$s.comp <- renderDataTable({ round(spls.comp(),3)}, options = list(pageLength = 5, scrollX = TRUE))

@@ -51,7 +51,7 @@ verbatimTextOutput("formula_c", placeholder = TRUE),
 hr(),
 
 h4(("Results of the linear regression")),
-actionButton("B1.c", "Show the results"),
+actionButton("B1.c", "Show the results", style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
 p(br()),
 
 tabsetPanel(
@@ -128,7 +128,7 @@ radioButtons("newquote.c", "Quote",
            selected = '"'))
 
 ),
-actionButton("B2.c", "Submit after the estimation of model"), 
+actionButton("B2.c", "Submit after the estimation of model",style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 p(br()),
 tags$b("Data display with prediction results"), 
 p(br()),

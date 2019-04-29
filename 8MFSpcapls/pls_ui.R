@@ -46,7 +46,8 @@ dataTableOutput("table.z2"),
 hr(),
 
 #--------------------------------------------------
-p("If Error happened, please check X and Y data."),
+p("Please make sure both X and Y have been prepared. If Error happened, please check your X and Y data."),
+actionButton("pls2", "Show the results", style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
 h4("Results"),
 
 tabsetPanel(
@@ -59,43 +60,43 @@ tabPanel("New components", p(br()),
 
 tags$b("1. New PLS components from predictors (X)"), p(br()),
 dataTableOutput("comp.x"),
-downloadButton("downloadData.pls.x", "Download1"),
+downloadButton("downloadData.pls.x", "Download"),
 p(br()),
 (tags$b("2. New PLS components from responses (Y)")), p(br()),
 dataTableOutput("comp.y"),
-downloadButton("downloadData.pls.y", "Download2")
+downloadButton("downloadData.pls.y", "Download")
 
 ),
 
 tabPanel("Loadings", p(br()),
 tags$b("1. New PLS loadings from predictors (X)"), p(br()),
 dataTableOutput("load.x"),
-downloadButton("downloadData.pls.xload", "Download3"),
+downloadButton("downloadData.pls.xload", "Download"),
 p(br()),
 tags$b("2. New PLS loadings from responses (Y)"), p(br()),
 dataTableOutput("load.y"),
-downloadButton("downloadData.pls.yload", "Download4")
+downloadButton("downloadData.pls.yload", "Download")
     ),
 
 tabPanel("Coefficients and projects", p(br()),
 tags$b("1. Coefficients"), p(br()),
 dataTableOutput("coef"),
-downloadButton("downloadData.pls.coef", "Download5"),
+downloadButton("downloadData.pls.coef", "Download"),
 p(br()),
 tags$b("2. Projects"), p(br()),
 dataTableOutput("proj"),
-downloadButton("downloadData.pls.proj", "Download6")
+downloadButton("downloadData.pls.proj", "Download")
 
     ),
 
 tabPanel("Fittings and residuals", p(br()),
 (tags$b("1. Fittings")), p(br()),
 dataTableOutput("fit.pls"),
-downloadButton("downloadData.pls.fit", "Download7"),
+downloadButton("downloadData.pls.fit", "Download"),
 p(br()),
 (tags$b("2. Residuals")), p(br()),
 dataTableOutput("res.pls"),
-downloadButton("downloadData.pls.res", "Download8")
+downloadButton("downloadData.pls.res", "Download")
     )
   ),
 hr(),

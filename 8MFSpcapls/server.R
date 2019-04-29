@@ -23,12 +23,12 @@ source("0data_server.R", local=TRUE, encoding="UTF-8")
 #----------1. PCA ----------
 output$nc <- renderText({ input$nc })
 # model
-pca <- reactive({
+pca <- eventReactive(input$pca1,{
   #pca = mixOmics::pca(as.matrix(X()), ncomp = input$nc, scale = TRUE)
   prcomp(as.matrix(X()), rank.=input$nc, scale. = input$scale1)
   })
 
-pca.x <- reactive({ pca()$x })
+pca.x <- eventReactive(input$pca1,{ pca()$x })
 
 #output$fit  <- renderPrint({
 #  res <- rbind(pca()$explained_variance,pca()$cum.var)

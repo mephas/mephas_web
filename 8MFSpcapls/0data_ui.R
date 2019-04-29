@@ -15,6 +15,14 @@ sidebarPanel(##-------csv file-------##
 # Input: Select a file as variable----
 helpText("If no dataset is uploaded, the example data is shown in the Data Display."),
 
+helpText(HTML("
+<b> X data: </b>
+<ul>
+<li> Gene sample 1 has fewer variables than Gene sample 2
+</ul>
+
+")),
+
 selectInput("edata.x", "Choose X matrix", 
         choices =  c("Gene sample1","Gene sample2"), 
         selected = "Gene sample1"),
@@ -48,7 +56,7 @@ radioButtons("quote.x", "Quote",
 
 hr(),
 # Input: Select a file as response----
-p(br("Necessary step in PLS and SPLS")),
+#p(br("Necessary step in PLS and SPLS")),
 
 helpText(HTML("
 <b> Y data: </b>
@@ -60,18 +68,18 @@ helpText(HTML("
 
 ")),
 
-selectInput("edata.y", "Choose Y matrix", 
+selectInput("edata.y", "Choose Y matrix (necessary in PLS and SPLS)", 
         choices =  c("Y_group_pca","Y_array_s_pls", "Y_matrix_s_pls"), 
         selected = "Y_group_pca"),
 
-checkboxInput("add.y", "Add Y data", FALSE), 
+checkboxInput("add.y", "Add Y data in PLS and SPLS", FALSE), 
 
 fileInput('file.y', "Upload .csv data set of Y matrix (Group variable or numeric responder matrix)",
   multiple = TRUE,
   accept = c("text/csv",
            "text/comma-separated-values,text/plain",
            ".csv")),
-helpText("The columns of Y can be one or more than one."),
+helpText("The columns of Y can be one or more than one"),
 # Input: Checkbox if file has header ----
 checkboxInput("header.y", "Header", TRUE),
 

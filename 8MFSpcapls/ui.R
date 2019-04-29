@@ -61,6 +61,8 @@ h4("Browse Data"), p(br()),
 dataTableOutput("table.z"),
 
 hr(),
+#p("Please make sure both X and Y have been prepared. If Error happened, please check your X and Y data."),
+actionButton("pca1", "Show the results", style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
 
 h4("Results"),
 tabsetPanel(
@@ -155,7 +157,8 @@ mainPanel(
 h4("Browse Data"),
 dataTableOutput("table.z3"),
 hr(),
-p("If Error happened, please check X and Y data."),
+p("Please make sure both X and Y have been prepared. If Error happened, please check your X and Y data."),
+actionButton("spls3", "Show the results", style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
 #--------------------------------------------------
 h4("Cross Validation Results"),
 p(br()),
@@ -169,23 +172,23 @@ tabsetPanel(
   verbatimTextOutput("spls") ),
 
   tabPanel("Selected variables (X)", p(br()),
-    downloadButton("downloadData.s.sv", "Download1"), p(br()),
+    downloadButton("downloadData.s.sv", "Download"), p(br()),
   dataTableOutput("s.sv") ),
 
   tabPanel("New components based on selected variables (X)",p(br()),
-    downloadButton("downloadData.s.comp", "Download2"), p(br()),
+    downloadButton("downloadData.s.comp", "Download"), p(br()),
   dataTableOutput("s.comp") ),
 
   tabPanel("Coefficients",p(br()),
-    downloadButton("downloadData.s.cf", "Download3"), p(br()),
+    downloadButton("downloadData.s.cf", "Download"), p(br()),
   dataTableOutput("s.cf") ),
 
   tabPanel("Projection",p(br()),
-    downloadButton("downloadData.s.pj", "Download4"), p(br()),
+    downloadButton("downloadData.s.pj", "Download"), p(br()),
   dataTableOutput("s.pj") ),
 
   tabPanel("Prediction", p(br()),
-    downloadButton("downloadData.s.pd", "Download5"), p(br()),
+    downloadButton("downloadData.s.pd", "Download"), p(br()),
   dataTableOutput("s.pd"))
   ),
 

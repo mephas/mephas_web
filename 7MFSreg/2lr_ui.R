@@ -44,7 +44,7 @@ helpText("Note: '-1' in the formula indicates that intercept has been removed"),
 hr(),
 
 h4(("Results of the logistic regression")),
-actionButton("B1.l", "Show the results"), 
+actionButton("B1.l", "Show the results", style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 p(br()),
 tabsetPanel(
 tabPanel("Parameters' estimation", 
@@ -114,7 +114,7 @@ radioButtons("newquote.l", "Quote",
            selected = '"'))
 
 ),
-actionButton("B2.l", "Submit after the estimation of model"),
+actionButton("B2.l", "Submit after the estimation of model", style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
 helpText("If no data is uploaded, the example testing data (the first 10 rows of import dataset) will be shown."),
 
 p(br()),

@@ -47,7 +47,7 @@ hr(),
 
 
 h4(("Results of the linear regression")),
-actionButton("B1", "Show the results"),
+actionButton("B1", "Show the results", style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
 p(br()),
 tabsetPanel(
 
@@ -119,7 +119,7 @@ radioButtons("interval", "Choose predictive interval (0.95-level)",
          selected = 'confidence'))
       ), ##fluidRow(
 
-actionButton("B2", "Submit after the estimation of model"), 
+actionButton("B2", "Submit after the estimation of model", style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 helpText("If no data is uploaded, the example testing data (the first 10 rows of import dataset) will be shown."),
 
 p(br()),
