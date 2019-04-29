@@ -57,7 +57,7 @@ output$fit.l = renderUI({
 HTML(
 stargazer::stargazer(
 fit.l(),
-out="logistic.txt",
+#out="logistic.txt",
 header=FALSE,
 dep.var.caption="Logistic Regression",
 dep.var.labels = paste(input$y.l, "(estimate with 95% CI, t, p)"),

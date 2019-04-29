@@ -115,7 +115,7 @@ output$fit.c = renderUI({
 HTML(
   stargazer::stargazer(
     fit.c(),
-    out="cox.txt",
+    #out="cox.txt",
     header=FALSE,
     dep.var.caption="Cox Regression",
     dep.var.labels = "Estimate with 95% CI, t, p",

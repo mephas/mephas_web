@@ -63,7 +63,7 @@ output$fit = renderUI({
 HTML(
 stargazer::stargazer(
 fit(),
-out="linear.txt",
+#out="linear.txt",
 header=FALSE,
 dep.var.caption = "Linear Regression",
 dep.var.labels = paste("Y = ",input$y, "(estimate with 95% CI, t, p)"),
