@@ -32,7 +32,7 @@ source("0data_ui.R", local=TRUE, encoding="UTF-8")$value
 ## 1. PCA ---------------------------------------------------------------------------------
 tabPanel("PCA",
 
-titlePanel("Principal component analysis"),
+titlePanel("Principal Component Analysis"),
 
 sidebarLayout(
 
