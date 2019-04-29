@@ -203,20 +203,32 @@ ggplot() + geom_step(data = d, mapping = aes(x = d[,"x"], y = d[,"y"])) +
 }
 })
 
-output$fitdt.c = renderDataTable({
-data.frame(
+fit.cox <- reactive({
+  data.frame(
   Residual = round(fit.c()$residuals, 4),
   Linear.predictors = round(fit.c()$linear.predictors, 4)
 )
+  })
+
+output$fitdt.c = renderDataTable({
+fit.cox()
 }, options = list(pageLength = 5, scrollX = TRUE))
 
+output$download31 <- downloadHandler(
+    filename = function() {
+      "cox.fitting.csv"
+    },
+    content = function(file) {
+      write.csv(fit.cox(), file, row.names = TRUE)
+    }
+  )
 #prediction plot
 # prediction
 pfit.c = eventReactive(input$B2.c, 
 {coxph(formula_c(), data = X())}
 )
 
-output$pred.c = renderDataTable({
+pred.cox <- reactive({
 df = data.frame(
   risk = predict(pfit.c(), newdata = newX.c(), type = "risk"),
   #survival=predict(fit.c(), newdata=newX.c(), type="survival"),
@@ -224,4 +236,16 @@ df = data.frame(
   linear.predictors = predict(pfit.c(), newdata = newX.c(), type = "lp")
 )
 cbind(newX.c(), round(df, 4))
+  })
+output$pred.c = renderDataTable({
+pred.cox()
 }, options = list(pageLength = 5, scrollX = TRUE))
+
+output$download32 <- downloadHandler(
+    filename = function() {
+      "cox.pred.csv"
+    },
+    content = function(file) {
+      write.csv(pred.cox(), file, row.names = TRUE)
+    }
+  )

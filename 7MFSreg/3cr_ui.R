@@ -93,7 +93,8 @@ plotOutput("p4.c", width = "400px", height = "400px")),
 tabPanel("Estimated fitting values",
 p(br()),
 tags$b("Estimation is based on import dataset"),
-dataTableOutput("fitdt.c")),
+dataTableOutput("fitdt.c"),
+downloadButton("download31", "Download Results")),
 
 tabPanel("Prediction on new data", 
 p(br()),
@@ -131,7 +132,8 @@ actionButton("B2.c", "Submit after the estimation of model"),
 p(br()),
 tags$b("Data display with prediction results"), 
 p(br()),
-dataTableOutput("pred.c")
+dataTableOutput("pred.c"),
+downloadButton("download32", "Download Results")
 )
 ) ##tabsetPanel(
 ) ## mainPanel(

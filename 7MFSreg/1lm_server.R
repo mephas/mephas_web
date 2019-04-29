@@ -86,15 +86,26 @@ output$step = renderPrint({sp()})
 # residual plot
 output$p.lm = renderPlot({autoplot(fit(), which = as.numeric(input$num)) + theme_minimal()})
 
-
-
-output$fitdt0 = renderDataTable({
+fit.lm <- reactive({
 data.frame(Y=X()[,input$y],
 Linear.predictors = round(predict(fit()), 4),
 Residuals = round(fit()$residuals, 4)
 )
+	})
+
+output$fitdt0 = renderDataTable({
+fit.lm()
 }, 
 options = list(pageLength = 5, scrollX = TRUE))
+
+output$download11 <- downloadHandler(
+    filename = function() {
+      "lm.fitting.csv"
+    },
+    content = function(file) {
+      write.csv(fit.lm(), file, row.names = TRUE)
+    }
+  )
 
 newX = reactive({
 inFile = input$newfile
@@ -120,10 +131,23 @@ fit = lm(formula(), data = X())
 pfit = predict(fit, newdata = newX(), interval = input$interval)
 })
 
+pred.lm <- reactive({
+	cbind(newX(), round(pred(), 4))
+	})
+
 output$pred = renderDataTable({
-cbind(newX(), round(pred(), 4))
+pred.lm()
 }, 
 options = list(pageLength = 5, scrollX = TRUE))
+
+output$download12 <- downloadHandler(
+    filename = function() {
+      "lm.pred.csv"
+    },
+    content = function(file) {
+      write.csv(pred.lm(), file, row.names = TRUE)
+    }
+  )
 
 output$px = renderUI({
 selectInput(

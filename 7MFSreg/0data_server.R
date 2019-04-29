@@ -155,6 +155,23 @@ output$sum = renderTable({sum()}, rownames = TRUE)
 
 output$fsum = renderPrint({fsum()})
 
+output$download1 <- downloadHandler(
+    filename = function() {
+      "reg1.csv"
+    },
+    content = function(file) {
+      write.csv(sum(), file, row.names = TRUE)
+    }
+  )
+
+output$download2 <- downloadHandler(
+    filename = function() {
+      "reg2.txt"
+    },
+    content = function(file) {
+      write.table(fsum(), file)
+    }
+  )
 
 # First Exploration of Variables
 

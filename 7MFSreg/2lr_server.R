@@ -114,6 +114,15 @@ output$fitdt = renderDataTable({
 fitdf()
 }, options = list(pageLength = 5, scrollX = TRUE))
 
+output$download21 <- downloadHandler(
+    filename = function() {
+      "lr.fitting.csv"
+    },
+    content = function(file) {
+      write.csv(fitdf(), file, row.names = TRUE)
+    }
+  )
+
 output$p2.l = renderPlot({
 df = data.frame(predictor = fit.l()$fitted.values,
       y = X()[, input$y.l])
@@ -156,7 +165,19 @@ pred.v = eventReactive(input$B2.l,
            {
              ifelse(pred.l() > 0.5, 1, 0)
            })
+
+pred.lr <- reactive({
+  data.frame(newX.l(), fit.prob = round(pred.l(), 4), fit = pred.v())
+  })
 output$preddt.l = renderDataTable({
-data.frame(newX.l(), fit.prob = round(pred.l(), 4), fit = pred.v())
+pred.lr()
 }, options = list(pageLength = 5, scrollX = TRUE))
 
+output$download22 <- downloadHandler(
+    filename = function() {
+      "lr.pred.csv"
+    },
+    content = function(file) {
+      write.csv(pred.lr(), file, row.names = TRUE)
+    }
+  )

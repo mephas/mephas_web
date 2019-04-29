@@ -95,7 +95,9 @@ Note:
 <li> nbr.: the number of 
 </ul>
 "
-))
+)),
+downloadButton("download1", "Download Results")
+
 ),
 
 tabPanel("Discrete / categorical variables", p(br()),
@@ -103,7 +105,9 @@ helpText("The list"),
 verbatimTextOutput("str.fac"),
 uiOutput('dv'),
 actionButton("Bd", "Show descriptives"),
-verbatimTextOutput("fsum"))
+verbatimTextOutput("fsum"),
+downloadButton("download2", "Download Results")
+)
 ), 
 
 hr(),

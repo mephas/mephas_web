@@ -55,7 +55,7 @@ tabPanel("Parameters' estimation",
 p(br()),
 #sliderInput("range", label = h3("choose subset"), min = 1, max = 100, value = c(1,10)),
 tags$b("1. Regression's coefficients"),p(br()),
-helpText("TXT file will be created on local device"),
+#helpText("TXT file will be created on local device"),
 htmlOutput("fit"), p(br()),
 tags$b("2. ANOVA Table"), tableOutput("anova"),p(br()),
 tags$b("3. Select a formula-based model by AIC"), verbatimTextOutput("step")
@@ -77,7 +77,10 @@ plotOutput("p.lm", width = "800px", height = "400px")
 tabPanel("Estimated fitting values",
 p(br()),
 tags$b("Estimation is based on import dataset"),
-dataTableOutput("fitdt0")),
+dataTableOutput("fitdt0"),
+downloadButton("download11", "Download Results")
+
+),
 
 tabPanel("Prediction on new data", p(br()),
 #prediction part
@@ -122,7 +125,10 @@ helpText("If no data is uploaded, the example testing data (the first 10 rows of
 p(br()),
 tags$b("Data display with prediction results"), 
 p(br()),
-dataTableOutput("pred")
+dataTableOutput("pred"),
+downloadButton("download12", "Download Results")
+
+
 
 ) 
 
