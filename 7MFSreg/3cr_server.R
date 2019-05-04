@@ -111,6 +111,7 @@ fit.c = eventReactive(input$B1.c,
 {
 coxph(formula_c(), data = X())
 })
+
 output$fit.c = renderUI({
 HTML(
   stargazer::stargazer(
@@ -129,6 +130,28 @@ HTML(
   )
 )
 })
+
+output$fit.ce = renderUI({
+HTML(
+  stargazer::stargazer(
+    fit.c(),
+    #out="cox.txt",
+    header=FALSE,
+    dep.var.caption="Cox Regression with HR",
+    dep.var.labels = "(HR=Exp(estimate) with 95% CI, t, p)",
+    type = "html",
+    style = "all",
+    apply.coef = exp,
+    apply.ci = exp,
+    align = TRUE,
+    ci = TRUE,
+    single.row = FALSE,
+    title=paste("Cox Regression with HR", Sys.time()),
+    model.names = FALSE
+  )
+)
+})
+
 output$anova.c = renderTable({
 xtable::xtable(anova(fit.c()))
 }, rownames = TRUE)

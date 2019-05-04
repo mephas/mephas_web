@@ -73,7 +73,14 @@ tabPanel("Parameters' estimation",
 p(br()),
 
 tags$b("1. Regression's coefficients"), 
-htmlOutput("fit.c"), p(br()),
+ fluidRow(
+    column(6, htmlOutput("fit.c")
+      
+    ),
+    column(6, htmlOutput("fit.ce")
+    )
+  ),
+p(br()),
 tags$b("2. ANOVA Table"), tableOutput("anova.c"),p(br()),
 tags$b("3. Select a formula-based model by AIC"), verbatimTextOutput("step.c")
 ),

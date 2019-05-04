@@ -76,7 +76,7 @@ output$fit.le = renderUI({
 HTML(
 stargazer::stargazer(
 fit.l(),
-out="logistic.exp.txt",
+#out="logistic.exp.txt",
 header=FALSE,
 dep.var.caption="Logistic Regression with OR",
 dep.var.labels = paste(input$y.l, "(OR=Exp(estimate) with 95% CI, t, p)"),
