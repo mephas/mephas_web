@@ -57,7 +57,7 @@ output$s.sv <- renderDataTable({ spls.sv()}, options = list(pageLength = 5, scro
 output$s.comp <- renderDataTable({ round(spls.comp(),3)}, options = list(pageLength = 5, scrollX = TRUE))
 output$s.cf <- renderDataTable({ round(spls.cf(),3)}, options = list(pageLength = 5, scrollX = TRUE))
 output$s.pj <- renderDataTable({ (spls.pj())}, options = list(pageLength = 5, scrollX = TRUE))
-output$s.pd <- renderDataTable({ round(spls.pd(),3)}, options = list(pageLength = 5, scrollX = TRUE))
+output$s.pd <- renderDataTable({ cbind.data.frame(as.matrix(Y()),round(spls.pd(),3))}, options = list(pageLength = 5, scrollX = TRUE))
 
 
 output$downloadData.s.sv <- downloadHandler(

@@ -71,9 +71,9 @@ tabsetPanel(
     downloadButton("downloadData.s.comp", "Download"), p(br()),
   dataTableOutput("s.comp") ),
 
-  tabPanel("Coefficients",p(br()),
-    downloadButton("downloadData.s.cf", "Download"), p(br()),
-  dataTableOutput("s.cf") ),
+  #tabPanel("Coefficients",p(br()),
+  #  downloadButton("downloadData.s.cf", "Download"), p(br()),
+  #dataTableOutput("s.cf") ),
 
   tabPanel("Projection",p(br()),
     downloadButton("downloadData.s.pj", "Download"), p(br()),
