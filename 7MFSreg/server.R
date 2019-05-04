@@ -38,7 +38,8 @@ source("2lr_server.R", local=TRUE)$value
 source("3cr_server.R", local=TRUE)$value
 
 
-#---------------------------##
+##########----------##########----------##########
+
 observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
