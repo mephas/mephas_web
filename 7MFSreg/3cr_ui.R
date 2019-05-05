@@ -27,7 +27,8 @@ uiOutput('fx.c'),
 radioButtons("effect", "Strata/Cluster/Frailty terms",
      choices = c("Strata" = "Strata",
                  "Cluster" = "Cluster",
-                 "Frailty" = "Frailty",
+                 "Gamma Frailty" = "Gamma Frailty",
+                 "Gaussian Frailty" = "Gaussian Frailty",
                  "None" = ""),
      selected = ""),
 
@@ -73,13 +74,10 @@ tabPanel("Parameters' estimation",
 p(br()),
 
 tags$b("1. Regression's coefficients"), 
- fluidRow(
-    column(6, htmlOutput("fit.c")
-      
+ tabsetPanel(
+  tabPanel("Coefficients", verbatimTextOutput("fit.c")),
+  tabPanel("HR", verbatimTextOutput("fit.ce"))
     ),
-    column(6, htmlOutput("fit.ce")
-    )
-  ),
 p(br()),
 tags$b("2. ANOVA Table"), tableOutput("anova.c"),p(br()),
 tags$b("3. Select a formula-based model by AIC"), verbatimTextOutput("step.c")

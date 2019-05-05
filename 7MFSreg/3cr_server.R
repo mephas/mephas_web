@@ -93,7 +93,8 @@ formula_c = eventReactive(input$F.c, {
 if (input$effect=="") {f = paste0(y(), '~', paste0(input$x.c, collapse = "+"), input$conf.c)}
 if (input$effect=="Strata") {f = paste0(y(), '~', paste0(input$x.c, collapse = "+"), "+strata(", input$fx.c, ")",input$conf.c)}
 if (input$effect=="Cluster") {f = paste0(y(), '~', paste0(input$x.c, collapse = "+"), "+cluster(", input$fx.c, ")", input$conf.c)}
-if (input$effect=="Frailty") {f = paste0(y(), '~', paste0(input$x.c, collapse = "+"), "+frailty(", input$fx.c, ")", input$conf.c)}
+if (input$effect=="Gamma Frailty") {f = paste0(y(), '~', paste0(input$x.c, collapse = "+"), "+frailty(", input$fx.c, ")", input$conf.c)}
+if (input$effect=="Gaussian Frailty") {f = paste0(y(), '~', paste0(input$x.c, collapse = "+"), "+frailty.gaussian(", input$fx.c, ")", input$conf.c)}
 
 return(as.formula(f))
 })
@@ -112,34 +113,39 @@ fit.c = eventReactive(input$B1.c,
 coxph(formula_c(), data = X())
 })
 
-output$fit.c = renderUI({
-HTML(
+output$fit.c = renderPrint({
+ if (input$effect=="Gamma Frailty" || input$effect=="Gaussian Frailty") {print(fit.c())}
+ else
+ {
+
   stargazer::stargazer(
     fit.c(),
     #out="cox.txt",
     header=FALSE,
     dep.var.caption="Cox Regression",
     dep.var.labels = "Estimate with 95% CI, t, p",
-    type = "html",
+    type = "text",
     style = "all",
     align = TRUE,
     ci = TRUE,
     single.row = FALSE,
     title=paste("Cox Regression", Sys.time()),
     model.names = FALSE
-  )
 )
+}
 })
 
-output$fit.ce = renderUI({
-HTML(
+output$fit.ce = renderPrint({
+ if (input$effect=="Gamma Frailty" || input$effect=="Gaussian Frailty") {summary(fit.c())}
+ else
+ {
   stargazer::stargazer(
     fit.c(),
     #out="cox.txt",
     header=FALSE,
     dep.var.caption="Cox Regression with HR",
     dep.var.labels = "(HR=Exp(estimate) with 95% CI, t, p)",
-    type = "html",
+    type = "text",
     style = "all",
     apply.coef = exp,
     apply.ci = exp,
@@ -149,11 +155,14 @@ HTML(
     title=paste("Cox Regression with HR", Sys.time()),
     model.names = FALSE
   )
-)
+}
 })
 
 output$anova.c = renderTable({
+  if (input$effect=="Cluster") {xtable::xtable(matrix(NA,1,3))}
+  else {
 xtable::xtable(anova(fit.c()))
+}
 }, rownames = TRUE)
 
 output$step.c = renderPrint({
