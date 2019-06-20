@@ -44,4 +44,9 @@ shiny::runApp("./8MFSpcapls")
 shiny::runApp("./8MFSpcapls_cn")
 shiny::runApp("./8MFSpcapls_jp")
 
+start_time <- Sys.time()
+devtools::install_github("mephas/mephas")
+end_time <- Sys.time()
+
+end_time - start_time
 
