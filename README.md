@@ -1,18 +1,20 @@
-## Mephas 
+# MEPHAS 
 
 ## Introduction
 
-Mephas is one shiny application which integrates the medical and pharmaceutical data analysis methods in order to facilate researchers analyze or explore their data at the first step.
+MEPHAS integrates the medical and pharmaceutical data analysis methods in order to facilate researchers analyze or explore their data.
 
-The brandly new site is [here](https://alain003.phs.osaka-u.ac.jp/mephas/).
+#### The brandly new site is [here](https://alain003.phs.osaka-u.ac.jp/mephas/).
 
-Source code is [here](https://github.com/mephas/mephas_web)
+#### Source code is [here](https://github.com/mephas/mephas_web)
+
+#### The R package `mephas` is [here](https://mephas.github.io/mephas/)
 
 ~~The old site is [here](http://www.gen-info.osaka-u.ac.jp/MEPHAS/).~~
 
-## The structure of mephas application
+## The structure of MEPHAS web
 
-### The outlines
+### Eight categories of statistics
 
 #### 1. [Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1MFSdistribution/)
 
@@ -106,7 +108,7 @@ Source code is [here](https://github.com/mephas/mephas_web)
 
 ##### More apllications are still under construction.
 
-### The main functionality in each applications
+## The main functionality in each applications
 
 #### 1. Data preparation (manual input or upload CSV file)
 
@@ -120,7 +122,7 @@ Source code is [here](https://github.com/mephas/mephas_web)
 
 #### 5. Statistical tables and figures (downloadable)
 
-### The help files
+## The help files
 
 #### 1. [Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas/help1.html)
  
