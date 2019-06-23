@@ -4,9 +4,11 @@
 
 Mephas is one shiny application which integrates the medical and pharmaceutical data analysis methods in order to facilate researchers analyze or explore their data at the first step.
 
-The old site is [here](http://www.gen-info.osaka-u.ac.jp/MEPHAS/).
-
 The brandly new site is [here](https://alain003.phs.osaka-u.ac.jp/mephas/).
+
+Source code is [here](https://github.com/mephas/mephas_web)
+
+~~The old site is [here](http://www.gen-info.osaka-u.ac.jp/MEPHAS/).~~
 
 ## The structure of mephas application
 
