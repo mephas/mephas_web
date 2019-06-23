@@ -41,8 +41,8 @@ X <- reactive({
 example.y <- reactive({
                 switch(input$edata.y,
                "Y group pca" = ygroup_pca,
-               "Y array s_pls" = yarray_s_pls,
-               "Y matrix s_pls"= ymatrix_s_pls)
+               "Y array pls_spls" = yarray_s_pls,
+               "Y matrix pls_spls"= ymatrix_s_pls)
         })
 
 
