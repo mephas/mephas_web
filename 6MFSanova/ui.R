@@ -30,7 +30,7 @@ navbarPage(
       tags$li("The samples are from the populations with same variances.")
       ),
 
-source("p1_ui.R", local=TRUE)$value
+source("p1_ui.R", local=TRUE, encoding="UTF-8")$value
 
     ),
 
@@ -49,7 +49,7 @@ source("p1_ui.R", local=TRUE)$value
       tags$li("The groups have the same sample size.")
 
       ),
-source("p1_ui.R", local=TRUE)$value
+source("p1_ui.R", local=TRUE, encoding="UTF-8")$value
 
     ), ##
 
@@ -64,7 +64,7 @@ source("p1_ui.R", local=TRUE)$value
       tags$li("Significant effects have been found when there are three or more levels of a factor"),
       tags$li("After an ANOVA, the means of your response variable may differ significantly across the factor, but it is unknown which pairs of the factor levels are significantly different from each other")
       ),
-source("p1_ui.R", local=TRUE)$value
+source("p1_ui.R", local=TRUE, encoding="UTF-8")$value
  
   ),
 
