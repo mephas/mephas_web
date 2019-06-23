@@ -58,7 +58,7 @@ sidebarPanel(
       ),
       
   helpText("Change the names of sample (optinal)"),
-  tags$textarea(id = "cn", rows = 3, "X\nA\nB") #p
+  tags$textarea(id = "cn", rows = 3, "X\nFactor1\nFactor2") #p
       ), #tabPanel(
 
     ##-------csv file-------##

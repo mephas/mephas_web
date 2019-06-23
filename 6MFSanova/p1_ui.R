@@ -39,7 +39,7 @@ sidebarPanel(
         )),
 
       verticalLayout(
-      tags$b("Factors"), 
+      tags$b("Groups"), 
       tags$textarea(
         id = "f11", #p
         rows = 10,
@@ -49,7 +49,7 @@ sidebarPanel(
       ,
 
   helpText("Change the names of sample (optinal)"),
-  tags$textarea(id = "cn1", rows = 2, "X\nA")),
+  tags$textarea(id = "cn1", rows = 2, "X\nGroup")),
 
               ##-------csv file-------##
     tabPanel(

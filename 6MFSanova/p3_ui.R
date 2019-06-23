@@ -37,7 +37,7 @@ tabsetPanel(
       )),
 
     verticalLayout(
-    tags$b("Factors"), 
+    tags$b("Groups"), 
     tags$textarea(
       id = "fm", #p
       rows = 10,
@@ -46,7 +46,7 @@ tabsetPanel(
     ),
 
 helpText("Change the names of sample (optinal)"),
-tags$textarea(id = "cnm", rows = 2, "X\nA") #p
+tags$textarea(id = "cnm", rows = 2, "X\nGroup") #p
     ),
 
  ##-------csv file-------##

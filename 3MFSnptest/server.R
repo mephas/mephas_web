@@ -279,7 +279,7 @@ output$download1.2 <- downloadHandler(
 
   output$makeplot3 <- renderPlot({
     x <- C()
-    plot1 <- ggplot(x, aes(x=x[,3])) + geom_histogram(binwidth=.3, alpha=.5, position="identity") + ylab("Frequncy") + xlab("") +  ggtitle("Histogram") + theme_minimal() + theme(legend.title=element_blank())
+    plot1 <- ggplot(x, aes(x=x[,3])) + geom_histogram(colour="black", fill = "grey", binwidth=input$bin3, alpha=.5, position="identity") + ylab("Frequncy") + xlab("") +  ggtitle("Histogram") + theme_minimal() + theme(legend.title=element_blank())
     plot2 <- ggplot(x, aes(x=x[,3])) + geom_density() + ggtitle("Density Plot") + theme_minimal() + ylab("Density") + xlab("") + theme(legend.title=element_blank())
     grid.arrange(plot1, plot2, ncol=2)  })
 

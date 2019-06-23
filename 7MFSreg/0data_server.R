@@ -119,6 +119,8 @@ output$str.fac <- renderPrint({str(X()[,type.fac()])})
   output$str1 <- renderPrint({str(head(X()))})
   output$str2 <- renderPrint({str(head(X()))})
   output$str3 <- renderPrint({str(head(X()))})
+  output$str0 <- renderPrint({str(head(XR()))})
+  output$str00 <- renderPrint({str(head(X()))})
 
 
 # Basic Descriptives

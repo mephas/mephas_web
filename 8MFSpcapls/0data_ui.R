@@ -13,17 +13,12 @@
 sidebarLayout(
 sidebarPanel(##-------csv file-------##   
 # Input: Select a file as variable----
-helpText("If no dataset is uploaded, the example data is shown in the Data Display."),
+helpText("If no data set is uploaded, the example data is shown in the Data Display."),
 
-helpText(HTML("
-<b> X data: </b>
-<ul>
-<li> Gene sample 1 has fewer variables than Gene sample 2
-</ul>
+tabsetPanel(
+tabPanel("Predictor (X)", br(p()),
 
-")),
-
-selectInput("edata.x", "Choose X matrix", 
+selectInput("edata.x", "Choose data as X matrix", 
         choices =  c("Gene sample1","Gene sample2"), 
         selected = "Gene sample1"),
 
@@ -52,34 +47,21 @@ radioButtons("quote.x", "Quote",
      choices = c(None = "",
                  "Double Quote" = '"',
                  "Single Quote" = "'"),
-     selected = '"'),
+     selected = '"')
+),
 
-hr(),
-# Input: Select a file as response----
-#p(br("Necessary step in PLS and SPLS")),
-
-helpText(HTML("
-<b> Y data: </b>
-<ul>
-<li> Y_group_pca: the group variable for PCA 
-<li> Y_array_s_pls: the univariate Y for PLS and SPLS
-<li> Y_matrix_s_pls: the matrix/multivariate Y for PLS and SPLS
-</ul>
-
-")),
-
-selectInput("edata.y", "Choose Y matrix (necessary in PLS and SPLS)", 
-        choices =  c("Y_group_pca","Y_array_s_pls", "Y_matrix_s_pls"), 
+tabPanel("Responder (Y)", p(br()),
+checkboxInput("add.y", "Add Y data (necessary in PLS and SPLS)", FALSE), 
+selectInput("edata.y", "Choose data as Y matrix", 
+        choices =  c("Y group pca","Y array pls_spls", "Y matrix pls_spls"), 
         selected = "Y_group_pca"),
-
-checkboxInput("add.y", "Add Y data in PLS and SPLS", FALSE), 
 
 fileInput('file.y', "Upload .csv data set of Y matrix (Group variable or numeric responder matrix)",
   multiple = TRUE,
   accept = c("text/csv",
            "text/comma-separated-values,text/plain",
            ".csv")),
-helpText("The columns of Y can be one or more than one"),
+helpText("The columns of Y can be one or more than one."),
 # Input: Checkbox if file has header ----
 checkboxInput("header.y", "Header", TRUE),
 
@@ -96,6 +78,11 @@ radioButtons("quote.y", "Quote",
                  "Double Quote" = '"',
                  "Single Quote" = "'"),
      selected = '"')
+
+  )
+  )
+# Input: Select a file as response----
+
 
 ),
 

@@ -60,29 +60,50 @@ selected = '"')
 
 
 mainPanel(
-h4("Data Display"),
-tags$head(tags$style(".shiny-output-error{color: blue;}")),
-dataTableOutput("Xdata2"),
-hr(),		
+h4("Data"),p(br()),
+p("Information of original dataset"),
 
-h4("Re-generate variables"),
-    uiOutput("factor2"),
-		uiOutput("factor1"),
-		uiOutput("lvl"),
-		helpText("Type the reference"),
-		tags$textarea(id='ref', column=40, ""), 
-		
-		helpText("Click the button the generate new data set, the old variables will become xxx.1"),
-		actionButton("changevar", "Activate dataset",
+verbatimTextOutput("str0"),
+
+actionButton("changevar", "Activate dataset",
       style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+      p(br()),
 
-hr(),
+tags$head(tags$style(".shiny-output-error{color: blue;}")),
 
-h4("Basic Descriptives"),
 tabsetPanel(
+
+tabPanel("Re-generate variables", p(br()),  
+    uiOutput("factor2"),
+    uiOutput("factor1"),
+    p(br()),  
+    uiOutput("lvl"),
+    helpText("Type the reference"),
+    tags$textarea(id='ref', column=40, ""),
+    helpText("Click the button the generate new data set, the old variables will become xxx.1")
+  ),
+
+tabPanel("Data display", p(br()),
+dataTableOutput("Xdata2")
+  )
+
+  ),
+
+
+
+hr(),   
+
+h4("Basic Descriptives"),p(br()),
+
+p("Information of manipulated dataset"),
+
+verbatimTextOutput("str00"),
+
+tabsetPanel(
+
 tabPanel("Continuous variables", p(br()),
-helpText("The list"),
-verbatimTextOutput("str.num"),
+#helpText("The list"),
+#verbatimTextOutput("str.num"),
 
 uiOutput('cv'),
 actionButton("Bc", "Show descriptives"),
@@ -101,19 +122,14 @@ downloadButton("download1", "Download Results")
 ),
 
 tabPanel("Discrete / categorical variables", p(br()),
-helpText("The list"),
-verbatimTextOutput("str.fac"),
+#helpText("The list"),
+#verbatimTextOutput("str.fac"),
 uiOutput('dv'),
 actionButton("Bd", "Show descriptives"),
 verbatimTextOutput("fsum"),
 downloadButton("download2", "Download Results")
-)
-), 
+),
 
-hr(),
-
-h4(("First Exploration of Variables")),  
-tabsetPanel(
 tabPanel("Scatter plot (with line) between two variables",
 uiOutput('tx'),
 uiOutput('ty'),
@@ -126,8 +142,10 @@ sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 50, v
 
 tabPanel("Bar plot", p(br()),
 uiOutput('hxd'),
-plotOutput("p3", width = "400px", height = "400px")	)
+plotOutput("p3", width = "400px", height = "400px") )
+
 )
+
 )
 
 

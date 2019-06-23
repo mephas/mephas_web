@@ -40,9 +40,9 @@ X <- reactive({
 
 example.y <- reactive({
                 switch(input$edata.y,
-               "Y_group_pca" = ygroup_pca,
-               "Y_array_s_pls" = yarray_s_pls,
-               "Y_matrix_s_pls"= ymatrix_s_pls)
+               "Y group pca" = ygroup_pca,
+               "Y array s_pls" = yarray_s_pls,
+               "Y matrix s_pls"= ymatrix_s_pls)
         })
 
 
@@ -57,7 +57,7 @@ Y <- reactive({
   if (is.null(inFile))
     # eg data
   {
-    df = example.y()
+    df = as.data.frame(example.y())
   }
   else{
   df <- as.data.frame(
@@ -85,11 +85,11 @@ data <- reactive({
   else cbind.data.frame(Y(),X())})
 
 output$table.z <- renderDataTable(
-    head(data()), options = list(pageLength = 6, scrollX = TRUE))
-output$table.z2 <- renderDataTable(
-    head(data()), options = list(pageLength = 6, scrollX = TRUE))
-output$table.z3 <- renderDataTable(
-    head(data()), options = list(pageLength = 6, scrollX = TRUE))
+    data(), options = list(pageLength = 6, scrollX = TRUE))
+#output$table.z2 <- renderDataTable(
+#    head(data()), options = list(pageLength = 6, scrollX = TRUE))
+#output$table.z3 <- renderDataTable(
+#    head(data()), options = list(pageLength = 6, scrollX = TRUE))
 
 # Basic Descriptives
 
