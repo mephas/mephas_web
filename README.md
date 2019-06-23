@@ -1,21 +1,64 @@
 # MEPHAS 
+<!-- MarkdownTOC -->
 
+- [Introduction](#introduction)
+    - [The brandly new site is here.](#the-brandly-new-site-is-here)
+    - [Source code is here](#source-code-is-here)
+    - [The R package `mephas` is here](#the-r-package-mephas-is-here)
+- [The structure of MEPHAS web](#the-structure-of-mephas-web)
+  - [Eight categories of statistics](#eight-categories-of-statistics)
+    - [1. Probability Distributions](#1-probability-distributions)
+    - [2. T Test](#2-t-test)
+    - [3. Non-parametric Tests](#3-non-parametric-tests)
+    - [4. Test for Binomial Proportions](#4-test-for-binomial-proportions)
+    - [5. Test for Contingency Table](#5-test-for-contingency-table)
+    - [6. Analysis of Variance](#6-analysis-of-variance)
+    - [7. Regression Model](#7-regression-model)
+    - [8. Principal Components](#8-principal-components)
+      - [More apllications are still under construction.](#more-apllications-are-still-under-construction)
+- [The main functionality in each applications](#the-main-functionality-in-each-applications)
+    - [1. Data preparation \(manual input or upload CSV file\)](#1-data-preparation-manual-input-or-upload-csv-file)
+    - [2. Parameter input](#2-parameter-input)
+    - [3. Data display](#3-data-display)
+    - [3. Data's descriptive statistics](#3-datas-descriptive-statistics)
+    - [4. Model's results](#4-models-results)
+    - [5. Statistical tables and figures \(downloadable\)](#5-statistical-tables-and-figures-downloadable)
+- [The help files](#the-help-files)
+    - [1. Probability Distributions](#1-probability-distributions-1)
+    - [2. T Test](#2-t-test-1)
+    - [3. Non-parametric Tests](#3-non-parametric-tests-1)
+    - [4. Test for Binomial Proportions](#4-test-for-binomial-proportions-1)
+    - [5. Test for Contingency Table](#5-test-for-contingency-table-1)
+    - [6. Analysis of Variance](#6-analysis-of-variance-1)
+    - [7. Regression Model](#7-regression-model-1)
+    - [8. Principal Components](#8-principal-components-1)
+
+<!-- /MarkdownTOC -->
+
+
+<a id="introduction"></a>
 ## Introduction
 
 MEPHAS integrates the medical and pharmaceutical data analysis methods in order to facilate researchers analyze or explore their data.
 
+<a id="the-brandly-new-site-is-here"></a>
 #### The brandly new site is [here](https://alain003.phs.osaka-u.ac.jp/mephas/).
 
+<a id="source-code-is-here"></a>
 #### Source code is [here](https://github.com/mephas/mephas_web)
 
+<a id="the-r-package-mephas-is-here"></a>
 #### The R package `mephas` is [here](https://mephas.github.io/mephas/)
 
 ~~The old site is [here](http://www.gen-info.osaka-u.ac.jp/MEPHAS/).~~
 
+<a id="the-structure-of-mephas-web"></a>
 ## The structure of MEPHAS web
 
+<a id="eight-categories-of-statistics"></a>
 ### Eight categories of statistics
 
+<a id="1-probability-distributions"></a>
 #### 1. [Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1MFSdistribution/)
 
   - Continuous Random Variable
@@ -34,6 +77,7 @@ MEPHAS integrates the medical and pharmaceutical data analysis methods in order 
     + Binomial Distribution
     + Poisson Distribution
        
+<a id="2-t-test"></a>
 #### 2. [T Test](https://alain003.phs.osaka-u.ac.jp/mephas_web/2MFSttest/)
   
   - One Sample t-Test
@@ -42,6 +86,7 @@ MEPHAS integrates the medical and pharmaceutical data analysis methods in order 
   
   - Paired Samples
 
+<a id="3-non-parametric-tests"></a>
 #### 3. [Non-parametric Tests](https://alain003.phs.osaka-u.ac.jp/mephas_web/3MFSnptest/)
 
   - One Sample t-Test
@@ -59,6 +104,7 @@ MEPHAS integrates the medical and pharmaceutical data analysis methods in order 
     + Sign Test
     + Wilcoxon Signed-Rank Test
 
+<a id="4-test-for-binomial-proportions"></a>
 #### 4. [Test for Binomial Proportions](https://alain003.phs.osaka-u.ac.jp/mephas_web/4MFSproptest/)
 
   - One Single Proportion
@@ -74,6 +120,7 @@ MEPHAS integrates the medical and pharmaceutical data analysis methods in order 
   
     + McNemar's Test
 
+<a id="5-test-for-contingency-table"></a>
 #### 5. [Test for Contingency Table](https://alain003.phs.osaka-u.ac.jp/mephas_web/5MFSrctabtest/)
 
   - Chi-square Test (R by C Table)
@@ -82,6 +129,7 @@ MEPHAS integrates the medical and pharmaceutical data analysis methods in order 
   
   - Kappa Statistic (K by K Table)
 
+<a id="6-analysis-of-variance"></a>
 #### 6. [Analysis of Variance](https://alain003.phs.osaka-u.ac.jp/mephas_web/6MFSanova/)
 
   - One-way ANOVA
@@ -90,6 +138,7 @@ MEPHAS integrates the medical and pharmaceutical data analysis methods in order 
   
   - Multiple Comparison 
 
+<a id="7-regression-model"></a>
 #### 7. [Regression Model](https://alain003.phs.osaka-u.ac.jp/mephas_web/7MFSreg/)
 
   - Linear Regression
@@ -98,6 +147,7 @@ MEPHAS integrates the medical and pharmaceutical data analysis methods in order 
   
   - Cox Regression
 
+<a id="8-principal-components"></a>
 #### 8. [Principal Components](https://alain003.phs.osaka-u.ac.jp/mephas_web/8MFSpcapls/)
 
   - Principle Component Analysis (PCA)
@@ -106,37 +156,54 @@ MEPHAS integrates the medical and pharmaceutical data analysis methods in order 
   
   - Sparse Partial Least Square Regression (SPLS)
 
+<a id="more-apllications-are-still-under-construction"></a>
 ##### More apllications are still under construction.
 
+<a id="the-main-functionality-in-each-applications"></a>
 ## The main functionality in each applications
 
+<a id="1-data-preparation-manual-input-or-upload-csv-file"></a>
 #### 1. Data preparation (manual input or upload CSV file)
 
+<a id="2-parameter-input"></a>
 #### 2. Parameter input
 
+<a id="3-data-display"></a>
 #### 3. Data display
 
+<a id="3-datas-descriptive-statistics"></a>
 #### 3. Data's descriptive statistics
 
+<a id="4-models-results"></a>
 #### 4. Model's results
 
+<a id="5-statistical-tables-and-figures-downloadable"></a>
 #### 5. Statistical tables and figures (downloadable)
 
+<a id="the-help-files"></a>
 ## The help files
 
+<a id="1-probability-distributions-1"></a>
 #### 1. [Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas/help1.html)
  
+<a id="2-t-test-1"></a>
 #### 2. [T Test](https://alain003.phs.osaka-u.ac.jp/mephas/help2.html/)
 
+<a id="3-non-parametric-tests-1"></a>
 #### 3. [Non-parametric Tests](https://alain003.phs.osaka-u.ac.jp/mephas/help3.html/)
 
+<a id="4-test-for-binomial-proportions-1"></a>
 #### 4. [Test for Binomial Proportions](https://alain003.phs.osaka-u.ac.jp/mephas/help4.html/)
 
+<a id="5-test-for-contingency-table-1"></a>
 #### 5. [Test for Contingency Table](https://alain003.phs.osaka-u.ac.jp/mephas/help5.html/)
 
+<a id="6-analysis-of-variance-1"></a>
 #### 6. [Analysis of Variance](https://alain003.phs.osaka-u.ac.jp/mephas/help6.html/)
 
+<a id="7-regression-model-1"></a>
 #### 7. [Regression Model](https://alain003.phs.osaka-u.ac.jp/mephas/help7.html/)
 
+<a id="8-principal-components-1"></a>
 #### 8. [Principal Components](https://alain003.phs.osaka-u.ac.jp/mephas/help8.html/)
 
