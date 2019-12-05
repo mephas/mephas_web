@@ -13,16 +13,15 @@ sidebarLayout(
 
 sidebarPanel(
 
-  h4("Step 1. Data Preparation"),
+  h4(tags$b("Step 1. Data Preparation")),
 
   tabsetPanel(
 
     tabPanel("Manual input", p(br()),
 
       HTML("Please follow the example to input your data in the box"),
-      p(br()),
 
-      helpText("Note: Missing value is input as NA"),
+      helpText("Missing value is input as NA"),
 
       tags$textarea(
         id = "x", #p
@@ -30,14 +29,14 @@ sidebarPanel(
         "4.2\n5.3\n7.6\n6.7\n6.3\n3.5\n5.8\n6.3\n3.2\n4.6\n5.5\n5.2\n4.6\n4.8\n4.5\n5.3\n4.3\n4.3\n6.2\n6.7"
         ),
 
-      HTML("You can change the name of your data"),
+      p(br()),
 
-      tags$textarea(id = "cn", rows = 1, "X") ), #tabPanel(
+      p("You can change the name of your data (No space)"),
+
+      tags$textarea(id = "cn", rows = 1, "Name") ), #tabPanel(
 
 
     tabPanel("Upload CSV file", p(br()),
-
-        HTML("Example data can be found here"),
 
         ##-------csv file-------##
         fileInput('file', "Choose CSV file",
@@ -53,20 +52,23 @@ sidebarPanel(
                      choices = c(Comma = ',',
                                  Semicolon = ';',
                                  Tab = '\t'),
-                     selected = ',')
+                     selected = ','),
+
+        a("Find some example data here",
+          href = "https://github.com/mephas/datasets")
 
       )
     ),
 
 hr(),
 
-  h4("Step 2. Choose Parameters"),
+  h4(tags$b("Step 2. Choose Parameters")),
   numericInput('mu', HTML("Specify the mean (&#956&#8320) that you want to compare with your data"), 7), #p
 
   h4("Hypotheses"),
 
   tags$b("Null hypothesis"),
-  HTML("<p> &#956 = &#956&#8320: the population mean of your data is &#956&#8320 </p>"),
+  HTML("&#956 = &#956&#8320: the population mean of your data is &#956&#8320"),
 
   radioButtons(
     "alt",
@@ -83,7 +85,7 @@ hr(),
 
 mainPanel(
 
-  h4("Output 1. Descriptive Results"),
+  h4(tags$b("Output 1. Descriptive Results")),
 
   tabsetPanel(
 
@@ -98,7 +100,7 @@ mainPanel(
         tableOutput("des"),
         tableOutput("nor")
         ), 
-       helpText(
+
           HTML(
           "Notes:
           <ul>
@@ -108,19 +110,15 @@ mainPanel(
             <li> Normtest.p: p value the statistic of a Shapiro-Wilk test of normality
             <li> Normtest.p < 0.05, then data significantly different from normality
           </ul>"
-            )
           ),
       p(br()),
         downloadButton("download0", "Download Results")),
 
     tabPanel("Box-Plot", p(br()),
-      splitLayout(
+      
         plotOutput("bp", width = "400px", height = "400px", click = "plot_click1"),
-
-      wellPanel(
-        verbatimTextOutput("info1"), hr(),
-
-        helpText(
+     
+        verbatimTextOutput("info1"), 
           HTML(
           "Notes:
           <ul>
@@ -128,11 +126,10 @@ mainPanel(
             <li> The box measures the difference between 75th and 25th percentiles
             <li> Outliers will be in red, if existing
           </ul>"
-            )
+            
           )
-
-        )
-      ) ),
+        
+      ),
 
     tabPanel("Mean and SD Plot", p(br()),
 
@@ -143,7 +140,6 @@ mainPanel(
       plotOutput("makeplot", width = "900px", height = "300px"),
       sliderInput("bin","The width of bins in histogram",min = 0.01,max = 5,value = 0.2),
 
-      helpText(
           HTML(
           "Notes:
           <ul> 
@@ -152,22 +148,23 @@ mainPanel(
             <li> Density Plot: to estimate the probability density function of the data
           </ul>"
             )
-          )
 
       )
   ),
 
   hr(),
-  h4("Output 2. Test Results"),p(br()),
+  h4(tags$b("Output 2. Test Results")),
+  p(br()),
   tableOutput("t.test"),
-  helpText(
-          HTML(
-          "Explanation:
-          <ul> 
-            <li> P Value < 0.05, then the population of the data is significantly different from the specified mean
-          </ul>"
-            )
-          ),
+
+
+  HTML(
+    "<b> Explanations </b> 
+    <ul> 
+    <li> P Value < 0.05, then the population of the data IS significantly different from the specified mean
+    <li> P Value >= 0.05, then the population of the data IS NOT significantly different from the specified mean
+    </ul>"
+  ),
   p(br()),
   downloadButton("download1", "Download Results")
 

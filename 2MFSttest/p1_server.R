@@ -108,7 +108,7 @@ t.test0 <- reactive({
   res.table <- t(
     data.frame(
       "T Statistic" = round(res$statistic, digits=4),
-      "P-Value" = res$p.valu, digits=6,
+      "P-Value" = res$p.valu,
       "Estimated Mean" = round(res$estimate, digits=4),
       "Confidence Interval at 0.95" = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4),")"),
       "Degree of Freedom" = res$parameter

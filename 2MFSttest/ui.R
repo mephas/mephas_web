@@ -25,10 +25,11 @@ navbarPage(
 tabPanel( "One Sample",
 
 headerPanel("One Sample T-Test"),
+hr(),
 
   HTML(
     "
-    <h4> Before you start, please check: <h4>
+    <h4> Before you start, please check: </h4>
 
     <b> 1. Goals </b>
     <ul>
@@ -45,7 +46,7 @@ headerPanel("One Sample T-Test"),
       <li> You have a specific mean to compare
     </ul> 
 
-    <h4> If applicable, please follow the Steps.<h4>
+    <h4> If applicable, please follow the <b>Steps</b> and <b>Outputs</b> will give analytical results.</h4>
 
     "
     ),
