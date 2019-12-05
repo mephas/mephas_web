@@ -13,13 +13,16 @@ sidebarLayout(
 
 sidebarPanel(
 
-  h4("Data Preparation"),
+  h4("Step 1. Data Preparation"),
 
   tabsetPanel(
 
     tabPanel("Manual input", p(br()),
 
-      helpText("Missing value is input as NA"),
+      HTML("Please follow the example to input your data in the box"),
+      p(br()),
+
+      helpText("Note: Missing value is input as NA"),
 
       tags$textarea(
         id = "x", #p
@@ -27,11 +30,14 @@ sidebarPanel(
         "4.2\n5.3\n7.6\n6.7\n6.3\n3.5\n5.8\n6.3\n3.2\n4.6\n5.5\n5.2\n4.6\n4.8\n4.5\n5.3\n4.3\n4.3\n6.2\n6.7"
         ),
 
-      helpText("Change the name of sample (optional)"),
+      HTML("You can change the name of your data"),
+
       tags$textarea(id = "cn", rows = 1, "X") ), #tabPanel(
 
 
     tabPanel("Upload CSV file", p(br()),
+
+        HTML("Example data can be found here"),
 
         ##-------csv file-------##
         fileInput('file', "Choose CSV file",
@@ -54,21 +60,21 @@ sidebarPanel(
 
 hr(),
 
-  h4("Configuration"),
-  numericInput('mu', HTML("Specify the mean, &#956&#8320"), 7), #p
+  h4("Step 2. Choose Parameters"),
+  numericInput('mu', HTML("Specify the mean (&#956&#8320) that you want to compare with your data"), 7), #p
 
   h4("Hypotheses"),
 
   tags$b("Null hypothesis"),
-  HTML("<p> &#956 = &#956&#8320: the population mean of X is &#956&#8320 </p>"),
+  HTML("<p> &#956 = &#956&#8320: the population mean of your data is &#956&#8320 </p>"),
 
   radioButtons(
     "alt",
     label = "Alternative hypothesis",
     choiceNames = list(
-      HTML("&#956 &#8800 &#956&#8320: the population mean of X is not &#956&#8320"),
-      HTML("&#956 < &#956&#8320: the population mean of X is less than &#956&#8320"),
-      HTML("&#956 > &#956&#8320: the population mean of X is greater than &#956&#8320")
+      HTML("&#956 &#8800 &#956&#8320: the population mean of your data is not &#956&#8320"),
+      HTML("&#956 < &#956&#8320: the population mean of your data is less than &#956&#8320"),
+      HTML("&#956 > &#956&#8320: the population mean of your data is greater than &#956&#8320")
       ),
     choiceValues = list("two.sided", "less", "greater"))
 
@@ -77,11 +83,11 @@ hr(),
 
 mainPanel(
 
-  h4("Descriptive Statistics"),
+  h4("Output 1. Descriptive Results"),
 
   tabsetPanel(
 
-    tabPanel("Data Display", p(br()),
+    tabPanel("Data Preview", p(br()),
 
       dataTableOutput("table")),
 
@@ -90,10 +96,24 @@ mainPanel(
       splitLayout(
         tableOutput("bas"),
         tableOutput("des"),
-        tableOutput("nor")), p(br()),
+        tableOutput("nor")
+        ), 
+       helpText(
+          HTML(
+          "Notes:
+          <ul>
+            <li> If Skew.2SE > 1, then skewness is significantly different than zero
+            <li> If Kurt.2SE > 1, then kurtosis is significantly different than zero
+            <li> Normtest.W: the statistic of a Shapiro-Wilk test of normality
+            <li> Normtest.p: p value the statistic of a Shapiro-Wilk test of normality
+            <li> Normtest.p < 0.05, then data significantly different from normality
+          </ul>"
+            )
+          ),
+      p(br()),
         downloadButton("download0", "Download Results")),
 
-    tabPanel("Boxplot", p(br()),
+    tabPanel("Box-Plot", p(br()),
       splitLayout(
         plotOutput("bp", width = "400px", height = "400px", click = "plot_click1"),
 
@@ -102,15 +122,15 @@ mainPanel(
 
         helpText(
           HTML(
-            "Notes:
-            <ul>
-            <li> Points are simulated and located randomly in the same horizontal line. </li>
-            <li> Outliers will be highlighted in red, if existing. </li>
-            <li> The red outlier may not cover the simulated point. </li>
-            <li> The red outlier only indicates the value in horizontal line.</li>
-            </ul>"
+          "Notes:
+          <ul>
+            <li> The band inside the box is the median
+            <li> The box measures the difference between 75th and 25th percentiles
+            <li> Outliers will be in red, if existing
+          </ul>"
             )
           )
+
         )
       ) ),
 
@@ -118,15 +138,37 @@ mainPanel(
 
       plotOutput("meanp", width = "400px", height = "400px")),
 
-    tabPanel("Plots of Normality", p(br()),
+    tabPanel("Check the Normality", p(br()),
 
       plotOutput("makeplot", width = "900px", height = "300px"),
-      sliderInput("bin","The width of bins in histogram",min = 0.01,max = 5,value = 0.2))
+      sliderInput("bin","The width of bins in histogram",min = 0.01,max = 5,value = 0.2),
+
+      helpText(
+          HTML(
+          "Notes:
+          <ul> 
+            <li> Normal Q–Q Plot: to compare randomly generated, independent standard normal data on the vertical axis to a standard normal population on the horizontal axis. The linearity of the points suggests that the data are normally distributed.
+            <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
+            <li> Density Plot: to estimate the probability density function of the data
+          </ul>"
+            )
+          )
+
+      )
   ),
 
   hr(),
-  h4("Test Results"),p(br()),
-  tableOutput("t.test"),p(br()),
+  h4("Output 2. Test Results"),p(br()),
+  tableOutput("t.test"),
+  helpText(
+          HTML(
+          "Explanation:
+          <ul> 
+            <li> P Value < 0.05, then the population of the data is significantly different from the specified mean
+          </ul>"
+            )
+          ),
+  p(br()),
   downloadButton("download1", "Download Results")
 
 

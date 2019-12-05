@@ -38,21 +38,22 @@ basic_desc <- reactive({
 
 output$bas <- renderTable({
   res <- basic_desc()[1:3,]
-  names(res) = c("number.var", "number.null", "number.na")
+  names(res) = c("How many values", "How many NULL values", "How many Missing values")
   return(res)
   },   
-  width = "200px", rownames = TRUE, digits = 0)
+  width = "200px", rownames = TRUE, colnames = FALSE, digits = 0)
 
 output$des <- renderTable({
-  res <- basic_desc()[4:14,]
-  names(res) = c("min","max","range","sum","median","mean","SE.mean","CI.mean.0.95","var","std.dev","coef.var")
+  res <- basic_desc()[c(4:10,12:14),]
+  names(res) = c("Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient")
   return(res)}, 
-    width = "200px", rownames = TRUE)
+    width = "200px", rownames = TRUE, colnames = FALSE, digits = 4)
 
 output$nor <- renderTable({
   res <- basic_desc()[15:20,]
-  names(res) = c("skewness","skew.2SE","kurtosis","kurt.2SE","normtest.W","normtest.p")
-  return(res)},   width = "200px", rownames = TRUE)
+  names(res) = c("Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
+  return(res)},  
+   width = "200px", rownames = TRUE, colnames = FALSE, digits = 4)
 
 output$download0 <- downloadHandler(
     filename = function() {
@@ -75,7 +76,7 @@ output$info1 <- renderText({
     return("NULL\n")
     paste0("The approximate value: ", round(e$y, 4))
   }
-  paste0("Horizontal position: ", "\n", xy_str(input$plot_click1))
+  paste0("Horizontal position", "\n", xy_str(input$plot_click1))
 })
 
 output$meanp = renderPlot({
@@ -106,11 +107,11 @@ t.test0 <- reactive({
     alternative = input$alt)
   res.table <- t(
     data.frame(
-      T_statistic = res$statistic,
-      P_value = res$p.value,
-      Estimated_mean = res$estimate,
-      Confidence_interval_0.95 = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4),")"),
-      Degree_of_freedom = res$parameter
+      "T Statistic" = round(res$statistic, digits=4),
+      "P-Value" = res$p.valu, digits=6,
+      "Estimated Mean" = round(res$estimate, digits=4),
+      "Confidence Interval at 0.95" = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4),")"),
+      "Degree of Freedom" = res$parameter
       )
     )
   colnames(res.table) <- res$method

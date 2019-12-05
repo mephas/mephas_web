@@ -18,31 +18,35 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
   
-  title = "T Test",
+  title = "T Test on the Means",
 
 ##---------- Panel 1 ---------
 
 tabPanel( "One Sample",
 
-headerPanel("One Sample t-Test"),
+headerPanel("One Sample T-Test"),
 
   HTML(
     "
-    <b>Notations </b>
+    <h4> Before you start, please check: <h4>
 
-      <ul>
-      <li> X is the dependent observations  
-      <li> &#956 is the population mean    
-      <li> &#956&#8320 is the specific mean 
-      </ul>
+    <b> 1. Goals </b>
+    <ul>
+      <li> To determine if your data is statistically significantly different from the specified mean?
+    </ul>
 
-    <b>Assumptions </b>
+    <b> 2. About your Data </b>
 
-      <ul>
-      <li> X is numeric, continuous                                                             
-      <li> Each observation of X (sample) is independent and approximately normally distributed 
-      <li> The data collection process is random without replacement       
-      </ul>                     
+    <ul>
+      <li> Your data contain only 1 group of values (or a vector)
+      <li> Your data are numeric and belong to continuous variable
+      <li> The values of your data are the independent observations  
+      <li> The values are approximately normally distributed
+      <li> You have a specific mean to compare
+    </ul> 
+
+    <h4> If applicable, please follow the Steps.<h4>
+
     "
     ),
 
