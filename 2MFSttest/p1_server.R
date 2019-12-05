@@ -13,9 +13,9 @@ X <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
     # input data
-    X <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
-    X <- data.frame(X = X)
-    names(X) = unlist(strsplit(input$cn, "[\n, \t, ]"))
+    x <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
+    X <- data.frame(X = x)
+    colnames(X) = unlist(strsplit(input$cn, "[\n, \t, ]"))
     }
   else {
     # CSV data
@@ -67,7 +67,7 @@ output$download0 <- downloadHandler(
 # box plot
 output$bp = renderPlot({
   x = X()
-  ggplot(x, aes(x = "", y = x[, 1])) + geom_boxplot(width = 0.2, outlier.colour = "red") + geom_jitter(width = 0.1, size = 1.5) + ylab("") + xlab("") + ggtitle("") + theme_minimal()
+  ggplot(x, aes(x = "", y = x[, 1])) + geom_boxplot(width = 0.2, outlier.colour = "red") + ylab("") + xlab("") + ggtitle("") + theme_minimal()
   })
 
 output$info1 <- renderText({
@@ -82,10 +82,11 @@ output$info1 <- renderText({
 output$meanp = renderPlot({
   x <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
   des = data.frame(t(stat.desc(x)))
-  #p1 = ggplot(des, aes(x = rownames(des), y = mean)) + geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) +
-  #  xlab("") + ylab(expression(Mean %+-% SD)) + geom_point(shape = 21, size = 3) + theme_minimal() + theme(legend.title = element_blank())
-  p2 = ggplot(des, aes(x = rownames(des), y = mean)) + xlab("") + ylab(expression(Mean %+-% SD)) +  geom_bar(position = position_dodge(),stat = "identity",width = 0.2, alpha = .3) +
-    geom_errorbar(width = .1,position = position_dodge(.9),aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) + theme_minimal() + theme(legend.title = element_blank())
+  p2 = ggplot(des, aes(x = rownames(des), y = mean)) + 
+  geom_bar(position = position_dodge(),stat = "identity",width = 0.2, alpha = .3) +
+  geom_errorbar(width = .1,position = position_dodge(.9),aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) + 
+  xlab("") + ylab(expression(Mean %+-% SD)) + 
+  theme_minimal() + theme(legend.title = element_blank())
  
   grid.arrange(p2)
   })
@@ -93,7 +94,7 @@ output$meanp = renderPlot({
 output$makeplot <- renderPlot({
   x <- Z()
   plot1 <- ggplot(x, aes(sample = x[, 1])) + stat_qq() + ggtitle("Normal Q-Q Plot") + xlab("") + theme_minimal()  ## add line,
-  plot2 <- ggplot(x, aes(x = x[, 1])) + geom_histogram(colour = "black",fill = "grey",binwidth = input$bin, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
+  plot2 <- ggplot(x, aes(x = x[, 1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
   plot3 <- ggplot(x, aes(x = x[, 1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
  
   grid.arrange(plot1, plot2, plot3, ncol = 3)
@@ -107,11 +108,11 @@ t.test0 <- reactive({
     alternative = input$alt)
   res.table <- t(
     data.frame(
-      "T Statistic" = round(res$statistic, digits=4),
-      "P-Value" = res$p.valu,
-      "Estimated Mean" = round(res$estimate, digits=4),
-      "Confidence Interval at 0.95" = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4),")"),
-      "Degree of Freedom" = res$parameter
+      "T.Statistic" = round(res$statistic, digits=4),
+      "P.Value" = res$p.valu,
+      "Estimated.Mean" = round(res$estimate, digits=4),
+      "Confidence.Interval.at.0.95.probability" = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4),")"),
+      "Degree.of.Freedom" = res$parameter
       )
     )
   colnames(res.table) <- res$method

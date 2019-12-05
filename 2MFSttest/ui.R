@@ -18,36 +18,30 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
   
-  title = "T Test on the Means",
+  title = "T Test for the Means",
 
 ##---------- Panel 1 ---------
 
 tabPanel( "One Sample",
 
-headerPanel("One Sample T-Test"),
-hr(),
+headerPanel("One-Sample T-Test"), 
 
   HTML(
     "
-    <h4> Before you start, please check: </h4>
 
-    <b> 1. Goals </b>
+    <h4><b> 1. Goal </b></h4>
     <ul>
-      <li> To determine if your data is statistically significantly different from the specified mean?
+      <li> To determine if your data is statistically significantly different from the specified mean
     </ul>
 
-    <b> 2. About your Data </b>
+    <h4><b> 2. About your data </b></h4>
 
     <ul>
       <li> Your data contain only 1 group of values (or a vector)
-      <li> Your data are numeric and belong to continuous variable
-      <li> The values of your data are the independent observations  
-      <li> The values are approximately normally distributed
-      <li> You have a specific mean to compare
+      <li> The values are independent observations and approximately normally distributed
     </ul> 
 
-    <h4> If applicable, please follow the <b>Steps</b> and <b>Outputs</b> will give analytical results.</h4>
-
+    <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
 
@@ -60,27 +54,28 @@ source("p1_ui.R", local=TRUE)$value
 
 ##---------- Panel 2 ---------
 
-tabPanel("Two Independent Samples",
+tabPanel("Two Samples",
 
-headerPanel("Two-Sample t-Test"),
+headerPanel("Independent Two-Sample T-Test"),
 
-  HTML(
+    HTML(
     "
-    <b> Notations </b>
-      <ul>
-      <li> The independent observations are designated X and Y
-      <li> &#956&#8321 is the population mean of X; &#956&#8322 is the population mean of Y 
-      </ul>
+    <h4><b> 1. Goal </b></h4>
+    <ul>
+      <li> To determine if the means of two sets of your data are significantly different from each other
+    </ul>
 
-    <b> Assumptions </b>
+    <h4><b> 2. About your data </b></h4>
 
-      <ul>
-      <li> Each of the two populations being compared should follow the normal distribution  
-      <li> X and Y should be sampled independently from the two populations being compared   
-      <li> The two populations being compared should have the same variance                  
-      </ul>
-      "
-      ),
+    <ul>
+      <li> Your data contain 2 separate groups/sets (or 2 vectors)
+      <li> The 2 separate groups/sets are independent and identically approximately normally distributed
+    </ul> 
+
+    <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+
+    "
+    ),
 
     hr(),
 
@@ -90,25 +85,24 @@ source("p2_ui.R", local=TRUE)$value
 
 ##---------- Panel 3 ---------
 
-tabPanel("Two Paired Samples",
+tabPanel("Paired Samples",
 
-    headerPanel("Paired t-Test"),
+    headerPanel("Dependent T-Test for Paired Samples"),
 
     HTML("
 
-    <b> Notations </b>
-    
-      <ul>
-      <li> The dependent observations are designated X and Y        
-      <li> &#916 is the underlying mean differences between X and Y 
-      </ul>
+    <h4><b> 1. Goal </b></h4>
+    <ul>
+      <li> To determine if the differences from the paired 2 samples are equal to 0
+    </ul>
 
-    <b> Assumptions </b>
+
+    <h4><b> 2. About your data </b></h4>
       
       <ul>
       <li> The differences of paired samples are approximately normally distributed                           
-      <li> The differences of paired samples are numeric and continuous and based on the normal distribution  
-      <li> The data collection process was random without replacement  
+      <li> Two samples that have been matched or paired 
+      <li> The pairs are either one person's pre-test and post-test scores or between pairs of persons matched into meaningful groups
       </ul>                                         
       "
       ),

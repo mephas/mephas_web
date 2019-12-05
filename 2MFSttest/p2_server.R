@@ -69,7 +69,7 @@ output$download3 <- downloadHandler(
 output$bp2 = renderPlot({
   x = Y()
   mx = melt(x, idvar = names(x))
-  ggplot(mx, aes(x = mx[,"variable"], y = mx[,"value"], fill = mx[,"variable"])) + geom_boxplot(width = 0.4,outlier.colour = "red",alpha = .3) + geom_jitter(width = 0.1, size = 1.5) + ylab(" ") + xlab(" ") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
+  ggplot(mx, aes(x = mx[,"variable"], y = mx[,"value"], fill = mx[,"variable"])) + geom_boxplot(width = 0.4,outlier.colour = "red",alpha = .3) + ylab(" ") + xlab(" ") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
   })
 
 output$meanp2 = renderPlot({

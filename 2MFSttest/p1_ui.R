@@ -13,27 +13,30 @@ sidebarLayout(
 
 sidebarPanel(
 
+
   h4(tags$b("Step 1. Data Preparation")),
 
   tabsetPanel(
 
     tabPanel("Manual input", p(br()),
 
-      HTML("Please follow the example to input your data in the box"),
+      p(tags$b("Please follow the example to input your data in the box")),
 
-      helpText("Missing value is input as NA"),
+      p(tags$i("Example here is the AGE of 144 independent lymph node positive patients")),
 
       tags$textarea(
         id = "x", #p
         rows = 10,
-        "4.2\n5.3\n7.6\n6.7\n6.3\n3.5\n5.8\n6.3\n3.2\n4.6\n5.5\n5.2\n4.6\n4.8\n4.5\n5.3\n4.3\n4.3\n6.2\n6.7"
+        "50\n42\n50\n43\n47\n47\n38\n45\n31\n41\n48\n47\n38\n44\n36\n42\n42\n45\n49\n44\n32\n46\n50\n38\n43\n40\n42\n46\n41\n46\n48\n48\n36\n43\n44\n47\n40\n41\n48\n41\n45\n45\n47\n37\n43\n43\n49\n45\n41\n50\n49\n43\n38\n42\n49\n44\n48\n50\n44\n49\n32\n43\n42\n50\n39\n42\n41\n49\n38\n43\n50\n49\n37\n37\n48\n48\n48\n49\n45\n44\n35\n49\n39\n46\n49\n37\n50\n35\n47\n43\n44\n41\n43\n45\n42\n39\n40\n37\n44\n39\n45\n46\n42\n49\n41\n26\n49\n36\n48\n29\n43\n45\n45\n47\n49\n41\n46\n41\n36\n38\n49\n49\n42\n46\n42\n51\n51\n52\n52\n52\n52\n52\n52\n53\n52\n51\n51\n51\n51\n51\n51\n47\n39\n51"
         ),
+
+      p("Missing value is input as NA"),
 
       p(br()),
 
-      p("You can change the name of your data (No space)"),
+      p(tags$b("You can change the name of your data (No space)")),
 
-      tags$textarea(id = "cn", rows = 1, "Name") ), #tabPanel(
+      tags$textarea(id = "cn", rows = 1, "Age") ), #tabPanel(
 
 
     tabPanel("Upload CSV file", p(br()),
@@ -62,12 +65,10 @@ sidebarPanel(
 
 hr(),
 
-  h4(tags$b("Step 2. Choose Parameters")),
-  numericInput('mu', HTML("Specify the mean (&#956&#8320) that you want to compare with your data"), 7), #p
+  h4(tags$b("Step 2. Choose Hypotheses and Parameters")),
 
-  h4("Hypotheses"),
-
-  tags$b("Null hypothesis"),
+  p(tags$b("1. Hypotheses")),
+  p(tags$b("Null hypothesis")),
   HTML("&#956 = &#956&#8320: the population mean of your data is &#956&#8320"),
 
   radioButtons(
@@ -78,7 +79,13 @@ hr(),
       HTML("&#956 < &#956&#8320: the population mean of your data is less than &#956&#8320"),
       HTML("&#956 > &#956&#8320: the population mean of your data is greater than &#956&#8320")
       ),
-    choiceValues = list("two.sided", "less", "greater"))
+    choiceValues = list("two.sided", "less", "greater")),
+
+ p(tags$b("2. Specified Mean")),
+  numericInput('mu', HTML("Specify the mean (&#956&#8320) that you want to compare with your data"), 50), #p
+
+  p(tags$i("In this settings, we want to know if the age of lymph node positive population is 50 years old."))
+
 
     ),
 
@@ -165,6 +172,9 @@ mainPanel(
     <li> P Value >= 0.05, then the population of the data IS NOT significantly different from the specified mean
     </ul>"
   ),
+
+  p(tags$i("From the default settings, we can conclude that the age of lymph node positive population is not significantly different from 50 years old")),
+
   p(br()),
   downloadButton("download1", "Download Results")
 
