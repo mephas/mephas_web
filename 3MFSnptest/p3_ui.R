@@ -179,6 +179,7 @@ mainPanel(
       tags$b("Basic Descriptives of the Difference"),
 
 
+
         tableOutput("bas3"), 
         HTML(
           "Notes:
