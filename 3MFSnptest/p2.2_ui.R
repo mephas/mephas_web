@@ -16,7 +16,10 @@ sidebarLayout(
 
 sidebarPanel(
 
-h4(tags$b("1. Hypotheses")),
+h4(tags$b("Choice 1. Wilcoxon Rank-Sum Test, Mann-Whitney U Test, Mann-Whitney-Wilcoxon Test, Wilcoxon-Mann-Whitney Test")),
+hr(),
+
+h4(tags$b("Hypotheses")),
 p(tags$b("Null hypothesis")),
 
 HTML("<p> m&#8321 = m&#8322: the medians of two group are equal </p>

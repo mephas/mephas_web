@@ -14,6 +14,8 @@ sidebarLayout(
 ##########----------##########----------##########
 sidebarPanel(
 
+h4(tags$b("Choice 1. Sign Test")), hr(),
+
 h4(tags$b("Hypotheses")),
 p(tags$b("Null hypothesis")),
 

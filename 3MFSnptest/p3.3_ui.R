@@ -15,8 +15,8 @@ sidebarLayout(
 
   sidebarPanel(
 
-  #h4("Wilcoxon Signed-Rank Test"),
-  #helpText("An alternative to the paired t-test for matched pairs, when the population cannot be assumed to be normally distributed. It can also be used to determine whether two dependent samples were selected from populations having the same distribution."),
+  h4(tags$b("Choice 2. Wilcoxon Signed-Rank Test")),
+  hr(),
 
   h4(tags$b("1. Hypotheses")),
   p(tags$b("Null hypothesis")),
@@ -30,7 +30,7 @@ sidebarLayout(
       HTML("m > 0: the population median of X is greater")),
     choiceValues = list("two.sided", "less", "greater")),
 
-p(tags$b("2. Whether to do Normal Approximation")),
+h4(tags$b("2. Whether to do Normal Approximation")),
 radioButtons("nap", 
   label = "How large is your sample size", 
   choiceNames = list(

@@ -46,7 +46,7 @@ HTML(
       <li> You have a specified median
     </ul> 
 
-    <h4><b> 3. Two choices of tests </b><
+    <h4><b> 3. Two choices of tests </b></h4>
 
     <ul>
       <li> <b>Sign Test:</b> lack some the statistical power 
@@ -60,7 +60,7 @@ HTML(
 hr(),
 ##---------- 1.1 ----------
 
-source("p1.1_ui.R", local=TRUE),
+source("p1.1_ui.R", local=TRUE)$value,
 
 hr(),
 
@@ -68,15 +68,11 @@ h4(tags$b("Step 3. Choose Methods and Hypotheses")),
 
 ##---------- 1.2 ----------
 ##---------- Sign Test ----------
-h4(tags$b("Choice 1. Sign Test")),
-
-source("p1.2_ui.R", local=TRUE),
+source("p1.2_ui.R", local=TRUE)$value,
 
 hr(),
 ##---------- 1.3 ----------
-h4(tags$b("Choice 2. Wilcoxon Signed-Rank Test")),
-
-source("p1.3_ui.R", local=TRUE),
+source("p1.3_ui.R", local=TRUE)$value,
 
 ),
 
@@ -118,22 +114,18 @@ HTML(
 hr(),
 
 ##---------- 2.1 ----------
-
-source("p2.1_ui.R", local=TRUE),
+source("p2.1_ui.R", local=TRUE)$value,
 
 hr(),
 
 h4(tags$b("Step 2. Choose Methods and Hypotheses")),
 ##---------- 2.2 ----------
-h4(tags$b("Choice 1. Wilcoxon Rank-Sum Test, Mann-Whitney U Test, Mann-Whitney-Wilcoxon Test, Wilcoxon-Mann-Whitney Test")),
 
 source("p2.2_ui.R", local=TRUE),
 
 hr(),
 ##---------- 2.3 ----------
-h4(tags$b("Choice 2. Mood's Median Test")),
-
-source("p2.3_ui.R", local=TRUE),
+source("p2.3_ui.R", local=TRUE)$value,
 
 ),
 
@@ -179,21 +171,17 @@ HTML(
     "
     ),
 
-source("p3.1_ui.R", local=TRUE),
+source("p3.1_ui.R", local=TRUE)$value,
 
 hr(),
 ##---------- 3.1 ----------
+h4(tags$b("Step 2. Choose Methods and Hypotheses")),
 
-h4("Sign Test"),
-
-source("p3.2_ui.R", local=TRUE),
+source("p3.2_ui.R", local=TRUE)$value,
 
 hr(),
 ##---------- 3.2 ----------
-
-h4("Wilcoxon Signed-Rank Test"),
-
-source("p3.3_ui.R", local=TRUE),
+source("p3.3_ui.R", local=TRUE)$value,
 
 ),
 ##########----------##########----------##########

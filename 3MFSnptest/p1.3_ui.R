@@ -16,6 +16,7 @@ sidebarLayout(
 
 ##########----------##########----------##########
 sidebarPanel(
+h4(tags$b("Choice 2. Wilcoxon Signed-Rank Test")), hr(),
 
 h4(tags$b("1. Hypotheses")),
 p(tags$b("Null hypothesis")),
@@ -32,7 +33,7 @@ radioButtons("alt.wsr",
   ),
 choiceValues = list("greater", "less", "two.sided")),
 
-p(tags$b("2. Whether to do Normal Approximation")),
+h4(tags$b("2. Whether to do Normal Approximation")),
 radioButtons("nap.wsr", 
   label = "How large is your sample size", 
   choiceNames = list(

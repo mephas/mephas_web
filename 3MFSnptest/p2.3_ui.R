@@ -12,7 +12,8 @@
 sidebarLayout(
 
 sidebarPanel(
-
+h4(tags$b("Choice 2. Mood's Median Test")),
+hr(),
 h4(tags$b("Hypotheses")),
 p(tags$b("Null hypothesis")),
 
