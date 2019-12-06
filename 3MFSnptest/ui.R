@@ -121,7 +121,7 @@ hr(),
 h4(tags$b("Step 2. Choose Methods and Hypotheses")),
 ##---------- 2.2 ----------
 
-source("p2.2_ui.R", local=TRUE),
+source("p2.2_ui.R", local=TRUE)$value,
 
 hr(),
 ##---------- 2.3 ----------
