@@ -16,7 +16,7 @@ sidebarLayout(
 
 sidebarPanel(
 
-p(tags$b("Hypotheses")),
+h4(tags$b("1.Hypotheses")),
 p(tags$b("Null hypothesis")),
 HTML("<p> m = 0: the difference median between 2 groups (Before and After) is equal to 0 </p>"),
 
@@ -29,6 +29,7 @@ HTML("<p> m = 0: the difference median between 2 groups (Before and After) is eq
   ),
 
 mainPanel(
+  h4(tags$b("Output 2.1. Test Results")),p(br()), 
   h4('Results of Sign Test'), p(br()),
   tableOutput("psign.test"), p(br()),
       HTML(

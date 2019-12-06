@@ -18,8 +18,8 @@ sidebarLayout(
   #h4("Wilcoxon Signed-Rank Test"),
   #helpText("An alternative to the paired t-test for matched pairs, when the population cannot be assumed to be normally distributed. It can also be used to determine whether two dependent samples were selected from populations having the same distribution."),
 
-  h4(tags$b("Hypotheses")),
-  h4(tags$b("Null hypothesis")),
+  h4(tags$b("1. Hypotheses")),
+  p(tags$b("Null hypothesis")),
   HTML("<p>  m = 0: the difference of medians between X and Y is not zero </p> 
         <p>  Or, the distribution of the differences in paired values is symmetric around zero</p> "),
 

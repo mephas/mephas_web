@@ -43,9 +43,10 @@ HTML(
       <li> The values are independent observations
       <li> No assumption on the distributional shape of your data
       <li> Your data may be not normally distributed
+      <li> You have a specified median
     </ul> 
 
-    <h4><b> 3. Two choices of tests </b></h4>
+    <h4><b> 3. Two choices of tests </b><
 
     <ul>
       <li> <b>Sign Test:</b> lack some the statistical power 

@@ -13,7 +13,7 @@ sidebarLayout(
 
 sidebarPanel(
 
-p(tags$b("Hypotheses")),
+h4(tags$b("Hypotheses")),
 p(tags$b("Null hypothesis")),
 
 HTML("m&#8321 = m&#8322, the medians of values for each group are equal"),

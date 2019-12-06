@@ -14,7 +14,7 @@ sidebarLayout(
 ##########----------##########----------##########
 sidebarPanel(
 
-p(tags$b("Hypotheses")),
+h4(tags$b("Hypotheses")),
 p(tags$b("Null hypothesis")),
 
 HTML("<p> m = m&#8320: the population median (m) is equal to the specified median ( m&#8320)</p>"),

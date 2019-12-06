@@ -18,33 +18,42 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
  
-title = "Test for Binomial Proportion",
+title = "Test for Binomial Proportions",
 
 ##---------- 1. Panel 1 ----------
 tabPanel("One Sample",
 
-titlePanel("Exact Binomial Test"),
+titlePanel("Normal Theory Method or Exact Method"),
 
 #tags$b("Introduction"),
 
 #p("To test the probability of events (success) in a series of Bernoulli experiments. "),
 HTML("
+    <h4><b> 1. Goals </b></h4>
+    <ul>
+      <li> To determine if the population rate/proportion behind your data is significantly different from the specified rate/proportion
+      <li> To determine how compatible the sample rate/proportion with a population rate/proportion
+      <li> To determine the probability of success in a Bernoulli experiment.
+    </ul>
 
-      <b> Notations </b>
-
-      <ul>
-      <li> x is the number of events</li>
-      <li> n is the number of trials</li>
-      <li> p is the underlying probability of event</li>
-      <li> p&#8320 is the specific probability </li>
-      </ul>
-
-    <b>Assumptions </b>
+    <h4><b> 2. About your data </b></h4>
 
       <ul>
-      <li> The observations come from binomial distribution </li>
-      <li> The normal approximation to the binomial distribution is valid</li>
+      <li> Your data come from binomial distribution (the proportion of success)
+      <li> You know the whole sample and the number of specified events (the proportion of sub-group)
+      <li> You have a specified proportion （p<sub>0</sub>）
       </ul>
+
+    <h4><b> 3. Two choices of tests </b><
+
+    <ul>
+      <li> <b>Normal Theory Method:</b> np<sub>0</sub>(1-p<sub>0</sub>) >= 5; n is the whole sample size, p<sub>0</sub> is the specified rate/proportion
+      <li> <b>Exact Method:</b> np<sub>0</sub>(1-p<sub>0</sub>) < 5; when the normal approximation is not satisfied
+    </ul> 
+
+
+    <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+  
       " ),
 
     p(br()),
@@ -53,7 +62,9 @@ HTML("
 
     sidebarPanel(
 
-    h4("Hypotheses"),
+    h4(tags$b("Step 1. Choose Methods and Hypotheses")),
+
+    h4(tags$b("Hypotheses")),
     tags$b("Null hypothesis"), 
     HTML("<p>p = p&#8320: the probability of events is p&#8320 </p>"),
     
