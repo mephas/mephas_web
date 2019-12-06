@@ -165,8 +165,7 @@ mainPanel(
   ),
 
   hr(),
-  h4(tags$b("Output 2. Test Results")),
-  p(br()),
+  h4(tags$b("Output 2. Test Results")),p(br()),
   tableOutput("t.test"),
 
 

@@ -39,7 +39,7 @@ sidebarPanel(
 
     p(tags$b("You can change the name of your data (No space)")),
     
-    tags$textarea(id = "cn.p", rows = 2, "Before\nAfter\nAfter-Before")
+    tags$textarea(id = "cn.p", rows = 3, "Before\nAfter\nAfter-Before")
 
             ),
 
