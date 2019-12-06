@@ -22,9 +22,9 @@ HTML("<p> m = m&#8320: the population median (m) is equal to the specified media
 
 radioButtons("alt.st", label = "Alternative hypothesis", 
   choiceNames = list(
-  HTML("m > m&#8320: the population median of X is greater than the specified median"),
-  HTML("m < m&#8320: the population median of X is less than the specified median"),
-  HTML("m &#8800 m&#8320: the population median of X is significantly different from the specified median")
+  HTML("m > m&#8320: the population median is greater than the specified median"),
+  HTML("m < m&#8320: the population median is less than the specified median"),
+  HTML("m &#8800 m&#8320: the population median is significantly different from the specified median")
   
   ),
 choiceValues = list("greater", "less", "two.sided")),
@@ -178,11 +178,8 @@ mainPanel(
       dataTableOutput("table")),
 
     tabPanel("Basic Descriptives", p(br()), 
-
-      splitLayout(
         tableOutput("bas"), 
-        tableOutput("des"), 
-        tableOutput("nor")),
+        
         HTML(
           "Notes:
           <ul>

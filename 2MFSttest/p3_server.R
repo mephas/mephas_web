@@ -16,7 +16,7 @@ Z <- reactive({
     X <- as.numeric(unlist(strsplit(input$x1.p, "[\n, \t, ]")))
     Y <- as.numeric(unlist(strsplit(input$x2.p, "[\n, \t, ]")))
     x <- data.frame(X = X, Y = Y)
-    x$diff <- round(x[, 2] - x[, 1],4)
+    x$diff <- round(x[, 2] - x[, 1], 4)
     names(x) = unlist(strsplit(input$cn.p, "[\n, \t, ]"))
     return(x)
     }

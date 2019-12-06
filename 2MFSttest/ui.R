@@ -113,7 +113,7 @@ tabPanel("Paired Samples",
        <li>  When there are two samples that have been matched or paired
       </ul>  
 
-     <b>In paired case, we would compare the differences of 2 groups to zero. Thus, it becomes a one-sample test problem.</b>
+     <b>In paired case, we compare the differences of 2 groups to zero. Thus, it becomes a one-sample test problem.</b>
 
    <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
                                            

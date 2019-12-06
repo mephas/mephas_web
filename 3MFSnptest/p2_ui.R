@@ -44,6 +44,17 @@ mainPanel(
 
   tableOutput("mwu.test"), p(br()),
 
+  HTML(
+    "<b> Explanations </b> 
+    <ul> 
+    <li> P Value < 0.05, then the population medians of 2 groups are significantly different. (Accept alternative hypothesis)
+    <li> P Value >= 0.05, no significant differences between the medians of 2 groups. (Accept null hypothesis)
+    </ul>"
+  ),
+
+    p(tags$i("From the default settings, we can conclude that there is no significant differences in 2 groups Rating scale (P=0.44).")),
+
+
   downloadButton("download2.1", "Download Results")
   )
 
@@ -72,9 +83,22 @@ radioButtons("alt.md", label = "Alternative hypothesis",
   choiceValues = list("two.sided", "less", "greater"))),
 
 mainPanel(
+  h4(tags$b("Output 2.2. Test Results")),p(br()), 
+
   h4("Results of Mood's Median Test"), p(br()),
 
-  tableOutput("mood.test")
+  tableOutput("mood.test"),p(br()),
+
+    HTML(
+    "<b> Explanations </b> 
+    <ul> 
+    <li> P Value < 0.05, then the population medians of 2 groups are significantly different. (Accept alternative hypothesis)
+    <li> P Value >= 0.05, no significant differences between the medians of 2 groups. (Accept null hypothesis)
+    </ul>"
+  ),
+  p(tags$i("From the default settings, we can conclude that there is no significant differences in 2 groups Rating scale (P=0.18).")),
+
+
   ) 
 
 ##########----------##########----------##########
@@ -88,11 +112,12 @@ twosample<- sidebarLayout(
 
 sidebarPanel(
 
-h4("Data Preparation"),
+  h4(tags$b("Step 1. Data Preparation")),
 
   tabsetPanel(
   ##-------input data-------## 
-  tabPanel("Manually input", p(br()),
+  tabPanel("Manual input", p(br()),
+
     p(tags$b("Please follow the example to input your data in the box")),
 
     p(tags$i("Example here is the Depression Rating Scale factor measurements of 19 patients from a two group of patients.")),
@@ -111,6 +136,9 @@ h4("Data Preparation"),
     p(tags$b("You can change the name of your data (No space)")),
 
     tags$textarea(id="cn2", rows=2, "Group1\nGroup2")),
+
+    p(tags$i("In this default settings, we want to know if Depression Rating Scale from two group of patients are different.")),
+
 
   ##-------csv file-------##   
 tabPanel("Upload Data", p(br()),
@@ -154,10 +182,7 @@ mainPanel(
 
     tabPanel("Basic Descriptives", p(br()), 
 
-      splitLayout(
         tableOutput("bas2"), 
-        tableOutput("des2"), 
-        tableOutput("nor2")),
 
       HTML(
           "Notes:
