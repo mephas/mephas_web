@@ -42,23 +42,14 @@ basic_desc3 <- reactive({
 
 output$bas.p <- renderTable({
   x <- Z()
-  res <- basic_desc3()[1:3,3]
-  names(res) = c("How many values", "How many NULL values", "How many Missing values")
+  res <- basic_desc3()[-11,3]
+  names(res) = c("How many values", "How many NULL values", "How many Missing values",
+    "Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient",
+    "Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
   return(res)
   },   
-  width = "200px", rownames = TRUE, digits = 0)
+  width = "500px", rownames = TRUE, colnames = FALSE, digits = 4)
 
-output$des.p <- renderTable({
-  res <- basic_desc3()[c(4:10,12:14),3]
-  names(res) = c("Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient")
-  },   
-  width = "200px", rownames = TRUE)
-
-output$nor.p <- renderTable({
-  res <- basic_desc3()[15:20,3]
-  names(res) = c("Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
-  },   
-  width = "200px", rownames = TRUE)
 
 
 output$download5 <- downloadHandler(
@@ -77,7 +68,7 @@ output$bp.p = renderPlot({
   })
 
 output$meanp.p = renderPlot({
-  x = Z()
+  x = Z()[,3]
   des = data.frame(t(stat.desc(x)))
   #p1 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
   #  geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) +

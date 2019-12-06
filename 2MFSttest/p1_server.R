@@ -37,23 +37,13 @@ basic_desc <- reactive({
   return(res)})
 
 output$bas <- renderTable({
-  res <- basic_desc()[1:3,]
-  names(res) = c("How many values", "How many NULL values", "How many Missing values")
+  res <- basic_desc()[-11,]
+  names(res) = c("How many values", "How many NULL values", "How many Missing values",
+    "Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient",
+    "Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
   return(res)
   },   
-  width = "200px", rownames = TRUE, colnames = FALSE, digits = 0)
-
-output$des <- renderTable({
-  res <- basic_desc()[c(4:10,12:14),]
-  names(res) = c("Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient")
-  return(res)}, 
-    width = "200px", rownames = TRUE, colnames = FALSE, digits = 4)
-
-output$nor <- renderTable({
-  res <- basic_desc()[15:20,]
-  names(res) = c("Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
-  return(res)},  
-   width = "200px", rownames = TRUE, colnames = FALSE, digits = 4)
+  width = "500px", rownames = TRUE, colnames = FALSE, digits = 4)
 
 output$download0 <- downloadHandler(
     filename = function() {

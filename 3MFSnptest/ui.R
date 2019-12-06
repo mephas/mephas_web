@@ -105,7 +105,7 @@ HTML("
 hr(),
 
 ##---------- 2.1 ----------
-#twosample,
+twosample,
 
 hr(),
 
@@ -126,7 +126,7 @@ HTML("
 <p> Outliers will affect the spread of data  </p>
   "),
 
-#wrtest,
+wrtest,
 hr(),
 
 ##---------- 2.3 ----------
@@ -134,8 +134,8 @@ h4("Mood's Median Test"),
 
 p("A special case of Pearson's chi-squared test. It has low power (efficiency) for moderate to large sample sizes. "),
 
-hr()
-#mmtest
+
+mmtest
 
 ),
 
@@ -167,7 +167,7 @@ HTML("
 
 "),
 
-#psample,
+psample,
 
 hr(),
 ##---------- 3.1 ----------
@@ -175,7 +175,7 @@ hr(),
 h4("Sign Test"),
 p("The sign test makes very few assumptions about the nature of the distributions under test, but may lack the statistical power of the alternative tests."),
 
-#signtest.p,
+signtest.p,
 
 hr(),
 ##---------- 3.2 ----------
@@ -197,7 +197,7 @@ HTML("
   
 helpText("Ties means the same values")
 
-#wstest.p
+wstest.p
 
 ),
 ##########----------##########----------##########

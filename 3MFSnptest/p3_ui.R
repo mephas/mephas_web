@@ -91,10 +91,16 @@ h4("Data Preparation"),
   ##-------input data-------## 
   tabPanel("Manually input", p(br()),
     helpText("Missing value is input as NA"),
-    tags$textarea(id="y1", rows=10, "1.8\n3.3\n6.7\n1.4\n2.2\n1.6\n13.6\n2.8\n1.0\n2.8\n6.5\n6.8\n0.7\n0.9\n3.4\n3.3\n1.4\n0.9\n1.4\n1.8"),  ## disable on chrome
-    tags$textarea(id="y2", rows=10, "8.7\n6.6\n6.0\n3.9\n1.6\n16.0\n14.1\n3.1\n4.0\n3.7\n3.1\n7.4\n6.0\n1.1\n3.0\n2.0\n5.0\n4.2\n5.0\n4.9"),
+    tags$textarea(id="y1", 
+      rows=10, 
+    "1.83\n0.50\n1.62\n2.48\n1.68\n1.88\n1.55\n3.06\n1.30"    
+    ),
+    tags$textarea(id="y2", 
+      rows=10, 
+      "0.878\n0.647\n0.598\n2.050\n1.060\n1.290\n1.060\n3.140\n1.290"
+      ),
     helpText("Change the names of two samples (optional)"), 
-    tags$textarea(id="cn3", rows=2, "X\nY\n(X-Y)")),
+    tags$textarea(id="cn3", rows=2, "Before\nAfter\nAfter-Before")),
 
   ##-------csv file-------##   
   tabPanel("Upload CSV file", p(br()),

@@ -156,7 +156,7 @@ output$download1.2 <- downloadHandler(
     })
   output$bas2 <- renderTable({  ## don't use renerPrint to do renderTable
     res <- B.des()[1:3, ]
-    rownames(res) = c("number.var", "number.null", "number.na")
+    names(res) = c("How many values", "How many NULL values", "How many Missing values")
     return(res)},   width = "200px", rownames = TRUE, digits = 0)
 
   output$des2 <- renderTable({  
@@ -251,7 +251,7 @@ output$download1.2 <- downloadHandler(
 
   output$bas3 <- renderTable({  ## don't use renerPrint to do renderTable
     res <- C.des()[1:3, ]
-    rownames(res) = c("number.var", "number.null", "number.na")
+    names(res) = c("How many values", "How many NULL values", "How many Missing values")
     return(res)},   width = "200px", rownames = TRUE, digits = 0)
 
   output$des3 <- renderTable({  

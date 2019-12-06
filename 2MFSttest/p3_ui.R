@@ -106,12 +106,10 @@ sidebarPanel(
             dataTableOutput("table.p")),
 
     tabPanel("Basic Descriptives", p(br()),
+
+      tags$b("Basic Descriptives of the Difference"),
             
-            splitLayout(
               tableOutput("bas.p"),
-              tableOutput("des.p"),
-              tableOutput("nor.p")
-              ),
 
       HTML(
           "Notes:

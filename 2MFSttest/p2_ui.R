@@ -105,12 +105,8 @@ sidebarPanel(
         dataTableOutput("table2")),
 
     tabPanel("Basic Descriptives", p(br()),
-        
-        splitLayout(
+          
           tableOutput("bas2"),
-          tableOutput("des2"),
-          tableOutput("nor2")
-          ),
 
          HTML(
           "Notes:

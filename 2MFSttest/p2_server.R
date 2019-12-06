@@ -15,7 +15,7 @@ Y <- reactive({
     X <- as.numeric(unlist(strsplit(input$x1, "[\n, \t, ]")))
     Y <- as.numeric(unlist(strsplit(input$x2, "[\n, \t, ]")))
     x <- data.frame(X = X, Y = Y)
-    names(x) = unlist(strsplit(input$cn2, "[\n, \t, ]"))
+    colnames(x) = unlist(strsplit(input$cn2, "[\n, \t, ]"))
     return(x)
     }
   else {
@@ -39,23 +39,14 @@ basic_desc2 <- reactive({
   return(res)})
 
 output$bas2 <- renderTable({
-  res <- basic_desc2()[1:3,]
-  names(res) = c("How many values", "How many NULL values", "How many Missing values")
+  res <- basic_desc2()[-11,]
+  rownames(res) = c("How many values", "How many NULL values", "How many Missing values",
+    "Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", 
+    "Variance","Standard Deviation","Variation Coefficient",
+    "Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
   return(res)
   },   
-  width = "200px", rownames = TRUE, digits = 0)
-
-output$des2 <- renderTable({
-  res <- basic_desc2()[c(4:10,12:14),]
-  names(res) = c("Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient")
-  },   
-  width = "200px", rownames = TRUE)
-
-output$nor2 <- renderTable({
-  res <- basic_desc2()[15:20,]
-  names(res) = c("Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
-  },   
-  width = "200px", rownames = TRUE)
+  width = "500px", rownames = TRUE, digits = 4)
 
 
 output$download3 <- downloadHandler(

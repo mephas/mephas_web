@@ -107,11 +107,7 @@ mainPanel(
 
     tabPanel("Basic Descriptives", p(br()),
 
-      splitLayout(
         tableOutput("bas"),
-        tableOutput("des"),
-        tableOutput("nor")
-        ), 
 
           HTML(
           "Notes:

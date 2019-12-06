@@ -16,31 +16,34 @@ wrtest<- sidebarLayout(
 
 sidebarPanel(
 
-h4("Hypotheses"),
-tags$b("Null hypothesis"),
+p(tags$b("1. Hypotheses")),
+p(tags$b("Null hypothesis")),
 
-HTML("<p> m&#8321 = m&#8322: the medians of each group are equal; the distribution of values for each group are equal </p>"),
+HTML("<p> m&#8321 = m&#8322: the medians of two group are equal </p>
+  <p> Or, the distribution of values for each group are equal </p>"),
 
 radioButtons("alt.mwt", label = "Alternative hypothesis", 
   choiceNames = list(
-    HTML("m&#8321 &#8800 m&#8322: the population medians of each group are not equal; there is systematic difference in the distribution of values for the groups"),
-    HTML("m&#8321 < m&#8322: the population median of X is greater"),
-    HTML("m&#8321 > m&#8322: the population median of Y is greater")),
+    HTML("m&#8321 &#8800 m&#8322: the population medians of each group are not equal"),
+    HTML("m&#8321 < m&#8322: the population median of Group 2 is greater"),
+    HTML("m&#8321 > m&#8322: the population median of Group 1 is greater")),
   choiceValues = list("two.sided", "less", "greater")),
 
-h4("Correction"),
-radioButtons("nap.mwt", label = "Normal Approximation", 
-  choices = list("Sample size is not large" = FALSE,
-                 "Sample size is moderate large" = TRUE, 
-                 "Small sample size" = TRUE), selected = FALSE)),
+p(tags$b("2. Whether to do Normal Approximation")),
+radioButtons("nap.mwt", label = "How large is your sample size", 
+  choiceNames = list(
+    HTML("Sample size is not large (<10), I want exact P Value. No need to do Normal Approximation"),
+    HTML("Sample size is moderate large (>10), then do Normal Approximation")), 
+  choiceValues = list(FALSE, TRUE)),
+p("Note: Normal Approximation is to apply continuity correction for the p-value and confidence interval.")
+),
 
 mainPanel(
-  h4("Results of Wilcoxon Rank-Sum Test"), p(br()),
+  h4(tags$b("Output 2.1. Test Results")),p(br()), 
+  h4('Results of Wilcoxon Rank-Sum Test'), p(br()), 
+
   tableOutput("mwu.test"), p(br()),
-  helpText(HTML("<ul>
-      <li> 'Estimated.diff' denotes the estimated differences of medians
-      <li> When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction' </li>  
-      </ul>" )), p(br()),
+
   downloadButton("download2.1", "Download Results")
   )
 
@@ -56,8 +59,9 @@ mmtest<- sidebarLayout(
 
 sidebarPanel(
 
-h4("Hypotheses"),
-tags$b("Null hypothesis"),
+p(tags$b("Hypotheses")),
+p(tags$b("Null hypothesis")),
+
 HTML("m&#8321 = m&#8322, the medians of values for each group are equal"),
 
 radioButtons("alt.md", label = "Alternative hypothesis", 
@@ -69,6 +73,7 @@ radioButtons("alt.md", label = "Alternative hypothesis",
 
 mainPanel(
   h4("Results of Mood's Median Test"), p(br()),
+
   tableOutput("mood.test")
   ) 
 
@@ -88,63 +93,111 @@ h4("Data Preparation"),
   tabsetPanel(
   ##-------input data-------## 
   tabPanel("Manually input", p(br()),
-    helpText("Missing value is input as NA"),
-    tags$textarea(id="x1", rows=10, "1.8\n3.3\n6.7\n1.4\n2.2\n1.6\n13.6\n2.8\n1.0\n2.8\n6.5\n6.8\n0.7\n0.9\n3.4\n3.3\n1.4\n0.9\n1.4\n1.8"),  ## disable on chrome
-    tags$textarea(id="x2", rows=10, "8.7\n6.6\n6.0\n3.9\n1.6\n16.0\n14.1\n3.1\n4.0\n3.7\n3.1\n7.4\n6.0\n1.1\n3.0\n2.0\n5.0\n4.2\n5.0\n4.9"),
-    helpText("Change the names of two samples (optional)"), tags$textarea(id="cn2", rows=2, "X\nY")),
+    p(tags$b("Please follow the example to input your data in the box")),
+
+    p(tags$i("Example here is the Depression Rating Scale factor measurements of 19 patients from a two group of patients.")),
+
+    tags$textarea(id="x1", 
+    rows=10, 
+    "1.83\n0.50\n1.62\n2.48\n1.68\n1.88\n1.55\n3.06\n1.30\nNA"    
+    ),  ## disable on chrome
+    tags$textarea(id="x2", 
+      rows=10, 
+      "0.80\n0.83\n1.89\n1.04\n1.45\n1.38\n1.91\n1.64\n0.73\n1.46"
+      ),
+    
+    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error"),
+
+    p(tags$b("You can change the name of your data (No space)")),
+
+    tags$textarea(id="cn2", rows=2, "Group1\nGroup2")),
 
   ##-------csv file-------##   
-  tabPanel("Upload CSV file", p(br()),
-    fileInput('file2', 'Choose CSV file', accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
-    checkboxInput('header2', 'Header', TRUE), #p
-    radioButtons('sep2', 'Separator', c(Comma=',', Semicolon=';', Tab='\t'), ',')) )
+tabPanel("Upload Data", p(br()),
+
+        ##-------csv file-------##
+        fileInput('file2', "Choose CSV/TXT file",
+                  accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
+        #helpText("The columns of X are not suggested greater than 500"),
+        # Input: Checkbox if file has header ----
+        checkboxInput("header2", "Show Data Header?", TRUE),
+
+             # Input: Select separator ----
+        radioButtons("sep2", 
+          "Which Separator for Data?",
+          choiceNames = list(
+            HTML("Comma (,): CSV often use this"),
+            HTML("One Tab (->|): TXT often use this"),
+            HTML("Semicolon (;)"),
+            HTML("One Space (_)")
+            ),
+          choiceValues = list(",", ";", " ", "\t")
+          ),
+
+        p("Correct Separator ensures data input successfully"),
+
+        a("Find some example data here",
+          href = "https://github.com/mephas/datasets")
+        )
+        )
 ),
 
 mainPanel(
 
-  h4("Descriptive Statistics"),
+  h4(tags$b("Output 1. Descriptive Results")),
 
   tabsetPanel(
 
-    tabPanel("Data Display", p(br()),  
+    tabPanel("Data Preview", p(br()),
 
       dataTableOutput("table2")),
 
-    tabPanel("Basic descriptives", p(br()), 
+    tabPanel("Basic Descriptives", p(br()), 
 
       splitLayout(
         tableOutput("bas2"), 
         tableOutput("des2"), 
-        tableOutput("nor2")),p(br()), 
+        tableOutput("nor2")),
+
+      HTML(
+          "Notes:
+          <ul>
+            <li> If Skew.2SE > 1, then skewness is significantly different than zero
+            <li> If Kurt.2SE > 1, then kurtosis is significantly different than zero
+            <li> Normtest.W: the statistic of a Shapiro-Wilk test of normality
+            <li> Normtest.p: p value the statistic of a Shapiro-Wilk test of normality
+            <li> Normtest.p < 0.05, then data significantly different from normality
+          </ul>"
+          ),
+
+      p(br()), 
         downloadButton("download2b", "Download Results") ),
 
-    tabPanel("Boxplot", p(br()), 
-
-      splitLayout(
+    tabPanel("Box-Plot", p(br()), 
         plotOutput("bp2", width = "400px", height = "400px", click = "plot_click2"),
 
-      wellPanel(
-        verbatimTextOutput("info2"), hr(),
-
-        helpText(
+        verbatimTextOutput("info2"), 
+        hr(),
           HTML(
-            "Notes:
-            <ul>
-            <li> Points are simulated and located randomly in the same horizontal line 
-            <li> Outliers will be highlighted in red, if existing
-            <li> The red outlier may not cover the simulated point
-            <li> The red outlier only indicates the value in horizontal line
-            </ul>"
-            )
-          )
-        )
-        ) ),
+          "Notes:
+          <ul>
+            <li> The band inside the box is the median
+            <li> The box measures the difference between 75th and 25th percentiles
+            <li> Outliers will be in red, if existing
+          </ul>"
+            )        
+         ),
 
     tabPanel("Histogram", p(br()), 
 
       plotOutput("makeplot2", width = "800px", height = "400px"),
       sliderInput("bin2", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2),
-      sliderInput("bin2", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2)
+      HTML(
+          "Notes:
+          <ul> 
+            <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
+            <li> Density Plot: to estimate the probability density function of the data
+          </ul>")
       )
     )) 
 

@@ -59,7 +59,7 @@ sidebarPanel(
 p(tags$b("1. Hypotheses")),
 p(tags$b("Null hypothesis")),
 
-HTML("<p> m = m&#8320: the population median is equal to the specified median( m&#8320); </p>
+HTML("<p> m = m&#8320: the population median is equal to the specified median( m&#8320) </p>
   <p>Or, the distribution of the data set is symmetric about the specified median</p>"),
 
 radioButtons("alt.wsr", 
@@ -196,7 +196,7 @@ mainPanel(
         p(br()), 
       downloadButton("download1b", "Download Results")),
 
-    tabPanel("Boxplot", p(br()), 
+    tabPanel("Box-Plot", p(br()), 
 
         plotOutput("bp", width = "400px", height = "400px", click = "plot_click"),
 
@@ -216,7 +216,14 @@ mainPanel(
     tabPanel("Histogram", p(br()), 
 
       plotOutput("makeplot", width = "800px", height = "400px"),
-      sliderInput("bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2)
+      sliderInput("bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2),
+      HTML(
+          "Notes:
+          <ul> 
+            <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
+            <li> Density Plot: to estimate the probability density function of the data
+          </ul>"
+            )
       )
     )
   )
