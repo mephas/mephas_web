@@ -16,7 +16,7 @@ Z <- reactive({
     X <- as.numeric(unlist(strsplit(input$x1.p, "[\n, \t, ]")))
     Y <- as.numeric(unlist(strsplit(input$x2.p, "[\n, \t, ]")))
     x <- data.frame(X = X, Y = Y)
-    x$diff <- round(x[, 1] - x[, 2],4)
+    x$diff <- round(x[, 2] - x[, 1],4)
     names(x) = unlist(strsplit(input$cn.p, "[\n, \t, ]"))
     return(x)
     }
@@ -27,7 +27,7 @@ Z <- reactive({
         header = input$header.p,
         sep = input$sep.p
       ))
-    csv$diff <- round(csv[, 1] - csv[, 2],4)
+    csv$diff <- round(csv[, 2] - csv[, 1],4)
    
     return(csv)
   }
@@ -42,19 +42,21 @@ basic_desc3 <- reactive({
 
 output$bas.p <- renderTable({
   x <- Z()
-  res <- basic_desc3()[1:3,]
-  rownames(res) = c("number.var", "number.null", "number.na")
+  res <- basic_desc3()[1:3,3]
+  names(res) = c("How many values", "How many NULL values", "How many Missing values")
   return(res)
   },   
   width = "200px", rownames = TRUE, digits = 0)
 
 output$des.p <- renderTable({
-  basic_desc3()[4:14,]
+  res <- basic_desc3()[c(4:10,12:14),3]
+  names(res) = c("Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient")
   },   
   width = "200px", rownames = TRUE)
 
 output$nor.p <- renderTable({
-  basic_desc3()[15:20,]
+  res <- basic_desc3()[15:20,3]
+  names(res) = c("Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
   },   
   width = "200px", rownames = TRUE)
 
@@ -70,7 +72,8 @@ output$download5 <- downloadHandler(
 
 output$bp.p = renderPlot({
   x = Z()
-  ggplot(x, aes(x = "", y = x[, 3])) + geom_boxplot(width = 0.2, outlier.colour = "red") + geom_jitter(width = 0.1, size = 1.5) + ylab("") + xlab("") + ggtitle("") + theme_minimal()
+  ggplot(x, aes(x = "", y = x[, 3])) + geom_boxplot(width = 0.2, outlier.colour = "red") + 
+  ylab("") + xlab("") + ggtitle("") + theme_minimal()
   })
 
 output$meanp.p = renderPlot({
@@ -80,8 +83,10 @@ output$meanp.p = renderPlot({
   #  geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) +
   #  xlab("") + ylab(expression(Mean %+-% SD)) + geom_point(shape = 21, size = 3) + theme_minimal() + theme(legend.title = element_blank())
 
-  p2 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + xlab("") + ylab(expression(Mean %+-% SD)) + geom_bar(position = position_dodge(),stat = "identity",width = 0.2,alpha = .3) +
-    geom_errorbar(width = .1,position = position_dodge(.9),aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) + theme_minimal() + theme(legend.title = element_blank())
+  p2 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
+  xlab("") + ylab(expression(Mean %+-% SD)) + geom_bar(position = position_dodge(),stat = "identity",width = 0.2,alpha = .3) +
+  geom_errorbar(width = .1,position = position_dodge(.9),aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) + 
+  theme_minimal() + theme(legend.title = element_blank())
   
   grid.arrange(p2)
   })
@@ -92,7 +97,7 @@ output$info3 <- renderText({
     return("NULL\n")
     paste0("The approximate value: ", round(e$y, 4))
   }
-  paste0("Horizontal postion: ", "\n", xy_str(input$plot_click3))
+  paste0("Horizontal position ", "\n", xy_str(input$plot_click3))
   })
 
 output$makeplot.p <- renderPlot({
@@ -116,14 +121,15 @@ t.test.p0 <- reactive({
 
   res.table <- t(
     data.frame(
-      T_statistic = res$statistic,
-      P_value = res$p.value,
-      Estimated_mean_diff = res$estimate,
-      Confidence_interval_0.95 = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4),")"),
-      Degree_of_freedom = res$parameter
+      T = res$statistic,
+      P = res$p.value,
+      EMD = res$estimate,
+      CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4),")"),
+      DF = res$parameter
       )
     )
   colnames(res.table) <- res$method
+  rownames(res.table) <- c("T Statistic", "P Value", "Estimated Mean Difference of 2 Groups" ,"95% Confidence Interval","Degree of Freedom")
   return(res.table)
 
   })

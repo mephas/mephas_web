@@ -37,7 +37,7 @@ headerPanel("One-Sample T-Test"),
     <h4><b> 2. About your data </b></h4>
 
     <ul>
-      <li> Your data contain only 1 group of values (or a vector)
+      <li> Your data contain only 1 group of values (or a vector) and
       <li> The values are independent observations and approximately normally distributed
     </ul> 
 
@@ -93,7 +93,7 @@ tabPanel("Paired Samples",
 
     <h4><b> 1. Goal </b></h4>
     <ul>
-      <li> To determine if the differences from the paired 2 samples are equal to 0
+      <li> To determine if the difference of the paired 2 samples are equal to 0
     </ul>
 
 
@@ -102,13 +102,18 @@ tabPanel("Paired Samples",
       <ul>
       <li> The differences of paired samples are approximately normally distributed                           
       <li> Two samples that have been matched or paired 
-      <li> The pairs are either one person's pre-test and post-test scores or between pairs of persons matched into meaningful groups
-      </ul>                                         
+      </ul>    
+ 
+     <h4><b> 3. Matched or Paired Data </b></h4>
+      <ul>
+       <li>  Either one person's pre-test and post-test scores or between pairs of persons matched into meaningful groups
+       <li>  Repeated measurements where subjects are tested prior to a treatment
+      </ul>  
+
+   <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+                                           
       "
       ),
-
-  helpText("A typical example of the pared sample is that the repeated measurements, where subjects are tested prior to a treatment, say for high blood pressure, and the same subjects are tested again after treatment with a blood-pressure lowering medication"),
-
 
    hr(),
 

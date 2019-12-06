@@ -18,11 +18,11 @@ sidebarPanel(
 
     tabsetPanel(
       ##-------input data-------##
-      tabPanel("Manual input", p(br()),
+      tabPanel("Manual Input", p(br()),
 
         p(tags$b("Please follow the example to input 2 sets of data in the box")),
 
-        p(tags$i("Example here is the AGE of 27 lymph node positive patients with ER positive, and 117 patients with ER negative")),
+        p(tags$i("Example here is the AGE of 27 lymph node positive patients with Estrogen receptor (ER) positive (Group.1-Age.positive); and 117 patients with ER negative (Group.2-Age.negative)")),
 
 
         tags$textarea(id = "x1",rows = 10,
@@ -44,23 +44,28 @@ sidebarPanel(
         ),
 
       ##-------csv file-------##
-      tabPanel(
-        "Upload CSV file",
-        p(br()),
-        
-        fileInput('file2','Choose CSV file', #p
-          accept = c(
-            'text/csv',
-            'text/comma-separated-values,text/plain',
-            '.csv'
-            )
+    tabPanel("Upload Data", p(br()),
+
+        ##-------csv file-------##
+        fileInput('file2', "Choose CSV/TXT file",
+                  accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
+        #helpText("The columns of X are not suggested greater than 500"),
+        # Input: Checkbox if file has header ----
+        checkboxInput("header2", "Show Data Header?", TRUE),
+
+             # Input: Select separator ----
+        radioButtons("sep2", 
+          "Which Separator for Data?",
+          choiceNames = list(
+            HTML("Comma (,): CSV often use this"),
+            HTML("One Tab (->|): TXT often use this"),
+            HTML("Semicolon (;)"),
+            HTML("One Space (_)")
+            ),
+          choiceValues = list(",", ";", " ", "\t")
           ),
-        checkboxInput('header2', 'Header', TRUE), #p
-        radioButtons("sep2", "Separator",
-                     choices = c(Comma = ',',
-                                 Semicolon = ';',
-                                 Tab = '\t'),
-                     selected = ','),
+
+        p("Correct Separator ensures data input successfully"),
 
         a("Find some example data here",
           href = "https://github.com/mephas/datasets")
@@ -84,7 +89,7 @@ sidebarPanel(
         ),
       choiceValues = list("two.sided", "less", "greater")),
 
-      p(tags$i("In this settings, we want to know if the age of lymph node positive population is 50 years old."))
+      p(tags$i("In this default settings, we want to know if the ages of patients with ER positive is significantly different from patients with ER negative"))
 
 
     ),
@@ -95,7 +100,7 @@ sidebarPanel(
 
     tabsetPanel(
 
-      tabPanel("Data Display",p(br()), 
+    tabPanel("Data Preview", p(br()),
 
         dataTableOutput("table2")),
 
@@ -143,7 +148,7 @@ sidebarPanel(
 
         plotOutput("meanp2", width = "400px", height = "400px")),
 
-    tabPanel("Check the Normality", p(br()),
+    tabPanel("Distribution Plots", p(br()),
 
         plotOutput("makeplot2", width = "600px", height = "600px"),
         sliderInput("bin2","The width of bins in histogram",min = 0.01,max = 5,value = 0.2),
@@ -162,9 +167,23 @@ sidebarPanel(
     hr(),
     h4(tags$b("Output 2. Test Results")),
 
+    tags$b("1. Check the equivalence of 2 variances"),
+
     tableOutput("var.test"),
 
-    p("If P value < 0.05, refer to the 'Welch Two-Sample t-test'"),
+    HTML(
+    "<b> Explanations </b> 
+    <ul> 
+    <li> P value < 0.05, then refer to the 'Welch Two-Sample t-test'
+    <li> P Value >= 0.05, then refer to 'Two-Sample t-test'
+    </ul>"
+  ),
+
+
+    p(tags$i("From the default settings, P value of F test is about 0.11 (>0.05), we should refer to the results from 'Two-Sample t-test'")),
+
+    tags$b("2. Decide the test"),
+
 
     tableOutput("t.test2"),
     p(br()), 
@@ -172,12 +191,12 @@ sidebarPanel(
       HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then the population means of the Group 1 IS significantly different from Group 2
-    <li> P Value >= 0.05, then there is no significant differences between Group 1 and Group 2 
+    <li> P Value < 0.05, then the population means of the Group 1 IS significantly different from Group 2. (Accept alternative hypothesis)
+    <li> P Value >= 0.05, then there is NO significant differences between Group 1 and Group 2. (Accept null hypothesis) 
     </ul>"
   ),
 
-    p(tags$i("From the default settings, we can conclude that the age of lymph node positive population is not significantly different from 50 years old")),
+    p(tags$i("From the default settings, we can conclude that the age of lymph node positive population with ER positive is not significantly different from ER negative (P=0.24, from 'Two-Sample t-test')")),
 
 
     downloadButton("download2", "Download Results of Variance Test"),

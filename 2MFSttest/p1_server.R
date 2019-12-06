@@ -108,14 +108,16 @@ t.test0 <- reactive({
     alternative = input$alt)
   res.table <- t(
     data.frame(
-      "T.Statistic" = round(res$statistic, digits=4),
-      "P.Value" = res$p.valu,
-      "Estimated.Mean" = round(res$estimate, digits=4),
-      "Confidence.Interval.at.0.95.probability" = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4),")"),
-      "Degree.of.Freedom" = res$parameter
+      T = round(res$statistic, digits=4),
+      P = res$p.valu,
+      E.M = round(res$estimate, digits=4),
+      CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4),")"),
+      DF = res$parameter
       )
     )
   colnames(res.table) <- res$method
+  rownames(res.table) <- c("T Statistic", "P Value","Estimated Mean","95% Confidence Interval","Degree of Freedom")
+
   return(res.table)
   })
 

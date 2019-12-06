@@ -18,7 +18,7 @@ sidebarPanel(
 
   tabsetPanel(
 
-    tabPanel("Manual input", p(br()),
+    tabPanel("Manual Input", p(br()),
 
       p(tags$b("Please follow the example to input your data in the box")),
 
@@ -39,23 +39,28 @@ sidebarPanel(
       tags$textarea(id = "cn", rows = 1, "Age") ), #tabPanel(
 
 
-    tabPanel("Upload CSV file", p(br()),
+    tabPanel("Upload Data", p(br()),
 
         ##-------csv file-------##
-        fileInput('file', "Choose CSV file",
-                  accept = c("text/csv",
-                          "text/comma-separated-values,text/plain",
-                          ".csv")),
+        fileInput('file', "Choose CSV/TXT file",
+                  accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
-        checkboxInput("header", "Header", TRUE),
+        checkboxInput("header", "Show Data Header?", TRUE),
 
              # Input: Select separator ----
-        radioButtons("sep", "Separator",
-                     choices = c(Comma = ',',
-                                 Semicolon = ';',
-                                 Tab = '\t'),
-                     selected = ','),
+        radioButtons("sep", 
+          "Which Separator for Data?",
+          choiceNames = list(
+            HTML("Comma (,): CSV often use this"),
+            HTML("One Tab (->|): TXT often use this"),
+            HTML("Semicolon (;)"),
+            HTML("One Space (_)")
+            ),
+          choiceValues = list(",", ";", " ", "\t")
+          ),
+
+        p("Correct Separator ensures data input successfully"),
 
         a("Find some example data here",
           href = "https://github.com/mephas/datasets")
@@ -69,7 +74,7 @@ hr(),
 
   p(tags$b("1. Hypotheses")),
   p(tags$b("Null hypothesis")),
-  HTML("&#956 = &#956&#8320: the population mean of your data is &#956&#8320"),
+  HTML("&#956 = &#956&#8320: the population mean (&#956) of your data is &#956&#8320"),
 
   radioButtons(
     "alt",
@@ -84,7 +89,7 @@ hr(),
  p(tags$b("2. Specified Mean")),
   numericInput('mu', HTML("Specify the mean (&#956&#8320) that you want to compare with your data"), 50), #p
 
-  p(tags$i("In this settings, we want to know if the age of lymph node positive population is 50 years old."))
+  p(tags$i("In this default settings, we want to know if the age of lymph node positive population is 50 years old."))
 
 
     ),
@@ -142,7 +147,7 @@ mainPanel(
 
       plotOutput("meanp", width = "400px", height = "400px")),
 
-    tabPanel("Check the Normality", p(br()),
+    tabPanel("Distribution Plots", p(br()),
 
       plotOutput("makeplot", width = "900px", height = "300px"),
       sliderInput("bin","The width of bins in histogram",min = 0.01,max = 5,value = 0.2),
@@ -168,8 +173,8 @@ mainPanel(
   HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then the population of the data IS significantly different from the specified mean
-    <li> P Value >= 0.05, then the population of the data IS NOT significantly different from the specified mean
+    <li> P Value < 0.05, then the population of the data IS significantly different from the specified mean. (Accept alternative hypothesis)
+    <li> P Value >= 0.05, then the population of the data IS NOT significantly different from the specified mean. (Accept null hypothesis)
     </ul>"
   ),
 

@@ -40,18 +40,20 @@ basic_desc2 <- reactive({
 
 output$bas2 <- renderTable({
   res <- basic_desc2()[1:3,]
-  rownames(res) = c("number.var", "number.null", "number.na")
+  names(res) = c("How many values", "How many NULL values", "How many Missing values")
   return(res)
   },   
   width = "200px", rownames = TRUE, digits = 0)
 
 output$des2 <- renderTable({
-  basic_desc2()[4:14,]
+  res <- basic_desc2()[c(4:10,12:14),]
+  names(res) = c("Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient")
   },   
   width = "200px", rownames = TRUE)
 
 output$nor2 <- renderTable({
-  basic_desc2()[15:20,]
+  res <- basic_desc2()[15:20,]
+  names(res) = c("Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
   },   
   width = "200px", rownames = TRUE)
 
@@ -69,7 +71,9 @@ output$download3 <- downloadHandler(
 output$bp2 = renderPlot({
   x = Y()
   mx = melt(x, idvar = names(x))
-  ggplot(mx, aes(x = mx[,"variable"], y = mx[,"value"], fill = mx[,"variable"])) + geom_boxplot(width = 0.4,outlier.colour = "red",alpha = .3) + ylab(" ") + xlab(" ") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
+  ggplot(mx, aes(x = mx[,"variable"], y = mx[,"value"], fill = mx[,"variable"])) + 
+  geom_boxplot(width = 0.4,outlier.colour = "red",alpha = .3) + 
+  ylab(" ") + xlab(" ") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
   })
 
 output$meanp2 = renderPlot({
@@ -108,7 +112,7 @@ output$info2 <- renderText({
     return("NULL\n")
     paste0("The approximate value: ", round(e$y, 4))
     }
-  paste0("Horizontal postion: ", "\n", xy_str(input$plot_click2))
+  paste0("Horizontal position ", "\n", xy_str(input$plot_click2))
   })
 
   # test result
@@ -118,13 +122,14 @@ var.test0 <- reactive({
   res <- var.test(as.vector(x[, 1]), as.vector(x[, 2]))
   res.table <- t(
     data.frame(
-      F_statistic = res$statistic,
-      P_value = res$p.value,
-      Confidence_interval_0.95 = paste0("(", round(res$conf.int[1], digits = 4), ", ", round(res$conf.int[2], digits = 4),")"),
-      Estimated_var_ratio = res$estimate
+      F = res$statistic,
+      P = res$p.value,
+      CI = paste0("(", round(res$conf.int[1], digits = 4), ", ", round(res$conf.int[2], digits = 4),")"),
+      EVR = res$estimate
       )
     )
   colnames(res.table) <- res$method
+  rownames(res.table) <- c("F Statistic", "P Value", "95% Confidence Interval", "Estimated Ratio of Variances (Var1/Var2)")
   return(res.table)
   })
 
@@ -142,13 +147,13 @@ t.test20 <- reactive({
 
 res.table <- t(
   data.frame(
-    T_statistic = res$statistic,
-    P_value = res$p.value,
-    Estimated_mean_X = res$estimate[1],
-    Estimated_mean_Y = res$estimate[2],
-    Estimated_mean_diff = res$estimate[1] - res$estimate[2],
-    Confidence_interval_0.95 = paste0("(",round(res$conf.int[1], digits = 4),", ", round(res$conf.int[2], digits = 4), ")" ),
-    Degree_of_freedom = res$parameter
+    T = res$statistic,
+    P = res$p.value,
+    EMX = res$estimate[1],
+    EMY = res$estimate[2],
+    EMD = res$estimate[1] - res$estimate[2],
+    CI = paste0("(",round(res$conf.int[1], digits = 4),", ", round(res$conf.int[2], digits = 4), ")" ),
+    DF = res$parameter
     )
   )
   res1 <- t.test(
@@ -159,18 +164,19 @@ res.table <- t(
     )
   res1.table <- t(
     data.frame(
-      T_statistic = res1$statistic,
-      P_value = res1$p.value,
-      Estimated_mean_X = res1$estimate[1],
-      Estimated_mean_Y = res1$estimate[2],
-      Estimated_mean_diff = res1$estimate[1] - res1$estimate[2],
-      Confidence_interval_0.95 = paste0("(",round(res1$conf.int[1], digits = 4),", ",round(res1$conf.int[2], digits = 4),")"),
-      Degree_of_freedom = res1$parameter
+      T = res1$statistic,
+      P = res1$p.value,
+      EMX = res1$estimate[1],
+      EMY = res1$estimate[2],
+      EMD = res1$estimate[1] - res1$estimate[2],
+      CI = paste0("(",round(res1$conf.int[1], digits = 4),", ",round(res1$conf.int[2], digits = 4),")"),
+      DF = res1$parameter
       )
     )
 
   res2.table <- cbind(res.table, res1.table)
   colnames(res2.table) <- c(res$method, res1$method)
+  rownames(res2.table) <- c("T Statistic", "P Value","Estimated Mean of Group 1","Estimated Mean of Group 2", "Estimated Mean Difference of 2 Groups" ,"95% Confidence Interval","Degree of Freedom")
   return(res2.table)
   })
 
