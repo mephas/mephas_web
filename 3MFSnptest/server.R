@@ -29,7 +29,7 @@ shinyServer(
     names(x) = unlist(strsplit(input$cn, "[\n, \t, ]"))
     return(x)}
     else {
-      csv <- as.data.frame(read.csv(inFile$datapath, header=input$header, sep=input$sep, quote=input$quote))
+      csv <- as.data.frame(read.csv(inFile$datapath, header=input$header, sep=input$sep))
       return(csv)} })
 
   #table 
@@ -42,18 +42,18 @@ shinyServer(
     })
   output$bas <- renderTable({  
     res <- A.des()[1:3,]
-    names(res) = c("number.var", "number.null", "number.na")
-    return(res)},   width = "200px", rownames = TRUE, digits = 0)
+    names(res) = c("How many values", "How many NULL values", "How many Missing values")
+    return(res)},   width = "200px", rownames = TRUE, colnames = FALSE, digits = 0)
 
   output$des <- renderTable({  
-    res <- A.des()[4:14, ]
-    names(res) = c("min","max","range","sum","median","mean","SE.mean","CI.mean.0.95","var","std.dev","coef.var")
-    return(res)},   width = "200px", rownames = TRUE)
+    res <- A.des()[c(4:10,12:14),]
+  names(res) = c("Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient")
+    return(res)},   width = "200px", rownames = TRUE, colnames = FALSE, digits = 4)
 
   output$nor <- renderTable({  
     res <- A.des()[15:20,]
-    names(res) =c("skewness","skew.2SE","kurtosis","kurt.2SE","normtest.W","normtest.p")
-    return(res)},   width = "200px", rownames = TRUE)
+  names(res) = c("Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
+    return(res)},   width = "200px", rownames = TRUE, colnames = FALSE, digits = 4)
   
   output$download1b <- downloadHandler(
     filename = function() {
@@ -68,14 +68,15 @@ shinyServer(
   #plot
    output$bp = renderPlot({
     x = A()
-    ggplot(x, aes(x = "", y = x[,1])) + geom_boxplot(width = 0.2, outlier.colour = "red", outlier.size = 2) + geom_jitter(width = 0.1, size = 1.5) + ylab("") + xlab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())}) 
+    ggplot(x, aes(x = "", y = x[,1])) + geom_boxplot(width = 0.2, outlier.colour = "red", outlier.size = 2) + 
+    ylab("") + xlab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())}) 
   
   output$info <- renderText({
     xy_str = function(e) {
       if(is.null(e)) return("NULL\n")
       paste0("The approximate value: ", round(e$y, 4))
     }
-    paste0("Horizontal position: ", "\n", xy_str(input$plot_click))})
+    paste0("Horizontal position", "\n", xy_str(input$plot_click))})
 
   output$makeplot <- renderPlot({  #shinysession 
     x <- A()
@@ -86,11 +87,12 @@ shinyServer(
   sign.test0 <- reactive({
     x <- A()
     res <- SignTest(as.vector(x[,1]), mu = input$med, alternative = input$alt.st)
-    res.table <- t(data.frame(S_statistic = res$statistic,
-                              P_value = res$p.value,
-                              Estimated_median = res$estimate,
-                              Confidence_interval_0.95 = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
+    res.table <- t(data.frame(S = res$statistic,
+                              P = res$p.value,
+                              EM = res$estimate,
+                              CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
     colnames(res.table) <- res$method
+    rownames(res.table) <- c("S Statistic", "P Value","Estimated Median","95% Confidence Interval")
     return(res.table)
     })
   output$sign.test<-renderTable({
@@ -98,11 +100,13 @@ shinyServer(
 
   ws.test0 <- reactive({x <- A()
     res <- wilcox.test(as.vector(x[,1]), mu = input$med, alternative = input$alt.wsr, correct = input$nap.wsr, conf.int = TRUE, conf.level = 0.95)
-    res.table <- t(data.frame(Z_statistic = res$statistic,
-                              P_value = res$p.value,
-                              Estimated_median = res$estimate,
-                              Confidence_interval_0.95 = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
+    res.table <- t(data.frame(Z = res$statistic,
+                              P = res$p.value,
+                              EM = res$estimate,
+                              CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
     colnames(res.table) <- res$method
+    rownames(res.table) <- c("Z Statistic", "P Value","Estimated Median","95% Confidence Interval")
+
     return(res.table)})
   
   output$ws.test<-renderTable({

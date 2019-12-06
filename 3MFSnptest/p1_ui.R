@@ -15,21 +15,35 @@ signtest<-sidebarLayout(
 ##########----------##########----------##########
 sidebarPanel(
 
-h4("Hypotheses"),
+p(tags$b("Hypotheses")),
+p(tags$b("Null hypothesis")),
 
-tags$b("Null hypothesis"),
-HTML("<p> m = m&#8320: the population median is equal to the specified value </p>"),
+HTML("<p> m = m&#8320: the population median (m) is equal to the specified median ( m&#8320)</p>"),
 
 radioButtons("alt.st", label = "Alternative hypothesis", 
   choiceNames = list(
-  HTML("m &#8800 m&#8320: the population median of X is not equal to the specified value"),
-  HTML("m < m&#8320: the population median of X is less than the specified value"),
-  HTML("m > m&#8320: the population median of X is greater than the specified value")),
-choiceValues = list("two.sided", "less", "greater"))),
+  HTML("m > m&#8320: the population median of X is greater than the specified median"),
+  HTML("m < m&#8320: the population median of X is less than the specified median"),
+  HTML("m &#8800 m&#8320: the population median of X is significantly different from the specified median")
+  
+  ),
+choiceValues = list("greater", "less", "two.sided")),
+),
 
   mainPanel(
+    h4(tags$b("Output 2.1. Test Results")),p(br()), 
     h4('Results of Sign Test'), p(br()), 
     tableOutput("sign.test"),p(br()), 
+    HTML(
+    "<b> Explanations </b> 
+    <ul> 
+    <li> P Value < 0.05, then the population median IS significantly different from the specified median. (Accept alternative hypothesis)
+    <li> P Value >= 0.05, then the population median IS NOT significantly different from the specified median. (Accept null hypothesis)
+    </ul>"
+  ),
+
+  p(tags$i("From the default settings, we can conclude that the scales is significantly greater than 1 (P=0.02), which indicates the patients are suffering from depression.")),
+
     downloadButton("download1.1", "Download Results")
     )  
 ##########----------##########----------##########
@@ -42,29 +56,47 @@ wstest<-sidebarLayout(
 ##########----------##########----------##########
 sidebarPanel(
 
-h4("Hypotheses"),
+p(tags$b("1. Hypotheses")),
+p(tags$b("Null hypothesis")),
 
-tags$b("Null hypothesis"),
-HTML("<p> m = m&#8320: the population median is equal to the specified value; the distribution of the data set is symmetric about the default value </p>"),
+HTML("<p> m = m&#8320: the population median is equal to the specified median( m&#8320); </p>
+  <p>Or, the distribution of the data set is symmetric about the specified median</p>"),
 
-radioButtons("alt.wsr", label = "Alternative hypothesis", 
+radioButtons("alt.wsr", 
+  label = "Alternative hypothesis", 
+  choiceNames = list(  
+  HTML("m > m&#8320: the population median of is greater than the specified median"),
+  HTML("m < m&#8320: the population median of is less than the specified median"),
+  HTML("m &#8800 m&#8320: the population median of is significantly different from the specified median")
+  ),
+choiceValues = list("greater", "less", "two.sided")),
+
+p(tags$b("2. Whether to do Normal Approximation")),
+radioButtons("nap.wsr", 
+  label = "How large is your sample size", 
   choiceNames = list(
-  HTML("m &#8800 m&#8320: the population median of X is not equal to the specified value; or, the distribution of the data set is not symmetric about the default value"),
-  HTML("m < m&#8320: the population median of X is less than the specified value"),
-  HTML("m > m&#8320: the population median of X is greater than the specified value")),
-choiceValues = list("two.sided", "less", "greater")),
-
-helpText("Correction"),
-radioButtons("nap.wsr", label = "Normal Approximation", 
-  choices = list("Sample size is not large" = FALSE,
-                 "Sample size is moderate large" = TRUE, 
-                 "Small sample size" = TRUE), selected = FALSE),
-helpText("Normal approximation is applicable when sample size > 10.")),
+    HTML("Sample size is not large (<10), I want exact P Value. No need to do Normal Approximation"),
+    HTML("Sample size is moderate large (>10), then do Normal Approximation")), 
+  choiceValues = list(FALSE, TRUE)),
+p("Note: Normal Approximation is to apply continuity correction for the p-value and confidence interval.")
+),
 
   mainPanel(
-    h4('Results of Wilcoxon Signed-Rank Test'), 
-    tableOutput("ws.test"), 
-    helpText("When normal approximation is applied, the name of test becomes 'Wilcoxon signed rank test with continuity correction'"),p(br()), 
+    h4(tags$b("Output 2.2. Test Results")),p(br()), 
+    h4('Results of Wilcoxon Signed-Rank Test'), p(br()), 
+    tableOutput("ws.test"), p(br()), 
+
+    HTML(
+    "<b> Explanations </b> 
+    <ul> 
+    <li> P Value < 0.05, then the population median IS significantly different from the specified median. (Accept alternative hypothesis)
+    <li> P Value >= 0.05, then the population median IS NOT significantly different from the specified median. (Accept null hypothesis)
+    </ul>"
+  ),
+
+  p(tags$i("From the default settings, we can conclude that the scales is significantly greater than 1 (P=0.006), which indicates the patients are suffering from depression.")),
+
+
     downloadButton("download1.2", "Download Results")
   )
 ##########----------##########----------##########
@@ -76,71 +108,110 @@ onesample<- sidebarLayout(
 ##########----------##########----------##########
 sidebarPanel(
 
-h4("Data Preparation"),
+  h4(tags$b("Step 1. Data Preparation")),
 
   tabsetPanel(
   ##-------input data-------## 
-  tabPanel("Manual input", p(br()),
-    helpText("Missing value is input as NA"),
+  tabPanel("Manual Input", p(br()),
+    
+    p(tags$b("Please follow the example to input your data in the box")),
 
-    tags$textarea(id="a", rows=10, "1.8\n3.3\n6.7\n1.4\n2.2\n1.6\n13.6\n2.8\n1.0\n2.8\n6.5\n6.8\n0.7\n0.9\n3.4\n3.3\n1.4\n0.9\n1.4\n1.8"),
-    helpText("Change the names of the samples (optional)"), 
-    tags$textarea(id="cn", rows=2, "X")
+    p(tags$i("Example here is the Depression Rating Scale factor measurements of 9 patients from a certain group of patients. Scale > 1 indicates Depression.")),
+
+
+    tags$textarea(id="a", 
+      rows=10, 
+      "1.83\n0.50\n1.62\n2.48\n1.68\n1.88\n1.55\n3.06\n1.30"
+      ),
+    
+    p("Missing value is input as NA"),
+
+    p(tags$b("You can change the name of your data (No space)")),
+
+    tags$textarea(id="cn", rows= 1, "X")
     ),
 
-  ##-------csv file-------##   
-  tabPanel("Upload CSV file", p(br()),
-    fileInput('file', 'Choose CSV file', 
-      accept=c('text/csv', 'text/comma-separated-values,text/plain', '.csv')),
-    checkboxInput('header', 'Header', TRUE), #p
-    radioButtons('sep', 'Separator', c(Comma=',', Semicolon=';', Tab='\t'), ',')) 
-  ),
+    tabPanel("Upload Data", p(br()),
+
+        ##-------csv file-------##
+        fileInput('file', "Choose CSV/TXT file",
+                  accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
+        #helpText("The columns of X are not suggested greater than 500"),
+        # Input: Checkbox if file has header ----
+        checkboxInput("header", "Show Data Header?", TRUE),
+
+             # Input: Select separator ----
+        radioButtons("sep", 
+          "Which Separator for Data?",
+          choiceNames = list(
+            HTML("Comma (,): CSV often use this"),
+            HTML("One Tab (->|): TXT often use this"),
+            HTML("Semicolon (;)"),
+            HTML("One Space (_)")
+            ),
+          choiceValues = list(",", ";", " ", "\t")
+          ),
+
+        p("Correct Separator ensures data input successfully"),
+
+        a("Find some example data here",
+          href = "https://github.com/mephas/datasets")
+
+      )
+    ),
 
   hr(),
-  h4("Configuration"),
-  numericInput("med", HTML("The specific value, m&#8320"), 4)#p),
+  h4(tags$b("Step 2. Choose Parameter")),
+  numericInput("med", HTML("Specify the median (m&#8320) that you want to compare with your data"), 1),
+  p(tags$i("In this default settings, we want to know if the group of patients are suffering from depression (m > 1)."))
+
   ),
 
 mainPanel(
 
-  h4("Descriptive Statistics"),
+  h4(tags$b("Output 1. Descriptive Results")),
 
   tabsetPanel(
 
-    tabPanel("Data Display", p(br()),  
+    tabPanel("Data Preview", p(br()),  
 
       dataTableOutput("table")),
 
-    tabPanel("Basic descriptives", p(br()), 
+    tabPanel("Basic Descriptives", p(br()), 
 
       splitLayout(
         tableOutput("bas"), 
         tableOutput("des"), 
-        tableOutput("nor"))
-        ,p(br()), 
-    downloadButton("download1b", "Download Results")  ),
+        tableOutput("nor")),
+        HTML(
+          "Notes:
+          <ul>
+            <li> If Skew.2SE > 1, then skewness is significantly different than zero
+            <li> If Kurt.2SE > 1, then kurtosis is significantly different than zero
+            <li> Normtest.W: the statistic of a Shapiro-Wilk test of normality
+            <li> Normtest.p: p value the statistic of a Shapiro-Wilk test of normality
+            <li> Normtest.p < 0.05, then data significantly different from normality
+          </ul>"
+          ),
+        p(br()), 
+      downloadButton("download1b", "Download Results")),
 
     tabPanel("Boxplot", p(br()), 
 
-      splitLayout(
         plotOutput("bp", width = "400px", height = "400px", click = "plot_click"),
 
-      wellPanel(
         verbatimTextOutput("info"), hr(),
 
-        helpText(
           HTML(
-            "Notes:
-            <ul>
-            <li> Points are simulated and located randomly in the same horizontal line 
-            <li> Outliers will be highlighted in red, if existing
-            <li> The red outlier may not cover the simulated point
-            <li> The red outlier only indicates the value in horizontal line
-            </ul>"
-            )
+          "Notes:
+          <ul>
+            <li> The band inside the box is the median
+            <li> The box measures the difference between 75th and 25th percentiles
+            <li> Outliers will be in red, if existing
+          </ul>"
+            
           )
-        )
-        ) ),
+      ),
 
     tabPanel("Histogram", p(br()), 
 

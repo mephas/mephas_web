@@ -20,65 +20,58 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
 
-title = "Non-parametric Test",  
+title = "Non-Parametric Test for Median",  
 
 ##---------- Panel 1 ----------
 tabPanel("One Sample",
 
-headerPanel("Sign Test, Wilcoxon Signed-Rank Test"),
+headerPanel("Sign Test or Wilcoxon Signed-Rank Test"),
 
-HTML(" 
+HTML(
+    "
+    <h4><b> 1. Goal </b></h4>
+    <ul>
+      <li> To determine if the median of the population from which your data is drawn statistically significantly different from the specified median
+      <li> To determine the distribution of you data is symmetric about the specified median
+    </ul>
 
-<b> Notations </b>
+    <h4><b> 2. About your data </b></h4>
 
-  <ul>
-  <li> X is the randomly collected sample 
-  <li> m is the population median of X, meaning the 50 percentile of the underlying distribution of the X 
-  <li> m&#8320 is the specified value 
-  </ul>
+    <ul>
+      <li> Your data contain only 1 group of values (or a vector)
+      <li> The values are independent observations
+      <li> No assumption on the distributional shape of your data
+      <li> Your data may be not normally distributed
+    </ul> 
 
+    <h4><b> 3. Two choices of tests </b></h4>
 
-<b> Assumptions </b>
+    <ul>
+      <li> <b>Sign Test:</b> lack some the statistical power 
+      <li> <b>Wilcoxon Signed-Rank Test:</b> alternative to one-sample t-test, when the data cannot be assumed to be normally distributed
+    </ul> 
 
-  <ul>
-  <li>Each observation is independent and comes from the same population
-  <li>X could be continuous (i.e., interval or ratio) and ordinal
-  </ul>
+    <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+    "
+    ),
 
-
-<p> Both can be used to test whether the median of a collection of numbers is significantly greater than or less than a specified value. </p>
-
-  "),
 hr(),
-
 ##---------- 1.1 ----------
 onesample,
+
 hr(),
 
 ##---------- 1.2 ----------
+h4(tags$b("Step 3. Choose Methods and Hypotheses")),
 
-h4("Sign Test"),
-p("The sign test makes very few assumptions about the nature of the distributions under test, but may lack the statistical power of the alternative tests."),
+h4(tags$b("Choice 1. Sign Test")),
 
 signtest,
+
 hr(),
 
 ##---------- 1.3 ----------
-
-h4("Wilcoxon Signed-Rank Test"),
-
-HTML("
-
-<p> Alternative to one-sample t-test when the data cannot be assumed to be normally distributed. It is used to determine whether the median of the sample is equal to a specified value.</p>
-
-<b> Supplementary Assumptions </b>
-
-<ul>
-  <li> The distribution of X is symmetric
-  <li> No ties (same values) in X
-</ul>
-
-  "),
+h4(tags$b("Choice 2. Wilcoxon Signed-Rank Test")),
 
 wstest
 
@@ -86,7 +79,7 @@ wstest
 
 ##---------- Panel 2 ----------
 
-tabPanel("Two Independent Samples",
+tabPanel("Two Samples",
 
 headerPanel("Wilcoxon Rank-Sum Test (Mann-Whitney U Test), Mood's Median Test"),
 
@@ -112,7 +105,8 @@ HTML("
 hr(),
 
 ##---------- 2.1 ----------
-twosample,
+#twosample,
+
 hr(),
 
 ##---------- 2.2 ----------
@@ -132,7 +126,7 @@ HTML("
 <p> Outliers will affect the spread of data  </p>
   "),
 
-wrtest,
+#wrtest,
 hr(),
 
 ##---------- 2.3 ----------
@@ -140,13 +134,14 @@ h4("Mood's Median Test"),
 
 p("A special case of Pearson's chi-squared test. It has low power (efficiency) for moderate to large sample sizes. "),
 
-mmtest
+hr()
+#mmtest
 
 ),
 
 ##---------- Panel 3 ----------
 
-tabPanel("Two Paired Samples",    
+tabPanel("Paired Samples",    
 
 headerPanel("Sign Test, Wilcoxon Signed-Rank Test"),
 
@@ -172,7 +167,7 @@ HTML("
 
 "),
 
-psample,
+#psample,
 
 hr(),
 ##---------- 3.1 ----------
@@ -180,7 +175,7 @@ hr(),
 h4("Sign Test"),
 p("The sign test makes very few assumptions about the nature of the distributions under test, but may lack the statistical power of the alternative tests."),
 
-signtest.p,
+#signtest.p,
 
 hr(),
 ##---------- 3.2 ----------
@@ -200,9 +195,9 @@ HTML("
 
   "),
   
-helpText("Ties means the same values"),
+helpText("Ties means the same values")
 
-wstest.p
+#wstest.p
 
 ),
 ##########----------##########----------##########

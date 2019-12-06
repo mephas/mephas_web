@@ -37,7 +37,7 @@ headerPanel("One-Sample T-Test"),
     <h4><b> 2. About your data </b></h4>
 
     <ul>
-      <li> Your data contain only 1 group of values (or a vector) and
+      <li> Your data contain only 1 group of values (or a vector)
       <li> The values are independent observations and approximately normally distributed
     </ul> 
 
@@ -89,7 +89,10 @@ tabPanel("Paired Samples",
 
     headerPanel("Dependent T-Test for Paired Samples"),
 
+
     HTML("
+
+    
 
     <h4><b> 1. Goal </b></h4>
     <ul>
@@ -104,11 +107,13 @@ tabPanel("Paired Samples",
       <li> Two samples that have been matched or paired 
       </ul>    
  
-     <h4><b> 3. Matched or Paired Data </b></h4>
+     <h4><b> 3. Examples for Matched or Paired Data </b></h4>
       <ul>
-       <li>  Either one person's pre-test and post-test scores or between pairs of persons matched into meaningful groups
-       <li>  Repeated measurements where subjects are tested prior to a treatment
+       <li>  One person's pre-test and post-test scores 
+       <li>  When there are two samples that have been matched or paired
       </ul>  
+
+     <b>In paired case, we would compare the differences of 2 groups to zero. Thus, it becomes a one-sample test problem.</b>
 
    <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
                                            
