@@ -21,7 +21,7 @@ navbarPage(
 title = "Test for Binomial Proportion",
 
 ##---------- 1. Panel 1 ----------
-tabPanel("One Single Proportion",
+tabPanel("One Sample",
 
 titlePanel("Exact Binomial Test"),
 

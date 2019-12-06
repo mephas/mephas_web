@@ -7,9 +7,9 @@
 ## DT: 2019-01-09
 ##
 ##----------#----------#----------#----------
-source("p1_ui.R", local=TRUE,encoding = "UTF-8")
-source("p2_ui.R", local=TRUE,encoding = "UTF-8")
-source("p3_ui.R", local=TRUE,encoding = "UTF-8")
+#source("p1_ui.R", local=TRUE,encoding = "UTF-8")
+#source("p2_ui.R", local=TRUE,encoding = "UTF-8")
+#source("p3_ui.R", local=TRUE,encoding = "UTF-8")
 
 shinyUI(
 
@@ -58,23 +58,24 @@ HTML(
 
 hr(),
 ##---------- 1.1 ----------
-onesample,
+
+source("p1.1_ui.R", local=TRUE),
 
 hr(),
 
-##---------- 1.2 ----------
 h4(tags$b("Step 3. Choose Methods and Hypotheses")),
 
+##---------- 1.2 ----------
+##---------- Sign Test ----------
 h4(tags$b("Choice 1. Sign Test")),
 
-signtest,
+source("p1.2_ui.R", local=TRUE),
 
 hr(),
-
 ##---------- 1.3 ----------
 h4(tags$b("Choice 2. Wilcoxon Signed-Rank Test")),
 
-wstest
+source("p1.3_ui.R", local=TRUE),
 
 ),
 
@@ -117,22 +118,21 @@ hr(),
 
 ##---------- 2.1 ----------
 
-
-twosample,
+source("p2.1_ui.R", local=TRUE),
 
 hr(),
 
-##---------- 2.2 ----------
 h4(tags$b("Step 2. Choose Methods and Hypotheses")),
+##---------- 2.2 ----------
 h4(tags$b("Choice 1. Wilcoxon Rank-Sum Test, Mann-Whitney U Test, Mann-Whitney-Wilcoxon Test, Wilcoxon-Mann-Whitney Test")),
 
-wrtest,
-hr(),
+source("p2.2_ui.R", local=TRUE),
 
+hr(),
 ##---------- 2.3 ----------
 h4(tags$b("Choice 2. Mood's Median Test")),
 
-mmtest
+source("p2.3_ui.R", local=TRUE),
 
 ),
 
@@ -178,21 +178,21 @@ HTML(
     "
     ),
 
-psample,
+source("p3.1_ui.R", local=TRUE),
 
 hr(),
 ##---------- 3.1 ----------
 
 h4("Sign Test"),
 
-signtest.p,
+source("p3.2_ui.R", local=TRUE),
 
 hr(),
 ##---------- 3.2 ----------
 
 h4("Wilcoxon Signed-Rank Test"),
 
-wstest.p
+source("p3.3_ui.R", local=TRUE),
 
 ),
 ##########----------##########----------##########
