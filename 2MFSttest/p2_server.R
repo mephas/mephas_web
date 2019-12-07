@@ -15,19 +15,19 @@ Y <- reactive({
     X <- as.numeric(unlist(strsplit(input$x1, "[\n, \t, ]")))
     Y <- as.numeric(unlist(strsplit(input$x2, "[\n, \t, ]")))
     x <- data.frame(X = X, Y = Y)
-    colnames(x) = unlist(strsplit(input$cn2, "[\n, \t, ]"))
-    return(x)
+
     }
   else {
-    csv <- as.data.frame(
-      read.csv(
+    csv <- read.csv(
         inFile$datapath,
         header = input$header2,
         sep = input$sep2
-        )
       )
-    return(csv)
+    x <- as.data.frame(csv)
+
   }
+colnames(x) = unlist(strsplit(input$cn2, "[\n, \t, ]"))
+return(x)
   
 })
 

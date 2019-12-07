@@ -17,20 +17,19 @@ Z <- reactive({
     Y <- as.numeric(unlist(strsplit(input$x2.p, "[\n, \t, ]")))
     x <- data.frame(X = X, Y = Y)
     x$diff <- round(x[, 2] - x[, 1], 4)
-    names(x) = unlist(strsplit(input$cn.p, "[\n, \t, ]"))
-    return(x)
     }
   else {
-    csv <- as.data.frame(
-      read.csv(
+    csv <- read.csv(
         inFile$datapath,
         header = input$header.p,
         sep = input$sep.p
-      ))
-    csv$diff <- round(csv[, 2] - csv[, 1],4)
-   
-    return(csv)
+      )
+    x <- as.data.frame(csv)
+    x$diff <- round(x[, 2] - x[, 1], 4)
   }
+ 
+  names(x) = unlist(strsplit(input$cn.p, "[\n, \t, ]"))
+  return(x)
 })
 
 output$table.p <-renderDataTable({Z()}, options = list(pageLength = 5))

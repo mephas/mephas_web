@@ -15,6 +15,12 @@ sidebarLayout(
 sidebarPanel(
   
   h4(tags$b("Step 1. Data Preparation")),
+    
+  p(tags$b("Give a name to your data (No space)")),
+
+    tags$textarea(id = "cn2", rows = 2, "Age.positive\nAge.negative"),
+
+    p(br()),
 
     tabsetPanel(
       ##-------input data-------##
@@ -33,14 +39,8 @@ sidebarPanel(
 "50\n42\n50\n43\n47\n38\n41\n48\n47\n36\n42\n42\n45\n44\n32\n46\n50\n38\n43\n40\n42\n46\n41\n46\n48\n36\n43\n40\n41\n48\n41\n45\n47\n43\n43\n49\n45\n41\n50\n49\n38\n42\n44\n48\n50\n44\n49\n43\n42\n50\n39\n42\n49\n43\n50\n49\n37\n48\n48\n48\n49\n45\n44\n35\n49\n39\n46\n49\n37\n50\n35\n47\n43\n41\n43\n42\n39\n40\n37\n44\n39\n45\n42\n49\n41\n36\n29\n43\n45\n47\n49\n41\n41\n36\n38\n49\n49\n42\n46\n42\n51\n51\n52\n52\n52\n52\n52\n53\n52\n51\n51\n51\n51\n51\n47\n39\n51"
         ),
 
-    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error"),
+    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error")
 
-    p(br()),
-    
-
-    p(tags$b("You can change the name of your data (No space)")),
-
-    tags$textarea(id = "cn2", rows = 2, "Age.positive\nAge.negative")
         ),
 
       ##-------csv file-------##
@@ -76,7 +76,6 @@ sidebarPanel(
 
   h4(tags$b("Step 2. Choose Hypotheses")),
 
-  p(tags$b("1. Hypotheses")),
   p(tags$b("Null hypothesis")),
   HTML("<p> &#956&#8321 = &#956&#8322: Group 1 and Group 2 have equal population mean </p>"),
     

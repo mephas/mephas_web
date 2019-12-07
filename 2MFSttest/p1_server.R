@@ -14,17 +14,16 @@ X <- reactive({
   if (is.null(inFile)) {
     # input data
     x <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
-    X <- data.frame(X = x)
-    colnames(X) = unlist(strsplit(input$cn, "[\n, \t, ]"))
+    X <- as.data.frame(x)
     }
   else {
     # CSV data
     csv <- read.csv(inFile$datapath,
         header = input$header,
         sep = input$sep)
-
     X <- as.data.frame(csv)
     }
+    colnames(X) = unlist(strsplit(input$cn, "[\n, \t, ]"))
     return(X)
   })
 
@@ -56,8 +55,8 @@ output$download0 <- downloadHandler(
 
 # box plot
 output$bp = renderPlot({
-  x = X()
-  ggplot(x, aes(x = "", y = x[, 1])) + geom_boxplot(width = 0.2, outlier.colour = "red") + ylab("") + xlab("") + ggtitle("") + theme_minimal()
+  x = as.data.frame(X())
+  ggplot(x, aes(x = "", y = x[,1])) + geom_boxplot(width = 0.2, outlier.colour = "red") + ylab("") + xlab("") + ggtitle("") + theme_minimal()
   })
 
 output$info1 <- renderText({
@@ -70,7 +69,7 @@ output$info1 <- renderText({
 })
 
 output$meanp = renderPlot({
-  x <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
+  x = as.data.frame(X())
   des = data.frame(t(stat.desc(x)))
   p2 = ggplot(des, aes(x = rownames(des), y = mean)) + 
   geom_bar(position = position_dodge(),stat = "identity",width = 0.2, alpha = .3) +
@@ -82,10 +81,10 @@ output$meanp = renderPlot({
   })
 
 output$makeplot <- renderPlot({
-  x <- Z()
-  plot1 <- ggplot(x, aes(sample = x[, 1])) + stat_qq() + ggtitle("Normal Q-Q Plot") + xlab("") + theme_minimal()  ## add line,
-  plot2 <- ggplot(x, aes(x = x[, 1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  plot3 <- ggplot(x, aes(x = x[, 1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
+  x = as.data.frame(X())
+  plot1 <- ggplot(x, aes(sample = x[,1])) + stat_qq() + ggtitle("Normal Q-Q Plot") + xlab("") + theme_minimal()  ## add line,
+  plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
+  plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
  
   grid.arrange(plot1, plot2, plot3, ncol = 3)
   })

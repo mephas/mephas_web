@@ -18,82 +18,9 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
  
   title = "Test for Contingency Table",
+
 ##---------- Panel 1 ----------
-tabPanel("2 by C)",
-
-titlePanel("Chi-square Test for Case and Control "),
-
-HTML("
-    <h4><b> 1. Goals </b></h4>
-    <ul>
-      <li> To determine if the population rate/proportion behind your 2 Groups data are significantly different </ul>
-
-    <h4><b> 2. About your data </b></h4>
-
-      <ul>
-      <li> Your 2 Groups data come from binomial distribution (the proportion of success)
-      <li> You know the whole sample and the number of specified events (the proportion of sub-group) from 2 Groups
-      <li> The 2 Groups are independent observations
-      </ul>
-
-    <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
-  
-      "),
-
-hr(),
-sidebarLayout(
-  sidebarPanel(
-
-    sidebarPanel(
-    h4(tags$b("Step 1. Data Preparation")),
-
-    p(tags$b("Group 1")),
-      numericInput("x1", "How many cases in each groups , x1", value =683, min = 0, max = 100000, step = 1),
-    p(tags$i("Example in Group 1 are 3220 breast cancer women. Among them, 683 have at least one birth after 30 years old. ")),
-    
-    p(tags$b("Group 2")),  
-      numericInput("x2", "How many success / events, x2", value = 1498, min = 0, max = 100000, step = 1),
-    p(tags$i("Example in Group 2 are 10245 no breast cancer women. Among them, 1498 have at least one birth after 30 years old. ")),
-
-      hr(),
-
-    h4(tags$b("Step 2. Choose Hypotheses and Parameters")),
-
-     h4(tags$b("1. Hypotheses")),
-     tags$b("Null hypothesis"), 
-
-      HTML("<p> p<sub>1</sub> = p<sub>2</sub>: the probability/proportion of cases are equal in Group 1 and Group 2. </p>"),
-      
-      radioButtons("alt1", label = "Alternative hypothesis", 
-        choiceNames = list(
-          HTML("p<sub>1</sub> &#8800 p<sub>2</sub>: the probability/proportion of cases are not equal"),
-          HTML("p<sub>1</sub> < p<sub>2</sub>: the probability/proportion of case in Group 1 is less than Group 2"),
-          HTML("p<sub>1</sub> > p<sub>2</sub>: the probability/proportion of case in Group 1 is greater than Group 2")
-          ),
-        choiceValues = list("two.sided", "less", "greater")
-        ),
-    p(tags$i("In this setting, we want to know if the underlying probability of having first birth over 30 years old is different in 2 groups.")),
-     
-    h4(tags$b("2. Decide your Sample Size")),
-    radioButtons("cr", label = "Yates-correction", 
-        choiceNames = list(
-          HTML("Do: sample is large enough: n1*p*(1-p)>=5 and n2*p*(1-p)>=5, p=(x1+x2)/(n1+n2)"),
-          HTML("Not do: n1*p*(1-p)<5 or n2*p*(1-p)<5, p=(x1+x2)/(n1+n2)")
-          ),
-        choiceValues = list(TRUE, FALSE)
-        )
-
-    ),
-
-  mainPanel()
-  ),
-
-
-
-##---------- Panel 2 ----------
-
-
-tabPanel("R by C)",
+tabPanel("Chi-square Test (R x C Table)",
 
 titlePanel("Chi-square Test"),
 

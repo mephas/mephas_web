@@ -16,6 +16,10 @@ sidebarPanel(
         
   h4(tags$b("Step 1. Data Preparation")),
 
+    p(tags$b("You can change the name of your data (No space)")),
+    
+    tags$textarea(id = "cn.p", rows = 3, "Before\nAfter\nAfter-Before"), p(br()),
+
   tabsetPanel(
           ##-------input data-------##
     tabPanel("Manual Input", p(br()),
@@ -34,15 +38,9 @@ sidebarPanel(
             tags$textarea(id = "x2.p",rows = 10,
               "1.3\n1.4\n4.5\n4.3\n6.1\n6.6\n6.2\n3.6\n1.1\n4.9"
               ),
-    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error"),
+    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error")
 
-    p(br()),
-
-    p(tags$b("You can change the name of your data (No space)")),
-    
-    tags$textarea(id = "cn.p", rows = 3, "Before\nAfter\nAfter-Before")
-
-            ),
+),
 
           ##-------csv file-------##
     tabPanel("Upload Data", p(br()),
@@ -51,10 +49,10 @@ sidebarPanel(
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
-        checkboxInput("header2", "Show Data Header?", TRUE),
+        checkboxInput("header.p", "Show Data Header?", TRUE),
 
              # Input: Select separator ----
-        radioButtons("sep2", 
+        radioButtons("sep.p", 
           "Which Separator for Data?",
           choiceNames = list(
             HTML("Comma (,): CSV often use this"),

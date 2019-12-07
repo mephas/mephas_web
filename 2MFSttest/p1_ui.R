@@ -16,6 +16,10 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
+  p(tags$b("Give a name to your data (No space)")), 
+
+  tags$textarea(id = "cn", rows = 1, "Age"),p(br()),
+
   tabsetPanel(
 
     tabPanel("Manual Input", p(br()),
@@ -30,14 +34,8 @@ sidebarPanel(
         "50\n42\n50\n43\n47\n47\n38\n45\n31\n41\n48\n47\n38\n44\n36\n42\n42\n45\n49\n44\n32\n46\n50\n38\n43\n40\n42\n46\n41\n46\n48\n48\n36\n43\n44\n47\n40\n41\n48\n41\n45\n45\n47\n37\n43\n43\n49\n45\n41\n50\n49\n43\n38\n42\n49\n44\n48\n50\n44\n49\n32\n43\n42\n50\n39\n42\n41\n49\n38\n43\n50\n49\n37\n37\n48\n48\n48\n49\n45\n44\n35\n49\n39\n46\n49\n37\n50\n35\n47\n43\n44\n41\n43\n45\n42\n39\n40\n37\n44\n39\n45\n46\n42\n49\n41\n26\n49\n36\n48\n29\n43\n45\n45\n47\n49\n41\n46\n41\n36\n38\n49\n49\n42\n46\n42\n51\n51\n52\n52\n52\n52\n52\n52\n53\n52\n51\n51\n51\n51\n51\n51\n47\n39\n51"
         ),
 
-      p("Missing value is input as NA"),
-
-      p(br()),
-
-      p(tags$b("You can change the name of your data (No space)")),
-
-      tags$textarea(id = "cn", rows = 1, "Age") ), #tabPanel(
-
+      p("Missing value is input as NA")
+      ),
 
     tabPanel("Upload Data", p(br()),
 
@@ -66,13 +64,13 @@ sidebarPanel(
           href = "https://github.com/mephas/datasets")
 
       )
+
     ),
 
 hr(),
 
   h4(tags$b("Step 2. Choose Hypotheses and Parameters")),
 
-  p(tags$b("1. Hypotheses")),
   p(tags$b("Null hypothesis")),
   HTML("&#956 = &#956&#8320: the population mean (&#956) of your data is &#956&#8320"),
 
