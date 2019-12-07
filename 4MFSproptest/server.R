@@ -136,8 +136,8 @@ output$n.test = renderTable({
     Statistic = res$statistic,
     Degree.of.freedom = res$parameter,
     Estimated.prop = toString(round(X[["estimate"]],4)),
-    P.value = round(res$p.value,6))
-)
+    P.value = round(res$p.value,6)
+    ))
   colnames(res.table) = c(res$method)
   rownames(res.table) =c("X-squared Statistic", "Degree of Freedom","Estimated Probability/Proportions", "P Value")
 
