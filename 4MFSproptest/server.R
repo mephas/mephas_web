@@ -131,11 +131,11 @@ output$makeplot3 <- renderPlot({  #shinysession
 output$n.test = renderTable({
   x <- as.numeric(unlist(strsplit(input$xx, "[\n, \t, ]")))
   n <- as.numeric(unlist(strsplit(input$nn, "[\n, \t, ]")))
-  res = prop.test(x = x, n= n)
+  res = prop.test(x, n)
   res.table = t(data.frame(
     Statistic = res$statistic,
     Degree.of.freedom = res$parameter,
-    Estimated.prop = toString(round(X[["estimate"]],4)),
+    Estimated.prop = toString(round(res$estimate,4)),
     P.value = round(res$p.value,6)
     ))
   colnames(res.table) = c(res$method)

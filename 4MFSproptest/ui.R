@@ -334,7 +334,7 @@ hr(),
     </ul>"
   ),
 
-     p(tags$i("In this default setting, we conclude that the probability to have cancer are significantly different in different age groups."))
+     p(tags$i("In this default setting, we conclude that the probability to have cancer are significantly different in different age groups. (P < 0.001)"))
 
         )
       )
