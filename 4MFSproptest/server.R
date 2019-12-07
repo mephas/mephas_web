@@ -131,7 +131,7 @@ output$makeplot3 <- renderPlot({  #shinysession
 output$n.test = renderTable({
   x <- as.numeric(unlist(strsplit(input$xx, "[\n, \t, ]")))
   n <- as.numeric(unlist(strsplit(input$nn, "[\n, \t, ]")))
-  res = prop.test(x = x, n= n, correct = input$ncr)
+  res = prop.test(x = x, n= n)
   res.table = t(data.frame(
     Statistic = res$statistic,
     Degree.of.freedom = res$parameter,
