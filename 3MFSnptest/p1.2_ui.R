@@ -28,7 +28,7 @@ radioButtons("alt.st", label = "Alternative hypothesis",
   HTML("m &#8800 m&#8320: the population median is significantly different from the specified median")
   
   ),
-choiceValues = list("greater", "less", "two.sided")),
+choiceValues = list("greater", "less", "two.sided"))
 ),
 
   mainPanel(

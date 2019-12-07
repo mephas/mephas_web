@@ -40,7 +40,7 @@ mainPanel(
     <li> P Value >= 0.05, no significant differences between the medians of 2 groups. (Accept null hypothesis)
     </ul>"
   ),
-  p(tags$i("From the default settings, we can conclude that there is no significant differences in 2 groups Rating scale (P=0.18).")),
+  p(tags$i("From the default settings, we can conclude that there is no significant differences in 2 groups Rating scale (P=0.18)."))
 
 
   ) 

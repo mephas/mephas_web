@@ -26,10 +26,11 @@ sidebarPanel(
 
         p(tags$i("Example here is the HOUR of sleep effected by a certain drug")),
 
+          p(tags$b("Before")),
             tags$textarea(id = "x1.p",rows = 10,
               "0.6\n3\n4.7\n5.5\n6.2\n3.2\n2.5\n2.8\n1.1\n2.9"
               ),
-            ## disable on chrome
+           p(tags$b("After")),
             tags$textarea(id = "x2.p",rows = 10,
               "1.3\n1.4\n4.5\n4.3\n6.1\n6.6\n6.2\n3.6\n1.1\n4.9"
               ),

@@ -58,92 +58,103 @@ output$b.test1 = renderTable({
 
 output$makeplot <- renderPlot({  #shinysession 
   x = data.frame(
-    group = c(unlist(strsplit(input$ln, "[\n, \t, ]"))), 
+    group = c("Success", "Failure"), 
     value = c(input$x, input$n-input$x)
     )
   ggplot(x, aes(x="", y=x[,"value"], fill=x[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })
 
-##---------- 2. Two sample ----------
+##---------- 2. Chi-square test for 2 by C table ----------
+P = reactive({ # prepare dataset
+
+  X <- as.numeric(unlist(strsplit(input$x1, "[\n, \t, ]")))
+  Y <- as.numeric(unlist(strsplit(input$x2, "[\n, \t, ]")))
+  #P <- round(X/Z, 4)
+  x <- cbind(X,Y)
+  rownames(x) = unlist(strsplit(input$rn, "[\n, \t, ]"))
+  colnames(x) = unlist(strsplit(input$cn, "[\n, \t, ]"))
+  return(x)
+  })
+
+output$t = renderTable({
+  addmargins(P(), margin = seq_along(dim(P())), FUN = sum, quiet = TRUE)
+  },  
+  width = "50" ,rownames = TRUE)
+
+output$p.t = renderTable({
+  prop.table(P(), 2)
+  }, 
+  width = "50" ,rownames = TRUE, digits = 4)
+
 
 output$makeplot2 <- renderPlot({  #shinysession 
-    x1 = data.frame(
-    group = c(unlist(strsplit(input$ln2, "[\n, \t, ]"))), 
-    value = c(input$x1, input$n1-input$x1)
-    )
-    x2 = data.frame(
-    group = c(unlist(strsplit(input$ln2, "[\n, \t, ]"))), 
-    value = c(input$x2, input$n2-input$x2)
-    )
-  p1 = ggplot(x1, aes(x="", y=x1[,"value"], fill=x1[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
-  p2 = ggplot(x2, aes(x="", y=x2[,"value"], fill=x2[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  x = as.data.frame(P())
+  p1 = ggplot(x, aes(x="", y= x[,1], fill = rownames(x)))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  p2 = ggplot(x, aes(x="", y= x[,2], fill = rownames(x)))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   grid.arrange(p1, p2, ncol=2)
   })
 
 output$p.test = renderTable({
-  x <- c(input$x1, input$x2)
-  n <- c(input$n1, input$n2)
-  res = prop.test(x = x, n= n, alternative = input$alt1, correct = input$cr)
+  x = P()
+  res = prop.test(x = x[,1], n= x[,1]+x[,2], alternative = input$alt1, correct = input$cr)
   res.table = t(data.frame(
     Statistic = res$statistic,
     Degree.of.freedom = res$parameter,
     Estimated.prop = paste0("prop.1 = ",round(res$estimate[1],4),", ","prop.2 = ",round(res$estimate[2],4)),
-    P.value = round(res$p.value,6),
-    Confidence.Interval.95 = paste0("(", round(res$conf.int[1],4),",",round(res$conf.int[2],4), ")")
-))
+    P.value = round(res$p.value,6)))
 
   colnames(res.table) = c(res$method)
-    rownames(res.table) =c("X-squared Statistic", "Degree of Freedom","Estimated Probability/Proportion", "P Value", "95% Confidence Interval")
-
   return(res.table)}, 
   rownames = TRUE)
 
+output$e.t = renderTable({
+  x = P()
+  res = chisq.test(x)
+  res$expected}, rownames = TRUE)
 
-##---------- 3. More than 2 sample ----------
+  output$f.test = renderTable({
+  x = P()
+  res = fisher.test(x= x, alternative = input$alt1)
+  res.table = t(data.frame(Estimated.odds = res$estimate,
+                           P.value = round(res$p.value, 6)))
+  colnames(res.table) = c(res$method)
+  return(res.table)}, 
+  rownames = TRUE)
+
+##---------- 3. Mcnemar test for 2 matched data ----------
 
 N = reactive({ # prepare dataset
-  X <- as.numeric(unlist(strsplit(input$xx, "[\n, \t, ]")))
-  Y <- as.numeric(unlist(strsplit(input$nn, "[\n, \t, ]")))
+  X <- as.numeric(unlist(strsplit(input$xn1, "[\n, \t, ]")))
+  Y <- as.numeric(unlist(strsplit(input$xn2, "[\n, \t, ]")))
   #P <- round(X/Z, 4)
-  x <- rbind(X,(Y-X))
-  rownames(x) = unlist(strsplit(input$ln3, "[\n, \t, ]"))
-  colnames(x) = unlist(strsplit(input$gn, "[\n, \t, ]"))
+  x <- cbind(X,Y)
+  rownames(x) = unlist(strsplit(input$ra, "[\n, \t, ]"))
+  colnames(x) = unlist(strsplit(input$cb, "[\n, \t, ]"))
   return(x)
   })
 
 output$n.t = renderTable({
-  addmargins(N(), 
-    margin = seq_along(dim(N())), 
-    FUN = list(Total=sum), quiet = TRUE)},  
-  rownames = TRUE, width = "800px")
-
-output$makeplot3 <- renderPlot({  #shinysession 
-  X <- as.numeric(unlist(strsplit(input$xx, "[\n, \t, ]")))
-  Y <- as.numeric(unlist(strsplit(input$nn, "[\n, \t, ]")))
-  xm <- rbind(X,Y)
-  rownames(xm) = unlist(strsplit(input$ln3, "[\n, \t, ]"))
-  colnames(xm) = unlist(strsplit(input$gn, "[\n, \t, ]"))
-  x <- melt(xm)
-  ggplot(x, aes(fill=x[,1], y=x[,"value"], x=x[,2])) + geom_bar(position="fill", stat="identity")+ 
-  xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
-  })  
+  addmargins(N(), margin = seq_along(dim(N())), FUN = sum, quiet = TRUE)},  
+  width = "50" ,rownames = TRUE)
 
 output$n.test = renderTable({
-  x <- as.numeric(unlist(strsplit(input$xx, "[\n, \t, ]")))
-  n <- as.numeric(unlist(strsplit(input$nn, "[\n, \t, ]")))
-  res = prop.test(x = x, n= n, correct = input$ncr)
-  res.table = t(data.frame(
-    Statistic = res$statistic,
-    Degree.of.freedom = res$parameter,
-    Estimated.prop = toString(round(X[["estimate"]],4)),
-    P.value = round(res$p.value,6))
-)
-  colnames(res.table) = c(res$method)
-  rownames(res.table) =c("X-squared Statistic", "Degree of Freedom","Estimated Probability/Proportions", "P Value")
+  x = N()
+  res1 = mcnemar.test(x = x, correct = FALSE)
+  res.table1 = t(data.frame(
+    X.statistic = res1$statistic,
+    Degree.of.freedom = res1$parameter,
+    P.value = round(res1$p.value, 6)))
+  res2 = mcnemar.test(x = x, correct = TRUE)
 
+  res.table2 = t(data.frame(
+    X.statistic = res2$statistic,
+    Degree.of.freedom = res2$parameter,
+    P.value = round(res2$p.value, 6)))
+
+  res.table = cbind(res.table1, res.table2)
+  colnames(res.table) = c(res1$method, res2$method)
   return(res.table)}, 
-  rownames = TRUE, width = "800px")
-
+  rownames = TRUE)
 
 ##########----------##########----------##########
 

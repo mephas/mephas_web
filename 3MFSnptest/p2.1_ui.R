@@ -2,11 +2,11 @@
 ##
 ## 3MFSnptest UI
 ##
-##    >Panel 1
+##    >Panel 2
 ##
 ## Language: EN
 ## 
-## DT: 2019-01-09
+## DT: 2019-01-10
 ##
 ##----------#----------#----------#----------
 sidebarLayout(  
@@ -19,38 +19,45 @@ sidebarPanel(
 
   tabsetPanel(
   ##-------input data-------## 
-  tabPanel("Manual Input", p(br()),
+  tabPanel("Manual input", p(br()),
+
     p(tags$b("Please follow the example to input your data in the box")),
 
-    p(tags$i("Example here is the Depression Rating Scale factor measurements of 9 patients Before and After treatment. ")),
+    p(tags$i("Example here is the Depression Rating Scale factor measurements of 19 patients from a two group of patients.")),
 
-    tags$textarea(id="y1", 
+    p(tags$b("Group 1")),
+    tags$textarea(id="x1", 
+    rows=10, 
+    "1.83\n0.50\n1.62\n2.48\n1.68\n1.88\n1.55\n3.06\n1.30\nNA"    
+    ),  
+
+    p(tags$b("Group 2")),## disable on chrome
+    tags$textarea(id="x2", 
       rows=10, 
-    "1.83\n0.50\n1.62\n2.48\n1.68\n1.88\n1.55\n3.06\n1.30"    
-    ),
-    tags$textarea(id="y2", 
-      rows=10, 
-      "0.878\n0.647\n0.598\n2.050\n1.060\n1.290\n1.060\n3.140\n1.290"
+      "0.80\n0.83\n1.89\n1.04\n1.45\n1.38\n1.91\n1.64\n0.73\n1.46"
       ),
-
-    p("Missing value is input as NA"),
+    
+    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error"),
 
     p(tags$b("You can change the name of your data (No space)")),
 
-    tags$textarea(id="cn3", rows=2, "Before\nAfter\nAfter-Before")),
+    tags$textarea(id="cn2", rows=2, "Group1\nGroup2")),
+
+    p(tags$i("In this default settings, we want to know if Depression Rating Scale from two group of patients are different.")),
+
 
   ##-------csv file-------##   
-  tabPanel("Upload Data", p(br()),
+tabPanel("Upload Data", p(br()),
 
         ##-------csv file-------##
-        fileInput('file3', "Choose CSV/TXT file",
+        fileInput('file2', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
-        checkboxInput("header3", "Show Data Header?", TRUE),
+        checkboxInput("header2", "Show Data Header?", TRUE),
 
              # Input: Select separator ----
-        radioButtons("sep3", 
+        radioButtons("sep2", 
           "Which Separator for Data?",
           choiceNames = list(
             HTML("Comma (,): CSV often use this"),
@@ -65,10 +72,9 @@ sidebarPanel(
 
         a("Find some example data here",
           href = "https://github.com/mephas/datasets")
-
-      )
-    )
-  ),
+        )
+        )
+),
 
 mainPanel(
 
@@ -76,18 +82,15 @@ mainPanel(
 
   tabsetPanel(
 
-    tabPanel("Data Preview", p(br()),  
+    tabPanel("Data Preview", p(br()),
 
-      dataTableOutput("table3")),
+      dataTableOutput("table2")),
 
     tabPanel("Basic Descriptives", p(br()), 
 
-      tags$b("Basic Descriptives of the Difference"),
+        tableOutput("bas2"), 
 
-
-
-        tableOutput("bas3"), 
-        HTML(
+      HTML(
           "Notes:
           <ul>
             <li> If Skew.2SE > 1, then skewness is significantly different than zero
@@ -98,15 +101,14 @@ mainPanel(
           </ul>"
           ),
 
-        p(br()),
-  downloadButton("download3b", "Download Results")  ),
+      p(br()), 
+        downloadButton("download2b", "Download Results") ),
 
-    tabPanel("Box-Plot of the Difference", p(br()),   
+    tabPanel("Box-Plot", p(br()), 
+        plotOutput("bp2", width = "400px", height = "400px", click = "plot_click2"),
 
-        plotOutput("bp3", width = "400px", height = "400px", click = "plot_click3"),
-
-        verbatimTextOutput("info3"), hr(),
-
+        verbatimTextOutput("info2"), 
+        hr(),
           HTML(
           "Notes:
           <ul>
@@ -114,22 +116,19 @@ mainPanel(
             <li> The box measures the difference between 75th and 25th percentiles
             <li> Outliers will be in red, if existing
           </ul>"
-            
-          )
-      ),
+            )        
+         ),
 
     tabPanel("Histogram", p(br()), 
 
-      plotOutput("makeplot3", width = "800px", height = "400px"),
-      sliderInput("bin3", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2),
-            HTML(
+      plotOutput("makeplot2", width = "800px", height = "400px"),
+      sliderInput("bin2", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2),
+      HTML(
           "Notes:
           <ul> 
             <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
             <li> Density Plot: to estimate the probability density function of the data
-          </ul>"
-            )
+          </ul>")
       )
-    ))  
-
+    )) 
 )
