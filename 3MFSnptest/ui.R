@@ -38,7 +38,7 @@ HTML(
     <h4><b> 2. About your data </b></h4>
 
     <ul>
-      <li> Your data contain only 1 group of values (or a vector)
+      <li> Your data contain only 1 group of values (or 1 vector)
       <li> Your data are meaningful to measure the distance from the specified median
       <li> The values are independent observations
       <li> No assumption on the distributional shape of your data
@@ -68,11 +68,15 @@ h4(tags$b("Step 3. Choose Methods and Hypotheses")),
 
 ##---------- 1.2 ----------
 ##---------- Sign Test ----------
-source("p1.2_ui.R", local=TRUE)$value,
 
-hr(),
 ##---------- 1.3 ----------
 source("p1.3_ui.R", local=TRUE)$value,
+
+hr(),
+
+source("p1.2_ui.R", local=TRUE)$value,
+
+
 
 ),
 
@@ -93,7 +97,7 @@ HTML(
     <h4><b> 2. About your data </b></h4>
 
     <ul>
-      <li> Your data contain only 2 group of values (or 2 vector) 
+      <li> Your data contain only 2 group of values (or 2 vectors) 
       <li> Your data are meaningful to measure the distance between 2 groups values
       <li> The values are independent observations
       <li> No assumption on the distributional shape of your data
@@ -145,7 +149,7 @@ HTML(
     <h4><b> 2. About your data </b></h4>
 
     <ul>
-      <li> Your data contain 2 group of values (or a vector)
+      <li> Your data contain 2 group of values (or 2 vectors)
       <li> Your data are meaningful to measure the distance from the specified median
       <li> The values are paired or matched observations
       <li> No assumption on the distributional shape of your data
@@ -177,11 +181,11 @@ hr(),
 ##---------- 3.1 ----------
 h4(tags$b("Step 2. Choose Methods and Hypotheses")),
 
-source("p3.2_ui.R", local=TRUE)$value,
+source("p3.3_ui.R", local=TRUE)$value,
 
 hr(),
 ##---------- 3.2 ----------
-source("p3.3_ui.R", local=TRUE)$value,
+source("p3.2_ui.R", local=TRUE)$value,
 
 ),
 ##########----------##########----------##########

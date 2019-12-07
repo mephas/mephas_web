@@ -16,7 +16,7 @@ sidebarLayout(
 
 ##########----------##########----------##########
 sidebarPanel(
-h4(tags$b("Choice 2. Wilcoxon Signed-Rank Test")), hr(),
+h4(tags$b("Choice 1. Wilcoxon Signed-Rank Test")), hr(),
 
 h4(tags$b("1. Hypotheses")),
 p(tags$b("Null hypothesis")),
@@ -44,7 +44,7 @@ p("Note: Normal Approximation is to apply continuity correction for the p-value 
 ),
 
   mainPanel(
-    h4(tags$b("Output 2.2. Test Results")),p(br()), 
+    h4(tags$b("Output 2.1. Test Results")),p(br()), 
     h4('Results of Wilcoxon Signed-Rank Test'), p(br()), 
     tableOutput("ws.test"), p(br()), 
 

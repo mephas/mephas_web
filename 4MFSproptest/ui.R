@@ -44,7 +44,7 @@ HTML("
       <li> You have a specified proportion （p<sub>0</sub>）
       </ul>
 
-    <h4><b> 3. Two choices of tests </b><
+    <h4><b> 3. Two choices of tests </b></h4>
 
     <ul>
       <li> <b>Normal Theory Method:</b> np<sub>0</sub>(1-p<sub>0</sub>) >= 5; n is the whole sample size, p<sub>0</sub> is the specified rate/proportion
@@ -62,32 +62,38 @@ HTML("
 
     sidebarPanel(
 
-    h4(tags$b("Step 1. Choose Methods and Hypotheses")),
+
+    h4(tags$b("Step 1. Data Preparation")),
+    
+      numericInput("x", "How many success / events, x", value = 5, min = 0, max = 100000, step = 1),
+      numericInput("n", "How many trials / samples, n", value = 10, min = 1, max = 100000, step = 1),
+      numericInput('p', HTML("The specified rate / proportion / probability (0 < p<sub>0</sub> < 1) that you want to compare"), value = 0.5, min = 0, max = 1, step = 0.1),
+
+    h4(tags$b("Step 2. Choose Hypotheses")),
 
     h4(tags$b("Hypotheses")),
-    tags$b("Null hypothesis"), 
-    HTML("<p>p = p&#8320: the probability of events is p&#8320 </p>"),
+    p(tags$b("Null hypothesis")), 
+    HTML("<p>p = p<sub>0</sub>: the probability/proportion is p<sub>0</sub></p>"),
     
     radioButtons("alt", 
       label = "Alternative hypothesis", 
       choiceNames = list(
-        HTML("p &#8800 p&#8320: the probability of events is not p&#8320"),
-        HTML("p < p&#8320: the probability of events is less than p&#8320"),
-        HTML("p > p&#8320: the probability of events is greater than p&#8320")),
-      choiceValues = list("two.sided", "less", "greater")),
+        HTML("p &#8800 p<sub>0</sub>: the probability/proportion is not p<sub>0</sub>"),
+        HTML("p < p<sub>0</sub>: the probability/proportion is less than p<sub>0</sub>"),
+        HTML("p > p<sub>0</sub>: the probability/proportion is greater than p<sub>0</sub>")),
+      choiceValues = list("two.sided", "less", "greater"))
 
-    hr(),
-
-    h4("Data Preparation"),  
-      numericInput("x", "How many events, x", value = 5, min = 0, max = 10000, step = 1),
-      numericInput("n", "How many trials, n", value = 10, min = 1, max = 50000, step = 1),
-      numericInput('p', HTML("The specific probability, p&#8320"), value = 0.5, min = 0, max = 1, step = 0.1)
     ),
 
   mainPanel(
     h4("Results"), 
     p(br()), 
+
+    tableOutput("b.test1"),
+
     tableOutput("b.test"),
+
+
   #tags$b("Interpretation"), wellPanel(p("When p-value is less than 0.05, it indicates that the underlying probability is far away from the specified value.")),
     hr(),
     h4('Pie Plot of Proportions'), 

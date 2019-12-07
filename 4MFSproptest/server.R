@@ -33,6 +33,25 @@ output$b.test = renderTable({
     ))
 
   colnames(res.table) = res$method
+  rownames(res.table) =c("Number of Success/Events", "Number of Total Trials/Samples", "Estimated Probability/Proportion", "P Value", "95% Confidence Interval")
+  return(res.table)
+  }, 
+  rownames = TRUE)
+
+output$b.test1 = renderTable({
+
+  res = prop.test(x = input$x, n= input$n, p = input$p, alternative = input$alt)
+
+  res.table = t(data.frame(
+    Num.success = res$statistic,
+    Num.trial = res$parameter,
+    Estimated.prob.success = res$estimate,
+    p.value = round(res$p.value,6),
+    Confidence.Interval.95 = paste0("(", round(res$conf.int[1],4),",",round(res$conf.int[2],4), ")")
+    ))
+
+  colnames(res.table) = res$method
+  rownames(res.table) =c("Number of Success/Events", "Number of Total Trials/Samples", "Estimated Probability/Proportion", "P Value", "95% Confidence Interval")
   return(res.table)
   }, 
   rownames = TRUE)

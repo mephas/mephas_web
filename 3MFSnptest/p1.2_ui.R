@@ -14,7 +14,7 @@ sidebarLayout(
 ##########----------##########----------##########
 sidebarPanel(
 
-h4(tags$b("Choice 1. Sign Test")), hr(),
+h4(tags$b("Choice 2. Sign Test")), hr(),
 
 h4(tags$b("Hypotheses")),
 p(tags$b("Null hypothesis")),
@@ -32,7 +32,7 @@ choiceValues = list("greater", "less", "two.sided")),
 ),
 
   mainPanel(
-    h4(tags$b("Output 2.1. Test Results")),p(br()), 
+    h4(tags$b("Output 2.2. Test Results")),p(br()), 
     h4('Results of Sign Test'), p(br()), 
     tableOutput("sign.test"),p(br()), 
     HTML(

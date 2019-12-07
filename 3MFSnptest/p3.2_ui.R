@@ -15,7 +15,7 @@ sidebarLayout(
 ##########----------##########----------##########
 
 sidebarPanel(
-h4(tags$b("Choice 1. Sign Test")),
+h4(tags$b("Choice 2. Sign Test")),
 hr(),
 
 h4(tags$b("Hypotheses")),
@@ -31,7 +31,7 @@ HTML("<p> m = 0: the difference median between 2 groups (Before and After) is eq
   ),
 
 mainPanel(
-  h4(tags$b("Output 2.1. Test Results")),p(br()), 
+  h4(tags$b("Output 2.2. Test Results")),p(br()), 
   h4('Results of Sign Test'), p(br()),
   tableOutput("psign.test"), p(br()),
       HTML(
