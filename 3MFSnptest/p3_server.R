@@ -18,12 +18,18 @@
     Y <- as.numeric(unlist(strsplit(input$y2, "[\n, \t, ]")))
     d <- X-Y
     x <- data.frame(X =X, Y = Y, diff = d)
-    names(x) = unlist(strsplit(input$cn3, "[\n, \t, ]"))
-    return(x)}
+  }
+
     else {
-      csv <- as.data.frame(read.csv(inFile$datapath, header=input$header3, sep=input$sep3))
-      csv$diff <- round(csv[, 1] - csv[, 2],4)
-      return(csv)} })
+      csv <- read.csv(inFile$datapath, header=input$header3, sep=input$sep3)
+      x <- as.data.frame(csv)
+      x$diff <- round(x[, 1] - x[, 2],4)
+      } 
+
+    names(x) = unlist(strsplit(input$cn3, "[\n, \t, ]"))
+    return(x)
+
+    })
   
   #table
   output$table3 <- renderDataTable({C()}, options = list(pageLength = 5))

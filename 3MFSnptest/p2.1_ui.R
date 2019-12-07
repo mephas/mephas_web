@@ -17,6 +17,10 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
+  p(tags$b("Give a name to your data (No space)")), 
+
+  tags$textarea(id="cn2", rows=2, "Group1\nGroup2"), p(br()),
+
   tabsetPanel(
   ##-------input data-------## 
   tabPanel("Manual input", p(br()),
@@ -39,11 +43,8 @@ sidebarPanel(
     
     p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error"),
 
-    p(tags$b("You can change the name of your data (No space)")),
-
-    tags$textarea(id="cn2", rows=2, "Group1\nGroup2")),
-
-    p(tags$i("In this default settings, we want to know if Depression Rating Scale from two group of patients are different.")),
+    p(tags$i("In this default settings, we want to know if Depression Rating Scale from two group of patients are different."))
+    ),
 
 
   ##-------csv file-------##   

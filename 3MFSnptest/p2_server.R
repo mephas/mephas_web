@@ -17,11 +17,13 @@
     X <- as.numeric(unlist(strsplit(input$x1, "[\n, \t, ]")))
     Y <- as.numeric(unlist(strsplit(input$x2, "[\n, \t, ]")))
     x <- data.frame(X =X, Y = Y)
-    names(x) = unlist(strsplit(input$cn2, "[\n, \t, ]"))
-    return(x)}
+   }
     else {
-      csv <- as.data.frame(read.csv(inFile$datapath, header=input$header2, sep=input$sep2))
-      return(csv)}
+      csv <- read.csv(inFile$datapath, header=input$header2, sep=input$sep2)
+      x <- as.data.frame(csv)
+      }
+    names(x) = unlist(strsplit(input$cn2, "[\n, \t, ]"))
+    return(x)
        })
   
   #table
@@ -67,8 +69,8 @@
     x <- B()
     mx <- melt(B(), idvar = colnames(x))
     # density plot
-    plot1 <- ggplot(mx, aes(x=mx[,"value"], fill=mx[,"variable"])) + geom_histogram(binwidth=input$bin2, alpha=.5, position="identity") + ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
-    plot2 <- ggplot(mx, aes(x=mx[,"value"], colour=mx[,"variable"])) + geom_density()+ ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    plot1 <- ggplot(mx, aes(x=mx[,"value"], fill=mx[,"variable"])) + geom_histogram(binwidth=input$bin2, alpha=.5, position="identity") + xlab("")+ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    plot2 <- ggplot(mx, aes(x=mx[,"value"], colour=mx[,"variable"])) + geom_density()+ xlab("")+ ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
     grid.arrange(plot1, plot2, ncol=2)  })
 
 #test

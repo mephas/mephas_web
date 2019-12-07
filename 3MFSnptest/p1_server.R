@@ -13,14 +13,21 @@
 ##---------- 1. one sample ----------
   A <- reactive({
     inFile <- input$file
-    if (is.null(inFile)) {
-    X <- as.numeric(unlist(strsplit(input$a, "[\n, \t, ]")))
-    x <- data.frame(X =X)
-    names(x) = unlist(strsplit(input$cn, "[\n, \t, ]"))
-    return(x)}
-    else {
-      csv <- as.data.frame(read.csv(inFile$datapath, header=input$header, sep=input$sep))
-      return(csv)} })
+  if (is.null(inFile)) {
+    # input data
+    x <- as.numeric(unlist(strsplit(input$a, "[\n, \t, ]")))
+    X <- as.data.frame(x)
+    }
+  else {
+    # CSV data
+    csv <- read.csv(inFile$datapath,
+        header = input$header,
+        sep = input$sep)
+    X <- as.data.frame(csv)
+    }
+    colnames(X) = unlist(strsplit(input$cn, "[\n, \t, ]"))
+    return(X)
+  })
 
   #table 
   output$table <- renderDataTable({A()}, options = list(pageLength = 5))

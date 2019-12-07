@@ -16,6 +16,9 @@ sidebarLayout(
 sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
+  p(tags$b("Give a name to your data (No space)")), 
+
+  tags$textarea(id="cn3", rows=3, "Before\nAfter\nAfter-Before"), p(br()),
 
   tabsetPanel(
   ##-------input data-------## 
@@ -36,11 +39,9 @@ sidebarPanel(
       "0.878\n0.647\n0.598\n2.050\n1.060\n1.290\n1.060\n3.140\n1.290"
       ),
 
-    p("Missing value is input as NA"),
+    p("Missing value is input as NA")
 
-    p(tags$b("You can change the name of your data (No space)")),
-
-    tags$textarea(id="cn3", rows=2, "Before\nAfter\nAfter-Before")),
+),
 
   ##-------csv file-------##   
   tabPanel("Upload Data", p(br()),

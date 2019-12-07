@@ -18,6 +18,11 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
+
+  p(tags$b("Give a name to your data (No space)")), 
+
+  tags$textarea(id="cn", rows= 1, "Scale"),p(br()),
+
   tabsetPanel(
   ##-------input data-------## 
   tabPanel("Manual Input", p(br()),
@@ -34,9 +39,6 @@ sidebarPanel(
     
     p("Missing value is input as NA"),
 
-    p(tags$b("You can change the name of your data (No space)")),
-
-    tags$textarea(id="cn", rows= 1, "X")
     ),
 
     tabPanel("Upload Data", p(br()),
