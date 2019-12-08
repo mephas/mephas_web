@@ -23,12 +23,9 @@ sidebarPanel(
   tabsetPanel(
           ##-------input data-------##
     tabPanel("Manual Input", p(br()),
+        p(tags$i("Example here is the HOUR of sleep effected by a certain drug")),
 
         p(tags$b("Please follow the example to input 2 sets of data in the box. ")),
-        p(("Left is for before/control data. ")),
-        p(("Right is for after data. ")),
-
-        p(tags$i("Example here is the HOUR of sleep effected by a certain drug")),
 
           p(tags$b("Before")),
             tags$textarea(id = "x1.p",rows = 10,

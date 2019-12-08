@@ -18,17 +18,15 @@ sidebarPanel(
     
   p(tags$b("Give a name to your data (No space)")),
 
-    tags$textarea(id = "cn2", rows = 2, "Age.positive\nAge.negative"),
-
-    p(br()),
+  tags$textarea(id = "cn2", rows = 2, "Age.positive\nAge.negative"), p(br()),
 
     tabsetPanel(
       ##-------input data-------##
       tabPanel("Manual Input", p(br()),
 
-        p(tags$b("Please follow the example to input 2 sets of data in the box")),
-
         p(tags$i("Example here is the AGE of 27 lymph node positive patients with Estrogen receptor (ER) positive (Group.1-Age.positive); and 117 patients with ER negative (Group.2-Age.negative)")),
+
+        p(tags$b("Please follow the example to input 2 sets of data in the box")),
 
         p(tags$b("Group 1")),
         tags$textarea(id = "x1",rows = 10,
