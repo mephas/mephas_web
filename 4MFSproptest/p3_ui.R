@@ -16,17 +16,7 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-        p(tags$b("How many success / events in every Group, x")),
-        tags$textarea(id = "xx", rows = 5,
-        "320\n1206\n1011\n463\n220"        
-        ),
-
-        p(tags$b("How many trials / samples in every Group, n")),     
-        tags$textarea(id = "nn", rows = 5,
-        "1742\n5638\n3904\n1555\n626"
-        ),
-
-         p(tags$b("You can change success / events names (no space)")),
+      p(tags$b("You can change success / events names (no space)")),
         tags$textarea(id = "ln3",
           rows = 2,
         "Cancer\nNo-Cancer"
@@ -37,6 +27,17 @@
           rows = 5,
         "~20\n20-24\n25-29\n30-34\n34~"
       ),
+        p(br()), 
+
+        p(tags$b("How many success / events in every Group, x")),
+        tags$textarea(id = "xx", rows = 5,
+        "320\n1206\n1011\n463\n220"        
+        ),
+
+        p(tags$b("How many trials / samples in every Group, n")),     
+        tags$textarea(id = "nn", rows = 5,
+        "1742\n5638\n3904\n1555\n626"
+        ),
 
     p("Note: No Missing Value and n > x"),
 
@@ -44,7 +45,7 @@
 
         hr(),
 
-    h4(tags$b("Step 2. Hypotheses")),
+    h4(tags$b("Hypothesis")),
 
      p(tags$b("Null hypothesis")), 
 

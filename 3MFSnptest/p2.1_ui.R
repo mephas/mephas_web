@@ -24,10 +24,9 @@ sidebarPanel(
   tabsetPanel(
   ##-------input data-------## 
   tabPanel("Manual input", p(br()),
+    p(tags$i("Example here is the Depression Rating Scale factor measurements of 19 patients from a two group of patients.")),
 
     p(tags$b("Please follow the example to input your data in the box")),
-
-    p(tags$i("Example here is the Depression Rating Scale factor measurements of 19 patients from a two group of patients.")),
 
     p(tags$b("Group 1")),
     tags$textarea(id="x1", 

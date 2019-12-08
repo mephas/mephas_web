@@ -16,18 +16,23 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-    p(tags$b("Please input your data")),
+    p(tags$b("Give names to your data (no space)")),
+    tags$textarea(id = "ln", rows = 2, "Infertility\nNon-infertility "), p(br()),
+
+      numericInput("x", "How many success / events, x", value = 10, min = 0, max = 100000, step = 1),
+      numericInput("n", "How many trials / samples, n", value = 40, min = 1, max = 100000, step = 1),
 
     p(tags$i("Example here is that 10 women were found infertile among 40 women who are homozygous for the SNP. Thus, the number of event is 10 and sample size is 40.
       Suppose that in the general population, the infertility rate is 20%.")),
-    
-      numericInput("x", "How many success / events, x", value = 10, min = 0, max = 100000, step = 1),
-      numericInput("n", "How many trials / samples, n", value = 40, min = 1, max = 100000, step = 1),
+    hr(),
+
+    h4(tags$b("Step 2. Specify Parameter")),
+
       numericInput('p', HTML("The specified rate / proportion / probability (0 < p<sub>0</sub> < 1) that you want to compare"), value = 0.2, min = 0, max = 1, step = 0.1),
 
       hr(),
 
-       h4(tags$b("Step 2. Choose Hypotheses")),
+    h4(tags$b("Step 3. Choose Hypothesis")),
 
     p(tags$b("Null hypothesis")), 
     HTML("<p>p = p<sub>0</sub>: the probability/proportion is p<sub>0</sub></p>"),
@@ -47,12 +52,9 @@
 
   mainPanel(
 
-    h4(tags$b("Output 1. Pie Plot of Proportions")), p(br()), 
+    h4(tags$b("Output 1. Proportion Plot")), p(br()), 
 
     plotOutput("makeplot", width = "400px", height = "400px"),
-
-    p(tags$b("You can change legend names (no space)")),
-    tags$textarea(id = "ln", rows = 2, "Infertility\nNon-infertility "),
 
     hr(),
 

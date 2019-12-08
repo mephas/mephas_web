@@ -64,7 +64,7 @@ source("p1.1_ui.R", local=TRUE)$value,
 
 hr(),
 
-h4(tags$b("Step 3. Choose Methods and Hypotheses")),
+h4(tags$b("Step 3. Choose Method")),
 
 ##---------- 1.2 ----------
 ##---------- Sign Test ----------
@@ -120,7 +120,7 @@ source("p2.1_ui.R", local=TRUE)$value,
 
 hr(),
 
-h4(tags$b("Step 2. Choose Methods and Hypotheses")),
+h4(tags$b("Step 2. Choose Method")),
 ##---------- 2.2 ----------
 
 source("p2.2_ui.R", local=TRUE)$value,
@@ -177,7 +177,7 @@ source("p3.1_ui.R", local=TRUE)$value,
 
 hr(),
 ##---------- 3.1 ----------
-h4(tags$b("Step 2. Choose Methods and Hypotheses")),
+h4(tags$b("Step 2. Choose Method")),
 
 source("p3.3_ui.R", local=TRUE)$value,
 

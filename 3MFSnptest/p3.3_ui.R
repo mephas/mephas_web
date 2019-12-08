@@ -18,7 +18,7 @@ sidebarLayout(
   h4(tags$b("Choice 1. Wilcoxon Signed-Rank Test")),
   hr(),
 
-  h4(tags$b("1. Hypotheses")),
+  h4(tags$b("1. Choose Hypothesis")),
   p(tags$b("Null hypothesis")),
   HTML("<p>  m = 0: the difference of medians between X and Y is not zero </p> 
         <p>  Or, the distribution of the differences in paired values is symmetric around zero</p> "),

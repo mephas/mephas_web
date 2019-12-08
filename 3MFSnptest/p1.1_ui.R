@@ -18,20 +18,15 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-
   p(tags$b("Give a name to your data (No space)")), 
 
-  tags$textarea(id="cn", rows= 1, "Scale"),
-  p(br()),
+  tags$textarea(id="cn", rows= 1, "Scale"), p(br()),
 
   tabsetPanel(
   ##-------input data-------## 
   tabPanel("Manual Input", p(br()),
-    
-    p(tags$b("Please follow the example to input your data in the box")),
-
     p(tags$i("Example here is the Depression Rating Scale factor measurements of 9 patients from a certain group of patients. Scale > 1 indicates Depression.")),
-
+    p(tags$b("Please follow the example to input your data in the box")),
 
     tags$textarea(id="a", 
       rows=10, 
@@ -72,7 +67,7 @@ sidebarPanel(
     ),
 
   hr(),
-  h4(tags$b("Step 2. Choose Parameter")),
+  h4(tags$b("Step 2. Specify Parameter")),
   numericInput("med", HTML("Specify the median (m&#8320) that you want to compare with your data"), 1),
   p(tags$i("In this default settings, we want to know if the group of patients are suffering from depression (m > 1)."))
 

@@ -18,7 +18,7 @@ sidebarPanel(
 h4(tags$b("Choice 2. Sign Test")),
 hr(),
 
-h4(tags$b("Hypotheses")),
+h4(tags$b("1. Choose Hypothesis")),
 p(tags$b("Null hypothesis")),
 HTML("<p> m = 0: the difference median between 2 groups (Before and After) is equal to 0 </p>"),
 

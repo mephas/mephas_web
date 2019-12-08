@@ -16,6 +16,17 @@ sidebarLayout(
   sidebarPanel(
     h4(tags$b("Step 1. Data Preparation")),
 
+    p(tags$b("Give names to the success / events (no space)")),
+    tags$textarea(id = "rn.2", rows = 2,
+        "Cancer\nNo-Cancer"
+      ),
+
+    p(tags$b("Give names to the sample Groups (no space)")),
+    tags$textarea(id = "cn.2", rows = 2,
+        "Birth\nNo-Birth"
+      ),
+    p(br()),
+
     p(tags$b("Group 1")),
       numericInput("x1", "How many success / events, x1", value =683, min = 0, max = 10000000, step = 1),
       numericInput("n1", "How many trials / samples, n1", value = 3220, min = 1, max = 10000000, step = 1),
@@ -26,21 +37,12 @@ sidebarLayout(
       numericInput("n2", "How many trials / samples, n2", value = 10245, min = 1, max = 10000000, step = 1),
     p(tags$i("Example in Group 2 are 10245 no breast cancer women. Among them, 1498 have at least one birth after 30 years old. ")),
 
-    p(tags$b("You can change success / events names (no space)")),
-    tags$textarea(id = "rn.2", rows = 2,
-        "Cancer\nNo-Cancer"
-      ),
 
-    p(tags$b("You can change Groups names (no space)")),
-    tags$textarea(id = "cn.2", rows = 2,
-        "Birth\nNo-Birth"
-      ),
 
       hr(),
 
-    h4(tags$b("Step 2. Choose Hypotheses and Parameters")),
+    h4(tags$b("Step 2. Choose Hypothesis")),
 
-     h4(tags$b("1. Hypotheses")),
      tags$b("Null hypothesis"), 
 
       HTML("<p> p<sub>1</sub> = p<sub>2</sub>: the probability/proportion of cases are equal in Group 1 and Group 2. </p>"),
@@ -55,7 +57,7 @@ sidebarLayout(
         ),
     p(tags$i("In this setting, we want to know if the underlying probability of having first birth over 30 years old is different in 2 groups.")),
      
-    h4(tags$b("2. Decide your Sample Size")),
+    h4(tags$b("Step 3. Whether to do Yates-correction")),
     radioButtons("cr", label = "Yates-correction", 
         choiceNames = list(
           HTML("Do: sample is large enough: n1*p*(1-p)>=5 and n2*p*(1-p)>=5, p=(x1+x2)/(n1+n2)"),
