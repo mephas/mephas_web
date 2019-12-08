@@ -68,7 +68,7 @@ sidebarPanel(
 
 hr(),
 
-  h4(tags$b("Step 2. Choose Hypotheses")),
+  h4(tags$b("Step 2. Choose Hypothesis")),
 
   p(tags$b("Null hypothesis")),
   HTML("&#956 = &#956&#8320: the population mean (&#956) of your data is &#956&#8320"),
@@ -85,7 +85,7 @@ hr(),
 
 hr(),
 
-  h4(tags$b("Step 3. Specify the Mean")),
+  h4(tags$b("Step 3. Specify Parameter")),
 
   numericInput('mu', HTML("Specify the mean (&#956&#8320) that you want to compare with your data"), 50), #p
 

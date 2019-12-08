@@ -69,9 +69,7 @@ sidebarPanel(
 
         hr(),
 
-  h4(tags$b("Step 2. Choose Hypotheses")),
-
-  p(tags$b("1. Hypotheses")),
+  h4(tags$b("Step 2. Choose Hypothesis")),
 
         tags$b("Null hypothesis"),
         HTML("<p> &#916 = 0: Group 1 (Before) and Group 2 (After) have equal effect </p>"),

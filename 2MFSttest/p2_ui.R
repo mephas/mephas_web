@@ -72,7 +72,7 @@ sidebarPanel(
 
     hr(),
 
-  h4(tags$b("Step 2. Choose Hypotheses")),
+  h4(tags$b("Step 2. Choose Hypothesis")),
 
   p(tags$b("Null hypothesis")),
   HTML("<p> &#956&#8321 = &#956&#8322: Group 1 and Group 2 have equal population mean </p>"),
