@@ -25,7 +25,7 @@ title = "Non-Parametric Test for Median",
 ##---------- Panel 1 ----------
 tabPanel("One Sample",
 
-headerPanel("Sign Test or Wilcoxon Signed-Rank Test"),
+headerPanel("Sign Test or Wilcoxon Signed-Rank Test for One Sample"),
 
 HTML(
     "
@@ -74,7 +74,7 @@ source("p1.3_ui.R", local=TRUE)$value,
 
 hr(),
 
-source("p1.2_ui.R", local=TRUE)$value,
+source("p1.2_ui.R", local=TRUE)$value
 
 
 
@@ -84,7 +84,7 @@ source("p1.2_ui.R", local=TRUE)$value,
 
 tabPanel("Two Samples",
 
-headerPanel("Wilcoxon Rank-Sum Test or Mood's Median Test"),
+headerPanel("Wilcoxon Rank-Sum Test or Mood's Median Test for Two Independent Samples"),
 
 HTML(
     "
@@ -129,7 +129,7 @@ source("p2.2_ui.R", local=TRUE)$value,
 
 hr(),
 ##---------- 2.3 ----------
-source("p2.3_ui.R", local=TRUE)$value,
+source("p2.3_ui.R", local=TRUE)$value
 
 ),
 
@@ -137,7 +137,7 @@ source("p2.3_ui.R", local=TRUE)$value,
 
 tabPanel("Paired Samples",    
 
-headerPanel("Sign Test or Wilcoxon Signed-Rank Test"),
+headerPanel("Sign Test or Wilcoxon Signed-Rank Test for Two Paired Samples"),
 
 HTML(
     "
@@ -174,6 +174,7 @@ HTML(
     <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
+hr(),
 
 source("p3.1_ui.R", local=TRUE)$value,
 
@@ -185,7 +186,7 @@ source("p3.3_ui.R", local=TRUE)$value,
 
 hr(),
 ##---------- 3.2 ----------
-source("p3.2_ui.R", local=TRUE)$value,
+source("p3.2_ui.R", local=TRUE)$value
 
 ),
 ##########----------##########----------##########
