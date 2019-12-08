@@ -21,7 +21,8 @@ sidebarPanel(
 
   p(tags$b("Give a name to your data (No space)")), 
 
-  tags$textarea(id="cn", rows= 1, "Scale"),p(br()),
+  tags$textarea(id="cn", rows= 1, "Scale"),
+  p(br()),
 
   tabsetPanel(
   ##-------input data-------## 
@@ -37,7 +38,7 @@ sidebarPanel(
       "1.83\n0.50\n1.62\n2.48\n1.68\n1.88\n1.55\n3.06\n1.30"
       ),
     
-    p("Missing value is input as NA"),
+    p("Missing value is input as NA")
 
     ),
 
@@ -88,6 +89,7 @@ mainPanel(
       dataTableOutput("table")),
 
     tabPanel("Basic Descriptives", p(br()), 
+
         tableOutput("bas"), 
         
         HTML(
@@ -101,7 +103,8 @@ mainPanel(
           </ul>"
           ),
         p(br()), 
-      downloadButton("download1b", "Download Results")),
+      downloadButton("download1b", "Download Results")
+      ),
 
     tabPanel("Box-Plot", p(br()), 
 
