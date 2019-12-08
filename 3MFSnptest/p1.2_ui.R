@@ -16,7 +16,6 @@ sidebarPanel(
 
 h4(tags$b("Choice 2. Sign Test")), hr(),
 
-h4(tags$b("Hypotheses")),
 p(tags$b("Null hypothesis")),
 
 HTML("<p> m = m&#8320: the population median (m) is equal to the specified median ( m&#8320)</p>"),

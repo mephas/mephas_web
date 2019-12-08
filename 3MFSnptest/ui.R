@@ -72,8 +72,6 @@ h4(tags$b("Step 3. Choose Methods and Hypotheses")),
 ##---------- 1.3 ----------
 source("p1.3_ui.R", local=TRUE)$value,
 
-hr(),
-
 source("p1.2_ui.R", local=TRUE)$value
 
 
@@ -127,7 +125,6 @@ h4(tags$b("Step 2. Choose Methods and Hypotheses")),
 
 source("p2.2_ui.R", local=TRUE)$value,
 
-hr(),
 ##---------- 2.3 ----------
 source("p2.3_ui.R", local=TRUE)$value
 
@@ -184,7 +181,6 @@ h4(tags$b("Step 2. Choose Methods and Hypotheses")),
 
 source("p3.3_ui.R", local=TRUE)$value,
 
-hr(),
 ##---------- 3.2 ----------
 source("p3.2_ui.R", local=TRUE)$value
 

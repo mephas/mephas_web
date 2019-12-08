@@ -14,7 +14,6 @@ sidebarLayout(
 sidebarPanel(
 h4(tags$b("Choice 2. Mood's Median Test")),
 hr(),
-h4(tags$b("Hypotheses")),
 p(tags$b("Null hypothesis")),
 
 HTML("m&#8321 = m&#8322, the medians of values for each group are equal"),

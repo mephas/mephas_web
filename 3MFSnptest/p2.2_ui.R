@@ -19,7 +19,7 @@ sidebarPanel(
 h4(tags$b("Choice 1. Wilcoxon Rank-Sum Test, Mann-Whitney U Test, Mann-Whitney-Wilcoxon Test, Wilcoxon-Mann-Whitney Test")),
 hr(),
 
-h4(tags$b("Hypotheses")),
+h4(tags$b("1. Hypotheses")),
 p(tags$b("Null hypothesis")),
 
 HTML("<p> m&#8321 = m&#8322: the medians of two group are equal </p>
@@ -32,7 +32,7 @@ radioButtons("alt.mwt", label = "Alternative hypothesis",
     HTML("m&#8321 > m&#8322: the population median of Group 1 is greater")),
   choiceValues = list("two.sided", "less", "greater")),
 
-p(tags$b("2. Whether to do Normal Approximation")),
+h4(tags$b("2. Whether to do Normal Approximation")),
 radioButtons("nap.mwt", label = "How large is your sample size", 
   choiceNames = list(
     HTML("Sample size is not large (<10), I want exact P Value. No need to do Normal Approximation"),
