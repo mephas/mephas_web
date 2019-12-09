@@ -55,7 +55,7 @@ mainPanel(
     </ul>"
   ),
 
-    p(tags$i("From the default settings, we can conclude that there is no significant differences in 2 groups Rating scale (P=0.44).")),
+    p(tags$i("From the default settings, we concluded that there was no significant differences in 2 groups Rating scale (P=0.44).")),
 
 
   downloadButton("download2.1", "Download Results")

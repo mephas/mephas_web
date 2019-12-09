@@ -42,7 +42,7 @@ mainPanel(
     </ul>"
   ),
 
-  p(tags$i("From the default settings, we can conclude no significant difference is found after the treatment. (P=0.49)")),
+  p(tags$i("From the default settings, we concluded no significant difference is found after the treatment. (P=0.49)")),
 
   downloadButton("download3.1", "Download Results")
           )

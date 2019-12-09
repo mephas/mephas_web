@@ -51,7 +51,7 @@ p("Note: Normal Approximation is to apply continuity correction for the p-value 
     <li> P Value >= 0.05, then the Before and After are NOT significantly different. (Accept null hypothesis)
     </ul>"
   ),
-  p(tags$i("From the default settings, we can conclude no significant difference is found after the treatment. (P=0.46)")),
+  p(tags$i("From the default settings, we concluded no significant difference is found after the treatment. (P=0.46)")),
 
   downloadButton("download3.2", "Download Results")
     ) 

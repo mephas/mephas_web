@@ -23,9 +23,9 @@ sidebarPanel(
   tabsetPanel(
   ##-------input data-------## 
   tabPanel("Manual Input", p(br()),
-    p(tags$i("Example here is the Depression Rating Scale factor measurements of 9 patients Before and After treatment. ")),
+    p(tags$i("Example here was the Depression Rating Scale factor measurements of 9 patients Before and After treatment. ")),
 
-    p(tags$b("Please follow the example to input your data in the box")),
+    p(tags$b("Please follow the example to input your data")),
 
     p(tags$b("Before")),
     tags$textarea(id="y1", 
@@ -39,7 +39,10 @@ sidebarPanel(
       "0.878\n0.647\n0.598\n2.050\n1.060\n1.290\n1.060\n3.140\n1.290"
       ),
 
-    p("Missing value is input as NA")
+    p("Missing value is input as NA"),
+
+  p(tags$i("In this example, we wanted to know if there was significant difference on the scale after the treatment. ")),
+
 
 ),
 

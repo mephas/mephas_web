@@ -18,17 +18,19 @@
 
     p(tags$b("Give names to your data (no space)")),
     tags$textarea(id = "ln", rows = 2, "Infertility\nNon-infertility "), p(br()),
+    
+    p(tags$b("Please follow the example to input your data")),
 
       numericInput("x", "How many success / events, x", value = 10, min = 0, max = 100000, step = 1),
       numericInput("n", "How many trials / samples, n > x", value = 40, min = 1, max = 100000, step = 1),
 
-    p(tags$i("Example here is that 10 women were found infertile among 40 women who are homozygous for the SNP. Thus, the number of event is 10 and sample size is 40.
-      Suppose that in the general population, the infertility rate is 20%.")),
+    p(tags$i("Example here was that 10 women were found infertile among 40 women who were homozygous for the SNP. Thus, the number of event was 10 and sample size was 40.")),
     hr(),
 
     h4(tags$b("Step 2. Specify Parameter")),
 
       numericInput('p', HTML("The specified rate / proportion / probability (0 < p<sub>0</sub> < 1) that you want to compare"), value = 0.2, min = 0, max = 1, step = 0.1),
+    p(tags$i("Suppose that in the general population, the infertility rate was 20%.")),
 
       hr(),
 
@@ -46,7 +48,7 @@
       choiceValues = list("two.sided", "less", "greater")
       ),
 
-   p(tags$i("In this setting, we want to test if there is a significant difference in the rate of infertility among homozygous women compared to 20% the general infertile rate."))
+   p(tags$i("In this example, we wanted to test if there was a significant difference in the rate of infertility among homozygous women compared to 20% the general infertile rate."))
 
       ),
 
@@ -76,7 +78,7 @@
     </ul>"
   ),
 
-  HTML("<i> From the default settings, we conclude that there is no significant difference in the rate of infertility among homozygous women compared to the general interfile rate (P = 0.55). In this case, np<sub>0</sub>(1-p<sub>0</sub>)=40*0.2*0.8 > 5, so <b>Normal Theory Method</b> is preferable. </i>")
+  HTML("<i> From the default settings, we concluded that there was no significant difference in the rate of infertility among homozygous women compared to the general interfile rate (P = 0.55). In this case, np<sub>0</sub>(1-p<sub>0</sub>)=40*0.2*0.8 > 5, so <b>Normal Theory Method</b> was preferable. </i>")
 
 
     )

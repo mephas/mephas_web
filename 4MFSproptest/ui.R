@@ -58,7 +58,8 @@ HTML("
 
 hr(),
 
-source("p1_ui.R", local=TRUE)$value
+source("p1_ui.R", local=TRUE)$value,
+hr()
 
 ),
 
@@ -85,7 +86,8 @@ HTML("
       "),
 hr(),
 
-source("p2_ui.R", local=TRUE)$value
+source("p2_ui.R", local=TRUE)$value,
+hr()
 
 
     ),
@@ -113,9 +115,11 @@ HTML("
       "),
 hr(),
 
-source("p3_ui.R", local=TRUE)$value
+source("p3_ui.R", local=TRUE)$value,
+hr()
     ),
 
+##---------- 4. trend test ----------
 tabPanel("Trend in >2 Samples ",
 
 titlePanel("Chi-square Test for Trend in Multiple Independent Samples"),
@@ -138,7 +142,8 @@ HTML("
       "),
 hr(),
 
-source("p4_ui.R", local=TRUE)$value
+source("p4_ui.R", local=TRUE)$value,
+hr()
 
 ),
 

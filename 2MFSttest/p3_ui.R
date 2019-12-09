@@ -23,9 +23,9 @@ sidebarPanel(
   tabsetPanel(
           ##-------input data-------##
     tabPanel("Manual Input", p(br()),
-        p(tags$i("Example here is the HOUR of sleep effected by a certain drug")),
+        p(tags$i("Example here was the HOUR of sleep effected by a certain drug. Sleeping hours before and after taking the drug were recorded")),
 
-        p(tags$b("Please follow the example to input 2 sets of data in the box. ")),
+    p(tags$b("Please follow the example to input your data")),
 
           p(tags$b("Before")),
             tags$textarea(id = "x1.p",rows = 10,
@@ -84,8 +84,8 @@ sidebarPanel(
             ),
           choiceValues = list("two.sided", "less", "greater")
           ),
-       p(tags$i("In this default settings, we want to know if the drug has effect. 
-        To put it another way, if sleep HOUR changes after they take the drug. "))
+       p(tags$i("In this default settings, we wanted to know if the drug has effect. 
+        Or, if sleep HOUR changed after they take the drug. "))
 
         ),
 
@@ -167,7 +167,7 @@ sidebarPanel(
     </ul>"
   ),
 
-  p(tags$i("From the default settings, we can conclude that the drug has no significant effect on the sleep hour. (P=0.2)")),
+  p(tags$i("From the default settings, we concluded that the drug has no significant effect on the sleep hour. (P=0.2)")),
 
   downloadButton("download6", "Download Results")
         )

@@ -26,15 +26,17 @@ sidebarLayout(
       ),
     p(br()),
 
+    p(tags$b("Please follow the example to input your data")),
+
     p(tags$b("Group 1")),
       numericInput("x1", "How many success / events, x1", value =683, min = 0, max = 10000000, step = 1),
       numericInput("n1", "How many trials / samples, n1 > x1", value = 3220, min = 1, max = 10000000, step = 1),
-    p(tags$i("Example in Group 1 are 3220 breast cancer women. Among them, 683 have at least one birth after 30 years old. ")),
+    p(tags$i("Example in Group 1 were 3220 breast cancer women. Among them, 683 had at least one birth after 30 years old. ")),
     
     p(tags$b("Group 2")),  
       numericInput("x2", "How many success / events, x2", value = 1498, min = 0, max = 10000000, step = 1),
       numericInput("n2", "How many trials / samples, n2 > x2", value = 10245, min = 1, max = 10000000, step = 1),
-    p(tags$i("Example in Group 2 are 10245 no breast cancer women. Among them, 1498 have at least one birth after 30 years old. ")),
+    p(tags$i("Example in Group 2 were 10245 no breast cancer women. Among them, 1498 had at least one birth after 30 years old. ")),
 
       hr(),
 
@@ -52,7 +54,7 @@ sidebarLayout(
           ),
         choiceValues = list("two.sided", "less", "greater")
         ),
-    p(tags$i("In this setting, we want to know if the underlying probability of having first birth over 30 years old is different in 2 groups.")),
+    p(tags$i("In this example, we wanted to know if the underlying probability of having first birth over 30 years old was different in 2 groups.")),
     hr(),
      
     h4(tags$b("Step 3. Whether to do Yates-correction")),

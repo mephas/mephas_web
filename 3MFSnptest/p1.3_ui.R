@@ -56,7 +56,7 @@ p("Note: Normal Approximation is to apply continuity correction for the p-value 
     </ul>"
   ),
 
-  p(tags$i("From the default settings, we can conclude that the scales is significantly greater than 1 (P=0.006), which indicates the patients are suffering from depression.")),
+  p(tags$i("From the default settings, we concluded that the scales was significantly greater than 1 (P=0.006), which indicated the patients were suffering from depression.")),
 
 
     downloadButton("download1.2", "Download Results")

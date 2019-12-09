@@ -24,9 +24,9 @@ sidebarPanel(
       ##-------input data-------##
       tabPanel("Manual Input", p(br()),
 
-        p(tags$i("Example here is the AGE of 27 lymph node positive patients with Estrogen receptor (ER) positive (Group.1-Age.positive); and 117 patients with ER negative (Group.2-Age.negative)")),
+    p(tags$i("Example here was the AGE of 27 lymph node positive patients with Estrogen receptor (ER) positive (Group.1-Age.positive); and 117 patients with ER negative (Group.2-Age.negative)")),
 
-        p(tags$b("Please follow the example to input 2 sets of data in the box")),
+    p(tags$b("Please follow the example to input your data")),
 
         p(tags$b("Group 1")),
         tags$textarea(id = "x1",rows = 10,
@@ -86,7 +86,7 @@ sidebarPanel(
         ),
       choiceValues = list("two.sided", "less", "greater")),
 
-      p(tags$i("In this default settings, we want to know if the ages of patients with ER positive is significantly different from patients with ER negative"))
+      p(tags$i("In this default settings, we wanted to know if the ages of patients with ER positive was significantly different from patients with ER negative"))
 
 
     ),
@@ -173,7 +173,7 @@ sidebarPanel(
   ),
 
 
-    p(tags$i("From the default settings, P value of F test is about 0.11 (>0.05), we should refer to the results from 'Two-Sample t-test'")),
+    p(tags$i("In this example, P value of F test was about 0.11 (>0.05), we should refer to the results from 'Two-Sample t-test'")),
 
     tags$b("2. Decide the test"),
 
@@ -189,7 +189,7 @@ sidebarPanel(
     </ul>"
   ),
 
-    p(tags$i("From the default settings, we can conclude that the age of lymph node positive population with ER positive is not significantly different from ER negative (P=0.24, from 'Two-Sample t-test')")),
+    p(tags$i("In this example, we concluded that the age of lymph node positive population with ER positive was not significantly different from ER negative (P=0.24, from 'Two-Sample t-test')")),
 
 
     downloadButton("download2", "Download Results of Variance Test"),

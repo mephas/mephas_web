@@ -45,7 +45,9 @@ HTML("
       "),
 hr(),
 
-source("chi_ui.R", local=TRUE)$value
+source("chi_ui.R", local=TRUE)$value,
+
+hr()
     ),
 
 ##---------- Panel 2 ----------
@@ -75,7 +77,8 @@ HTML("
       "),
 hr(),
 
-source("fisher_ui.R", local=TRUE)$value
+source("fisher_ui.R", local=TRUE)$value,
+hr()
     ),
 
 ##---------- Panel 3 ----------
@@ -113,7 +116,9 @@ HTML("
       "),
 hr(),
 
-source("mcnemar_ui.R", local=TRUE)$value
+source("mcnemar_ui.R", local=TRUE)$value,
+
+hr()
     ),
 
 ##---------- Panel 4 ----------
@@ -140,7 +145,9 @@ HTML("
       "),
 hr(),
 
-source("2cchi_ui.R", local=TRUE)$value
+source("2cchi_ui.R", local=TRUE)$value,
+
+hr()
     ),
 
 ##---------- Panel 5 ----------
@@ -169,7 +176,8 @@ HTML("
       "),
 
 hr(),
-source("rcchi_ui.R", local=TRUE)$value
+source("rcchi_ui.R", local=TRUE)$value,
+hr()
 ),
 
 
@@ -198,7 +206,9 @@ HTML("
       "),
 
 hr(),
-source("kappa_ui.R", local=TRUE)$value
+source("kappa_ui.R", local=TRUE)$value,
+
+hr()
 
 )
 

@@ -40,7 +40,7 @@
 
     p("Note: No Missing Value"),
 
-    p(tags$i("In this example, we have 5 age groups of people as shown in n, and we record the number of people who have cancer in x.")),
+    p(tags$i("In this example, we had 5 age groups of people as shown in n, and we record the number of people who had cancer in x.")),
 
         hr(),
 
@@ -53,7 +53,7 @@
       p(tags$b("Alternative hypothesis")), 
        p("The probability/proportions are not equal"),          
 
-    p(tags$i("In this setting,  We want to know if the probability to have cancer are different among different age groups ."))
+    p(tags$i("In this example,  we wanted to know if the probability to have cancer were different among different age groups."))
    
 
     ),
@@ -85,7 +85,7 @@
     </ul>"
   ),
 
-     p(tags$i("In this default setting, we conclude that the probability to have cancer are significantly different in different age groups. (P < 0.001)"))
+     p(tags$i("In this default setting, we concluded that the probability to have cancer were significantly different in different age groups. (P < 0.001)"))
 
         )
       )

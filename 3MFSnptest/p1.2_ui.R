@@ -42,7 +42,7 @@ choiceValues = list("greater", "less", "two.sided"))
     </ul>"
   ),
 
-  p(tags$i("From the default settings, we can conclude that the scales is significantly greater than 1 (P=0.02), which indicates the patients are suffering from depression.")),
+  p(tags$i("From the default settings, we concluded that the scales was significantly greater than 1 (P=0.02), which indicated the patients are suffering from depression.")),
 
     downloadButton("download1.1", "Download Results")
     )  

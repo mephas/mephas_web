@@ -24,9 +24,9 @@ sidebarPanel(
 
     tabPanel("Manual Input", p(br()),
 
-     p(tags$i("Example here is the AGE of 144 independent lymph node positive patients")),
+     p(tags$i("Example here was the AGE of 144 independent lymph node positive patients")),
     
-    p(tags$b("Please follow the example to input your data in the box")),
+    p(tags$b("Please follow the example to input your data")),
     tags$textarea(
         id = "x", #p
         rows = 10,
@@ -89,7 +89,7 @@ hr(),
 
   numericInput('mu', HTML("Specify the mean (&#956&#8320) that you want to compare with your data"), 50), #p
 
-  p(tags$i("In this default settings, we want to know if the age of lymph node positive population is 50 years old."))
+  p(tags$i("In this default settings, we wanted to know if the age of lymph node positive population was 50 years old."))
 
 
     ),
@@ -173,7 +173,7 @@ mainPanel(
     </ul>"
   ),
 
-  p(tags$i("From the default settings, we can conclude that the age of lymph node positive population is not significantly different from 50 years old")),
+  p(tags$i("From the default settings, we concluded that the age of lymph node positive population was not significantly different from 50 years old")),
 
   p(br()),
   downloadButton("download1", "Download Results")

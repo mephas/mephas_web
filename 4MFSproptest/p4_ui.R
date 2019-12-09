@@ -23,6 +23,7 @@
         "Cancer\nNo-Cancer"
       ),
         p(br()), 
+    p(tags$b("Please follow the example to input your data")),
 
         p(tags$b("How many success / event in every Group, x")),
         tags$textarea(id = "x4", rows = 5,
@@ -36,7 +37,7 @@
 
     p("Note: No Missing Value"),
 
-    p(tags$i("In this example, we have 5 age groups of people as shown in n, and we record the number of people who have cancer in x.")),
+    p(tags$i("In this example, we had 5 age groups of people as shown in n, and we recorded the number of people who had cancer in x.")),
 
         hr(),
 
@@ -57,7 +58,7 @@
    p(tags$b("Alternative hypothesis")), 
    p("The proportion / rate / probabilities vary with score"),     
 
-    p(tags$i("In this setting,  We want to know if the rate to have cancer have tendency among different ages."))
+    p(tags$i("In this example,  We wanted to know if the rate to have cancer had tendency among different ages."))
    
 
     ),
@@ -97,7 +98,7 @@
     </ul>"
   ),
 
-     p(tags$i("In this default setting, we conclude that the proportion of cancer varies among different ages. (P = 0.01)"))
+     p(tags$i("In this default setting, we concluded that the proportion of cancer varied among different ages. (P = 0.01)"))
 
         )
       )

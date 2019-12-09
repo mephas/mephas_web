@@ -24,9 +24,9 @@ sidebarPanel(
   tabsetPanel(
   ##-------input data-------## 
   tabPanel("Manual input", p(br()),
-    p(tags$i("Example here is the Depression Rating Scale factor measurements of 19 patients from a two group of patients.")),
+    p(tags$i("Example here was the Depression Rating Scale factor measurements of 19 patients from a two group of patients.")),
 
-    p(tags$b("Please follow the example to input your data in the box")),
+    p(tags$b("Please follow the example to input your data")),
 
     p(tags$b("Group 1")),
     tags$textarea(id="x1", 
@@ -42,7 +42,7 @@ sidebarPanel(
     
     p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error"),
 
-    p(tags$i("In this default settings, we want to know if Depression Rating Scale from two group of patients are different."))
+    p(tags$i("In this default settings, we wanted to know if Depression Rating Scale from two group of patients were different."))
     ),
 
 

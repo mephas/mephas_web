@@ -66,13 +66,11 @@ hr(),
 
 h4(tags$b("Step 3. Choose Method")),
 
-##---------- 1.2 ----------
-##---------- Sign Test ----------
-
-##---------- 1.3 ----------
 source("p1.3_ui.R", local=TRUE)$value,
 
-source("p1.2_ui.R", local=TRUE)$value
+source("p1.2_ui.R", local=TRUE)$value,
+
+hr()
 
 
 
@@ -121,12 +119,12 @@ source("p2.1_ui.R", local=TRUE)$value,
 hr(),
 
 h4(tags$b("Step 2. Choose Method")),
-##---------- 2.2 ----------
 
 source("p2.2_ui.R", local=TRUE)$value,
 
-##---------- 2.3 ----------
-source("p2.3_ui.R", local=TRUE)$value
+source("p2.3_ui.R", local=TRUE)$value,
+
+hr()
 
 ),
 
@@ -181,8 +179,9 @@ h4(tags$b("Step 2. Choose Method")),
 
 source("p3.3_ui.R", local=TRUE)$value,
 
-##---------- 3.2 ----------
-source("p3.2_ui.R", local=TRUE)$value
+source("p3.2_ui.R", local=TRUE)$value,
+
+hr()
 
 ),
 ##########----------##########----------##########
