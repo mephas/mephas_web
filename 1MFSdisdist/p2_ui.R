@@ -24,7 +24,7 @@ sidebarLayout(
 		  hr(),
 
 		  h4(tags$b("Step 3. Change Observed Data")), 
-		  numericInput("x0", "The observed number of occurrences (Red-Dot)", value = 0, min = 0 , max = 1000000000),
+		  numericInput("x0", "The observed number of occurrences (Red-Dot)", value = 0, min = 0 , max = 1000000000)
 
 	),
 
