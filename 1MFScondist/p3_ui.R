@@ -84,7 +84,7 @@ sidebarLayout(
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
 
-				plotOutput("g.plot", click = "plot_click11", width = "1000px", height = "400px"),
+				plotOutput("g.plot", click = "plot_click11", width = "800px", height = "400px"),
 			 	verbatimTextOutput("g.info"),
 
 			 	p(tags$b("The position of Red-line and the Blue Ares")),
@@ -94,7 +94,7 @@ sidebarLayout(
 
 			 	sliderInput("g.bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.1),
 			 	numericInput("g.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
-				plotOutput("g.plot2", click = "plot_click12", width = "1000px", height = "400px"),
+				plotOutput("g.plot2", click = "plot_click12", width = "800px", height = "400px"),
 				verbatimTextOutput("g.info2"),
 				
 				p(tags$b("Sample descriptive statistics")),
@@ -112,7 +112,7 @@ sidebarLayout(
 
 			 tabPanel("Data Distribution Plot", p(br()),
 
-			plotOutput("makeplot.g", width = "1000px", height = "400px"),
+			plotOutput("makeplot.g", width = "800px", height = "400px"),
       sliderInput("bin.g","The width of bins in histogram", min = 0.01,max = 5,value = 0.2)
 			 	)
 

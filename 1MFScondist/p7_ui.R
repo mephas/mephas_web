@@ -9,7 +9,7 @@
 ##
 ##----------#----------#----------#----------
 
-###---------- Beta ---------
+###---------- F ---------
 
 sidebarLayout(
 
@@ -20,18 +20,18 @@ sidebarLayout(
 		tabPanel(
 			"Draw a Beta Distribution", p(br()),
 		  h4(tags$b("Step 1. Set Parameters")), 
-		  numericInput("b.shape", HTML("&#945 > 0, Shape parameter"), value = 2, min = 0.0000000001, max = 1000000000),
-		  numericInput("b.scale", HTML("&#946 > 0, Shape parameter"), value = 2, min = 0.0000000001, max = 1000000000),
+		  numericInput("df11", HTML("df1 > 0, Degree of Freedom 1"), value = 100, min = 0.0000000001, max = 1000000000),
+		  numericInput("df21", HTML("df2 > 0, Degree of Freedom 2"), value = 100, min = 0.0000000001, max = 1000000000),
 
 		  hr(),
 
 		  h4(tags$b("Step 2. Adjust Axes Range")), 
-		  numericInput("b.xlim", "Range of x-asis, > 0", value = 1, min = 1, max = 1000000000),
-		  numericInput("b.ylim", "Range of y-asis, > 0", value = 2.5, min = 0.1, max = 3),
+		  numericInput("f.xlim", "Range of x-asis, > 0", value = 5, min = 1, max = 1000000000),
+		  numericInput("f.ylim", "Range of y-asis, > 0", value = 2.5, min = 0.1, max = 3),
 		  hr(),
 
 		  h4(tags$b("Step 3. Show Probability")),   
-	 		numericInput("b.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x), x = Red-line"), value = 0.5, min = 0, max = 1, step = 0.05)
+	 		numericInput("f.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x), x = Red-line"), value = 0.5, min = 0, max = 1, step = 0.05)
 
 		),
 
@@ -40,9 +40,10 @@ sidebarLayout(
 		h4(tags$b("See Plot at Data Distribution Plot")),
 		p(tags$b("Manual Input")),
     tags$textarea(
-        id = "x.b", #p
+        id = "x.f", #p
         rows = 10,
-"0.11\n0.57\n0.59\n0.52\n0.13\n0.45\n0.63\n0.68\n0.44\n0.55\n0.48\n0.54\n0.29\n0.41\n0.64\n0.75\n0.33\n0.24\n0.45\n0.18"				        ),
+"1.08\n1.54\n0.89\n0.83\n1.13\n0.89\n1.22\n1.04\n0.71\n0.84\n1.17\n0.88\n1.05\n0.91\n1.37\n0.87\n1\n1\n1\n1.01"
+				        ),
       p("Missing value is input as NA"),
 
       hr(),
@@ -50,14 +51,14 @@ sidebarLayout(
       p(tags$b("Upload Data")),
 
       ##-------csv file-------##
-        fileInput('b.file', "Choose CSV/TXT file",
+        fileInput('f.file', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
-        checkboxInput("b.header", "Show Data Header?", TRUE),
+        checkboxInput("f.header", "Show Data Header?", TRUE),
 
              # Input: Select separator ----
-        radioButtons("b.sep", 
+        radioButtons("f.sep", 
           "Which Separator for Data?",
           choiceNames = list(
             HTML("Comma (,): CSV often use this"),
@@ -83,36 +84,27 @@ sidebarLayout(
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
 
-				plotOutput("b.plot", click = "plot_click13", width = "800px", height = "400px"),
-			 	verbatimTextOutput("b.info"),
+				plotOutput("f.plot", click = "plot_click7", width = "800px", height = "400px"),
+			 	verbatimTextOutput("f.info"),
 
 			 	p(tags$b("The position of Red-line and the Blue Ares")),
-				tableOutput("b")
+				tableOutput("f")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
 
-			 	sliderInput("b.bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.01),
-			 	numericInput("b.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
-				plotOutput("b.plot2", click = "plot_click14", width = "800px", height = "400px"),
-				verbatimTextOutput("b.info2"),
+			 	sliderInput("f.bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.01),
+			 	numericInput("f.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+				plotOutput("f.plot2", click = "plot_click8", width = "800px", height = "400px"),
+				verbatimTextOutput("f.info2"),
 				
 				p(tags$b("Sample descriptive statistics")),
-				tableOutput("b.sum"),
-				HTML(
-    " 
-    <b> Explanation </b>
-   <ul>
-    <li>  Mean -> &#945/(&#945+&#946)
-    <li>  Variance -> &#945*&#946/(&#945+&#946)^2(&#945+&#946+1)
-   </ul>
-    "
-    )
+				tableOutput("f.sum")
 			 	),
 
 			 tabPanel("Data Distribution Plot", p(br()),
 
-			plotOutput("makeplot.b", width = "800px", height = "400px"),
-      sliderInput("bin.b","The width of bins in histogram", min = 0.01,max = 5,value = 0.2)
+			plotOutput("makeplot.f", width = "800px", height = "400px"),
+      sliderInput("bin.f","The width of bins in histogram", min = 0.01,max = 5,value = 0.2)
 			 	)
 
 			)

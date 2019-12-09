@@ -66,7 +66,7 @@ output$info2 = renderText({
     paste0("Position: ", "\n", xy_str(input$plot_click2))})
 
 
-X <- reactive({
+NN <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
     # input data
@@ -85,7 +85,7 @@ X <- reactive({
   })
 
 output$makeplot <- renderPlot({
-  x = as.data.frame(X())
+  x = as.data.frame(NN())
   plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
   plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
  

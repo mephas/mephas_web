@@ -19,9 +19,8 @@ navbarPage(
 title = "Continuous Probability Distribution",
 
 ##---------- Panel 1 ---------
-tabPanel("Normal Distribution",
+tabPanel("Normal",
 
-###---------- 1.1 ---------
 headerPanel("Normal Distribution"), 
 
   HTML(
@@ -42,10 +41,9 @@ hr()
 )
 ,
 
-##---------- Panel 1 ---------
-tabPanel("Exponential Distribution",
+##---------- Panel 2 ---------
+tabPanel("Exponential",
 
-###---------- 1.1 ---------
 headerPanel("Exponential Distribution"), 
 
   HTML(
@@ -65,10 +63,9 @@ source("p2_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 1 ---------
-tabPanel("Gamma Distribution",
+##---------- Panel 3 ---------
+tabPanel("Gamma",
 
-###---------- 1.1 ---------
 headerPanel("Gamma Distribution"), 
 
   HTML(
@@ -88,10 +85,9 @@ source("p3_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 1 ---------
-tabPanel("Beta Distribution",
+##---------- Panel 4 ---------
+tabPanel("Beta",
 
-###---------- 1.1 ---------
 headerPanel("Beta Distribution"), 
 
   HTML(
@@ -107,6 +103,72 @@ headerPanel("Beta Distribution"),
   hr(),
 
 source("p4_ui.R", local=TRUE)$value,
+
+hr()
+),
+
+##---------- Panel 5 ---------
+tabPanel("T",
+
+headerPanel("Student's T Distribution"), 
+
+  HTML(
+    " 
+    <h4><b> Usage </b></h4>
+   <ul>
+    <li> Draw a T Distribution
+    <li> Compare your data to a T Distribution 
+   </ul>
+    "
+    ),
+
+  hr(),
+
+source("p5_ui.R", local=TRUE)$value,
+
+hr()
+),
+
+##---------- Panel 6 ---------
+tabPanel("Chi",
+
+headerPanel("Chi-Squared Distribution"), 
+
+  HTML(
+    " 
+    <h4><b> Usage </b></h4>
+   <ul>
+    <li> Draw a Chi-Squared Distribution
+    <li> Compare your data to a Chi-Squared Distribution 
+   </ul>
+    "
+    ),
+
+  hr(),
+
+source("p6_ui.R", local=TRUE)$value,
+
+hr()
+),
+
+##---------- Panel 7 ---------
+tabPanel("F",
+
+headerPanel("F Distribution"), 
+
+  HTML(
+    " 
+    <h4><b> Usage </b></h4>
+   <ul>
+    <li> Draw a F Distribution
+    <li> Compare your data to a F Distribution 
+   </ul>
+    "
+    ),
+
+  hr(),
+
+source("p7_ui.R", local=TRUE)$value,
 
 hr()
 ),
