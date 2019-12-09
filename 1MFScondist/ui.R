@@ -21,11 +21,11 @@ title = "Continuous Probability Distribution",
 ##---------- Panel 1 ---------
 tabPanel("Normal",
 
-headerPanel("Normal Distribution"), 
+headerPanel("Normal Distribution"),
 
   HTML(
     " 
-    <h4><b> Usage </b></h4>
+    <h4><b> N(&#956, &#963)</b></h4>
    <ul>
     <li> Draw a Normal Distribution
     <li> Compare your data to a Normal Distribution 
@@ -48,7 +48,7 @@ headerPanel("Exponential Distribution"),
 
   HTML(
     " 
-    <h4><b> Usage </b></h4>
+    <h4><b> E(Rate) </b></h4>
    <ul>
     <li> Draw an Exponential Distribution
     <li> Compare your data to an Exponential Distribution 
@@ -70,7 +70,7 @@ headerPanel("Gamma Distribution"),
 
   HTML(
     " 
-    <h4><b> Usage </b></h4>
+    <h4><b>  Gamma(&#945, &#952) </b></h4>
    <ul>
     <li> Draw a Gamma Distribution
     <li> Compare your data to a Gamma Distribution 
@@ -92,7 +92,7 @@ headerPanel("Beta Distribution"),
 
   HTML(
     " 
-    <h4><b> Usage </b></h4>
+    <h4><b> Beta(&#945, &#946) </b></h4>
    <ul>
     <li> Draw a Bets Distribution
     <li> Compare your data to a Beta Distribution 
@@ -114,7 +114,7 @@ headerPanel("Student's T Distribution"),
 
   HTML(
     " 
-    <h4><b> Usage </b></h4>
+    <h4><b> T(v) </b></h4>
    <ul>
     <li> Draw a T Distribution
     <li> Compare your data to a T Distribution 
@@ -136,7 +136,7 @@ headerPanel("Chi-Squared Distribution"),
 
   HTML(
     " 
-    <h4><b> Usage </b></h4>
+  <h4><b> Chi(v) </b></h4>
    <ul>
     <li> Draw a Chi-Squared Distribution
     <li> Compare your data to a Chi-Squared Distribution 
@@ -158,7 +158,7 @@ headerPanel("F Distribution"),
 
   HTML(
     " 
-    <h4><b> Usage </b></h4>
+    <h4><b> F(df1, df2) </b></h4>
    <ul>
     <li> Draw a F Distribution
     <li> Compare your data to a F Distribution 
