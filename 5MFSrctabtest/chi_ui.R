@@ -14,11 +14,11 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("Give names to Columns")),
+  p(tags$b("Give names to Columns (No space)")),
   tags$textarea(id="cn1", rows=2, "Developed-MI\nNo-MI"),
 
-    p(tags$b("Give names to Rows")), 
-  tags$textarea(id="rn1", rows=2, "OC-user\nNever-OC-user"),
+    p(tags$b("Give names to Rows (No space)")), 
+  tags$textarea(id="rn1", rows=2, "OC-user\nNever-OC-user"), p(br()),
 
   p(tags$b("Input 4 Values by Column-order")),
   tags$textarea(id="x1", rows=4, 
@@ -26,27 +26,28 @@ sidebarPanel(
 
   p("Note: No Missing Value"),
 
-  p(tags$i("Example here is data of OC-users and myocardial infarction (MI) patients. Among 5000 OC-users, 13 developed MI; among 10000 non-OC-users, 7 developed MI.")),
+  p(tags$i("Example here was data of OC-users and myocardial infarction (MI) patients.")),
+  p(tags$i("Among 5000 OC-users, 13 developed MI; among 10000 non-OC-users, 7 developed MI.")),
 
   hr(),
 
    h4(tags$b("Hypothesis")),
 
    p(tags$b("Null hypothesis")), 
-   p("Case-Control (Row) is significantly associate with Grouped Factors (Column)"),
+   p("Case-Control (Row) has no significantly associate with Grouped Factors (Column)"),
     
    p(tags$b("Alternative hypothesis")), 
-   p("Case-Control (Row) has no significant association with Grouped Factors (Column)"),
+   p("Case-Control (Row) is significant association with Grouped Factors (Column)"),
 
-  p(tags$i("In this example, we want to determine if OC use is significantly associated with higher MI incidence.")),
+  p(tags$i("In this example, we wanted to determine if OC use was significantly associated with higher MI incidence.")),
 
 hr(),
 
-    h4(tags$b("Step 2. Whether to do Yates-correction")),
+    h4(tags$b("Step 2. Check the Rule of Five")),
     radioButtons("yt1", label = "Yates-correction on P Value", 
         choiceNames = list(
-          HTML("Do: sample is large enough: n1*p*(1-p)>=5 and n2*p*(1-p)>=5, p=(x1+x2)/(n1+n2)"),
-          HTML("Not do: n1*p*(1-p)<5 or n2*p*(1-p)<5, p=(x1+x2)/(n1+n2)")
+          HTML("Do: no value in the Expected Table (Right) <5 "),
+          HTML("Not do: some value in the Expected Table (Right) <5")
           ),
         choiceValues = list(TRUE, FALSE)
         )
@@ -58,10 +59,16 @@ hr(),
 
     tabsetPanel(
 
-    tabPanel("Table", p(br()),
+    tabPanel("Table Preview", p(br()),
 
         p(tags$b("Data Table")),
         tableOutput("dt1"),
+
+        p(tags$b("Expected Table")),
+        tableOutput("dt1.0"),
+        ),
+
+    tabPanel("Percentage Table", p(br()),
 
         p(tags$b("Cell-Total %")),
         tableOutput("dt1.3"),
@@ -75,7 +82,7 @@ hr(),
 
     tabPanel("Percentage Plot", p(br()),
 
-      plotOutput("makeplot1", width = "800px", height = "400px")
+      plotOutput("makeplot1", width = "1000px", height = "400px")
       )
     ),
 
@@ -93,7 +100,7 @@ hr(),
     </ul>"
   ),
 
-     p(tags$i("In this default setting, we conclude that using OC and MI development have significant association. (P = 0.01)"))
+     p(tags$i("In this default setting, we concluded that using OC and MI development had significant association. (P = 0.01) Because the minimum expected value was 6.67, Yates-correction on P Value was done." ))
 
         )
       )

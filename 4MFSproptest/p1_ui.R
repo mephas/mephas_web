@@ -20,7 +20,7 @@
     tags$textarea(id = "ln", rows = 2, "Infertility\nNon-infertility "), p(br()),
 
       numericInput("x", "How many success / events, x", value = 10, min = 0, max = 100000, step = 1),
-      numericInput("n", "How many trials / samples, n", value = 40, min = 1, max = 100000, step = 1),
+      numericInput("n", "How many trials / samples, n > x", value = 40, min = 1, max = 100000, step = 1),
 
     p(tags$i("Example here is that 10 women were found infertile among 40 women who are homozygous for the SNP. Thus, the number of event is 10 and sample size is 40.
       Suppose that in the general population, the infertility rate is 20%.")),

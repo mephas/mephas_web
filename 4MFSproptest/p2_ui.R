@@ -16,28 +16,25 @@ sidebarLayout(
   sidebarPanel(
     h4(tags$b("Step 1. Data Preparation")),
 
-    p(tags$b("Give names to the success / events (no space)")),
-    tags$textarea(id = "rn.2", rows = 2,
-        "Cancer\nNo-Cancer"
-      ),
-
     p(tags$b("Give names to the sample Groups (no space)")),
     tags$textarea(id = "cn.2", rows = 2,
         "Birth\nNo-Birth"
+      ),
+    p(tags$b("Give names to the success / events (no space)")),
+    tags$textarea(id = "rn.2", rows = 2,
+        "Cancer\nNo-Cancer"
       ),
     p(br()),
 
     p(tags$b("Group 1")),
       numericInput("x1", "How many success / events, x1", value =683, min = 0, max = 10000000, step = 1),
-      numericInput("n1", "How many trials / samples, n1", value = 3220, min = 1, max = 10000000, step = 1),
+      numericInput("n1", "How many trials / samples, n1 > x1", value = 3220, min = 1, max = 10000000, step = 1),
     p(tags$i("Example in Group 1 are 3220 breast cancer women. Among them, 683 have at least one birth after 30 years old. ")),
     
     p(tags$b("Group 2")),  
       numericInput("x2", "How many success / events, x2", value = 1498, min = 0, max = 10000000, step = 1),
-      numericInput("n2", "How many trials / samples, n2", value = 10245, min = 1, max = 10000000, step = 1),
+      numericInput("n2", "How many trials / samples, n2 > x2", value = 10245, min = 1, max = 10000000, step = 1),
     p(tags$i("Example in Group 2 are 10245 no breast cancer women. Among them, 1498 have at least one birth after 30 years old. ")),
-
-
 
       hr(),
 

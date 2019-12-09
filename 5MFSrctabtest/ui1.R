@@ -181,9 +181,9 @@ mainPanel(
   tags$b("Notes"),
   HTML("
   <ul>
-  <li> k > 0.75 denotes excellent reproducibility </li>
-  <li> 0.4 < k < 0.75 denotes good  reproducibility</li>
-  <li> 0 < k < 0.4 denotes marginal reproducibility </li>
+  <li> Cohen's Kappa Statistic > 0.75 denotes excellent reproducibility </li>
+  <li> 0.4 <= Cohen's Kappa Statistic <= 0.75 denotes good  reproducibility</li>
+  <li> 0 <= Cohen's Kappa Statistic < 0.4 denotes marginal reproducibility </li>
   </ul>" ),
 
   hr(),

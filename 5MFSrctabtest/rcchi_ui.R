@@ -7,39 +7,28 @@
 ## DT: 2019-01-11
 ##
 ##----------#----------#----------#----------
-
-
-##---------- Panel 3: 2, C table ----------
-
+#----------  Panel 5: R,C independent ----------##
    sidebarLayout(
       sidebarPanel(
 
     h4(tags$b("Step 1. Data Preparation")),
 
-    p(tags$b("Give names to case-control in the row (no space)")), 
-        tags$textarea(id = "rn3",rows = 2,
-        "Cancer\nNo-Cancer"
+    p(tags$b("Give names to Columns (No space)")), 
+        tags$textarea(id = "cn5",rows = 5,
+        "Smear+\nSmear-Culture+\nSmear-Culture-"
       ),
-
-  p(tags$b("Give names to samples in the column (no space)")), 
-        tags$textarea(id = "cn3",rows = 5,
-        "~20\n20-24\n25-29\n30-34\n34~"
+    p(tags$b("Give names to Rows (No space)")), 
+        tags$textarea(id = "rn5",rows = 5,
+        "Penicillin\nSpectinomycin-low\nSpectinomycin-high"
       ),
         p(br()), 
 
-        p(tags$b("How many Cases in every Group")),
-        tags$textarea(id = "x3", rows = 5,
-        "320\n1206\n1011\n463\n220"        
-        ),
+    p(tags$b("Input R*C Values by Column-order")),
+      tags$textarea(id="x5", rows=10, 
+      "40\n10\n15\n30\n20\n40\n130\n70\n45"),
+      p("Note: No Missing Value"),
 
-        p(tags$b("How many Controls in every Group")),     
-        tags$textarea(id = "x33", rows = 5,
-        "1742\n5638\n3904\n1555\n626"
-        ),
-
-    p("Note: No Missing Value and n > x"),
-
-    p(tags$i("In this example, we have 5 age groups of people as shown in n, and we record the number of people who have cancer in x.")),
+    p(tags$i("Example here was the response from patient after the drug treatment.")),
 
         hr(),
 
@@ -51,7 +40,7 @@
    p(tags$b("Alternative hypothesis")), 
    p("Case-Control (Row) has no significant association with Grouped Factors (Column)"),     
 
-    p(tags$i("In this setting,  We want to know if the probability to have cancer are different among different age groups ."))
+    p(tags$i("In this setting,  we wanted to know if there was relationship between drug treatment and response."))
    
 
     ),
@@ -63,24 +52,29 @@
 
     tabsetPanel(
 
-    tabPanel("Table", p(br()),
+    tabPanel("Table Preview", p(br()),
 
         p(tags$b("Data Table")),
-        tableOutput("dt3"),
+        tableOutput("dt5"),
+
+        p(tags$b("Expected Table")),
+        tableOutput("dt5.0")
+        ),
+    tabPanel("Percentage Table", p(br()),
 
         p(tags$b("Cell-Total %")),
-        tableOutput("dt3.3"),
+        tableOutput("dt5.3"),
 
         p(tags$b("Cell-Row %")),
-        tableOutput("dt3.1"),
+        tableOutput("dt5.1"),
 
         p(tags$b("Cell-Column %")),
-        tableOutput("dt3.2")
+        tableOutput("dt5.2")
         ),
 
     tabPanel("Percentage Plot", p(br()),
 
-      plotOutput("makeplot3", width = "600px", height = "300px")
+      plotOutput("makeplot5", width = "1000px", height = "400px")
       )
     ),
 
@@ -88,7 +82,7 @@
 
     h4(tags$b("Output 2. Test Results")), p(br()), 
 
-    tableOutput("c.test3"),
+    tableOutput("c.test5"),
 
      HTML(
     "<b> Explanations </b> 
@@ -98,7 +92,7 @@
     </ul>"
   ),
 
-     p(tags$i("In this default setting, we conclude that using OC and MI development have significant association. (P = 0.01)"))
+     p(tags$i("In this default setting, we conclude that there was significant relationship between drug treatment and response. (P < 0.001)"))
 
         )
       )

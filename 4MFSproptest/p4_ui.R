@@ -13,14 +13,14 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
+      p(tags$b("Give names to trials / samples (no space)")), 
+        tags$textarea(id = "cn4",rows = 5,
+        "~20\n20-24\n25-29\n30-34\n34~"
+      ),
+
     p(tags$b("Give names to success / event (no space)")), 
         tags$textarea(id = "rn4",rows = 2,
         "Cancer\nNo-Cancer"
-      ),
-
-  p(tags$b("Give names to trials / samples (no space)")), 
-        tags$textarea(id = "cn4",rows = 5,
-        "~20\n20-24\n25-29\n30-34\n34~"
       ),
         p(br()), 
 
@@ -29,12 +29,12 @@
         "320\n1206\n1011\n463\n220"        
         ),
 
-        p(tags$b("How many trials / samples totally in every Group, n>x")),     
+        p(tags$b("How many trials / samples totally in every Group, n > x")),     
         tags$textarea(id = "x44", rows = 5,
         "1742\n5638\n3904\n1555\n626"
         ),
 
-    p("Note: No Missing Value and n > x"),
+    p("Note: No Missing Value"),
 
     p(tags$i("In this example, we have 5 age groups of people as shown in n, and we record the number of people who have cancer in x.")),
 

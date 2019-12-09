@@ -15,17 +15,16 @@
       sidebarPanel(
 
     h4(tags$b("Step 1. Data Preparation")),
+     p(tags$b("You can change Groups names (no space)")),
+        tags$textarea(id = "gn",
+          rows = 5,
+        "~20\n20-24\n25-29\n30-34\n34~"
+      ),
 
       p(tags$b("You can change success / events names (no space)")),
         tags$textarea(id = "ln3",
           rows = 2,
         "Cancer\nNo-Cancer"
-      ),
-
-        p(tags$b("You can change Groups names (no space)")),
-        tags$textarea(id = "gn",
-          rows = 5,
-        "~20\n20-24\n25-29\n30-34\n34~"
       ),
         p(br()), 
 
@@ -34,12 +33,12 @@
         "320\n1206\n1011\n463\n220"        
         ),
 
-        p(tags$b("How many trials / samples in every Group, n")),     
+        p(tags$b("How many trials / samples in every Group, n > x")),     
         tags$textarea(id = "nn", rows = 5,
         "1742\n5638\n3904\n1555\n626"
         ),
 
-    p("Note: No Missing Value and n > x"),
+    p("Note: No Missing Value"),
 
     p(tags$i("In this example, we have 5 age groups of people as shown in n, and we record the number of people who have cancer in x.")),
 

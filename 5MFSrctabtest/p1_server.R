@@ -23,13 +23,19 @@ output$dt1 = renderTable({
   addmargins(T1(), 
     margin = seq_along(dim(T1())), 
     FUN = list(Total=sum), quiet = TRUE)},  
-  rownames = TRUE, width = "500px")
+  rownames = TRUE, width = "800px")
 
-output$dt1.1 = renderTable({prop.table(T1(), 1)}, width = "400px" ,rownames = TRUE, digits = 4)
+output$dt1.0 = renderTable({
+  res = chisq.test(T1(), correct = FALSE)
+  exp = res$expected
+  return(exp)}, 
+  width = "700px" ,rownames = TRUE, digits = 2)
 
-output$dt1.2 = renderTable({prop.table(T1(), 2)}, width = "400px" ,rownames = TRUE, digits = 4)
+output$dt1.1 = renderTable({prop.table(T1(), 1)}, width = "700px" ,rownames = TRUE, digits = 4)
 
-output$dt1.3 = renderTable({prop.table(T1())}, width = "400px" ,rownames = TRUE, digits = 4)
+output$dt1.2 = renderTable({prop.table(T1(), 2)}, width = "700px" ,rownames = TRUE, digits = 4)
+
+output$dt1.3 = renderTable({prop.table(T1())}, width = "700px" ,rownames = TRUE, digits = 4)
 
 
 output$makeplot1 <- renderPlot({  #shinysession 
@@ -57,5 +63,5 @@ output$c.test1 = renderTable({
     rownames(res.table) <- c("Chi-Square", "Degree of freedom", "P Value")
     return(res.table)
     }, 
-    rownames = TRUE, width="500px")
+    rownames = TRUE, width="700px")
 
