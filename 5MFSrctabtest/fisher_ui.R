@@ -59,7 +59,7 @@ sidebarPanel(
         tableOutput("dt4"),
 
         p(tags$b("Expected Table")),
-        tableOutput("dt4.0"),
+        tableOutput("dt4.0")
         ),
 
     tabPanel("Percentage Table", p(br()),

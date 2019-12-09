@@ -65,7 +65,7 @@ hr(),
         tableOutput("dt1"),
 
         p(tags$b("Expected Table")),
-        tableOutput("dt1.0"),
+        tableOutput("dt1.0")
         ),
 
     tabPanel("Percentage Table", p(br()),
