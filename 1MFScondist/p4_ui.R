@@ -106,7 +106,7 @@ sidebarLayout(
     <li>  Variance -> &#945*&#946/(&#945+&#946)^2(&#945+&#946+1)
    </ul>
     "
-    ),
+    )
 			 	),
 
 			 tabPanel("Data Distribution Plot", p(br()),

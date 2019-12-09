@@ -107,7 +107,7 @@ sidebarLayout(
     <li>  Mean -> &#945*&#952
    </ul>
     "
-    ),
+    )
 			 	),
 
 			 tabPanel("Data Distribution Plot", p(br()),
