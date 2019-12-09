@@ -7,49 +7,49 @@
 ## DT: 2019-01-11
 ##
 ##----------#----------#----------#----------
+#----------  Panel 1: 2,2 independent ----------##
 
- sidebarLayout(
+sidebarLayout(
 sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$i("Example here is data of OC-users and myocardial infarction (MI) patients. Among 5000 OC-users, 13 developed MI; among 10000 non-OC-users, 7 developed MI.")),
+  p(tags$b("Give names to Columns")),
+  tags$textarea(id="cn1", rows=2, "Developed-MI\nNo-MI"),
 
+    p(tags$b("Give names to Rows")), 
+  tags$textarea(id="rn1", rows=2, "OC-user\nNever-OC-user"),
 
-  p(tags$b("Input 4 Values to Create Table, by Column")),
+  p(tags$b("Input 4 Values by Column-order")),
   tags$textarea(id="x1", rows=4, 
     "13\n7\n4987\n9993"),
 
-  p(tags$b("You can change Row names")), 
-  tags$textarea(id="rn1", rows=2, "OC-user\nNever-OC-user"),
+  p("Note: No Missing Value"),
 
-  p(tags$b("You can change Column names")),
-  tags$textarea(id="cn1", rows=2, "Developed-MI\nNo-MI"),
+  p(tags$i("Example here is data of OC-users and myocardial infarction (MI) patients. Among 5000 OC-users, 13 developed MI; among 10000 non-OC-users, 7 developed MI.")),
 
-  p("Note: No Missing Value and n > x"),
-  
   hr(),
 
-   h4(tags$b("Step 2. Choose Parameter")),
+   h4(tags$b("Hypothesis")),
 
-   h4(tags$b("1. Hypothesis")),
    p(tags$b("Null hypothesis")), 
    p("Case-Control (Row) is significantly associate with Grouped Factors (Column)"),
     
    p(tags$b("Alternative hypothesis")), 
    p("Case-Control (Row) has no significant association with Grouped Factors (Column)"),
 
-    h4(tags$b("2. Decide your Sample Size")),
-    radioButtons("yt1", label = "Yates-correction", 
+  p(tags$i("In this example, we want to determine if OC use is significantly associated with higher MI incidence.")),
+
+hr(),
+
+    h4(tags$b("Step 2. Whether to do Yates-correction")),
+    radioButtons("yt1", label = "Yates-correction on P Value", 
         choiceNames = list(
           HTML("Do: sample is large enough: n1*p*(1-p)>=5 and n2*p*(1-p)>=5, p=(x1+x2)/(n1+n2)"),
           HTML("Not do: n1*p*(1-p)<5 or n2*p*(1-p)<5, p=(x1+x2)/(n1+n2)")
           ),
         choiceValues = list(TRUE, FALSE)
-        ),
-
-   p(tags$i("In this example, we want to determine if OC use is significantly associate with higher MI incidence."))
-   
+        )
     ),
 
     mainPanel(
@@ -85,16 +85,15 @@ sidebarPanel(
 
     tableOutput("c.test1"),
 
-
      HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then the population proportion/rate are significantly different. (Accept alternative hypothesis)
-    <li> P Value >= 0.05, then the population proportion/rate are NOT significantly different. (Accept null hypothesis)
+    <li> P Value < 0.05, then Case-Control (Row) is significantly associated with Grouped Factors (Column) (Accept alternative hypothesis)
+    <li> P Value >= 0.05, then Case-Control (Row) are not associated with Grouped Factors (Column). (Accept null hypothesis)
     </ul>"
   ),
 
-     p(tags$i("In this default setting, we conclude that the probability to have cancer are significantly different in different age groups. (P < 0.001)"))
+     p(tags$i("In this default setting, we conclude that using OC and MI development have significant association. (P = 0.01)"))
 
         )
       )

@@ -123,7 +123,7 @@ titlePanel("Chi-square Test for Trend in Multiple Independent Samples"),
 HTML("
     <h4><b> 1. Goals </b></h4>
     <ul>
-      <li> To determine if the population rate/proportion behind your multiple Groups data are significantly different </ul>
+      <li> To determine if the population rate/proportion behind your multiple Groups data vary with score </ul>
 
     <h4><b> 2. About your data </b></h4>
 

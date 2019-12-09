@@ -17,12 +17,12 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
  
-  title = "Chi-Square Test for Contingency Table",
+  title = "Test for Contingency Table",
 
 ##---------- Panel 1 ----------
 tabPanel("2 by 2",
 
-titlePanel("Chi-square Test for Case-Control Status and Two Independent Samples"),
+titlePanel("Chi-square Test for Two Independent Samples (in Case-Control Study)"),
 
 HTML("
     <h4><b> 1. Goals </b></h4>
@@ -49,9 +49,38 @@ source("p1_ui.R", local=TRUE)$value
     ),
 
 ##---------- Panel 2 ----------
+tabPanel("Paired 2 by 2",
+
+titlePanel("McNemar Test for Two Matched Samples"),
+
+HTML("
+    <h4><b> 1. Goals </b></h4>
+    <ul>
+      <li> To determine if the population are the same in the 2 dependent samples 
+      <li> To determine if the population are homogeneity
+
+    </ul>
+
+    <h4><b> 2. About your Data </b></h4>
+
+      <ul>
+      <li> You have 2 categories for case-control status (usually as row names)
+      <li> You have 2 samples for 2 factor status (usually shown as column names)
+      <li> 2 samples are independent data
+      </ul>
+
+    <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+  
+      "),
+hr(),
+
+source("p2_ui.R", local=TRUE)$value
+    ),
+
+##---------- Panel 3 ----------
 tabPanel("2 by C",
 
-titlePanel("Chi-square Test for Case-Control Status"),
+titlePanel("Chi-square Test for Multiple Independent Samples (in Case-Control Study)"),
 
 HTML("
     <h4><b> 1. Goals </b></h4>
@@ -69,12 +98,13 @@ HTML("
     <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
   
       "),
-hr()
+hr(),
 
-#source("p2_ui.R", local=TRUE)$value
+source("p3_ui.R", local=TRUE)$value
     ),
 
-##---------- Panel 3 ----------
+##---------- Panel 4 ----------
+
 
 tabPanel("R by C",
 
@@ -102,22 +132,9 @@ HTML("
   "),
 
 hr()
-#source("p3_ui.R", local=TRUE)$value
-),
-
-
-##---------- Panel 4 ----------
-
-tabPanel("2 x K ",
-
-titlePanel("Test for Trend"),
-
-
-hr()
-
 #source("p4_ui.R", local=TRUE)$value
-
 ),
+
 
 ##---------- Panel 5 ----------
 
@@ -128,7 +145,7 @@ titlePanel("Kappa Statistic"),
 p("To qualify the degree of association. This is particularly true in reliability studies, where the researcher want to qualify the reproducibility of the same variable measured more than once."),
 
 hr()
-#source("p5_ui.R", local=TRUE)$value
+#source("p6_ui.R", local=TRUE)$value
 
 )
 

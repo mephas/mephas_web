@@ -20,16 +20,16 @@ function(input, output) {
 source("p1_server.R", local=TRUE)$value
 
 ##----------2. 2,2 dependent ----------
-#source("p2_server.R", local=TRUE)$value
+source("p2_server.R", local=TRUE)$value
 
 ##----------3. 2,C independent ----------
-#source("p3_server.R", local=TRUE)$value
+source("p3_server.R", local=TRUE)$value
 
-##----------4. 2,K independent ----------
+##----------4. R,K independent ----------
 #source("p4_server.R", local=TRUE)$value
 
 ##----------5. K,K independent ----------
-#source("p5_server.R", local=TRUE)$value
+#source("p6_server.R", local=TRUE)$value
 
 ##########----------##########----------##########
 

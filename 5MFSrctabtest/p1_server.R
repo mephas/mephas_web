@@ -9,6 +9,7 @@
 ##
 ##----------#----------#----------#----------
 
+#----------  Panel 1: 2,2 independent ----------##
 
 T1 = reactive({ # prepare dataset
   x <- as.numeric(unlist(strsplit(input$x1, "[\n, \t, ]")))
@@ -24,11 +25,11 @@ output$dt1 = renderTable({
     FUN = list(Total=sum), quiet = TRUE)},  
   rownames = TRUE, width = "500px")
 
-output$dt1.1 = renderTable({prop.table(T1(), 1)}, width = "500px" ,rownames = TRUE, digits = 4)
+output$dt1.1 = renderTable({prop.table(T1(), 1)}, width = "400px" ,rownames = TRUE, digits = 4)
 
-output$dt1.2 = renderTable({prop.table(T1(), 2)}, width = "500px" ,rownames = TRUE, digits = 4)
+output$dt1.2 = renderTable({prop.table(T1(), 2)}, width = "400px" ,rownames = TRUE, digits = 4)
 
-output$dt1.3 = renderTable({prop.table(T1())}, width = "500px" ,rownames = TRUE, digits = 4)
+output$dt1.3 = renderTable({prop.table(T1())}, width = "400px" ,rownames = TRUE, digits = 4)
 
 
 output$makeplot1 <- renderPlot({  #shinysession 
