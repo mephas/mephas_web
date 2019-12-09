@@ -41,7 +41,7 @@ sidebarPanel(
 
     p("Missing value is input as NA"),
 
-  p(tags$i("In this example, we wanted to know if there was significant difference on the scale after the treatment. ")),
+  p(tags$i("In this example, we wanted to know if there was significant difference on the scale after the treatment. "))
 
 
 ),
