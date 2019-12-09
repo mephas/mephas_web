@@ -28,6 +28,10 @@ source("p2_server.R", local=TRUE)$value
 
 source("p3_server.R", local=TRUE)$value
 
+##---------- 4. trend More than 2 sample ----------
+
+source("p4_server.R", local=TRUE)$value
+
 ##########----------##########----------##########
 
 observe({

@@ -56,9 +56,10 @@ sidebarLayout(
         choiceValues = list("two.sided", "less", "greater")
         ),
     p(tags$i("In this setting, we want to know if the underlying probability of having first birth over 30 years old is different in 2 groups.")),
+    hr(),
      
     h4(tags$b("Step 3. Whether to do Yates-correction")),
-    radioButtons("cr", label = "Yates-correction", 
+    radioButtons("cr", label = "Yates-correction on P Value", 
         choiceNames = list(
           HTML("Do: sample is large enough: n1*p*(1-p)>=5 and n2*p*(1-p)>=5, p=(x1+x2)/(n1+n2)"),
           HTML("Not do: n1*p*(1-p)<5 or n2*p*(1-p)<5, p=(x1+x2)/(n1+n2)")

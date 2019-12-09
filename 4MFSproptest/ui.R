@@ -114,10 +114,37 @@ HTML("
 hr(),
 
 source("p3_ui.R", local=TRUE)$value
-    )
+    ),
+
+tabPanel("Trend in >2 Samples ",
+
+titlePanel("Chi-square Test for Trend in Multiple Independent Samples"),
+
+HTML("
+    <h4><b> 1. Goals </b></h4>
+    <ul>
+      <li> To determine if the population rate/proportion behind your multiple Groups data are significantly different </ul>
+
+    <h4><b> 2. About your data </b></h4>
+
+      <ul>
+      <li> Your Groups data come from binomial distribution (the proportion of success)
+      <li> You know the whole sample and the number of specified events (the proportion of sub-group) from each Groups
+      <li> The multiple Groups are independent observations
+      </ul>
+
+    <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+  
+      "),
+hr(),
+
+source("p4_ui.R", local=TRUE)$value
+
+),
+
 
 ##########----------##########----------##########
-    ,
+
 ##---------- other panels ----------
 
 source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
