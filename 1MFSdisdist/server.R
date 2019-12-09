@@ -16,18 +16,9 @@ shinyServer(
 
 function(input, output) {
   #options(warn=-1)
-
-##---------- 1. Continuous RV ---------- 
-###---------- 1.1 Normal Distribution ----------
-
 source("p1_server.R", local=TRUE)$value
 
-###---------- 1.2 t Distribution ----------
-
 source("p2_server.R", local=TRUE)$value
-
-
-source("p3_server.R", local=TRUE)$value
 
 
 ##########----------##########----------##########
@@ -36,6 +27,6 @@ observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
 
-
+}
 )
 
