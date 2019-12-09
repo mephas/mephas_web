@@ -43,8 +43,7 @@ sidebarPanel(
           ),
         choiceValues = list("two.sided", "greater", "less")
         ),
-
-      p(tags$i("In this example, we wanted to determine if there was association between cause of death and high-salt diet.")),
+      p(tags$i("In this example, we wanted to determine if there was association between cause of death and high-salt diet."))
 
     ),
 
