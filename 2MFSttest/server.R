@@ -3,6 +3,7 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(gridExtra)) {install.packages("gridExtra")}; library(gridExtra)
 if (!require(reshape)) {install.packages("reshape")}; library(reshape)
 if (!require(pastecs)) {install.packages("pastecs")}; library(pastecs)
+if (!require(DT)) {install.packages("DT")}; library(DT)
 
 ##----------#----------#----------#----------
 ##
