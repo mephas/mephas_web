@@ -37,7 +37,7 @@ headerPanel("One-Sample T-Test"),
     <h4><b> 2. About your data </b></h4>
 
     <ul>
-      <li> Your data contain only 1 group of values (or a vector)
+      <li> Your data contain only 1 group of values (or a numeric vector)
       <li> The values are independent observations and approximately normally distributed
     </ul> 
 
@@ -70,7 +70,7 @@ headerPanel("Independent Two-Sample T-Test"),
     <h4><b> 2. About your data </b></h4>
 
     <ul>
-      <li> Your data contain 2 separate groups/sets (or 2 vectors)
+      <li> Your data contain 2 separate groups/sets (or 2 numeric vectors)
       <li> The 2 separate groups/sets are independent and identically approximately normally distributed
     </ul> 
 
@@ -107,8 +107,9 @@ tabPanel("Paired Samples",
     <h4><b> 2. About your data </b></h4>
       
       <ul>
-      <li> The differences of paired samples are approximately normally distributed                           
+      <li> Your data contain 2 separate groups/sets (or 2 numeric vectors)
       <li> Two samples that have been matched or paired 
+      <li> The differences of paired samples are approximately normally distributed                           
       </ul>    
  
      <h4><b> 3. Examples for Matched or Paired Data </b></h4>
