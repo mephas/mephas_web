@@ -16,9 +16,11 @@ sidebarPanel(
   
   h4(tags$b("Step 1. Data Preparation")),
     
-  p(tags$b("Give a name to your data (No space)")),
+  p(tags$b("1. Give names to your groups (Required)")),
 
   tags$textarea(id = "cn2", rows = 2, "Age.positive\nAge.negative"), p(br()),
+
+    p(tags$b("2. Input data")),
 
     tabsetPanel(
       ##-------input data-------##
@@ -45,10 +47,12 @@ sidebarPanel(
     tabPanel("Upload Data", p(br()),
 
         ##-------csv file-------##
+        p(tags$b("This only reads the first 2-column of your data")),
         fileInput('file2', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
+        p(tags$b("2. Show 1st row as header?")),
         checkboxInput("header2", "Show Data Header?", TRUE),
 
              # Input: Select separator ----
@@ -72,7 +76,23 @@ sidebarPanel(
 
     hr(),
 
-  h4(tags$b("Step 2. Choose Hypothesis")),
+  h4(tags$b("Choose Hypothesis")),
+
+  h4(tags$b("Step 2. Equivalence of Variance")),
+
+  p(tags$b("Null hypothesis")),
+  HTML("<p> v1 = v2: Group 1 and Group 2 have equal population variances </p>"),
+    
+    radioButtons("alt.t22", #p
+      label = "Alternative hypothesis",
+      choiceNames = list(
+        HTML("v1 &#8800 v2: the population variances of Group 1 and Group 2 are not equal"),
+        HTML("v1 < v2: the population　variances of Group 1 is less than Group 2"),
+        HTML("v1 > v2: the population　variances of Group 1 is greater than Group 2")
+        ),
+      choiceValues = list("two.sided", "less", "greater")),
+
+  h4(tags$b("Step 3. T Test")),
 
   p(tags$b("Null hypothesis")),
   HTML("<p> &#956&#8321 = &#956&#8322: Group 1 and Group 2 have equal population mean </p>"),
@@ -99,7 +119,7 @@ sidebarPanel(
 
     tabPanel("Data Preview", p(br()),
 
-        dataTableOutput("table2")),
+      DTOutput("table2", width = "500px")),
 
     tabPanel("Basic Descriptives", p(br()),
           
@@ -158,9 +178,9 @@ sidebarPanel(
       ),
 
     hr(),
-    h4(tags$b("Output 2. Test Results")),
+    h4(tags$b("Output 2. Test Result 1")),
 
-    tags$b("1. Check the equivalence of 2 variances"),
+    tags$b("Check the equivalence of 2 variances"),
 
     tableOutput("var.test"),
 
@@ -175,8 +195,10 @@ sidebarPanel(
 
     p(tags$i("In this example, P value of F test was about 0.11 (>0.05), we should refer to the results from 'Two-Sample t-test'")),
 
-    tags$b("2. Decide the test"),
+    hr(),
+    h4(tags$b("Output 3. Test Result 2")),
 
+    tags$b("Decide the T Test"),
 
     tableOutput("t.test2"),
     p(br()), 

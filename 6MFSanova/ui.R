@@ -18,45 +18,72 @@ navbarPage(
   title = "Analysis of Variance",
 
 ##---------- Panel 1 ----------
-  tabPanel(
-    "One-way",
+  tabPanel("One-way",
 
-    headerPanel("One-way ANOVA"),
+  headerPanel("One-way ANOVA to Compare Means from Multiple Groups"),
 
-    tags$b("Assumptions"),
-    tags$ul(
-      tags$li("The differences of samples are numeric and continuous and based on the normal distribution"),
-      tags$li("The data collection process was random without replacement."),
-      tags$li("The samples are from the populations with same variances.")
-      ),
+    HTML(
+    "
+    <h4><b> 1. Goal </b></h4>
+    <ul>
+      <li> To determine if the means differ significantly among the groups 
+    </ul>
 
-source("p1_ui.R", local=TRUE, encoding="UTF-8")$value
+    <h4><b> 2. About your data </b></h4>
 
+    <ul>
+      <li> Your data contain several separate groups/sets shown in two vectors
+      <li> One vector is the observed values; one vector is to mark your values in different groups
+      <li> The separate groups/sets are independent and identically approximately normally distributed
+      <li> Each mean of the groups follows a normal distribution with the same variance and can be compared
+    </ul> 
+
+    <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+    "
     ),
+
+  hr(),
+
+source("p1_ui.R", local=TRUE)$value,
+
+hr()
+),
 
 ##---------- Panel 2 ----------
 
-  tabPanel(
-    "Two-way",
+tabPanel("Two-way",
 
-    headerPanel("Two-way ANOVA"),
+  headerPanel("Two-way ANOVA to Compare Means from Multiple Groups"),
 
-    tags$b("Assumptions"),
-    tags$ul(
-      tags$li("The populations from which the samples were obtained are normally or approximately normally distributed."),
-      tags$li("The samples are independent."),
-      tags$li("The variances of the populations are equal."),
-      tags$li("The groups have the same sample size.")
+    HTML(
+    "
+    <h4><b> 1. Goal </b></h4>
+    <ul>
+      <li> To determine if the means differ significantly among the groups 
+    </ul>
 
-      ),
-source("p2_ui.R", local=TRUE, encoding="UTF-8")$value
+    <h4><b> 2. About your data </b></h4>
 
-    ), ##
+    <ul>
+      <li> Your data contain several separate groups/sets (or 2 vectors)
+      <li> The separate groups/sets are independent and identically approximately normally distributed
+      <li> Each mean of the groups follows a normal distribution with the same variance and can be compared
+    </ul> 
+
+    <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+    "
+    ),
+
+  hr(),
+
+#source("p2_ui.R", local=TRUE)$value,
+hr()
+),
+#
 
 ##---------- Panel 3 ----------
+  tabPanel("Pairwise",
 
-  tabPanel(
-    "Multiple Comparison",
     headerPanel("Multiple Comparison"),
 
     tags$b("Assumptions"),
@@ -64,8 +91,9 @@ source("p2_ui.R", local=TRUE, encoding="UTF-8")$value
       tags$li("Significant effects have been found when there are three or more levels of a factor"),
       tags$li("After an ANOVA, the means of your response variable may differ significantly across the factor, but it is unknown which pairs of the factor levels are significantly different from each other")
       ),
-source("p3_ui.R", local=TRUE, encoding="UTF-8")$value
- 
+    hr(),
+#source("p3_ui.R", local=TRUE)$value,
+ hr()
   ),
 
 ##########----------##########----------##########

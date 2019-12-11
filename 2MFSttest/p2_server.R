@@ -9,29 +9,30 @@
 ## DT: 2019-05-04
 ##
 ##----------#----------#----------#----------
+names2 <- reactive({
+  x <- unlist(strsplit(input$cn2, "[\n]"))
+  return(x[1:2])
+  })
+
 Y <- reactive({
   inFile <- input$file2
   if (is.null(inFile)) {
     X <- as.numeric(unlist(strsplit(input$x1, "[\n, \t, ]")))
     Y <- as.numeric(unlist(strsplit(input$x2, "[\n, \t, ]")))
     x <- data.frame(X = X, Y = Y)
-
+    colnames(x) = names2()
     }
   else {
-    csv <- read.csv(
-        inFile$datapath,
-        header = input$header2,
-        sep = input$sep2
-      )
-    x <- as.data.frame(csv)
-
-  }
-colnames(x) = unlist(strsplit(input$cn2, "[\n, \t, ]"))
-return(x)
-  
+    x <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2)
+    x <- as.data.frame(x)[,1:2]
+    if(input$header==FALSE){
+      colnames(x) = names1()
+      }
+    }
+    return(as.data.frame(x))
 })
 
-output$table2 <- renderDataTable({Y()}, options = list(pageLength = 5))
+output$table2 <-renderDT({datatable(Y() ,rownames = TRUE)})
 
 basic_desc2 <- reactive({
   x <- Y()
@@ -110,7 +111,7 @@ output$info2 <- renderText({
 
 var.test0 <- reactive({
   x <- Y()
-  res <- var.test(as.vector(x[, 1]), as.vector(x[, 2]))
+  res <- var.test(as.vector(x[, 1]), as.vector(x[, 2]),alternative=input$alt.t22)
   res.table <- t(
     data.frame(
       F = res$statistic,

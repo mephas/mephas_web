@@ -9,6 +9,11 @@
 ## DT: 2019-05-04
 ##
 ##----------#----------#----------#----------
+names.p <- reactive({
+  x <- unlist(strsplit(input$cn.p, "[\n]"))
+  return(x[1:3])
+  })
+
 Z <- reactive({
   # prepare dataset
   inFile <- input$file.p
@@ -17,22 +22,21 @@ Z <- reactive({
     Y <- as.numeric(unlist(strsplit(input$x2.p, "[\n, \t, ]")))
     x <- data.frame(X = X, Y = Y)
     x$diff <- round(x[, 2] - x[, 1], 4)
+    colnames(x) = names.p()
     }
   else {
-    csv <- read.csv(
-        inFile$datapath,
-        header = input$header.p,
-        sep = input$sep.p
-      )
-    x <- as.data.frame(csv)
+    x <- read.csv(inFile$datapath, header = input$header.p, sep = input$sep.p)
+    x <- as.data.frame(x)[,1:2]
     x$diff <- round(x[, 2] - x[, 1], 4)
-  }
- 
-  names(x) = unlist(strsplit(input$cn.p, "[\n, \t, ]"))
-  return(x)
+    if(input$header==FALSE){
+      colnames(x) = names.p()
+      }
+    }
+    return(as.data.frame(x))
 })
+ 
 
-output$table.p <-renderDataTable({Z()}, options = list(pageLength = 5))
+output$table.p <-renderDT({datatable(Z() ,rownames = TRUE)})
 
 basic_desc3 <- reactive({
   x <- Z()

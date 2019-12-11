@@ -16,9 +16,11 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")), 
 
-  p(tags$b("Give a name to your data (No space)")),
+  p(tags$b("1. Give a name to your data (Required)")),
 
   tags$textarea(id = "cn", rows = 1, "Age"),p(br()),
+
+  p(tags$b("2. Input data")),
 
   tabsetPanel(
 
@@ -39,15 +41,17 @@ sidebarPanel(
     tabPanel("Upload Data", p(br()),
 
         ##-------csv file-------##
-        fileInput('file', "Choose CSV/TXT file",
+        p(tags$b("This only reads the 1st column of your data")),
+        fileInput('file', "1. Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
-        checkboxInput("header", "Show Data Header?", TRUE),
+        p(tags$b("2. Show 1st row as header?")),
+        checkboxInput("header", "Yes", TRUE),
 
              # Input: Select separator ----
         radioButtons("sep", 
-          "Which Separator for Data?",
+          "3. Which Separator for Data?",
           choiceNames = list(
             HTML("Comma (,): CSV often use this"),
             HTML("One Tab (->|): TXT often use this"),
@@ -56,10 +60,9 @@ sidebarPanel(
             ),
           choiceValues = list(",", ";", " ", "\t")
           ),
-
         p("Correct Separator ensures data input successfully"),
 
-        a("Find some example data here",
+        a(tags$i("Find some example data here"),
           href = "https://github.com/mephas/datasets")
 
       )
@@ -68,7 +71,15 @@ sidebarPanel(
 
 hr(),
 
-  h4(tags$b("Step 2. Choose Hypothesis")),
+  h4(tags$b("Step 2. Specify Parameter")),
+
+  numericInput('mu', HTML("Mean (&#956&#8320) that you want to compare with your data"), 50), #p
+
+  p(tags$i("In this default settings, we wanted to know if the age of lymph node positive population was 50 years old.")),
+
+hr(),
+
+  h4(tags$b("Step 3. Choose Hypothesis")),
 
   p(tags$b("Null hypothesis")),
   HTML("&#956 = &#956&#8320: the population mean (&#956) of your data is &#956&#8320"),
@@ -81,16 +92,7 @@ hr(),
       HTML("&#956 < &#956&#8320: the population mean of your data is less than &#956&#8320"),
       HTML("&#956 > &#956&#8320: the population mean of your data is greater than &#956&#8320")
       ),
-    choiceValues = list("two.sided", "less", "greater")),
-
-hr(),
-
-  h4(tags$b("Step 3. Specify Parameter")),
-
-  numericInput('mu', HTML("Specify the mean (&#956&#8320) that you want to compare with your data"), 50), #p
-
-  p(tags$i("In this default settings, we wanted to know if the age of lymph node positive population was 50 years old."))
-
+    choiceValues = list("two.sided", "less", "greater"))
 
     ),
 
@@ -103,7 +105,7 @@ mainPanel(
 
     tabPanel("Data Preview", p(br()),
 
-      dataTableOutput("table")),
+      DTOutput("table", width = "500px")),
 
     tabPanel("Basic Descriptives", p(br()),
 

@@ -16,9 +16,11 @@ sidebarPanel(
         
   h4(tags$b("Step 1. Data Preparation")),
 
-    p(tags$b("You can change the name of your data (No space)")),
+  p(tags$b("1. Give names to your groups (Required)")),
     
     tags$textarea(id = "cn.p", rows = 3, "Before\nAfter\nAfter-Before"), p(br()),
+
+    p(tags$b("2. Input data")),
 
   tabsetPanel(
           ##-------input data-------##
@@ -41,11 +43,12 @@ sidebarPanel(
 
           ##-------csv file-------##
     tabPanel("Upload Data", p(br()),
-            
+    p(tags$b("This only reads the first 2-column of your data")),
     fileInput('file.p', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
+        p(tags$b("2. Show 1st row as header?")),
         checkboxInput("header.p", "Show Data Header?", TRUE),
 
              # Input: Select separator ----
@@ -97,7 +100,7 @@ sidebarPanel(
 
     tabPanel("Data Preview", p(br()),
 
-            dataTableOutput("table.p")),
+      DTOutput("table.p", width = "500px")),
 
     tabPanel("Basic Descriptives", p(br()),
 

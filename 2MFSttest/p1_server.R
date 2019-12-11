@@ -9,25 +9,30 @@
 ## DT: 2019-05-04
 ##
 ##----------#----------#----------#----------
+names1 <- reactive({
+  x <- unlist(strsplit(input$cn, "[\n]"))
+  return(x[1])
+  })
+
+
 X <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
-    # input data
-    x <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
-    X <- as.data.frame(x)
+    x <- as.numeric(unlist(strsplit(input$x, "[,;\n\t ]")))
+    x <- as.data.frame(x)
+    colnames(x) = names1()
     }
   else {
-    # CSV data
-    csv <- read.csv(inFile$datapath,
-        header = input$header,
-        sep = input$sep)
-    X <- as.data.frame(csv)
+    x <- read.csv(inFile$datapath, header = input$header, sep = input$sep)
+    x <- as.data.frame(x)[,1]
+    if(input$header==FALSE){
+      colnames(x) = names1()
+      }
     }
-    colnames(X) = unlist(strsplit(input$cn, "[\n, \t, ]"))
-    return(X)
+    return(as.data.frame(x))
   })
 
-output$table <-renderDataTable({X()}, options = list(pageLength = 5))
+output$table <-renderDT({datatable(X() ,rownames = TRUE)})
 
 
 basic_desc <- reactive({
@@ -92,7 +97,7 @@ output$makeplot <- renderPlot({
 t.test0 <- reactive({
   x <- X()
   res <-t.test(
-    as.vector(x[, 1]),
+    x[,1],
     mu = input$mu,
     alternative = input$alt)
   res.table <- t(
