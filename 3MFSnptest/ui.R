@@ -44,7 +44,8 @@ HTML(
     </ul> 
 
     <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
-    <p>An alternative to one-sample t-test, when the data cannot be assumed to be normally distributed</p>
+    
+    <p>This is an alternative to one-sample t-test, when the data cannot be assumed to be normally distributed</p>
     <p>This method is based on the ranks of observations rather than on their true values</p>
 
     "
@@ -65,7 +66,7 @@ hr()
 
 tabPanel("Two Samples",
 
-headerPanel("Wilcoxon Rank-Sum Test or Mood's Median Test for Two Independent Samples"),
+headerPanel("Wilcoxon Rank-Sum Test (Mann–Whitney U test) for Two Independent Samples"),
 
 HTML(
     "
@@ -78,36 +79,23 @@ HTML(
     <h4><b> 2. About your data </b></h4>
 
     <ul>
-      <li> Your data contain only 2 group of values (or 2 vectors) 
+      <li> Your data contain only 2 group of values (or 2 numeric vectors) 
       <li> Your data are meaningful to measure the distance between 2 groups values
       <li> The values are independent observations
       <li> No assumption on the distributional shape of your data
       <li> Your data may be not normally distributed
     </ul> 
 
-    <h4><b> 3. Two choices of tests </b></h4>
-
-    <ul>
-      <li> <b>Wilcoxon Rank-Sum Test / Mann-Whitney U Test / Mann-Whitney-Wilcoxon Test / Wilcoxon-Mann-Whitney Test:</b> alternative to two-sample t-test, when the data cannot be assumed to be normally distributed
-      <li> <b>Mood's Median Test:</b> a special case of Pearson's chi-squared test. It has low power (efficiency) for moderate to large sample sizes. 
-    </ul> 
-
     <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+     <p>This is an alternative to two-sample t-test, when the data cannot be assumed to be normally distributed</p>
+
     "
     ),
 
 hr(),
 
 ##---------- 2.1 ----------
-source("p2.1_ui.R", local=TRUE)$value,
-
-hr(),
-
-h4(tags$b("Step 2. Choose Method")),
-
-source("p2.2_ui.R", local=TRUE)$value,
-
-source("p2.3_ui.R", local=TRUE)$value,
+source("p2_ui.R", local=TRUE)$value,
 
 hr()
 
@@ -117,7 +105,7 @@ hr()
 
 tabPanel("Paired Samples",    
 
-headerPanel("Sign Test or Wilcoxon Signed-Rank Test for Two Paired Samples"),
+headerPanel("Wilcoxon Signed-Rank Test for Two Paired Samples"),
 
 HTML(
     "
@@ -129,7 +117,7 @@ HTML(
     <h4><b> 2. About your data </b></h4>
 
     <ul>
-      <li> Your data contain 2 group of values (or 2 vectors)
+      <li> Your data contain 2 group of values (or 2 numeric vectors)
       <li> Your data are meaningful to measure the distance from the specified median
       <li> The values are paired or matched observations
       <li> No assumption on the distributional shape of your data
@@ -143,28 +131,16 @@ HTML(
       </ul>  
 
      <b>In paired case, we compare the differences of 2 groups to zero. Thus, it becomes a one-sample test problem.</b>
+    <p>This is an alternative to paired-sample t-test, when the data cannot be assumed to be normally distributed</p>
 
-    <h4><b> 4. Two choices of tests </b></h4>
-
-    <ul>
-      <li> <b>Sign Test:</b> lack some the statistical power 
-      <li> <b>Wilcoxon Signed-Rank Test:</b> alternative to one-sample t-test, when the data cannot be assumed to be normally distributed
-    </ul> 
 
     <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
 hr(),
 
-source("p3.1_ui.R", local=TRUE)$value,
+source("p3_ui.R", local=TRUE)$value,
 
-hr(),
-##---------- 3.1 ----------
-h4(tags$b("Step 2. Choose Method")),
-
-source("p3.3_ui.R", local=TRUE)$value,
-
-source("p3.2_ui.R", local=TRUE)$value,
 
 hr()
 

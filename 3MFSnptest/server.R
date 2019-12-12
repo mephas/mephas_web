@@ -2,9 +2,8 @@ if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(gridExtra)) {install.packages("gridExtra")}; library(gridExtra)
 if (!require(reshape)) {install.packages("reshape")}; library(reshape)
-if (!require(DescTools)) {install.packages("DescTools")}; library(DescTools)  #SignTest
-#if (!require(RVAideMemoire)) {install.packages("RVAideMemoire")}; library(RVAideMemoire)  
-if (!require(pastecs)) {install.packages("pastecs")}; library(pastecs)
+#if (!require(DescTools)) {install.packages("DescTools")}; library(DescTools)  
+if (!require(psych)) {install.packages("psych")}; library(psych)
 if (!require(DT)) {install.packages("DT")}; library(DT)
 ##----------#----------#----------#----------
 ##
@@ -25,10 +24,10 @@ shinyServer(
 source("p1_server.R", local=TRUE)$value
 
 ##---------- 2. two samples ----------
-#source("p2_server.R", local=TRUE)$value
+source("p2_server.R", local=TRUE)$value
  
 ##---------- 3. paired sample ----------
-#source("p3_server.R", local=TRUE)$value
+source("p3_server.R", local=TRUE)$value
 
 ##########----------##########----------##########
 
