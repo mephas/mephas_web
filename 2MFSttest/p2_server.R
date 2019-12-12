@@ -17,8 +17,8 @@ names2 <- reactive({
 Y <- reactive({
   inFile <- input$file2
   if (is.null(inFile)) {
-    X <- as.numeric(unlist(strsplit(input$x1, "[\n, \t, ]")))
-    Y <- as.numeric(unlist(strsplit(input$x2, "[\n, \t, ]")))
+    X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t ]")))
+    Y <- as.numeric(unlist(strsplit(input$x2, "[,;\n\t ]")))
     x <- data.frame(X = X, Y = Y)
     colnames(x) = names2()
     }
