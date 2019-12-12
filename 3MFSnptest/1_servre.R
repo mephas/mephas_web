@@ -79,24 +79,22 @@ output$table <-renderDT({datatable(A() ,rownames = TRUE)})
     plot2 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title=element_blank())
     grid.arrange(plot1, plot2, ncol=2)  })
   
-
-  ws.test<- reactive({
+  sign.test0 <- reactive({
     x <- A()
-    if (input$alt.md =="a"){
-    res <- wilcox.test((x[,1]), mu = input$med, 
-      alternative = input$alt.wsr, exact=NULL, correct=TRUE, conf.int = TRUE)
-  }
-    if (input$alt.md =="b") {
-    res <- wilcox.test((x[,1]), 
-      mu = input$med, 
-      alternative = input$alt.wsr, exact=NULL, correct=FALSE, conf.int = TRUE)
-  }
-  if (input$alt.md =="c")  {
-    res <- exactRankTests::wilcox.exact(x[,1], mu = input$med, 
-      alternative = input$alt.wsr, exact=TRUE, conf.int = TRUE)
+    res <- SignTest(as.vector(x[,1]), mu = input$med, alternative = input$alt.st)
+    res.table <- t(data.frame(S = res$statistic,
+                              P = res$p.value,
+                              EM = res$estimate,
+                              CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
+    colnames(res.table) <- res$method
+    rownames(res.table) <- c("S Statistic", "P Value","Estimated Median","95% Confidence Interval")
+    return(res.table)
+    })
+  output$sign.test<-renderTable({
+    sign.test0()}, width = "500px", rownames = TRUE)
 
-  }
-  
+  ws.test0 <- reactive({x <- A()
+    res <- wilcox.test(as.vector(x[,1]), mu = input$med, alternative = input$alt.wsr, correct = input$nap.wsr, conf.int = TRUE, conf.level = 0.95)
     res.table <- t(data.frame(W = res$statistic,
                               P = res$p.value,
                               EM = res$estimate,
@@ -104,19 +102,26 @@ output$table <-renderDT({datatable(A() ,rownames = TRUE)})
     colnames(res.table) <- res$method
     rownames(res.table) <- c("W Statistic", "P Value","Estimated Median","95% Confidence Interval")
 
-    return(res.table)
-    })
+    return(res.table)})
+  
+  output$ws.test<-renderTable({
+    ws.test0()}, width = "500px", rownames = TRUE)
 
-  output$ws.test.t <- renderTable({ws.test()},
-    width = "500px", rownames = TRUE, colnames = TRUE)
+  output$download1.1 <- downloadHandler(
+    filename = function() {
+      "sign.csv"
+    },
+    content = function(file) {
+      write.csv(sign.test0(), file, row.names = TRUE)
+    }
+  )
 
-
-output$download1 <- downloadHandler(
+output$download1.2 <- downloadHandler(
     filename = function() {
       "ws.csv"
     },
     content = function(file) {
-      write.csv(ws.test(), file, row.names = TRUE)
+      write.csv(ws.test0(), file, row.names = TRUE)
     }
   )
 

@@ -20,55 +20,40 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
 
-title = "Non-Parametric Test for Median",  
+title = "Wilcoxon Test for Median",  
 
 ##---------- Panel 1 ----------
 tabPanel("One Sample",
 
-headerPanel("Sign Test or Wilcoxon Signed-Rank Test for One Sample"),
+headerPanel("Wilcoxon Signed-Rank Test for One Sample"),
 
 HTML(
-    "
+    "    
     <h4><b> 1. Goals </b></h4>
     <ul>
-      <li> To determine if the median of the population from which your data is drawn statistically significantly different from the specified median
-      <li> To determine the distribution of you data is symmetric about the specified median
+      <li> To determine if the median / location of the population from which your data is drawn statistically significantly different from the specified median
     </ul>
 
     <h4><b> 2. About your data </b></h4>
 
     <ul>
-      <li> Your data contain only 1 group of values (or 1 vector)
+      <li> Your data contain only 1 group of values (or 1 numeric vector)
       <li> Your data are meaningful to measure the distance from the specified median
       <li> The values are independent observations
-      <li> No assumption on the distributional shape of your data
-      <li> Your data may be not normally distributed
-      <li> You have a specified median
-    </ul> 
-
-    <h4><b> 3. Two choices of tests </b></h4>
-
-    <ul>
-      <li> <b>Sign Test:</b> lack some the statistical power 
-      <li> <b>Wilcoxon Signed-Rank Test:</b> alternative to one-sample t-test, when the data cannot be assumed to be normally distributed
+      <li> No assumption on the distributional shape of your data, which means your data may be not normally distributed
     </ul> 
 
     <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+    <p>An alternative to one-sample t-test, when the data cannot be assumed to be normally distributed</p>
+    <p>This method is based on the ranks of observations rather than on their true values</p>
+
     "
     ),
 
 hr(),
 ##---------- 1.1 ----------
 
-source("p1.1_ui.R", local=TRUE)$value,
-
-hr(),
-
-h4(tags$b("Step 3. Choose Method")),
-
-source("p1.3_ui.R", local=TRUE)$value,
-
-source("p1.2_ui.R", local=TRUE)$value,
+source("p1_ui.R", local=TRUE)$value,
 
 hr()
 
