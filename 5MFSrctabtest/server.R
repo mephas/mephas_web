@@ -29,6 +29,11 @@ source("p5_server.R", local=TRUE)$value
 ##----------5. K,K independent ----------
 source("p6_server.R", local=TRUE)$value
 
+source("p7_server.R", local=TRUE)$value
+
+source("p8_server.R", local=TRUE)$value
+
+
 ##########----------##########----------##########
 
 

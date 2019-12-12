@@ -13,14 +13,14 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-    p(tags$b("Give outcome / measurement names to Columns and Rows (No space)")), 
+    p(tags$b("1. Give outcome / measurement names to Columns and Rows")), 
     tags$textarea(id="cn6", rows=2, "Yes\nNo"), 
 
-    p(tags$b("Give factor / treatment names (No space)")), 
+    p(tags$b("2. Give factor / treatment names")), 
     tags$textarea(id="rn6", rows=2, "Survey1\nSurvey2"),p(br()),
 
   
-  p(tags$b("Input 4 Values by Column")),
+  p(tags$b("3. Input 4 Values by Column")),
   tags$textarea(id="x6", rows=4, 
     "510\n5\n16\n90"),
 
@@ -33,10 +33,10 @@
     h4(tags$b("Hypothesis")),
 
    p(tags$b("Null hypothesis")), 
-   p("Case-Control (Row) is significantly associate with Grouped Factors (Column)"),
+   p("Case-Control (Row) do not significantly associate with Grouped Factors (Column)"),
     
    p(tags$b("Alternative hypothesis")), 
-   p("Case-Control (Row) has no significant association with Grouped Factors (Column)"),     
+   p("Case-Control (Row) has significant association with Grouped Factors (Column)"),     
 
     p(tags$i("In this setting,  we wanted to know the reproducibility of the surveys."))
    

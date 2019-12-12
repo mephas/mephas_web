@@ -13,13 +13,13 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("Give names to Columns (No space)")),
-  tags$textarea(id="cn4", rows=2, "High-salt\nLow-salt"),
+  p(tags$b("1. Give names to Columns")),
+  tags$textarea(id="cn4", rows=2, "High salt\nLow salt"),
 
-    p(tags$b("Give names to Rows (No space)")), 
-  tags$textarea(id="rn4", rows=2, "CVD\nNon-CVD"), p(br()),
+    p(tags$b("2. Give names to Rows")), 
+  tags$textarea(id="rn4", rows=2, "CVD\nNon CVD"), p(br()),
 
-  p(tags$b("Input 4 Values by Column-order")),
+  p(tags$b("3. Input 4 Values by Column-order")),
   tags$textarea(id="x4", rows=4, 
     "5\n2\n30\n23"),
 

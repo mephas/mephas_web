@@ -22,7 +22,7 @@ navbarPage(
 ##---------- Panel 1 ----------
 tabPanel("2 by 2",
 
-titlePanel("Chi-square Test for Two Independent Samples (in Case-Control Study)"),
+titlePanel("Chi-square Test for Two Independent Count Samples (in Case-Control Study)"),
 
 HTML("
     <h4><b> 1. Goals </b></h4>
@@ -53,12 +53,12 @@ hr()
 ##---------- Panel 2 ----------
 tabPanel("Small 2 by 2",
 
-titlePanel("Fisher Exact Test for Two Samples with Small Expected Values"),
+titlePanel("Fisher Exact Test for Two Samples with Small Expected Counts"),
 
 HTML("
     <h4><b> 1. Goals </b></h4>
     <ul>
-      <li> To determine if  there is association between the case-control status (rows) and factor status (columns)
+      <li> To determine if there is association between the case-control status (rows) and factor status (columns)
       <li> To determine if the proportions are the same in the 2 dependent samples 
       <li> To determine if the proportions are homogeneity
     </ul>
@@ -84,7 +84,7 @@ hr()
 ##---------- Panel 3 ----------
 tabPanel("Paired 2 by 2",
 
-titlePanel("McNemar Test for Two Matched Samples"),
+titlePanel("McNemar Test for Two Matched Count Samples"),
 
 HTML("
     <h4><b> 1. Goals </b></h4>
@@ -124,7 +124,7 @@ hr()
 ##---------- Panel 4 ----------
 tabPanel("2 by C",
 
-titlePanel("Chi-square Test for Multiple Independent Samples (C-sample) (in Case-Control Study)"),
+titlePanel("Chi-square Test for Multiple Independent Count Samples (C-sample) (in Case-Control Study)"),
 
 HTML("
     <h4><b> 1. Goals </b></h4>
@@ -155,7 +155,7 @@ hr()
 
 tabPanel("R by C",
 
-titlePanel("Chi-square Test for Independent Multiple Samples (C-sample) in More than Two Status (R-status)"),
+titlePanel("Chi-square Test for Independent Multiple Count Samples (C-sample) in More than Two Status (R-status)"),
 
 HTML("
     <h4><b> 1. Goals </b></h4>
@@ -207,6 +207,65 @@ HTML("
 
 hr(),
 source("kappa_ui.R", local=TRUE)$value,
+
+hr()
+
+),
+##---------- Panel 7 ----------
+
+tabPanel("2 by 2 by K",
+
+titlePanel("Mantel-Haenszel Test for Stratified Count Samples in 2 by 2 Table"),
+
+HTML("
+    <h4><b> 1. Goals </b></h4>
+    <ul>
+      <li> To determine by controlling the stratum / confounding if there is association between the case-control status (rows) and factor status (columns)
+      <li> Two nominal variables are conditionally independent in K strata
+    </ul>
+
+    <h4><b> 2. About your Data, K by K contingency table </b></h4>
+
+      <ul>
+      <li> You have counts for several 2 by 2 table
+      </ul>
+
+    <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+  
+      "),
+
+hr(),
+source("mh_ui.R", local=TRUE)$value,
+
+hr()
+
+),
+
+##---------- Panel 8 ----------
+
+tabPanel("R by C by K",
+
+titlePanel("Cochran-Mantel-Haenszel for Test for Stratified Count Samples in R by C Table"),
+
+HTML("
+    <h4><b> 1. Goals </b></h4>
+    <ul>
+      <li> To determine by controlling the stratum / confounding if there is association between the case-control status (rows) and factor status (columns)
+      <li> Two nominal variables are conditionally independent in K strata
+    </ul>
+
+    <h4><b> 2. About your Data, K by K contingency table </b></h4>
+
+      <ul>
+      <li> You have counts for several R by C table
+      </ul>
+
+    <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+  
+      "),
+
+hr(),
+source("cmh_ui.R", local=TRUE)$value,
 
 hr()
 

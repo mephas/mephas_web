@@ -14,14 +14,14 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("Give outcome / measurement names to Columns and Rows (No space)")), 
+  p(tags$b("1. Give outcome / measurement names to Columns and Rows")), 
   tags$textarea(id="cn2", rows=2, "Better\nNo-change"), 
 
-  p(tags$b("Give factor / treatment names (No space)")), 
+  p(tags$b("2. Give factor / treatment names")), 
   tags$textarea(id="rn2", rows=2, "Treatment-A\nTreatment-B"),p(br()),
 
   
-  p(tags$b("Input 4 Values by Column")),
+  p(tags$b("3. Input 4 Values by Column")),
   tags$textarea(id="x2", rows=4, 
     "510\n5\n16\n90"),
 

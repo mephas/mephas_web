@@ -12,10 +12,10 @@
 #----------  Panel 1: 2,2 independent ----------##
 
 T1 = reactive({ # prepare dataset
-  x <- as.numeric(unlist(strsplit(input$x1, "[\n, \t, ]")))
+  x <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t ]")))
   x <- matrix(x,2,2)
-  rownames(x) = unlist(strsplit(input$rn1, "[\n, \t, ]"))
-  colnames(x) = unlist(strsplit(input$cn1, "[\n, \t, ]"))
+  rownames(x) = unlist(strsplit(input$rn1, "[\n]"))
+  colnames(x) = unlist(strsplit(input$cn1, "[\n]"))
   return(x)
   })
 

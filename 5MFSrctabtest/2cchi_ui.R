@@ -16,23 +16,23 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("Give names to Columns (No space)")), 
+  p(tags$b("1. Give names to Columns")), 
         tags$textarea(id = "cn3",rows = 5,
         "~20\n20-24\n25-29\n30-34\n34~"
       ),
-  p(tags$b("Give names to Rows (No space)")), 
+  p(tags$b("2. Give names to Rows")), 
         tags$textarea(id = "rn3",rows = 2,
         "Cancer\nNo-Cancer"
       ),
 
         p(br()), 
 
-        p(tags$b("How many Cases in every Group")),
+        p(tags$b("3. How many Cases in every Group")),
         tags$textarea(id = "x3", rows = 5,
         "320\n1206\n1011\n463\n220"        
         ),
 
-        p(tags$b("How many Controls in every Group")),     
+        p(tags$b("4. How many Controls in every Group")),     
         tags$textarea(id = "x33", rows = 5,
         "1742\n5638\n3904\n1555\n626"
         ),
@@ -46,10 +46,10 @@
     h4(tags$b("Hypothesis")),
 
    p(tags$b("Null hypothesis")), 
-   p("Case-Control (Row) significantly associate with Grouped Factors (Column)"),
+   p("Case-Control (Row) do not significantly associate with Grouped Factors (Column)"),
     
    p(tags$b("Alternative hypothesis")), 
-   p("Case-Control (Row) has no significant association with Grouped Factors (Column)"),     
+   p("Case-Control (Row) has significant association with Grouped Factors (Column)"),     
 
     p(tags$i("In this setting,  we wanted to know if there was any relation between cancer and ages."))
    

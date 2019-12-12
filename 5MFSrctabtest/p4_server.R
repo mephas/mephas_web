@@ -10,10 +10,10 @@
 ##---------- 1. Fisher test 2,2 ----------
 
 T4 = reactive({ # prepare dataset
-  x <- as.numeric(unlist(strsplit(input$x4, "[\n, \t, ]")))
+  x <- as.numeric(unlist(strsplit(input$x4, "[,;\n\t ]")))
   x <- matrix(x,2,2)
-  rownames(x) = unlist(strsplit(input$rn4, "[\n, \t, ]"))
-  colnames(x) = unlist(strsplit(input$cn4, "[\n, \t, ]"))
+  rownames(x) = unlist(strsplit(input$rn4, "[\n]"))
+  colnames(x) = unlist(strsplit(input$cn4, "[\n]"))
   return(x)
   })
 

@@ -14,13 +14,13 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("Give names to Columns (No space)")),
-  tags$textarea(id="cn1", rows=2, "Developed-MI\nNo-MI"),
+  p(tags$b("1. Give names to Columns")),
+  tags$textarea(id="cn1", rows=2, "Developed-MI\nNo MI"),
 
-    p(tags$b("Give names to Rows (No space)")), 
-  tags$textarea(id="rn1", rows=2, "OC-user\nNever-OC-user"), p(br()),
+    p(tags$b("2. Give names to Rows")), 
+  tags$textarea(id="rn1", rows=2, "OC user\nNever OC user"), p(br()),
 
-  p(tags$b("Input 4 Values by Column-order")),
+  p(tags$b("3. Input 4 Values by Column-order")),
   tags$textarea(id="x1", rows=4, 
     "13\n7\n4987\n9993"),
 

@@ -13,17 +13,17 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-    p(tags$b("Give names to Columns (No space)")), 
+    p(tags$b("1. Give names to Columns (No space)")), 
         tags$textarea(id = "cn5",rows = 5,
         "Smear+\nSmear-Culture+\nSmear-Culture-"
       ),
-    p(tags$b("Give names to Rows (No space)")), 
+    p(tags$b("2. Give names to Rows (No space)")), 
         tags$textarea(id = "rn5",rows = 5,
         "Penicillin\nSpectinomycin-low\nSpectinomycin-high"
       ),
         p(br()), 
 
-    p(tags$b("Input R*C Values by Column-order")),
+    p(tags$b("3. Input R*C Values by Column-order")),
       tags$textarea(id="x5", rows=10, 
       "40\n10\n15\n30\n20\n40\n130\n70\n45"),
       p("Note: No Missing Value"),

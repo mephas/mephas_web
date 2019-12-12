@@ -10,12 +10,12 @@
 ##---------- Panel 3: 2, C table ----------
 
 T3 = reactive({ # prepare dataset
-  X <- as.numeric(unlist(strsplit(input$x3, "[\n, \t, ]")))
-  Y <- as.numeric(unlist(strsplit(input$x33, "[\n, \t, ]")))
+  X <- as.numeric(unlist(strsplit(input$x3, "[,;\n\t ]")))
+  Y <- as.numeric(unlist(strsplit(input$x33, "[,;\n\t ]")))
   x <- rbind(X,Y)
   x <- as.matrix(x)
-  rownames(x) = unlist(strsplit(input$rn3, "[\n, \t, ]"))
-  colnames(x) = unlist(strsplit(input$cn3, "[\n, \t, ]"))
+  rownames(x) = unlist(strsplit(input$rn3, "[\n]"))
+  colnames(x) = unlist(strsplit(input$cn3, "[\n]"))
   return(x)
   })
 

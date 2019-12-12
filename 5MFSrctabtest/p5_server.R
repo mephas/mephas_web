@@ -8,16 +8,16 @@
 ## DT: 2019-01-11
 ##
 ##----------#----------#----------#----------
-##---------- Panel 3: 2, C table ----------
+##---------- Panel 3: R, C table ----------
 
 T5 = reactive({ # prepare dataset
-  x <- as.numeric(unlist(strsplit(input$x5, "[\n, \t, ]")))
-  r <- length(unlist(strsplit(input$rn5, "[\n, \t, ]")))
-  c <- length(unlist(strsplit(input$cn5, "[\n, \t, ]")))
+  x <- as.numeric(unlist(strsplit(input$x5, "[,;\n\t ]")))
+  r <- length(unlist(strsplit(input$rn5, "[\n]")))
+  c <- length(unlist(strsplit(input$cn5, "[\n]")))
   x <- matrix(x,r,c)
 
-  rownames(x) = unlist(strsplit(input$rn5, "[\n, \t, ]"))
-  colnames(x) = unlist(strsplit(input$cn5, "[\n, \t, ]"))
+  rownames(x) = unlist(strsplit(input$rn5, "[\n]"))
+  colnames(x) = unlist(strsplit(input$cn5, "[\n]"))
   return(x)
   })
 
