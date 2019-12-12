@@ -114,7 +114,7 @@ mainPanel(
         tableOutput("bas"),
 
           HTML(
-          "Notes:
+          "<b> Explanations </b>
           <ul>
             <li> If Skew.2SE > 1, then skewness is significantly different than zero
             <li> If Kurt.2SE > 1, then kurtosis is significantly different than zero
@@ -132,7 +132,7 @@ mainPanel(
      
         verbatimTextOutput("info1"), 
           HTML(
-          "Notes:
+          "<b> Explanations </b>
           <ul>
             <li> The band inside the box is the median
             <li> The box measures the difference between 75th and 25th percentiles
@@ -153,7 +153,7 @@ mainPanel(
       sliderInput("bin","The width of bins in histogram",min = 0.01,max = 5,value = 0.2),
 
           HTML(
-          "Notes:
+          "<b> Explanations </b>
           <ul> 
             <li> Normal Q–Q Plot: to compare randomly generated, independent standard normal data on the vertical axis to a standard normal population on the horizontal axis. The linearity of the points suggests that the data are normally distributed.
             <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values

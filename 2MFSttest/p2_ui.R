@@ -91,6 +91,7 @@ sidebarPanel(
         HTML("v1 > v2: the population　variances of Group 1 is greater than Group 2")
         ),
       choiceValues = list("two.sided", "less", "greater")),
+    hr(),
 
   h4(tags$b("Step 3. T Test")),
 
@@ -148,7 +149,7 @@ sidebarPanel(
         hr(),
         
           HTML(
-          "Notes:
+          "<b> Explanations </b>
           <ul>
             <li> The band inside the box is the median
             <li> The box measures the difference between 75th and 25th percentiles
@@ -166,7 +167,7 @@ sidebarPanel(
         plotOutput("makeplot2", width = "600px", height = "600px"),
         sliderInput("bin2","The width of bins in histogram",min = 0.01,max = 5,value = 0.2),
          HTML(
-          "Notes:
+          "<b> Explanations </b>
           <ul> 
             <li> Normal Q–Q Plot: to compare randomly generated, independent standard normal data on the vertical axis to a standard normal population on the horizontal axis. The linearity of the points suggests that the data are normally distributed.
             <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
@@ -187,8 +188,8 @@ sidebarPanel(
     HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P value < 0.05, then refer to the 'Welch Two-Sample t-test'
-    <li> P Value >= 0.05, then refer to 'Two-Sample t-test'
+    <li> P value < 0.05, then refer to the <b>Welch Two-Sample t-test</b>
+    <li> P Value >= 0.05, then refer to <b>Two-Sample t-test</b>
     </ul>"
   ),
 
