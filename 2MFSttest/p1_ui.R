@@ -29,6 +29,7 @@ sidebarPanel(
      p(tags$i("Example here was the AGE of 144 independent lymph node positive patients")),
     
     p(tags$b("Please follow the example to input your data")),
+    
     tags$textarea(
         id = "x", #p
         rows = 10,
@@ -62,8 +63,7 @@ sidebarPanel(
           ),
         p("Correct Separator ensures data input successfully"),
 
-        a(tags$i("Find some example data here"),
-          href = "https://github.com/mephas/datasets")
+        a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
 
       )
 
