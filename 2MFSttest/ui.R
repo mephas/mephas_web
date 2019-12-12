@@ -81,7 +81,7 @@ headerPanel("Independent Two-Sample T-Test"),
 
     hr(),
 
-#source("p2_ui.R", local=TRUE)$value,
+source("p2_ui.R", local=TRUE)$value,
 
 hr()
 
@@ -127,7 +127,7 @@ tabPanel("Paired Samples",
 
    hr(),
 
-   #source("p3_ui.R", local=TRUE)$value,
+   source("p3_ui.R", local=TRUE)$value,
    hr()
 
     ),

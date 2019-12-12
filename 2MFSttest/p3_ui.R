@@ -107,17 +107,6 @@ sidebarPanel(
       tags$b("Basic Descriptives of the Difference"),
             
               tableOutput("bas.p"),
-
-      HTML(
-          "<b> Explanations </b>
-          <ul>
-            <li> If Skew.2SE > 1, then skewness is significantly different than zero
-            <li> If Kurt.2SE > 1, then kurtosis is significantly different than zero
-            <li> Normtest.W: the statistic of a Shapiro-Wilk test of normality
-            <li> Normtest.p: p value the statistic of a Shapiro-Wilk test of normality
-            <li> Normtest.p < 0.05, then data significantly different from normality
-          </ul>"
-          ),
       p(br()), 
       downloadButton("download5", "Download Results")
             ),
