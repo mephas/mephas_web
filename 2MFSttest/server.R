@@ -2,7 +2,7 @@ if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(gridExtra)) {install.packages("gridExtra")}; library(gridExtra)
 if (!require(reshape)) {install.packages("reshape")}; library(reshape)
-if (!require(pastecs)) {install.packages("pastecs")}; library(pastecs)
+if (!require(psych)) {install.packages("psych")}; library(psych)
 if (!require(DT)) {install.packages("DT")}; library(DT)
 
 ##----------#----------#----------#----------

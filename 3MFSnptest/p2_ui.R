@@ -10,16 +10,17 @@
 ##
 ##----------#----------#----------#----------
 sidebarLayout(  
-
 ##########----------##########----------##########
 
 sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("Give a name to your data (No space)")), 
+  p(tags$b("1. Give names to your data (Required)")), 
 
   tags$textarea(id="cn2", rows=2, "Group1\nGroup2"), p(br()),
+
+  p(tags$b("2. Input data")),
 
   tabsetPanel(
   ##-------input data-------## 
@@ -41,7 +42,6 @@ sidebarPanel(
       ),
     
     p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error"),
-
     p(tags$i("In this default settings, we wanted to know if Depression Rating Scale from two group of patients were different."))
     ),
 
@@ -50,11 +50,13 @@ sidebarPanel(
 tabPanel("Upload Data", p(br()),
 
         ##-------csv file-------##
+       p(tags$b("This only reads the 1st column of your data")),
         fileInput('file2', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
-        checkboxInput("header2", "Show Data Header?", TRUE),
+       p(tags$b("2. Show 1st row as header?")),        
+      checkboxInput("header2", "Show Data Header?", TRUE),
 
              # Input: Select separator ----
         radioButtons("sep2", 
@@ -70,11 +72,36 @@ tabPanel("Upload Data", p(br()),
 
         p("Correct Separator ensures data input successfully"),
 
-        a("Find some example data here",
-          href = "https://github.com/mephas/datasets")
+        a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
         )
-        )
-),
+        ),
+
+  hr(),
+
+    h4(tags$b("Step 2. Choose Hypothesis")),
+
+    p(tags$b("Null hypothesis")),
+
+    HTML("<p> m&#8321 = m&#8322: the medians of two group are equal </p>
+          <p> Or, the distribution of values for each group are equal </p>"),
+
+radioButtons("alt.wsr2", label = "Alternative hypothesis", 
+  choiceNames = list(
+    HTML("m&#8321 &#8800 m&#8322: the population medians of each group are not equal"),
+    HTML("m&#8321 < m&#8322: the population median of Group 2 is greater"),
+    HTML("m&#8321 > m&#8322: the population median of Group 1 is greater")),
+  choiceValues = list("two.sided", "less", "greater")),
+
+  h4(tags$b("Step 3. Decide P Value method")),
+  radioButtons("alt.md2", 
+    label = "What is the data like", selected = "c",
+    choiceNames = list(
+      HTML("Asymptotic normal P value: sample size is not large (>= 10)"),
+      HTML("Approximate to normal distribution: sample size is quite large (maybe > 40)"),
+      HTML("Exact P value: sample size is small (< 10)")
+      ), 
+    choiceValues = list("a", "b", "c"))
+  ),
 
 mainPanel(
 
@@ -84,22 +111,12 @@ mainPanel(
 
     tabPanel("Data Preview", p(br()),
 
-      dataTableOutput("table2")),
+      DT::DTOutput("table2", width = "500px")
+      ),
 
     tabPanel("Basic Descriptives", p(br()), 
 
         tableOutput("bas2"), 
-
-      HTML(
-          "Notes:
-          <ul>
-            <li> If Skew.2SE > 1, then skewness is significantly different than zero
-            <li> If Kurt.2SE > 1, then kurtosis is significantly different than zero
-            <li> Normtest.W: the statistic of a Shapiro-Wilk test of normality
-            <li> Normtest.p: p value the statistic of a Shapiro-Wilk test of normality
-            <li> Normtest.p < 0.05, then data significantly different from normality
-          </ul>"
-          ),
 
       p(br()), 
         downloadButton("download2b", "Download Results") ),
@@ -130,5 +147,26 @@ mainPanel(
             <li> Density Plot: to estimate the probability density function of the data
           </ul>")
       )
-    )) 
+    ),
+  hr(),
+
+  h4(tags$b("Output 2. Test Results")),
+  tags$b('Results of Wilcoxon Rank-Sum Test'), p(br()), 
+
+  tableOutput("mwu.test.t"), p(br()),
+
+  HTML(
+    "<b> Explanations </b> 
+    <ul> 
+    <li> P Value < 0.05, then the population medians of 2 groups are significantly different. (Accept alternative hypothesis)
+    <li> P Value >= 0.05, no significant differences between the medians of 2 groups. (Accept null hypothesis)
+    </ul>"
+  ),
+
+    p(tags$i("From the default settings, we concluded that there was no significant differences in 2 groups Rating scale (P=0.44).")),
+
+
+  downloadButton("download2.1", "Download Results")
+
+  ) 
 )

@@ -26,7 +26,7 @@ Y <- reactive({
     x <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2)
     x <- as.data.frame(x)[,1:2]
     if(input$header==FALSE){
-      colnames(x) = names1()
+      colnames(x) = names2()
       }
     }
     return(as.data.frame(x))
@@ -36,19 +36,15 @@ output$table2 <-DT::renderDataTable({datatable(Y() ,rownames = TRUE)})
 
 basic_desc2 <- reactive({
   x <- Y()
-  res <- stat.desc(x, norm = TRUE)
-  return(res)})
+  res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
+  colnames(res) = names2()
+  rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
+  return(res)
+  })
 
 output$bas2 <- renderTable({
-  res <- basic_desc2()[-11,]
-  rownames(res) = c("How many values", "How many NULL values", "How many Missing values",
-    "Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", 
-    "Variance","Standard Deviation","Variation Coefficient",
-    "Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
-  return(res)
-  },   
-  width = "500px", rownames = TRUE, digits = 4)
-
+basic_desc2()
+}, width = "500px", rownames = TRUE, colnames = TRUE)
 
 output$download3 <- downloadHandler(
     filename = function() {

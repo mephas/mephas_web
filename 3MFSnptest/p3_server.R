@@ -10,42 +10,45 @@
 ##----------#----------#----------#----------
 
 ##---------- 3. paired sample ----------
+names3 <- reactive({
+  x <- unlist(strsplit(input$cn3, "[\n]"))
+  return(x[1:3])
+  })
 
   C <- reactive({
     inFile <- input$file3
     if (is.null(inFile)) {
-    X <- as.numeric(unlist(strsplit(input$y1, "[\n, \t, ]")))
-    Y <- as.numeric(unlist(strsplit(input$y2, "[\n, \t, ]")))
-    d <- X-Y
+    X <- as.numeric(unlist(strsplit(input$y1, "[,;\n\t ]")))
+    Y <- as.numeric(unlist(strsplit(input$y2, "[,;\n\t ]")))
+    d <- round(X-Y,4)
     x <- data.frame(X =X, Y = Y, diff = d)
+    colnames(x) = names3()
   }
 
     else {
-      csv <- read.csv(inFile$datapath, header=input$header3, sep=input$sep3)
-      x <- as.data.frame(csv)
-      x$diff <- round(x[, 1] - x[, 2],4)
+      x <- read.csv(inFile$datapath, header=input$header3, sep=input$sep3)
+      x <- as.data.frame(x)[,1:2]
+      x$diff <- round(x[, 2] - x[, 1],4)
+      if(input$header==FALSE){
+      colnames(x) = names3()
+      }
       } 
-
-    names(x) = unlist(strsplit(input$cn3, "[\n, \t, ]"))
-    return(x)
-
+    return(as.data.frame(x))
     })
   
   #table
-  output$table3 <- renderDataTable({C()}, options = list(pageLength = 5))
+output$table3 <-DT::renderDataTable({datatable(C() ,rownames = TRUE)})
 
   C.des <- reactive({
-     x<- C()
-    res <- stat.desc(x, norm=TRUE)
+    x<- C()
+    res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
+    colnames(res) = names3()
+    rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
     return(res)
-    })
+  })
 
   output$bas3 <- renderTable({  ## don't use renerPrint to do renderTable
-    res <- C.des()[-11, 3]
-    names(res) = c("How many values", "How many NULL values", "How many Missing values",
-      "Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient",
-      "Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
-    return(res)},   width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
+    res <- C.des()}, width = "500px", rownames = TRUE, colnames = TRUE)
   
   output$download3b <- downloadHandler(
     filename = function() {
@@ -74,52 +77,40 @@
     plot2 <- ggplot(x, aes(x=x[,3])) + geom_density() + ggtitle("Density Plot") + theme_minimal() + ylab("Density") + xlab("") + theme(legend.title=element_blank())
     grid.arrange(plot1, plot2, ncol=2)  })
 
-psr.test0 <- reactive({
+psr.test <- reactive({
   x <- C()
-    res <- wilcox.test(x[,1], x[,2], paired = TRUE, alternative = input$alt.pwsr, correct = input$nap, conf.int = TRUE)
+  if (input$alt.md3 =="a"){
+    res <- wilcox.test(x[,1], x[,2], paired = TRUE,
+      alternative = input$alt.wsr3, exact=NULL, correct=TRUE, conf.int = TRUE)
+  }
+    if (input$alt.md3 =="b") {
+    res <- wilcox.test(x[,1], x[,2], paired = TRUE,
+      alternative = input$alt.wsr3, exact=NULL, correct=FALSE, conf.int = TRUE)
+  }
+  if (input$alt.md3 =="c")  {
+    res <- exactRankTests::wilcox.exact(x[,1], x[,2],  paired = TRUE,
+      alternative = input$alt.wsr3, exact=TRUE, conf.int = TRUE)
+
+  }
     res.table <- t(data.frame(W = res$statistic,
                               P = res$p.value,
-                              ED = res$estimate,
-                              CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
-    colnames(res.table) <- c(res$method)
-    rownames(res.table) <- c("Z Statistic", "P Value","Estimated Difference Median","95% Confidence Interval")
-
-
-    return(res.table)
-  })
-
-  output$psr.test <- renderTable({
-    psr.test0()}, width = "500px", rownames = TRUE)
-
-  psign.test0 <- reactive({
-    x <- C()
-    res <- SignTest(x[,1], x[,2], alternative = input$alt.ps)
-    res.table <- t(data.frame(S = res$statistic,
-                              P = res$p.value,
-                              ED = res$estimate,
+                              EM = res$estimate,
                               CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
     colnames(res.table) <- res$method
-    rownames(res.table) <- c("S Statistic", "P Value","Estimated Difference Median","95% Confidence Interval")
+    rownames(res.table) <- c("W Statistic", "P Value","Estimated Median","95% Confidence Interval")
 
     return(res.table)
     })
- output$psign.test <- renderTable({
-    psign.test0()}, width = "500px", rownames = TRUE)
 
+  output$psr.test.t <- renderTable({
+    psr.test()}, width = "500px", rownames = TRUE)
 
-output$download3.1 <- downloadHandler(
-    filename = function() {
-      "psign.csv"
-    },
-    content = function(file) {
-      write.csv(psign.test0(), file, row.names = TRUE)
-    }
-  )
+  
 output$download3.2 <- downloadHandler(
     filename = function() {
       "psr.csv"
     },
     content = function(file) {
-      write.csv(psr.test0(), file, row.names = TRUE)
+      write.csv(psr.test(), file, row.names = TRUE)
     }
   )

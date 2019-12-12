@@ -40,18 +40,15 @@ output$table.p <-DT::renderDataTable({datatable(Z() ,rownames = TRUE)})
 
 basic_desc3 <- reactive({
   x <- Z()
-  res <- stat.desc(x, norm = TRUE)
-  return(res)})
+  res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
+  colnames(res) = names.p()
+  rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
+  return(res)
+  })
 
 output$bas.p <- renderTable({
-  x <- Z()
-  res <- basic_desc3()[-11,3]
-  names(res) = c("How many values", "How many NULL values", "How many Missing values",
-    "Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient",
-    "Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
-  return(res)
-  },   
-  width = "500px", rownames = TRUE, colnames = FALSE, digits = 4)
+  basic_desc3()
+  },  width = "500px", rownames = TRUE, colnames = TRUE)
 
 
 

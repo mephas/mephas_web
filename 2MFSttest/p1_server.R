@@ -34,20 +34,17 @@ X <- reactive({
 
 output$table <- DT::renderDataTable({X()},server = FALSE)
 
-
 basic_desc <- reactive({
   x <- X()
-  res <- stat.desc(x, norm = TRUE)
-  return(res)})
+  res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
+  colnames(res) = names1()
+  rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
+  return(res)
+  })
 
 output$bas <- renderTable({
-  res <- basic_desc()[-11,]
-  names(res) = c("How many values", "How many NULL values", "How many Missing values",
-    "Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient",
-    "Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
-  return(res)
-  },   
-  width = "500px", rownames = TRUE, colnames = FALSE, digits = 4)
+  basic_desc()
+  }, width = "500px", rownames = TRUE, colnames = TRUE)
 
 output$download0 <- downloadHandler(
     filename = function() {

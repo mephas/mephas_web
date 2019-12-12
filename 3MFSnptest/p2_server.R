@@ -10,36 +10,40 @@
 ##----------#----------#----------#----------
 
 ##---------- 2. two samples ----------
+names2 <- reactive({
+  x <- unlist(strsplit(input$cn2, "[\n]"))
+  return(x[1:2])
+  })
 
-  B <- reactive({
-    inFile <- input$file2
-    if (is.null(inFile)) {
-    X <- as.numeric(unlist(strsplit(input$x1, "[\n, \t, ]")))
-    Y <- as.numeric(unlist(strsplit(input$x2, "[\n, \t, ]")))
-    x <- data.frame(X =X, Y = Y)
-   }
-    else {
-      csv <- read.csv(inFile$datapath, header=input$header2, sep=input$sep2)
-      x <- as.data.frame(csv)
+B <- reactive({
+  inFile <- input$file2
+  if (is.null(inFile)) {
+    X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t ]")))
+    Y <- as.numeric(unlist(strsplit(input$x2, "[,;\n\t ]")))
+    x <- data.frame(X = X, Y = Y)
+    colnames(x) = names2()
+    }
+  else {
+    x <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2)
+    x <- as.data.frame(x)[,1:2]
+    if(input$header==FALSE){
+      colnames(x) = names2()
       }
-    names(x) = unlist(strsplit(input$cn2, "[\n, \t, ]"))
-    return(x)
-       })
-  
-  #table
-  output$table2 <- renderDataTable({B()}, options = list(pageLength = 5))
+    }
+    return(as.data.frame(x))
+})
+
+output$table2 <-DT::renderDataTable({datatable(B() ,rownames = TRUE)})
 
   B.des <- reactive({
     x <- B()
-    res <- stat.desc(x, norm = TRUE)
+    res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
+    colnames(res) = names2()
+    rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
     return(res)
-    })
+  })
   output$bas2 <- renderTable({  ## don't use renerPrint to do renderTable
-    res <- B.des()[-11, ]
-    rownames(res) = c("How many values", "How many NULL values", "How many Missing values",
-      "Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient",
-      "Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
-    return(res)},   width = "500px", rownames = TRUE, digits = 0)
+    res <- B.des()}, width = "500px", rownames = TRUE, colnames = TRUE)
 
 
   output$download2b <- downloadHandler(
@@ -74,36 +78,40 @@
     grid.arrange(plot1, plot2, ncol=2)  })
 
 #test
-  mwu.test0 <- reactive({
+  mwu.test <- reactive({
     x <- B()
-    res <- wilcox.test(x[,1], x[,2], paired = FALSE, alternative = input$alt.mwt, correct = input$nap.mwt, conf.int = TRUE)
-    res.table <- t(data.frame(
-      W = res$statistic, 
-      P = res$p.value, 
-      ED = res$estimate,
-      CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
-    colnames(res.table) <- c(res$method)
-    rownames(res.table) <- c("W statistic", "P Value","Estimated Difference in Medians","95% Confidence Interval")
+     if (input$alt.md2 =="a"){
+    res <- wilcox.test(x[,1], x[,2], 
+      alternative = input$alt.wsr2, exact=NULL, correct=TRUE, conf.int = TRUE)
+  }
+    if (input$alt.md2 =="b") {
+    res <- wilcox.test(x[,1], x[,2], 
+      alternative = input$alt.wsr2, exact=NULL, correct=FALSE, conf.int = TRUE)
+  }
+  if (input$alt.md2 =="c")  {
+    res <- exactRankTests::wilcox.exact(x[,1], x[,2],  
+      alternative = input$alt.wsr2, exact=TRUE, conf.int = TRUE)
+
+  }
+  
+    res.table <- t(data.frame(W = res$statistic,
+                              P = res$p.value,
+                              EM = res$estimate,
+                              CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
+    colnames(res.table) <- res$method
+    rownames(res.table) <- c("W Statistic", "P Value","Estimated Median","95% Confidence Interval")
 
     return(res.table)
     })
-  output$mwu.test<-renderTable({
-    mwu.test0()}, width = "500px", rownames = TRUE)
+
+  output$mwu.test.t<-renderTable({
+    mwu.test()}, width = "500px", rownames = TRUE)
 
   output$download2.1 <- downloadHandler(
     filename = function() {
       "mwu.csv"
     },
     content = function(file) {
-      write.csv(mwu.test0(), file, row.names = TRUE)
+      write.csv(mwu.test(), file, row.names = TRUE)
     }
   )
-
-  output$mood.test<-renderTable({
-    X <- B()[,1]; Y <- B()[,2]
-    data <- data.frame(value = c(X, Y), group = c(rep(1, length(X)), rep(2, length(Y))))
-    res <- mood.medtest(value~group, data = data, alternative = input$alt.md)
-    res.table <- t(data.frame(P_value = res$p.value))
-    colnames(res.table) <- c(res$method)
-    rownames(res.table) <- c("P Value")
-    return(res.table)}, width = "500px", rownames = TRUE)

@@ -12,24 +12,27 @@
 
 ##---------- data ----------
 sidebarLayout(  
-
 ##########----------##########----------##########
 sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("Give a name to your data (No space)")), 
+  p(tags$b("1. Give a name to your data (Required)")),
 
   tags$textarea(id="cn", rows= 1, "Scale"), p(br()),
+
+  p(tags$b("2. Input data")),
 
   tabsetPanel(
   ##-------input data-------## 
   tabPanel("Manual Input", p(br()),
+
     p(tags$i("Example here was the Depression Rating Scale factor measurements of 9 patients from a certain group of patients. Scale > 1 indicated Depression.")),
+    
     p(tags$b("Please follow the example to input your data")),
 
     tags$textarea(id="a", 
-      rows=10, 
+      rows=5, 
       "1.83\n0.50\n1.62\n2.48\n1.68\n1.88\n1.55\n3.06\n1.30"
       ),
     
@@ -40,10 +43,12 @@ sidebarPanel(
     tabPanel("Upload Data", p(br()),
 
         ##-------csv file-------##
+       p(tags$b("This only reads the 1st column of your data")),
         fileInput('file', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
+        p(tags$b("2. Show 1st row as header?")),        
         checkboxInput("header", "Show Data Header?", TRUE),
 
              # Input: Select separator ----
@@ -60,8 +65,7 @@ sidebarPanel(
 
         p("Correct Separator ensures data input successfully"),
 
-        a("Find some example data here",
-          href = "https://github.com/mephas/datasets")
+        a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
 
       )
     ),
@@ -69,8 +73,34 @@ sidebarPanel(
   hr(),
   h4(tags$b("Step 2. Specify Parameter")),
   numericInput("med", HTML("Specify the median (m&#8320) that you want to compare with your data"), 1),
-  p(tags$i("In this default settings, we wanted to know if the group of patients were suffering from depression (m > 1)."))
+  p(tags$i("In this default settings, we wanted to know if the group of patients were suffering from depression (m > 1).")),
+  hr(),
 
+  h4(tags$b("Step 3. Choose Hypothesis")),
+  p(tags$b("Null hypothesis")),
+
+  HTML("<p> m = m&#8320: the population median is equal to the specified median( m&#8320) </p>
+        <p>Or, the distribution of the data set is symmetric about the specified median</p>"),
+
+  radioButtons("alt.wsr", 
+    label = "Alternative hypothesis", selected = "greater",
+    choiceNames = list(  
+    HTML("m &#8800 m&#8320: the population median of is significantly different from the specified median"),
+    HTML("m > m&#8320: the population median of is greater than the specified median"),
+    HTML("m < m&#8320: the population median of is less than the specified median")
+    ),
+  choiceValues = list("two.sided", "greater", "less")),
+  hr(),
+
+  h4(tags$b("Step 4. Decide P Value method")),
+  radioButtons("alt.md", 
+    label = "What is the data like", selected = "c",
+    choiceNames = list(
+      HTML("Asymptotic normal P value: sample size is not large (>= 10)"),
+      HTML("Approximate to normal distribution: sample size is quite large (maybe > 40)"),
+      HTML("Exact P value: sample size is small (< 10)")
+      ), 
+    choiceValues = list("a", "b", "c"))
   ),
 
 mainPanel(
@@ -79,24 +109,14 @@ mainPanel(
 
   tabsetPanel(
 
-    tabPanel("Data Preview", p(br()),  
-
-      dataTableOutput("table")),
+    tabPanel("Data Preview", p(br()), 
+      DT::DTOutput("table", width = "500px")
+      ),
 
     tabPanel("Basic Descriptives", p(br()), 
 
         tableOutput("bas"), 
         
-        HTML(
-          "Notes:
-          <ul>
-            <li> If Skew.2SE > 1, then skewness is significantly different than zero
-            <li> If Kurt.2SE > 1, then kurtosis is significantly different than zero
-            <li> Normtest.W: the statistic of a Shapiro-Wilk test of normality
-            <li> Normtest.p: p value the statistic of a Shapiro-Wilk test of normality
-            <li> Normtest.p < 0.05, then data significantly different from normality
-          </ul>"
-          ),
         p(br()), 
       downloadButton("download1b", "Download Results")
       ),
@@ -108,7 +128,7 @@ mainPanel(
         verbatimTextOutput("info"), hr(),
 
           HTML(
-          "Notes:
+          "<b> Explanations </b>
           <ul>
             <li> The band inside the box is the median
             <li> The box measures the difference between 75th and 25th percentiles
@@ -123,13 +143,33 @@ mainPanel(
       plotOutput("makeplot", width = "800px", height = "400px"),
       sliderInput("bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2),
       HTML(
-          "Notes:
+          "<b> Explanations </b>
           <ul> 
             <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
             <li> Density Plot: to estimate the probability density function of the data
           </ul>"
             )
       )
-    )
+    ),
+hr(),
+h4(tags$b("Output 2. Test Results")),
+    p(tags$b('Results of Wilcoxon Signed-Rank Test')), p(br()), 
+    tableOutput("ws.test.t"),
+
+    HTML(
+    "<b> Explanations </b> 
+    <ul> 
+    <li> P Value < 0.05, then the population median is significantly different from the specified median. (Accept alternative hypothesis)
+    <li> P Value >= 0.05, then the population median is NOT significantly different from the specified median. (Accept null hypothesis)
+    </ul>"
+  ),
+
+  p(tags$i("From the default settings, we concluded that the scales was significantly greater than 1 (P=0.006), which indicated the patients were suffering from depression.")),
+
+
+    downloadButton("download1", "Download Results")
+
+
+
   )
 )

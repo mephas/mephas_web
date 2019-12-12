@@ -10,18 +10,20 @@
 ##
 ##----------#----------#----------#----------
 sidebarLayout(  
-
 ##########----------##########----------##########
 
 sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
-  p(tags$b("Give a name to your data (No space)")), 
+  p(tags$b("1. Give names to your data (Required)")), 
 
   tags$textarea(id="cn3", rows=3, "Before\nAfter\nAfter-Before"), p(br()),
 
+
+  p(tags$b("2. Input data")),
+
   tabsetPanel(
-  ##-------input data-------## 
+
   tabPanel("Manual Input", p(br()),
     p(tags$i("Example here was the Depression Rating Scale factor measurements of 9 patients Before and After treatment. ")),
 
@@ -36,24 +38,22 @@ sidebarPanel(
     p(tags$b("After")),
     tags$textarea(id="y2", 
       rows=10, 
-      "0.878\n0.647\n0.598\n2.050\n1.060\n1.290\n1.060\n3.140\n1.290"
+      "0.88\n0.65\n0.59\n2.05\n1.06\n1.29\n1.06\n3.14\n1.29"
       ),
 
-    p("Missing value is input as NA"),
-
-  p(tags$i("In this example, we wanted to know if there was significant difference on the scale after the treatment. "))
-
+    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error"),  
+    p(tags$i("In this example, we wanted to know if there was significant difference on the scale after the treatment. "))
 
 ),
 
   ##-------csv file-------##   
   tabPanel("Upload Data", p(br()),
 
-        ##-------csv file-------##
+       p(tags$b("This only reads the 1st column of your data")),
         fileInput('file3', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
-        # Input: Checkbox if file has header ----
+       p(tags$b("2. Show 1st row as header?")),        
         checkboxInput("header3", "Show Data Header?", TRUE),
 
              # Input: Select separator ----
@@ -70,11 +70,35 @@ sidebarPanel(
 
         p("Correct Separator ensures data input successfully"),
 
-        a("Find some example data here",
-          href = "https://github.com/mephas/datasets")
+        a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
 
       )
-    )
+    ),
+
+  hr(),
+
+  h4(tags$b("Step 2. Choose Hypothesis")),
+
+  p(tags$b("Null hypothesis")),
+  HTML("<p>  m = 0: the difference of medians between X and Y is not zero </p> 
+        <p>  Or, the distribution of the differences in paired values is symmetric around zero</p> "),
+
+  radioButtons("alt.wsr3", label = "Alternative hypothesis", 
+    choiceNames = list(
+      HTML("m &#8800 0: the difference of medians between X and Y is not zero; the distribution of the differences in paired values is not symmetric around zero"),
+      HTML("m < 0: the population median of Y is greater"),
+      HTML("m > 0: the population median of X is greater")),
+    choiceValues = list("two.sided", "less", "greater")),
+
+h4(tags$b("Step 3. Decide P Value method")),
+radioButtons("alt.md3", 
+    label = "What is the data like", selected = "c",
+    choiceNames = list(
+      HTML("Asymptotic normal P value: sample size is not large (>= 10)"),
+      HTML("Approximate to normal distribution: sample size is quite large (maybe > 40)"),
+      HTML("Exact P value: sample size is small (< 10)")
+      ), 
+    choiceValues = list("a", "b", "c"))
   ),
 
 mainPanel(
@@ -85,28 +109,16 @@ mainPanel(
 
     tabPanel("Data Preview", p(br()),  
 
-      dataTableOutput("table3")),
+      DT::DTOutput("table3", width = "500px")
+      ),
 
     tabPanel("Basic Descriptives", p(br()), 
 
-      tags$b("Basic Descriptives of the Difference"),
-
-
-
         tableOutput("bas3"), 
-        HTML(
-          "Notes:
-          <ul>
-            <li> If Skew.2SE > 1, then skewness is significantly different than zero
-            <li> If Kurt.2SE > 1, then kurtosis is significantly different than zero
-            <li> Normtest.W: the statistic of a Shapiro-Wilk test of normality
-            <li> Normtest.p: p value the statistic of a Shapiro-Wilk test of normality
-            <li> Normtest.p < 0.05, then data significantly different from normality
-          </ul>"
-          ),
 
         p(br()),
-  downloadButton("download3b", "Download Results")  ),
+  downloadButton("download3b", "Download Results")  
+  ),
 
     tabPanel("Box-Plot of the Difference", p(br()),   
 
@@ -137,6 +149,23 @@ mainPanel(
           </ul>"
             )
       )
-    ))  
+    ),
 
+    hr(),
+
+  h4(tags$b("Output 2. Test Results")),p(br()), 
+  tags$b('Results of Wilcoxon Signed-Rank Test'), 
+    tableOutput("psr.test.t"), 
+      HTML(
+    "<b> Explanations </b> 
+    <ul> 
+    <li> P Value < 0.05, then the Before and After are significantly different. (Accept alternative hypothesis)
+    <li> P Value >= 0.05, then the Before and After are NOT significantly different. (Accept null hypothesis)
+    </ul>"
+  ),
+  p(tags$i("From the default settings, we concluded no significant difference is found after the treatment. (P=0.46)")),
+
+  downloadButton("download3.2", "Download Results")
+
+)
 )

@@ -11,38 +11,44 @@
 ##########----------##########----------##########
 
 ##---------- 1. one sample ----------
+names1 <- reactive({
+  x <- unlist(strsplit(input$cn, "[\n]"))
+  return(x[1])
+  })
+
+
   A <- reactive({
     inFile <- input$file
   if (is.null(inFile)) {
     # input data
-    x <- as.numeric(unlist(strsplit(input$a, "[\n, \t, ]")))
-    X <- as.data.frame(x)
+    x <- as.numeric(unlist(strsplit(input$a, "[,;\n\t ]")))
+    x <- as.data.frame(x)
+    colnames(x) = names1()
     }
-  else {
-    # CSV data
-    csv <- read.csv(inFile$datapath,
-        header = input$header,
-        sep = input$sep)
-    X <- as.data.frame(csv)
+else {
+    x <- read.csv(inFile$datapath, header = input$header, sep = input$sep)
+    x <- as.data.frame(x)[,1]
+    if(input$header==FALSE){
+      colnames(x) = names1()
+      }
     }
-    colnames(X) = unlist(strsplit(input$cn, "[\n, \t, ]"))
-    return(X)
+    return(as.data.frame(x))
   })
 
   #table 
-  output$table <- renderDataTable({A()}, options = list(pageLength = 5))
+output$table <-renderDT({datatable(A() ,rownames = TRUE)})
 
   A.des <- reactive({
-    X <- A()
-    res <- stat.desc(X,norm=TRUE)
+    x <- A()
+    res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
+    colnames(res) = names1()
+    rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
     return(res)
-    })
+  })
+
   output$bas <- renderTable({  
-    res <- A.des()[-11,]
-    names(res) = c("How many values", "How many NULL values", "How many Missing values",
-      "Minumum","Maximum","Range","Sum","Median","Mean","Standard Error", "Variance","Standard Deviation","Variation Coefficient",
-      "Skewness Coefficient","Skew.2SE","Kurtosis Coefficient","Kurt.2SE","Normtest.W","Normtest.p")
-    return(res)},   width = "500px", rownames = TRUE, colnames = FALSE, digits = 0)
+    res <- A.des()
+    }, width = "500px", rownames = TRUE, colnames = TRUE)
 
 
   output$download1b <- downloadHandler(
@@ -73,22 +79,24 @@
     plot2 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title=element_blank())
     grid.arrange(plot1, plot2, ncol=2)  })
   
-  sign.test0 <- reactive({
-    x <- A()
-    res <- SignTest(as.vector(x[,1]), mu = input$med, alternative = input$alt.st)
-    res.table <- t(data.frame(S = res$statistic,
-                              P = res$p.value,
-                              EM = res$estimate,
-                              CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
-    colnames(res.table) <- res$method
-    rownames(res.table) <- c("S Statistic", "P Value","Estimated Median","95% Confidence Interval")
-    return(res.table)
-    })
-  output$sign.test<-renderTable({
-    sign.test0()}, width = "500px", rownames = TRUE)
 
-  ws.test0 <- reactive({x <- A()
-    res <- wilcox.test(as.vector(x[,1]), mu = input$med, alternative = input$alt.wsr, correct = input$nap.wsr, conf.int = TRUE, conf.level = 0.95)
+  ws.test<- reactive({
+    x <- A()
+    if (input$alt.md =="a"){
+    res <- wilcox.test((x[,1]), mu = input$med, 
+      alternative = input$alt.wsr, exact=NULL, correct=TRUE, conf.int = TRUE)
+  }
+    if (input$alt.md =="b") {
+    res <- wilcox.test((x[,1]), 
+      mu = input$med, 
+      alternative = input$alt.wsr, exact=NULL, correct=FALSE, conf.int = TRUE)
+  }
+  if (input$alt.md =="c")  {
+    res <- exactRankTests::wilcox.exact(x[,1], mu = input$med, 
+      alternative = input$alt.wsr, exact=TRUE, conf.int = TRUE)
+
+  }
+  
     res.table <- t(data.frame(W = res$statistic,
                               P = res$p.value,
                               EM = res$estimate,
@@ -96,26 +104,19 @@
     colnames(res.table) <- res$method
     rownames(res.table) <- c("W Statistic", "P Value","Estimated Median","95% Confidence Interval")
 
-    return(res.table)})
-  
-  output$ws.test<-renderTable({
-    ws.test0()}, width = "500px", rownames = TRUE)
+    return(res.table)
+    })
 
-  output$download1.1 <- downloadHandler(
-    filename = function() {
-      "sign.csv"
-    },
-    content = function(file) {
-      write.csv(sign.test0(), file, row.names = TRUE)
-    }
-  )
+  output$ws.test.t <- renderTable({ws.test()},
+    width = "500px", rownames = TRUE, colnames = TRUE)
 
-output$download1.2 <- downloadHandler(
+
+output$download1 <- downloadHandler(
     filename = function() {
       "ws.csv"
     },
     content = function(file) {
-      write.csv(ws.test0(), file, row.names = TRUE)
+      write.csv(ws.test(), file, row.names = TRUE)
     }
   )
 
