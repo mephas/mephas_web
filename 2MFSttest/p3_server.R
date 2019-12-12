@@ -36,7 +36,7 @@ Z <- reactive({
 })
  
 
-output$table.p <-renderDT({datatable(Z() ,rownames = TRUE)})
+output$table.p <-DT::renderDataTable({datatable(Z() ,rownames = TRUE)})
 
 basic_desc3 <- reactive({
   x <- Z()

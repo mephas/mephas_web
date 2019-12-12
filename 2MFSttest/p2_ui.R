@@ -119,7 +119,7 @@ sidebarPanel(
 
     tabPanel("Data Preview", p(br()),
 
-      DTOutput("table2", width = "500px")),
+      DT::dataTableOutput("table2", width = "500px")),
 
     tabPanel("Basic Descriptives", p(br()),
           

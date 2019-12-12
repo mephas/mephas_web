@@ -105,7 +105,9 @@ mainPanel(
 
     tabPanel("Data Preview", p(br()),
 
-      DTOutput("table", width = "500px")),
+      DT::dataTableOutput("table", width = "500px")
+      #shiny::dataTableOutput("table")
+      ),
 
     tabPanel("Basic Descriptives", p(br()),
 

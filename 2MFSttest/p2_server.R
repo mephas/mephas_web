@@ -32,7 +32,7 @@ Y <- reactive({
     return(as.data.frame(x))
 })
 
-output$table2 <-renderDT({datatable(Y() ,rownames = TRUE)})
+output$table2 <-DT::renderDataTable({datatable(Y() ,rownames = TRUE)})
 
 basic_desc2 <- reactive({
   x <- Y()
