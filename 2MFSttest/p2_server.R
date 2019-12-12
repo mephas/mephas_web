@@ -26,7 +26,7 @@ Y <- reactive({
     x <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2)
     x <- as.data.frame(x)[,1:2]
     if(input$header==FALSE){
-      colnames(x) = names1()
+      colnames(x) = names2()
       }
     }
     return(as.data.frame(x))

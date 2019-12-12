@@ -10,24 +10,30 @@
 ##----------#----------#----------#----------
 
 ##---------- 2. two samples ----------
+names2 <- reactive({
+  x <- unlist(strsplit(input$cn2, "[\n]"))
+  return(x[1:2])
+  })
 
-  B <- reactive({
-    inFile <- input$file2
-    if (is.null(inFile)) {
+B <- reactive({
+  inFile <- input$file2
+  if (is.null(inFile)) {
     X <- as.numeric(unlist(strsplit(input$x1, "[\n, \t, ]")))
     Y <- as.numeric(unlist(strsplit(input$x2, "[\n, \t, ]")))
-    x <- data.frame(X =X, Y = Y)
-   }
-    else {
-      csv <- read.csv(inFile$datapath, header=input$header2, sep=input$sep2)
-      x <- as.data.frame(csv)
+    x <- data.frame(X = X, Y = Y)
+    colnames(x) = names2()
+    }
+  else {
+    x <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2)
+    x <- as.data.frame(x)[,1:2]
+    if(input$header==FALSE){
+      colnames(x) = names2()
       }
-    names(x) = unlist(strsplit(input$cn2, "[\n, \t, ]"))
-    return(x)
-       })
-  
-  #table
-  output$table2 <- renderDataTable({B()}, options = list(pageLength = 5))
+    }
+    return(as.data.frame(x))
+})
+
+output$table2 <-DT::renderDataTable({datatable(B() ,rownames = TRUE)})
 
   B.des <- reactive({
     x <- B()
