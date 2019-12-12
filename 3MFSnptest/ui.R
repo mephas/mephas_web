@@ -137,20 +137,11 @@ HTML(
     <h4> If all applicable, please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
-hr(),
-
-<<<<<<< HEAD
-#source("p3.1_ui.R", local=TRUE)$value,
 
 hr(),
 ##---------- 3.1 ----------
-h4(tags$b("Step 2. Choose Method")),
 
-source("p3.3_ui.R", local=TRUE)$value,
-=======
 source("p3_ui.R", local=TRUE)$value,
->>>>>>> f3def1872b290a4d9d8b0cf2c80b0fe139ca1cf8
-
 
 hr()
 
