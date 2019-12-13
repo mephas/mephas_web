@@ -73,8 +73,8 @@ hr(),
   p("The means from each group are equal"),
   p(tags$b("Alternative hypothesis")),
   p("At least two groups have significant different means"),
-  p(tags$i("In this default settings, we wanted to know if the ages of patients with ER positive was significantly different from patients with ER negative")),
-  p(br()),
+  p(tags$i("In this default settings, we wanted to know if the ages of patients with ER positive was significantly different from patients with ER negative"))
+
 ),
 
 mainPanel(
