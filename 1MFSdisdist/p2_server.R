@@ -19,7 +19,7 @@ P = reactive({
 x1 = ppois(0:(input$k2-1), input$lad)
 x2 = ppois(1:input$k2, input$lad)
 x = x2-x1
-data = data.frame(x0 = c(0:length(x)), Pr.at.x0 = round(c(0, x), 6), Pr.x0.cumulated = round(c(0, x2), 6))
+data = data.frame(x0 = c(0:length(x)), Pr.at.x0 = round(c(x1[1], x), 6), Pr.x0.cumulated = round(ppois(0:input$k2, input$lad), 6))
 return(data) 
 })
 

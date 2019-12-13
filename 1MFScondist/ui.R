@@ -25,9 +25,9 @@ headerPanel("Normal Distribution"),
 
   HTML(
     " 
-    <h4><b> N(&#956, &#963)</b></h4>
+    <h4><b> What can you do on this page</b></h4>
    <ul>
-    <li> Draw a Normal Distribution
+    <li> Draw a Normal Distribution with N(&#956, &#963); &#956 is the location, and &#963 indicates the shape
     <li> Compare your data to a Normal Distribution 
    </ul>
     "
@@ -48,9 +48,9 @@ headerPanel("Exponential Distribution"),
 
   HTML(
     " 
-    <h4><b> E(Rate) </b></h4>
+    <h4><b> What can you do on this page</b></h4>
    <ul>
-    <li> Draw an Exponential Distribution
+    <li> Draw an Exponential Distribution with E(Rate); Rate indicates the rate of change
     <li> Compare your data to an Exponential Distribution 
    </ul>
     "
@@ -70,9 +70,9 @@ headerPanel("Gamma Distribution"),
 
   HTML(
     " 
-    <h4><b>  Gamma(&#945, &#952) </b></h4>
+    <h4><b> What can you do on this page</b></h4>    
    <ul>
-    <li> Draw a Gamma Distribution
+    <li> Draw a Gamma Distribution with Gamma(&#945, &#952); &#945 controls the shape, 1/&#952 controls the change of rate
     <li> Compare your data to a Gamma Distribution 
    </ul>
     "
@@ -92,9 +92,9 @@ headerPanel("Beta Distribution"),
 
   HTML(
     " 
-    <h4><b> Beta(&#945, &#946) </b></h4>
+    <h4><b> What can you do on this page</b></h4>    
    <ul>
-    <li> Draw a Bets Distribution
+    <li> Draw a Beta Distribution with Beta(&#945, &#946); &#945, &#946 controls the shape
     <li> Compare your data to a Beta Distribution 
    </ul>
     "
@@ -114,9 +114,9 @@ headerPanel("Student's T Distribution"),
 
   HTML(
     " 
-    <h4><b> T(v) </b></h4>
+    <h4><b> What can you do on this page</b></h4>    
    <ul>
-    <li> Draw a T Distribution
+    <li> Draw a T Distribution with T(v); v is the degree of freedom related to your sample size and control the shape 
     <li> Compare your data to a T Distribution 
    </ul>
     "
@@ -136,9 +136,9 @@ headerPanel("Chi-Squared Distribution"),
 
   HTML(
     " 
-  <h4><b> Chi(v) </b></h4>
+    <h4><b> What can you do on this page</b></h4>    
    <ul>
-    <li> Draw a Chi-Squared Distribution
+    <li> Draw a Chi-Squared Distribution with Chi(v); v is the degree of freedom related to your sample size and control the shape 
     <li> Compare your data to a Chi-Squared Distribution 
    </ul>
     "
@@ -158,9 +158,9 @@ headerPanel("F Distribution"),
 
   HTML(
     " 
-    <h4><b> F(df1, df2) </b></h4>
+    <h4><b> What can you do on this page</b></h4>    
    <ul>
-    <li> Draw a F Distribution
+    <li> Draw a F Distribution with F(df1, df2) ; df1 and df2 are the degree of freedom related to your sample size and control the shape 
     <li> Compare your data to a F Distribution 
    </ul>
     "

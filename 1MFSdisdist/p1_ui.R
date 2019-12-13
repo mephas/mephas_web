@@ -17,18 +17,21 @@ sidebarLayout(
 			h4(tags$b("Draw a Binomial Distribution")), 
 			hr(),
 		  h4(tags$b("Step 1. Set Parameters")), 
-			numericInput("m", "The number of trials / samples, n > 0", value = 20, min = 1 , max = 1000000000),
+			numericInput("m", "The number of trials / samples, n > 0", value = 10, min = 1 , max = 1000000000),
 		  numericInput("p", "The probability of success / event, p > 0", value = 0.2, min = 0, max = 1, step = 0.1),
+		  p(tags$i("From the example, we know n=10 (10 white blood cells), p=0.2 (the probability of any cell being a lymphocyte)")),
+
 		  hr(),
 
 		  h4(tags$b("Step 2. Adjust Axes Range")), 
-		  numericInput("xlim.b", "Range of x-asis, > 0", value = 20, min = 1, max = 10000000),
+		  numericInput("xlim.b", "Range of x-asis, > 0", value = 10, min = 1, max = 10000000),
 		  hr(),
 
 
 		  h4(tags$b("Step 3. Change Observed Data")), 
+		  numericInput("k", "The observed number of success /event (Red-Dot)", value = 2, min =  0, max = 1000, step = 1),
+		  p(tags$i("The observed number is 2 lymphocytes"))
 
-		  numericInput("k", "The observed number of success /event (Red-Dot)", value = 0, min =  0, max = 1000, step = 1)
 
 	),
 
@@ -37,15 +40,8 @@ sidebarLayout(
 		plotOutput("b.plot", width = "800px", height = "400px"),
 		p(tags$b("Probability at the observed number of success /event (Red-Dot)")),
 		tableOutput("b.k"),
-		  HTML(
-    " 
-    <b> Explanations</b>
-   <ul>
-   <li> Mean -> np
-    <li> Variance -> np(1-p)
-   </ul>
-    "
-    )
+		p(tags$i("Explanation: the probability of 2 lymphocytes was about 0.03"))
+    
 
 
 			)
