@@ -76,7 +76,7 @@ tabPanel("Two-way",
 
   hr(),
 
-#source("p2_ui.R", local=TRUE)$value,
+source("p2_ui.R", local=TRUE)$value,
 hr()
 ),
 #

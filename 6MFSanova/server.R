@@ -26,7 +26,7 @@ source("p1_server.R", local=TRUE)$value
 
 ##---------- 2. two way ANOVA ----------
 
-#source("p2_server.R", local=TRUE)$value
+source("p2_server.R", local=TRUE)$value
 
 ##---------- 3. multiple comparison ----------
 

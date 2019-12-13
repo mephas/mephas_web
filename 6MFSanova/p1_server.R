@@ -79,7 +79,7 @@ anova10 <- reactive({
   x <- Y1()
     res <- aov(x[,1]~x[,2])
     res.table <- anova(res)
-    rownames(res.table)[1] <-names1()[2]
+    rownames(res.table)[1] <-colnames(x)[2]
     colnames(res.table) <- c("Degree of Freedom", "Sum of Squares", "Mean of Squares", "F value", "P value")
   return(res.table)
   })

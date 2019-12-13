@@ -25,7 +25,7 @@ tabsetPanel(
       ##-------input data-------##
     tabPanel("Manual Input", p(br()),
 
-    p(tags$i("Example here was the AGE of 27 lymph node positive patients with Estrogen receptor (ER) positive (Group.1-Age.positive); and 117 patients with ER negative (Group.2-Age.negative)")),
+    p(tags$i("Example here was the full metastasis-free follow-up time (months) of 100 lymph node positive patients with Grade of the tumor (three ordered levels).")),
 
     p(tags$b("Please follow the example to input your data")),
 
@@ -45,6 +45,8 @@ tabsetPanel(
 tabPanel("Upload Data", p(br()),
 
     p(tags$b("This only reads the first 2-column of your data")),
+    p(tags$b("1st column is numeric values")),
+    p(tags$b("2nd and 3rd columns are factors" )),
     fileInput('file1', "Choose CSV/TXT file",
               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
     #helpText("The columns of X are not suggested greater than 500"),
@@ -73,7 +75,7 @@ hr(),
   p("The means from each group are equal"),
   p(tags$b("Alternative hypothesis")),
   p("At least two groups have significant different means"),
-  p(tags$i("In this default settings, we wanted to know if the ages of patients with ER positive was significantly different from patients with ER negative"))
+  p(tags$i("In this example, we wanted to know if the metastasis-free follow-up time was different with grade of the tumor (three ordered levels)"))
 
 ),
 
@@ -112,6 +114,8 @@ mainPanel(
     <li> P Value >= 0.05, then there is NO significant differences in the groups. (Accept null hypothesis) 
   </ul>"
     ),
+    p(tags$i("In this default settings, the metastasis-free follow-up time had no significant difference with grade of the tumor (three ordered levels)")),
+
 
   downloadButton("download1", "Download Results")
   )

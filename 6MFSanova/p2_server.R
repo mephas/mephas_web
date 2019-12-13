@@ -9,40 +9,58 @@
 ## DT: 2019-05-04
 ##
 ##----------#----------#----------#----------
+names2 <- reactive({
+  x <- unlist(strsplit(input$cn, "[\n]"))
+  return(x[1:3])
+  }) 
+
 Y <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
-    X <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
-    F1 <- unlist(strsplit(input$f1, "[\n, \t, ]"))
-    F2 <- unlist(strsplit(input$f2, "[\n, \t, ]"))
-    Y <- data.frame(X = X, F1 = F1, F2 = F2)
-    names(Y) = unlist(strsplit(input$cn, "[\n, \t, ]"))
-    return(Y)
+    X <- as.numeric(unlist(strsplit(input$x, "[,;\n\t ]")))
+    F1 <- as.factor(unlist(strsplit(input$f1, "[,;\n\t]")))
+    F2 <- as.factor(unlist(strsplit(input$f2, "[,;\n\t]")))
+    x <- data.frame(X = X, F1 = F1, F2 = F2)
+    colnames(x) = names2()
     }
   else {
-    csv <- as.data.frame(
-      read.csv(
-        inFile$datapath,
-        header = input$header,
-        sep = input$sep
-        )
-      )
-    return(csv)
-  }
+    x <- read.csv(inFile$datapath,header = input$header,sep = input$sep)
+    x <- as.data.frame(x)[,1:3]
+    if(input$header==FALSE){
+      colnames(x) = names2()
+      }
+    }
+    return(as.data.frame(x))
 })
 
-output$table <- renderDataTable({Y()}, options = list(pageLength = 5, scrollX = TRUE))
+output$table <- DT::renderDataTable({datatable(Y() ,rownames = TRUE)})
 
-output$bas <- renderPrint({
+bas <- reactive({
   x <- Y()
-  res <- describeBy(x[,1], x[,input$grp])
-  #rownames(res) = c("number.var", "number.null", "number.na")
+  x$grp <- paste0(x[,2],"-*-",x[,3])
+  res <- t(describeBy(x[,1], x$grp, mat=TRUE))[-c(1,2,3,8,9),]
+  colnames(res) <- levels(as.factor(x$grp))
+  rownames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
   return(res)
   })
 
+output$bas.t <- renderTable({
+  bas()}, 
+  width = "700px", rownames = TRUE)
+
+output$download2.1 <- downloadHandler(
+    filename = function() {
+      "des.csv"
+    },
+    content = function(file) {
+      write.csv(bas(), file, row.names = TRUE)
+    }
+  )
+
+
 output$meanp.a = renderPlot({
   x = Y()
-  b = Rmisc::summarySE(x,names(x)[1], c(names(x)[2], names(x)[3]))
+  b = Rmisc::summarySE(x,colnames(x)[1], c(colnames(x)[2], colnames(x)[3]))
 
   if (input$tick == "TRUE"){
   ggplot(b, aes(x=b[,1], y=b[,4], colour=b[,2], group=b[,2])) + 
@@ -61,8 +79,8 @@ output$meanp.a = renderPlot({
   })
 
 output$mmean.a = renderPlot({
-  x = Y()
-  b = Rmisc::summarySE(x,names(x)[1], c(names(x)[2], names(x)[3]))
+  x = Y()  
+  b = Rmisc::summarySE(x,colnames(x)[1], c(colnames(x)[2], colnames(x)[3]))
 
   if (input$tick2 == "TRUE"){
   ggplot(b, aes(x=b[,1], y=b[,4], fill=b[,2])) + 
@@ -89,14 +107,17 @@ anova0 <- reactive({
 
   if (input$inter == "TRUE"){
     res <- aov(x[,1]~x[,2]*x[,3])
-    res.table <- summary(res)[[1]]
-    rownames(res.table)[1:3] <- c(names(x)[2],names(x)[3], paste0(names(x)[2]," X ",names(x)[3]))
+    res.table <- anova(res)
+    rownames(res.table)[1:3] <- c(names(x)[2],names(x)[3], paste0(names(x)[2]," * ",names(x)[3]))
+    colnames(res.table) <- c("Degree of Freedom", "Sum of Squares", "Mean of Squares", "F value", "P value")
   }
 
   else {
     res <- aov(x[,1]~x[,2]+x[,3])
-    res.table <- summary(res)[[1]]
+    res.table <- anova(res)
     rownames(res.table)[1:2] <- names(x)[2:3]
+    colnames(res.table) <- c("Degree of Freedom", "Sum of Squares", "Mean of Squares", "F value", "P value")
+
   }
   
   return(res.table)
@@ -104,7 +125,7 @@ anova0 <- reactive({
 output$anova <- renderTable({
   anova0()
   }, 
-  width = "500px", rownames = TRUE)
+  width = "700px", rownames = TRUE)
 
  output$download2 <- downloadHandler(
     filename = function() {
