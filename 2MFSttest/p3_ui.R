@@ -65,8 +65,7 @@ sidebarPanel(
 
         p("Correct Separator ensures data input successfully"),
 
-        a("Find some example data here",
-          href = "https://github.com/mephas/datasets")
+        a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
         )
         ),
 

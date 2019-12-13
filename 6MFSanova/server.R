@@ -3,6 +3,8 @@ if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(psych)) {install.packages("psych")}; library(psych)
 if (!require(Rmisc)) {install.packages("Rmisc")}; library(Rmisc)
+if (!require(DT)) {install.packages("DT")}; library(DT)
+
 ##----------#----------#----------#----------
 ##
 ## 6MFSanova SERVER
