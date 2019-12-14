@@ -20,7 +20,7 @@ navbarPage(
 ##---------- Panel 1 ----------
   tabPanel("One-way",
 
-  headerPanel("One-way ANOVA to Compare Means from Multiple Groups"),
+  headerPanel("One-way ANOVA (Overall F Test) to Compare Means from Multiple Groups"),
 
     HTML(
     "
