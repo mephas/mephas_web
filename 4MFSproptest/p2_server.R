@@ -11,9 +11,9 @@
 
 ##---------- 2. Two sample ----------
 T = reactive({ # prepare dataset
- x <- matrix(c(input$x1,input$n1-input$x1,input$x2,input$n2-input$x2),2,2)
-  rownames(x) = unlist(strsplit(input$rn.2, "[\n, \t, ]"))
-  colnames(x) = unlist(strsplit(input$cn.2, "[\n, \t, ]"))
+ x <- matrix(c(input$x1,input$n1-input$x1,input$x2,input$n2-input$x2),2,2, byrow=TRUE)
+  rownames(x) = unlist(strsplit(input$rn.2, "[\n]"))
+  colnames(x) = unlist(strsplit(input$cn.2, "[\n]"))
   return(x)
   })
 
@@ -25,15 +25,15 @@ output$n.t2 = renderTable({
 
 output$makeplot2 <- renderPlot({  #shinysession 
     x1 = data.frame(
-    group = c(unlist(strsplit(input$cn.2, "[\n, \t, ]"))), 
+    group = c(unlist(strsplit(input$cn.2, "[\n,;\t]"))), 
     value = c(input$x1, input$n1-input$x1)
     )
     x2 = data.frame(
-    group = c(unlist(strsplit(input$cn.2, "[\n, \t, ]"))), 
+    group = c(unlist(strsplit(input$cn.2, "[\n,;\t]"))), 
     value = c(input$x2, input$n2-input$x2)
     )
-  p1 = ggplot(x1, aes(x="", y=x1[,"value"], fill=x1[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
-  p2 = ggplot(x2, aes(x="", y=x2[,"value"], fill=x2[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  p1 = ggplot(x1, aes(x="", y=x1[,"value"], fill=x1[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab(rownames(T())[1])+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  p2 = ggplot(x2, aes(x="", y=x2[,"value"], fill=x2[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab(rownames(T())[2])+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   grid.arrange(p1, p2, ncol=2)
   })
 

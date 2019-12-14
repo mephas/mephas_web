@@ -16,21 +16,21 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-    p(tags$b("Give names to your data (no space)")),
-    tags$textarea(id = "ln", rows = 2, "Infertility\nNon-infertility "), p(br()),
+    p(tags$b("Give names to your data")),
+    tags$textarea(id = "ln", rows = 2, "Infertility\nfertility "), p(br()),
     
     p(tags$b("Please follow the example to input your data")),
 
       numericInput("x", "How many success / events, x", value = 10, min = 0, max = 100000, step = 1),
       numericInput("n", "How many trials / samples, n > x", value = 40, min = 1, max = 100000, step = 1),
 
-    p(tags$i("Example here was that 10 women were found infertile among 40 women who were homozygous for the SNP. Thus, the number of event was 10 and sample size was 40.")),
+    p(tags$i("In the example, the number of event was 10 and total sample size was 40.")),
     hr(),
 
     h4(tags$b("Step 2. Specify Parameter")),
 
       numericInput('p', HTML("The specified rate / proportion / probability (0 < p<sub>0</sub> < 1) that you want to compare"), value = 0.2, min = 0, max = 1, step = 0.1),
-    p(tags$i("Suppose that in the general population, the infertility rate was 20%.")),
+    p(tags$i("The infertility rate in general (20%) was what we wanted to compare.")),
 
       hr(),
 
@@ -48,7 +48,7 @@
       choiceValues = list("two.sided", "less", "greater")
       ),
 
-   p(tags$i("In this example, we wanted to test if there was a significant difference in the rate of infertility among homozygous women compared to 20% the general infertile rate."))
+   p(tags$i("In this example, we wanted to test if there was a significant difference in the rate of infertility among treated women compared to 20% the general infertile rate, so we used the first alternative hypothesis"))
 
       ),
 
@@ -62,11 +62,11 @@
 
     h4(tags$b("Output 2. Test Results")), p(br()), 
 
-    h4(tags$b("Choice 1. Normal Theory Method with Yates' Continuity Correction")), p(br()), 
+    p(tags$b("1. Normal Theory Method with Yates' Continuity Correction, when np0(1-p0) >= 5")), p(br()), 
 
     tableOutput("b.test1"),
 
-    h4(tags$b("Choice 2. Exact Binomial Method")),  p(br()), 
+    p(tags$b("2. Exact Binomial Method, when np0(1-p0) < 5")),  p(br()), 
 
     tableOutput("b.test"),
 

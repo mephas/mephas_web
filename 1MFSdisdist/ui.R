@@ -59,7 +59,7 @@ titlePanel("Poisson Distribution"),
 
     <i><h4>Case Example</h4>
     Suppose the number of death from typhoid fever over a 12 month period is Poisson distributed with parameter rate=2.3.
-    Suppose we the probability distribution of the number of deaths over a 6-month period?</i>
+    What is the probability distribution of the number of deaths over a 6-month period?</i>
      <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 
     "

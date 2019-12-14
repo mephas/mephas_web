@@ -151,8 +151,6 @@ HTML(
 </ul>  
 
 
-
-
 <i><h4>Case Example</h4>
 Suppose we collected the Depression Rating Scale (DRS) measurements of 9 patients from a certain group of patients. We decided to give them some treatment, and after the treatment we tested the DRS again.
 We wanted to know if the DRS of patients before and after were significantly; or, whether the differences were significantly different from 0, which could indicate if the treatment was effective.

@@ -47,6 +47,7 @@
     tags$textarea(id = "xs", rows = 5,
         "1\n2\n3\n4\n5"        
     ),
+    p(tags$i("In this case, age groups were in increasing order")),
 
     hr(),
 
@@ -56,10 +57,7 @@
    p("There is no variation in for the sample proportion"),
     
    p(tags$b("Alternative hypothesis")), 
-   p("The proportion / rate / probabilities vary with score"),     
-
-    p(tags$i("In this example,  We wanted to know if the rate to have cancer had tendency among different ages."))
-   
+   p("The proportion / rate / probabilities vary with score")   
 
     ),
 

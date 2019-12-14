@@ -48,7 +48,7 @@ output$b.test1 = renderTable({
 
 output$makeplot <- renderPlot({  #shinysession 
   x = data.frame(
-    group = c(unlist(strsplit(input$ln, "[\n, \t, ]"))), 
+    group = c(unlist(strsplit(input$ln, "[\n]"))), 
     value = c(input$x, input$n-input$x)
     )
   ggplot(x, aes(x="", y=x[,"value"], fill=x[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
