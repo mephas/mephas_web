@@ -14,7 +14,7 @@
 output$x.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$x.xlim)), aes(x)) +
   stat_function(fun = dchisq, n = 100, args = list(df = input$x.df)) + ylab("Density") +
-  scale_y_continuous(breaks = NULL) + theme_minimal() + ggtitle("") + ylim(0, input$x.ylim) +
+  scale_y_continuous(breaks = NULL) + theme_minimal() + ggtitle("") + #ylim(0, input$x.ylim) +
   geom_vline(aes(xintercept=qchisq(input$x.pr, df = input$x.df)), colour = "red")})
 
 output$x.info = renderText({
@@ -49,8 +49,8 @@ output$x.info2 = renderText({
 
 output$x.sum = renderTable({
   x = X()
-  x <- t(data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = var(x[,1])))
-  rownames(x) <- c("Mean", "Standard Deviation", "Variance")
+  x <- t(data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = quantile(x[,1], probs = input$x.pr, na.rm = FALSE)))
+  rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
   return(x)
   }, digits = 4, colnames=FALSE, rownames=TRUE, width = "500px")
 
@@ -65,7 +65,7 @@ XX <- reactive({
     # CSV data
     csv <- read.csv(inFile$datapath,
         header = input$x.header,
-        sep = input$x.sep)
+        sep = input$x.sep)[,1]
     X <- as.data.frame(csv)
     }
     colnames(X) = c("X")
@@ -75,7 +75,14 @@ XX <- reactive({
 output$makeplot.x <- renderPlot({
   x = as.data.frame(XX())
   plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.x, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
+  plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+ geom_vline(aes(xintercept=quantile(x[,1], probs = input$x.pr, na.rm = FALSE)), color="red", size=0.5)
  
   grid.arrange(plot2, plot3, ncol = 2)
   })
+
+output$x.sum2 = renderTable({
+  x = XX()
+  x <- t(data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = quantile(x[,1], probs = input$x.pr, na.rm = FALSE)))
+  rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
+  return(x)
+  }, digits = 4, colnames=FALSE, rownames=TRUE, width = "500px")

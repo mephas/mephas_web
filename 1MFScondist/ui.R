@@ -28,8 +28,15 @@ headerPanel("Normal Distribution"),
     <h4><b> What can you do on this page</b></h4>
    <ul>
     <li> Draw a Normal Distribution with N(&#956, &#963); &#956 is the location, and &#963 indicates the shape
-    <li> Compare your data to a Normal Distribution 
+    <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line and Pr(x1 less than X greater than x2) in the blue area
+    <li> Get the probability distribution from simulation numbers
+    <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+    <li> Get the probability distribution of your data which can be roughly compared to N(&#956, &#963)
    </ul>
+ <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+<i><h4>Case Example</h4>
+    Suppose we wanted to see the shape of N(0, 1), and wanted to know 1. at which point x0 when Pr(X < x0)= 0.025, and 2. what is the probability between means+/-1SD area  </i>
+ <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
 
@@ -51,9 +58,17 @@ headerPanel("Exponential Distribution"),
     <h4><b> What can you do on this page</b></h4>
    <ul>
     <li> Draw an Exponential Distribution with E(Rate); Rate indicates the rate of change
-    <li> Compare your data to an Exponential Distribution 
+    <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+    <li> Get the probability distribution from simulation numbers
+    <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+    <li> Get the probability distribution of your data which can be roughly compared to E(Rate)
    </ul>
+    <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+<i><h4>Case Example</h4>
+    Suppose we wanted to see the shape of E(Rate), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
+ <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
+
     ),
 
   hr(),
@@ -73,8 +88,15 @@ headerPanel("Gamma Distribution"),
     <h4><b> What can you do on this page</b></h4>    
    <ul>
     <li> Draw a Gamma Distribution with Gamma(&#945, &#952); &#945 controls the shape, 1/&#952 controls the change of rate
-    <li> Compare your data to a Gamma Distribution 
-   </ul>
+    <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+    <li> Get the probability distribution from simulation numbers
+    <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+    <li> Get the probability distribution of your data which can be roughly compared to  Gamma(&#945, &#952)  
+    </ul>
+      <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+<i><h4>Case Example</h4>
+    Suppose we wanted to see the shape of Gamma(&#945, &#952), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
+ <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
 
@@ -95,8 +117,15 @@ headerPanel("Beta Distribution"),
     <h4><b> What can you do on this page</b></h4>    
    <ul>
     <li> Draw a Beta Distribution with Beta(&#945, &#946); &#945, &#946 controls the shape
-    <li> Compare your data to a Beta Distribution 
-   </ul>
+    <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+    <li> Get the probability distribution from simulation numbers
+    <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+    <li> Get the probability distribution of your data which can be roughly compared to Beta(&#945, &#946)  
+     </ul>
+    <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+<i><h4>Case Example</h4>
+    Suppose we wanted to see the shape of Beta(&#945, &#946), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
+ <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
 
@@ -117,8 +146,14 @@ headerPanel("Student's T Distribution"),
     <h4><b> What can you do on this page</b></h4>    
    <ul>
     <li> Draw a T Distribution with T(v); v is the degree of freedom related to your sample size and control the shape 
-    <li> Compare your data to a T Distribution 
-   </ul>
+    <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+    <li> Get the probability distribution from simulation numbers
+    <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+    <li> Get the probability distribution of your data which can be roughly compared to T(v)  </ul>
+    <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+<i><h4>Case Example</h4>
+    Suppose we wanted to see the shape of T(v) and wanted to know at which point x0 when Pr(X < x0)= 0.025 </i>
+ <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
 
@@ -139,8 +174,14 @@ headerPanel("Chi-Squared Distribution"),
     <h4><b> What can you do on this page</b></h4>    
    <ul>
     <li> Draw a Chi-Squared Distribution with Chi(v); v is the degree of freedom related to your sample size and control the shape 
-    <li> Compare your data to a Chi-Squared Distribution 
-   </ul>
+    <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+    <li> Get the probability distribution from simulation numbers
+    <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+    <li> Get the probability distribution of your data which can be roughly compared to Chi(v)</ul>
+    <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+<i><h4>Case Example</h4>
+    Suppose we wanted to see the shape of Chi(v), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
+ <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
 
@@ -161,8 +202,14 @@ headerPanel("F Distribution"),
     <h4><b> What can you do on this page</b></h4>    
    <ul>
     <li> Draw a F Distribution with F(df1, df2) ; df1 and df2 are the degree of freedom related to your sample size and control the shape 
-    <li> Compare your data to a F Distribution 
-   </ul>
+    <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+    <li> Get the probability distribution from simulation numbers
+    <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+    <li> Get the probability distribution of your data which can be roughly compared to F(df1, df2)  </ul>
+    <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+<i><h4>Case Example</h4>
+    Suppose we wanted to see the shape of F(df1, df2), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
+ <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
 

@@ -22,7 +22,7 @@ output$norm.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-(input$xlim), input$xlim)), aes(x)) +
   stat_function(fun = dnorm, n = 101, args = list(mean = input$mu, sd = input$sigma)) + scale_y_continuous(breaks = NULL) +
   stat_function(fun = mynorm, geom = "area", fill="cornflowerblue", alpha = 0.3) + scale_x_continuous(breaks = c(-input$xlim, input$xlim))+
-  ylab("Density") + theme_bw()  + ylim(0, input$ylim) +
+  ylab("Density") + theme_bw()  + #ylim(0, input$ylim) +
   geom_vline(aes(xintercept=input$mu), color="red", linetype="dashed", size=0.5) +
   geom_vline(aes(xintercept=qnorm(input$pr, mean = input$mu, sd = input$sigma, lower.tail = TRUE, log.p = FALSE)), color="red", size=0.5) })
 
@@ -37,7 +37,7 @@ output$xs = renderTable({
   a = qnorm(input$pr, mean = input$mu, sd = input$sigma, lower.tail = TRUE, log.p = FALSE)
   b = 100*pnorm(input$mu+input$n*input$sigma, input$mu, input$sigma)-pnorm(input$mu-input$n*input$sigma, input$mu, input$sigma)
   x <- t(data.frame(x.position = a, blue.area = b))
-  rownames(x) <- c("Red-line Position (x)", "Blue Area, Probability %")
+  rownames(x) <- c("Red-line Position (x0)", "Blue Area, Probability %")
   return(x)}, 
   digits = 4, colnames=FALSE, rownames=TRUE, width = "500px")
 
@@ -52,9 +52,9 @@ xlim(-input$xlim, input$xlim) + geom_vline(aes(xintercept=quantile(x, probs = in
 
 
 output$sum = renderTable({
-  x = rnorm(input$size, input$mu, input$sigma)
+  x = N()[,1]
   x <- matrix(c(mean(x), sd(x), quantile(x, probs = input$pr)),3,1)
-  rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x)")
+  rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
   return(x)
   }, digits = 4, colnames=FALSE, rownames=TRUE, width = "500px")
 
@@ -70,26 +70,34 @@ NN <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
     # input data
-    x <- as.numeric(unlist(strsplit(input$x, "[\n, \t, ]")))
+    x <- as.numeric(unlist(strsplit(input$x, "[\n,\t;]")))
     X <- as.data.frame(x)
     }
   else {
     # CSV data
     csv <- read.csv(inFile$datapath,
         header = input$header,
-        sep = input$sep)
+        sep = input$sep)[,1]
     X <- as.data.frame(csv)
     }
     colnames(X) = c("X")
-    return(X)
+    return(as.data.frame(X))
   })
 
 output$makeplot <- renderPlot({
-  x = as.data.frame(NN())
+  x = NN()
   plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
+  plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+geom_vline(aes(xintercept=quantile(x[,1], probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
  
   grid.arrange(plot2, plot3, ncol = 2)
   })
+
+output$sum2 = renderTable({
+  x = NN()[,1]
+  x <- matrix(c(mean(x), sd(x), quantile(x, probs = input$pr)),3,1)
+  rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
+  return(x)
+  }, digits = 4, colnames=FALSE, rownames=TRUE, width = "500px")
+
 
 

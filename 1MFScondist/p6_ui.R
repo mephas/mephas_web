@@ -26,7 +26,7 @@ sidebarLayout(
 
 		  h4(tags$b("Step 2. Adjust Axes Range")), 
 		  numericInput("x.xlim", "Range of x-asis, > 0", value = 8, min = 1, max = 1000000000),
-		  numericInput("x.ylim", "Range of y-asis, > 0", value = 0.5, min = 0.1, max = 3),
+		  #numericInput("x.ylim", "Range of y-asis, > 0", value = 0.5, min = 0.1, max = 3),
 		  hr(),
 
 		  h4(tags$b("Step 3. Show Probability")),   
@@ -53,12 +53,12 @@ sidebarLayout(
         fileInput('x.file', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
-        # Input: Checkbox if file has header ----
+        p(tags$b("2. Show 1st row as header?")),
         checkboxInput("x.header", "Show Data Header?", TRUE),
 
              # Input: Select separator ----
         radioButtons("x.sep", 
-          "Which Separator for Data?",
+          "3. Which Separator for Data?",
           choiceNames = list(
             HTML("Comma (,): CSV often use this"),
             HTML("One Tab (->|): TXT often use this"),
@@ -70,8 +70,8 @@ sidebarLayout(
 
         p("Correct Separator ensures data input successfully"),
 
-        a("Find some example data here",
-          href = "https://github.com/mephas/datasets")
+        a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
+
         )
       
 		)
@@ -102,8 +102,8 @@ sidebarLayout(
     " 
     <b> Explanation </b>
    <ul>
-    <li>  Mean -> v
-    <li>  Variance -> 2v
+    <li>  Mean = v
+    <li>  SD = sqrt(2v)
    </ul>
     "
     )
@@ -112,7 +112,9 @@ sidebarLayout(
 			 tabPanel("Data Distribution Plot", p(br()),
 
 			plotOutput("makeplot.x", width = "800px", height = "400px"),
-      sliderInput("bin.x","The width of bins in histogram", min = 0.01,max = 5,value = 0.1)
+      sliderInput("bin.x","The width of bins in histogram", min = 0.01,max = 5,value = 0.1),
+      				tableOutput("x.sum2")
+
 			 	)
 
 			)

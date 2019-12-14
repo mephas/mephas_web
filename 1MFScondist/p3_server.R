@@ -15,7 +15,7 @@
 output$g.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$g.xlim)), aes(x)) +
   stat_function(fun = "dgamma", args = list(shape = input$g.shape, scale=input$g.scale)) + ylab("Density") +
-  scale_y_continuous(breaks = NULL) + theme_minimal() + ggtitle("") + ylim(0, input$g.ylim) +
+  scale_y_continuous(breaks = NULL) + theme_minimal() + ggtitle("") + #ylim(0, input$g.ylim) +
   geom_vline(aes(xintercept=qgamma(input$g.pr, shape = input$g.shape, scale=input$g.scale)), colour = "red")})
 
 output$g.info = renderText({
@@ -52,7 +52,7 @@ output$g.info2 = renderText({
 output$g.sum = renderTable({
   x = G()
   x <- t(data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = var(x[,1])))
-  rownames(x) <- c("Mean", "Standard Deviation", "Variance")
+  rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
   return(x)
   }, digits = 4, colnames=FALSE, rownames=TRUE, width = "500px")
 
@@ -60,14 +60,14 @@ Z <- reactive({
   inFile <- input$g.file
   if (is.null(inFile)) {
     # input data
-    x <- as.numeric(unlist(strsplit(input$x.g, "[\n, \t, ]")))
+    x <- as.numeric(unlist(strsplit(input$x.g, "[\n,\t;]")))
     X <- as.data.frame(x)
     }
   else {
     # CSV data
     csv <- read.csv(inFile$datapath,
         header = input$g.header,
-        sep = input$g.sep)
+        sep = input$g.sep)[,1]
     X <- as.data.frame(csv)
     }
     colnames(X) = c("X")
@@ -75,10 +75,16 @@ Z <- reactive({
   })
 
 output$makeplot.g <- renderPlot({
-  x = as.data.frame(Z())
+  x = Z()
   plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.g, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
+  plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+ geom_vline(aes(xintercept=quantile(x[,1], probs = input$g.pr, na.rm = FALSE)), color="red", size=0.5)
  
   grid.arrange(plot2, plot3, ncol = 2)
   })
 
+output$g.sum2 = renderTable({
+  x = Z()
+  x <- t(data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance =quantile(x[,1], probs = input$g.pr)))
+  rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
+  return(x)
+  }, digits = 4, colnames=FALSE, rownames=TRUE, width = "500px")

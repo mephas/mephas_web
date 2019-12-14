@@ -27,7 +27,7 @@ sidebarLayout(
 
 		  h4(tags$b("Step 2. Adjust Axes Range")), 
 		  numericInput("f.xlim", "Range of x-asis, > 0", value = 5, min = 1, max = 1000000000),
-		  numericInput("f.ylim", "Range of y-asis, > 0", value = 2.5, min = 0.1, max = 3),
+		  #numericInput("f.ylim", "Range of y-asis, > 0", value = 2.5, min = 0.1, max = 3),
 		  hr(),
 
 		  h4(tags$b("Step 3. Show Probability")),   
@@ -54,12 +54,12 @@ sidebarLayout(
         fileInput('f.file', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
-        # Input: Checkbox if file has header ----
+        p(tags$b("2. Show 1st row as header?")),
         checkboxInput("f.header", "Show Data Header?", TRUE),
 
              # Input: Select separator ----
         radioButtons("f.sep", 
-          "Which Separator for Data?",
+          "3. Which Separator for Data?",
           choiceNames = list(
             HTML("Comma (,): CSV often use this"),
             HTML("One Tab (->|): TXT often use this"),
@@ -71,8 +71,7 @@ sidebarLayout(
 
         p("Correct Separator ensures data input successfully"),
 
-        a("Find some example data here",
-          href = "https://github.com/mephas/datasets")
+        a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
         )
       
 		)
@@ -104,7 +103,9 @@ sidebarLayout(
 			 tabPanel("Data Distribution Plot", p(br()),
 
 			plotOutput("makeplot.f", width = "800px", height = "400px"),
-      sliderInput("bin.f","The width of bins in histogram", min = 0.01,max = 5,value = 0.2)
+      sliderInput("bin.f","The width of bins in histogram", min = 0.01,max = 5,value = 0.2),
+      				tableOutput("f.sum2")
+
 			 	)
 
 			)
