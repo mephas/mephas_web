@@ -11,7 +11,7 @@
 
 T2 = reactive({ # prepare dataset
   x <- as.numeric(unlist(strsplit(input$x2, "[,;\n\t ]")))
-  x <- matrix(x,2,2)
+  x <- matrix(x,2,2, byrow=TRUE)
   rn = unlist(strsplit(input$rn2, "[\n]"))
   cn = unlist(strsplit(input$cn2, "[\n]"))
   rownames(x) <- paste(rn[1], cn)

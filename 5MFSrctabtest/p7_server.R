@@ -15,11 +15,10 @@ kn <- reactive({unlist(strsplit(input$kn7, "[\n]"))})
 
 T7 = reactive({ # prepare dataset
   x <- as.numeric(unlist(strsplit(input$x7, "[,;\n\t ]")))
-  x <- array(x,dim=c(
-    length(rn()),length(cn()),length(kn())
-    ), 
-    dimnames = list(status=rn(), groups=cn(),confound=kn())
-    )
+  x <- aperm(
+    array(x,dim=c(length(cn()),length(rn()),length(kn())), 
+    dimnames = list(groups=cn(), status=rn(), confound=kn())),
+    perm=c(2,1,3))
   return(x)
   })
 
@@ -32,7 +31,7 @@ output$dt7 = renderTable({
   k <- length(kn())
   n <- length(rn())
   dm <- dimnames(T7())
-  rownames(T) <- paste0(rep(dm[[3]], rep(n,k)), "-*-",dm[[1]])
+  rownames(T) <- paste0(rep(dm[[3]], each=n), "-*-", dm[[1]])
   colnames(T)<- cn()
   return(T)
   }, width = "600px" ,rownames = TRUE, digits=1)

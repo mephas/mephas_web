@@ -11,12 +11,12 @@
 ##---------- Panel 6: k,k table ----------
 
 T6 = reactive({ # prepare dataset
-  x <- as.numeric(unlist(strsplit(input$x6, "[,;\n\t ]")))
-  x <- matrix(x,2,2)
+  x <- as.numeric(unlist(strsplit(input$x6, "[,;\n\t]")))
+  x <- matrix(x,2,2, byrow=TRUE)
   rn = unlist(strsplit(input$rn6, "[\n]"))
   cn = unlist(strsplit(input$cn6, "[\n]"))
-  rownames(x) <- paste(rn[1], cn)
-  colnames(x) <- paste(rn[2], cn)
+  rownames(x) <- paste0(rn[1], "-*-",cn)
+  colnames(x) <- paste0(rn[2], "-*-",cn)
   return(x)
   })
 

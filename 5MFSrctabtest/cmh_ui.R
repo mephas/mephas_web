@@ -30,7 +30,7 @@
 
     p(tags$b("3. Input R*C*K Values by Column-order in each Stratum / Confounding Group")),
       tags$textarea(id="x7", rows=10, 
-      "196\n223\n103\n603\n468\n232\n118\n312\n232\n348\n383\n206"),
+      "196\n603\n223\n486\n103\n232\n118\n348\n313\n383\n232\n206"),
       p("Note: No Missing Value"),
 
     p(tags$i("Example here was the prevalence of habitual snoring by age and sex group.")),
@@ -54,6 +54,9 @@
     mainPanel(
 
     h4(tags$b("Output 1. Contingency Table")), p(br()), 
+
+    p(tags$b("K layers R x C Contingency Table")),
+    p("The first R rows indicated R x C contingency table in the first stratum, and followed by R x C table from the second stratum. "),
 
     tableOutput("dt7"),
 

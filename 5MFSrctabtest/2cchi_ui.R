@@ -16,11 +16,11 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give names to Columns")), 
+  p(tags$b("1. Give names to factor categories in column")),
         tags$textarea(id = "cn3",rows = 5,
         "~20\n20-24\n25-29\n30-34\n34~"
       ),
-  p(tags$b("2. Give names to Rows")), 
+    p(tags$b("2. Give names to case-control in rows")), 
         tags$textarea(id = "rn3",rows = 2,
         "Cancer\nNo-Cancer"
       ),
@@ -34,12 +34,12 @@
 
         p(tags$b("4. How many Controls in every Group")),     
         tags$textarea(id = "x33", rows = 5,
-        "1742\n5638\n3904\n1555\n626"
+        "1422\n4432\n2893\n1092\n406"
         ),
 
     p("Note: No Missing Value"),
 
-    p(tags$i("In this example, we had 5 age groups of people as shown in different ages, and we record the number of people who had cancer in x.")),
+    p(tags$i("In this example, we had 5 age groups of people as shown in different ages, and we record the number of people who had cancer and who did not have cancer.")),
 
         hr(),
 
@@ -65,21 +65,21 @@
 
     tabPanel("Table Preview", p(br()),
 
-        p(tags$b("Data Table")),
+        p(tags$b("2 x C Contingency Table with Total Number")),
         tableOutput("dt3"),
 
-        p(tags$b("Expected Table")),
+        p(tags$b("Expected Value")),
         tableOutput("dt3.0")
         ),
     tabPanel("Percentage Table", p(br()),
 
-        p(tags$b("Cell-Total %")),
+        p(tags$b("Cell/Total %")),
         tableOutput("dt3.3"),
 
-        p(tags$b("Cell-Row %")),
+        p(tags$b("Cell/Row-Total %")),
         tableOutput("dt3.1"),
 
-        p(tags$b("Cell-Column %")),
+        p(tags$b("Cell/Column-Total %")),
         tableOutput("dt3.2")
         ),
 

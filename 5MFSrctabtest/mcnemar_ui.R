@@ -14,16 +14,16 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give outcome / measurement names to Columns and Rows")), 
+  p(tags$b("1. Give names to factor categories in column and row")),
   tags$textarea(id="cn2", rows=2, "Better\nNo-change"), 
 
-  p(tags$b("2. Give factor / treatment names")), 
+  p(tags$b("2. Give factor / treatment names in column and row")), 
   tags$textarea(id="rn2", rows=2, "Treatment-A\nTreatment-B"),p(br()),
 
   
-  p(tags$b("3. Input 4 Values by Column")),
+  p(tags$b("3. Input 4 Values in column-order")),
   tags$textarea(id="x2", rows=4, 
-    "510\n5\n16\n90"),
+    "510\n16\n5\n90"),
 
   p("Note: No Missing Value"),
   
@@ -45,11 +45,11 @@ sidebarPanel(
       
   hr(),
 
-    h4(tags$b("Step 2. Check the Rule of Five")),
+  h4(tags$b("Step 2. Decide P Value method")),
     radioButtons("yt2", label = "Yates-correction on P Value", 
         choiceNames = list(
-          HTML("Do: no value in the Expected Table (Right) <5 "),
-          HTML("Not do: some value in the Expected Table (Right) <5")
+          HTML("Do: no Expected Value <5, but Expected Value not so large  "),
+          HTML("Not do: I have quite large sample")
           ),
         choiceValues = list(TRUE, FALSE)
         )
@@ -64,22 +64,22 @@ sidebarPanel(
 
     tabPanel("Table Preview", p(br()),
 
-        p(tags$b("Data Table")),
+        p(tags$b("2 x 2 Contingency Table with Total Number")),
         tableOutput("dt2"),
 
-        p(tags$b("Expected Table")),
+        p(tags$b("Expected Value")),
         tableOutput("dt2.0")
         ),
     
     tabPanel("Percentage Table", p(br()),
 
-        p(tags$b("Cell-Total %")),
+        p(tags$b("Cell/Total %")),
         tableOutput("dt2.3"),
 
-        p(tags$b("Cell-Row %")),
+        p(tags$b("Cell/Row-Total %")),
         tableOutput("dt2.1"),
 
-        p(tags$b("Cell-Column %")),
+        p(tags$b("Cell/Column-Total %")),
         tableOutput("dt2.2")
         ),
 

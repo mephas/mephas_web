@@ -13,13 +13,13 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-    p(tags$b("1. Give names to Columns")), 
+  p(tags$b("1. Give names to factor categories in column")),
         tags$textarea(id = "cn8",rows = 2,
         "Passive Smoker\nNon-Passive-Smoker"
       ),
-    p(tags$b("2. Give names to Rows")), 
+    p(tags$b("2. Give names to case-control in rows")), 
         tags$textarea(id = "rn8",rows = 2,
-        "Case\nControl"
+        "Cancer (Case)\nNo Cancer (Control)"
       ),
     p(tags$b("1. Give names to Stratum / Confounding Group")), 
         tags$textarea(id = "kn8",rows = 4,
@@ -27,9 +27,9 @@
       ),
         p(br()), 
 
-    p(tags$b("3. Input R*C*K Values by Column-order in each Stratum / Confounding Group")),
+    p(tags$b("3. Input 2*2*K Values by row-order in each Stratum / Confounding Group")),
       tags$textarea(id="x8", rows=10, 
-      "120\n80\n111\n115\n161\n130\n117\n124"),
+      "120\n111\n80\n115\n161\n117\n130\n124"),
       p("Note: No Missing Value"),
 
     p(tags$i("Example here was 2 sets of 2 by 2 table. One is the case-control table for active smoker; the other is case-control table for non-active smoker.")),
@@ -70,7 +70,8 @@
 
     h4(tags$b("Output 1. Contingency Table")), p(br()), 
 
-    p(tags$b("K layers 2 by 2 Table")),
+    p(tags$b("K layers 2 x 2 Contingency Table")),
+    p("The first 2 rows indicated 2 x 2 contingency table in the first stratum, and followed by 2 x 2 table from the second stratum. "),
 
     tableOutput("dt8"),
 

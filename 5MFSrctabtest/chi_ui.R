@@ -14,19 +14,19 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give names to Columns")),
+  p(tags$b("1. Give names to factor categories in column")),
   tags$textarea(id="cn1", rows=2, "Developed-MI\nNo MI"),
 
-    p(tags$b("2. Give names to Rows")), 
+    p(tags$b("2. Give names to case-control in rows")), 
   tags$textarea(id="rn1", rows=2, "OC user\nNever OC user"), p(br()),
 
-  p(tags$b("3. Input 4 Values by Column-order")),
+  p(tags$b("3. Input 4 Values in row-order")),
   tags$textarea(id="x1", rows=4, 
-    "13\n7\n4987\n9993"),
+    "13\n4987\n7\n9993"),
 
   p("Note: No Missing Value"),
 
-  p(tags$i("Example here was data of OC-users and myocardial infarction (MI) patients.")),
+  p(tags$i("The case-control was OC user and non-OC user and factor categories were developed MI or not.")),
   p(tags$i("Among 5000 OC-users, 13 developed MI; among 10000 non-OC-users, 7 developed MI.")),
 
   hr(),
@@ -43,11 +43,11 @@ sidebarPanel(
 
 hr(),
 
-    h4(tags$b("Step 2. Check the Rule of Five")),
+  h4(tags$b("Step 2. Decide P Value method")),
     radioButtons("yt1", label = "Yates-correction on P Value", 
         choiceNames = list(
-          HTML("Do: no value in the Expected Table (Right) <5 "),
-          HTML("Not do: some value in the Expected Table (Right) <5")
+          HTML("Do: no Expected Value <5, but Expected Value not so large  "),
+          HTML("Not do: I have quite large sample")
           ),
         choiceValues = list(TRUE, FALSE)
         )
@@ -61,22 +61,22 @@ hr(),
 
     tabPanel("Table Preview", p(br()),
 
-        p(tags$b("Data Table")),
+        p(tags$b("2 x 2 Contingency Table with Total Number")),
         tableOutput("dt1"),
 
-        p(tags$b("Expected Table")),
+        p(tags$b("Expected Value")),
         tableOutput("dt1.0")
         ),
 
     tabPanel("Percentage Table", p(br()),
 
-        p(tags$b("Cell-Total %")),
+        p(tags$b("Cell/Total %")),
         tableOutput("dt1.3"),
 
-        p(tags$b("Cell-Row %")),
+        p(tags$b("Cell/Row-Total %")),
         tableOutput("dt1.1"),
 
-        p(tags$b("Cell-Column %")),
+        p(tags$b("Cell/Column-Total %")),
         tableOutput("dt1.2")
         ),
 

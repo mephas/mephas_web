@@ -13,19 +13,19 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give names to Columns")),
+  p(tags$b("1. Give names to factor categories in column")),
   tags$textarea(id="cn4", rows=2, "High salt\nLow salt"),
 
-    p(tags$b("2. Give names to Rows")), 
+    p(tags$b("2. Give names to case-control in rows")), 
   tags$textarea(id="rn4", rows=2, "CVD\nNon CVD"), p(br()),
 
-  p(tags$b("3. Input 4 Values by Column-order")),
+  p(tags$b("3. Input 4 Values in row-order")),
   tags$textarea(id="x4", rows=4, 
-    "5\n2\n30\n23"),
+    "5\n30\n2\n23"),
 
   p("Note: No Missing Value"),
 
-  p(tags$i("Example here was an investigation of men who dies from CVD (case) and men who died from other causes (control).")),
+  p(tags$i("The case-control was CVD patients or not and factor categories were high salt diet or not.")),
   p(tags$i("Of 35 people who died form CVD, 5 were on a high-salt diet before they dies; of 25 people who died from other causes, 2 were on a high-salt diet.")),
 
   hr(),
@@ -55,22 +55,22 @@ sidebarPanel(
 
     tabPanel("Table Preview", p(br()),
 
-        p(tags$b("Data Table")),
+        p(tags$b("2 x 2 Contingency Table with Total Number")),
         tableOutput("dt4"),
 
-        p(tags$b("Expected Table")),
+        p(tags$b("Expected Value")),
         tableOutput("dt4.0")
         ),
 
     tabPanel("Percentage Table", p(br()),
 
-        p(tags$b("Cell-Total %")),
+        p(tags$b("Cell/Total %")),
         tableOutput("dt4.3"),
 
-        p(tags$b("Cell-Row %")),
+        p(tags$b("Cell/Row-Total %")),
         tableOutput("dt4.1"),
 
-        p(tags$b("Cell-Column %")),
+        p(tags$b("Cell/Column-Total %")),
         tableOutput("dt4.2")
         ),
 

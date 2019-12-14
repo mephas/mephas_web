@@ -15,8 +15,10 @@ kn8 <- reactive({unlist(strsplit(input$kn8, "[\n]"))})
 
 T8 = reactive({ # prepare dataset
   x <- as.numeric(unlist(strsplit(input$x8, "[,;\n\t ]")))
-  x <- array(x,dim=c(2,2, length(kn8())), 
-    dimnames = list(status=rn8(), groups=cn8(),confound=kn8())
+  x <- aperm(
+    array(x,dim=c(2,2, length(kn8())), 
+    dimnames = list(status=rn8(), groups=cn8(),confound=kn8())),
+    perm=c(2,1,3)
     )
   return(x)
   })
@@ -30,7 +32,7 @@ output$dt8 = renderTable({
   k <- length(kn8())
   n <- length(rn8())
   dm <- dimnames(T8())
-  rownames(T) <- paste0(rep(dm[[3]], rep(2,k)), "-*-",dm[[1]])
+  rownames(T) <- paste0(rep(dm[[3]], rep(2,k)), "-*-",dm[[2]])
   colnames(T)<- cn8()
   return(T)
   }, width = "600px" ,rownames = TRUE, digits=1)

@@ -22,7 +22,7 @@
   
   p(tags$b("3. Input 4 Values by Column")),
   tags$textarea(id="x6", rows=4, 
-    "510\n5\n16\n90"),
+    "136\n92\n69\n240"),
 
       p("Note: No Missing Value"),
 
@@ -52,7 +52,7 @@
 
     tabPanel("Table Preview", p(br()),
 
-        p(tags$b("Data Table")),
+        p(tags$b("K x K Contingency Table with Total Number")),
         tableOutput("dt6"),
 
         p(tags$b("Expected Table")),
@@ -60,13 +60,13 @@
         ),
     tabPanel("Percentage Table", p(br()),
 
-        p(tags$b("Cell-Total %")),
+        p(tags$b("Cell/Total %")),
         tableOutput("dt6.3"),
 
-        p(tags$b("Cell-Row %")),
+        p(tags$b("Cell/Row-Total %")),
         tableOutput("dt6.1"),
 
-        p(tags$b("Cell-Column %")),
+        p(tags$b("Cell/Column-Total %")),
         tableOutput("dt6.2")
         ),
 

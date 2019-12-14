@@ -13,22 +13,25 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-    p(tags$b("1. Give names to Columns (No space)")), 
+  p(tags$b("1. Give names to factor2/results categories in column")),
         tags$textarea(id = "cn5",rows = 5,
         "Smear+\nSmear-Culture+\nSmear-Culture-"
       ),
-    p(tags$b("2. Give names to Rows (No space)")), 
+    p(tags$b("2. Give names to factor1/treatment categories in rows")), 
         tags$textarea(id = "rn5",rows = 5,
         "Penicillin\nSpectinomycin-low\nSpectinomycin-high"
       ),
         p(br()), 
 
-    p(tags$b("3. Input R*C Values by Column-order")),
+    p(tags$b("3. Input R*C Values in row-order")),
       tags$textarea(id="x5", rows=10, 
-      "40\n10\n15\n30\n20\n40\n130\n70\n45"),
+      "40\n30\n130\n10\n20\n70\n15\n40\n45"),
       p("Note: No Missing Value"),
 
-    p(tags$i("Example here was the response from patient after the drug treatment.")),
+    p(tags$i("Row were different drug treatment and columns were different response")),
+  p(tags$i("Among 200 Penicillin users, 40 got Smear+, 30 got Smear-Culture+ and others were Smear-Culture-.")),
+  p(tags$i("Among 100 Spectinomycin-low users, 10 got Smear+, 20 got Smear-Culture+ and others were Smear-Culture-.")),
+  p(tags$i("Among 100 Spectinomycin-high users, 15 got Smear+, 40 got Smear-Culture+ and others were Smear-Culture-.")),
 
         hr(),
 
@@ -53,22 +56,23 @@
     tabsetPanel(
 
     tabPanel("Table Preview", p(br()),
+    
 
-        p(tags$b("Data Table")),
+        p(tags$b("R x C Contingency Table with Total Number")),
         tableOutput("dt5"),
 
-        p(tags$b("Expected Table")),
+        p(tags$b("Expected Value")),
         tableOutput("dt5.0")
         ),
     tabPanel("Percentage Table", p(br()),
 
-        p(tags$b("Cell-Total %")),
+        p(tags$b("Cell/Total %")),
         tableOutput("dt5.3"),
 
-        p(tags$b("Cell-Row %")),
+        p(tags$b("Cell/Row-Total %")),
         tableOutput("dt5.1"),
 
-        p(tags$b("Cell-Column %")),
+        p(tags$b("Cell/Column-Total %")),
         tableOutput("dt5.2")
         ),
 
