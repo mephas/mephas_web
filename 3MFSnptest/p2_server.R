@@ -24,8 +24,8 @@ B <- reactive({
     colnames(x) = names2()
     }
   else {
-    x <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2)
-    x <- as.data.frame(x)[,1:2]
+    x <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2)[,1:2]
+    x <- as.data.frame(x)
     if(input$header==FALSE){
       colnames(x) = names2()
       }

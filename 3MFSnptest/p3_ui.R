@@ -41,8 +41,7 @@ sidebarPanel(
       "0.88\n0.65\n0.59\n2.05\n1.06\n1.29\n1.06\n3.14\n1.29"
       ),
 
-    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error"),  
-    p(tags$i("In this example, we wanted to know if there was significant difference on the scale after the treatment. "))
+    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error")
 
 ),
 
@@ -89,6 +88,8 @@ sidebarPanel(
       HTML("m < 0: the population median of Y is greater"),
       HTML("m > 0: the population median of X is greater")),
     choiceValues = list("two.sided", "less", "greater")),
+      p(tags$i("In this example, we wanted to know if there was significant difference on the scale after the treatment. ")),
+hr(),
 
 h4(tags$b("Step 3. Decide P Value method")),
 radioButtons("alt.md3", 
@@ -98,7 +99,9 @@ radioButtons("alt.md3",
       HTML("Approximate to normal distribution: sample size is quite large (maybe > 40)"),
       HTML("Exact P value: sample size is small (< 10)")
       ), 
-    choiceValues = list("a", "b", "c"))
+    choiceValues = list("a", "b", "c")),
+    p(tags$i("In this example, we had only 9 people. So we chose exact P value")),
+
   ),
 
 mainPanel(

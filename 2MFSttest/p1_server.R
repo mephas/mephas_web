@@ -18,13 +18,13 @@ names1 <- reactive({
 X <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
-    x <- as.numeric(unlist(strsplit(input$x, "[,;\n\t ]")))
+    x <- as.numeric(unlist(strsplit(input$x, "[,;\n\t]")))
     x <- as.data.frame(x)
     colnames(x) = names1()
     }
   else {
-    x <- read.csv(inFile$datapath, header = input$header, sep = input$sep)
-    x <- as.data.frame(x)[,1]
+    x <- read.csv(inFile$datapath, header = input$header, sep = input$sep)[,1]
+    x <- as.data.frame(x)
     if(input$header==FALSE){
       colnames(x) = names1()
       }

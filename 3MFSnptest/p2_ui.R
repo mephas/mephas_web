@@ -41,8 +41,7 @@ sidebarPanel(
       "0.80\n0.83\n1.89\n1.04\n1.45\n1.38\n1.91\n1.64\n0.73\n1.46"
       ),
     
-    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error"),
-    p(tags$i("In this default settings, we wanted to know if Depression Rating Scale from two group of patients were different."))
+    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error")
     ),
 
 
@@ -91,6 +90,9 @@ radioButtons("alt.wsr2", label = "Alternative hypothesis",
     HTML("m&#8321 < m&#8322: the population median of Group 2 is greater"),
     HTML("m&#8321 > m&#8322: the population median of Group 1 is greater")),
   choiceValues = list("two.sided", "less", "greater")),
+    p(tags$i("In this default settings, we wanted to know if Depression Rating Scale from two group of patients were different.")),
+    hr(),
+
 
   h4(tags$b("Step 3. Decide P Value method")),
   radioButtons("alt.md2", 
@@ -100,7 +102,9 @@ radioButtons("alt.wsr2", label = "Alternative hypothesis",
       HTML("Approximate to normal distribution: sample size is quite large (maybe > 40)"),
       HTML("Exact P value: sample size is small (< 10)")
       ), 
-    choiceValues = list("a", "b", "c"))
+    choiceValues = list("a", "b", "c")),
+      p(tags$i("The sample sizes in each group were 9 and 10, so we used exact p value.")),
+
   ),
 
 mainPanel(

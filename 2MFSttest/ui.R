@@ -110,6 +110,7 @@ tabPanel("Paired Samples",
 
 
     HTML("    
+           <b>In paired case, we compare the differences of 2 groups to zero. Thus, it becomes a one-sample test problem.</b>
 
     <h4><b> 1. What can you do on this page  </b></h4>
     <ul>
@@ -134,11 +135,10 @@ tabPanel("Paired Samples",
        <li>  When there are two samples that have been matched or paired
       </ul>  
 
-     <b>In paired case, we compare the differences of 2 groups to zero. Thus, it becomes a one-sample test problem.</b>
 
          <i><h4>Case Example</h4>
     Suppose we collected the wanted to know whether a certain drug had effect on people's sleeping hour. We got 10 people and collected the sleeping hour data before and after taking the drug. 
-    This was a paired case. We wanted to know whether the sleeping hours before and after the drug would be significantly different.</i>
+    This was a paired case. We wanted to know whether the sleeping hours before and after the drug would be significantly different; or, whether the difference before and after were significantly different from 0</i>
 
 
    <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>

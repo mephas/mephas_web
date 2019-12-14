@@ -27,7 +27,7 @@ sidebarPanel(
   ##-------input data-------## 
   tabPanel("Manual Input", p(br()),
 
-    p(tags$i("Example here was the Depression Rating Scale factor measurements of 9 patients from a certain group of patients. Scale > 1 indicated Depression.")),
+    p(tags$i("Data here was the Depression Rating Scale factor measurements of 9 patients from a certain group of patients. ")),
     
     p(tags$b("Please follow the example to input your data")),
 
@@ -73,7 +73,7 @@ sidebarPanel(
   hr(),
   h4(tags$b("Step 2. Specify Parameter")),
   numericInput("med", HTML("Specify the median (m&#8320) that you want to compare with your data"), 1),
-  p(tags$i("In this default settings, we wanted to know if the group of patients were suffering from depression (m > 1).")),
+  p(tags$i("In this default settings, we wanted to know if the group of patients were suffering from depression (Scale > 1).")),
   hr(),
 
   h4(tags$b("Step 3. Choose Hypothesis")),
@@ -91,6 +91,7 @@ sidebarPanel(
     ),
   choiceValues = list("two.sided", "greater", "less")),
   hr(),
+    p(tags$i("In this default settings, we wanted to know if the group of patients were suffering from depression (Scale > 1).")),
 
   h4(tags$b("Step 4. Decide P Value method")),
   radioButtons("alt.md", 
@@ -100,7 +101,9 @@ sidebarPanel(
       HTML("Approximate to normal distribution: sample size is quite large (maybe > 40)"),
       HTML("Exact P value: sample size is small (< 10)")
       ), 
-    choiceValues = list("a", "b", "c"))
+    choiceValues = list("a", "b", "c")),
+    p(tags$i("In this example, we had only 9 people. So we chose exact P value")),
+
   ),
 
 mainPanel(

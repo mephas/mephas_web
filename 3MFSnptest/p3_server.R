@@ -26,8 +26,8 @@ names3 <- reactive({
   }
 
     else {
-      x <- read.csv(inFile$datapath, header=input$header3, sep=input$sep3)
-      x <- as.data.frame(x)[,1:2]
+      x <- read.csv(inFile$datapath, header=input$header3, sep=input$sep3)[,1:2]
+      x <- as.data.frame(x)
       x$diff <- round(x[, 2] - x[, 1],4)
       if(input$header==FALSE){
       colnames(x) = names3()
@@ -61,7 +61,7 @@ output$table3 <-DT::renderDataTable({datatable(C() ,rownames = TRUE)})
   # plots
   output$bp3 = renderPlot({
     x <- C()
-    ggplot(x, aes(x = "", y = x[,3])) + geom_boxplot(width = 0.2, outlier.color = "red") + 
+    ggplot(x, aes(x = 0, y = x[,3])) + geom_boxplot(width = 0.2, outlier.color = "red") + xlim(-1,1)+
     ylab("") + ggtitle("") + theme_minimal()})
 
   output$info3 <- renderText({

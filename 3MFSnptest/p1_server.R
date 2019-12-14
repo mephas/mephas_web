@@ -21,13 +21,13 @@ names1 <- reactive({
     inFile <- input$file
   if (is.null(inFile)) {
     # input data
-    x <- as.numeric(unlist(strsplit(input$a, "[,;\n\t ]")))
+    x <- as.numeric(unlist(strsplit(input$a, "[,;\n\t]")))
     x <- as.data.frame(x)
     colnames(x) = names1()
     }
 else {
-    x <- read.csv(inFile$datapath, header = input$header, sep = input$sep)
-    x <- as.data.frame(x)[,1]
+    x <- read.csv(inFile$datapath, header = input$header, sep = input$sep)[,1]
+    x <- as.data.frame(x)
     if(input$header==FALSE){
       colnames(x) = names1()
       }
@@ -63,7 +63,7 @@ output$table <-renderDT({datatable(A() ,rownames = TRUE)})
   #plot
    output$bp = renderPlot({
     x = A()
-    ggplot(x, aes(x = "", y = x[,1])) + geom_boxplot(width = 0.2, outlier.colour = "red", outlier.size = 2) + 
+    ggplot(x, aes(x = 0, y = x[,1])) + geom_boxplot(width = 0.2, outlier.colour = "red", outlier.size = 2) + xlim(-1,1)+
     ylab("") + xlab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())}) 
   
   output$info <- renderText({

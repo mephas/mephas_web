@@ -18,15 +18,15 @@ Z <- reactive({
   # prepare dataset
   inFile <- input$file.p
   if (is.null(inFile)) {
-    X <- as.numeric(unlist(strsplit(input$x1.p, "[,;\n\t ]")))
-    Y <- as.numeric(unlist(strsplit(input$x2.p, "[,;\n\t ]")))
+    X <- as.numeric(unlist(strsplit(input$x1.p, "[,;\n\t]")))
+    Y <- as.numeric(unlist(strsplit(input$x2.p, "[,;\n\t]")))
     x <- data.frame(X = X, Y = Y)
     x$diff <- round(x[, 2] - x[, 1], 4)
     colnames(x) = names.p()
     }
   else {
-    x <- read.csv(inFile$datapath, header = input$header.p, sep = input$sep.p)
-    x <- as.data.frame(x)[,1:2]
+    x <- read.csv(inFile$datapath, header = input$header.p, sep = input$sep.p)[,1:2]
+    x <- as.data.frame(x)
     x$diff <- round(x[, 2] - x[, 1], 4)
     if(input$header==FALSE){
       colnames(x) = names.p()
@@ -63,7 +63,7 @@ output$download5 <- downloadHandler(
 
 output$bp.p = renderPlot({
   x = Z()
-  ggplot(x, aes(x = "", y = x[, 3])) + geom_boxplot(width = 0.2, outlier.colour = "red") + 
+  ggplot(x, aes(x = 0, y = x[, 3])) + geom_boxplot(width = 0.2, outlier.colour = "red") + xlim(-1,1) +
   ylab("") + xlab("") + ggtitle("") + theme_minimal()
   })
 
