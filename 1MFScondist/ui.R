@@ -96,7 +96,7 @@ headerPanel("Gamma Distribution"),
     <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
     <li> Get the probability distribution of your data which can be roughly compared to  Gamma(&#945, &#952)  
     </ul>
-      <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+
 <i><h4>Case Example</h4>
     Suppose we wanted to see the shape of Gamma(9,0.5), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
 
@@ -126,7 +126,7 @@ headerPanel("Beta Distribution"),
     <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
     <li> Get the probability distribution of your data which can be roughly compared to Beta(&#945, &#946)  
      </ul>
-    <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+
 <i><h4>Case Example</h4>
     Suppose we wanted to see the shape of Beta(2, 2), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
 
@@ -155,7 +155,7 @@ headerPanel("Student's T Distribution"),
     <li> Get the probability distribution from simulation numbers
     <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
     <li> Get the probability distribution of your data which can be roughly compared to T(v)  </ul>
-    <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+
 <i><h4>Case Example</h4>
     Suppose we wanted to see the shape of T(4) and wanted to know at which point x0 when Pr(X < x0)= 0.025 </i>
 
@@ -184,7 +184,7 @@ headerPanel("Chi-Squared Distribution"),
     <li> Get the probability distribution from simulation numbers
     <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
     <li> Get the probability distribution of your data which can be roughly compared to Chi(v)</ul>
-    <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+
 <i><h4>Case Example</h4>
     Suppose we wanted to see the shape of Chi(4), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
 
@@ -213,7 +213,7 @@ headerPanel("F Distribution"),
     <li> Get the probability distribution from simulation numbers
     <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
     <li> Get the probability distribution of your data which can be roughly compared to F(df1, df2)  </ul>
-    <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+
 <i><h4>Case Example</h4>
     Suppose we wanted to see the shape of F(100, 10), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
     

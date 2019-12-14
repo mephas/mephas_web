@@ -19,19 +19,19 @@ sidebarLayout(
 
 		tabPanel(
 			"Draw a Beta Distribution", p(br()),
-		  h4(tags$b("Step 1. Set Parameters")), 
+		  HTML("<h4><b>Step 1. Set Parameters for Beta(&#945, &#946)</h4></b>"), 
 		  numericInput("b.shape", HTML("&#945 > 0, Shape parameter"), value = 2, min = 0, max = 1000000000),
 		  numericInput("b.scale", HTML("&#946 > 0, Shape parameter"), value = 2, min = 0, max = 1000000000),
 
 		  hr(),
-
-		  h4(tags$b("Step 2. Adjust Axes Range")), 
-		  numericInput("b.xlim", "Range of x-asis, > 0", value = 1, min = 1, max = 1000000000),
-		  #snumericInput("b.ylim", "Range of y-asis, > 0", value = 2.5, min = 0.1, max = 3),
+		  h4(tags$b("Step 2. Show Probability")),   
+	 		numericInput("b.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
 		  hr(),
+	 		p(tags$b("You can adjust x-axes range")), 
+		  numericInput("b.xlim", "Range of x-asis, > 0", value = 1, min = 1, max = 1000000000)
+		  #snumericInput("b.ylim", "Range of y-asis, > 0", value = 2.5, min = 0.1, max = 3),
 
-		  h4(tags$b("Step 3. Show Probability")),   
-	 		numericInput("b.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x), x = Red-line"), value = 0.05, min = 0, max = 1, step = 0.05)
+
 
 		),
 
@@ -91,9 +91,9 @@ sidebarLayout(
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
 
-			 	sliderInput("b.bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.01),
 			 	numericInput("b.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
 				plotOutput("b.plot2", click = "plot_click14", width = "800px", height = "400px"),
+			 	sliderInput("b.bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.01),
 				verbatimTextOutput("b.info2"),
 				
 				p(tags$b("Sample descriptive statistics")),

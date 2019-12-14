@@ -19,19 +19,20 @@ sidebarLayout(
 
 		tabPanel(
 			"Draw a Gamma Distribution", p(br()),
-		  h4(tags$b("Step 1. Set Parameters")), 
+		  HTML("<h4><b>Step 1. Set Parameters for Gamma(&#945, &#952)</h4></b>"), 
 		  numericInput("g.shape", HTML("&#945 > 0, Shape parameter"), value = 9, min = 0, max = 1000000000),
 		  numericInput("g.scale", HTML("&#952 > 0, Scale parameter"), value = 0.5, min = 0, max = 1000000000),
 
 		  hr(),
-
-		  h4(tags$b("Step 2. Adjust Axes Range")), 
-		  numericInput("g.xlim", "Range of x-asis, > 0", value = 20, min = 1, max = 10000000),
+		  h4(tags$b("Step 2. Show Probability")),   
+	 		numericInput("g.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
+ 			
+ 			hr(),
+	 		p(tags$b("You can adjust x-axes range")), 
+		  numericInput("g.xlim", "Range of x-asis, > 0", value = 20, min = 1, max = 10000000)
 		  #numericInput("g.ylim", "Range of y-asis, > 0", value = 0.5, min = 0.1, max = 3),
-		  hr(),
+		 
 
-		  h4(tags$b("Step 3. Show Probability")),   
-	 		numericInput("g.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x), x = Red-line"), value = 0.05, min = 0, max = 1, step = 0.05)
 
 		),
 
@@ -92,9 +93,10 @@ sidebarLayout(
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
 
-			 	sliderInput("g.bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.1),
 			 	numericInput("g.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
 				plotOutput("g.plot2", click = "plot_click12", width = "800px", height = "400px"),
+			 	sliderInput("g.bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.1),
+
 				verbatimTextOutput("g.info2"),
 				
 				p(tags$b("Sample descriptive statistics")),
