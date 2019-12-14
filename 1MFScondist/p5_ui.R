@@ -20,7 +20,7 @@ sidebarLayout(
 		tabPanel(
 			"Draw a T Distribution", p(br()),
 		  h4(tags$b("Step 1. Set Parameters")), 
-		  numericInput("t.df", HTML("v > 0, Degree of Freedom"), value = 4, min = 0.0000000001, max = 1000000000),
+		  numericInput("t.df", HTML("v > 0, Degree of Freedom"), value = 4, min = 0, max = 1000000000),
 		  hr(),
 
 		  h4(tags$b("Step 2. Adjust Axes Range")), 

@@ -20,8 +20,8 @@ sidebarLayout(
 		tabPanel(
 			"Draw a Beta Distribution", p(br()),
 		  h4(tags$b("Step 1. Set Parameters")), 
-		  numericInput("df11", HTML("df1 > 0, Degree of Freedom 1"), value = 100, min = 0.0000000001, max = 1000000000),
-		  numericInput("df21", HTML("df2 > 0, Degree of Freedom 2"), value = 100, min = 0.0000000001, max = 1000000000),
+		  numericInput("df11", HTML("df1 > 0, Degree of Freedom 1"), value = 100, min = 0, max = 1000000000),
+		  numericInput("df21", HTML("df2 > 0, Degree of Freedom 2"), value = 100, min = 0, max = 1000000000),
 
 		  hr(),
 
@@ -31,7 +31,7 @@ sidebarLayout(
 		  hr(),
 
 		  h4(tags$b("Step 3. Show Probability")),   
-	 		numericInput("f.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x), x = Red-line"), value = 0.5, min = 0, max = 1, step = 0.05)
+	 		numericInput("f.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x), x = Red-line"), value = 0.05, min = 0, max = 1, step = 0.05)
 
 		),
 

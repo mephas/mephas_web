@@ -20,8 +20,8 @@ sidebarLayout(
 		tabPanel(
 			"Draw a Gamma Distribution", p(br()),
 		  h4(tags$b("Step 1. Set Parameters")), 
-		  numericInput("g.shape", HTML("&#945 > 0, Shape parameter"), value = 9, min = 0.0000000001, max = 1000000000),
-		  numericInput("g.scale", HTML("&#952 > 0, Scale parameter"), value = 0.5, min = 0.0000000001, max = 1000000000),
+		  numericInput("g.shape", HTML("&#945 > 0, Shape parameter"), value = 9, min = 0, max = 1000000000),
+		  numericInput("g.scale", HTML("&#952 > 0, Scale parameter"), value = 0.5, min = 0, max = 1000000000),
 
 		  hr(),
 
@@ -31,7 +31,7 @@ sidebarLayout(
 		  hr(),
 
 		  h4(tags$b("Step 3. Show Probability")),   
-	 		numericInput("g.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x), x = Red-line"), value = 0.5, min = 0, max = 1, step = 0.05)
+	 		numericInput("g.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x), x = Red-line"), value = 0.05, min = 0, max = 1, step = 0.05)
 
 		),
 

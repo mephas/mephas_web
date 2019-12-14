@@ -19,7 +19,7 @@ sidebarLayout(
 		tabPanel(
 			"Draw an Exponential Distribution", p(br()),
 		  h4(tags$b("Step 1. Set Parameters")), 
-		  numericInput("r", HTML("Rate (> 0)"), value = 1, min = 0, max = 1000000000, step=1),
+		  numericInput("r", HTML("Rate (> 0)"), value = 2, min = 0, max = 1000000000, step=1),
 		  hr(),
 
 		  h4(tags$b("Step 2. Adjust Axes Range")), 
@@ -28,7 +28,7 @@ sidebarLayout(
 		  hr(),
 
 		  h4(tags$b("Step 3. Show Probability")),   
-	 		numericInput("e.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 = Red-line"), value = 0.5, min = 0, max = 1, step = 0.05)
+	 		numericInput("e.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 = Red-line"), value = 0.05, min = 0, max = 1, step = 0.05)
 
 		),
 
