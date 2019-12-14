@@ -78,7 +78,7 @@ sidebarPanel(
   h4(tags$b("Choose Hypothesis")),
 
   h4(tags$b("Step 2. Equivalence of Variance")),
-
+  p("Before doing T test, we need to check the equivalence of variance and then decide which T test to use"),
   p(tags$b("Null hypothesis")),
   HTML("<p> v1 = v2: Group 1 and Group 2 have equal population variances </p>"),
     
@@ -131,7 +131,7 @@ sidebarPanel(
 
       tabPanel("Box-Plot",p(br()),     
         
-      plotOutput("bp2",width = "400px",height = "400px",click = "plot_click2"),
+      plotOutput("bp2",width = "500px",height = "400px",click = "plot_click2"),
            
         verbatimTextOutput("info2"), 
         hr(),
@@ -148,11 +148,11 @@ sidebarPanel(
 
       tabPanel("Mean and SD Plot", p(br()), 
 
-        plotOutput("meanp2", width = "400px", height = "400px")),
+        plotOutput("meanp2", width = "500px", height = "400px")),
 
     tabPanel("Distribution Plots", p(br()),
 
-        plotOutput("makeplot2", width = "600px", height = "600px"),
+        plotOutput("makeplot2", width = "800px", height = "800px"),
         sliderInput("bin2","The width of bins in histogram",min = 0.01,max = 5,value = 0.2),
          HTML(
           "<b> Explanations </b>

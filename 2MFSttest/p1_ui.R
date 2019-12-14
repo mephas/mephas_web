@@ -26,7 +26,7 @@ sidebarPanel(
 
     tabPanel("Manual Input", p(br()),
 
-     p(tags$i("Example here was the AGE of 144 independent lymph node positive patients")),
+     p(tags$i("Here was the AGE of 144 independent lymph node positive patients")),
     
     p(tags$b("Please follow the example to input your data")),
     
@@ -75,7 +75,7 @@ hr(),
 
   numericInput('mu', HTML("Mean (&#956&#8320) that you want to compare with your data"), 50), #p
 
-  p(tags$i("In this default settings, we wanted to know if the age of lymph node positive population was 50 years old.")),
+  p(tags$i("The specified parameter is the general age 50")),
 
 hr(),
 
@@ -92,7 +92,9 @@ hr(),
       HTML("&#956 < &#956&#8320: the population mean of your data is less than &#956&#8320"),
       HTML("&#956 > &#956&#8320: the population mean of your data is greater than &#956&#8320")
       ),
-    choiceValues = list("two.sided", "less", "greater"))
+    choiceValues = list("two.sided", "less", "greater")),
+    p(tags$i("We wanted to know whether the age was 50 or not, so we chose the first alternative hypothesis"))
+
 
     ),
 
@@ -166,7 +168,7 @@ mainPanel(
     </ul>"
   ),
 
-  p(tags$i("From the default settings, we concluded that the age of lymph node positive population was not significantly different from 50 years old")),
+  p(tags$i("Because P <0.05 , we concluded that the age of lymph node positive population was significantly different from 50 years old. Thus the general age was not 50. If we reset the specified mean to 44, we could get P > 0.05")),
 
   p(br()),
   downloadButton("download1", "Download Results")

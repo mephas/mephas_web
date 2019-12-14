@@ -66,13 +66,13 @@ output$bp2 = renderPlot({
 
 output$meanp2 = renderPlot({
   x = Y()
-  des = data.frame(t(stat.desc(x)))
+  des = data.frame(psych::describe(x))
   #p1 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
   #  geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev), data = des) + 
   #  xlab("") + ylab(expression(Mean %+-% SD)) + geom_point(shape = 21, size =3) + theme_minimal() + theme(legend.title = element_blank())
   p2 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
     xlab("") + ylab(expression(Mean %+-% SD)) + geom_bar(position = position_dodge(), stat = "identity", width = 0.2, alpha = .3) + 
-    geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev), data = des) + 
+    geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - des$sd, ymax = mean + des$sd), data = des) + 
     theme_minimal() + theme(legend.title = element_blank())
 
   grid.arrange(p2)

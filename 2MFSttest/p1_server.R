@@ -57,8 +57,8 @@ output$download0 <- downloadHandler(
 
 # box plot
 output$bp = renderPlot({
-  x = as.data.frame(X())
-  ggplot(x, aes(x = "", y = x[,1])) + geom_boxplot(width = 0.2, outlier.colour = "red") + ylab("") + xlab("") + ggtitle("") + theme_minimal()
+  x = X()
+  ggplot(x, aes(x = 0, y = x[,1])) + geom_boxplot(width = 0.2, outlier.colour = "red") + xlim(-1,1) + ylab("") + xlab(names(x)) + ggtitle("") + theme_minimal()
   })
 
 output$info1 <- renderText({
@@ -71,11 +71,12 @@ output$info1 <- renderText({
 })
 
 output$meanp = renderPlot({
-  x = as.data.frame(X())
-  des = data.frame(t(stat.desc(x)))
+  x = X()
+  des = data.frame((psych::describe(x)))
+  rownames(des) = names(x)
   p2 = ggplot(des, aes(x = rownames(des), y = mean)) + 
   geom_bar(position = position_dodge(),stat = "identity",width = 0.2, alpha = .3) +
-  geom_errorbar(width = .1,position = position_dodge(.9),aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) + 
+  geom_errorbar(width = .1,position = position_dodge(.9),aes(ymin = mean - des$sd, ymax = mean + des$sd),data = des) + 
   xlab("") + ylab(expression(Mean %+-% SD)) + 
   theme_minimal() + theme(legend.title = element_blank())
  
@@ -83,7 +84,7 @@ output$meanp = renderPlot({
   })
 
 output$makeplot <- renderPlot({
-  x = as.data.frame(X())
+  x = X()
   plot1 <- ggplot(x, aes(sample = x[,1])) + stat_qq() + ggtitle("Normal Q-Q Plot") + xlab("") + theme_minimal()  ## add line,
   plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
   plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())

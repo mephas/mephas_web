@@ -69,7 +69,7 @@ output$bp.p = renderPlot({
 
 output$meanp.p = renderPlot({
   x = Z()[,3]
-  des = data.frame(t(stat.desc(x)))
+  des = data.frame(psych::describe(x))
   #p1 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
   #  geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) +
   #  xlab("") + ylab(expression(Mean %+-% SD)) + geom_point(shape = 21, size = 3) + theme_minimal() + theme(legend.title = element_blank())

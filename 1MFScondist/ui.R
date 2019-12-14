@@ -34,8 +34,10 @@ headerPanel("Normal Distribution"),
     <li> Get the probability distribution of your data which can be roughly compared to N(&#956, &#963)
    </ul>
  <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+
 <i><h4>Case Example</h4>
     Suppose we wanted to see the shape of N(0, 1), and wanted to know 1. at which point x0 when Pr(X < x0)= 0.025, and 2. what is the probability between means+/-1SD area  </i>
+
  <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
@@ -63,10 +65,11 @@ headerPanel("Exponential Distribution"),
     <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
     <li> Get the probability distribution of your data which can be roughly compared to E(Rate)
    </ul>
-    <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
-<i><h4>Case Example</h4>
+
+   <i><h4>Case Example</h4>
     Suppose we wanted to see the shape of E(2), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
  <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+
     "
 
     ),
@@ -96,6 +99,7 @@ headerPanel("Gamma Distribution"),
       <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 <i><h4>Case Example</h4>
     Suppose we wanted to see the shape of Gamma(9,0.5), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
+
  <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
@@ -125,6 +129,7 @@ headerPanel("Beta Distribution"),
     <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 <i><h4>Case Example</h4>
     Suppose we wanted to see the shape of Beta(2, 2), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
+
  <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
@@ -153,6 +158,7 @@ headerPanel("Student's T Distribution"),
     <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 <i><h4>Case Example</h4>
     Suppose we wanted to see the shape of T(4) and wanted to know at which point x0 when Pr(X < x0)= 0.025 </i>
+
  <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
@@ -181,6 +187,7 @@ headerPanel("Chi-Squared Distribution"),
     <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 <i><h4>Case Example</h4>
     Suppose we wanted to see the shape of Chi(4), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
+
  <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
@@ -209,6 +216,7 @@ headerPanel("F Distribution"),
     <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 <i><h4>Case Example</h4>
     Suppose we wanted to see the shape of F(100, 10), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
+    
  <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
     "
     ),
