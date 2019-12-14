@@ -86,7 +86,7 @@ sidebarLayout(
 				plotOutput("f.plot", click = "plot_click7", width = "800px", height = "400px"),
 			 	verbatimTextOutput("f.info"),
 
-			 	p(tags$b("The position of Red-line and the Blue Ares")),
+			 	p(tags$b("The position of Red-line, x0")),
 				tableOutput("f")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
