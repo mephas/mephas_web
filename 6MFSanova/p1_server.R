@@ -14,10 +14,20 @@ names1 <- reactive({
   return(x[1:2])
   }) 
 
+level1 <- reactive({
+  F1 <-as.factor(unlist(strsplit(input$f11, "[,;\n\t]")))
+  x <- matrix(levels(F1), nrow=1)
+  colnames(x) <- c(1:length(x))
+  rownames(x) <- names1()[2]
+  return(x)
+  })
+output$level.t1 <- renderTable({level1()},
+   width = "700px", rownames=TRUE,colnames=TRUE)
+
 Y1 <- reactive({
   inFile <- input$file1
   if (is.null(inFile)) {
-    X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t ]")))
+    X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t]")))
     F1 <-as.factor(unlist(strsplit(input$f11, "[,;\n\t]")))
     x <- data.frame(X = X, F1 = F1)
     colnames(x) = names1()
@@ -25,7 +35,7 @@ Y1 <- reactive({
   else {
     x <- read.csv(inFile$datapath, header = input$header1, sep = input$sep1)
     x <- as.data.frame(x)[,1:2]
-    if(input$header==FALSE){
+    if(input$header1==FALSE){
       colnames(x) = names1()
       }
     }
@@ -80,13 +90,13 @@ anova10 <- reactive({
     res <- aov(x[,1]~x[,2])
     res.table <- anova(res)
     rownames(res.table)[1] <-colnames(x)[2]
-    colnames(res.table) <- c("Degree of Freedom", "Sum of Squares", "Mean of Squares", "F value", "P value")
+    colnames(res.table) <- c("Degree of Freedom (DF)", "Sum of Squares (SS)", "Mean Squares (MS)", "F Statistic", "P Value")
   return(res.table)
   })
 
 output$anova1 <- renderTable({
   anova10()}, 
-  width = "700px", rownames = TRUE)
+  width = "700px", rownames = TRUE, digits=6)
 
 output$download1 <- downloadHandler(
     filename = function() {

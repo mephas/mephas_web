@@ -30,7 +30,8 @@ source("p2_server.R", local=TRUE)$value
 
 ##---------- 3. multiple comparison ----------
 
-#source("p3_server.R", local=TRUE)$value
+source("p3_server.R", local=TRUE)$value
+source("p4_server.R", local=TRUE)$value
 
 ##########----------##########----------##########
 

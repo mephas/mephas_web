@@ -100,7 +100,7 @@ radioButtons("alt.md3",
       HTML("Exact P value: sample size is small (< 10)")
       ), 
     choiceValues = list("a", "b", "c")),
-    p(tags$i("In this example, we had only 9 people. So we chose exact P value")),
+    p(tags$i("In this example, we had only 9 people. So we chose exact P value"))
 
   ),
 

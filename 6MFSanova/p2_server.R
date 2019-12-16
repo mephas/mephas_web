@@ -38,7 +38,7 @@ output$table <- DT::renderDataTable({datatable(Y() ,rownames = TRUE)})
 bas <- reactive({
   x <- Y()
   x$grp <- paste0(x[,2],"-*-",x[,3])
-  res <- t(describeBy(x[,1], x$grp, mat=TRUE))[-c(1,2,3,8,9),]
+  res <- t(psych::describeBy(x[,1], x$grp, mat=TRUE))[-c(1,2,3,8,9),]
   colnames(res) <- levels(as.factor(x$grp))
   rownames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
   return(res)

@@ -15,7 +15,7 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")), 
 
-  p(tags$b("1. Give names to your Values and Group")),
+  p(tags$b("1. Give names to your Values and 2 Factors / Group variables ")),
 
   tags$textarea(id = "cn", rows = 3, "Time\nGrade\nER"),p(br()),
 
@@ -50,7 +50,7 @@ tabPanel("Upload Data", p(br()),
 
     p(tags$b("This only reads the first 3-column of your data")),
     p(tags$b("1st column is numeric values")),
-    p(tags$b("2nd and 3rd columns are factors" )),
+    p(tags$b("2nd and 3rd columns are factors / group variables" )),
     fileInput('file', "Choose CSV/TXT file",
               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
     #helpText("The columns of X are not suggested greater than 500"),
@@ -124,6 +124,10 @@ mainPanel(
   HTML(
   "<b> Explanations </b>
   <ul> 
+    <li> Degree of freedom of treatment/group = number of treatment/group -1
+    <li> Degree of freedom of residuals/error = number of sample - number of treatment/group
+    <li> MS = SS/Degree-of-Freedom
+    <li> F = [(SS of group / treatment) / Degree-of-Freedom of group / treatment] / [(SS of residuals / error)/ Degree-of-Freedom of error]
     <li> P Value < 0.05, then the population means are significantly different among groups. (Accept alternative hypothesis)
     <li> P Value >= 0.05, then there is NO significant differences in the groups. (Accept null hypothesis) 
   </ul>"

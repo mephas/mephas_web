@@ -103,7 +103,7 @@ radioButtons("alt.wsr2", label = "Alternative hypothesis",
       HTML("Exact P value: sample size is small (< 10)")
       ), 
     choiceValues = list("a", "b", "c")),
-      p(tags$i("The sample sizes in each group were 9 and 10, so we used exact p value.")),
+      p(tags$i("The sample sizes in each group were 9 and 10, so we used exact p value."))
 
   ),
 
