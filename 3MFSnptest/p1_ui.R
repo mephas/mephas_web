@@ -97,8 +97,8 @@ sidebarPanel(
   radioButtons("alt.md", 
     label = "What is the data like", selected = "c",
     choiceNames = list(
-      HTML("Asymptotic normal P value: sample size is not large (>= 10)"),
-      HTML("Approximate to normal distribution: sample size is quite large (maybe > 40)"),
+      HTML("Approximate normal distributed P value: sample size is not large (>= 10)"),
+      HTML("Asymptotic normal distributed P value: sample size is quite large (maybe > 40)"),
       HTML("Exact P value: sample size is small (< 10)")
       ), 
     choiceValues = list("a", "b", "c")),
