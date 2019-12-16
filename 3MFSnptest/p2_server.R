@@ -38,7 +38,7 @@ output$table2 <-DT::renderDataTable({datatable(B() ,rownames = TRUE)})
   B.des <- reactive({
     x <- B()
     res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
-    colnames(res) = names2()
+    colnames(res) = names(x)
     rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
     return(res)
   })
