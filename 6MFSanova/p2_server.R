@@ -14,6 +14,27 @@ names2 <- reactive({
   return(x[1:3])
   }) 
 
+level21 <- reactive({
+  F1 <-as.factor(unlist(strsplit(input$f1, "[,;\n\t]")))
+  x <- matrix(levels(F1), nrow=1)
+  colnames(x) <- c(1:length(x))
+  rownames(x) <- names2()[2]
+  return(x)
+  })
+output$level.t21 <- renderTable({level21()},
+   width = "700px", rownames=TRUE,colnames=TRUE)
+
+level22 <- reactive({
+  F1 <-as.factor(unlist(strsplit(input$f2, "[,;\n\t]")))
+  x <- matrix(levels(F1), nrow=1)
+  colnames(x) <- c(1:length(x))
+  rownames(x) <- names2()[3]
+  return(x)
+  })
+output$level.t22 <- renderTable({level22()},
+   width = "700px", rownames=TRUE,colnames=TRUE)
+
+
 Y <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
@@ -37,7 +58,7 @@ output$table <- DT::renderDataTable({datatable(Y() ,rownames = TRUE)})
 
 bas <- reactive({
   x <- Y()
-  x$grp <- paste0(x[,2],"-*-",x[,3])
+  x$grp <- paste0(x[,2]," : ",x[,3])
   res <- t(psych::describeBy(x[,1], x$grp, mat=TRUE))[-c(1,2,3,8,9),]
   colnames(res) <- levels(as.factor(x$grp))
   rownames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
@@ -108,15 +129,15 @@ anova0 <- reactive({
   if (input$inter == "TRUE"){
     res <- aov(x[,1]~x[,2]*x[,3])
     res.table <- anova(res)
-    rownames(res.table)[1:3] <- c(names(x)[2],names(x)[3], paste0(names(x)[2]," * ",names(x)[3]))
-    colnames(res.table) <- c("Degree of Freedom", "Sum of Squares", "Mean of Squares", "F value", "P value")
+    rownames(res.table)[1:3] <- c(names(x)[2],names(x)[3], paste0(names(x)[2]," : ",names(x)[3]))
+    colnames(res.table) <- c("Degree of Freedom (DF)", "Sum of Squares (SS)", "Mean Squares (MS)", "F Statistic", "P Value")
   }
 
   else {
     res <- aov(x[,1]~x[,2]+x[,3])
     res.table <- anova(res)
     rownames(res.table)[1:2] <- names(x)[2:3]
-    colnames(res.table) <- c("Degree of Freedom", "Sum of Squares", "Mean of Squares", "F value", "P value")
+    colnames(res.table) <- c("Degree of Freedom (DF)", "Sum of Squares (SS)", "Mean Squares (MS)", "F Statistic", "P Value")
 
   }
   

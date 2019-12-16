@@ -15,7 +15,7 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")), 
 
-  p(tags$b("1. Give names to your Values and Factor / Group variables ")),
+  p(tags$b("1. Give names to your Values and Factor Group ")),
 
   tags$textarea(id = "cn1", rows = 2, "FEF\nSmoke"),p(br()),
 
@@ -25,7 +25,7 @@ tabsetPanel(
       ##-------input data-------##
     tabPanel("Manual Input", p(br()),
 
-    p(tags$i("Example here was the full metastasis-free follow-up time (months) of 100 lymph node positive patients with Grade of the tumor (three ordered levels).")),
+    p(tags$i("Example here was the FEF data from smokers and smoking groups. Detailed information can be found in the Output 1.")),
 
     p(tags$b("Please follow the example to input your data")),
 
@@ -76,7 +76,7 @@ hr(),
   p("The means from each group are equal"),
   p(tags$b("Alternative hypothesis")),
   p("At least two factor groups have significant different means"),
-  p(tags$i("In this example, we wanted to know if the metastasis-free follow-up time was different with grade of the tumor (three ordered levels)"))
+  p(tags$i("In this example, we wanted to know if the FEF values were different among the 6 smoking groups"))
 
 ),
 
@@ -119,12 +119,12 @@ mainPanel(
     <li> DF<sub>Factor</sub> = [number of factor group categories] -1
     <li> DF<sub>Residuals</sub> = [number of sample values] - [number of factor group categories]
     <li> MS = SS/DF
-    <li> F = {SS<sub>Factor</sub> / DF<sub>Factor</sub>} / {SS<sub>Residuals</sub>/DF<sub>Residuals</sub>} 
+    <li> F = MS<sub>Factor</sub> / MS<sub>Residuals</sub> 
     <li> P Value < 0.05, then the population means are significantly different among factor groups. (Accept alternative hypothesis)
     <li> P Value >= 0.05, then there is NO significant differences in the factor groups. (Accept null hypothesis) 
   </ul>"
     ),
-    p(tags$i("In this default settings, the metastasis-free follow-up time had no significant difference with grade of the tumor (three ordered levels)")),
+    p(tags$i("In this example, smoking groups showed significant, so we could conclude that FEF were significantly different among the 6 groups. ")),
         downloadButton("download1", "Download Results"),
 
     hr(),

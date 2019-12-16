@@ -18,11 +18,13 @@ level <- reactive({
   F1 <-as.factor(unlist(strsplit(input$fm, "[,;\n\t]")))
   x <- matrix(levels(F1), nrow=1)
   colnames(x) <- c(1:length(x))
+  rownames(x) <- namesm()[2]
+
   return(x)
   })
 
 output$level.t <- renderTable({level()},
-   width = "700px", colnames=TRUE)
+   width = "700px", colnames=TRUE, rownames=TRUE)
 
 Ym <- reactive({
   inFile <- input$filem
@@ -30,7 +32,7 @@ Ym <- reactive({
     X <- as.numeric(unlist(strsplit(input$xm, "[,;\n\t]")))
     F1 <-as.factor(unlist(strsplit(input$fm, "[,;\n\t]")))
     x <- data.frame(X = X, F1 = F1)
-    colnames(x) = names1()
+    colnames(x) = namesm()
     }
   else {
     x <- read.csv(inFile$datapath, header = input$headerm, sep = input$sepm)
@@ -81,11 +83,11 @@ output$mmeanm = renderPlot({
 multiple <- reactive({
   x <- Ym()
   if (input$method == "B"){
-    res <- pairwise.t.test(x[,namesm()[1]], x[,namesm()[2]], 
+    res <- pairwise.t.test(x[,names(x)[1]], x[,names(x)[2]], 
     p.adjust.method = "bonf")$p.value
   }
   if (input$method == "BH"){
-    res <- pairwise.t.test(x[,namesm()[1]], x[,namesm()[2]], 
+    res <- pairwise.t.test(x[,names(x)[1]], x[,names(x)[2]], 
     p.adjust.method = "holm")$p.value
   }
   #if (input$method == "BHG"){
@@ -97,11 +99,11 @@ multiple <- reactive({
   #  p.adjust.method = "hommel")$p.value
   #}
     if (input$method == "FDR"){
-    res <- pairwise.t.test(x[,namesm()[1]], x[,namesm()[2]], 
+    res <- pairwise.t.test(x[,names(x)[1]], x[,names(x)[2]], 
     p.adjust.method = "BH")$p.value
   }
     if (input$method == "BY"){
-    res <- pairwise.t.test(x[,namesm()[1]], x[,namesm()[2]], 
+    res <- pairwise.t.test(x[,names(x)[1]], x[,names(x)[2]], 
     p.adjust.method = "BY")$p.value
   }
     if (input$method == "SF"){
