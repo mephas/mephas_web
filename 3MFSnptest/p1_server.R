@@ -26,10 +26,11 @@ names1 <- reactive({
     colnames(x) = names1()
     }
 else {
-    x <- read.csv(inFile$datapath, header = input$header, sep = input$sep)[,1]
-    x <- as.data.frame(x)
-    if(input$header==FALSE){
-      colnames(x) = names1()
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep)
+    x <- data.frame(x=csv[,1])
+    colnames(x) <- names(csv)[1]
+    if(input$header!=TRUE){
+      colnames(x) <- names1()
       }
     }
     return(as.data.frame(x))

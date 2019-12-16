@@ -10,8 +10,8 @@
 ##
 ##----------#----------#----------#----------
 names.p <- reactive({
-  x <- unlist(strsplit(input$cn.p, "[\n]"))
-  return(x[1:3])
+  x <- unlist(strsplit(input$cn.p, "[\n]"))[1:3]
+  return(x)
   })
 
 Z <- reactive({
@@ -28,7 +28,7 @@ Z <- reactive({
     x <- read.csv(inFile$datapath, header = input$header.p, sep = input$sep.p)[,1:2]
     x <- as.data.frame(x)
     x$diff <- round(x[, 2] - x[, 1], 4)
-    if(input$header==FALSE){
+    if(input$header.p==FALSE){
       colnames(x) = names.p()
       }
     }
@@ -70,14 +70,15 @@ output$bp.p = renderPlot({
 output$meanp.p = renderPlot({
   x = Z()[,3]
   des = data.frame(psych::describe(x))
+  rownames(des) = names(x)
   #p1 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
   #  geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) +
   #  xlab("") + ylab(expression(Mean %+-% SD)) + geom_point(shape = 21, size = 3) + theme_minimal() + theme(legend.title = element_blank())
 
   p2 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
-  xlab("") + ylab(expression(Mean %+-% SD)) + geom_bar(position = position_dodge(),stat = "identity",width = 0.2,alpha = .3) +
-  geom_errorbar(width = .1,position = position_dodge(.9),aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) + 
-  theme_minimal() + theme(legend.title = element_blank())
+    xlab("") + ylab(expression(Mean %+-% SD)) + geom_bar(position = position_dodge(), stat = "identity", width = 0.2, alpha = .3) + 
+    geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - des$sd, ymax = mean + des$sd), data = des) + 
+    theme_minimal() + theme(legend.title = element_blank())
   
   grid.arrange(p2)
   })

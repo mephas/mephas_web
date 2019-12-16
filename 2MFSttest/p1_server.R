@@ -10,8 +10,8 @@
 ##
 ##----------#----------#----------#----------
 names1 <- reactive({
-  x <- unlist(strsplit(input$cn, "[\n]"))
-  return(x[1])
+  x <- unlist(strsplit(input$cn, "[\n]"))[1]
+  return(x)
   })
 
 
@@ -20,13 +20,14 @@ X <- reactive({
   if (is.null(inFile)) {
     x <- as.numeric(unlist(strsplit(input$x, "[,;\n\t]")))
     x <- as.data.frame(x)
-    colnames(x) = names1()
+    colnames(x) <- names1()
     }
   else {
-    x <- read.csv(inFile$datapath, header = input$header, sep = input$sep)[,1]
-    x <- as.data.frame(x)
-    if(input$header==FALSE){
-      colnames(x) = names1()
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep)
+    x <- data.frame(x=csv[,1])
+    colnames(x) <- names(csv)[1]
+    if(input$header!=TRUE){
+      colnames(x) <- names1()
       }
     }
     return(as.data.frame(x))

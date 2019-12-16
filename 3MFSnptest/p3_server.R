@@ -18,8 +18,8 @@ names3 <- reactive({
   C <- reactive({
     inFile <- input$file3
     if (is.null(inFile)) {
-    X <- as.numeric(unlist(strsplit(input$y1, "[,;\n\t ]")))
-    Y <- as.numeric(unlist(strsplit(input$y2, "[,;\n\t ]")))
+    X <- as.numeric(unlist(strsplit(input$y1, "[,;\n\t]")))
+    Y <- as.numeric(unlist(strsplit(input$y2, "[,;\n\t]")))
     d <- round(X-Y,4)
     x <- data.frame(X =X, Y = Y, diff = d)
     colnames(x) = names3()
@@ -29,7 +29,7 @@ names3 <- reactive({
       x <- read.csv(inFile$datapath, header=input$header3, sep=input$sep3)[,1:2]
       x <- as.data.frame(x)
       x$diff <- round(x[, 2] - x[, 1],4)
-      if(input$header==FALSE){
+      if(input$header3!=TRUE){
       colnames(x) = names3()
       }
       } 

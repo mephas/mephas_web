@@ -11,22 +11,22 @@
 
 ##---------- 2. two samples ----------
 names2 <- reactive({
-  x <- unlist(strsplit(input$cn2, "[\n]"))
-  return(x[1:2])
+  x <- unlist(strsplit(input$cn2, "[\n]"))[1:2]
+  return(x)
   })
 
 B <- reactive({
   inFile <- input$file2
   if (is.null(inFile)) {
-    X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t ]")))
-    Y <- as.numeric(unlist(strsplit(input$x2, "[,;\n\t ]")))
+    X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t]")))
+    Y <- as.numeric(unlist(strsplit(input$x2, "[,;\n\t]")))
     x <- data.frame(X = X, Y = Y)
     colnames(x) = names2()
     }
   else {
     x <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2)[,1:2]
     x <- as.data.frame(x)
-    if(input$header==FALSE){
+    if(input$header2!=TRUE){
       colnames(x) = names2()
       }
     }

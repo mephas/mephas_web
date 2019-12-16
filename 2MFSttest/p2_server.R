@@ -10,8 +10,8 @@
 ##
 ##----------#----------#----------#----------
 names2 <- reactive({
-  x <- unlist(strsplit(input$cn2, "[\n]"))
-  return(x[1:2])
+  x <- unlist(strsplit(input$cn2, "[\n]"))[1:2]
+  return(x)
   })
 
 Y <- reactive({
@@ -25,7 +25,7 @@ Y <- reactive({
   else {
     x <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2)[,1:2]
     x <- as.data.frame(x)
-    if(input$header==FALSE){
+    if(input$header2==FALSE){
       colnames(x) = names2()
       }
     }
@@ -67,6 +67,7 @@ output$bp2 = renderPlot({
 output$meanp2 = renderPlot({
   x = Y()
   des = data.frame(psych::describe(x))
+  rownames(des) = names(x)
   #p1 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
   #  geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev), data = des) + 
   #  xlab("") + ylab(expression(Mean %+-% SD)) + geom_point(shape = 21, size =3) + theme_minimal() + theme(legend.title = element_blank())
