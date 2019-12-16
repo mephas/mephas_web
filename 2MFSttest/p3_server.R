@@ -41,7 +41,7 @@ output$table.p <-DT::renderDataTable({datatable(Z() ,rownames = TRUE)})
 basic_desc3 <- reactive({
   x <- Z()
   res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
-  colnames(res) = names.p()
+  colnames(res) = names(x)
   rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
   return(res)
   })

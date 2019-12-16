@@ -15,4 +15,4 @@ tabPanel(
     class = "btn action-button",
     style = "margin-top:-8px; color:Tomato; background-color: #F8F8F8  ",
     onclick = "setTimeout(function(){window.close();},500);",  # close browser
-    "Stop App"))
+    "Stop and Quit"))
