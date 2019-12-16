@@ -93,7 +93,7 @@ hr(),
     HTML("Dunnett")
     ),
   choiceValues = list("B", "BH", "FDR", "BY", "SF", "TH", "DT")
-  ),
+  )
 
 
 ),

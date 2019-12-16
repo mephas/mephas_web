@@ -97,7 +97,7 @@ hr(),
     #HTML("Dunnett")
     ),
   choiceValues = list("SF", "TH")
-  ),
+  )
 
 
 ),
