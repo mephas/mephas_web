@@ -35,6 +35,15 @@ X = reactive({ # prepare dataset
   df = data.frame(x = rchisq(input$x.size, input$x.df))
   return(df)})
 
+output$download6 <- downloadHandler(
+    filename = function() {
+      "rand.csv"
+    },
+    content = function(file) {
+      write.csv(X(), file)
+    }
+  )
+
 output$x.plot2 = renderPlot(
 {df = X()
 ggplot(df, aes(x = x)) + theme_bw() + ylab("Frequency")+ geom_histogram(binwidth = input$x.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 

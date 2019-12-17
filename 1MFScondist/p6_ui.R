@@ -92,11 +92,12 @@ sidebarLayout(
 
 			 	numericInput("x.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
 				plotOutput("x.plot2", click = "plot_click6", width = "800px", height = "400px"),
-			 	sliderInput("x.bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2),
+			 	sliderInput("x.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),
 				verbatimTextOutput("x.info2"),
 				
 				p(tags$b("Sample descriptive statistics")),
 				tableOutput("x.sum"),
+				downloadButton("download6", "Download Random Numbers"),
 				HTML(
     " 
     <b> Explanation </b>
@@ -111,7 +112,7 @@ sidebarLayout(
 			 tabPanel("Data Distribution Plot", p(br()),
 
 			plotOutput("makeplot.x", width = "800px", height = "400px"),
-      sliderInput("bin.x","The width of bins in histogram", min = 0.01,max = 5,value = 0.1),
+      sliderInput("bin.x","The width of bins in histogram", min = 0,max = 2,value = 0.1, step=0.01),
       				tableOutput("x.sum2")
 
 			 	)

@@ -35,6 +35,15 @@ F = reactive({ # prepare dataset
   df = data.frame(x = rf(input$f.size, input$df11, input$df21))
   return(df)})
 
+output$download7 <- downloadHandler(
+    filename = function() {
+      "rand.csv"
+    },
+    content = function(file) {
+      write.csv(F(), file)
+    }
+  )
+
 output$table4 = renderDataTable({head(F(), n = 100L)},  options = list(pageLength = 10))
 
 output$f.plot2 = renderPlot(

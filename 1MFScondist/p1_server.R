@@ -45,6 +45,8 @@ N = reactive({
   df = data.frame(x = rnorm(input$size, input$mu, input$sigma))
   return(df)})
 
+
+
 output$norm.plot2 = renderPlot(
 {df = N()
 ggplot(df, aes(x = x)) + theme_bw() + ylab("Frequency")+ geom_histogram(binwidth = input$bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
@@ -65,6 +67,14 @@ output$info2 = renderText({
     }
     paste0("Position: ", "\n", xy_str(input$plot_click2))})
 
+output$download1 <- downloadHandler(
+    filename = function() {
+      "rand.csv"
+    },
+    content = function(file) {
+      write.csv(N(), file)
+    }
+  )
 
 NN <- reactive({
   inFile <- input$file

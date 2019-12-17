@@ -36,6 +36,15 @@ E = reactive({ # prepare dataset
   df = data.frame(x = rexp(input$e.size, rate = input$r))
   return(df)})
 
+output$download2 <- downloadHandler(
+    filename = function() {
+      "rand.csv"
+    },
+    content = function(file) {
+      write.csv(E(), file)
+    }
+  )
+
 output$table5 = renderDataTable({head(E(), n = 100L)},  options = list(pageLength = 10))
 
 output$e.plot2 = renderPlot(
@@ -75,6 +84,7 @@ Y <- reactive({
     colnames(X) = c("X")
     return(as.data.frame(X))
   })
+
 
 output$makeplot.e <- renderPlot({
   x = Y()

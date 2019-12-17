@@ -35,6 +35,15 @@ B = reactive({ # prepare dataset
   df = data.frame(x = rbeta(input$b.size, shape1 = input$b.shape, shape2=input$b.scale))
   return(df)})
 
+output$download4 <- downloadHandler(
+    filename = function() {
+      "rand.csv"
+    },
+    content = function(file) {
+      write.csv(B(), file)
+    }
+  )
+
 output$b.plot2 = renderPlot(
 {df = B()
 ggplot(df, aes(x = x)) + theme_bw() + ylab("Frequency")+ geom_histogram(binwidth = input$b.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
