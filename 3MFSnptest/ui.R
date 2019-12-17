@@ -170,9 +170,9 @@ hr()
 ##########----------##########----------##########
 ##---------- other panels ----------
 
-source("../0tabs/home.R",local=TRUE,encoding = "UTF-8")$value,
 source("../0tabs/stop.R",local=TRUE,encoding = "UTF-8")$value,
-source("../0tabs/help3.R",local=TRUE, encoding="UTF-8")$value
+source("../0tabs/help3.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/home.R",local=TRUE,encoding = "UTF-8")$value
 
   
 ))
