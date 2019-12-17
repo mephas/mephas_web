@@ -27,11 +27,13 @@ HTML(
 " 
 <h4><b> What you can do on this page</b></h4>
 <ul>
-<li> Draw a Normal Distribution with N(&#956, &#963); &#956 is the location, and &#963 indicates the shape
+<li> Draw a Normal Distribution with N(&#956, &#963); &#956 is the location, and &#963 indicates the shape 
 <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line and Pr(x1 less than X greater than x2) in the blue area
-<li> Get the probability distribution from simulation numbers
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
 <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
 <li> Get the probability distribution of your data which can be roughly compared to N(&#956, &#963)
+
 </ul>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 
@@ -61,7 +63,8 @@ HTML(
 <ul>
 <li> Draw an Exponential Distribution with E(Rate); Rate indicates the rate of change
 <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
-<li> Get the probability distribution from simulation numbers
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
 <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
 <li> Get the probability distribution of your data which can be roughly compared to E(Rate)
 </ul>
@@ -92,7 +95,8 @@ HTML(
 <ul>
 <li> Draw a Gamma Distribution with Gamma(&#945, &#952); &#945 controls the shape, 1/&#952 controls the change of rate
 <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
-<li> Get the probability distribution from simulation numbers
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
 <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
 <li> Get the probability distribution of your data which can be roughly compared to  Gamma(&#945, &#952)  
 </ul>
@@ -122,7 +126,8 @@ HTML(
 <ul>
 <li> Draw a Beta Distribution with Beta(&#945, &#946); &#945, &#946 controls the shape
 <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
-<li> Get the probability distribution from simulation numbers
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
 <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
 <li> Get the probability distribution of your data which can be roughly compared to Beta(&#945, &#946)  
 </ul>
@@ -152,7 +157,8 @@ HTML(
 <ul>
 <li> Draw a T Distribution with T(v); v is the degree of freedom related to your sample size and control the shape 
 <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
-<li> Get the probability distribution from simulation numbers
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
 <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
 <li> Get the probability distribution of your data which can be roughly compared to T(v)  </ul>
 
@@ -181,7 +187,8 @@ HTML(
 <ul>
 <li> Draw a Chi-Squared Distribution with Chi(v); v is the degree of freedom related to your sample size and control the shape 
 <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
-<li> Get the probability distribution from simulation numbers
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
 <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
 <li> Get the probability distribution of your data which can be roughly compared to Chi(v)</ul>
 
@@ -210,7 +217,8 @@ HTML(
 <ul>
 <li> Draw a F Distribution with F(df1, df2) ; df1 and df2 are the degree of freedom related to your sample size and control the shape 
 <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
-<li> Get the probability distribution from simulation numbers
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
 <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
 <li> Get the probability distribution of your data which can be roughly compared to F(df1, df2)  </ul>
 
