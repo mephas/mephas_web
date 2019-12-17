@@ -26,7 +26,7 @@ titlePanel("Chi-square Test for 2 Factor Categories in Case-Control Status"),
 
 HTML("
 
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if there is association between the case-control status (rows) and factor (columns)
 <li> To determine if the proportions are the same in the 2 independent samples 
@@ -63,7 +63,7 @@ tabPanel("2 x 2 (Exact)",
 titlePanel("Fisher Exact Test for 2 Factor Categories with Small Expected Counts in Case-Control Status "),
 
 HTML("
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if there is association between the case-control status (rows) and factor status (columns)
 <li> To determine if the proportions are the same in the 2 dependent samples 
@@ -101,7 +101,7 @@ tabPanel("2 x 2 (Paired)",
 titlePanel("McNemar Test for 2 Categories of Matched Samples in Case-Control Status"),
 
 HTML("
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if the two factors on the matched samples were significantly different.
 <li> To get the percentage table and plot and expected value of each cell
@@ -150,7 +150,7 @@ tabPanel("2 x C",
 titlePanel("Chi-square Test for >2 Factor Categories in Case-Control Status"),
 
 HTML("
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if there is association between the case-control status (rows) and factor status (columns)
 <li> To determine if the population rate/proportion behind your multiple Groups data are significantly different 
@@ -190,7 +190,7 @@ tabPanel("R x C",
 titlePanel("Chi-square Test for >2 Factor Categories in >2 Status"),
 
 HTML("
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if there is association between the case-control status (rows) and factor status (columns)
 <li> To determine if the population rate/proportion behind your multiple Groups data are significantly different 
@@ -230,7 +230,7 @@ tabPanel("K x K",
 titlePanel("Kappa Statistic for Reproducibility of Repeated / Related Measurements of Independent Samples"),
 
 HTML("
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To quantify the reproducibility of the same variables measured more than once
 <li> To quantify the association between 2 measurements with same outcomes
@@ -268,7 +268,7 @@ tabPanel("(2 x 2) x K",
 titlePanel("Mantel-Haenszel Test for 2 Factor Categories in Case-Control Status under K Strata"),
 
 HTML("
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine by controlling the stratum / confounding if there is association between the case-control status (rows) and factor status (columns)
 <li> Two nominal variables are conditionally independent in K strata
@@ -306,7 +306,7 @@ tabPanel("(R x C) x K",
 titlePanel("Cochran-Mantel-Haenszel for >2 Factor Categories in >2 Status under K Strata"),
 
 HTML("
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine by controlling the stratum / confounding if there is association between the case-control status (rows) and factor status (columns)
 <li> Two nominal variables are conditionally independent in K strata

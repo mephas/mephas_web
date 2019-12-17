@@ -32,7 +32,7 @@ HTML(
 <p>This is an alternative to one-sample t-test, when the data cannot be assumed to be normally distributed.
 This method is based on the ranks of observations rather than on their true values</p>
 
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if the median / location of the population from which your data is drawn statistically significantly different from the specified median
 <li> To know the basic descriptive statistics about your data
@@ -79,7 +79,7 @@ HTML(
     "
 <p>This is an alternative to two-sample t-test, when the data cannot be assumed to be normally distributed</p>
 
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if the medians of two population from which your 2 groups data drawn are statistically significantly different from each other
 <li> To determine if the distributions of 2 groups of data differ in locations
@@ -127,7 +127,7 @@ HTML(
 <b>In paired case, we compare the differences of 2 groups to zero. Thus, it becomes a one-sample test problem.</b>
 <p>This is an alternative to paired-sample t-test, when the data cannot be assumed to be normally distributed</p>
 
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if the difference of paired data is statistically significantly different from 0
 <li> To know the basic descriptive statistics about your data

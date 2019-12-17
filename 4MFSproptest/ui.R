@@ -29,7 +29,7 @@ titlePanel("Normal Theory Method or Exact Method for One Proportion"),
 
 #p("To test the probability of events (success) in a series of Bernoulli experiments. "),
 HTML("
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if the population rate/proportion behind your data is significantly different from the specified rate/proportion
 <li> To determine how compatible the sample rate/proportion with a population rate/proportion
@@ -64,7 +64,7 @@ tabPanel("Two Samples",
 titlePanel("Normal Theory Method for Two Independent Proportions"),
 
 HTML("
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if the population rate/proportion behind your 2 Groups data are significantly different </ul>
 
@@ -97,7 +97,7 @@ tabPanel(">2 Samples",
 titlePanel("Normal Theory Method without Yates-correction for More than Two Independent Proportions"),
 
 HTML("
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if the population rate/proportion behind your multiple Groups data are significantly different </ul>
 
@@ -129,7 +129,7 @@ tabPanel("Trend in >2 Samples ",
 titlePanel("Chi-square Test for Trend in Multiple Independent Samples"),
 
 HTML("
-<h4><b> 1. What can you do on this page  </b></h4>
+<h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if the population rate/proportion behind your multiple Groups data vary with score 
 </ul>
