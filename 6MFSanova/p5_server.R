@@ -1,0 +1,91 @@
+##----------#----------#----------#----------
+##
+## 6MFSanova SERVER
+##
+##		> P1
+##
+## Language: EN
+## 
+## DT: 2019-05-04
+##
+##----------#----------#----------#----------
+namesnp1 <- reactive({
+  x <- unlist(strsplit(input$cnnp1, "[\n]"))
+  return(x[1:2])
+  }) 
+
+levelnp1 <- reactive({
+  F1 <-as.factor(unlist(strsplit(input$fnp1, "[,;\n\t]")))
+  x <- matrix(levels(F1), nrow=1)
+  colnames(x) <- c(1:length(x))
+  rownames(x) <- names1()[2]
+  return(x)
+  })
+output$level.tnp1 <- renderTable({levelnp1()},
+   width = "700px", rownames=TRUE,colnames=TRUE)
+
+Ynp1 <- reactive({
+  inFile <- input$filenp1
+  if (is.null(inFile)) {
+    X <- as.numeric(unlist(strsplit(input$xnp1, "[,;\n\t]")))
+    F1 <-as.factor(unlist(strsplit(input$fnp1, "[,;\n\t]")))
+    x <- data.frame(X = X, F1 = F1)
+    colnames(x) = names1()
+    }
+  else {
+    x <- read.csv(inFile$datapath, header = input$headernp1, sep = input$sepnp1)
+    x <- as.data.frame(x)[,1:2]
+    if(input$headernp1==FALSE){
+      colnames(x) = namesnp1()
+      }
+    }
+    return(as.data.frame(x))
+})
+
+#output$label1 <- renderTable({
+#  x <-matrix(levels(as.factor(unlist(strsplit(input$f11, "[\n]")))),
+#    ncol=1)
+#  rownames(x) <- c(1:length(levels(as.factor(unlist(strsplit(input$f11, "[\n]"))))))
+#  return(x)
+#  }, 
+#  width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
+
+output$tablenp1 <- DT::renderDataTable({datatable(Ynp1() ,rownames = TRUE)})
+
+basnp1 <- reactive({
+  x <- Ynp1()
+  res <- t(psych::describeBy(x[,1], x[,2], mat=TRUE))[-c(1,2,3,8,9),]
+  colnames(res) <- levels(x[,2])
+  rownames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
+  return(res)
+  })
+
+output$basnp1.t <- renderTable({
+  basnp1()}, 
+  width = "500px", rownames = TRUE)
+
+output$downloadnp1.1 <- downloadHandler(
+    filename = function() {
+      "des.csv"
+    },
+    content = function(file) {
+      write.csv(basnp1(), file, row.names = TRUE)
+    }
+  )
+
+output$mmeannp1 = renderPlot({
+  x = Ynp1()
+  ggplot(x, aes(y=x[,1], x=x[,2], fill=x[,2])) + geom_boxplot()+ xlab("") +ylab("")+
+    scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  })
+
+output$kwtest <- renderTable({
+  x <- Ynp1()
+  res <- kruskal.test(x[,1]~x[,2])
+  res.table <- t(data.frame(W = res[["statistic"]][["Kruskal-Wallis chi-squared"]],
+                            P = res[["p.value"]],
+                            df= res[["parameter"]][["df"]]))
+  colnames(res.table) <- res$method
+  rownames(res.table) <- c("Kruskal-Wallis chi-squared", "P Value","Degree of Freedom")
+  return(res.table)
+    },width = "500px", rownames = TRUE, colnames=TRUE)
