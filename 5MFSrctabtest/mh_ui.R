@@ -13,11 +13,11 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give names to factor categories in column")),
+  p(tags$b("1. Give 2 names to factor categories in column")),
         tags$textarea(id = "cn8",rows = 2,
         "Passive Smoker\nNon-Passive-Smoker"
       ),
-    p(tags$b("2. Give names to case-control in rows")), 
+    p(tags$b("2. Give 2 names to case-control in rows")), 
         tags$textarea(id = "rn8",rows = 2,
         "Cancer (Case)\nNo Cancer (Control)"
       ),

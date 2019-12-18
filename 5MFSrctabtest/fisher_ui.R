@@ -13,10 +13,10 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give names to factor categories in column")),
+  p(tags$b("1. Give 2 names to factor categories in column")),
   tags$textarea(id="cn4", rows=2, "High salt\nLow salt"),
 
-    p(tags$b("2. Give names to case-control in rows")), 
+    p(tags$b("2. Give 2 names to case-control in rows")), 
   tags$textarea(id="rn4", rows=2, "CVD\nNon CVD"), p(br()),
 
   p(tags$b("3. Input 4 Values in row-order")),

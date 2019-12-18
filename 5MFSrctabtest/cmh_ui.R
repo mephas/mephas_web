@@ -14,11 +14,11 @@
     h4(tags$b("Step 1. Data Preparation")),
 
 
-    p(tags$b("1. Give names to Columns")), 
+    p(tags$b("1. Give more than 2 names to Columns")), 
         tags$textarea(id = "cn7",rows = 4,
         "Snoring\nNon-Snoring"
       ),
-    p(tags$b("2. Give names to Rows")), 
+    p(tags$b("2. Give more than 2 names to Rows")), 
         tags$textarea(id = "rn7",rows = 4,
         "30-39\n40-49\n50-60"
       ),

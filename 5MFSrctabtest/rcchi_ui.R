@@ -13,11 +13,11 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give names to factor2/results categories in column")),
+  p(tags$b("1. Give more than 2 names to factor2/results categories in column")),
         tags$textarea(id = "cn5",rows = 5,
         "Smear+\nSmear-Culture+\nSmear-Culture-"
       ),
-    p(tags$b("2. Give names to factor1/treatment categories in rows")), 
+    p(tags$b("2. Give more than 2 names to factor1/treatment categories in rows")), 
         tags$textarea(id = "rn5",rows = 5,
         "Penicillin\nSpectinomycin-low\nSpectinomycin-high"
       ),

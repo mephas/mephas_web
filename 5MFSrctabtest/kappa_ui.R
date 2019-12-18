@@ -13,14 +13,14 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-    p(tags$b("1. Give outcome / measurement names to Columns and Rows")), 
+    p(tags$b("1. Give K rator / measurement names to Columns and Rows")), 
     tags$textarea(id="cn6", rows=2, "Yes\nNo"), 
 
-    p(tags$b("2. Give factor / treatment names")), 
+    p(tags$b("2. Give 2 factor / repeated treatment names")), 
     tags$textarea(id="rn6", rows=2, "Survey1\nSurvey2"),p(br()),
 
   
-  p(tags$b("3. Input 4 Values by Column")),
+  p(tags$b("3. Input K*K Values by Column")),
   tags$textarea(id="x6", rows=4, 
     "136\n92\n69\n240"),
 

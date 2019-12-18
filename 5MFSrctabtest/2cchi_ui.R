@@ -16,11 +16,11 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give names to factor categories in column")),
+  p(tags$b("1. Give 2 names to factor categories in column")),
         tags$textarea(id = "cn3",rows = 5,
         "~20\n20-24\n25-29\n30-34\n34~"
       ),
-    p(tags$b("2. Give names to case-control in rows")), 
+    p(tags$b("2. Give more than names to case-control in rows")), 
         tags$textarea(id = "rn3",rows = 2,
         "Cancer\nNo-Cancer"
       ),
