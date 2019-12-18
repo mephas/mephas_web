@@ -22,19 +22,19 @@ title = "Test for Contingency Table",
 ##---------- Panel 1 ----------
 tabPanel("2 x 2",
 
-titlePanel("Chi-square Test for 2 Factor Categories in Case-Control Status"),
+titlePanel("Chi-square Test for 2 Categories of Factor in Case-Control Status"),
 
 HTML("
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To determine if there is association between the case-control status (rows) and factor (columns)
+<li> To determine if there is association between the case-control status (rows) and factor categories (columns)
 <li> To determine if the proportions are the same in the 2 independent samples 
 <li> To determine if the proportions are homogeneity
 <li> To get the percentage table and plot and expected value of each cell
 </ul>
 
-<h4><b> 2. About your Count Data, 4-cell 2 by 2 contingency table </b></h4>
+<h4><b> 2. About your count data, 4-cell 2 by 2 contingency table </b></h4>
 
 <ul>
 <li> You have 2 categories for case-control status (shown as row names)
@@ -60,7 +60,7 @@ hr()
 ##---------- Panel 2 ----------
 tabPanel("2 x 2 (Exact)",
 
-titlePanel("Fisher Exact Test for 2 Factor Categories with Small Expected Counts in Case-Control Status "),
+titlePanel("Fisher Exact Test for 2 Categories of Factor with Small Expected Counts in Case-Control Status "),
 
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -72,7 +72,7 @@ HTML("
 
 </ul>
 
-<h4><b> 2. About your Count Data, 2 by 2 contingency table </b></h4>
+<h4><b> 2. About your count data, 2 by 2 contingency table </b></h4>
 
 <ul>
 <li> You have 2 categories for case-control status (shown as row names)
@@ -98,7 +98,7 @@ hr()
 ##---------- Panel 3 ----------
 tabPanel("2 x 2 (Paired)",
 
-titlePanel("McNemar Test for 2 Categories of Matched Samples in Case-Control Status"),
+titlePanel("McNemar Test for 2 Categories of  of Factor with Matched Counts in Case-Control Status"),
 
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -110,7 +110,7 @@ HTML("
 
 </ul>
 
-<h4><b> 2. About your Data, 2 by 2 contingency table with paired samples </b></h4>
+<h4><b> 2. About your count data, 2 by 2 contingency table with paired counts </b></h4>
 
 <ul>
 <li> You have 2 categories for case-control outcome (shown in row and column names)
@@ -120,7 +120,7 @@ HTML("
 <li> You know the <b>dis-concordant pair</b>, a matched pair in which the outcome differ for each member of the pair
 </ul>
 
-<h4><b> 3. Paired samples in 2 by 2 contingency table</b></h4>
+<h4><b> 3. Paired counts in 2 by 2 contingency table</b></h4>
 
 <ul>
 <li> Two pairs of patients were paired with similar age and clinical conditions. One group underwent treatment A and the other group underwent treatment B, and we recorded how many people became better and how many people became worse. 
@@ -147,7 +147,7 @@ hr()
 ##---------- Panel 4 ----------
 tabPanel("2 x C",
 
-titlePanel("Chi-square Test for >2 Factor Categories in Case-Control Status"),
+titlePanel("Chi-square Test for >2 Categories of Factor in Case-Control Status"),
 
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -158,7 +158,7 @@ HTML("
 
 </ul>
 
-<h4><b> 2. About your Data, 2 by C contingency table </b></h4>
+<h4><b> 2. About your count data, 2 by C contingency table </b></h4>
 
 <ul>
 <li> You have 2 categories for case-control outcome (shown in row and column names)
@@ -187,7 +187,7 @@ hr()
 
 tabPanel("R x C",
 
-titlePanel("Chi-square Test for >2 Factor Categories in >2 Status"),
+titlePanel("Chi-square Test for >2 Factor Categories of Factor in >2 Status"),
 
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -198,7 +198,7 @@ HTML("
 
 </ul>
 
-<h4><b> 2. About your Data, R by C contingency table </b></h4>
+<h4><b> 2. About your count data, R by C contingency table </b></h4>
 
 <ul>
 <li> Your Groups data come from binomial distribution (the proportion of success)
@@ -227,7 +227,7 @@ hr()
 
 tabPanel("K x K",
 
-titlePanel("Kappa Statistic for Reproducibility of Repeated / Related Measurements of Independent Samples"),
+titlePanel("Kappa Statistic for Reproducibility of Repeated / Related Measurements"),
 
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -238,7 +238,7 @@ HTML("
 
 </ul>
 
-<h4><b> 2. About your Data, K by K contingency table </b></h4>
+<h4><b> 2. About your count data, K by K contingency table </b></h4>
 
 <ul>
 <li> You know the <b>concordant response</b>, repeated-measured responses in which the outcome are the same for every measurements
@@ -265,7 +265,7 @@ hr()
 
 tabPanel("(2 x 2) x K",
 
-titlePanel("Mantel-Haenszel Test for 2 Factor Categories in Case-Control Status under K Strata"),
+titlePanel("Mantel-Haenszel Test for 2 Categories of Factor in Case-Control Status under K Confounding Strata"),
 
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -276,7 +276,7 @@ HTML("
 
 </ul>
 
-<h4><b> 2. About your Data, 2 x 2 contingency table under K strata </b></h4>
+<h4><b> 2. About your count data, 2 x 2 contingency table under K strata </b></h4>
 
 <ul>
 <li> You have counts for several 2 x 2 contingency table
@@ -303,7 +303,7 @@ hr()
 
 tabPanel("(R x C) x K",
 
-titlePanel("Cochran-Mantel-Haenszel for >2 Factor Categories in >2 Status under K Strata"),
+titlePanel("Cochran-Mantel-Haenszel for >2 Categories of Factor in >2 Status under K Strata"),
 
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -314,7 +314,7 @@ HTML("
 
 </ul>
 
-<h4><b> 2. About your Data, R x C contingency table under K strata</b></h4>
+<h4><b> 2. About your count data, R x C contingency table under K strata</b></h4>
 
 <ul>
 <li> You have counts for several R by C table

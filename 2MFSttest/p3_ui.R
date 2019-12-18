@@ -28,7 +28,7 @@ sidebarPanel(
         p(tags$i("Example here was the HOUR of sleep effected by a certain drug. Sleeping hours before and after taking the drug were recorded")),
 
     p(tags$b("Please follow the example to input your data")),
-
+  p("Data point can be separated by , ; /Enter /Tab"),
           p(tags$b("Before")),
             tags$textarea(id = "x1.p",rows = 10,
               "0.6\n3\n4.7\n5.5\n6.2\n3.2\n2.5\n2.8\n1.1\n2.9"

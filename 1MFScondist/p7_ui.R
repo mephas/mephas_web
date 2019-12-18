@@ -39,6 +39,7 @@ sidebarLayout(
 
 		h4(tags$b("See Plot at Data Distribution Plot")),
 		p(tags$b("Manual Input")),
+  p("Data point can be separated by , ; /Enter /Tab"),
     tags$textarea(
         id = "x.f", #p
         rows = 10,

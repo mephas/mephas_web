@@ -30,7 +30,7 @@ sidebarPanel(
     p(tags$i("Data here was the Depression Rating Scale factor measurements of 9 patients from a certain group of patients. ")),
     
     p(tags$b("Please follow the example to input your data")),
-
+  p("Data point can be separated by , ; /Enter /Tab"),
     tags$textarea(id="a", 
       rows=5, 
       "1.83\n0.50\n1.62\n2.48\n1.68\n1.88\n1.55\n3.06\n1.30"

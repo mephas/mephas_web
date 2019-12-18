@@ -14,17 +14,17 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give 2 names to factor categories in column and row")),
+  p(tags$b("1. Give 2 names to each shared categories of outcome shown in column name and row name")),
   tags$textarea(id="cn2", rows=2, "Better\nNo-change"), 
 
-  p(tags$b("2. Give 2 factor / treatment names in column and row")), 
+  p(tags$b("2. Give 2 factor / treatment names shown in row name and column name")), 
   tags$textarea(id="rn2", rows=2, "Treatment-A\nTreatment-B"),p(br()),
 
   
-  p(tags$b("3. Input 4 Values in column-order")),
+  p(tags$b("3. Input 4 values in row-order")),
+  p("Data point can be separated by , ; /Enter /Tab"),
   tags$textarea(id="x2", rows=4, 
     "510\n16\n5\n90"),
-
   p("Note: No Missing Value"),
   
   p(tags$i("Example here was 621 pairs of patients, one group underwent treatment A and the other underwent treatment B. Patients were paired with similar age and clinical conditions. ")),

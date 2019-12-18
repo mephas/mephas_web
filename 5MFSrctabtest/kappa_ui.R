@@ -13,21 +13,19 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-    p(tags$b("1. Give K rator / measurement names to Columns and Rows")), 
+    p(tags$b("1. Give K rator / measurement names shown in the column names and row names")), 
     tags$textarea(id="cn6", rows=2, "Yes\nNo"), 
 
-    p(tags$b("2. Give 2 factor / repeated treatment names")), 
+    p(tags$b("2. Give 2 related experiment / repeated measurement names shown in the column names and row names")), 
     tags$textarea(id="rn6", rows=2, "Survey1\nSurvey2"),p(br()),
 
   
-  p(tags$b("3. Input K*K Values by Column")),
+  p(tags$b("3. Input K*K values in row-order")),
+  p("Data point can be separated by , ; /Enter /Tab"),
   tags$textarea(id="x6", rows=4, 
     "136\n92\n69\n240"),
-
       p("Note: No Missing Value"),
-
     p(tags$i("Example here was the response from Survey 1 and Survey 2.")),
-
         hr(),
 
     h4(tags$b("Hypothesis")),

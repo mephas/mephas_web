@@ -16,11 +16,11 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give 2 names to factor categories in column")),
+  p(tags$b("1. Give names to each categories of factor shown as column names")),
         tags$textarea(id = "cn3",rows = 5,
         "~20\n20-24\n25-29\n30-34\n34~"
       ),
-    p(tags$b("2. Give more than names to case-control in rows")), 
+    p(tags$b("2. Give 2 names to case-control shown as row names")), 
         tags$textarea(id = "rn3",rows = 2,
         "Cancer\nNo-Cancer"
       ),
@@ -28,11 +28,13 @@
         p(br()), 
 
         p(tags$b("3. How many Cases in every Group")),
+        p("Data point can be separated by , ; /Enter /Tab"),
         tags$textarea(id = "x3", rows = 5,
         "320\n1206\n1011\n463\n220"        
         ),
 
-        p(tags$b("4. How many Controls in every Group")),     
+        p(tags$b("4. How many Controls in every Group")), 
+        p("Data point can be separated by , ; /Enter /Tab"),
         tags$textarea(id = "x33", rows = 5,
         "1422\n4432\n2893\n1092\n406"
         ),

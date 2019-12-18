@@ -14,13 +14,14 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give 2 names to factor categories in column")),
+  p(tags$b("1. Give 2 names to each categories of factor shown as column names")),
   tags$textarea(id="cn1", rows=2, "Developed-MI\nNo MI"),
 
-    p(tags$b("2. Give 2 names to case-control in rows")), 
+    p(tags$b("2. Give 2 names to case-control shown as row names")), 
   tags$textarea(id="rn1", rows=2, "OC user\nNever OC user"), p(br()),
 
-  p(tags$b("3. Input 4 Values in row-order")),
+  p(tags$b("3. Input 4 values in row-order")),
+  p("Data point can be separated by , ; /Enter /Tab"),
   tags$textarea(id="x1", rows=4, 
     "13\n4987\n7\n9993"),
 

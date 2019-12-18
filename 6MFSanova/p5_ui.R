@@ -28,6 +28,7 @@ tabsetPanel(
     p(tags$i("Example here was the FEF data from smokers and smoking groups. Detailed information can be found in the Output 1.")),
 
     p(tags$b("Please follow the example to input your data")),
+  p("Data point can be separated by , ; /Enter /Tab"),
 
     p(tags$b("Sample Values")),
       tags$textarea(id = "xnp1",rows = 10,

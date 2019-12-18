@@ -23,7 +23,7 @@ title = "Test for Binomial Proportions",
 ##---------- 1. Panel 1 ----------
 tabPanel("One Sample",
 
-titlePanel("Normal Theory Method or Exact Method for One Proportion"),
+titlePanel("Chi-square Test and Exact Binomial Method for One Proportion"),
 
 #tags$b("Introduction"),
 
@@ -61,7 +61,7 @@ hr()
 ##----------  Panel 2 ----------
 tabPanel("Two Samples",
 
-titlePanel("Normal Theory Method for Two Independent Proportions"),
+titlePanel("Chi-square Test for Two Independent Proportions"),
 
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -94,7 +94,7 @@ hr()
 ##---------- 3. Chi-square test for 2 paired-independent sample ----------
 tabPanel(">2 Samples",
 
-titlePanel("Normal Theory Method without Yates-correction for More than Two Independent Proportions"),
+titlePanel("Chi-square Test for More than Two Independent Proportions"),
 
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>

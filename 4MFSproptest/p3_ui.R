@@ -15,19 +15,20 @@
       sidebarPanel(
 
     h4(tags$b("Step 1. Data Preparation")),
-     p(tags$b("You can change Groups names (no space)")),
+     p(tags$b("You can change Groups names")),
         tags$textarea(id = "gn",
           rows = 5,
         "~20\n20-24\n25-29\n30-34\n34~"
       ),
 
-      p(tags$b("You can change success / events names (no space)")),
+      p(tags$b("You can change success / events names")),
         tags$textarea(id = "ln3",
           rows = 2,
         "Cancer\nNo-Cancer"
       ),
         p(br()), 
 
+          p("Data point can be separated by , ; /Enter /Tab"),
         p(tags$b("How many success / events in every Group, x")),
         tags$textarea(id = "xx", rows = 5,
         "320\n1206\n1011\n463\n220"        

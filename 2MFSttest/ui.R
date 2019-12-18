@@ -18,7 +18,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 
-title = "T Test for Means",
+title = "Parametric T Test for Means",
 
 ##---------- Panel 1 ---------
 

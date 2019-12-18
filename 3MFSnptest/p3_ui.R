@@ -28,7 +28,7 @@ sidebarPanel(
     p(tags$i("Example here was the Depression Rating Scale factor measurements of 9 patients Before and After treatment. ")),
 
     p(tags$b("Please follow the example to input your data")),
-
+  p("Data point can be separated by , ; /Enter /Tab"),
     p(tags$b("Before")),
     tags$textarea(id="y1", 
       rows=10, 

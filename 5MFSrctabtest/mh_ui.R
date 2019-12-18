@@ -13,21 +13,22 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give 2 names to factor categories in column")),
+  p(tags$b("1. Give 2 names to each categories of factor shown as column names")),
         tags$textarea(id = "cn8",rows = 2,
         "Passive Smoker\nNon-Passive-Smoker"
       ),
-    p(tags$b("2. Give 2 names to case-control in rows")), 
+    p(tags$b("2. Give 2 names to case-control shown as row names")), 
         tags$textarea(id = "rn8",rows = 2,
         "Cancer (Case)\nNo Cancer (Control)"
       ),
-    p(tags$b("1. Give names to Stratum / Confounding Group")), 
+  p(tags$b("3. Give names to each categories confounding shown as row names")),
         tags$textarea(id = "kn8",rows = 4,
         "No-Active Smoker\nActive Smoker"
       ),
         p(br()), 
 
-    p(tags$b("3. Input 2*2*K Values by row-order in each Stratum / Confounding Group")),
+    p(tags$b("3. Input 2*2*K values in row-order")),
+      p("Data point can be separated by , ; /Enter /Tab"),
       tags$textarea(id="x8", rows=10, 
       "120\n111\n80\n115\n161\n117\n130\n124"),
       p("Note: No Missing Value"),

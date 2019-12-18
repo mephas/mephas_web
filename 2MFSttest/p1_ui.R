@@ -29,7 +29,7 @@ sidebarPanel(
      p(tags$i("Here was the AGE of 144 independent lymph node positive patients")),
     
     p(tags$b("Please follow the example to input your data")),
-    
+  p("Data point can be separated by , ; /Enter /Tab"),
     tags$textarea(
         id = "x", #p
         rows = 10,

@@ -12,13 +12,14 @@
       sidebarPanel(
 
     h4(tags$b("Step 1. Data Preparation")),
+      p("Data point can be separated by , ; /Enter /Tab"),
 
-      p(tags$b("Give names to trials / samples (no space)")), 
+      p(tags$b("Give names to trials / samples ")), 
         tags$textarea(id = "cn4",rows = 5,
         "~20\n20-24\n25-29\n30-34\n34~"
       ),
 
-    p(tags$b("Give names to success / event (no space)")), 
+    p(tags$b("Give names to success / event")), 
         tags$textarea(id = "rn4",rows = 2,
         "Cancer\nNo-Cancer"
       ),

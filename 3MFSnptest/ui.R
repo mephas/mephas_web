@@ -20,7 +20,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
 
-title = "Wilcoxon Test for Median",  
+title = "Non-parametric Test for Medians",  
 
 ##---------- Panel 1 ----------
 tabPanel("One Sample",
