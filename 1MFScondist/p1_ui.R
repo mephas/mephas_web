@@ -19,6 +19,12 @@ sidebarLayout(
 
 		tabPanel(
 			"Draw a Normal Distribution", p(br()),
+
+			radioButtons('format', 'Document format', 
+									c('PDF', 'HTML', 'Word'),
+                   inline = TRUE),
+      downloadButton('downloadReport'),
+
 		  HTML("<h4><b>Step 1. Set Parameters for N(&#956, &#963)</h4></b>"), 
 		  numericInput("mu", HTML("Mean (&#956), the dashed line, indicates the location  "), value = 0, min = -10000000, max = 10000000),
 		  numericInput("sigma", HTML("Standard Deviation (&#963), indicates the shape"), value = 1, min = 0, max = 10000000),
