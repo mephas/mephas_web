@@ -59,7 +59,7 @@ hr()
 ##---------- Panel 2 ----------
 tabPanel("Pairwise1",
 
-headerPanel("Multiple Comparison for Specific Groups in One-way ANOVA"),
+headerPanel("Multiple Comparison Post-Hoc Correction for Specific Groups after One-way ANOVA"),
 
 HTML(
 "
@@ -135,7 +135,7 @@ hr()
 ##---------- Panel 4 ----------
 tabPanel("Pairwise2",
 
-headerPanel("Multiple Comparison for Specific Groups in Two-way ANOVA"),
+headerPanel("Multiple Comparison Post-Hoc Correction for Specific Groups after Two-way ANOVA"),
 
 HTML(
 "
@@ -172,7 +172,7 @@ hr()
 ##---------- Panel 5 ----------
 tabPanel("One-way (Non-parametric)",
 
-headerPanel("Kruskal-Wallis Non-parametric Tets to Compare Multiple Samples"),
+headerPanel("Kruskal-Wallis Non-parametric Test to Compare Multiple Samples"),
 
 HTML(
 "
@@ -209,7 +209,7 @@ hr()
 ##---------- Panel 6 ----------
 tabPanel("Pairwise3",
 
-headerPanel("Multiple Comparison for Specific Groups in Kruskal-Wallis Test"),
+headerPanel("Multiple Comparison Post-Hoc Correction for Specific Groups after Kruskal-Wallis Non-parametric Test"),
 
 HTML(
 "
