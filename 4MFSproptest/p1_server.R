@@ -11,7 +11,7 @@
 
 ##----------1. Chi-square test for single sample ----------
 output$b.test = renderTable({
-
+validate(need(input$n>=input$x, "Please check your data whether x <= n"))
   res = binom.test(x = input$x, n= input$n, p = input$p, alternative = input$alt)
 
    res.table = t(data.frame(
@@ -29,7 +29,7 @@ output$b.test = renderTable({
   rownames = TRUE)
 
 output$b.test1 = renderTable({
-
+validate(need(input$n>=input$x, "Please check your data whether x <= n"))
   res = prop.test(x = input$x, n= input$n, p = input$p, alternative = input$alt, correct = TRUE)
 
     res.table = t(data.frame(

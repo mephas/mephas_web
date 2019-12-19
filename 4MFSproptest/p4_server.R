@@ -12,7 +12,10 @@
 T4 = reactive({ # prepare dataset
   X <- as.numeric(unlist(strsplit(input$x4, "[\n, \t, ]")))
   Y <- as.numeric(unlist(strsplit(input$x44, "[\n, \t, ]")))
+  validate(need(length(Y)==length(X), "Please check whether your data groups have equal length "))
+
   x <- rbind(X,Y-X)
+  validate(need((sum((Y-X)<0))==0, "Please check your data whether x <= n"))
   x <- as.matrix(x)
   rownames(x) = unlist(strsplit(input$rn4, "[\n, \t, ]"))
   colnames(x) = unlist(strsplit(input$cn4, "[\n, \t, ]"))
@@ -39,6 +42,8 @@ output$makeplot4 <- renderPlot({  #shinysession
 output$c.test4 = renderTable({
   X <- as.numeric(unlist(strsplit(input$x4, "[\n, \t, ]")))
   Y <- as.numeric(unlist(strsplit(input$x44, "[\n, \t, ]")))
+  validate(need((sum((Y-X)<0))==0, "Please check your data whether x <= n"))
+
   score <- as.numeric(unlist(strsplit(input$xs, "[\n, \t, ]")))
 
     res = prop.trend.test(X,Y,score)

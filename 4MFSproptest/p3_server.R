@@ -11,12 +11,17 @@
 ##---------- 3. More than 2 sample ----------
 
 N = reactive({ # prepare dataset
-  X <- as.numeric(unlist(strsplit(input$xx, "[\n, \t, ]")))
-  Y <- as.numeric(unlist(strsplit(input$nn, "[\n, \t, ]")))
+  
+
+  X <- as.numeric(unlist(strsplit(input$xx, "[\n,;\t]")))
+  Y <- as.numeric(unlist(strsplit(input$nn, "[\n,;\t]")))
+  validate(need(length(Y)==length(X), "Please check whether your data groups have equal length "))
+
   #P <- round(X/Z, 4)
   x <- rbind(X,(Y-X))
-  rownames(x) = unlist(strsplit(input$ln3, "[\n, \t, ]"))
-  colnames(x) = unlist(strsplit(input$gn, "[\n, \t, ]"))
+  validate(need((sum((Y-X)<0))==0, "Please check your data whether x <= n"))
+  rownames(x) = unlist(strsplit(input$ln3, "[\n]"))
+  colnames(x) = unlist(strsplit(input$gn, "[\n]"))
   return(x)
   })
 
@@ -27,19 +32,24 @@ output$n.t = renderTable({
   rownames = TRUE, width = "800px")
 
 output$makeplot3 <- renderPlot({  #shinysession 
-  X <- as.numeric(unlist(strsplit(input$xx, "[\n, \t, ]")))
-  Y <- as.numeric(unlist(strsplit(input$nn, "[\n, \t, ]")))
+
+  X <- as.numeric(unlist(strsplit(input$xx, "[\n,;\t]")))
+  Y <- as.numeric(unlist(strsplit(input$nn, "[\n,;\t]")))
+  validate(need((sum((Y-X)<0))==0, "Please check your data whether x <= n"))
+
   xm <- rbind(X,Y)
-  rownames(xm) = unlist(strsplit(input$ln3, "[\n, \t, ]"))
-  colnames(xm) = unlist(strsplit(input$gn, "[\n, \t, ]"))
+  rownames(xm) = unlist(strsplit(input$ln3, "[\n]"))
+  colnames(xm) = unlist(strsplit(input$gn, "[\n]"))
   x <- melt(xm)
   ggplot(x, aes(fill=x[,1], y=x[,"value"], x=x[,2])) + geom_bar(position="fill", stat="identity")+ 
   xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })  
 
 output$n.test = renderTable({
-  x <- as.numeric(unlist(strsplit(input$xx, "[\n, \t, ]")))
-  n <- as.numeric(unlist(strsplit(input$nn, "[\n, \t, ]")))
+  x <- as.numeric(unlist(strsplit(input$xx, "[\n,;\t]")))
+  n <- as.numeric(unlist(strsplit(input$nn, "[\n,;\t]")))
+  validate(need((sum((n-x)<0))==0, "Please check your data whether x <= n"))
+
   res = prop.test(x, n)
   res.table = t(data.frame(
     Statistic = res$statistic,

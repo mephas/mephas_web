@@ -11,6 +11,9 @@
 
 ##---------- 2. Two sample ----------
 T = reactive({ # prepare dataset
+  validate(need(input$n1>=input$x1, "Please check your data whether x1 <= n1"))
+  validate(need(input$n2>=input$x2, "Please check your data whether x2 <= n2"))
+
  x <- matrix(c(input$x1,input$n1-input$x1,input$x2,input$n2-input$x2),2,2, byrow=TRUE)
   rownames(x) = unlist(strsplit(input$rn.2, "[\n]"))
   colnames(x) = unlist(strsplit(input$cn.2, "[\n]"))
@@ -24,6 +27,8 @@ output$n.t2 = renderTable({
   rownames = TRUE, width = "500px")
 
 output$makeplot2 <- renderPlot({  #shinysession 
+  validate(need(input$n1>=input$x1, "Please check your data whether x <= n"))
+  validate(need(input$n2>=input$x2, "Please check your data whether x <= n"))
     x1 = data.frame(
     group = c(unlist(strsplit(input$cn.2, "[\n,;\t]"))), 
     value = c(input$x1, input$n1-input$x1)
@@ -38,6 +43,8 @@ output$makeplot2 <- renderPlot({  #shinysession
   })
 
 output$p.test = renderTable({
+  validate(need(input$n1>=input$x1, "Please check your data whether x <= n"))
+  validate(need(input$n2>=input$x2, "Please check your data whether x <= n"))
   x <- c(input$x1, input$x2)
   n <- c(input$n1, input$n2)
   res = prop.test(x = x, n= n, alternative = input$alt1, correct = input$cr)
