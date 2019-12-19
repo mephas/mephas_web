@@ -16,6 +16,8 @@ names1 <- reactive({
 
 
 X <- reactive({
+  validate( need(as.numeric(unlist(strsplit(input$x, "[,;\n\t]"))), "Please input numeric data") )
+
   inFile <- input$file
   if (is.null(inFile)) {
     x <- as.numeric(unlist(strsplit(input$x, "[,;\n\t]")))
@@ -23,7 +25,13 @@ X <- reactive({
     colnames(x) <- names1()
     }
   else {
+    if(!input$col){
     csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep)
+    }
+    else{
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, row.names=1)  
+    }
+    validate( need(ncol(csv)>0, "Please Check row names, column names, and spectators") )
     x <- data.frame(x=csv[,1])
     colnames(x) <- names(csv)[1]
     if(input$header!=TRUE){
@@ -95,6 +103,7 @@ output$makeplot <- renderPlot({
 
 t.test0 <- reactive({
   x <- X()
+  validate( need(length(x)>1, "Please input enough data") )
   res <-t.test(
     x[,1],
     mu = input$mu,
