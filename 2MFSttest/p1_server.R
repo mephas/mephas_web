@@ -31,7 +31,7 @@ X <- reactive({
     else{
     csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, row.names=1)  
     }
-    validate( need(ncol(csv)>0, "Please Check row names, column names, and spectators") )
+    validate( need(ncol(csv)>0, "Please check row names, column names, and spectators") )
     x <- data.frame(x=csv[,1])
     colnames(x) <- names(csv)[1]
     if(input$header!=TRUE){
@@ -103,7 +103,7 @@ output$makeplot <- renderPlot({
 
 t.test0 <- reactive({
   x <- X()
-  validate( need(length(x)>1, "Please input enough data") )
+  validate( need(sum(!is.na(x))>1, "Please input enough valid data") )
   res <-t.test(
     x[,1],
     mu = input$mu,
