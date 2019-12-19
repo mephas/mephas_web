@@ -22,18 +22,28 @@ names1 <- reactive({
   if (is.null(inFile)) {
     # input data
     x <- as.numeric(unlist(strsplit(input$a, "[,;\n\t]")))
+    validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
     x <- as.data.frame(x)
     colnames(x) = names1()
     }
-else {
+  else {
+    if(!input$col){
     csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep)
-    x <- data.frame(x=csv[,1])
+    }
+    else{
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, row.names=1)
+    }
+    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+
+    x <- as.data.frame(csv[,1])
     colnames(x) <- names(csv)[1]
+    #validate( need(sum(!is.na(csv))>1, "Please input enough valid numeric data") )
     if(input$header!=TRUE){
-      colnames(x) <- names1()
+      names(x) <- names1()
       }
     }
-    return(as.data.frame(x))
+  x <- as.data.frame(x)
   })
 
   #table 

@@ -10,8 +10,8 @@
 ##
 ##----------#----------#----------#----------
 names.p <- reactive({
-  x <- unlist(strsplit(input$cn.p, "[\n]"))[1:3]
-  return(x)
+  x <- unlist(strsplit(input$cn.p, "[\n]"))
+  return(x[1:3])
   })
 
 Z <- reactive({

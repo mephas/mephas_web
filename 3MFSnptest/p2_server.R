@@ -20,13 +20,25 @@ B <- reactive({
   if (is.null(inFile)) {
     X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t]")))
     Y <- as.numeric(unlist(strsplit(input$x2, "[,;\n\t]")))
+    validate( need(sum(!is.na(X))>1, "Please input enough valid numeric data") )
+    validate( need(sum(!is.na(Y))>1, "Please input enough valid numeric data") )
+    validate( need(length(X)==length(Y), "Please make sure two groups have equal length") )
+
     x <- data.frame(X = X, Y = Y)
     colnames(x) = names2()
     }
   else {
-    x <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2)[,1:2]
-    x <- as.data.frame(x)
-    if(input$header2!=TRUE){
+    if(!input$col2){
+    csv <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2)
+    }
+    else{
+    csv <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2, row.names=1)  
+    }
+    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+
+    x <- csv[,1:2]
+    if(input$header2==FALSE){
       colnames(x) = names2()
       }
     }

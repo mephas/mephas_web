@@ -43,7 +43,7 @@ sidebarPanel(
 
           ##-------csv file-------##
     tabPanel("Upload Data", p(br()),
-    p(tags$b("This only reads the first 2-column of your data")),
+    p(tags$b("This only reads the 2 columns from your data file")),
     fileInput('file.p', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),

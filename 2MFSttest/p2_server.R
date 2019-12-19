@@ -23,6 +23,7 @@ Y <- reactive({
     validate( need(sum(!is.na(X))>1, "Please input enough valid numeric data") )
     validate( need(sum(!is.na(Y))>1, "Please input enough valid numeric data") )
     validate( need(length(X)==length(Y), "Please make sure two groups have equal length") )
+    
     x <- data.frame(X = X, Y = Y)
     colnames(x) = names2()
     }
