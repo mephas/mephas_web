@@ -28,13 +28,26 @@ Y1 <- reactive({
   inFile <- input$file1
   if (is.null(inFile)) {
     X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t]")))
+    validate( need(sum(!is.na(X))>1, "Please input enough valid numeric data") )
+
     F1 <-as.factor(unlist(strsplit(input$f11, "[,;\n\t]")))
+    validate( need(length(X)==length(F1), "Please make sure two groups have equal length") )    
     x <- data.frame(X = X, F1 = F1)
+    validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
+
     colnames(x) = names1()
     }
   else {
-    x <- read.csv(inFile$datapath, header = input$header1, sep = input$sep1)
-    x <- as.data.frame(x)[,1:2]
+if(!input$col1){
+    csv <- read.csv(inFile$datapath, header = input$header1, sep = input$sep1)
+    }
+    else{
+    csv <- read.csv(inFile$datapath, header = input$header1, sep = input$sep1, row.names=1)  
+    }
+    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+
+    x <- csv[,1:2]
     if(input$header1==FALSE){
       colnames(x) = names1()
       }

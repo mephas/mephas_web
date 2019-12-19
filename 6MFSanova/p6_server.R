@@ -29,12 +29,22 @@ Ynp2 <- reactive({
   if (is.null(inFile)) {
     X <- as.numeric(unlist(strsplit(input$xnp2, "[,;\n\t]")))
     F1 <-as.factor(unlist(strsplit(input$fnp2, "[,;\n\t]")))
+    validate( need(length(X)==length(F1), "Please make sure two groups have equal length") )    
+
     x <- data.frame(X = X, F1 = F1)
-    colnames(x) = names1()
+    colnames(x) = namesnp2()
     }
   else {
-    x <- read.csv(inFile$datapath, header = input$headernp2, sep = input$sepnp2)
-    x <- as.data.frame(x)[,1:2]
+if(!input$colnp2){
+    csv <- read.csv(inFile$datapath, header = input$headernp2, sep = input$sepnp2)
+    }
+    else{
+    csv <- read.csv(inFile$datapath, header = input$headernp2, sep = input$sepnp2, row.names=1)  
+    }
+    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+
+    x <- csv[,1:2]
     if(input$headernp2==FALSE){
       colnames(x) = namesnp2()
       }

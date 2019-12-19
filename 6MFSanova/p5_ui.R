@@ -46,7 +46,7 @@ tabsetPanel(
       ##-------csv file-------##
 tabPanel("Upload Data", p(br()),
 
-    p(tags$b("This only reads the first 2-column of your data")),
+    p(tags$b("This only reads 2 columns from your data file")),
     p(tags$b("1st column is numeric values")),
     p(tags$b("2nd and 3rd columns are factors" )),
     fileInput('filenp1', "Choose CSV/TXT file",
@@ -54,6 +54,8 @@ tabPanel("Upload Data", p(br()),
     #helpText("The columns of X are not suggested greater than 500"),
     p(tags$b("2. Show 1st row as header?")),
     checkboxInput("headernp1", "Show Data Header?", TRUE),
+    p(tags$b("3. Use 1st column as row names? (No duplicates)")),
+    checkboxInput("colnp1", "Yes", FALSE),
 
     radioButtons("sepnp1", 
       "Which Separator for Data?",

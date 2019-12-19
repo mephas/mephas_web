@@ -39,14 +39,24 @@ Y <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
     X <- as.numeric(unlist(strsplit(input$x, "[,;\n\t ]")))
+    validate( need(sum(!is.na(X))>1, "Please input enough valid numeric data") )
     F1 <- as.factor(unlist(strsplit(input$f1, "[,;\n\t]")))
     F2 <- as.factor(unlist(strsplit(input$f2, "[,;\n\t]")))
+    validate( need(length(X)==length(F1)&length(X)==length(F2), "Please make sure two groups have equal length") )    
     x <- data.frame(X = X, F1 = F1, F2 = F2)
     colnames(x) = names2()
     }
   else {
-    x <- read.csv(inFile$datapath,header = input$header,sep = input$sep)
-    x <- as.data.frame(x)[,1:3]
+if(!input$col){
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep)
+    }
+    else{
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, row.names=1)  
+    }
+    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+
+    x <- csv[,1:3]
     if(input$header==FALSE){
       colnames(x) = names2()
       }
