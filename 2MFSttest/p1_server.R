@@ -16,32 +16,37 @@ names1 <- reactive({
 
 
 X <- reactive({
-  validate( need(as.numeric(unlist(strsplit(input$x, "[,;\n\t]"))), "Please input numeric data") )
 
   inFile <- input$file
   if (is.null(inFile)) {
     x <- as.numeric(unlist(strsplit(input$x, "[,;\n\t]")))
+    validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
     x <- as.data.frame(x)
     colnames(x) <- names1()
+
     }
   else {
     if(!input$col){
     csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep)
     }
     else{
-    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, row.names=1)  
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, row.names=1)
     }
-    validate( need(ncol(csv)>0, "Please check row names, column names, and spectators") )
-    x <- data.frame(x=csv[,1])
+    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+
+    x <- as.data.frame(csv[,1])
     colnames(x) <- names(csv)[1]
+    #validate( need(sum(!is.na(csv))>1, "Please input enough valid numeric data") )
     if(input$header!=TRUE){
-      colnames(x) <- names1()
+      names(x) <- names1()
       }
     }
-    return(as.data.frame(x))
+  x <- as.data.frame(x)
+  return(x)
   })
 
-output$table <- DT::renderDataTable({X()},server = FALSE)
+output$table <- DT::renderDataTable({X()}, rownames = TRUE)
 
 basic_desc <- reactive({
   x <- X()
@@ -103,7 +108,6 @@ output$makeplot <- renderPlot({
 
 t.test0 <- reactive({
   x <- X()
-  validate( need(sum(!is.na(x))>1, "Please input enough valid data") )
   res <-t.test(
     x[,1],
     mu = input$mu,
@@ -111,7 +115,7 @@ t.test0 <- reactive({
   res.table <- t(
     data.frame(
       T = round(res$statistic, digits=4),
-      P = res$p.valu,
+      P = res$p.value,
       E.M = round(res$estimate, digits=4),
       CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4),")"),
       DF = res$parameter

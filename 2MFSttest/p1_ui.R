@@ -42,15 +42,15 @@ sidebarPanel(
     tabPanel("Upload Data", p(br()),
 
         ##-------csv file-------##
-        p(tags$b("This only reads the one column of your data file")),
+        p(tags$b("This only reads the one column from your data file")),
         fileInput('file', "1. Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
         p(tags$b("2. Show 1st row as column names?")),
         checkboxInput("header", "Yes", TRUE),
-        p(tags$b("3. Use 1st column as row names?")),
-        checkboxInput("col", "Yes", TRUE),
+        p(tags$b("3. Use 1st column as row names? (No duplicates)")),
+        checkboxInput("col", "Yes", FALSE),
 
              # Input: Select separator ----
         radioButtons("sep", 

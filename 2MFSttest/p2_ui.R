@@ -48,17 +48,19 @@ sidebarPanel(
     tabPanel("Upload Data", p(br()),
 
         ##-------csv file-------##
-        p(tags$b("This only reads the first 2-column of your data")),
+        p(tags$b("This only reads 2 columns form your data file")),
         fileInput('file2', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
         p(tags$b("2. Show 1st row as header?")),
         checkboxInput("header2", "Show Data Header?", TRUE),
+        p(tags$b("3. Use 1st column as row names?")),
+        checkboxInput("col2", "Yes", FALSE),
 
              # Input: Select separator ----
         radioButtons("sep2", 
-          "Which Separator for Data?",
+          "4. Which Separator for Data?",
           choiceNames = list(
             HTML("Comma (,): CSV often use this"),
             HTML("One Tab (->|): TXT often use this"),

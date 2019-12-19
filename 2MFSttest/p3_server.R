@@ -20,13 +20,25 @@ Z <- reactive({
   if (is.null(inFile)) {
     X <- as.numeric(unlist(strsplit(input$x1.p, "[,;\n\t]")))
     Y <- as.numeric(unlist(strsplit(input$x2.p, "[,;\n\t]")))
+    
+    validate( need(sum(!is.na(X))>1, "Please input enough valid numeric data") )
+    validate( need(sum(!is.na(Y))>1, "Please input enough valid numeric data") )
+    validate( need(length(X)==length(Y), "Please make sure two groups have equal length") )
     x <- data.frame(X = X, Y = Y)
     x$diff <- round(x[, 2] - x[, 1], 4)
     colnames(x) = names.p()
     }
   else {
-    x <- read.csv(inFile$datapath, header = input$header.p, sep = input$sep.p)[,1:2]
-    x <- as.data.frame(x)
+    if(!input$col.p){
+    csv <- read.csv(inFile$datapath, header = input$header.p, sep = input$sep.p)
+    }
+    else{
+    csv <- read.csv(inFile$datapath, header = input$header.p, sep = input$sep.p, row.names=1)  
+    }
+    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+
+    x <- csv[,1:2]
     x$diff <- round(x[, 2] - x[, 1], 4)
     if(input$header.p==FALSE){
       colnames(x) = names.p()
