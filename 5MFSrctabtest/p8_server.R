@@ -15,6 +15,9 @@ kn8 <- reactive({unlist(strsplit(input$kn8, "[\n]"))})
 
 T8 = reactive({ # prepare dataset
   x <- as.numeric(unlist(strsplit(input$x8, "[,;\n\t ]")))
+  validate(need(length(x)==4*length(kn8()), "Please input enough values"))
+  validate(need(length(cn8())==2, "Please input enough names"))
+  validate(need(length(rn8())==2, "Please input enough names"))
   x <- aperm(
     array(x,dim=c(2,2, length(kn8())), 
     dimnames = list(status=rn8(), groups=cn8(),confound=kn8())),

@@ -51,27 +51,14 @@
     tabPanel("Table Preview", p(br()),
 
         p(tags$b("K x K Contingency Table with Total Number")),
-        tableOutput("dt6"),
-
-        p(tags$b("Expected Table")),
-        tableOutput("dt6.0")
+        DT::dataTableOutput("dt6")
         ),
-    tabPanel("Percentage Table", p(br()),
-
-        p(tags$b("Cell/Total %")),
-        tableOutput("dt6.3"),
-
-        p(tags$b("Cell/Row-Total %")),
-        tableOutput("dt6.1"),
-
-        p(tags$b("Cell/Column-Total %")),
-        tableOutput("dt6.2")
+    tabPanel("Agreement Table", p(br()),
+        DT::dataTableOutput("dt6.0")
         ),
-
-    tabPanel("Percentage Plot", p(br()),
-
-      plotOutput("makeplot6", width = "500px", height = "400px")
-      )
+    tabPanel("Weight Table", p(br()),
+        DT::dataTableOutput("dt6.1")
+        )
     ),
 
     hr(),
@@ -86,12 +73,15 @@
       <li> <b>Cohen's Kappa Statistic > 0.75</b>: <b>excellent</b> reproducibility </li>
       <li> <b>0.4 <= Cohen's Kappa Statistic <= 0.75</b>: <b>good</b> reproducibility</li>
       <li> <b>0 <= Cohen's Kappa Statistic < 0.4</b>: <b>marginal</b> reproducibility </li>
+      <li> Cohen’s kappa takes into account disagreement between the two raters, but not the degree of disagreement.
+      <li> The weighted kappa is calculated using a predefined table of weights which measure the degree of disagreement between the two raters, the higher the disagreement the higher the weight.
+
     </ul>
 
   "
   ),
 
-     p(tags$i("In this default setting, we concluded that the response from Survey1 and Survey2 had excellent reproducibility. "))
+     p(tags$i("In this default setting, we concluded that the response from Survey1 and Survey2 didn't have so good reproducibility, just marginally reproducible. "))
 
         )
       )

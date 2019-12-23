@@ -20,7 +20,7 @@ navbarPage(
 title = "Test for Contingency Table",
 
 ##---------- Panel 1 ----------
-tabPanel("2 x 2",
+tabPanel("2x2",
 
 titlePanel("Chi-square Test for 2 Categories of Factor in Case-Control Status"),
 
@@ -52,13 +52,13 @@ We wanted to determine if OC use was significantly associated with higher MI inc
 "),
 hr(),
 
-source("chi_ui.R", local=TRUE)$value,
+source("1_chi_ui.R", local=TRUE)$value,
 
 hr()
 ),
 
 ##---------- Panel 2 ----------
-tabPanel("2 x 2 (Exact)",
+tabPanel("2x2(Exact)",
 
 titlePanel("Fisher Exact Test for 2 Categories of Factor with Small Expected Counts in Case-Control Status "),
 
@@ -91,12 +91,12 @@ We wanted to determine if CVD was significantly associated with high salt diet.
 "),
 hr(),
 
-source("fisher_ui.R", local=TRUE)$value,
+source("2_fisher_ui.R", local=TRUE)$value,
 hr()
 ),
 
 ##---------- Panel 3 ----------
-tabPanel("2 x 2 (Paired)",
+tabPanel("2x2(Paired)",
 
 titlePanel("McNemar Test for 2 Categories of  of Factor with Matched Counts in Case-Control Status"),
 
@@ -139,13 +139,13 @@ In 16 pairs, only group after treatment A were better; in 5 pairs, only group af
 "),
 hr(),
 
-source("mcnemar_ui.R", local=TRUE)$value,
+source("3_mcnemar_ui.R", local=TRUE)$value,
 
 hr()
 ),
 
 ##---------- Panel 4 ----------
-tabPanel("2 x C",
+tabPanel("2xC",
 
 titlePanel("Chi-square Test for >2 Categories of Factor in Case-Control Status"),
 
@@ -177,7 +177,7 @@ We wanted to know if the probability to have cancer were different among differe
 "),
 hr(),
 
-source("2cchi_ui.R", local=TRUE)$value,
+source("4_2cchi_ui.R", local=TRUE)$value,
 
 hr()
 ),
@@ -185,7 +185,7 @@ hr()
 ##---------- Panel 5 ----------
 
 
-tabPanel("R x C",
+tabPanel("RxC",
 
 titlePanel("Chi-square Test for >2 Factor Categories of Factor in >2 Status"),
 
@@ -218,23 +218,59 @@ We wanted to know if the treatments had significant association with the respons
 "),
 
 hr(),
-source("rcchi_ui.R", local=TRUE)$value,
+source("5_rcchi_ui.R", local=TRUE)$value,
 hr()
 ),
 
 
-##---------- Panel 5 ----------
+##---------- Panel 6 ----------
 
-tabPanel("K x K",
+tabPanel("Kappa(2xK)",
 
-titlePanel("Kappa Statistic for Reproducibility of Repeated / Related Measurements"),
+titlePanel("Kappa Statistic for Reproducibility / Agreement of Two Raters"),
 
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
+<li> To quantify the agreement from two raters or two rankings
+<li> To get the percentage table and expected value of each cell
+</ul>
+
+<h4><b> 2. About your count data, 2 by K contingency table </b></h4>
+
+<ul>
+<li> the outcomes (e.g., Y/N answers, rankings, categories) from two raters or two measurements
+</ul>
+
+<i><h4>Case Example</h4>
+Suppose we wanted to check the agreement of answers from two surveys. 
+In one survey, the ranking scores were given from 1 to 9, while in the other, the ranking scores were not.
+We wanted to check if the two answers were reproducible or whether the two surveys had agreements.
+</h4></i>
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
+"),
+
+hr(),
+source("6_2kappa_ui.R", local=TRUE)$value,
+
+hr()
+
+),
+
+##---------- Panel 7 ----------
+
+tabPanel("Kappa(KxK)",
+
+titlePanel("Kappa Statistic for Reproducibility of Repeated / Related Measurements"),
+
+HTML("
+<p> This method just uses a different type of data. It uses counts of concordant and dis-concordant shown in a K by K table.</p> 
+
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
 <li> To quantify the reproducibility of the same variables measured more than once
 <li> To quantify the association between 2 measurements with same outcomes
-<li> To get the percentage table and plot and expected value of each cell
+<li> To get the percentage table and expected value of each cell
 
 </ul>
 
@@ -256,14 +292,14 @@ We wanted to know whether the surveys were good in concordant response.
 "),
 
 hr(),
-source("kappa_ui.R", local=TRUE)$value,
+source("7_kappa_ui.R", local=TRUE)$value,
 
 hr()
 
 ),
-##---------- Panel 7 ----------
+##---------- Panel 8 ----------
 
-tabPanel("(2 x 2) x K",
+tabPanel("(2x2)xK",
 
 titlePanel("Mantel-Haenszel Test for 2 Categories of Factor in Case-Control Status under K Confounding Strata"),
 
@@ -293,15 +329,15 @@ We wanted to know if passive smoking significantly related to cancer risk after 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    "),
 
 hr(),
-source("mh_ui.R", local=TRUE)$value,
+source("8_mh_ui.R", local=TRUE)$value,
 
 hr()
 
 ),
 
-##---------- Panel 8 ----------
+##---------- Panel 9 ----------
 
-tabPanel("(R x C) x K",
+tabPanel("(RxC)xK",
 
 titlePanel("Cochran-Mantel-Haenszel for >2 Categories of Factor in >2 Status under K Strata"),
 
@@ -331,7 +367,7 @@ We wanted to know if ages significantly related to snoring after controlling gen
 "),
 
 hr(),
-source("cmh_ui.R", local=TRUE)$value,
+source("9_cmh_ui.R", local=TRUE)$value,
 
 hr()
 

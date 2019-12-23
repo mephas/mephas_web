@@ -36,10 +36,10 @@ Ynp2 <- reactive({
     }
   else {
 if(!input$colnp2){
-    csv <- read.csv(inFile$datapath, header = input$headernp2, sep = input$sepnp2)
+    csv <- read.csv(inFile$datapath, header = input$headernp2, sep = input$sepnp2, stringsAsFactors=TRUE)
     }
     else{
-    csv <- read.csv(inFile$datapath, header = input$headernp2, sep = input$sepnp2, row.names=1)  
+    csv <- read.csv(inFile$datapath, header = input$headernp2, sep = input$sepnp2, row.names=1, stringsAsFactors=TRUE)  
     }
     validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
     validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )

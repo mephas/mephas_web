@@ -13,140 +13,117 @@ sidebarLayout(
 
 sidebarPanel(
 
-##----------example datasets----------
-helpText(HTML("
-<b> Datasets: </b>
-<ul>
-<li> insurance_linear_regression: the example data for linear regression
-<li> advertisement_logistic_regression: the example data for logistic regression
-<li> lung_cox_regression: the example data for cox regression
-</ul>
+selectInput("edata", "Example Data", 
+        choices =  c("Breast Cancer"), 
+        selected = "Breast Cancer"),
 
-")),
-
-selectInput("edata", "Choose data", 
-        choices =  c("insurance_linear_regression","advertisement_logistic_regression","lung_cox_regression"), 
-        selected = "insurance_linear_regression"),
-
-
-hr(),
+h4(tags$b("Step 1. Upload Data File")), 
 ##-------csv file-------##   
-fileInput('file', "Upload CSV file",
-accept = c("text/csv",
-  "text/comma-separated-values,text/plain",
-  ".csv")),
+p("We suggest the first variable is the dependent variable (Y) / outcome /response "),
+fileInput('file', "Choose CSV/TXT file",
+          accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 #helpText("The columns of X are not suggested greater than 500"),
 # Input: Checkbox if file has header ----
-checkboxInput("header", "Header", TRUE),
+p(tags$b("2. Show 1st row as column names?")),
+checkboxInput("header", "Yes", TRUE),
 
- 
-# Input: Select separator ----
-radioButtons("sep", "Separator",
-choices = c("Comma" = ',',
-           "Semicolon" = ';',
-           "Tab" = '\t'),
-selected = ','),
+p(tags$b("3. Use 1st column as row names? (No duplicates)")),
+checkboxInput("col", "Yes", FALSE),
 
+     # Input: Select separator ----
+radioButtons("sep", "4. Which separator for data?",
+  choiceNames = list(
+    HTML("Comma (,): CSV often use this"),
+    HTML("One Tab (->|): TXT often use this"),
+    HTML("Semicolon (;)"),
+    HTML("One Space (_)")
+    ),
+  choiceValues = list(",", ";", " ", "\t")
+  ),
 
-# Input: Select quotes ----
-radioButtons("quote", "Quote",
+radioButtons("quote", "5. Which quote for characters?",
 choices = c("None" = "",
            "Double Quote" = '"',
            "Single Quote" = "'"),
-selected = '"')
-),
+selected = '"'),
 
-#actionButton("choice", "Import dataset", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")),
+p("Correct separator and quote ensures data input successfully"),
+
+a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets"),
+hr(),
+
+p(tags$b("Do you need to change the attribute or type of some variables?")),
+
+p(tags$b("Choice 1. Change Numeric Variables (Numbers) into Categorical Variable (Factors)")), 
+
+uiOutput("factor1"),
+
+p(tags$b("Choice 2. Change Categorical Variable (Numeric Factors) into Numeric Variables (Numbers)")),
+
+uiOutput("factor2"),
+
+p(tags$b("Choice 3. Change the Base/Referential Level for Categorical Variable (Factors)")), 
+
+uiOutput("lvl"),
+
+p("2. Input the  Base/Referential Level, one line for one variable"),
+
+tags$textarea(id='ref', column=40, "")
+
+
+),
 
 
 mainPanel(
-h4("Data"),p(br()),
-p("Information of original dataset"),
+h4(tags$b("Output 1. Data Information")),
+p(tags$b("Data Preview")), 
+p(br()),
+DT::dataTableOutput("Xdata"),
 
-verbatimTextOutput("str0"),
+p(tags$b("1. Continuous variable information list")),
+verbatimTextOutput("str.num"),
 
-actionButton("changevar", "Activate dataset",
-      style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-      p(br()),
-
-tags$head(tags$style(".shiny-output-error{color: blue;}")),
-
-tabsetPanel(
-
-tabPanel("Re-generate variables", p(br()),  
-    uiOutput("factor2"),
-    uiOutput("factor1"),
-    p(br()),  
-    uiOutput("lvl"),
-    helpText("Type the reference"),
-    tags$textarea(id='ref', column=40, ""),
-    helpText("Click the button the generate new data set, the old variables will become xxx.1")
-  ),
-
-tabPanel("Data display", p(br()),
-dataTableOutput("Xdata2")
-  )
-
-  ),
-
-
+p(tags$b("2. Factor/ Catrorical variable information list")),
+verbatimTextOutput("str.fac"),
 
 hr(),   
-
-h4("Basic Descriptives"),p(br()),
-
-p("Information of manipulated dataset"),
-
-verbatimTextOutput("str00"),
+h4(tags$b("Output 2. Basic Descriptives")),
 
 tabsetPanel(
 
-tabPanel("Continuous variables", p(br()),
-#helpText("The list"),
-#verbatimTextOutput("str.num"),
+tabPanel("Basic Descriptives", p(br()),
 
-uiOutput('cv'),
-actionButton("Bc", "Show descriptives"),
-tableOutput("sum"),
-helpText(
-HTML(
-"
-Note:
-<ul>
-<li> nbr.: the number of 
-</ul>
-"
-)),
-downloadButton("download1", "Download Results")
+p(tags$b("1. Continuous variables")),
 
-),
+DT::dataTableOutput("sum"),
 
-tabPanel("Discrete / categorical variables", p(br()),
-#helpText("The list"),
-#verbatimTextOutput("str.fac"),
-uiOutput('dv'),
-actionButton("Bd", "Show descriptives"),
+p(tags$b("2. Categorical variables")),
 verbatimTextOutput("fsum"),
-downloadButton("download2", "Download Results")
+
+downloadButton("download1", "Download Results (Continuous variables)"),
+downloadButton("download2", "Download Results (Categorical variables)")
+
 ),
 
-tabPanel("Scatter plot (with line) between two variables",
+tabPanel("Scatter plot",p(br()),
+
+p("This is to show the relation between any two numeric variables"),
+
 uiOutput('tx'),
 uiOutput('ty'),
-plotOutput("p1", width = "400px", height = "400px")
+
+plotOutput("p1", width = "500px", height = "400px")
 ),
+
 tabPanel("Histogram", p(br()),
+
+p("This is to show the distribution of any one numeric variables"),
 uiOutput('hx'),
-plotOutput("p2", width = "400px", height = "400px"),
-sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 50, value = 1)),
-
-tabPanel("Bar plot", p(br()),
-uiOutput('hxd'),
-plotOutput("p3", width = "400px", height = "400px") )
+plotOutput("p2", width = "500px", height = "400px"),
+sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 50, value = 1))
 
 )
 
 )
-
 
 )

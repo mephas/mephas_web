@@ -12,8 +12,12 @@
 T3 = reactive({ # prepare dataset
   X <- as.numeric(unlist(strsplit(input$x3, "[,;\n\t ]")))
   Y <- as.numeric(unlist(strsplit(input$x33, "[,;\n\t ]")))
+  validate(need(length(X)==length(Y), "Please input two groups of data with equal length"))
   x <- rbind(X,Y)
   x <- as.matrix(x)
+  validate(need(length(unlist(strsplit(input$cn3, "[\n]")))==ncol(x), "Please input correct column names"))
+  validate(need(length(unlist(strsplit(input$rn3, "[\n]")))==2, "Please input correct row names"))
+
   rownames(x) = unlist(strsplit(input$rn3, "[\n]"))
   colnames(x) = unlist(strsplit(input$cn3, "[\n]"))
   return(x)

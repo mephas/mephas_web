@@ -16,7 +16,7 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give names to each categories of factor shown as column names")),
+  p(tags$b("2. Give names to each categories of factor shown as column names")),
         tags$textarea(id = "cn3",rows = 5,
         "~20\n20-24\n25-29\n30-34\n34~"
       ),

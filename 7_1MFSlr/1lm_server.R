@@ -14,33 +14,40 @@
 output$y = renderUI({
 selectInput(
 'y',
-h5('Continuous dependent variable (Y)'),
-selected = "NULL",
-choices = c("NULL", names(X()))
+tags$b('1. Choose a dependent variable / outcome / response (Y)'),
+selected = type.num3()[1],
+choices = type.num3()
 )
 })
+
+DF4 <- reactive({
+  df <-dplyr::select(DF3(), subset=c(-input$y))
+return(df)
+  })
 
 output$x = renderUI({
 selectInput(
 'x',
-h5('Independent variable (X)'),
-selected = NULL,
-choices = names(X()),
+tags$b('2. Choose independent variables / factors / predictors (X)'),
+selected = names(DF4())[1],
+choices = names(DF4()),
 multiple = TRUE
 )
 })
 
-
+output$Xdata2 <- DT::renderDataTable(
+head(DF3()), options = list(scrollX = TRUE))
 ### for summary
-
+output$str <- renderPrint({str(DF3())})
 
 ##3. regression formula
-formula = eventReactive(input$F, {
+formula = reactive({
 
-fm = as.formula(paste0(input$y, '~', paste0(input$x, collapse = "+"), 
-	input$conf, input$intercept)
+as.formula(paste0(input$y,' ~ ',paste0(input$x, collapse = "+"), 
+	input$conf, 
+  input$intercept)
 )
-return(fm)
+
 })
 
 output$formula = renderPrint({formula()})
@@ -48,112 +55,122 @@ output$formula = renderPrint({formula()})
 ## 4. output results
 ### 4.2. model
 fit = eventReactive(input$B1, {
-lm(formula(), data = X())
+lm(formula(), data = DF3())
 })
 
-sp = eventReactive(input$B1, {step(lm(formula(),  data = X()))})
 
 #gfit = eventReactive(input$B1, {
-#  glm(formula(), data = X())
+#  glm(formula(), data = DF3())
 #})
-afit = eventReactive(input$B1, {anova(lm(formula(),  data = X()))})
+# 
+ output$fit = renderUI({
+ 
+ HTML(
+ stargazer::stargazer(
+ fit(),
+ #out="linear.txt",
+ header=FALSE,
+ dep.var.caption = "Linear Regression",
+ dep.var.labels = paste0("Y = ",input$y),
+ type = "html",
+ style = "all",
+ align = TRUE,
+ ci = TRUE,
+ single.row = TRUE,
+ #no.space=TRUE,
+ title=paste("Linear Regression", Sys.time()),
+ model.names =FALSE)
+ )
+ 
+ })
 
-output$fit = renderUI({
+afit = eventReactive(input$B1, {
+  res.table <- anova(fit())
+  colnames(res.table) <- c("Degree of Freedom (DF)", "Sum of Squares (SS)", "Mean Squares (MS)", "F Statistic", "P Value")
+  return(res.table)
+  })
 
-HTML(
-stargazer::stargazer(
-fit(),
-#out="linear.txt",
-header=FALSE,
-dep.var.caption = "Linear Regression",
-dep.var.labels = paste("Y = ",input$y, "(estimate with 95% CI, t, p)"),
-type = "html",
-style = "all",
-align = TRUE,
-ci = TRUE,
-single.row = FALSE,
-no.space=FALSE,
-title=paste("Linear Regression", Sys.time()),
-model.names =FALSE)
+output$anova = renderTable({afit()}, rownames = TRUE)
 
-)
-
-})
-
-output$anova = renderTable({xtable::xtable(afit())}, rownames = TRUE)
+sp = eventReactive(input$B1, {step(fit())})
 output$step = renderPrint({sp()})
 
-# residual plot
-output$p.lm = renderPlot({autoplot(fit(), which = as.numeric(input$num)) + theme_minimal()})
-
-fit.lm <- reactive({
-data.frame(Y=X()[,input$y],
-Linear.predictors = round(predict(fit()), 4),
-Residuals = round(fit()$residuals, 4)
-)
+# 
+# # residual plot
+ output$p.lm = renderPlot({
+	autoplot(fit(), which = as.numeric(input$num)) + theme_minimal()
 	})
-
-output$fitdt0 = renderDataTable({
-fit.lm()
-}, 
-options = list(pageLength = 5, scrollX = TRUE))
-
-output$download11 <- downloadHandler(
-    filename = function() {
-      "lm.fitting.csv"
-    },
-    content = function(file) {
-      write.csv(fit.lm(), file, row.names = TRUE)
-    }
-  )
-
-newX = reactive({
-inFile = input$newfile
-if (is.null(inFile))
-{
-df = X()[1:10, ] ##>  example data
-}
-else{
-df = read.csv(
-inFile$datapath,
-header = input$newheader,
-sep = input$newsep,
-quote = input$newquote
-)
-}
-return(df)
-})
-#prediction plot
-# prediction
-pred = eventReactive(input$B2,
-{
-fit = lm(formula(), data = X())
-pfit = predict(fit, newdata = newX(), interval = input$interval)
-})
-
-pred.lm <- reactive({
-	cbind(newX(), round(pred(), 4))
-	})
-
-output$pred = renderDataTable({
-pred.lm()
-}, 
-options = list(pageLength = 5, scrollX = TRUE))
-
-output$download12 <- downloadHandler(
-    filename = function() {
-      "lm.pred.csv"
-    },
-    content = function(file) {
-      write.csv(pred.lm(), file, row.names = TRUE)
-    }
-  )
-
-output$px = renderUI({
-selectInput(
-'px',
-h5('Choose one independent Variable (X)'),
-selected = "NULL",
-choices = c("NULL", names(newX()))
-)
-})
+# 
+ fit.lm <- reactive({
+ res <- data.frame(Y=DF3()[,input$y],
+ Fittings = round(fit()[["fitted.values"]], 4),
+ Residuals = round(fit()[["residuals"]], 4)
+ )
+ colnames(res) <- c("Dependent Variable = Y", "Fittings = Predicted Y", "Residuals = Y - Predicted Y")
+ return(res)
+ 	})
+# 
+ output$fitdt0 = DT::renderDataTable({
+ fit.lm()
+ }, 
+ options = list(scrollX = TRUE))
+# 
+ output$download11 <- downloadHandler(
+     filename = function() {
+       "lm.fitting.csv"
+     },
+     content = function(file) {
+       write.csv(fit.lm(), file, row.names = TRUE)
+     }
+   )
+# 
+# newX = reactive({
+# inFile = input$newfile
+# if (is.null(inFile))
+# {
+# df = DF3()[1:10, ] ##>  example data
+# }
+# else{
+# df = read.csv(
+# inFile$datapath,
+# header = input$newheader,
+# sep = input$newsep,
+# quote = input$newquote
+# )
+# }
+# return(df)
+# })
+ #prediction plot
+# # prediction
+# pred = eventReactive(input$B2,
+# {
+# fit = lm(formula(), data = DF3())
+# pfit = predict(fit, newdata = newDF3(), interval = input$interval)
+# })
+# 
+# pred.lm <- reactive({
+# 	cbind(newDF3(), round(pred(), 4))
+# 	})
+# 
+# output$pred = renderDataTable({
+# pred.lm()
+# }, 
+# options = list(pageLength = 5, scrollX = TRUE))
+# 
+# output$download12 <- downloadHandler(
+#     filename = function() {
+#       "lm.pred.csv"
+#     },
+#     content = function(file) {
+#       write.csv(pred.lm(), file, row.names = TRUE)
+#     }
+#   )
+# 
+# output$px = renderUI({
+# selectInput(
+# 'px',
+# h5('Choose one independent Variable (X)'),
+# selected = "NULL",
+# choices = c("NULL", names(newDF3()))
+# )
+# })

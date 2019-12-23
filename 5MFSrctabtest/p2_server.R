@@ -7,11 +7,16 @@
 ## DT: 2019-01-11
 ##
 ##----------#----------#----------#----------
-#----------  Panel 2: 2,2 dependent ----------##
+#----------  Panel 3: 2,2 dependent mcnemar ----------##
 
 T2 = reactive({ # prepare dataset
   x <- as.numeric(unlist(strsplit(input$x2, "[,;\n\t ]")))
+  validate(need(length(x)==4, "Please input 4 values"))
+
   x <- matrix(x,2,2, byrow=TRUE)
+  validate(need(length(unlist(strsplit(input$cn2, "[\n]")))==2, "Please input correct column names"))
+  validate(need(length(unlist(strsplit(input$rn2, "[\n]")))==2, "Please input correct row names"))
+
   rn = unlist(strsplit(input$rn2, "[\n]"))
   cn = unlist(strsplit(input$cn2, "[\n]"))
   rownames(x) <- paste(rn[1], cn)

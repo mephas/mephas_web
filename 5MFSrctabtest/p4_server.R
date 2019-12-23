@@ -11,7 +11,13 @@
 
 T4 = reactive({ # prepare dataset
   x <- as.numeric(unlist(strsplit(input$x4, "[,;\n\t ]")))
+  validate(need(length(x)==4, "Please input 4 values"))
+
   x <- matrix(x,2,2, byrow=TRUE)
+
+  validate(need(length(unlist(strsplit(input$cn4, "[\n]")))==2, "Please input correct column names"))
+  validate(need(length(unlist(strsplit(input$rn4, "[\n]")))==2, "Please input correct row names"))
+
   rownames(x) = unlist(strsplit(input$rn4, "[\n]"))
   colnames(x) = unlist(strsplit(input$cn4, "[\n]"))
   return(x)
@@ -24,7 +30,7 @@ output$dt4 = renderTable({
   rownames = TRUE, width = "800px")
 
 output$dt4.0 = renderTable({
-  res = chisq.test(T4(), correct = FALSE)
+  res = chisq.test(T4(), correct = NULL)
   exp = res$expected
   return(exp)}, 
   width = "700px" ,rownames = TRUE, digits = 2)

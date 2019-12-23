@@ -13,50 +13,54 @@
 T6 = reactive({ # prepare dataset
   rn = unlist(strsplit(input$rn6, "[\n]"))
   cn = unlist(strsplit(input$cn6, "[\n]"))
-  x <- as.numeric(unlist(strsplit(input$x6, "[,;\n\t]")))
+
+  x <- as.numeric(unlist(strsplit(input$x6, "[,;\n\t ]")))
+  validate(need(length(x)==length(cn)*length(cn), "Please input enough values"))
   x <- matrix(x,length(cn),length(cn), byrow=TRUE)
+
+  validate(need(length(cn)==ncol(x), "Please input correct names"))
+  validate(need(length(rn)==2, "Please input correct names"))
 
   rownames(x) <- paste0(rn[1], " : ",cn)
   colnames(x) <- paste0(rn[2], " : ",cn)
   return(x)
   })
 
-output$dt6 = renderTable({
+output$dt6 = DT::renderDataTable({
   addmargins(T6(), 
     margin = seq_along(dim(T6())), 
-    FUN = list(Total=sum), quiet = TRUE)},  
-  rownames = TRUE, width = "800px")
+    FUN = list(Total=sum), quiet = TRUE)}, options = list(scrollX = TRUE))
 
-output$dt6.0 = renderTable({
-  res = chisq.test(T6(), correct = FALSE)
-  exp = res$expected
-  return(exp)}, 
-  width = "700px" ,rownames = TRUE, digits = 2)
+output$dt6.0 = DT::renderDataTable({
+   x = as.matrix(T6())
+  res = round(cohen.kappa(x)$agree,6)
+    return(res)
+}, options = list(scrollX = TRUE))
 
-output$dt6.1 = renderTable({prop.table(T6(), 1)}, width = "700px" ,rownames = TRUE, digits = 4)
+output$dt6.1 = DT::renderDataTable({
+   x = as.matrix(T6())
+  res = round(cohen.kappa(x)$weight,6)
+    return(res)
+}, options = list(scrollX = TRUE))
 
-output$dt6.2 = renderTable({prop.table(T6(), 2)}, width = "700px" ,rownames = TRUE, digits = 4)
+#output$dt6.1 = renderTable({prop.table(T6(), 1)}, width = "700px" ,rownames = TRUE, digits = 4)
 
-output$dt6.3 = renderTable({prop.table(T6())}, width = "700px" ,rownames = TRUE, digits = 4)
+#output$dt6.2 = renderTable({prop.table(T6(), 2)}, width = "700px" ,rownames = TRUE, digits = 4)
+
+#output$dt6.3 = renderTable({prop.table(T6())}, width = "700px" ,rownames = TRUE, digits = 4)
 
 
-output$makeplot6 <- renderPlot({  #shinysession 
-  x <- as.data.frame(T6())
-  mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
-  ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
-  })
+#output$makeplot6 <- renderPlot({  #shinysession 
+#  x <- as.data.frame(T6())
+#  mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
+#  ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
+#  })
 
 output$c.test6 = renderTable({
     x = as.matrix(T6())
     res = cohen.kappa(x)
-    res.table = t(data.frame(
-      k.estimate = c(round(res$kappa, digits = 4)),
-      var.kappa = c(round(res$var.kappa, digits = 4)),
-     CI.0.95 = c(paste0("(",round(res$confid[1], digits = 4),", ",round(res$confid[5], digits = 4), ")"))
-     ))
-    colnames(res.table) <- c("Cohen's Kappa")
-    rownames(res.table) <- c("Cohen's Kappa Statistic", "Variance of Kappa", "95% Confidence Interval")
+    res.table = res[["confid"]]
+    colnames(res.table) =c("95% CI Low", "Kappa Estimate", "95% CI High")
     return(res.table)
-    }, 
-    rownames = TRUE, width="700px")
+    }, rownames = TRUE, width="700px")
 

@@ -14,7 +14,13 @@ T5 = reactive({ # prepare dataset
   x <- as.numeric(unlist(strsplit(input$x5, "[,;\n\t ]")))
   r <- length(unlist(strsplit(input$rn5, "[\n]")))
   c <- length(unlist(strsplit(input$cn5, "[\n]")))
+
+  validate(need(length(x)==r*c, "Please input enough values"))
+
   x <- matrix(x,r,c, byrow=TRUE)
+
+  validate(need(length(unlist(strsplit(input$cn5, "[\n]")))==c, "Please input correct column names"))
+  validate(need(length(unlist(strsplit(input$rn5, "[\n]")))==r, "Please input correct row names"))
 
   rownames(x) = unlist(strsplit(input$rn5, "[\n]"))
   colnames(x) = unlist(strsplit(input$cn5, "[\n]"))

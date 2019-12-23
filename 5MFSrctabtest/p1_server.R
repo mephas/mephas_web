@@ -12,8 +12,13 @@
 #----------  Panel 1: 2,2 independent ----------##
 
 T1 = reactive({ # prepare dataset
-  x <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t]")))
+  x <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t ]")))
+  validate(need(length(x)==4, "Please input 4 values"))
   x <- matrix(x,2,2, byrow=TRUE)
+
+  validate(need(length(unlist(strsplit(input$cn1, "[\n]")))==2, "Please input correct column names"))
+  validate(need(length(unlist(strsplit(input$rn1, "[\n]")))==2, "Please input correct row names"))
+
   rownames(x) = unlist(strsplit(input$rn1, "[\n]"))
   colnames(x) = unlist(strsplit(input$cn1, "[\n]"))
   return(x)
