@@ -3,8 +3,8 @@ if (!require(stargazer)) {install.packages("stargazer")}; library(stargazer)
 if (!require(ggfortify)) {install.packages("ggfortify")}; library(ggfortify)
 if (!require(plotROC)) {install.packages("plotROC")}; library(plotROC)
 if (!require(ROCR)) {install.packages("ROCR")}; library(ROCR)
-if (!require(survival)) {install.packages("survival")}; library(survival)
-if (!require(survminer)) {install.packages("survminer")}; library(survminer)
+#if (!require(survival)) {install.packages("survival")}; library(survival)
+#if (!require(survminer)) {install.packages("survminer")}; library(survminer)
 if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(data.table)) {install.packages("data.table")}; library(data.table)
@@ -29,13 +29,13 @@ function(input, output, session) {
 source("0data_server.R", local=TRUE)$value
 
 #----------1. Linear regression----------
-source("1lm_server.R", local=TRUE)$value
+source("1km_server.R", local=TRUE)$value
 
 #----------2. Logistic regression----------
-source("2lr_server.R", local=TRUE)$value
+#source("2pr1_server.R", local=TRUE)$value
 
 #----------3. Cox regression----------
-source("3cr_server.R", local=TRUE)$value
+#source("3cr_server.R", local=TRUE)$value
 
 
 ##########----------##########----------##########

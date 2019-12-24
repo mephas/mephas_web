@@ -153,7 +153,7 @@ fsum = eventReactive(input$Bd, ##> dis var
          lapply(data, table)
        })
 
-output$sum = DT::renderTable({sum()}, rownames = TRUE)
+output$sum = renderTable({sum()}, rownames = TRUE)
 
 output$fsum = renderPrint({fsum()})
 

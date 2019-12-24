@@ -9,235 +9,208 @@
 ## DT: 2019-01-11
 ##
 ##----------#----------#----------#----------
-load("regression.RData")
+load("LGT.RData")
 
 data <- reactive({
                 switch(input$edata,
-               "insurance_linear_regression" = insurance_linear_regression,
-               "advertisement_logistic_regression" = advertisement_logistic_regression,
-               "lung_cox_regression" = lung_cox_regression)  
+               "Breast Cancer" = LGT)  
                 })
 
 
-
-XR = reactive({
+DF0 = reactive({
   inFile = input$file
   if (is.null(inFile)){
-      df <- data() ##>  example data
+    x<-data()
     }
   else{
-    df <- read.csv(inFile$datapath,
-        header = input$header,
-        sep = input$sep,
-        quote = input$quote)
-  }
-  
-  #fac <- as.data.frame(lapply(df[,input$factor], factor))
-  #df2 <- cbind.data.frame(df, fac)
-  return(df)
-  })
+if(!input$col){
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote)
+    }
+    else{
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote, row.names=1)
+    }
+    validate( need(ncol(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
 
+  x <- as.data.frame(csv)
+}
+return(as.data.frame(x))
+})
 
-#output$data <- renderDataTable(
-#    XR(), options = list(pageLength = 5, scrollX = TRUE))
+## variable type
+type.num0 <- reactive({
+DF0() %>% select_if(is.numeric) %>% colnames()
+})
 
 output$factor1 = renderUI({
 selectInput(
   'factor1',
-  h5('Continuous/numeric --> Discrete/factor/categorical'),
+  h5('Numeric Variables/ Numbers --> Categorical Variables / Factors'),
   selected = NULL,
-  choices = names(XR()),
+  #choices = names(DF()),
+  choices = type.num0(),
   multiple = TRUE
 )
 })
 
-output$lvl = renderUI({
-selectInput(
-'lvl',
-h5('Re-set the referential level'),
-selected = "NULL",
-choices = c("NULL", names(XR()))
-)
+DF1 <- reactive({
+df <-DF0() 
+df[input$factor1] <- as.data.frame(lapply(df[input$factor1], factor))
+return(df)
+  })
+
+type.fac1 <- reactive({
+DF1() %>% select_if(is.factor) %>% colnames()
 })
 
 output$factor2 = renderUI({
 selectInput(
   'factor2',
-  h5('Discrete/factor/categorical --> Continuous/numeric'),
+  h5('Categorical Variables / Factors --> Numeric Variables/ Numbers'),
   selected = NULL,
-  choices = names(XR()),
+  #choices = names(DF()),
+  choices = type.fac1(),
   multiple = TRUE
 )
 })
 
-X <- reactive({
-  df2 <- XR()
 
-  F <- N <- data.frame(NULL)
-  F <- as.data.frame(lapply(XR()[input$factor1], as.factor))
-  N <- as.data.frame(lapply(XR()[input$factor2], as.numeric))
 
-  if (!is.null(input$factor1) & !is.null(input$factor2)) {df2 <- data.frame(F,N, XR())}
-  if (!is.null(input$factor1) &  is.null(input$factor2)) {df2 <- data.frame(F, XR())}
-  if ( is.null(input$factor1) & !is.null(input$factor2)) {df2 <- data.frame(N, XR())}
-  if ( is.null(input$factor1) &  is.null(input$factor2)) {df2 <- XR()}
-
-  if (input$lvl!="NULL") {df2[,input$lvl] <- relevel(df2[,input$lvl], input$ref)}
-
-  return(df2)
+DF2 <- reactive({
+  df <-DF1() 
+df[input$factor2] <- as.data.frame(lapply(df[input$factor2], as.numeric))
+return(df)
   })
 
-Xdata <- eventReactive(input$changevar,{
-    X()})
-
-X
-output$Xdata2 <- renderDataTable(
-    Xdata(), options = list(pageLength = 5,scrollX = TRUE))
-
-## variable type
-type.num <- reactive({
-con.names = X() %>% select_if(is.numeric) %>% colnames()
-return(con.names)
+type.fac2 <- reactive({
+DF2() %>% select_if(is.factor) %>% colnames()
 })
 
-type.fac <- reactive({
-cat.names = X() %>% select_if(is.factor) %>% colnames()
-return(cat.names)
+output$lvl = renderUI({
+selectInput(
+'lvl',
+h5('1. Choose Categorical Variables / Factors'),
+selected = NULL,
+choices = type.fac2(),
+multiple = TRUE
+)
 })
 
-output$str.num <- renderPrint({type.num()})
-output$str.fac <- renderPrint({str(X()[,type.fac()])})
+DF3 <- reactive({
+   
+  if (length(input$lvl)==0 || length(unlist(strsplit(input$ref, "[\n]")))==0 ||length(input$lvl)!=length(unlist(strsplit(input$ref, "[\n]")))){
+  df <- DF2()
+}
 
+else{
+  df <- DF2()
+  x <- input$lvl
+  y <- unlist(strsplit(input$ref, "[\n]"))
+  for (i in 1:length(x)){
+    #df[,x[i]] <- as.factor(as.numeric(df[,x[i]]))
+    df[,x[i]] <- relevel(df[,x[i]], ref= y[i])
+  }
 
-  output$data.h1 <- renderDataTable(
-    head(X()), options = list(scrollX = TRUE))
-  output$data.h2 <- renderDataTable(
-    head(X()), options = list(scrollX = TRUE))
-  output$data.h3 <- renderDataTable(
-    head(X()), options = list(scrollX = TRUE))
+}
+return(df)
+  
+  })
 
-  output$str1 <- renderPrint({str(head(X()))})
-  output$str2 <- renderPrint({str(head(X()))})
-  output$str3 <- renderPrint({str(head(X()))})
-  output$str0 <- renderPrint({str(head(XR()))})
-  output$str00 <- renderPrint({str(head(X()))})
+output$Xdata <- DT::renderDataTable(
+DF3(), options = list(scrollX = TRUE))
 
-
-# Basic Descriptives
-
-output$cv = renderUI({
-  selectInput(
-    'cv', h5('Select continuous variables'),
-    selected = NULL, 
-    choices = type.num(), 
-    multiple = TRUE)
+type.num3 <- reactive({
+DF3() %>% select_if(is.numeric) %>% colnames()
 })
 
-output$dv = renderUI({
-  selectInput(
-    'dv', h5('Select discrete / categorical variables'), 
-    selected = NULL, 
-    choices = type.fac(), 
-    multiple = TRUE)
+type.fac3 <- reactive({
+DF3() %>% select_if(is.factor) %>% colnames()
 })
 
-sum = eventReactive(input$Bc,  ##> cont var
-        {
-          pastecs::stat.desc(X()[, input$cv], desc = TRUE, norm=TRUE)
-          #Hmisc::describe(X()[,input$cv])
-        })
-fsum = eventReactive(input$Bd, ##> dis var
-       {
-         data = as.data.frame(X()[, input$dv])
-         colnames(data) = input$dv
-         lapply(data, table)
-       })
+output$str.num <- renderPrint({str(DF3()[,type.num3()])})
+#output$str.fac <- renderPrint({str(DF2()[,type.fac()])})
+output$str.fac <- renderPrint({Filter(Negate(is.null), lapply(DF3(),levels))})
 
-output$sum = renderTable({sum()}, rownames = TRUE)
+
+sum <- reactive({
+  x <- DF3()[,type.num3()]
+  res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
+  colnames(res) = names(x)
+  rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
+  return(res)
+  })
+
+output$sum <- DT::renderDataTable({sum()}, options = list(scrollX = TRUE))
+
+fsum = reactive({
+  x <- DF3()[,type.fac3()]
+  summary(x)
+  })
 
 output$fsum = renderPrint({fsum()})
-
+ 
 output$download1 <- downloadHandler(
-    filename = function() {
-      "reg1.csv"
-    },
-    content = function(file) {
-      write.csv(sum(), file, row.names = TRUE)
-    }
-  )
-
-output$download2 <- downloadHandler(
-    filename = function() {
-      "reg2.txt"
-    },
-    content = function(file) {
-      write.table(fsum(), file)
-    }
-  )
-
-# First Exploration of Variables
-
-output$tx = renderUI({
-  selectInput(
-    'tx', h5('Variable at the x-axis'),
-    selected = "NULL", 
-    choices = c("NULL",names(X())))
-  
-  })
-
-output$ty = renderUI({
-  selectInput(
-    'ty',
-    h5('Variable at the y-axis'),
-    selected = "NULL", 
-    choices = c("NULL",names(X())))
-  
-})
-
-## scatter plot
-output$p1 = renderPlot({
-   validate(
-      need(input$tx != "NULL", "Please select one continuous variable")
+     filename = function() {
+       "lr.des1.csv"
+     },
+     content = function(file) {
+       write.csv(sum(), file, row.names = TRUE)
+     }
    )
-  validate(
-      need(input$ty != "NULL", "Please select one continuous variable")
-    )
-  ggplot(X(), aes(x = X()[, input$tx], y = X()[, input$ty])) + geom_point(shape = 1) + 
-    geom_smooth(method = lm) + xlab(input$tx) + ylab(input$ty) + theme_minimal()
-  })
-
+ 
+ output$download2 <- downloadHandler(
+     filename = function() {
+       "lr.des2.txt"
+     },
+     content = function(file) {
+       write.table(fsum(), file, row.names = TRUE)
+     }
+   )
+# 
+# # First Exploration of Variables
+# 
+output$tx = renderUI({
+   selectInput(
+     'tx', tags$b('1. Choose a variable for the x-axis'),
+     selected=names(DF3())[2],
+     choices = names(DF3()))
+   })
+ 
+ output$ty = renderUI({
+   selectInput(
+     'ty',
+     tags$b('2. Choose a variable for the y-axis'),
+     selected = names(DF3())[1],
+     choices = names(DF3()))
+   
+ })
+ 
+ ## scatter plot
+ output$p1 = renderPlot({
+  validate(need(length(levels(as.factor(DF3()[, input$ty])))==2, "Please choose a binary variable as Y")) 
+   #ggplot(DF3(), aes(x = DF3()[, input$tx], y = DF3()[, input$ty])) + geom_point(shape = 1) + 
+   #  geom_smooth(method = lm) + xlab(input$tx) + ylab(input$ty) + theme_minimal()
+   ggplot(DF3(), aes(x=DF3()[, input$tx], y=(as.numeric(as.factor(DF3()[, input$ty]))-1))) + geom_point(shape = 1) + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE) +
+  xlab(input$tx) + ylab(input$ty) + theme_minimal()
+   })
+ 
 ## histogram
-output$hx = renderUI({
-  selectInput(
-    'hx',
-    h5('Histogram of the continuous variable'),
-    selected = "NULL", 
-    choices = c("NULL",names(X())))
-})
-
-output$hxd = renderUI({
-  selectInput(
-    'hxd',
-    h5('Histogram of the categorical/discrete variable'),
-    selected = "NULL", 
-    choices = c("NULL",names(X())))
-})
-
+ output$hx = renderUI({
+   selectInput(
+     'hx',
+     tags$b('Choose a numeric variable to see the distribution'),
+     selected = names(DF3())[2], 
+     choices = names(DF3()))
+ })
+ 
 output$p2 = renderPlot({
-  validate(
-      need(input$hx != "NULL", "Please select one continuous variable")
-    )
-  ggplot(X(), aes(x = X()[, input$hx])) + 
-    geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
-    geom_density()+
-    xlab("") + theme_minimal() + theme(legend.title = element_blank())
-  })
-
-output$p3 = renderPlot({
-  validate(
-      need(input$hxd != "NULL", "Please select one categorical/discrete variable")
-    )
-  ggplot(X(), aes(x = X()[, input$hxd])) + 
-    geom_histogram(colour = "black",fill = "white",  stat="count") + 
-    xlab("") + theme_minimal() + theme(legend.title = element_blank())
-  })
+   validate(
+       need(input$hx != "NULL", "Please select one numeric variable")
+     )
+   ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
+     geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
+     geom_density()+
+     xlab("") + theme_minimal() + theme(legend.title = element_blank())
+   })
+ 
