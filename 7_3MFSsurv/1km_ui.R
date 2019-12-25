@@ -14,7 +14,7 @@ sidebarLayout(
 
 sidebarPanel(
 
-h4("Example data: Birth weight"),      
+h4("Example data: NKI70"),      
 
 h4(tags$b("Step 1. Choose variables to build the model")),      
 
