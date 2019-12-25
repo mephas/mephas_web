@@ -32,7 +32,7 @@ tags$textarea(id='conf', " " ),
 hr(),
 #actionButton("F", "Create formula", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
 h4(tags$b("Step 2. Check Linear Regression Model")),
-tags$style(type='text/css', '#formula {background-color: rgba(0,0,255,0.10); color: blue;}'),
+tags$head(tags$style("#formula {background-color: rgba(0,0,255,0.10); color: blue;}")),
 verbatimTextOutput("formula", placeholder = TRUE),
 p("Note: '-1' in the formula indicates that intercept / constant term has been removed")
 ),
@@ -46,7 +46,9 @@ p("This only shows the first several lines, please check full data in the 1st ta
 DT::dataTableOutput("Xdata2")
 ),
 tabPanel("Variables information",p(br()),
-verbatimTextOutput("str")
+verbatimTextOutput("str"),
+tags$head(tags$style("#str {overflow-y:scroll; max-height: 350px; background: white};"))
+
 )
 ),
 hr(),
@@ -81,6 +83,8 @@ HTML(
 tabPanel("AIC-based Selection", p(br()),
     p(tags$b("3. Model selection process suggested by AIC")),
     verbatimTextOutput("step"),
+    tags$head(tags$style("#step {overflow-y:scroll; max-height: 400px; background: white};")),
+
 
    HTML(
     "<b> Explanations </b>

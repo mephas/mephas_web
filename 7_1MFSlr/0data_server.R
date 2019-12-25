@@ -127,9 +127,9 @@ type.fac3 <- reactive({
 DF3() %>% select_if(is.factor) %>% colnames()
 })
 
-output$str.num <- renderPrint({str(DF3()[,type.num3()])})
+output$strnum <- renderPrint({str(DF3()[,type.num3()])})
 #output$str.fac <- renderPrint({str(DF2()[,type.fac()])})
-output$str.fac <- renderPrint({Filter(Negate(is.null), lapply(DF3(),levels))})
+output$strfac <- renderPrint({Filter(Negate(is.null), lapply(DF3(),levels))})
 
 
 sum <- reactive({

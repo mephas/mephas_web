@@ -40,18 +40,21 @@ p("Note: '-1' in the formula indicates that intercept / constant term has been r
 mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
-
-p(tags$b("1. First lines of data")),
-p(" Please check full data in the 1st tab"),
-DT::dataTableOutput("Xdata2"),
-
-p(tags$b("2. Variables information")),
+tabsetPanel(
+tabPanel("Browse Data",p(br()),
+p("This only shows the first several lines, please check full data in the 1st tab"),
+DT::dataTableOutput("Xdata2")
+),
+tabPanel("Variables information",p(br()),
 verbatimTextOutput("str"),
+tags$head(tags$style("#str {overflow-y:scroll; max-height: 350px; background: white};"))
 
+)
+),
 hr(),
 
 #h4(tags$b("Output 2. Model Results")),
-actionButton("B1", h4(tags$b("Output 2. Click to Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+actionButton("B1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
 p(br()),
 tabsetPanel(
 
@@ -63,21 +66,42 @@ tabPanel("Model Estimation",
     ),
     column(6, htmlOutput("fit2")
     )
-  )
-    ),
-
-#tabPanel("ANOVA", p(br()),
-#    p(tags$b("ANOVA Table")),  
-#    tableOutput("anova")
-#    ),
-
+  ),
+HTML(
+"
+<b> Explanations  </b>
+<ul>
+<li> For each variable, estimated coefficients (95% confidence interval), T statistic for the significance of single variable, and P value are given.
+<li> p < 0.05 indicates this variable is statistical significant to the model
+<li> Observations: the number of samples
+<li> Akaike Inf. Crit. = AIC = -2 (log likelihood) + 2k; k is the number of variables + constant
+<li> Table in the right shows OR; OR= exp(coefficients in the left)
+</ul>
+"
+)
+),
 tabPanel("AIC-based Selection", p(br()),
     p(tags$b("3. Model selection process suggested by AIC")),
-    verbatimTextOutput("step")
+    verbatimTextOutput("step"),
+    tags$head(tags$style("#step {overflow-y:scroll; max-height: 400px; background: ghostwhite};")),
+
+
+   HTML(
+    "<b> Explanations </b>
+  <ul> 
+    <li> The Akaike Information Criterion (AIC) is a way of selecting a model from a set of models. When model fits are ranked according to their AIC values, the model with the lowest AIC value is sometime considered the ‘best’. 
+  </ul>"
+  )
     ),
 
 tabPanel("ROC Plot",  p(br()),
     plotOutput("p.lm", width = "500px", height = "400px")
+    ),
+
+tabPanel("Sensitivity and Specificity",  p(br()),
+     DT::dataTableOutput("sst"),
+    downloadButton("download111", "Download Results")
+
     ),
 
 tabPanel("Fitting", p(br()),

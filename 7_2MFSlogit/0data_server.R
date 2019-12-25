@@ -127,9 +127,9 @@ type.fac3 <- reactive({
 DF3() %>% select_if(is.factor) %>% colnames()
 })
 
-output$str.num <- renderPrint({str(DF3()[,type.num3()])})
+output$strnum <- renderPrint({str(DF3()[,type.num3()])})
 #output$str.fac <- renderPrint({str(DF2()[,type.fac()])})
-output$str.fac <- renderPrint({Filter(Negate(is.null), lapply(DF3(),levels))})
+output$strfac <- renderPrint({Filter(Negate(is.null), lapply(DF3(),levels))})
 
 
 sum <- reactive({
@@ -171,15 +171,15 @@ output$download1 <- downloadHandler(
 # 
 output$tx = renderUI({
    selectInput(
-     'tx', tags$b('1. Choose a variable for the x-axis'),
-     selected=names(DF3())[2],
-     choices = names(DF3()))
+     'tx', tags$b('1. Choose a numeric variable for the x-axis'),
+     selected=type.num3()[2],
+     choices = type.num3())
    })
  
  output$ty = renderUI({
    selectInput(
      'ty',
-     tags$b('2. Choose a variable for the y-axis'),
+     tags$b('2. Choose a binary (1/0) variable for the y-axis'),
      selected = names(DF3())[1],
      choices = names(DF3()))
    
@@ -200,8 +200,8 @@ output$tx = renderUI({
    selectInput(
      'hx',
      tags$b('Choose a numeric variable to see the distribution'),
-     selected = names(DF3())[2], 
-     choices = names(DF3()))
+     selected = type.num3()[1], 
+     choices = type.num3())
  })
  
 output$p2 = renderPlot({
