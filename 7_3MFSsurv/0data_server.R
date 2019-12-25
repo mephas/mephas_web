@@ -166,24 +166,6 @@ output$download1 <- downloadHandler(
        write.table(fsum(), file, row.names = TRUE)
      }
    )
-# 
-# # First Exploration of Variables
-# 
-output$tx = renderUI({
-   selectInput(
-     'tx', tags$b('1. Choose a variable for the x-axis'),
-     selected=names(DF3())[2],
-     choices = names(DF3()))
-   })
- 
- output$ty = renderUI({
-   selectInput(
-     'ty',
-     tags$b('2. Choose a variable for the y-axis'),
-     selected = names(DF3())[1],
-     choices = names(DF3()))
-   
- })
  
  ## scatter plot
  output$p1 = renderPlot({
@@ -200,8 +182,8 @@ output$tx = renderUI({
    selectInput(
      'hx',
      tags$b('Choose a numeric variable to see the distribution'),
-     selected = names(DF3())[2], 
-     choices = names(DF3()))
+     selected = type.num3()[1], 
+     choices = type.num3())
  })
  
 output$p2 = renderPlot({

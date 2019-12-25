@@ -120,7 +120,7 @@ plotOutput("p1", width = "500px", height = "400px")
 
 tabPanel("Histogram", p(br()),
 
-p("This is to show the distribution of any one numeric variables"),
+p("This is to show the distribution of any numeric variable"),
 uiOutput('hx'),
 plotOutput("p2", width = "500px", height = "400px"),
 sliderInput("bin", "The width of bins in the histogram", min = 0, max = 10, value = 1))
