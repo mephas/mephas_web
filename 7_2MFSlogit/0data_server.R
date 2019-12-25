@@ -172,7 +172,7 @@ output$download1 <- downloadHandler(
 output$tx = renderUI({
    selectInput(
      'tx', tags$b('1. Choose a numeric variable for the x-axis'),
-     selected=type.num3()[2],
+     selected=type.num3()[1],
      choices = type.num3())
    })
  
