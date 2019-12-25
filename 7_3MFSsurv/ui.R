@@ -82,7 +82,7 @@ HTML(
 ),
 
 hr(),
-#source("1lm_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("1km_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
 

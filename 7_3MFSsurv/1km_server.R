@@ -11,104 +11,50 @@
 ##----------#----------#----------#----------
 
 ## 2. choose variable to put in the model/ and summary
-output$y = renderUI({
-selectInput(
-'y',
-tags$b('1. Choose a dependent variable / outcome / response (Y), numeric'),
-selected = type.num3()[1],
-choices = type.num3()
-)
-})
 
 DF4 <- reactive({
-  df <-dplyr::select(DF3(), subset=c(-input$y))
+  df <-dplyr::select(DF3(), subset=c(-input$c))
 return(df)
   })
-
-output$x = renderUI({
-selectInput(
-'x',
-tags$b('2. Choose independent variables / factors / predictors (X)'),
-selected = names(DF4())[1],
-choices = names(DF4()),
-multiple = TRUE
-)
+type.fac4 <- reactive({
+DF3() %>% select_if(is.factor) %>% colnames()
 })
+
+output$g = renderUI({
+selectInput(
+'g',
+tags$b('Choose group variable'),
+selected = type.fac4()[2],
+choices = type.fac4())
+})
+
 
 output$Xdata2 <- DT::renderDataTable(
 head(DF3()), options = list(scrollX = TRUE))
 ### for summary
 output$str <- renderPrint({str(DF3())})
 
-##3. regression formula
-formula = reactive({
 
-as.formula(paste0(input$y,' ~ ',paste0(input$x, collapse = "+"), 
-	input$conf, 
-  input$intercept)
-)
-
-})
-
-output$formula = renderPrint({formula()})
 
 ## 4. output results
 ### 4.2. model
-fit = eventReactive(input$B1, {
-lm(formula(), data = DF3())
+
+
+kmfit = eventReactive(input$B1, {
+  y <- paste0(surv(), "~", input$g)
+  fit <- survfit(as.formula(y), data = DF3())
+  return(fit)
 })
-
-
-#gfit = eventReactive(input$B1, {
-#  glm(formula(), data = DF3())
-#})
-# 
- output$fit = renderUI({
- 
- HTML(
- stargazer::stargazer(
- fit(),
- #out="linear.txt",
- header=FALSE,
- dep.var.caption = "Linear Regression",
- dep.var.labels = paste0("Y = ",input$y),
- type = "html",
- style = "all",
- align = TRUE,
- ci = TRUE,
- single.row = TRUE,
- #no.space=TRUE,
- title=paste(Sys.time()),
- model.names =FALSE)
- )
- 
- })
-
-afit = eventReactive(input$B1, {
-  res.table <- anova(fit())
-  colnames(res.table) <- c("Degree of Freedom (DF)", "Sum of Squares (SS)", "Mean Squares (MS)", "F Statistic", "P Value")
-  return(res.table)
-  })
-
-output$anova = DT::renderDataTable({afit()}, rownames = TRUE)
-
-sp = eventReactive(input$B1, {step(fit())})
-output$step = renderPrint({sp()})
 
 # 
 # # residual plot
- output$p.lm = renderPlot({
-	autoplot(fit(), which = as.numeric(input$num)) + theme_minimal()
+ output$km.p= renderPlot({
+
+autoplot(kmfit(), conf.int = FALSE)+ theme_minimal() + ggtitle("") +
+annotate("text", x = .75, y = .25, label = paste("P value ="))
 	})
 # 
- fit.lm <- reactive({
- res <- data.frame(Y=DF3()[,input$y],
- Fittings = round(fit()[["fitted.values"]], 4),
- Residuals = round(fit()[["residuals"]], 4)
- )
- colnames(res) <- c("Dependent Variable = Y", "Fittings = Predicted Y", "Residuals = Y - Predicted Y")
- return(res)
- 	})
+
 # 
  output$fitdt0 = DT::renderDataTable({
  fit.lm()
@@ -121,6 +67,29 @@ output$step = renderPrint({sp()})
      },
      content = function(file) {
        write.csv(fit.lm(), file, row.names = TRUE)
+     }
+   )
+
+sst <- reactive({
+pred <- ROCR::prediction(fit()[["fitted.values"]], DF3()[,input$y])
+perf <- ROCR::performance(pred,"sens","spec")
+perf2 <- data.frame(
+  sen=unlist(perf@y.values), 
+  spec=unlist(perf@x.values), 
+  spec2=1-unlist(perf@x.values), 
+  cut=unlist(perf@alpha.values))
+colnames(perf2) <- c("Sensitivity", "Specificity", "1-Specificity","Cut-off Point")
+return(perf2)
+  })
+
+ output$sst = DT::renderDataTable({ round(sst(),6) })
+
+  output$download111 <- downloadHandler(
+     filename = function() {
+       "sens_spec.csv"
+     },
+     content = function(file) {
+       write.csv(sst(), file, row.names = TRUE)
      }
    )
 # 

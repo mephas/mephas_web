@@ -18,15 +18,14 @@ h4("Example data: Birth weight"),
 
 h4(tags$b("Step 1. Choose variables to build the model")),      
 
-uiOutput('y'),    
+uiOutput('y'), 
 uiOutput('x'),
-#uiOutput('fx'),
 
 radioButtons("intercept", "3. Add or remove intercept/constant term, if you need", ##> intercept or not
      choices = c("Remove intercept/constant" = "-1",
                  "Keep intercept/constant term" = ""),
      selected = ""),
-h5("Add interaction term between categorical variables"), 
+p(tags$b("4. Add interaction term between categorical variables, if you need")), 
 p('Please input: + var1:var2'), 
 tags$textarea(id='conf', " " ), 
 hr(),

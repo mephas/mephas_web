@@ -52,6 +52,33 @@ p("Correct separator and quote ensures data input successfully"),
 a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets"),
 hr(),
 
+h4(tags$b("Step 2. Create a Survival Object")), 
+
+p(tags$b("1. Choose a Time Variable")),      
+
+radioButtons("time", "What kind of time do you use?", select="A",
+  choiceNames = list(
+    HTML("Choice 1. Time-duration / Follow-up"),
+    HTML("Choice 2. Start-end time-point")
+    ),
+  choiceValues = list("A", "B" )
+  ),
+
+uiOutput('t'),
+
+p(tags$b("Choice 2. Choose start-end time-points")),      
+uiOutput('t1'),
+uiOutput('t2'),
+
+uiOutput('c'),
+
+tags$style(type='text/css', '#surv {background-color: rgba(0,0,255,0.10); color: blue;}'),
+verbatimTextOutput("surv", placeholder = TRUE),
+
+
+hr(),
+
+
 p(tags$b("Do you need to change the attribute or type of some variables?")),
 
 p(tags$b("Choice 1. Change Numeric Variables (Numbers) into Categorical Variable (Factors)")), 

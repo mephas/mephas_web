@@ -26,7 +26,7 @@ radioButtons("intercept", "3. Add or remove intercept/constant term, if you need
      choices = c("Remove intercept/constant" = "-1",
                  "Keep intercept/constant term" = ""),
      selected = ""),
-h5("Add interaction term between categorical variables"), 
+p(tags$b("4. Add interaction term between categorical variables")), 
 p('Please input: + var1:var2'), 
 tags$textarea(id='conf', " " ), 
 hr(),

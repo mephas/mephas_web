@@ -116,6 +116,55 @@ return(df)
   
   })
 
+output$t = renderUI({
+selectInput(
+'t',
+tags$b('Choice 1. Time-duration, numeric'),
+selected = type.num3()[1],
+choices = type.num3())
+})
+
+output$t1 = renderUI({
+selectInput(
+'t1',
+('1. Start-time variable, numeric'),
+selected = type.num3()[1],
+choices = type.num3())
+})
+
+output$t2 = renderUI({
+selectInput(
+'t2',
+('2. End-time variable, numeric'),
+selected = "NULL",
+choices = c("NULL",type.num3()))
+})
+
+output$c = renderUI({
+selectInput(
+'c',
+('2. Choose binary censoring information variable'),
+selected = names(DF3())[2],
+choices = names(DF3()))
+})
+
+##3. Survival Object
+surv = reactive({
+if (input$time == "A"){
+y <- paste0("Surv(", input$t, ",", input$c, ")")
+}
+if (input$time == "B"){
+y <- paste0("Surv(", input$t1, ",", input$t2, ",", input$c, ")")
+}
+return(y)
+})
+
+output$surv = renderPrint({
+validate(need(length(levels(as.factor(DF3()[, input$c])))==2, "Please choose a binary variable as Y")) 
+surv()
+})
+
+
 output$Xdata <- DT::renderDataTable(
 DF3(), options = list(scrollX = TRUE))
 

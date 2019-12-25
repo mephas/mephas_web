@@ -14,7 +14,7 @@
 output$y = renderUI({
 selectInput(
 'y',
-tags$b('1. Choose a dependent variable / outcome / response (Y)'),
+tags$b('1. Choose a dependent variable / outcome / response (Y), binary'),
 selected = names(DF3())[1],
 choices = names(DF3())
 )
