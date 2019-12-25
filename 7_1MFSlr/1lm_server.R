@@ -98,7 +98,7 @@ output$step = renderPrint({sp()})
 # 
 # # residual plot
  output$p.lm = renderPlot({
-	autoplot(fit(), which = as.numeric(input$num)) + theme_minimal()
+	ggfortify::autoplot(fit(), which = as.numeric(input$num)) + theme_minimal()
 	})
 # 
  fit.lm <- reactive({

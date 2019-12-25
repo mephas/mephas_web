@@ -61,14 +61,12 @@ output$download12 <- downloadHandler(
 
 
  output$p.s = renderPlot({
-  df <- data.frame(predictor = pred.lm()[,2],
-                  known.truth = pred.lm()[,input$y]
-                       )
-  p <- ROCR::prediction(df$predictor, df$known.truth)
+  p <- ROCR::prediction(pred.lm()[,2], pred.lm()[,input$y])
+  ps <- ROCR::performance(p, "tpr", "fpr")
   pf <- ROCR::performance(p, "auc")
 
-ggplot(df, aes(d = known.truth, m = predictor)) + 
-  geom_roc(n.cuts = 0) + theme_minimal() +annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
+autoplot(ps)+ theme_minimal()+theme(legend.position="none") + ggtitle("") +
+annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
   })
 
 sst.s <- reactive({
