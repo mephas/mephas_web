@@ -14,8 +14,8 @@ sidebarLayout(
 sidebarPanel(
 
 selectInput("edata", "Example Data", 
-        choices =  c("Breast Cancer"), 
-        selected = "Breast Cancer"),
+        choices =  c("NKI70"), 
+        selected = "NKI70"),
 
 h4(tags$b("Step 1. Upload Data File")), 
 ##-------csv file-------##   

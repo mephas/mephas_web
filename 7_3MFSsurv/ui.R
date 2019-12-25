@@ -59,10 +59,10 @@ hr()
 #----------1. LM regression panel----------
 tabPanel("K-M Model",
 
-headerPanel("Logistic Regression"),
+headerPanel("Kaplan- Regression"),
 
 hr(),
-source("1km_ui.R", local=TRUE, encoding="UTF-8")$value,
+#source("1km_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
 
@@ -80,7 +80,7 @@ tabPanel("Prediction1",
 headerPanel("Linear Prediction from Model"),
 
 hr(),
-source("2pr_ui.R", local=TRUE, encoding="UTF-8")$value,
+#source("2pr_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
 

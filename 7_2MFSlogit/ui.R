@@ -23,10 +23,9 @@ headerPanel("Data Preparation"),
 
 HTML(
 "
-
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To get your data prepared for linear regression model
+<li> To get your data prepared for logistic regression model
 <li> To change the type of some variables for linear regression model
 <li> To get the basic descriptive statistics of the variables in your data
 <li> To get the descriptive statistics plot of the variables in your data
@@ -35,16 +34,16 @@ HTML(
 <h4><b> 2. About your data </b></h4>
 
 <ul>
-<li> Your data need to include one dependent variable (outcome/response) as Y, and >=1 independent variables (factors/predictors)
+<li> Your data need to include one binary dependent variable (outcome/response) as Y (Y=1/0, or a 2-level factor), and >=1 independent variables (factors/predictors)
 <li> Your data need to have more rows than columns
 <li> Do not mix character and numbers in the same column 
+<li> The data used to build model is called <b>training data</b>
 </ul> 
 
 <i><h4>Case Example</h4>
-
+Suppose we wanted to explore the Breast Cancer dataset and develop a model to try classifying suspected cells to Benign (B) or Malignant (M).
 
 </h4></i>
-
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
 "
@@ -61,6 +60,24 @@ hr()
 tabPanel("Model",
 
 headerPanel("Logistic Regression"),
+HTML(
+"
+
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To build a logistic regression model, given the dependent variables is binary with underlying binomial distribution.
+<li> To get the estimates of linear regressions, such as estimate of coefficient, model information, AIC-based best model selection,ROC plot, sensitivity and specificity table, and model predictions 
+</ul>
+
+<h4><b> 2. About your data </b></h4>
+
+<ul>
+<li> Please prepare the data in the Data tab
+</ul> 
+
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
+"
+),
 
 hr(),
 source("1lm_ui.R", local=TRUE, encoding="UTF-8")$value,
@@ -70,6 +87,24 @@ hr()
 tabPanel("Prediction",
 
 headerPanel("Linear Prediction from Model"),
+HTML(
+"
+
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> If you have input the data and built a model in the previous tabs, you can upload new data and get the predictive results.
+</ul>
+
+<h4><b> 2. About your data </b></h4>
+
+<ul>
+<li> New data need to have all the independent variables in the model.
+<li> New data not used in the model is called <b> test data</b>
+</ul> 
+
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
+"
+),
 
 hr(),
 source("2pr_ui.R", local=TRUE, encoding="UTF-8")$value,

@@ -78,7 +78,7 @@ lm(formula(), data = DF3())
  ci = TRUE,
  single.row = TRUE,
  #no.space=TRUE,
- title=paste("Linear Regression", Sys.time()),
+ title=paste(Sys.time()),
  model.names =FALSE)
  )
  

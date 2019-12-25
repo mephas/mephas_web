@@ -9,11 +9,11 @@
 ## DT: 2019-01-11
 ##
 ##----------#----------#----------#----------
-load("LGT.RData")
+load("Surv.RData")
 
 data <- reactive({
                 switch(input$edata,
-               "Breast Cancer" = LGT)  
+               "NKI70" = Surv)  
                 })
 
 

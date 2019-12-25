@@ -17,7 +17,7 @@ selectInput("edata", "Example Data",
         choices =  c("Birth weight"), 
         selected = "Birth weight"),
 
-h4(tags$b("Step 1. Upload Data File")), 
+h4(tags$b("Step 1. Upload Data File (Training Data)")), 
 ##-------csv file-------##   
 p("We suggest the first variable is the dependent variable (Y) / outcome /response "),
 fileInput('file', "Choose CSV/TXT file",

@@ -29,7 +29,7 @@ function(input, output, session) {
 source("0data_server.R", local=TRUE)$value
 
 #----------1. Linear regression----------
-source("1km_server.R", local=TRUE)$value
+#source("1km_server.R", local=TRUE)$value
 
 #----------2. Logistic regression----------
 #source("2pr1_server.R", local=TRUE)$value

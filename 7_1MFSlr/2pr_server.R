@@ -38,7 +38,7 @@ pred = eventReactive(input$B2,
 })
 
 pred.lm <- reactive({
-	cbind.data.frame(newX(), Predict=round(pred(), 4))
+	cbind.data.frame(Predict=round(pred(), 4),newX())
 	})
 
 output$pred = DT::renderDataTable({

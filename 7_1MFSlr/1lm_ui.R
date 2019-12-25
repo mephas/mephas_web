@@ -56,18 +56,46 @@ p(br()),
 tabsetPanel(
 
 tabPanel("Model Estimation", 
-    htmlOutput("fit")
+    htmlOutput("fit"),
+HTML(
+"
+<b> Explanations  </b>
+<ul>
+<li> For each variable, estimated coefficients (95% confidence interval), T statistic for the significance of single variable, and P value are given.
+<li> P < 0.05 indicates this variable is statistical significant to the model
+<li> Observations: the number of samples
+<li> R-squared is a goodness-of-fit measure for linear regression models, and indicates the percentage of the variance in the dependent variable that the independent variables explain collectively.
+<li> Adjusted R-squared is used to compare the goodness-of-fit for regression models that contain differing numbers of independent variables.
+<li> F statistic ( F- Test for overall significance in Regression ) judges on multiple coefficients taken together at the same time. F=(R^2/(k-1))/(1-R^2)/(n-k); n is sample size; k is number of variable + constant term
+</ul>
+"
+),
 
     ),
 
 tabPanel("ANOVA", p(br()),
     p(tags$b("ANOVA Table")),  
-    tableOutput("anova")
-    ),
+    tableOutput("anova"),
+    HTML(
+    "<b> Explanations </b>
+  <ul> 
+    <li> DF<sub>Factor</sub> = [number of factor group categories] -1
+    <li> DF<sub>Residuals</sub> = [number of sample values] - [number of factor group categories]
+    <li> MS = SS/DF
+    <li> F = MS<sub>Factor</sub> / MS<sub>Residuals</sub> 
+    <li> P Value < 0.05, then the variable is significant to the model. (Accept alternative hypothesis)
+  </ul>"
+    )),
 
 tabPanel("AIC-based Selection", p(br()),
-    p(tags$b("3. Model selection process suggested by AIC")),
-    verbatimTextOutput("step")
+    p(tags$b("Model selection suggested by AIC")),
+    verbatimTextOutput("step"),
+        HTML(
+    "<b> Explanations </b>
+  <ul> 
+    <li> The Akaike Information Criterion (AIC) is a way of selecting a model from a set of models. When model fits are ranked according to their AIC values, the model with the lowest AIC value is sometime considered the ‘best’. 
+  </ul>"
+    )
     ),
 
 tabPanel("Diagnostics Plot",  p(br()),
@@ -75,7 +103,15 @@ tabPanel("Diagnostics Plot",  p(br()),
          choices = c("Residuals vs Fitting plot" = 1,
                      "QQ Plot of the Residuals " = 2),
          selected = 1),
-    plotOutput("p.lm", width = "1000px", height = "400px")
+    plotOutput("p.lm", width = "1000px", height = "400px"),
+   HTML(
+    "<b> Explanations </b>
+  <ul> 
+    <li> Residuals vs Fitting plot finds the outliers
+    <li> QQ Plot of the Residuals checks the normality of residuals
+
+    </ul>"
+    )
     ),
 
 tabPanel("Fitting", p(br()),

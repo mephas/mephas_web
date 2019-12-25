@@ -38,10 +38,13 @@ HTML(
 <li> Your data need to include one dependent variable (outcome/response) as Y, and >=1 independent variables (factors/predictors)
 <li> Your data need to have more rows than columns
 <li> Do not mix character and numbers in the same column 
+<li> The data used to build model is called <b>training data</b>
 </ul> 
 
 <i><h4>Case Example</h4>
 
+Suppose in one study, the doctors recorded the birth weight of 16 infants, together with age (month), age group (a: age < 4 month, b; other wise), and SBP.
+We were interested to predict the birth weight of a infants, and find the relations between birth weight and the other variables. 
 
 </h4></i>
 
@@ -62,6 +65,25 @@ tabPanel("Model",
 
 headerPanel("Linear Regression"),
 
+HTML(
+"
+
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To build a linear regression model, given the dependent variables is continuous with underlying normal distribution.
+<li> To get the estimates of linear regressions, such as estimate of coefficient, model information, ANOVA table of variables, AIC-based best model selection, plots of residuals, and model predictions 
+</ul>
+
+<h4><b> 2. About your data </b></h4>
+
+<ul>
+<li> Please prepare the data in the Data tab
+</ul> 
+
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
+"
+),
+
 hr(),
 source("1lm_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
@@ -70,6 +92,25 @@ hr()
 tabPanel("Prediction",
 
 headerPanel("Linear Prediction from Model"),
+
+HTML(
+"
+
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> If you have input the data and built a model in the previous tabs, you can upload new data and get the predictive results.
+</ul>
+
+<h4><b> 2. About your data </b></h4>
+
+<ul>
+<li> New data need to have all the independent variables in the model.
+<li> New data not used in the model is called <b> test data</b>
+</ul> 
+
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
+"
+),
 
 hr(),
 source("2pr_ui.R", local=TRUE, encoding="UTF-8")$value,
