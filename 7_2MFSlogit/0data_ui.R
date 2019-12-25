@@ -110,7 +110,7 @@ downloadButton("download2", "Download Results (Categorical variables)")
 
 ),
 
-tabPanel("Scatter plot",p(br()),
+tabPanel("Logit Plot",p(br()),
 
 p("This is to show the relation between any two numeric variables"),
 
