@@ -81,10 +81,13 @@ p(br()),
 DT::dataTableOutput("Xdata"),
 
 p(tags$b("1. Continuous variable information list")),
-verbatimTextOutput("str.num"),
+verbatimTextOutput("strnum"),
+tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
 
 p(tags$b("2. Factor/ Catrorical variable information list")),
-verbatimTextOutput("str.fac"),
+verbatimTextOutput("strfac"),
+tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 200px; background: white};")),
+
 
 hr(),   
 h4(tags$b("Output 2. Basic Descriptives")),
@@ -99,13 +102,15 @@ DT::dataTableOutput("sum"),
 
 p(tags$b("2. Categorical variables")),
 verbatimTextOutput("fsum"),
+tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 200px; background: white};")),
+
 
 downloadButton("download1", "Download Results (Continuous variables)"),
 downloadButton("download2", "Download Results (Categorical variables)")
 
 ),
 
-tabPanel("Scatter plot",p(br()),
+tabPanel("Logit Plot",p(br()),
 
 p("This is to show the relation between any two numeric variables"),
 

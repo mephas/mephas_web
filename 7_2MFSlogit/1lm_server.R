@@ -118,14 +118,14 @@ output$step = renderPrint({sp()})
 # 
 # # residual plot
  output$p.lm = renderPlot({
-	df <- data.frame(predictor = predict(fit()),
-                  known.truth = DF3()[,input$y]
-                       )
-  p <- ROCR::prediction(df$predictor, df$known.truth)
+
+  p <- ROCR::prediction(predict(fit()), DF3()[,input$y])
+  ps <- ROCR::performance(p, "tpr", "fpr")
   pf <- ROCR::performance(p, "auc")
 
-ggplot(df, aes(d = known.truth, m = predictor)) + 
-  geom_roc(n.cuts = 0) + theme_minimal() +annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
+autoplot(ps)+ theme_minimal()+theme(legend.position="none") + ggtitle("") +
+annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
+
 	})
 # 
  fit.lm <- reactive({

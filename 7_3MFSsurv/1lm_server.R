@@ -77,7 +77,7 @@ style = "all",
 align = TRUE,
 ci = TRUE,
 single.row = TRUE,
-title=paste("Logistic Regression", Sys.time()),
+title=paste(Sys.time()),
 model.names = FALSE
 )
 )
@@ -89,7 +89,7 @@ stargazer::stargazer(
 fit(),
 #out="logistic.exp.txt",
 header=FALSE,
-dep.var.caption="Logistic Regression",
+dep.var.caption="Logistic Regression in Odds Ratio",
 dep.var.labels = paste("Y = ",input$y),
 type = "html",
 style = "all",
@@ -97,8 +97,8 @@ apply.coef = exp,
 apply.ci = exp,
 align = TRUE,
 ci = TRUE,
-single.row = FALSE,
-title=paste("Logistic Regression with OR", Sys.time()),
+single.row = TRUE,
+title=paste(Sys.time()),
 model.names = FALSE
 )
 )
@@ -118,12 +118,14 @@ output$step = renderPrint({sp()})
 # 
 # # residual plot
  output$p.lm = renderPlot({
-	df <- data.frame(predictor = predict(fit()),
-                  known.truth = DF3()[,input$y]
-                       )
 
-ggplot(df, aes(d = known.truth, m = predictor)) + 
-  geom_roc(n.cuts = 0) + theme_minimal()
+  p <- ROCR::prediction(predict(fit()), DF3()[,input$y])
+  ps <- ROCR::performance(p, "tpr", "fpr")
+  pf <- ROCR::performance(p, "auc")
+
+autoplot(ps)+ theme_minimal()+theme(legend.position="none") + ggtitle("") +
+annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
+
 	})
 # 
  fit.lm <- reactive({
@@ -146,6 +148,29 @@ ggplot(df, aes(d = known.truth, m = predictor)) +
      },
      content = function(file) {
        write.csv(fit.lm(), file, row.names = TRUE)
+     }
+   )
+
+sst <- reactive({
+pred <- ROCR::prediction(fit()[["fitted.values"]], DF3()[,input$y])
+perf <- ROCR::performance(pred,"sens","spec")
+perf2 <- data.frame(
+  sen=unlist(perf@y.values), 
+  spec=unlist(perf@x.values), 
+  spec2=1-unlist(perf@x.values), 
+  cut=unlist(perf@alpha.values))
+colnames(perf2) <- c("Sensitivity", "Specificity", "1-Specificity","Cut-off Point")
+return(perf2)
+  })
+
+ output$sst = DT::renderDataTable({ round(sst(),6) })
+
+  output$download111 <- downloadHandler(
+     filename = function() {
+       "sens_spec.csv"
+     },
+     content = function(file) {
+       write.csv(sst(), file, row.names = TRUE)
      }
    )
 # 

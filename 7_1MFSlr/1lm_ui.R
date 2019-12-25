@@ -46,7 +46,9 @@ p("This only shows the first several lines, please check full data in the 1st ta
 DT::dataTableOutput("Xdata2")
 ),
 tabPanel("Variables information",p(br()),
-verbatimTextOutput("str")
+verbatimTextOutput("str"),
+tags$head(tags$style("#str {overflow-y:scroll; max-height: 350px; background: white};"))
+
 )
 ),
 hr(),
@@ -91,6 +93,8 @@ tabPanel("ANOVA", p(br()),
 tabPanel("AIC-based Selection", p(br()),
     p(tags$b("Model selection suggested by AIC")),
     verbatimTextOutput("step"),
+    tags$head(tags$style("#step {overflow-y:scroll; max-height: 400px; background: ghostwhite};")),
+
         HTML(
     "<b> Explanations </b>
   <ul> 
