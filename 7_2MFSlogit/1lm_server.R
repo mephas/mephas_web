@@ -121,9 +121,11 @@ output$step = renderPrint({sp()})
 	df <- data.frame(predictor = predict(fit()),
                   known.truth = DF3()[,input$y]
                        )
+  p <- ROCR::prediction(df$predictor, df$known.truth)
+  pf <- ROCR::performance(p, "auc")
 
 ggplot(df, aes(d = known.truth, m = predictor)) + 
-  geom_roc(n.cuts = 0) + theme_minimal()
+  geom_roc(n.cuts = 0) + theme_minimal() +annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
 	})
 # 
  fit.lm <- reactive({

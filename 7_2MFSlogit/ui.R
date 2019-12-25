@@ -67,6 +67,7 @@ HTML(
 <ul>
 <li> To build a logistic regression model, given the dependent variables is binary with underlying binomial distribution.
 <li> To get the estimates of linear regressions, such as estimate of coefficient, model information, AIC-based best model selection,ROC plot, sensitivity and specificity table, and model predictions 
+<li> To get fitted values which are predicted from the existed data
 </ul>
 
 <h4><b> 2. About your data </b></h4>
@@ -86,7 +87,7 @@ hr()
 
 tabPanel("Prediction",
 
-headerPanel("Linear Prediction from Model"),
+headerPanel("Prediction from Model"),
 HTML(
 "
 

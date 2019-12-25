@@ -56,7 +56,7 @@ output$download12 <- downloadHandler(
   )
 
  output$p.s = renderPlot({
-  #validate((input$y %in% colnames(newX()))==TRUE, "This figure will not show unless Y is given in the new data")
+  validate(need(length(pred.lm()[, input$y])>1, "This figure will not show unless Y is given in the new data"))
   min = min(c(pred.lm()[, input$y], pred.lm()[, 1]))
   max = max(c(pred.lm()[, input$y], pred.lm()[, 1]))
    ggplot(pred.lm(), aes(x = pred.lm()[, input$y], y = pred.lm()[, 1])) + geom_point(shape = 1) + 

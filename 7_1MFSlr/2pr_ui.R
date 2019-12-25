@@ -52,27 +52,21 @@ p("Correct separator and quote ensures data input successfully")
 
 mainPanel(
 
-h4(tags$b("Output 1. Prediction Results")),
-
-actionButton("B2", tags$b("Given that model and new data are ready, CLICK to get results / refresh"), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
+actionButton("B2", h4(tags$b("Output. Click to get Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 p(br()),
-p(tags$b("1. Prediction table")),
+tabsetPanel(
+tabPanel("Prediction",p(br()),
 DT::dataTableOutput("pred"),
-downloadButton("download12", "Download Results"),
+downloadButton("download12", "Download Results")
+),
 
-hr(),
-p(tags$b("2. Prediction vs true dependent variable Plot with ")),
+tabPanel("Prediction vs True Dependent Variable Plot",p(br()),
 p("This is to show the relation between predicted values and true values, using Linear Smooth. Grey area is confidence interval."),
-
 plotOutput("p.s", width = "500px", height = "400px")
-
-
+)
+)
 # h4(tags$b("Output 2. Prediction Plot between one independent variable (X) and dependent variable (Y)")),
 # uiOutput('sx'),  
 # 
-
-
 ) 
-
-
 )

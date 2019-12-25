@@ -92,7 +92,7 @@ hr()
 
 tabPanel("Prediction",
 
-headerPanel("Linear Prediction from Model"),
+headerPanel("Prediction from Model"),
 
 HTML(
 "

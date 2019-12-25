@@ -40,14 +40,15 @@ p("Note: '-1' in the formula indicates that intercept / constant term has been r
 mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
-
-p(tags$b("1. First lines of data")),
-p(" Please check full data in the 1st tab"),
-DT::dataTableOutput("Xdata2"),
-
-p(tags$b("2. Variables information")),
-verbatimTextOutput("str"),
-
+tabsetPanel(
+tabPanel("Browse Data",p(br()),
+p("This only shows the first several lines, please check full data in the 1st tab"),
+DT::dataTableOutput("Xdata2")
+),
+tabPanel("Variables information",p(br()),
+verbatimTextOutput("str")
+)
+),
 hr(),
 
 #h4(tags$b("Output 2. Model Results")),
@@ -72,7 +73,7 @@ HTML(
 <li> p < 0.05 indicates this variable is statistical significant to the model
 <li> Observations: the number of samples
 <li> Akaike Inf. Crit. = AIC = -2 (log likelihood) + 2k; k is the number of variables + constant
-<li> Table in the right is the OR = exp(coefficients in the left)
+<li> Table in the right shows OR; OR= exp(coefficients in the left)
 </ul>
 "
 )
@@ -81,7 +82,7 @@ tabPanel("AIC-based Selection", p(br()),
     p(tags$b("3. Model selection process suggested by AIC")),
     verbatimTextOutput("step"),
 
-            HTML(
+   HTML(
     "<b> Explanations </b>
   <ul> 
     <li> The Akaike Information Criterion (AIC) is a way of selecting a model from a set of models. When model fits are ranked according to their AIC values, the model with the lowest AIC value is sometime considered the ‘best’. 

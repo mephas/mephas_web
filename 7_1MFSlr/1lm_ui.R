@@ -40,14 +40,15 @@ p("Note: '-1' in the formula indicates that intercept / constant term has been r
 mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
-
-p(tags$b("1. First lines of data")),
-p(" Please check full data in the 1st tab"),
-DT::dataTableOutput("Xdata2"),
-
-p(tags$b("2. Variables information")),
-verbatimTextOutput("str"),
-
+tabsetPanel(
+tabPanel("Browse Data",p(br()),
+p("This only shows the first several lines, please check full data in the 1st tab"),
+DT::dataTableOutput("Xdata2")
+),
+tabPanel("Variables information",p(br()),
+verbatimTextOutput("str")
+)
+),
 hr(),
 
 #h4(tags$b("Output 2. Model Results")),

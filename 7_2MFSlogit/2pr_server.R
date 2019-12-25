@@ -15,7 +15,7 @@
 newX = reactive({
   inFile = input$newfile
   if (is.null(inFile)){
-    x<-data()
+    x<-LGT.new
     }
   else{
 if(!input$newcol){
@@ -60,6 +60,39 @@ output$download12 <- downloadHandler(
   )
 
 
+ output$p.s = renderPlot({
+  df <- data.frame(predictor = pred.lm()[,2],
+                  known.truth = pred.lm()[,input$y]
+                       )
+  p <- ROCR::prediction(df$predictor, df$known.truth)
+  pf <- ROCR::performance(p, "auc")
+
+ggplot(df, aes(d = known.truth, m = predictor)) + 
+  geom_roc(n.cuts = 0) + theme_minimal() +annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
+  })
+
+sst.s <- reactive({
+pred <- ROCR::prediction(pred.lm()[,2], pred.lm()[,input$y])
+perf <- ROCR::performance(pred,"sens","spec")
+perf2 <- data.frame(
+  sen=unlist(perf@y.values), 
+  spec=unlist(perf@x.values), 
+  spec2=1-unlist(perf@x.values), 
+  cut=unlist(perf@alpha.values))
+colnames(perf2) <- c("Sensitivity", "Specificity", "1-Specificity","Cut-off Point")
+return(perf2)
+  })
+
+ output$sst.s = DT::renderDataTable({ round(sst.s(),6) })
+
+  output$download122 <- downloadHandler(
+     filename = function() {
+       "sens_spec.csv"
+     },
+     content = function(file) {
+       write.csv(sst.s(), file, row.names = TRUE)
+     }
+   )
 
 # sx <- reactive({input$x})
 # 

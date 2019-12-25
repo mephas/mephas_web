@@ -52,13 +52,27 @@ p("Correct separator and quote ensures data input successfully")
 
 mainPanel(
 
-h4(tags$b("Output 1. Prediction Results")),
-
-actionButton("B2", tags$b("Given That Model and New Data are Ready, Click to Get Results / Refresh"), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
+actionButton("B2", h4(tags$b("Output. Click to get Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 p(br()),
-p("If no new data, the existed data for modeling will be presented."),
+tabsetPanel(
+tabPanel("Prediction Table",p(br()),
 DT::dataTableOutput("pred"),
 downloadButton("download12", "Download Results")
+),
+
+tabPanel("ROC Plot",p(br()),
+p("This is to show the ROC plot between predicted values and true values, based on the new data not used in the model."),
+plotOutput("p.s", width = "500px", height = "400px")
+),
+
+tabPanel(
+p("This is based on the new data not used in the model."),
+DT::dataTableOutput("sst.s"),
+downloadButton("download122", "Download Results")
+
+  )
+)
+
 
 # h4(tags$b("Output 2. Prediction Plot between one independent variable (X) and dependent variable (Y)")),
 # uiOutput('sx'),  
