@@ -15,7 +15,7 @@
 newX = reactive({
   inFile = input$newfile
   if (is.null(inFile)){
-    x<-data()
+    x<-LR.new
     }
   else{
 if(!input$newcol){
@@ -38,7 +38,7 @@ pred = eventReactive(input$B2,
 })
 
 pred.lm <- reactive({
-	cbind.data.frame(Predict=round(pred(), 4),newX())
+	cbind.data.frame("Predicted Y"=round(pred(), 4),newX())
 	})
 
 output$pred = DT::renderDataTable({
@@ -54,6 +54,15 @@ output$download12 <- downloadHandler(
       write.csv(pred.lm(), file, row.names = TRUE)
     }
   )
+
+ output$p.s = renderPlot({
+  #validate((input$y %in% colnames(newX()))==TRUE, "This figure will not show unless Y is given in the new data")
+  min = min(c(pred.lm()[, input$y], pred.lm()[, 1]))
+  max = max(c(pred.lm()[, input$y], pred.lm()[, 1]))
+   ggplot(pred.lm(), aes(x = pred.lm()[, input$y], y = pred.lm()[, 1])) + geom_point(shape = 1) + 
+     geom_smooth(method = "lm") + xlab(input$y) + ylab("Prediction") + xlim(min, max)+ ylim(min, max)+ theme_minimal()
+   })
+
 
 
 

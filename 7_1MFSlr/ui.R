@@ -43,7 +43,7 @@ HTML(
 
 <i><h4>Case Example</h4>
 
-Suppose in one study, the doctors recorded the birth weight of 16 infants, together with age (month), age group (a: age < 4 month, b; other wise), and SBP.
+Suppose in one study, the doctors recorded the birth weight of 10 infants, together with age (month), age group (a: age < 4 month, b; other wise), and SBP.
 We were interested to predict the birth weight of a infants, and find the relations between birth weight and the other variables. 
 
 </h4></i>
@@ -72,6 +72,7 @@ HTML(
 <ul>
 <li> To build a linear regression model, given the dependent variables is continuous with underlying normal distribution.
 <li> To get the estimates of linear regressions, such as estimate of coefficient, model information, ANOVA table of variables, AIC-based best model selection, plots of residuals, and model predictions 
+<li> To get fitted values which are predicted from the existed data
 </ul>
 
 <h4><b> 2. About your data </b></h4>
@@ -98,7 +99,7 @@ HTML(
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> If you have input the data and built a model in the previous tabs, you can upload new data and get the predictive results.
+<li> If you have input the data and built a model in the previous tabs, you can upload new data and get the predictive results from new data.
 </ul>
 
 <h4><b> 2. About your data </b></h4>
@@ -107,6 +108,12 @@ HTML(
 <li> New data need to have all the independent variables in the model.
 <li> New data not used in the model is called <b> test data</b>
 </ul> 
+
+<i><h4>Case Example</h4>
+
+Suppose in the same study, the doctors got another 6 infants data, and wanted to predict their birth weights based on the model we build.
+
+</h4></i>
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
 "

@@ -105,9 +105,9 @@ downloadButton("download2", "Download Results (Categorical variables)")
 
 ),
 
-tabPanel("Scatter plot",p(br()),
+tabPanel("Local fitting plot",p(br()),
 
-p("This is to show the relation between any two numeric variables"),
+p("This is to show the relation between any two numeric variables, using Linear Smooth. Grey area is confidence interval."),
 
 uiOutput('tx'),
 uiOutput('ty'),
@@ -120,7 +120,7 @@ tabPanel("Histogram", p(br()),
 p("This is to show the distribution of any one numeric variables"),
 uiOutput('hx'),
 plotOutput("p2", width = "500px", height = "400px"),
-sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 50, value = 1))
+sliderInput("bin", "The width of bins in the histogram", min = 0, max = 10, value = 1))
 
 )
 

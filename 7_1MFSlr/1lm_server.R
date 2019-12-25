@@ -90,7 +90,7 @@ afit = eventReactive(input$B1, {
   return(res.table)
   })
 
-output$anova = renderTable({afit()}, rownames = TRUE)
+output$anova = DT::renderDataTable({afit()}, rownames = TRUE)
 
 sp = eventReactive(input$B1, {step(fit())})
 output$step = renderPrint({sp()})

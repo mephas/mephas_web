@@ -75,7 +75,7 @@ HTML(
 
 tabPanel("ANOVA", p(br()),
     p(tags$b("ANOVA Table")),  
-    tableOutput("anova"),
+    DT::dataTableOutput("anova"),
     HTML(
     "<b> Explanations </b>
   <ul> 

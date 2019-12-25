@@ -171,24 +171,24 @@ output$download1 <- downloadHandler(
 # 
 output$tx = renderUI({
    selectInput(
-     'tx', tags$b('1. Choose a variable for the x-axis'),
-     selected=names(DF3())[2],
-     choices = names(DF3()))
+     'tx', tags$b('1. Choose a numeric variable for the x-axis'),
+     selected=type.num3()[2],
+     choices = type.num3())
    })
  
  output$ty = renderUI({
    selectInput(
      'ty',
-     tags$b('2. Choose a variable for the y-axis'),
-     selected = names(DF3())[1],
-     choices = names(DF3()))
+     tags$b('2. Choose a numeric variable for the y-axis'),
+     selected = type.num3()[1],
+     choices = type.num3())
    
  })
  
  ## scatter plot
  output$p1 = renderPlot({
    ggplot(DF3(), aes(x = DF3()[, input$tx], y = DF3()[, input$ty])) + geom_point(shape = 1) + 
-     geom_smooth(method = lm) + xlab(input$tx) + ylab(input$ty) + theme_minimal()
+     geom_smooth(method = "lm") + xlab(input$tx) + ylab(input$ty) + theme_minimal()
    })
  
 ## histogram
@@ -196,14 +196,11 @@ output$tx = renderUI({
    selectInput(
      'hx',
      tags$b('Choose a numeric variable to see the distribution'),
-     selected = names(DF3())[1], 
-     choices = names(DF3()))
+     selected = type.num3()[1], 
+     choices = type.num3())
  })
  
 output$p2 = renderPlot({
-   validate(
-       need(input$hx != "NULL", "Please select one numeric variable")
-     )
    ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
      geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
      geom_density()+
