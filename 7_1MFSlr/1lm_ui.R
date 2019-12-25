@@ -52,7 +52,7 @@ verbatimTextOutput("str")
 hr(),
 
 #h4(tags$b("Output 2. Model Results")),
-actionButton("B1", h4(tags$b("Output 2. Click to Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+actionButton("B1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
 p(br()),
 tabsetPanel(
 

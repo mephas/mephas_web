@@ -52,7 +52,7 @@ p("Correct separator and quote ensures data input successfully")
 
 mainPanel(
 
-actionButton("B2", h4(tags$b("Output. Click to get Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
+actionButton("B2", h4(tags$b("Click 2: Output. Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 p(br()),
 tabsetPanel(
 tabPanel("Prediction Table",p(br()),
