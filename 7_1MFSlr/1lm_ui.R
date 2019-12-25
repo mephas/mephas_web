@@ -69,7 +69,7 @@ HTML(
 <li> F statistic ( F- Test for overall significance in Regression ) judges on multiple coefficients taken together at the same time. F=(R^2/(k-1))/(1-R^2)/(n-k); n is sample size; k is number of variable + constant term
 </ul>
 "
-),
+)
 
     ),
 
