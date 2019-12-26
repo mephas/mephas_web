@@ -58,8 +58,8 @@ p(tags$b("1. Choose a Time Variable")),
 
 radioButtons("time", "What kind of time do you use?", select="A",
   choiceNames = list(
-    HTML("Choice 1. Time-duration / Follow-up"),
-    HTML("Choice 2. Start-end time-point")
+    HTML("Choice 1. Right-censored time: time-duration / follow-up"),
+    HTML("Choice 2. left-truncated right-censored time: start-end time-point")
     ),
   choiceValues = list("A", "B" )
   ),
@@ -137,6 +137,26 @@ downloadButton("download1", "Download Results (Continuous variables)"),
 downloadButton("download2", "Download Results (Categorical variables)")
 
 ),
+
+tabPanel("Survival Probability Plot",  p(br()),
+  radioButtons("fun1", "Which plot do you want to see?", 
+  choiceNames = list(
+    HTML("1. Survival Probability"),
+    HTML("2. Cumulative Events"),
+    HTML("3. Cumulative Hazard")
+    ),
+  choiceValues = list("pct", "event","cumhaz")
+  ),
+plotOutput("km.a", width = "500px", height = "400px"),
+verbatimTextOutput("kmat1"),
+tags$head(tags$style("#kmat1 {overflow-y:scroll; max-height: 200px; background: white};"))
+     ),
+
+tabPanel("Survival Probability Table",  p(br()),
+  p(tags$b("For all samples")),
+    verbatimTextOutput("kmat"),
+tags$head(tags$style("#kmat {overflow-y:scroll; max-height: 400px; background: white};"))
+     ),
 
 tabPanel("Histogram", p(br()),
 

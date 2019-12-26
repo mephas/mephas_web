@@ -143,7 +143,7 @@ choices = c("NULL",type.num3()))
 output$c = renderUI({
 selectInput(
 'c',
-('2. Choose binary censoring information variable'),
+('2. Choose 1/0 censoring information variable (1=death, 0=censor)'),
 selected = names(DF3())[2],
 choices = names(DF3()))
 })
@@ -216,6 +216,38 @@ output$download1 <- downloadHandler(
      }
    )
  
+ km.a = reactive({
+  y <- paste0(surv(), "~1")
+  fit <- survfit(as.formula(y), data = DF3())
+  fit$call <- NULL
+  return(fit)
+})
+
+output$km.a= renderPlot({
+
+y <- paste0(surv(), "~1")
+fit <- surv_fit(as.formula(y), data = DF3())
+
+ggsurvplot(fit, data=DF3(),
+          fun=paste0(input$fun1), 
+           conf.int = TRUE,
+           pval = FALSE,
+           risk.table = "abs_pct",
+           #surv.median.line = "hv", 
+           #palette = "Paired",
+           ggtheme = theme_minimal(),
+           legend="bottom",
+           risk.table.y.text.col = TRUE, # colour risk table text annotations.
+           risk.table.y.text = FALSE) 
+  })
+
+output$kmat1= renderPrint({
+(km.a())})
+
+output$kmat= renderPrint({
+summary(km.a())})
+# 
+
  ## scatter plot
  output$p1 = renderPlot({
   validate(need(length(levels(as.factor(DF3()[, input$ty])))==2, "Please choose a binary variable as Y")) 

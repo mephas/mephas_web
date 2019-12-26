@@ -23,9 +23,10 @@ DF3() %>% select_if(is.factor) %>% colnames()
 output$g = renderUI({
 selectInput(
 'g',
-tags$b('Choose group variable'),
+tags$b('Choose one or more factor group variable, categorical'),
 selected = type.fac4()[2],
-choices = type.fac4())
+choices = type.fac4(),
+multiple=TRUE)
 })
 
 
@@ -39,107 +40,87 @@ output$str <- renderPrint({str(DF3())})
 ## 4. output results
 ### 4.2. model
 
-
-kmfit = eventReactive(input$B1, {
-  y <- paste0(surv(), "~", input$g)
-  fit <- survfit(as.formula(y), data = DF3())
+kmfit = reactive({
+  y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
+  fit <- surv_fit(as.formula(y), data = DF3())
+  fit$call <- NULL
   return(fit)
 })
 
 # 
 # # residual plot
- output$km.p= renderPlot({
+# output$km.p= renderPlot({
+#autoplot(kmfit(), conf.int = FALSE)+ theme_minimal() + ggtitle("") 
+#+annotate("text", x = .75, y = .25, label = paste("P value ="))
+#	})
 
-autoplot(kmfit(), conf.int = FALSE)+ theme_minimal() + ggtitle("") +
-annotate("text", x = .75, y = .25, label = paste("P value ="))
-	})
-# 
+output$km.p= renderPlot({
 
-# 
- output$fitdt0 = DT::renderDataTable({
- fit.lm()
- }, 
- options = list(scrollX = TRUE))
-# 
- output$download11 <- downloadHandler(
-     filename = function() {
-       "lm.fitting.csv"
-     },
-     content = function(file) {
-       write.csv(fit.lm(), file, row.names = TRUE)
-     }
-   )
+  y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
+  fit <- surv_fit(as.formula(y), data = DF3())
 
-sst <- reactive({
-pred <- ROCR::prediction(fit()[["fitted.values"]], DF3()[,input$y])
-perf <- ROCR::performance(pred,"sens","spec")
-perf2 <- data.frame(
-  sen=unlist(perf@y.values), 
-  spec=unlist(perf@x.values), 
-  spec2=1-unlist(perf@x.values), 
-  cut=unlist(perf@alpha.values))
-colnames(perf2) <- c("Sensitivity", "Specificity", "1-Specificity","Cut-off Point")
-return(perf2)
+ggsurvplot(fit, data=DF3(),
+          fun=paste0(input$fun2), 
+           conf.int = FALSE,
+           pval = TRUE,
+           risk.table = "abs_pct",
+           #surv.median.line = "hv", 
+           palette = "Paired",
+           ggtheme = theme_minimal(),
+           legend="bottom",
+           risk.table.y.text.col = TRUE, # colour risk table text annotations.
+           risk.table.y.text = FALSE,
+            surv.plot.height =0.7,        
+           risk.table.height =0.3) 
   })
 
- output$sst = DT::renderDataTable({ round(sst(),6) })
+output$kmt1= renderPrint({
+(kmfit())
+  })
 
-  output$download111 <- downloadHandler(
-     filename = function() {
-       "sens_spec.csv"
-     },
-     content = function(file) {
-       write.csv(sst(), file, row.names = TRUE)
-     }
-   )
+output$kmt= renderPrint({
+summary(kmfit())
+  })
 # 
-# newX = reactive({
-# inFile = input$newfile
-# if (is.null(inFile))
-# {
-# df = DF3()[1:10, ] ##>  example data
-# }
-# else{
-# df = read.csv(
-# inFile$datapath,
-# header = input$newheader,
-# sep = input$newsep,
-# quote = input$newquote
-# )
-# }
-# return(df)
-# })
- #prediction plot
-# # prediction
-# pred = eventReactive(input$B2,
-# {
-# fit = lm(formula(), data = DF3())
-# pfit = predict(fit, newdata = newDF3(), interval = input$interval)
-# })
+ LR = reactive({
+   y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
+  fit <- survdiff(as.formula(y), rho=input$rho, data = DF3())
+  fit$call <- NULL
+  return(fit)
+})
+
+output$kmlr = renderPrint({
+LR()})
+
+ PLR = reactive({
+   y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
+
+  if (input$pm == "B"){
+  res <- pairwise_survdiff(as.formula(y), rho=input$rho2, p.adjust.method = "bonf", data = DF3())$p.value
+}
+  if (input$pm == "BH"){
+  res <- pairwise_survdiff(as.formula(y), rho=input$rho2, p.adjust.method = "holm", data = DF3())$p.value
+  }
+  #if (input$method == "BHG"){
+  #  res <- pairwise.t.test(x[,namesm()[1]], x[,namesm()[2]], 
+  #  p.adjust.method = "hochberg")$p.value
+  #}
+  #  if (input$method == "BHL"){
+  #  res <- pairwise.t.test(x[,namesm()[1]], x[,namesm()[2]], 
+  #  p.adjust.method = "hommel")$p.value
+  #}
+    if (input$pm == "FDR"){
+  res <- pairwise_survdiff(as.formula(y), rho=input$rho2, p.adjust.method = "BH", data = DF3())$p.value
+  }
+    if (input$pm == "BY"){
+  res <- pairwise_survdiff(as.formula(y), rho=input$rho2, p.adjust.method = "BY", data = DF3())$p.value
+
+  }
+  res <- as.data.frame(res)
+  return(res)
+})
+ output$PLR = DT::renderDataTable({
+ round(PLR(),6)
+  }, , options = list(scrollX = TRUE))
 # 
-# pred.lm <- reactive({
-# 	cbind(newDF3(), round(pred(), 4))
-# 	})
-# 
-# output$pred = renderDataTable({
-# pred.lm()
-# }, 
-# options = list(pageLength = 5, scrollX = TRUE))
-# 
-# output$download12 <- downloadHandler(
-#     filename = function() {
-#       "lm.pred.csv"
-#     },
-#     content = function(file) {
-#       write.csv(pred.lm(), file, row.names = TRUE)
-#     }
-#   )
-# 
-# output$px = renderUI({
-# selectInput(
-# 'px',
-# h5('Choose one independent Variable (X)'),
-# selected = "NULL",
-# choices = c("NULL", names(newDF3()))
-# )
-# })
+ 
