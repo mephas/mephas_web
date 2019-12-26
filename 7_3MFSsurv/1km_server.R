@@ -121,6 +121,6 @@ LR()})
 })
  output$PLR = DT::renderDataTable({
  round(PLR(),6)
-  }, , options = list(scrollX = TRUE))
+  }, options = list(scrollX = TRUE))
 # 
  

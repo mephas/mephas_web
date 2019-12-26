@@ -117,7 +117,7 @@ p(tags$b("Log-rank Test Result")),
 tabPanel("Pairwise Log-Rank Test",  p(br()),
 
 p(tags$b("Pairwise Log-rank Test Result")),
-    DT::dataTableOutput("PLR"),
+    DT::dataTableOutput("PLR",width = "500px"),
      tags$head(tags$style("#kmlr {overflow-y:scroll; max-height: 350px; background: white};")),
      HTML(
   "<b> Explanations </b>
