@@ -13,8 +13,11 @@
 
 output$x.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$x.xlim)), aes(x)) +
-  stat_function(fun = dchisq, n = 100, args = list(df = input$x.df)) + ylab("Density") +
-  scale_y_continuous(breaks = NULL) + theme_minimal() + ggtitle("") + #ylim(0, input$x.ylim) +
+  stat_function(fun = dchisq, n = 100, args = list(df = input$x.df)) + 
+  ylab("Density") +
+  scale_y_continuous(breaks = NULL) + 
+  theme_minimal() + 
+  ggtitle("Chi-squared distribution") + #ylim(0, input$x.ylim) +
   geom_vline(aes(xintercept=qchisq(input$x.pr, df = input$x.df)), colour = "red")})
 
 output$x.info = renderText({
@@ -46,8 +49,13 @@ output$download6 <- downloadHandler(
 
 output$x.plot2 = renderPlot(
 {df = X()
-ggplot(df, aes(x = x)) + theme_bw() + ylab("Frequency")+ geom_histogram(binwidth = input$x.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
-xlim(-0.1, input$x.xlim) + geom_vline(aes(xintercept=quantile(x, probs = input$x.pr, na.rm = FALSE)), color="red", size=0.5)})
+ggplot(df, aes(x = x)) + 
+theme_minimal() + 
+ggtitle("Histogram of Random Numbers")+
+ylab("Frequency")+ 
+geom_histogram(binwidth = input$x.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
+xlim(-0.1, input$x.xlim) + 
+geom_vline(aes(xintercept=quantile(x, probs = input$x.pr, na.rm = FALSE)), color="red", size=0.5)})
 
 output$x.info2 = renderText({
     xy_str = function(e) {
@@ -66,28 +74,33 @@ output$x.sum = renderTable({
 XX <- reactive({
   inFile <- input$x.file
   if (is.null(inFile)) {
-    # input data
-    x <- as.numeric(unlist(strsplit(input$x.x, "[\n, \t, ]")))
-    X <- as.data.frame(x)
+    x <- as.numeric(unlist(strsplit(input$x.x, "[\n,\t; ]")))
+    validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
+    x <- as.data.frame(x)
     }
   else {
-    # CSV data
-    csv <- read.csv(inFile$datapath,
-        header = input$x.header,
-        sep = input$x.sep)[,1]
-    X <- as.data.frame(csv)
+    if(input$x.col){
+    csv <- read.csv(inFile$datapath, header = input$x.header, sep = input$x.sep, row.names=1)
     }
-    colnames(X) = c("X")
-    return(X)
+    else{
+    csv <- read.csv(inFile$datapath, header = input$x.header, sep = input$x.sep)
+    }
+    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    x <- as.data.frame(csv[,1])
+    }
+    colnames(x) = c("X")
+    return(as.data.frame(x))
   })
 
-output$makeplot.x <- renderPlot({
+output$makeplot.x1 <- renderPlot({
   x = as.data.frame(XX())
-  plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.x, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+ geom_vline(aes(xintercept=quantile(x[,1], probs = input$x.pr, na.rm = FALSE)), color="red", size=0.5)
- 
-  grid.arrange(plot2, plot3, ncol = 2)
-  })
+  ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.x, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
+   })
+output$makeplot.x2 <- renderPlot({
+  x = as.data.frame(XX())
+ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+ geom_vline(aes(xintercept=quantile(x[,1], probs = input$x.pr, na.rm = FALSE)), color="red", size=0.5)
+   })
 
 output$x.sum2 = renderTable({
   x = XX()

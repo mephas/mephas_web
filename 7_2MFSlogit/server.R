@@ -7,6 +7,8 @@ if (!require(ROCR)) {install.packages("ROCR")}; library(ROCR)
 #if (!require(survminer)) {install.packages("survminer")}; library(survminer)
 if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
+if (!require(plotly)) {install.packages("plotly")}; 
+library(plotly)
 #if (!require(data.table)) {install.packages("data.table")}; library(data.table)
 if (!require(dplyr)) {install.packages("dplyr")}; library(dplyr)
   

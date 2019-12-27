@@ -93,7 +93,7 @@ tabPanel("ANOVA", p(br()),
 tabPanel("AIC-based Selection", p(br()),
     p(tags$b("Model selection suggested by AIC")),
     verbatimTextOutput("step"),
-    tags$head(tags$style("#step {overflow-y:scroll; max-height: 400px; background: ghostwhite};")),
+    tags$head(tags$style("#step {overflow-y:scroll; max-height: 400px; background: white};")),
 
         HTML(
     "<b> Explanations </b>

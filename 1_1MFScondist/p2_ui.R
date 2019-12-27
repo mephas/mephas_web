@@ -1,13 +1,3 @@
-##----------#----------#----------#----------
-##
-## 1MFSdistribution UI
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
 ###---------- 1.1 Exponential Distribution ----------
 
 sidebarLayout(
@@ -35,9 +25,8 @@ sidebarLayout(
 
 	tabPanel("Distribution of Your Data", p(br()),
 
-		h4(tags$b("See Plot at Data Distribution Plot")),
-		p(tags$b("1. Manual Input")),
-  p("Data point can be separated by , ; /Enter /Tab"),
+		h4(tags$b("1. Manual Input")),
+		p("Data point can be separated by , ; /Enter /Tab /Space"),
     tags$textarea(
         id = "x.e", #p
         rows = 10,
@@ -47,16 +36,18 @@ sidebarLayout(
 
       hr(),
 
-      p(tags$b("Or, 2. Upload Data")),
+      h4(tags$b("Or, 2. Upload Data")),
 
         p(tags$b("This only reads the 1st column of your data")),
         fileInput('e.file', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-        #helpText("The columns of X are not suggested greater than 500"),
+
         p(tags$b("2. Show 1st row as header?")),
         checkboxInput("e.header", "Show Data Header?", TRUE),
 
-             # Input: Select separator ----
+        p(tags$b("3. Use 1st column as row names? (No duplicates)")),
+        checkboxInput("e.col", "Yes", TRUE),
+
         radioButtons("e.sep", 
           "3. Which Separator for Data?",
           choiceNames = list(
@@ -82,7 +73,7 @@ sidebarLayout(
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
 
-				plotOutput("e.plot", click = "plot_click9", width = "800px", height = "400px"),
+				plotOutput("e.plot", click = "plot_click9", width = "600px", height = "400px"),
 			 	verbatimTextOutput("e.info"),
 
 			 	p(tags$b("The position of Red-line, x0")),
@@ -91,28 +82,31 @@ sidebarLayout(
 			 tabPanel("Simulation-based Plot", p(br()),
 
 			 	numericInput("e.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
-				plotOutput("e.plot2", click = "plot_click10", width = "800px", height = "400px"),
+				plotOutput("e.plot2", click = "plot_click10", width = "600px", height = "400px"),
 			 	sliderInput("e.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),
 
 				verbatimTextOutput("e.info2"),
-				
+				downloadButton("download2", "Download Random Numbers"),
+		
 				p(tags$b("Sample descriptive statistics")),
 				tableOutput("e.sum"),
-				downloadButton("download2", "Download Random Numbers"),
 				HTML(
-    " 
-    <b> Explanation </b>
-   <ul>
-    <li>  Mean = 1/Rate
-    <li>  SD = 1/Rate
-   </ul>
-    "
-    )
-			 	),
+			    " 
+			    <b> Explanation </b>
+			   <ul>
+			    <li>  Mean = 1/Rate
+			    <li>  SD = 1/Rate
+			   </ul>
+			    "
+			    )
+			  ),
 
-			 tabPanel("Data Distribution Plot", p(br()),
 
-			plotOutput("makeplot.e", width = "800px", height = "400px"),
+
+			 tabPanel("Distribution of Your Data", p(br()),
+
+			plotOutput("makeplot.e1", width = "500px", height = "300px"),
+			plotOutput("makeplot.e2", width = "500px", height = "300px"),
       sliderInput("bin.e","The width of bins in histogram", min = 0,max = 2,value = 0.1, step=0.01),
 			tableOutput("e.sum2")
 

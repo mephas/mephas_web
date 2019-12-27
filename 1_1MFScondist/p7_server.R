@@ -13,7 +13,9 @@
 output$f.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$f.xlim)), aes(x)) +
   stat_function(fun = "df", n= 100, args = list(df1 = input$df11, df2 = input$df21)) + ylab("Density") +
-  scale_y_continuous(breaks = NULL) + theme_minimal() + ggtitle("") + #ylim(0, input$f.ylim) +
+  scale_y_continuous(breaks = NULL) + 
+  theme_minimal() + 
+  ggtitle("F distribution") + #ylim(0, input$f.ylim) +
   geom_vline(aes(xintercept=qf(input$f.pr, df1 = input$df11, df2 = input$df21)), colour = "red")})
 
 output$f.info = renderText({
@@ -48,8 +50,13 @@ output$table4 = renderDataTable({head(F(), n = 100L)},  options = list(pageLengt
 
 output$f.plot2 = renderPlot(
 {df = F()
-ggplot(df, aes(x = x)) + theme_bw() + ylab("Frequency")+ geom_histogram(binwidth = input$f.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
-xlim(-0.1, input$f.xlim) + geom_vline(aes(xintercept=quantile(x, probs = input$f.pr, na.rm = FALSE)), color="red", size=0.5)})
+ggplot(df, aes(x = x)) + 
+ggtitle("Histogram") + 
+theme_minimal() + 
+ylab("Frequency")+ 
+geom_histogram(binwidth = input$f.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
+xlim(-0.1, input$f.xlim) + g
+eom_vline(aes(xintercept=quantile(x, probs = input$f.pr, na.rm = FALSE)), color="red", size=0.5)})
 
 output$f.info2 = renderText({
     xy_str = function(e) {
@@ -70,28 +77,33 @@ output$f.sum = renderTable({
 FF <- reactive({
   inFile <- input$f.file
   if (is.null(inFile)) {
-    # input data
-    x <- as.numeric(unlist(strsplit(input$x.f, "[\n, \t, ]")))
-    X <- as.data.frame(x)
+    x <- as.numeric(unlist(strsplit(input$x.f, "[\n,\t; ]")))
+    validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
+    x <- as.data.frame(x)
     }
   else {
-    # CSV data
-    csv <- read.csv(inFile$datapath,
-        header = input$f.header,
-        sep = input$f.sep)[,1]
-    X <- as.data.frame(csv)
+    if(input$f.col){
+    csv <- read.csv(inFile$datapath, header = input$f.header, sep = input$f.sep, row.names=1)
     }
-    colnames(X) = c("X")
-    return(X)
+    else{
+    csv <- read.csv(inFile$datapath, header = input$f.header, sep = input$f.sep)
+    }
+    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    x <- as.data.frame(csv[,1])
+    }
+    colnames(x) = c("X")
+    return(as.data.frame(x))
   })
 
-output$makeplot.f <- renderPlot({
+output$makeplot.f1 <- renderPlot({
   x = as.data.frame(FF())
-  plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.f, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+ geom_vline(aes(xintercept=quantile(x[,1], probs = input$f.pr, na.rm = FALSE)), color="red", size=0.5)
- 
-  grid.arrange(plot2, plot3, ncol = 2)
-  })
+  ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.f, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
+   })
+output$makeplot.f2 <- renderPlot({
+  x = as.data.frame(FF())
+ ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+ geom_vline(aes(xintercept=quantile(x[,1], probs = input$f.pr, na.rm = FALSE)), color="red", size=0.5)
+   })
 
 output$f.sum2 = renderTable({
   x = FF()

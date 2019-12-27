@@ -51,7 +51,11 @@ as.formula(paste0(input$y,' ~ ',paste0(input$x, collapse = "+"),
 
 output$formula = renderPrint({
 validate(need(length(levels(as.factor(DF3()[, input$y])))==2, "Please choose a binary variable as Y")) 
-formula()})
+#formula()
+cat(paste0(input$y,' ~ ',paste0(input$x, collapse = " + "), 
+  input$conf, 
+  input$intercept))
+})
 
 ## 4. output results
 ### 4.2. model
@@ -64,15 +68,14 @@ glm(formula(),family = binomial(link = "logit"), data = DF3())
 #  glm(formula(), data = DF3())
 #})
 # 
-output$fit = renderUI({ 
-HTML(
+output$fit = renderPrint({ 
 stargazer::stargazer(
 fit(),
 #out="logistic.txt",
 header=FALSE,
 dep.var.caption="Logistic Regression",
 dep.var.labels = paste0("Y = ",input$y),
-type = "html",
+type = "text",
 style = "all",
 align = TRUE,
 ci = TRUE,
@@ -80,18 +83,16 @@ single.row = TRUE,
 title=paste(Sys.time()),
 model.names = FALSE
 )
-)
 })
 
-output$fit2 = renderUI({
-HTML(
+output$fit2 = renderPrint({
 stargazer::stargazer(
 fit(),
 #out="logistic.exp.txt",
 header=FALSE,
 dep.var.caption="Logistic Regression in Odds Ratio",
 dep.var.labels = paste("Y = ",input$y),
-type = "html",
+type = "text",
 style = "all",
 apply.coef = exp,
 apply.ci = exp,
@@ -100,7 +101,6 @@ ci = TRUE,
 single.row = TRUE,
 title=paste(Sys.time()),
 model.names = FALSE
-)
 )
 })
 

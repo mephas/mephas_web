@@ -1,18 +1,16 @@
-##----------#----------#----------#----------
-##
-## 7MFSreg UI
-##
-##    >Linear regression
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
+## logistic
 
 sidebarLayout(
 
+
 sidebarPanel(
+
+tags$head(tags$style("#formula {height: 100px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
+tags$head(tags$style("#str {overflow-y:scroll; max-height: 350px; background: white};")),
+tags$head(tags$style("#fit {overflow-y:scroll; max-height: 400px; background: white};")),
+tags$head(tags$style("#fit2 {overflow-y:scroll; max-height: 400px; background: white};")),
+tags$head(tags$style("#step {overflow-y:scroll; max-height: 400px; background: white};")),
+
 
 h4("Example data: Birth weight"),      
 
@@ -29,10 +27,10 @@ p(tags$b("4. Add interaction term between categorical variables, if you need")),
 p('Please input: + var1:var2'), 
 tags$textarea(id='conf', " " ), 
 hr(),
-#actionButton("F", "Create formula", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
+#actionButton("F", "Create formula", style="color: #fff; background-color: #337ab7; border-color: #2e6da4") rgba(0,0,255,0.10)
 h4(tags$b("Step 2. Check Linear Regression Model")),
-tags$head(tags$style("#formula {background-color: rgba(0,0,255,0.10); color: blue;}")),
-verbatimTextOutput("formula", placeholder = TRUE),
+verbatimTextOutput("formula"),
+
 p("Note: '-1' in the formula indicates that intercept / constant term has been removed")
 ),
 
@@ -45,9 +43,7 @@ p("This only shows the first several lines, please check full data in the 1st ta
 DT::dataTableOutput("Xdata2")
 ),
 tabPanel("Variables information",p(br()),
-verbatimTextOutput("str"),
-tags$head(tags$style("#str {overflow-y:scroll; max-height: 350px; background: white};"))
-
+verbatimTextOutput("str")
 )
 ),
 hr(),
@@ -57,15 +53,15 @@ actionButton("B1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh"))
 p(br()),
 tabsetPanel(
 
-tabPanel("Model Estimation", 
+tabPanel("Model Estimation", p(br()),
 
     fluidRow(
-    column(6, htmlOutput("fit")
-      
+    column(6, verbatimTextOutput("fit")
     ),
-    column(6, htmlOutput("fit2")
+    column(6, verbatimTextOutput("fit2")
     )
   ),
+
 HTML(
 "
 <b> Explanations  </b>
@@ -82,8 +78,6 @@ HTML(
 tabPanel("AIC-based Selection", p(br()),
     p(tags$b("3. Model selection process suggested by AIC")),
     verbatimTextOutput("step"),
-    tags$head(tags$style("#step {overflow-y:scroll; max-height: 400px; background: white};")),
-
 
    HTML(
     "<b> Explanations </b>

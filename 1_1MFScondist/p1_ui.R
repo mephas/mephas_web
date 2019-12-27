@@ -1,14 +1,3 @@
-##----------#----------#----------#----------
-##
-## 1MFSdistribution UI
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
-
 ###---------- 1.1 Normal Distribution ----------
 
 sidebarLayout(
@@ -39,9 +28,8 @@ sidebarLayout(
 
 	tabPanel("Distribution of Your Data", p(br()),
 
-		h4(tags$b("See Plot at Data Distribution Plot")),
-		p(tags$b("1. Manual Input")),
-		p("Data point can be separated by , ; /Enter /Tab"),
+		h4(tags$b("1. Manual Input")),
+		p("Data point can be separated by , ; /Enter /Tab /Space"),
     tags$textarea(
         id = "x", #p
         rows = 10,
@@ -51,19 +39,22 @@ sidebarLayout(
 
       hr(),
 
-      p(tags$b("Or, 2. Upload Data")),
+      h4(tags$b("Or, 2. Upload Data")),
 
       ##-------csv file-------##
         p(tags$b("This only reads the 1st column of your data")),
-        fileInput('file', "Choose CSV/TXT file",
+        fileInput('file', "1. Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-        #helpText("The columns of X are not suggested greater than 500"),
+
         p(tags$b("2. Show 1st row as header?")),
         checkboxInput("header", "Show Data Header?", TRUE),
 
+        p(tags$b("3. Use 1st column as row names? (No duplicates)")),
+        checkboxInput("col", "Yes", TRUE),
+
              # Input: Select separator ----
         radioButtons("sep", 
-          "3. Which Separator for Data?",
+          "4. Which Separator for Data?",
           choiceNames = list(
             HTML("Comma (,): CSV often use this"),
             HTML("One Tab (->|): TXT often use this"),
@@ -87,7 +78,7 @@ sidebarLayout(
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
 
-			 	plotOutput("norm.plot", click = "plot_click", width = "800px", height = "400px"),
+			 	plotOutput("norm.plot", width = "600px", height = "400px"), #click = "plot_click", 
 			 	verbatimTextOutput("info"),
 
 			 	p(tags$b("The position of Red-line and the Blue Ares")),
@@ -96,20 +87,22 @@ sidebarLayout(
 			 tabPanel("Simulation-based Plot", p(br()),
 			 	
 			 	numericInput("size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
-			 	plotOutput("norm.plot2", click = "plot_click2", width = "800px", height = "400px"),	
+			 	plotOutput("norm.plot2", click = "plot_click2", width = "600px", height = "400px"),	
 
 			 	sliderInput("bin", "The width of bins in histogram", min = 0, max = 2, value = 0.2, step=0.01),
 				verbatimTextOutput("info2"),
 
+				downloadButton("download1", "Download Random Numbers"),
+
 				p(tags$b("Sample descriptive statistics")),
-				tableOutput("sum"),
-				downloadButton("download1", "Download Random Numbers")
+				tableOutput("sum")
 				#verbatimTextOutput("data")
 			 	),
 
-			 tabPanel("Data Distribution Plot", p(br()),
+			 tabPanel("Distribution of Your Data", p(br()),
 
-			plotOutput("makeplot", width = "800px", height = "400px"),
+			plotOutput("makeplot.1", width = "500px", height = "300px"),
+			plotOutput("makeplot.2", width = "500px", height = "300px"),
       sliderInput("bin1","The width of bins in histogram",min = 0,max = 2,value = 0.2, step=0.01),
 				p(tags$b("Sample descriptive statistics")),
 				tableOutput("sum2")

@@ -1,14 +1,3 @@
-##----------#----------#----------#----------
-##
-## 1MFSdistribution UI
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
-
 ###---------- Gamma ---------
 
 sidebarLayout(
@@ -38,9 +27,8 @@ sidebarLayout(
 
 	tabPanel("Distribution of Your Data", p(br()),
 
-		h4(tags$b("See Plot at Data Distribution Plot")),
-		p(tags$b("1. Manual Input")),
-  p("Data point can be separated by , ; /Enter /Tab"),
+		h4(tags$b("1. Manual Input")),
+		p("Data point can be separated by , ; /Enter /Tab /Space"),
     tags$textarea(
         id = "x.g", #p
         rows = 10,
@@ -50,18 +38,19 @@ sidebarLayout(
 
       hr(),
 
-      p(tags$b("Or, 2. Upload Data")),
+      h4(tags$b("Or, 2. Upload Data")),
 
       ##-------csv file-------##
-        fileInput('g.file', "Choose CSV/TXT file",
+        fileInput('g.file', "1. Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-        #helpText("The columns of X are not suggested greater than 500"),
+
         p(tags$b("2. Show 1st row as header?")),
         checkboxInput("g.header", "Show Data Header?", TRUE),
+        p(tags$b("3. Use 1st column as row names? (No duplicates)")),
+        checkboxInput("g.col", "Yes", TRUE),
 
-             # Input: Select separator ----
         radioButtons("g.sep", 
-          "3. Which Separator for Data?",
+          "4. Which Separator for Data?",
           choiceNames = list(
             HTML("Comma (,): CSV often use this"),
             HTML("One Tab (->|): TXT often use this"),
@@ -86,7 +75,7 @@ sidebarLayout(
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
 
-				plotOutput("g.plot", click = "plot_click11", width = "800px", height = "400px"),
+				plotOutput("g.plot", click = "plot_click11", width = "600px", height = "400px"),
 			 	verbatimTextOutput("g.info"),
 
 			 	p(tags$b("The position of Red-line, x0")),
@@ -95,14 +84,13 @@ sidebarLayout(
 			 tabPanel("Simulation-based Plot", p(br()),
 
 			 	numericInput("g.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
-				plotOutput("g.plot2", click = "plot_click12", width = "800px", height = "400px"),
+				plotOutput("g.plot2", click = "plot_click12", width = "600px", height = "400px"),
 			 	sliderInput("g.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.3, step=0.01),
 
 				verbatimTextOutput("g.info2"),
-				
+				downloadButton("download3", "Download Random Numbers"),
 				p(tags$b("Sample descriptive statistics")),
 				tableOutput("g.sum"),
-				downloadButton("download3", "Download Random Numbers"),
 				HTML(
     " 
     <b> Explanation </b>
@@ -114,9 +102,10 @@ sidebarLayout(
     )
 			 	),
 
-			 tabPanel("Data Distribution Plot", p(br()),
+			 tabPanel("Distribution of Your Data", p(br()),
 
-			plotOutput("makeplot.g", width = "800px", height = "400px"),
+			plotOutput("makeplot.g1", width = "500px", height = "300px"),
+			plotOutput("makeplot.g2", width = "500px", height = "300px"),
       sliderInput("bin.g","The width of bins in histogram", min = 0,max = 2,value = 0.3, step=0.01),
 				tableOutput("g.sum2")
 			 	)

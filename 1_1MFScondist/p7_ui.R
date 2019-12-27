@@ -1,14 +1,3 @@
-##----------#----------#----------#----------
-##
-## 1MFSdistribution UI
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
-
 ###---------- F ---------
 
 sidebarLayout(
@@ -37,9 +26,8 @@ sidebarLayout(
 
 	tabPanel("Distribution of Your Data", p(br()),
 
-		h4(tags$b("See Plot at Data Distribution Plot")),
-		p(tags$b("Manual Input")),
-  p("Data point can be separated by , ; /Enter /Tab"),
+		h4(tags$b("1. Manual Input")),
+		p("Data point can be separated by , ; /Enter /Tab /Space"),
     tags$textarea(
         id = "x.f", #p
         rows = 10,
@@ -49,26 +37,26 @@ sidebarLayout(
 
       hr(),
 
-      p(tags$b("Upload Data")),
+      h4(tags$b("Or, 2. Upload Data")),
 
-      ##-------csv file-------##
-        fileInput('f.file', "Choose CSV/TXT file",
-                  accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-        #helpText("The columns of X are not suggested greater than 500"),
-        p(tags$b("2. Show 1st row as header?")),
-        checkboxInput("f.header", "Show Data Header?", TRUE),
+      fileInput('f.file', "1. Choose CSV/TXT file",
+                accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
-             # Input: Select separator ----
-        radioButtons("f.sep", 
-          "3. Which Separator for Data?",
-          choiceNames = list(
-            HTML("Comma (,): CSV often use this"),
-            HTML("One Tab (->|): TXT often use this"),
-            HTML("Semicolon (;)"),
-            HTML("One Space (_)")
-            ),
-          choiceValues = list(",", ";", " ", "\t")
+      p(tags$b("2. Show 1st row as header?")),
+      checkboxInput("f.header", "Show Data Header?", TRUE),
+
+      p(tags$b("3. Use 1st column as row names? (No duplicates)")),
+      checkboxInput("f.col", "Yes", TRUE),
+
+      radioButtons("f.sep", "4. Which Separator for Data?",
+        choiceNames = list(
+          HTML("Comma (,): CSV often use this"),
+          HTML("One Tab (->|): TXT often use this"),
+          HTML("Semicolon (;)"),
+          HTML("One Space (_)")
           ),
+        choiceValues = list(",", ";", " ", "\t")
+        ),
 
         p("Correct Separator ensures data input successfully"),
 
@@ -84,7 +72,7 @@ sidebarLayout(
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
 
-				plotOutput("f.plot", click = "plot_click7", width = "800px", height = "400px"),
+				plotOutput("f.plot", click = "plot_click7", width = "600px", height = "400px"),
 			 	verbatimTextOutput("f.info"),
 
 			 	p(tags$b("The position of Red-line, x0")),
@@ -93,18 +81,19 @@ sidebarLayout(
 			 tabPanel("Simulation-based Plot", p(br()),
 
 			 	numericInput("f.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
-				plotOutput("f.plot2", click = "plot_click8", width = "800px", height = "400px"),
+				plotOutput("f.plot2", click = "plot_click8", width = "600px", height = "400px"),
 			 	sliderInput("f.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),
 				verbatimTextOutput("f.info2"),
-				
+				downloadButton("download7", "Download Random Numbers"),
 				p(tags$b("Sample descriptive statistics")),
-				tableOutput("f.sum"),
-				downloadButton("download7", "Download Random Numbers")
+				tableOutput("f.sum")
 			 	),
 
-			 tabPanel("Data Distribution Plot", p(br()),
+			 tabPanel("Distribution of Your Data", p(br()),
 
-			plotOutput("makeplot.f", width = "800px", height = "400px"),
+			plotOutput("makeplot.f1", width = "500px", height = "300px"),
+			plotOutput("makeplot.f2", width = "500px", height = "300px"),
+
       sliderInput("bin.f","The width of bins in histogram", min = 0,max = 2,value = 0.1, step=0.01),
       				tableOutput("f.sum2")
 

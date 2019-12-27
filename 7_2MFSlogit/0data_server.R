@@ -116,8 +116,16 @@ return(df)
   
   })
 
-output$Xdata <- DT::renderDataTable(
-DF3(), options = list(scrollX = TRUE))
+
+
+output$Xdata <- DT::renderDataTable(DF3(),
+  #selection = "none",
+  #editable = TRUE,
+  class="row-border", extensions = 'Scroller', options = list(
+  #deferRender = TRUE,
+  scrollY = 290,
+  scrollX = TRUE,
+  fixedColumns = TRUE))
 
 type.num3 <- reactive({
 DF3() %>% select_if(is.numeric) %>% colnames()
@@ -140,7 +148,12 @@ sum <- reactive({
   return(res)
   })
 
-output$sum <- DT::renderDataTable({sum()}, options = list(scrollX = TRUE))
+output$sum <- DT::renderDataTable({sum()},
+  class="row-border", 
+  extensions = 'Buttons', options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 fsum = reactive({
   x <- DF3()[,type.fac3()]
@@ -149,14 +162,14 @@ fsum = reactive({
 
 output$fsum = renderPrint({fsum()})
  
-output$download1 <- downloadHandler(
-     filename = function() {
-       "lr.des1.csv"
-     },
-     content = function(file) {
-       write.csv(sum(), file, row.names = TRUE)
-     }
-   )
+#output$download1 <- downloadHandler(
+#     filename = function() {
+#       "lr.des1.csv"
+#     },
+#     content = function(file) {
+#       write.csv(sum(), file, row.names = TRUE)
+#     }
+#   )
  
  output$download2 <- downloadHandler(
      filename = function() {
@@ -186,13 +199,15 @@ output$tx = renderUI({
  })
  
  ## scatter plot
- output$p1 = renderPlot({
+ output$p1 = plotly::renderPlotly({
   validate(need(length(levels(as.factor(DF3()[, input$ty])))==2, "Please choose a binary variable as Y")) 
    #ggplot(DF3(), aes(x = DF3()[, input$tx], y = DF3()[, input$ty])) + geom_point(shape = 1) + 
    #  geom_smooth(method = lm) + xlab(input$tx) + ylab(input$ty) + theme_minimal()
-   ggplot(DF3(), aes(x=DF3()[, input$tx], y=(as.numeric(as.factor(DF3()[, input$ty]))-1))) + geom_point(shape = 1) + 
-  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE) +
+   p<- ggplot(DF3(), aes(x=DF3()[, input$tx], y=(as.numeric(as.factor(DF3()[, input$ty]))-1))) + geom_point(shape = 1,  size = 1) + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE,  size = 0.5) +
   xlab(input$tx) + ylab(input$ty) + theme_minimal()
+
+  plotly::ggplotly(p)
    })
  
 ## histogram
@@ -204,13 +219,15 @@ output$tx = renderUI({
      choices = type.num3())
  })
  
-output$p2 = renderPlot({
+output$p2 = plotly::renderPlotly({
    validate(
        need(input$hx != "NULL", "Please select one numeric variable")
      )
-   ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
-     geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
-     geom_density()+
+   p<-ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
+     geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white",size = 0.5) + 
+     geom_density(size = 0.5)+
      xlab("") + theme_minimal() + theme(legend.title = element_blank())
+
+plotly::ggplotly(p)
    })
  

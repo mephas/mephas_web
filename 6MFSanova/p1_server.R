@@ -9,6 +9,7 @@
 ## DT: 2019-05-04
 ##
 ##----------#----------#----------#----------
+
 names1 <- reactive({
   x <- unlist(strsplit(input$cn1, "[\n]"))
   return(x[1:2])

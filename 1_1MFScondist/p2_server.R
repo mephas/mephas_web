@@ -1,22 +1,13 @@
-
-##----------#----------#----------#----------
-##
-## 1MFSdistribution SERVER
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
-
 ###---------- 2.2. exp Distribution ----------
 
 output$e.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$e.xlim)), aes(x)) +
   stat_function(fun = "dexp", args = list(rate = input$r)) + ylab("Density") +
-  scale_y_continuous(breaks = NULL) + theme_minimal() + ggtitle("") + #ylim(0, input$e.ylim) +
-  geom_vline(aes(xintercept=qexp(input$e.pr, rate = input$r)), colour = "red")})
+  scale_y_continuous(breaks = NULL) + 
+  theme_minimal() + 
+  ggtitle("Exponential Distribution") + #ylim(0, input$e.ylim) +
+  geom_vline(aes(xintercept=qexp(input$e.pr, rate = input$r)), colour = "red")
+  })
 
 output$e.info = renderText({
     xy_str = function(e) {
@@ -45,12 +36,16 @@ output$download2 <- downloadHandler(
     }
   )
 
-output$table5 = renderDataTable({head(E(), n = 100L)},  options = list(pageLength = 10))
+#output$table5 = renderDataTable({head(E(), n = 100L)},  options = list(pageLength = 10))
 
 output$e.plot2 = renderPlot(
 {df = E()
-ggplot(df, aes(x = x)) + theme_bw() + ylab("Frequency")+ geom_histogram(binwidth = input$e.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
-xlim(-0.1, input$e.xlim) + geom_vline(aes(xintercept=quantile(x, probs = input$e.pr, na.rm=TRUE)), color="red", size=0.5)})
+ggplot(df, aes(x = x)) + 
+theme_minimal() + 
+ylab("Frequency")+ 
+geom_histogram(binwidth = input$e.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
+xlim(-0.1, input$e.xlim) + 
+geom_vline(aes(xintercept=quantile(x, probs = input$e.pr, na.rm=TRUE)), color="red", size=0.5)})
 
 output$e.info2 = renderText({
     xy_str = function(e) {
@@ -70,29 +65,46 @@ output$e.sum = renderTable({
 Y <- reactive({
   inFile <- input$e.file
   if (is.null(inFile)) {
-    # input data
-    x <- as.numeric(unlist(strsplit(input$x.e, "[\n,\t;]")))
-    X <- as.data.frame(x)
+    x <- as.numeric(unlist(strsplit(input$x.e, "[\n,\t; ]")))
+    validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
+    x <- as.data.frame(x)
     }
   else {
-    # CSV data
-    csv <- read.csv(inFile$datapath,
-        header = input$e.header,
-        sep = input$e.sep)[,1]
-    X <- as.data.frame(csv)
+    if(input$e.col){
+    csv <- read.csv(inFile$datapath, header = input$e.header, sep = input$e.sep, row.names=1)
     }
-    colnames(X) = c("X")
-    return(as.data.frame(X))
+    else{
+    csv <- read.csv(inFile$datapath, header = input$e.header, sep = input$e.sep)
+    }
+    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    x <- as.data.frame(csv[,1])
+    }
+    colnames(x) = c("X")
+    return(as.data.frame(x))
   })
 
 
-output$makeplot.e <- renderPlot({
+output$makeplot.e1 <- renderPlot({
   x = Y()
-  plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.e, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+geom_vline(aes(xintercept=quantile(x[,1], probs = input$e.pr, na.rm = TRUE)), color="red", size=0.5)
- 
-  grid.arrange(plot2, plot3, ncol = 2)
-  })
+  ggplot(x, aes(x = x[,1])) + 
+  geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.e, position = "identity") + 
+  xlab("") + 
+  ggtitle("Histogram") + 
+  theme_minimal() + 
+  theme(legend.title =element_blank())
+  #plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+geom_vline(aes(xintercept=quantile(x[,1], probs = input$e.pr, na.rm = TRUE)), color="red", size=0.5)
+   })
+output$makeplot.e2 <- renderPlot({
+  x = Y()
+  #plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.e, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
+  ggplot(x, aes(x = x[,1])) + 
+  geom_density() + 
+  ggtitle("Density Plot") + 
+  xlab("") + theme_minimal() + 
+  theme(legend.title =element_blank())+
+  geom_vline(aes(xintercept=quantile(x[,1], probs = input$e.pr, na.rm = TRUE)), color="red", size=0.5)
+   })
 
 output$e.sum2 = renderTable({
   x = Y()

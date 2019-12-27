@@ -1,14 +1,3 @@
-##----------#----------#----------#----------
-##
-## 1MFSdistribution SERVER
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
-
 ###---------- 1.1 Normal Distribution ----------
 
 output$norm.plot <- renderPlot({
@@ -20,9 +9,13 @@ output$norm.plot <- renderPlot({
   }
 
   ggplot(data = data.frame(x = c(-(input$xlim), input$xlim)), aes(x)) +
-  stat_function(fun = dnorm, n = 101, args = list(mean = input$mu, sd = input$sigma)) + scale_y_continuous(breaks = NULL) +
-  stat_function(fun = mynorm, geom = "area", fill="cornflowerblue", alpha = 0.3) + scale_x_continuous(breaks = c(-input$xlim, input$xlim))+
-  ylab("Density") + theme_bw()  + #ylim(0, input$ylim) +
+  stat_function(fun = dnorm, n = 101, args = list(mean = input$mu, sd = input$sigma)) + 
+  scale_y_continuous(breaks = NULL) +
+  stat_function(fun = mynorm, geom = "area", fill="cornflowerblue", alpha = 0.3) + 
+  scale_x_continuous(breaks = c(-input$xlim, input$xlim))+
+  ylab("Density") + 
+  theme_minimal() + 
+  ggtitle("Normal distribution")+
   geom_vline(aes(xintercept=input$mu), color="red", linetype="dashed", size=0.5) +
   geom_vline(aes(xintercept=qnorm(input$pr, mean = input$mu, sd = input$sigma, lower.tail = TRUE, log.p = FALSE)), color="red", size=0.5) })
 
@@ -49,8 +42,13 @@ N = reactive({
 
 output$norm.plot2 = renderPlot(
 {df = N()
-ggplot(df, aes(x = x)) + theme_bw() + ylab("Frequency")+ geom_histogram(binwidth = input$bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
-xlim(-input$xlim, input$xlim) + geom_vline(aes(xintercept=quantile(x, probs = input$pr, na.rm = FALSE)), color="red", size=0.5)})
+ggplot(df, aes(x = x)) + 
+theme_minimal() + 
+ggtitle("Histogram of Random Numbers")+
+ylab("Frequency")+ geom_histogram(binwidth = input$bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
+xlim(-input$xlim, input$xlim) + 
+geom_vline(aes(xintercept=quantile(x, probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
+})
 
 
 output$sum = renderTable({
@@ -79,27 +77,50 @@ output$download1 <- downloadHandler(
 NN <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
-    # input data
-    x <- as.numeric(unlist(strsplit(input$x, "[\n,\t;]")))
-    X <- as.data.frame(x)
+    x <- as.numeric(unlist(strsplit(input$x, "[\n,\t; ]")))
+    validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
+    x <- as.data.frame(x)
     }
   else {
-    # CSV data
-    csv <- read.csv(inFile$datapath,
-        header = input$header,
-        sep = input$sep)[,1]
-    X <- as.data.frame(csv)
+    if(input$col){
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, row.names=1)
     }
-    colnames(X) = c("X")
-    return(as.data.frame(X))
+    else{
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep)
+    }
+    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    x <- as.data.frame(csv[,1])
+    }
+    colnames(x) = c("X")
+    return(as.data.frame(x))
   })
 
-output$makeplot <- renderPlot({
+output$makeplot.1 <- renderPlot({
   x = NN()
-  plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+geom_vline(aes(xintercept=quantile(x[,1], probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
+  ggplot(x, aes(x = x[,1])) + 
+  geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + 
+  xlab("") + 
+  ggtitle("Histogram") + 
+  theme_minimal() + 
+  theme(legend.title =element_blank())
+  #plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+geom_vline(aes(xintercept=quantile(x[,1], probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
  
-  grid.arrange(plot2, plot3, ncol = 2)
+  #grid.arrange(plot2, plot3, ncol = 2)
+  })
+
+output$makeplot.2 <- renderPlot({
+  x = NN()
+  #ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
+  ggplot(x, aes(x = x[,1])) + 
+  geom_density() + 
+  ggtitle("Density Plot") + 
+  xlab("") + 
+  theme_minimal() + 
+  theme(legend.title =element_blank())+
+  geom_vline(aes(xintercept=quantile(x[,1], probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
+ 
+  #grid.arrange(plot2, plot3, ncol = 2)
   })
 
 output$sum2 = renderTable({

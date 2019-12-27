@@ -103,7 +103,7 @@ p(tags$b("2. Categorical variables")),
 verbatimTextOutput("fsum"),
 tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 200px; background: ghostwhite}")),
 
-downloadButton("download1", "Download Results (Continuous variables)"),
+#downloadButton("download1", "Download Results (Continuous variables)"),
 downloadButton("download2", "Download Results (Categorical variables)")
 
 ),

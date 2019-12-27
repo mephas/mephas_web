@@ -76,15 +76,14 @@ tags$textarea(id='ref', column=40, "")
 
 mainPanel(
 h4(tags$b("Output 1. Data Information")),
-p(tags$b("Data Preview")), 
-p(br()),
+p(tags$b("1. Data Preview")), 
 DT::dataTableOutput("Xdata"),
 
-p(tags$b("1. Continuous variable information list")),
+p(tags$b("2. Continuous variable information list")),
 verbatimTextOutput("strnum"),
 tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
 
-p(tags$b("2. Factor/ Catrorical variable information list")),
+p(tags$b("3. Factor/ Catrorical variable information list")),
 verbatimTextOutput("strfac"),
 tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 200px; background: white};")),
 
@@ -105,7 +104,7 @@ verbatimTextOutput("fsum"),
 tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 200px; background: white};")),
 
 
-downloadButton("download1", "Download Results (Continuous variables)"),
+#downloadButton("download1", "Download Results (Continuous variables)"),
 downloadButton("download2", "Download Results (Categorical variables)")
 
 ),
@@ -117,15 +116,15 @@ p("This is to show the relation between any two numeric variables"),
 uiOutput('tx'),
 uiOutput('ty'),
 
-plotOutput("p1", width = "500px", height = "400px")
+plotly::plotlyOutput("p1", width = "500px", height = "400px")
 ),
 
 tabPanel("Histogram", p(br()),
 
 p("This is to show the distribution of any numeric variable"),
 uiOutput('hx'),
-plotOutput("p2", width = "500px", height = "400px"),
-sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 50, value = 1))
+plotly::plotlyOutput("p2", width = "500px", height = "400px"),
+sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 5, value = 1))
 
 )
 
