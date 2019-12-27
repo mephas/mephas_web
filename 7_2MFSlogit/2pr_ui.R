@@ -56,19 +56,17 @@ actionButton("B2", h4(tags$b("Click 2: Output. Prediction Results / Refresh, giv
 p(br()),
 tabsetPanel(
 tabPanel("Prediction Table",p(br()),
-DT::dataTableOutput("pred"),
-downloadButton("download12", "Download Results")
+DT::dataTableOutput("pred")
 ),
 
 tabPanel("ROC Plot",p(br()),
 p("This is to show the ROC plot between predicted values and true values, based on the new data not used in the model."),
-plotOutput("p.s", width = "500px", height = "400px")
+plotly::plotlyOutput("p.s", width = "500px", height = "400px")
 ),
 
 tabPanel(
 p("This is based on the new data not used in the model."),
-DT::dataTableOutput("sst.s"),
-downloadButton("download122", "Download Results")
+DT::dataTableOutput("sst.s")
 
   )
 )

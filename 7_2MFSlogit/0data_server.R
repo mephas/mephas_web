@@ -1,14 +1,4 @@
-##----------#----------#----------#----------
-##
-## 7MFSreg SERVER
-##
-##    >data
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
+##----------#logistic data#----------#----------
 load("LGT.RData")
 
 data <- reactive({
@@ -23,11 +13,11 @@ DF0 = reactive({
     x<-data()
     }
   else{
-if(!input$col){
-    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote)
+if(input$col){
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote, row.names=1)
     }
     else{
-    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote, row.names=1)
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote)
     }
     validate( need(ncol(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
     validate( need(nrow(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
@@ -119,13 +109,11 @@ return(df)
 
 
 output$Xdata <- DT::renderDataTable(DF3(),
-  #selection = "none",
-  #editable = TRUE,
-  class="row-border", extensions = 'Scroller', options = list(
-  #deferRender = TRUE,
+  class="row-border", 
+  extensions = 'Scroller', 
+  options = list(
   scrollY = 290,
-  scrollX = TRUE,
-  fixedColumns = TRUE))
+  scroller = TRUE))
 
 type.num3 <- reactive({
 DF3() %>% select_if(is.numeric) %>% colnames()
@@ -136,7 +124,7 @@ DF3() %>% select_if(is.factor) %>% colnames()
 })
 
 output$strnum <- renderPrint({str(DF3()[,type.num3()])})
-#output$str.fac <- renderPrint({str(DF2()[,type.fac()])})
+
 output$strfac <- renderPrint({Filter(Negate(is.null), lapply(DF3(),levels))})
 
 
@@ -150,7 +138,8 @@ sum <- reactive({
 
 output$sum <- DT::renderDataTable({sum()},
   class="row-border", 
-  extensions = 'Buttons', options = list(
+  extensions = 'Buttons', 
+  options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
@@ -203,7 +192,8 @@ output$tx = renderUI({
   validate(need(length(levels(as.factor(DF3()[, input$ty])))==2, "Please choose a binary variable as Y")) 
    #ggplot(DF3(), aes(x = DF3()[, input$tx], y = DF3()[, input$ty])) + geom_point(shape = 1) + 
    #  geom_smooth(method = lm) + xlab(input$tx) + ylab(input$ty) + theme_minimal()
-   p<- ggplot(DF3(), aes(x=DF3()[, input$tx], y=(as.numeric(as.factor(DF3()[, input$ty]))-1))) + geom_point(shape = 1,  size = 1) + 
+   p<- ggplot(DF3(), aes(x=DF3()[, input$tx], y=(as.numeric(as.factor(DF3()[, input$ty]))-1))) + 
+   geom_point(shape = 1,  size = 1) + 
   stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE,  size = 0.5) +
   xlab(input$tx) + ylab(input$ty) + theme_minimal()
 

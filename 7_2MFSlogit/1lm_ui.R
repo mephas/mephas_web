@@ -88,21 +88,18 @@ tabPanel("AIC-based Selection", p(br()),
     ),
 
 tabPanel("ROC Plot",  p(br()),
-    plotOutput("p.lm", width = "500px", height = "400px")
+    plotly::plotlyOutput("p.lm", width = "500px", height = "400px")
     ),
 
 tabPanel("Sensitivity and Specificity",  p(br()),
-     DT::dataTableOutput("sst"),
-    downloadButton("download111", "Download Results")
-
+     DT::dataTableOutput("sst")
     ),
 
 tabPanel("Fitting", p(br()),
 
     p(tags$b("Fitting values and residuals from the existed data")),
-    DT::dataTableOutput("fitdt0"),
-    downloadButton("download11", "Download Results")
-)
+    DT::dataTableOutput("fitdt0")
+    )
 
 )
 )

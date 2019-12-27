@@ -117,15 +117,23 @@ output$step = renderPrint({sp()})
 
 # 
 # # residual plot
- output$p.lm = renderPlot({
+ output$p.lm = plotly::renderPlotly({
 
   p <- ROCR::prediction(predict(fit()), DF3()[,input$y])
   ps <- ROCR::performance(p, "tpr", "fpr")
   pf <- ROCR::performance(p, "auc")
 
-autoplot(ps)+ theme_minimal()+theme(legend.position="none") + ggtitle("") +
-annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
+  df <- data.frame(tpr=unlist(ps@y.values), 
+    fpr=unlist(ps@x.values))
 
+p<-ggplot(df, aes(fpr,tpr)) + 
+  geom_step() +
+  coord_cartesian(xlim=c(0,1), ylim=c(0,1)) +
+  theme_minimal()+ ggtitle("ROC plot") +
+  xlab("False positive rate (1-specificity)")+
+  ylab("True positive rate (sensitivity)")
+  annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
+plotly::ggplotly(p)
 	})
 # 
  fit.lm <- reactive({
@@ -137,19 +145,15 @@ annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
  return(res)
  	})
 # 
- output$fitdt0 = DT::renderDataTable({
- fit.lm()
- }, 
- options = list(scrollX = TRUE))
+ output$fitdt0 = DT::renderDataTable(fit.lm(),
+ class="row-border", 
+  extensions = c('Buttons'), 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollY = 290,
+    scroller = TRUE))
 # 
- output$download11 <- downloadHandler(
-     filename = function() {
-       "lm.fitting.csv"
-     },
-     content = function(file) {
-       write.csv(fit.lm(), file, row.names = TRUE)
-     }
-   )
 
 sst <- reactive({
 pred <- ROCR::prediction(fit()[["fitted.values"]], DF3()[,input$y])
@@ -163,16 +167,15 @@ colnames(perf2) <- c("Sensitivity", "Specificity", "1-Specificity","Cut-off Poin
 return(perf2)
   })
 
- output$sst = DT::renderDataTable({ round(sst(),6) })
+ output$sst = DT::renderDataTable(round(sst(),6),
+  class="row-border", 
+  extensions = c('Buttons'), 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollY = 290,
+    scroller = TRUE))
 
-  output$download111 <- downloadHandler(
-     filename = function() {
-       "sens_spec.csv"
-     },
-     content = function(file) {
-       write.csv(sst(), file, row.names = TRUE)
-     }
-   )
 # 
 # newX = reactive({
 # inFile = input$newfile

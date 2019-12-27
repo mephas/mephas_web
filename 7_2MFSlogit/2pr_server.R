@@ -45,28 +45,31 @@ pred.lm <- reactive({
 	cbind.data.frame(round(pred(), 4), newX())
 	})
 
-output$pred = DT::renderDataTable({
-pred.lm()
-},
-options = list(scrollX = TRUE))
+output$pred = DT::renderDataTable(pred.lm(),
+ class="row-border", 
+  extensions = c('Buttons'), 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollY = 290,
+    scroller = TRUE))
 
-output$download12 <- downloadHandler(
-    filename = function() {
-      "lm.pred.csv"
-    },
-    content = function(file) {
-      write.csv(pred.lm(), file, row.names = TRUE)
-    }
-  )
-
-
- output$p.s = renderPlot({
+ output$p.s = plotly::renderPlotly({
   p <- ROCR::prediction(pred.lm()[,2], pred.lm()[,input$y])
   ps <- ROCR::performance(p, "tpr", "fpr")
   pf <- ROCR::performance(p, "auc")
+  
+  df <- data.frame(tpr=unlist(ps@y.values), 
+    fpr=unlist(ps@x.values))
 
-autoplot(ps)+ theme_minimal()+theme(legend.position="none") + ggtitle("") +
-annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
+p<-ggplot(df, aes(fpr,tpr)) + 
+  geom_step() +
+  coord_cartesian(xlim=c(0,1), ylim=c(0,1)) +
+  theme_minimal()+ ggtitle("ROC plot") +
+  xlab("False positive rate (1-specificity)")+
+  ylab("True positive rate (sensitivity)")
+  annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
+plotly::ggplotly(p)
   })
 
 sst.s <- reactive({
@@ -81,16 +84,15 @@ colnames(perf2) <- c("Sensitivity", "Specificity", "1-Specificity","Cut-off Poin
 return(perf2)
   })
 
- output$sst.s = DT::renderDataTable({ round(sst.s(),6) })
+ output$sst.s = DT::renderDataTable(round(sst.s(),6),
+   class="row-border", 
+  extensions = c('Buttons'), 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollY = 290,
+    scroller = TRUE))
 
-  output$download122 <- downloadHandler(
-     filename = function() {
-       "sens_spec.csv"
-     },
-     content = function(file) {
-       write.csv(sst.s(), file, row.names = TRUE)
-     }
-   )
 
 # sx <- reactive({input$x})
 # 

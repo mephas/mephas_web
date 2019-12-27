@@ -1,17 +1,13 @@
-##----------#----------#----------#----------
-##
-## 7MFSreg UI
-##
-##    >data
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
+##----------#logistic data#----------#----------
 sidebarLayout(
 
 sidebarPanel(
+  tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
+  tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 200px; background: white};")),
+  tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 200px; background: white};")),
+
+
+
 
 selectInput("edata", "Example Data", 
         choices =  c("Breast Cancer"), 
@@ -28,7 +24,7 @@ p(tags$b("2. Show 1st row as column names?")),
 checkboxInput("header", "Yes", TRUE),
 
 p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-checkboxInput("col", "Yes", FALSE),
+checkboxInput("col", "Yes", TRUE),
 
      # Input: Select separator ----
 radioButtons("sep", "4. Which separator for data?",
@@ -81,11 +77,9 @@ DT::dataTableOutput("Xdata"),
 
 p(tags$b("2. Continuous variable information list")),
 verbatimTextOutput("strnum"),
-tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
 
 p(tags$b("3. Factor/ Catrorical variable information list")),
 verbatimTextOutput("strfac"),
-tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 200px; background: white};")),
 
 
 hr(),   
@@ -101,12 +95,8 @@ DT::dataTableOutput("sum"),
 
 p(tags$b("2. Categorical variables")),
 verbatimTextOutput("fsum"),
-tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 200px; background: white};")),
 
-
-#downloadButton("download1", "Download Results (Continuous variables)"),
 downloadButton("download2", "Download Results (Categorical variables)")
-
 ),
 
 tabPanel("Logit Plot",p(br()),

@@ -1,14 +1,3 @@
-#----------#----------#----------#----------
-##
-## 1MFSdistribution SERVER
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
-
 ###---------- 2.3 F distribution ----------
 output$f.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$f.xlim)), aes(x)) +
