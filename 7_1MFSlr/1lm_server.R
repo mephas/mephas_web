@@ -50,7 +50,11 @@ as.formula(paste0(input$y,' ~ ',paste0(input$x, collapse = "+"),
 
 })
 
-output$formula = renderPrint({formula()})
+output$formula = renderPrint({
+cat(paste0(input$y,' ~ ',paste0(input$x, collapse = " + "), 
+  input$conf, 
+  input$intercept))
+  })
 
 ## 4. output results
 ### 4.2. model
@@ -63,16 +67,14 @@ lm(formula(), data = DF3())
 #  glm(formula(), data = DF3())
 #})
 # 
- output$fit = renderUI({
- 
- HTML(
+ output$fit = renderPrint({
  stargazer::stargazer(
  fit(),
  #out="linear.txt",
  header=FALSE,
  dep.var.caption = "Linear Regression",
  dep.var.labels = paste0("Y = ",input$y),
- type = "html",
+ type = "text",
  style = "all",
  align = TRUE,
  ci = TRUE,
@@ -80,7 +82,6 @@ lm(formula(), data = DF3())
  #no.space=TRUE,
  title=paste(Sys.time()),
  model.names =FALSE)
- )
  
  })
 
@@ -90,16 +91,41 @@ afit = eventReactive(input$B1, {
   return(res.table)
   })
 
-output$anova = DT::renderDataTable({afit()}, rownames = TRUE)
+output$anova = DT::renderDataTable({afit()},
+  class="row-border", 
+  extensions = c('Buttons'), 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel')
+    ))
 
 sp = eventReactive(input$B1, {step(fit())})
 output$step = renderPrint({sp()})
 
 # 
 # # residual plot
- output$p.lm = renderPlot({
-	autoplot(fit(), which = as.numeric(input$num)) + theme_minimal()
+output$p.lm1 = plotly::renderPlotly({
+
+x <-data.frame(res=fit()$residuals)
+p <- ggplot(x, aes(sample = res)) + 
+stat_qq() + 
+ggtitle("Normal Q-Q Plot") + 
+xlab("") + 
+theme_minimal()  ## add line,
+plotly::ggplotly(p)
 	})
+
+output$p.lm2 = plotly::renderPlotly({
+x <- data.frame(fit=fit()$fitted.values, res=fit()$residuals)
+p<- ggplot(x, aes(fit, res))+
+geom_point()+
+stat_smooth(method="loess")+
+geom_hline(yintercept=0, col="red", linetype="dashed")+
+xlab("Fitted values")+ylab("Residuals")+
+ggtitle("Residual vs Fitted Plot")+theme_minimal()
+
+plotly::ggplotly(p)
+  })
 # 
  fit.lm <- reactive({
  res <- data.frame(Y=DF3()[,input$y],
@@ -110,20 +136,16 @@ output$step = renderPrint({sp()})
  return(res)
  	})
 # 
- output$fitdt0 = DT::renderDataTable({
- fit.lm()
- }, 
- options = list(scrollX = TRUE))
+ output$fitdt0 = DT::renderDataTable(fit.lm(),
+ class="row-border", 
+  extensions = c('Buttons'), 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollY = 290,
+    scroller = TRUE))
 # 
- output$download11 <- downloadHandler(
-     filename = function() {
-       "lm.fitting.csv"
-     },
-     content = function(file) {
-       write.csv(fit.lm(), file, row.names = TRUE)
-     }
-   )
-# 
+
 # newX = reactive({
 # inFile = input$newfile
 # if (is.null(inFile))

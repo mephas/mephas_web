@@ -31,7 +31,7 @@ HTML(
 <li> To get the descriptive statistics plot of the variables in your data
 </ul>
 
-<h4><b> 2. About your data </b></h4>
+<h4><b> 2. About your data (training) </b></h4>
 
 <ul>
 <li> Your data need to include one binary dependent variable (outcome/response) as Y (Y=1/0, or a 2-level factor), and >=1 independent variables (factors/predictors)
@@ -96,7 +96,7 @@ HTML(
 <li> If you have input the data and built a model in the previous tabs, you can upload new data and get the predictive results.
 </ul>
 
-<h4><b> 2. About your data </b></h4>
+<h4><b> 2. About your data (test) </b></h4>
 
 <ul>
 <li> New data need to have all the independent variables in the model.

@@ -1,14 +1,4 @@
-##----------#----------#----------#----------
-##
-## 7MFSreg SERVER
-##
-##    >data
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
+##----------#----Linear data-----#----------#----------
 load("LR.RData")
 
 data <- reactive({
@@ -116,8 +106,12 @@ return(df)
   
   })
 
-output$Xdata <- DT::renderDataTable(
-DF3(), options = list(scrollX = TRUE))
+output$Xdata <- DT::renderDataTable(DF3(),   
+  class="row-border", 
+  extensions = 'Scroller', 
+  options = list(
+  scrollY = 290,
+  scroller = TRUE))
 
 type.num3 <- reactive({
 DF3() %>% select_if(is.numeric) %>% colnames()
@@ -140,7 +134,13 @@ sum <- reactive({
   return(res)
   })
 
-output$sum <- DT::renderDataTable({sum()}, options = list(scrollX = TRUE))
+output$sum <- DT::renderDataTable({sum()}, 
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 fsum = reactive({
   x <- DF3()[,type.fac3()]
@@ -148,15 +148,7 @@ fsum = reactive({
   })
 
 output$fsum = renderPrint({fsum()})
- 
-output$download1 <- downloadHandler(
-     filename = function() {
-       "lr.des1.csv"
-     },
-     content = function(file) {
-       write.csv(sum(), file, row.names = TRUE)
-     }
-   )
+
  
  output$download2 <- downloadHandler(
      filename = function() {
@@ -186,9 +178,10 @@ output$tx = renderUI({
  })
  
  ## scatter plot
- output$p1 = renderPlot({
-   ggplot(DF3(), aes(x = DF3()[, input$tx], y = DF3()[, input$ty])) + geom_point(shape = 1) + 
+ output$p1 = plotly::renderPlotly({
+   p<-ggplot(DF3(), aes(x = DF3()[, input$tx], y = DF3()[, input$ty])) + geom_point(shape = 1) + 
      geom_smooth(method = "lm") + xlab(input$tx) + ylab(input$ty) + theme_minimal()
+  plotly::ggplotly(p)
    })
  
 ## histogram
@@ -200,10 +193,11 @@ output$tx = renderUI({
      choices = type.num3())
  })
  
-output$p2 = renderPlot({
-   ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
+output$p2 = plotly::renderPlotly({
+   p<-ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
      geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
      geom_density()+
      xlab("") + theme_minimal() + theme(legend.title = element_blank())
+    plotly::ggplotly(p)
    })
  

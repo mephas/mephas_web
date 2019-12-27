@@ -56,13 +56,12 @@ actionButton("B2", h4(tags$b("Click 2: Output. Prediction Results / Refresh, giv
 p(br()),
 tabsetPanel(
 tabPanel("Prediction",p(br()),
-DT::dataTableOutput("pred"),
-downloadButton("download12", "Download Results")
+DT::dataTableOutput("pred")
 ),
 
 tabPanel("Prediction vs True Dependent Variable Plot",p(br()),
 p("This is to show the relation between predicted values and true values, using Linear Smooth. Grey area is confidence interval."),
-plotOutput("p.s", width = "500px", height = "400px")
+plotly::plotlyOutput("p.s", width = "500px", height = "400px")
 )
 )
 # h4(tags$b("Output 2. Prediction Plot between one independent variable (X) and dependent variable (Y)")),

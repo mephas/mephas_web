@@ -51,6 +51,7 @@ output$pred = DT::renderDataTable(pred.lm(),
   options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
+        scrollX = TRUE,
     scrollY = 290,
     scroller = TRUE))
 
@@ -90,6 +91,7 @@ return(perf2)
   options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
+        scrollX = TRUE,
     scrollY = 290,
     scroller = TRUE))
 

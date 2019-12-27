@@ -81,8 +81,7 @@ align = TRUE,
 ci = TRUE,
 single.row = TRUE,
 title=paste(Sys.time()),
-model.names = FALSE
-)
+model.names = FALSE)
 })
 
 output$fit2 = renderPrint({
@@ -151,6 +150,7 @@ plotly::ggplotly(p)
   options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE,
     scrollY = 290,
     scroller = TRUE))
 # 
@@ -173,7 +173,8 @@ return(perf2)
   options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
-    scrollY = 290,
+    scrollX = TRUE,
+    scrollY = 290,    
     scroller = TRUE))
 
 # 

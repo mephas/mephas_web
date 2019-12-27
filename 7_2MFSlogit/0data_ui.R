@@ -6,9 +6,6 @@ sidebarPanel(
   tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 200px; background: white};")),
   tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 200px; background: white};")),
 
-
-
-
 selectInput("edata", "Example Data", 
         choices =  c("Breast Cancer"), 
         selected = "Breast Cancer"),

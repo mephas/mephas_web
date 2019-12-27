@@ -14,6 +14,12 @@ sidebarLayout(
 
 sidebarPanel(
 
+tags$head(tags$style("#formula {height: 100px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
+tags$head(tags$style("#str {overflow-y:scroll; max-height: 350px; background: white};")),
+tags$head(tags$style("#fit {overflow-y:scroll; max-height: 400px; background: white};")),
+tags$head(tags$style("#step {overflow-y:scroll; max-height: 400px; background: white};")),
+
+
 h4("Example data: Birth weight"),      
 
 h4(tags$b("Step 1. Choose variables to build the model")),      
@@ -30,10 +36,8 @@ p(tags$b("4. Add interaction term between categorical variables")),
 p('Please input: + var1:var2'), 
 tags$textarea(id='conf', " " ), 
 hr(),
-#actionButton("F", "Create formula", style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
 h4(tags$b("Step 2. Check Linear Regression Model")),
-tags$style(type='text/css', '#formula {background-color: rgba(0,0,255,0.10); color: blue;}'),
-verbatimTextOutput("formula", placeholder = TRUE),
+verbatimTextOutput("formula"),
 p("Note: '-1' in the formula indicates that intercept / constant term has been removed")
 ),
 
@@ -46,8 +50,7 @@ p("This only shows the first several lines, please check full data in the 1st ta
 DT::dataTableOutput("Xdata2")
 ),
 tabPanel("Variables information",p(br()),
-verbatimTextOutput("str"),
-tags$head(tags$style("#str {overflow-y:scroll; max-height: 350px; background: white};"))
+verbatimTextOutput("str")
 
 )
 ),
@@ -59,7 +62,7 @@ p(br()),
 tabsetPanel(
 
 tabPanel("Model Estimation", 
-    htmlOutput("fit"),
+    verbatimTextOutput("fit"),
 HTML(
 "
 <b> Explanations  </b>
@@ -78,7 +81,7 @@ HTML(
 
 tabPanel("ANOVA", p(br()),
     p(tags$b("ANOVA Table")),  
-    DT::dataTableOutput("anova"),
+    DT::dataTableOutput("anova", width="600px"),
     HTML(
     "<b> Explanations </b>
   <ul> 
@@ -93,7 +96,6 @@ tabPanel("ANOVA", p(br()),
 tabPanel("AIC-based Selection", p(br()),
     p(tags$b("Model selection suggested by AIC")),
     verbatimTextOutput("step"),
-    tags$head(tags$style("#step {overflow-y:scroll; max-height: 400px; background: white};")),
 
         HTML(
     "<b> Explanations </b>
@@ -104,11 +106,10 @@ tabPanel("AIC-based Selection", p(br()),
     ),
 
 tabPanel("Diagnostics Plot",  p(br()),
-    radioButtons("num", "Diagnostic plots of the residuals",
-         choices = c("Residuals vs Fitting plot" = 1,
-                     "QQ Plot of the Residuals " = 2),
-         selected = 1),
-    plotOutput("p.lm", width = "1000px", height = "400px"),
+
+plotly::plotlyOutput("p.lm1", width = "500px", height = "300px"),
+plotly::plotlyOutput("p.lm2", width = "500px", height = "300px"),
+
    HTML(
     "<b> Explanations </b>
   <ul> 
@@ -122,8 +123,7 @@ tabPanel("Diagnostics Plot",  p(br()),
 tabPanel("Fitting", p(br()),
 
     p(tags$b("Fitting values and residuals from the existed data")),
-    DT::dataTableOutput("fitdt0"),
-    downloadButton("download11", "Download Results")
+    DT::dataTableOutput("fitdt0")
 )
 
 )

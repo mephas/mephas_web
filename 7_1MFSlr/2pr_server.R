@@ -43,8 +43,13 @@ pred.lm <- reactive({
 
 output$pred = DT::renderDataTable({
 pred.lm()
-},
-options = list(scrollX = TRUE))
+},class="row-border", 
+  extensions = c('Buttons'), 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollY = 290,
+    scroller = TRUE))
 
 output$download12 <- downloadHandler(
     filename = function() {
@@ -55,12 +60,13 @@ output$download12 <- downloadHandler(
     }
   )
 
- output$p.s = renderPlot({
+ output$p.s = plotly::renderPlotly({
   validate(need(length(pred.lm()[, input$y])>1, "This figure will not show unless Y is given in the new data"))
   min = min(c(pred.lm()[, input$y], pred.lm()[, 1]))
   max = max(c(pred.lm()[, input$y], pred.lm()[, 1]))
-   ggplot(pred.lm(), aes(x = pred.lm()[, input$y], y = pred.lm()[, 1])) + geom_point(shape = 1) + 
+   p <- ggplot(pred.lm(), aes(x = pred.lm()[, input$y], y = pred.lm()[, 1])) + geom_point(shape = 1) + 
      geom_smooth(method = "lm") + xlab(input$y) + ylab("Prediction") + xlim(min, max)+ ylim(min, max)+ theme_minimal()
+plotly::ggplotly(p)
    })
 
 
