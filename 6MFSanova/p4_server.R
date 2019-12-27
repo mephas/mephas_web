@@ -9,13 +9,14 @@
 ## DT: 2019-05-04
 ##
 ##----------#----------#----------#----------
+##Pairwise2
 namesm2 <- reactive({
   x <- unlist(strsplit(input$cnm2, "[\n]"))
   return(x[1:2])
   }) 
 
 #level2 <- reactive({
-#  F1 <-as.factor(unlist(strsplit(input$fm2, "[,;\n\t]")))
+#  F1 <-as.factor(unlist(strsplit(input$fm2, "[,;\n\t ]")))
 #  x <- matrix(levels(F1), nrow=1)
 #  colnames(x) <- c(1:length(x))
 #  return(x)
@@ -29,8 +30,8 @@ Ym2 <- reactive({
   if (is.null(inFile)) {
     X <- as.numeric(unlist(strsplit(input$xm2, "[,;\n\t ]")))
     validate( need(sum(!is.na(X))>1, "Please input enough valid numeric data") )
-    F1 <- as.factor(unlist(strsplit(input$fm1, "[,;\n\t]")))
-    F2 <- as.factor(unlist(strsplit(input$fm2, "[,;\n\t]")))
+    F1 <- as.factor(unlist(strsplit(input$fm1, "[,;\n\t ]")))
+    F2 <- as.factor(unlist(strsplit(input$fm2, "[,;\n\t ]")))
     validate( need(length(X)==length(F1)&length(X)==length(F2), "Please make sure two groups have equal length") )    
     x <- data.frame(X = X, F1 = F1, F2 = F2)
     colnames(x) = names2()
@@ -64,7 +65,7 @@ basm2 <- reactive({
   return(res)
   })
 
-output$basm.t2 <- renderTable({
+output$basm.t2 <- DT::renderDataTable({
   basm2()}, 
   width = "700px", rownames = TRUE)
 

@@ -57,7 +57,7 @@ hr()
 ),
 
 #----------1. LM regression panel----------
-tabPanel("K-M Model",
+tabPanel("Non-parametric Model",
 
 headerPanel("Kaplan-Meier Estimator and Log-rank Test"),
 HTML(
@@ -86,9 +86,9 @@ source("1km_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
 
-tabPanel("AFT Model",
+tabPanel("Parametric Model",
 
-headerPanel("Logistic Regression"),
+headerPanel("Parametric Models by  an Arbitrary Transform of the Time Variable"),
 HTML(
 "
 

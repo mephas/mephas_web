@@ -15,7 +15,7 @@ namesnp2 <- reactive({
   }) 
 
 levelnp2 <- reactive({
-  F1 <-as.factor(unlist(strsplit(input$fnp2, "[,;\n\t]")))
+  F1 <-as.factor(unlist(strsplit(input$fnp2, "[,;\n\t ]")))
   x <- matrix(levels(F1), nrow=1)
   colnames(x) <- c(1:length(x))
   rownames(x) <- names1()[2]
@@ -27,8 +27,8 @@ output$level.tnp2 <- renderTable({levelnp2()},
 Ynp2 <- reactive({
   inFile <- input$filenp2
   if (is.null(inFile)) {
-    X <- as.numeric(unlist(strsplit(input$xnp2, "[,;\n\t]")))
-    F1 <-as.factor(unlist(strsplit(input$fnp2, "[,;\n\t]")))
+    X <- as.numeric(unlist(strsplit(input$xnp2, "[,;\n\t ]")))
+    F1 <-as.factor(unlist(strsplit(input$fnp2, "[,;\n\t ]")))
     validate( need(length(X)==length(F1), "Please make sure two groups have equal length") )    
 
     x <- data.frame(X = X, F1 = F1)
@@ -70,7 +70,7 @@ basnp2 <- reactive({
   return(res)
   })
 
-output$basnp2.t <- renderTable({
+output$basnp2.t <- DT::renderDataTable({
   basnp2()}, 
   width = "500px", rownames = TRUE)
 

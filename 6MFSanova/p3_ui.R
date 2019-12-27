@@ -9,6 +9,7 @@
 ## DT: 2019-05-04
 ##
 ##----------#----------#----------#----------
+##Pairwise1
 sidebarLayout(
 
 sidebarPanel(
@@ -113,7 +114,7 @@ mainPanel(
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      tableOutput("basm.t"),
+      DT::dataTableOutput("basm.t"),
          p(br()), 
         downloadButton("download.m", "Download Results")
       ),

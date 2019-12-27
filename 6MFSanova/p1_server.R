@@ -15,7 +15,7 @@ names1 <- reactive({
   }) 
 
 level1 <- reactive({
-  F1 <-as.factor(unlist(strsplit(input$f11, "[,;\n\t]")))
+  F1 <-as.factor(unlist(strsplit(input$f11, "[,;\n\t ]")))
   x <- matrix(levels(F1), nrow=1)
   colnames(x) <- c(1:length(x))
   rownames(x) <- names1()[2]
@@ -27,10 +27,10 @@ output$level.t1 <- renderTable({level1()},
 Y1 <- reactive({
   inFile <- input$file1
   if (is.null(inFile)) {
-    X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t]")))
+    X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t ]")))
     validate( need(sum(!is.na(X))>1, "Please input enough valid numeric data") )
 
-    F1 <-as.factor(unlist(strsplit(input$f11, "[,;\n\t]")))
+    F1 <-as.factor(unlist(strsplit(input$f11, "[,;\n\t ]")))
     validate( need(length(X)==length(F1), "Please make sure two groups have equal length") )    
     x <- data.frame(X = X, F1 = F1)
     validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
@@ -73,7 +73,7 @@ bas1 <- reactive({
   return(res)
   })
 
-output$bas1.t <- renderTable({
+output$bas1.t <- DT::renderDataTable({
   bas1()}, 
   width = "500px", rownames = TRUE)
 

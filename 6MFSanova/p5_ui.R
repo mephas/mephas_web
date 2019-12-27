@@ -9,6 +9,7 @@
 ## DT: 2019-05-04
 ##
 ##----------#----------#----------#----------
+## NP 1-way
 sidebarLayout(
 
 sidebarPanel(
@@ -95,7 +96,7 @@ mainPanel(
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      tableOutput("basnp1.t"),
+      DT::dataTableOutput("basnp1.t"),
          p(br()), 
         downloadButton("downloadnp1.1", "Download Results")
       ),

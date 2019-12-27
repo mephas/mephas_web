@@ -110,7 +110,7 @@ mainPanel(
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      tableOutput("basnp2.t"),
+      DT::dataTableOutput("basnp2.t"),
          p(br()), 
         downloadButton("downloadnp2.1", "Download Results")
       ),

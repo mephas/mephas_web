@@ -15,7 +15,7 @@ names2 <- reactive({
   }) 
 
 level21 <- reactive({
-  F1 <-as.factor(unlist(strsplit(input$f1, "[,;\n\t]")))
+  F1 <-as.factor(unlist(strsplit(input$f1, "[,;\n\t ]")))
   x <- matrix(levels(F1), nrow=1)
   colnames(x) <- c(1:length(x))
   rownames(x) <- names2()[2]
@@ -25,7 +25,7 @@ output$level.t21 <- renderTable({level21()},
    width = "700px", rownames=TRUE,colnames=TRUE)
 
 level22 <- reactive({
-  F1 <-as.factor(unlist(strsplit(input$f2, "[,;\n\t]")))
+  F1 <-as.factor(unlist(strsplit(input$f2, "[,;\n\t ]")))
   x <- matrix(levels(F1), nrow=1)
   colnames(x) <- c(1:length(x))
   rownames(x) <- names2()[3]
@@ -40,8 +40,8 @@ Y <- reactive({
   if (is.null(inFile)) {
     X <- as.numeric(unlist(strsplit(input$x, "[,;\n\t ]")))
     validate( need(sum(!is.na(X))>1, "Please input enough valid numeric data") )
-    F1 <- as.factor(unlist(strsplit(input$f1, "[,;\n\t]")))
-    F2 <- as.factor(unlist(strsplit(input$f2, "[,;\n\t]")))
+    F1 <- as.factor(unlist(strsplit(input$f1, "[,;\n\t ]")))
+    F2 <- as.factor(unlist(strsplit(input$f2, "[,;\n\t ]")))
     validate( need(length(X)==length(F1)&length(X)==length(F2), "Please make sure two groups have equal length") )    
     x <- data.frame(X = X, F1 = F1, F2 = F2)
     colnames(x) = names2()
@@ -75,7 +75,7 @@ bas <- reactive({
   return(res)
   })
 
-output$bas.t <- renderTable({
+output$bas.t <- DT::renderDataTable({
   bas()}, 
   width = "700px", rownames = TRUE)
 

@@ -147,7 +147,7 @@ tabPanel("Survival Probability Plot",  p(br()),
     ),
   choiceValues = list("pct", "event","cumhaz")
   ),
-plotOutput("km.a", width = "500px", height = "400px"),
+plotOutput("km.a", width = "600px", height = "400px"),
 verbatimTextOutput("kmat1"),
 tags$head(tags$style("#kmat1 {overflow-y:scroll; max-height: 200px; background: white};"))
      ),
