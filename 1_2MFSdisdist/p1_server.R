@@ -27,7 +27,7 @@ X = B()
 p<-ggplot(X, aes(X[,"x0"], X[,"Pr.at.x0"])) + geom_step() + 
   geom_point(aes(x = X$x0[input$k+1], y = X$Pr.at.x0[input$k+1]),color = "red", size = 2.5) +
   stat_function(fun = dnorm, args = list(mean = input$m*input$p, sd = sqrt(input$m*input$p*(1-input$p))), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
-  xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("Binomial Probability")
+  xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("")
 ggplotly(p)
 })
 
@@ -46,7 +46,7 @@ output$b.plot2 <- plotly::renderPlotly({
 df = N()
 p <- ggplot(df, aes(x = x)) + 
 theme_minimal() + 
-ggtitle("Histogram of Random Numbers")+
+ggtitle("")+
 ylab("Frequency")+ 
 geom_histogram(binwidth = input$bin, colour = "white", fill = "cornflowerblue", size = 1)
 #geom_vline(aes(xintercept=quantile(x, probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
@@ -99,7 +99,7 @@ output$makeplot.1 <- plotly::renderPlotly({
   p <-ggplot(x, aes(x = x[,1])) + 
   geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + 
   xlab("") + 
-  ggtitle("Histogram") + 
+  ggtitle("") + 
   theme_minimal() + 
   theme(legend.title =element_blank())
   ggplotly(p)
