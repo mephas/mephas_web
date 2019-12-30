@@ -30,7 +30,7 @@ multiple = TRUE
 )
 })
 
-output$Xdata2 <- DT::renderDataTable(
+output$Xdata2 <- DT::renderDT(
 head(DF3()), options = list(scrollX = TRUE))
 ### for summary
 output$str <- renderPrint({str(DF3())})
@@ -123,7 +123,7 @@ output$step = renderPrint({sp()})
 p<-ggplot(df, aes(fpr,tpr)) + 
   geom_step() +
   coord_cartesian(xlim=c(0,1), ylim=c(0,1)) +
-  theme_minimal()+ ggtitle("ROC plot") +
+  theme_minimal()+ ggtitle("") +
   xlab("False positive rate (1-specificity)")+
   ylab("True positive rate (sensitivity)")
   annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
@@ -139,7 +139,7 @@ plotly::ggplotly(p)
  return(res)
  	})
 # 
- output$fitdt0 = DT::renderDataTable(fit.lm(),
+ output$fitdt0 = DT::renderDT(fit.lm(),
  class="row-border", 
   extensions = c('Buttons'), 
   options = list(
@@ -162,7 +162,7 @@ colnames(perf2) <- c("Sensitivity", "Specificity", "1-Specificity","Cut-off Poin
 return(perf2)
   })
 
- output$sst = DT::renderDataTable(round(sst(),6),
+ output$sst = DT::renderDT(round(sst(),6),
   class="row-border", 
   extensions = c('Buttons'), 
   options = list(
@@ -201,7 +201,7 @@ return(perf2)
 # 	cbind(newDF3(), round(pred(), 4))
 # 	})
 # 
-# output$pred = renderDataTable({
+# output$pred = renderDT({
 # pred.lm()
 # }, 
 # options = list(pageLength = 5, scrollX = TRUE))

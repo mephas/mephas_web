@@ -6,10 +6,10 @@ sidebarLayout(
 sidebarPanel(
 
 tags$head(tags$style("#formula {height: 100px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#str {overflow-y:scroll; max-height: 350px; background: white};")),
-tags$head(tags$style("#fit {overflow-y:scroll; max-height: 400px; background: white};")),
-tags$head(tags$style("#fit2 {overflow-y:scroll; max-height: 400px; background: white};")),
-tags$head(tags$style("#step {overflow-y:scroll; max-height: 400px; background: white};")),
+tags$head(tags$style("#str {overflow-y:scroll; height: 350px; background: white};")),
+tags$head(tags$style("#fit {overflow-y:scroll; height: 400px; background: white};")),
+tags$head(tags$style("#fit2 {overflow-y:scroll; height: 400px; background: white};")),
+tags$head(tags$style("#step {overflow-y:scroll; height: 400px; background: white};")),
 
 
 h4("Example data: Birth weight"),      
@@ -40,7 +40,7 @@ h4(tags$b("Output 1. Data Preview")),
 tabsetPanel(
 tabPanel("Browse Data",p(br()),
 p("This only shows the first several lines, please check full data in the 1st tab"),
-DT::dataTableOutput("Xdata2")
+DT::DTOutput("Xdata2")
 ),
 tabPanel("Variables information",p(br()),
 verbatimTextOutput("str")
@@ -92,13 +92,13 @@ tabPanel("ROC Plot",  p(br()),
     ),
 
 tabPanel("Sensitivity and Specificity",  p(br()),
-     DT::dataTableOutput("sst")
+     DT::DTOutput("sst")
     ),
 
 tabPanel("Fitting", p(br()),
 
     p(tags$b("Fitting values and residuals from the existed data")),
-    DT::dataTableOutput("fitdt0")
+    DT::DTOutput("fitdt0")
     )
 
 )

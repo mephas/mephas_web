@@ -2,9 +2,9 @@
 sidebarLayout(
 
 sidebarPanel(
-  tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
-  tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 200px; background: white};")),
-  tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 200px; background: white};")),
+  tags$head(tags$style("#strnum {overflow-y:scroll; height: 200px; background: white};")),
+  tags$head(tags$style("#strfac {overflow-y:scroll; height: 100px; background: white};")),
+  tags$head(tags$style("#fsum {overflow-y:scroll; height: 100px; background: white};")),
 
 selectInput("edata", "Example Data", 
         choices =  c("Breast Cancer"), 
@@ -70,7 +70,7 @@ tags$textarea(id='ref', column=40, "")
 mainPanel(
 h4(tags$b("Output 1. Data Information")),
 p(tags$b("1. Data Preview")), 
-DT::dataTableOutput("Xdata"),
+DT::DTOutput("Xdata"),
 
 p(tags$b("2. Continuous variable information list")),
 verbatimTextOutput("strnum"),
@@ -88,7 +88,7 @@ tabPanel("Basic Descriptives", p(br()),
 
 p(tags$b("1. Continuous variables")),
 
-DT::dataTableOutput("sum"),
+DT::DTOutput("sum"),
 
 p(tags$b("2. Categorical variables")),
 verbatimTextOutput("fsum"),

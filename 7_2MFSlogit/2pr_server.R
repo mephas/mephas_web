@@ -33,7 +33,7 @@ pred.lm <- reactive({
 	cbind.data.frame(round(pred(), 4), newX())
 	})
 
-output$pred = DT::renderDataTable(pred.lm(),
+output$pred = DT::renderDT(pred.lm(),
  class="row-border", 
   extensions = c('Buttons'), 
   options = list(
@@ -73,7 +73,7 @@ colnames(perf2) <- c("Sensitivity", "Specificity", "1-Specificity","Cut-off Poin
 return(perf2)
   })
 
- output$sst.s = DT::renderDataTable(round(sst.s(),6),
+ output$sst.s = DT::renderDT(round(sst.s(),6),
    class="row-border", 
   extensions = c('Buttons'), 
   options = list(

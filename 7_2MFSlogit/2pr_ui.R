@@ -56,7 +56,7 @@ actionButton("B2", h4(tags$b("Click 2: Output. Prediction Results / Refresh, giv
 p(br()),
 tabsetPanel(
 tabPanel("Prediction Table",p(br()),
-DT::dataTableOutput("pred")
+DT::DTOutput("pred")
 ),
 
 tabPanel("ROC Plot",p(br()),
@@ -66,7 +66,7 @@ plotly::plotlyOutput("p.s", width = "500px", height = "400px")
 
 tabPanel(
 p("This is based on the new data not used in the model."),
-DT::dataTableOutput("sst.s")
+DT::DTOutput("sst.s")
 
   )
 )
