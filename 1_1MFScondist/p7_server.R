@@ -44,8 +44,8 @@ ggtitle("Histogram") +
 theme_minimal() + 
 ylab("Frequency")+ 
 geom_histogram(binwidth = input$f.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
-xlim(-0.1, input$f.xlim) + g
-eom_vline(aes(xintercept=quantile(x, probs = input$f.pr, na.rm = FALSE)), color="red", size=0.5)})
+xlim(-0.1, input$f.xlim) + 
+geom_vline(aes(xintercept=quantile(x, probs = input$f.pr, na.rm = FALSE)), color="red", size=0.5)})
 
 output$f.info2 = renderText({
     xy_str = function(e) {
