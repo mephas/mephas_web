@@ -23,55 +23,54 @@ data = data.frame(x0 = c(0:length(x)), Pr.at.x0 = round(c(x1[1], x), 6), Pr.x0.c
 return(data) 
 })
 
-output$p.plot <- plotly::renderPlotly({
+output$p.plot <- renderPlot({
 X = P()
-p<- ggplot(X, aes(X[,"x0"],X[,"Pr.at.x0"])) + geom_step() + 
+ ggplot(X, aes(X[,"x0"],X[,"Pr.at.x0"])) + geom_step() + 
   geom_point(aes(x = X$x0[input$x0+1], y = X$Pr.at.x0[input$x0+1]),color = "red", size = 2.5) +
   stat_function(fun = dnorm, args = list(mean = input$lad, sd = sqrt(input$lad)), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
   xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("")
-ggplotly(p) 
+ 
    })
 
-output$p.k = DT::renderDT({
+output$p.k = renderTable({
   x <- t(P()[(input$x0+1),])
 rownames(x) <- c("Red-Dot Position", "Probability of Red-Dot Position", "Cumulated Probability of Red-Dot Position")
   colnames(x)="Result"
   return(round(x,6))
-  })
+  }, colnames=FALSE, rownames=TRUE, width = "500px")
 
 N.p = reactive({ 
   df = data.frame(x = rpois(input$size, input$lad))
   return(df)})
 
-output$p.plot2 <- plotly::renderPlotly({
+output$p.plot2 <- renderPlot({
 df = N.p()
-p <- ggplot(df, aes(x = x)) + 
+ggplot(df, aes(x = x)) + 
 theme_minimal() + 
 ggtitle("")+
 ylab("Frequency")+ 
 geom_histogram(binwidth = input$bin, colour = "white", fill = "cornflowerblue", size = 1)
 #geom_vline(aes(xintercept=quantile(x, probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
-ggplotly(p)
+
 })
 
-output$sum.p = DT::renderDT({
+output$sum.p = renderTable({
   x = N.p()[,1]
   x <- matrix(c(mean(x), sd(x)), nrow=2)
   rownames(x) <- c("Mean", "Standard Deviation")
   colnames(x) <-"Result"
   return(round(x,6))
-  })
+  }, colnames=FALSE, rownames=TRUE, width = "500px")
 
-output$simdata.p = DT::renderDT({N.p()},
-  class="row-border", 
-  extensions = 'Buttons', 
-  options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE,
-    scrollY = 290,
-    scroller = TRUE)
+output$download2 <- downloadHandler(
+    filename = function() {
+      "rand.csv"
+    },
+    content = function(file) {
+      write.csv(N.p(), file)
+    }
   )
+
 
 NN.p <- reactive({
   inFile <- input$file.p
@@ -95,25 +94,25 @@ NN.p <- reactive({
     return(as.data.frame(x))
   })
 
-output$makeplot.2 <- plotly::renderPlotly({
+output$makeplot.2 <- renderPlot({
   x = NN.p()
-  p <-ggplot(x, aes(x = x[,1])) + 
+  ggplot(x, aes(x = x[,1])) + 
   geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + 
   xlab("") + 
   ggtitle("") + 
   theme_minimal() + 
   theme(legend.title =element_blank())
-  ggplotly(p)
+  
   #plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+geom_vline(aes(xintercept=quantile(x[,1], probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
  
   #grid.arrange(plot2, plot3, ncol = 2)
   })
 
-output$sum2.p = DT::renderDT({
+output$sum2.p = renderTable({
   x = NN.p()[,1]
   x <- matrix(c(mean(x), sd(x)), nrow=2)
   rownames(x) <- c("Mean", "Standard Deviation")
   colnames(x)<- "Result"
   return(round(x,6))
-  })
+  }, colnames=FALSE, rownames=TRUE, width = "500px")
 

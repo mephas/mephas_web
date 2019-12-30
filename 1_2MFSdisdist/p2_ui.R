@@ -78,32 +78,32 @@ sidebarLayout(
 		h4(tags$b("Output. Plots")),
 	tabsetPanel(
 		tabPanel("Model-based Plot", p(br()),
-		plotly::plotlyOutput("p.plot", width = "600px", height = "400px"),
+		plotOutput("p.plot", width = "600px", height = "400px"),
 		p(tags$b("Probability at the observed number of occurrences (Red-Dot)")),
-		DT::DTOutput("p.k", width="500px"),
+		tableOutput("p.k"),
 		p(tags$i("Explanation: the probability distribution until 5 month was 0.97. Thus, the probability distribution after 6 months was about 0.03"))
     ),
     tabPanel("Simulation-based Plot", p(br()),
 			 	
 			 	numericInput("size.p", "The sample size of random numbers", value = 100, min = 1, max = 1000000, step = 1),
 
-			 	plotly::plotlyOutput("p.plot2", width = "600px", height = "400px"),	
+			 	plotOutput("p.plot2", width = "600px", height = "400px"),	
 
 			 	sliderInput("bin.p", "The width of bins in histogram", min = 0, max = 2, value = 1, step=0.1),
-
+			 	downloadButton("download2", "Download Random Numbers"),
 				p(tags$b("Sample descriptive statistics")),
-				DT::DTOutput("sum.p", width = "500px"),
-				p(tags$b("Random Number")),
-				DT::DTOutput("simdata.p", width = "500px")
+				tableOutput("sum.p")
+				#p(tags$b("Random Number")),
+				#tableOutput("simdata.p", width = "500px")
 				#verbatimTextOutput("data")
 			 	),    
 		tabPanel("Distribution of Your Data", p(br()),
 
-			plotly::plotlyOutput("makeplot.2", width = "600px", height = "400px"),
+			plotOutput("makeplot.2", width = "600px", height = "400px"),
 			#plotOutput("makeplot.2", width = "500px", height = "300px"),
       sliderInput("bin1.p","The width of bins in histogram",min = 0,max = 2,value = 1, step=0.1),
 				p(tags$b("Sample descriptive statistics")),
-				DT::DTOutput("sum2.p", width = "500px")
+				tableOutput("sum2.p")
 
 			 	)
 			 			 )
