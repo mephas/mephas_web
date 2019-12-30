@@ -21,7 +21,7 @@ choices = type.num3()
 })
 
 DF4 <- reactive({
-  df <-dplyr::select(DF3(), subset=c(-input$y))
+  df <-select(DF3(), subset=c(-input$y))
 return(df)
   })
 
@@ -91,7 +91,7 @@ afit = eventReactive(input$B1, {
   return(res.table)
   })
 
-output$anova = DT::renderDataTable({afit()},
+output$anova = DT::renderDataTable({round(afit(),6)},
   class="row-border", 
   extensions = c('Buttons'), 
   options = list(

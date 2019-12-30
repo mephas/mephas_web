@@ -47,7 +47,7 @@ names1 <- reactive({
   })
 
   #table 
-output$table <-renderDT({datatable(A() ,rownames = TRUE)})
+output$table <- DT::renderDT(datatable(A())
 
   A.des <- reactive({
     x <- A()

@@ -1,16 +1,4 @@
 ##----------#----------#----------#----------
-##
-## 7MFSreg SERVER
-##
-##    >Linear regression
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
-
-
 
 newX = reactive({
   inFile = input$newfile

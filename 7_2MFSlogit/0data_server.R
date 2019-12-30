@@ -29,7 +29,7 @@ return(as.data.frame(x))
 
 ## variable type
 type.num0 <- reactive({
-DF0() %>% select_if(is.numeric) %>% colnames()
+colnames(DF0()[unlist(lapply(DF0(), is.numeric))])
 })
 
 output$factor1 = renderUI({
@@ -50,7 +50,7 @@ return(df)
   })
 
 type.fac1 <- reactive({
-DF1() %>% select_if(is.factor) %>% colnames()
+colnames(DF1()[unlist(lapply(DF1(), is.factor))])
 })
 
 output$factor2 = renderUI({
@@ -73,7 +73,7 @@ return(df)
   })
 
 type.fac2 <- reactive({
-DF2() %>% select_if(is.factor) %>% colnames()
+colnames(DF2()[unlist(lapply(DF2(), is.factor))])
 })
 
 output$lvl = renderUI({
@@ -108,7 +108,7 @@ return(df)
 
 
 
-output$Xdata <- DT::renderDataTable(DF3(),
+output$Xdata <- DT::renderDT(DF3(),
   class="row-border", 
   extensions = 'Scroller', 
   options = list(
@@ -117,11 +117,11 @@ output$Xdata <- DT::renderDataTable(DF3(),
   scroller = TRUE))
 
 type.num3 <- reactive({
-DF3() %>% select_if(is.numeric) %>% colnames()
+colnames(DF3()[unlist(lapply(DF3(), is.numeric))])
 })
 
 type.fac3 <- reactive({
-DF3() %>% select_if(is.factor) %>% colnames()
+colnames(DF3()[unlist(lapply(DF3(), is.factor))])
 })
 
 output$strnum <- renderPrint({str(DF3()[,type.num3()])})
@@ -137,7 +137,7 @@ sum <- reactive({
   return(res)
   })
 
-output$sum <- DT::renderDataTable({sum()},
+output$sum <- DT::renderDT({sum()},
   class="row-border", 
   extensions = 'Buttons', 
   options = list(

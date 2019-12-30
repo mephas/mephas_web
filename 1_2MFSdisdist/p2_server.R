@@ -23,16 +23,97 @@ data = data.frame(x0 = c(0:length(x)), Pr.at.x0 = round(c(x1[1], x), 6), Pr.x0.c
 return(data) 
 })
 
-output$p.plot <- renderPlot({
+output$p.plot <- plotly::renderPlotly({
 X = P()
-ggplot(X, aes(X[,"x0"],X[,"Pr.at.x0"])) + geom_step() + 
+p<- ggplot(X, aes(X[,"x0"],X[,"Pr.at.x0"])) + geom_step() + 
   geom_point(aes(x = X$x0[input$x0+1], y = X$Pr.at.x0[input$x0+1]),color = "red", size = 2.5) +
   stat_function(fun = dnorm, args = list(mean = input$lad, sd = sqrt(input$lad)), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
-  xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("") + xlim(-0.1, input$xlim2) })
+  xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("Poisson Probability")
+ggplotly(p) 
+   })
 
-output$p.k = renderTable({
+output$p.k = DT::renderDT({
   x <- t(P()[(input$x0+1),])
 rownames(x) <- c("Red-Dot Position", "Probability of Red-Dot Position", "Cumulated Probability of Red-Dot Position")
-  return(x)
-  }, 
-  digits = 4, colnames=FALSE, rownames=TRUE, width = "500px")
+  colnames(x)="Result"
+  return(round(x,6))
+  })
+
+N.p = reactive({ 
+  df = data.frame(x = rpois(input$size, input$lad))
+  return(df)})
+
+output$p.plot2 <- plotly::renderPlotly({
+df = N.p()
+p <- ggplot(df, aes(x = x)) + 
+theme_minimal() + 
+ggtitle("Histogram of Random Numbers")+
+ylab("Frequency")+ 
+geom_histogram(binwidth = input$bin, colour = "white", fill = "cornflowerblue", size = 1)
+#geom_vline(aes(xintercept=quantile(x, probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
+ggplotly(p)
+})
+
+output$sum.p = DT::renderDT({
+  x = N.p()[,1]
+  x <- matrix(c(mean(x), sd(x)), nrow=2)
+  rownames(x) <- c("Mean", "Standard Deviation")
+  colnames(x) <-"Result"
+  return(round(x,6))
+  })
+
+output$simdata.p = DT::renderDT({N.p()},
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE,
+    scrollY = 290,
+    scroller = TRUE)
+  )
+
+NN.p <- reactive({
+  inFile <- input$file.p
+  if (is.null(inFile)) {
+    x <- as.numeric(unlist(strsplit(input$x, "[\n,\t; ]")))
+    validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
+    x <- as.data.frame(x)
+    }
+  else {
+    if(input$col.p){
+    csv <- read.csv(inFile$datapath, header = input$header.p, sep = input$sep.p, row.names=1)
+    }
+    else{
+    csv <- read.csv(inFile$datapath, header = input$header.p, sep = input$sep.p)
+    }
+    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    x <- as.data.frame(csv[,1])
+    }
+    colnames(x) = c("X")
+    return(as.data.frame(x))
+  })
+
+output$makeplot.2 <- plotly::renderPlotly({
+  x = NN.p()
+  p <-ggplot(x, aes(x = x[,1])) + 
+  geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + 
+  xlab("") + 
+  ggtitle("Histogram") + 
+  theme_minimal() + 
+  theme(legend.title =element_blank())
+  ggplotly(p)
+  #plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+geom_vline(aes(xintercept=quantile(x[,1], probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
+ 
+  #grid.arrange(plot2, plot3, ncol = 2)
+  })
+
+output$sum2.p = DT::renderDT({
+  x = NN.p()[,1]
+  x <- matrix(c(mean(x), sd(x)), nrow=2)
+  rownames(x) <- c("Mean", "Standard Deviation")
+  colnames(x)<- "Result"
+  return(round(x,6))
+  })
+

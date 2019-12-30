@@ -1,27 +1,22 @@
 ##----------#----------#----------#----------
-##
-## 7MFSreg SERVER
-##
-##    >Linear regression
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
 
-## 2. choose variable to put in the model/ and summary
+type.bi <- reactive({
+  df <- DF3()
+  names <- apply(df,2,function(x) { length(levels(as.factor(x)))==2})
+  x <- colnames(DF3())[names]
+  return(x)
+  })
+## 
 output$y = renderUI({
 selectInput(
 'y',
 tags$b('1. Choose a dependent variable / outcome / response (Y), binary'),
-selected = names(DF3())[1],
-choices = names(DF3())
-)
+selected = type.bi()[1],
+choices = type.bi())
 })
 
 DF4 <- reactive({
-  df <-dplyr::select(DF3(), subset=c(-input$y))
+  df <-select(DF3(), subset=c(-input$y))
 return(df)
   })
 
