@@ -56,7 +56,7 @@ actionButton("B2", h4(tags$b("Click 2: Output. Prediction Results / Refresh, giv
 p(br()),
 tabsetPanel(
 tabPanel("Prediction",p(br()),
-DT::dataTableOutput("pred")
+DT::DTOutput("pred")
 ),
 
 tabPanel("Prediction vs True Dependent Variable Plot",p(br()),

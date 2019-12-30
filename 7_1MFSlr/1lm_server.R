@@ -35,7 +35,7 @@ multiple = TRUE
 )
 })
 
-output$Xdata2 <- DT::renderDataTable(
+output$Xdata2 <- DT::renderDT(
 head(DF3()), options = list(scrollX = TRUE))
 ### for summary
 output$str <- renderPrint({str(DF3())})
@@ -91,7 +91,7 @@ afit = eventReactive(input$B1, {
   return(res.table)
   })
 
-output$anova = DT::renderDataTable({round(afit(),6)},
+output$anova = DT::renderDT({round(afit(),6)},
   class="row-border", 
   extensions = c('Buttons'), 
   options = list(
@@ -109,7 +109,7 @@ output$p.lm1 = plotly::renderPlotly({
 x <-data.frame(res=fit()$residuals)
 p <- ggplot(x, aes(sample = res)) + 
 stat_qq() + 
-ggtitle("Normal Q-Q Plot") + 
+ggtitle("") + 
 xlab("") + 
 theme_minimal()  ## add line,
 plotly::ggplotly(p)
@@ -122,7 +122,7 @@ geom_point()+
 stat_smooth(method="loess")+
 geom_hline(yintercept=0, col="red", linetype="dashed")+
 xlab("Fitted values")+ylab("Residuals")+
-ggtitle("Residual vs Fitted Plot")+theme_minimal()
+ggtitle("")+theme_minimal()
 
 plotly::ggplotly(p)
   })
@@ -136,7 +136,7 @@ plotly::ggplotly(p)
  return(res)
  	})
 # 
- output$fitdt0 = DT::renderDataTable(fit.lm(),
+ output$fitdt0 = DT::renderDT(fit.lm(),
  class="row-border", 
   extensions = c('Buttons'), 
   options = list(
@@ -174,7 +174,7 @@ plotly::ggplotly(p)
 # 	cbind(newDF3(), round(pred(), 4))
 # 	})
 # 
-# output$pred = renderDataTable({
+# output$pred = renderDT({
 # pred.lm()
 # }, 
 # options = list(pageLength = 5, scrollX = TRUE))

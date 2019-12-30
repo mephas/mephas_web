@@ -41,7 +41,7 @@ pred.lm <- reactive({
 	cbind.data.frame("Predicted Y"=round(pred(), 4),newX())
 	})
 
-output$pred = DT::renderDataTable({
+output$pred = DT::renderDT({
 pred.lm()
 },class="row-border", 
   extensions = c('Buttons'), 

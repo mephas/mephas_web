@@ -15,9 +15,9 @@ sidebarLayout(
 sidebarPanel(
 
 tags$head(tags$style("#formula {height: 100px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#str {overflow-y:scroll; max-height: 350px; background: white};")),
-tags$head(tags$style("#fit {overflow-y:scroll; max-height: 400px; background: white};")),
-tags$head(tags$style("#step {overflow-y:scroll; max-height: 400px; background: white};")),
+tags$head(tags$style("#str {overflow-y:scroll; height: 350px; background: white};")),
+tags$head(tags$style("#fit {overflow-y:scroll; height: 400px; background: white};")),
+tags$head(tags$style("#step {overflow-y:scroll;height: 400px; background: white};")),
 
 
 h4("Example data: Birth weight"),      
@@ -47,7 +47,7 @@ h4(tags$b("Output 1. Data Preview")),
 tabsetPanel(
 tabPanel("Browse Data",p(br()),
 p("This only shows the first several lines, please check full data in the 1st tab"),
-DT::dataTableOutput("Xdata2")
+DT::DTOutput("Xdata2")
 ),
 tabPanel("Variables information",p(br()),
 verbatimTextOutput("str")
@@ -81,7 +81,7 @@ HTML(
 
 tabPanel("ANOVA", p(br()),
     p(tags$b("ANOVA Table")),  
-    DT::dataTableOutput("anova", width="600px"),
+    DT::DTOutput("anova", width="600px"),
     HTML(
     "<b> Explanations </b>
   <ul> 
@@ -106,8 +106,9 @@ tabPanel("AIC-based Selection", p(br()),
     ),
 
 tabPanel("Diagnostics Plot",  p(br()),
-
+p(tags$b("1. Q-Q normal plot of residuals")),
 plotly::plotlyOutput("p.lm1", width = "500px", height = "300px"),
+p(tags$b("1. Residuals vs Fitting plot")),
 plotly::plotlyOutput("p.lm2", width = "500px", height = "300px"),
 
    HTML(
@@ -123,7 +124,7 @@ plotly::plotlyOutput("p.lm2", width = "500px", height = "300px"),
 tabPanel("Fitting", p(br()),
 
     p(tags$b("Fitting values and residuals from the existed data")),
-    DT::dataTableOutput("fitdt0")
+    DT::DTOutput("fitdt0")
 )
 
 )
