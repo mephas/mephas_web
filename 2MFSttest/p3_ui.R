@@ -28,7 +28,7 @@ sidebarPanel(
         p(tags$i("Example here was the HOUR of sleep effected by a certain drug. Sleeping hours before and after taking the drug were recorded")),
 
     p(tags$b("Please follow the example to input your data")),
-  p("Data point can be separated by , ; /Enter /Tab"),
+  p("Data point can be separated by , ; /Enter /Tab /Space"),
           p(tags$b("Before")),
             tags$textarea(id = "x1.p",rows = 10,
               "0.6\n3\n4.7\n5.5\n6.2\n3.2\n2.5\n2.8\n1.1\n2.9"
@@ -51,7 +51,7 @@ sidebarPanel(
         p(tags$b("2. Show 1st row as header?")),
         checkboxInput("header.p", "Show Data Header?", TRUE),
         p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-        checkboxInput("col.p", "Yes", FALSE),
+        checkboxInput("col.p", "Yes", TRUE),
              # Input: Select separator ----
         radioButtons("sep.p", 
           "Which Separator for Data?",

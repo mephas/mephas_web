@@ -28,7 +28,7 @@ sidebarPanel(
     p(tags$i("Example here was the Depression Rating Scale factor measurements of 9 patients Before and After treatment. ")),
 
     p(tags$b("Please follow the example to input your data")),
-  p("Data point can be separated by , ; /Enter /Tab"),
+  p("Data point can be separated by , ; /Enter /Tab /Space"),
     p(tags$b("Before")),
     tags$textarea(id="y1", 
       rows=10, 
@@ -55,7 +55,7 @@ sidebarPanel(
        p(tags$b("2. Show 1st row as header?")),        
         checkboxInput("header3", "Show Data Header?", TRUE),
         p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-        checkboxInput("col3", "Yes", FALSE),
+        checkboxInput("col3", "Yes", TRUE),
              # Input: Select separator ----
         radioButtons("sep3", 
           "Which Separator for Data?",

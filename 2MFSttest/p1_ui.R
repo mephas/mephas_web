@@ -29,7 +29,7 @@ sidebarPanel(
      p(tags$i("Here was the AGE of 144 independent lymph node positive patients")),
     
     p(tags$b("Please follow the example to input your data")),
-  p("Data point can be separated by , ; /Enter /Tab"),
+  p("Data point can be separated by , ; /Enter /Tab /Space"),
     tags$textarea(
         id = "x", #p
         rows = 10,
@@ -50,7 +50,7 @@ sidebarPanel(
         p(tags$b("2. Show 1st row as column names?")),
         checkboxInput("header", "Yes", TRUE),
         p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-        checkboxInput("col", "Yes", FALSE),
+        checkboxInput("col", "Yes", TRUE),
 
              # Input: Select separator ----
         radioButtons("sep", 
