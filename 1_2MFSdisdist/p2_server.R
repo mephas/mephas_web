@@ -40,7 +40,7 @@ rownames(x) <- c("Red-Dot Position", "Probability of Red-Dot Position", "Cumulat
   }, colnames=FALSE, rownames=TRUE, width = "500px")
 
 N.p = reactive({ 
-  df = data.frame(x = rpois(input$size, input$lad))
+  df = data.frame(x = rpois(input$size.p, input$lad))
   return(df)})
 
 output$p.plot2 <- renderPlot({
@@ -49,7 +49,7 @@ ggplot(df, aes(x = x)) +
 theme_minimal() + 
 ggtitle("")+
 ylab("Frequency")+ 
-geom_histogram(binwidth = input$bin, colour = "white", fill = "cornflowerblue", size = 1)
+geom_histogram(binwidth = input$bin.p, colour = "white", fill = "cornflowerblue", size = 1)
 #geom_vline(aes(xintercept=quantile(x, probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
 
 })
@@ -97,7 +97,7 @@ NN.p <- reactive({
 output$makeplot.2 <- renderPlot({
   x = NN.p()
   ggplot(x, aes(x = x[,1])) + 
-  geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + 
+  geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1.p, position = "identity") + 
   xlab("") + 
   ggtitle("") + 
   theme_minimal() + 
