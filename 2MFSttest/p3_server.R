@@ -48,7 +48,13 @@ Z <- reactive({
 })
  
 
-output$table.p <-DT::renderDataTable({datatable(Z() ,rownames = TRUE)})
+output$table.p <-DT::renderDT({Z()},
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 basic_desc3 <- reactive({
   x <- Z()
@@ -58,20 +64,26 @@ basic_desc3 <- reactive({
   return(res)
   })
 
-output$bas.p <- renderTable({
+output$bas.p <- DT::renderDT({
   basic_desc3()
-  },  width = "500px", rownames = TRUE, colnames = TRUE)
+  }, 
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 
 
-output$download5 <- downloadHandler(
-    filename = function() {
-      "basic_desc.csv"
-    },
-    content = function(file) {
-      write.csv(basic_desc3(), file, row.names = TRUE)
-    }
-  )
+#output$download5 <- downloadHandler(
+#    filename = function() {
+#      "basic_desc.csv"
+#    },
+#    content = function(file) {
+#      write.csv(basic_desc3(), file, row.names = TRUE)
+#    }
+#  )
 
 output$bp.p = renderPlot({
   x = Z()
@@ -137,14 +149,20 @@ t.test.p0 <- reactive({
   return(res.table)
 
   })
-output$t.test.p <- renderTable({
-  t.test.p0()}, width = "500px", rownames = TRUE)
+output$t.test.p <- DT::renderDT({
+  t.test.p0()}, 
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$download6 <- downloadHandler(
-    filename = function() {
-      "tp_test.csv"
-    },
-    content = function(file) {
-      write.csv(t.test.p0(), file, row.names = TRUE)
-    }
-  )
+#output$download6 <- downloadHandler(
+#    filename = function() {
+#      "tp_test.csv"
+#    },
+#    content = function(file) {
+#      write.csv(t.test.p0(), file, row.names = TRUE)
+#    }
+#  )

@@ -115,20 +115,20 @@ mainPanel(
   tabsetPanel(
 
     tabPanel("Data Preview", p(br()), 
-      DT::DTOutput("table", width = "500px")
+      DT::DTOutput("table")
       ),
 
     tabPanel("Basic Descriptives", p(br()), 
 
-        tableOutput("bas"), 
+        DT::DTOutput("bas")#, 
         
-        p(br()), 
-      downloadButton("download1b", "Download Results")
+        #p(br()), 
+      #downloadButton("download1b", "Download Results")
       ),
 
     tabPanel("Box-Plot", p(br()), 
 
-        plotOutput("bp", width = "400px", height = "400px", click = "plot_click"),
+        plotOutput("bp", width = "600px", height = "400px", click = "plot_click"),
 
         verbatimTextOutput("info"), hr(),
 
@@ -159,7 +159,7 @@ mainPanel(
 hr(),
 h4(tags$b("Output 2. Test Results")),
     p(tags$b('Results of Wilcoxon Signed-Rank Test')), p(br()), 
-    tableOutput("ws.test.t"),
+    DT::DTOutput("ws.test.t"),
 
     HTML(
     "<b> Explanations </b> 
@@ -169,10 +169,10 @@ h4(tags$b("Output 2. Test Results")),
     </ul>"
   ),
 
-  p(tags$i("From the default settings, we concluded that the scales was significantly greater than 1 (P=0.006), which indicated the patients were suffering from depression.")),
+  p(tags$i("From the default settings, we concluded that the scales was significantly greater than 1 (P=0.006), which indicated the patients were suffering from depression."))#,
 
 
-    downloadButton("download1", "Download Results")
+    #downloadButton("download1", "Download Results")
 
 
 

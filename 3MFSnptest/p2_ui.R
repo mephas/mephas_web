@@ -116,18 +116,19 @@ mainPanel(
 
     tabPanel("Data Preview", p(br()),
 
-      DT::DTOutput("table2", width = "500px")
+      DT::DTOutput("table2")
       ),
 
     tabPanel("Basic Descriptives", p(br()), 
 
-        tableOutput("bas2"), 
+        DT::DTOutput("bas2")#, 
 
-      p(br()), 
-        downloadButton("download2b", "Download Results") ),
+      #p(br()), 
+      #  downloadButton("download2b", "Download Results") 
+      ),
 
     tabPanel("Box-Plot", p(br()), 
-        plotOutput("bp2", width = "400px", height = "400px", click = "plot_click2"),
+        plotOutput("bp2", width = "600px", height = "400px", click = "plot_click2"),
 
         verbatimTextOutput("info2"), 
         hr(),
@@ -158,7 +159,7 @@ mainPanel(
   h4(tags$b("Output 2. Test Results")),
   tags$b('Results of Wilcoxon Rank-Sum Test'), p(br()), 
 
-  tableOutput("mwu.test.t"), p(br()),
+  DT::DTOutput("mwu.test.t"), p(br()),
 
   HTML(
     "<b> Explanations </b> 
@@ -168,10 +169,10 @@ mainPanel(
     </ul>"
   ),
 
-    p(tags$i("From the default settings, we concluded that there was no significant differences in 2 groups Rating scale (P=0.44).")),
+    p(tags$i("From the default settings, we concluded that there was no significant differences in 2 groups Rating scale (P=0.44)."))#,
 
 
-  downloadButton("download2.1", "Download Results")
+ # downloadButton("download2.1", "Download Results")
 
   ) 
 )

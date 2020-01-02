@@ -109,19 +109,20 @@ mainPanel(
 
     tabPanel("Data Preview", p(br()),
 
-      DT::dataTableOutput("table", width = "500px")
+      DT::DTOutput("table")
       #shiny::dataTableOutput("table")
       ),
 
     tabPanel("Basic Descriptives", p(br()),
 
-        tableOutput("bas"),
-      p(br()),
-        downloadButton("download0", "Download Results")),
+        DT::DTOutput("bas")#,
+      #p(br()),
+       # downloadButton("download0", "Download Results")
+       ),
 
     tabPanel("Box-Plot", p(br()),
       
-        plotOutput("bp", width = "400px", height = "400px", click = "plot_click1"),
+        plotOutput("bp", width = "600px", height = "400px", click = "plot_click1"),
      
         verbatimTextOutput("info1"), 
           HTML(
@@ -138,7 +139,7 @@ mainPanel(
 
     tabPanel("Mean and SD Plot", p(br()),
 
-      plotOutput("meanp", width = "400px", height = "400px")),
+      plotOutput("meanp", width = "600px", height = "400px")),
 
     tabPanel("Distribution Plots", p(br()),
 
@@ -159,7 +160,7 @@ mainPanel(
 
   hr(),
   h4(tags$b("Output 2. Test Results")),p(br()),
-  tableOutput("t.test"),
+  DT::DTOutput("t.test"),
 
 
   HTML(
@@ -170,10 +171,10 @@ mainPanel(
     </ul>"
   ),
 
-  p(tags$i("Because P <0.05 , we concluded that the age of lymph node positive population was significantly different from 50 years old. Thus the general age was not 50. If we reset the specified mean to 44, we could get P > 0.05")),
+  p(tags$i("Because P <0.05 , we concluded that the age of lymph node positive population was significantly different from 50 years old. Thus the general age was not 50. If we reset the specified mean to 44, we could get P > 0.05"))#,
 
-  p(br()),
-  downloadButton("download1", "Download Results")
+  #p(br()),
+  #downloadButton("download1", "Download Results")
 
 
 

@@ -45,7 +45,13 @@ B <- reactive({
     return(as.data.frame(x))
 })
 
-output$table2 <-DT::renderDataTable({datatable(B() ,rownames = TRUE)})
+output$table2 <-DT::renderDT({B()},
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
   B.des <- reactive({
     x <- B()
@@ -54,18 +60,24 @@ output$table2 <-DT::renderDataTable({datatable(B() ,rownames = TRUE)})
     rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
     return(res)
   })
-  output$bas2 <- renderTable({  ## don't use renerPrint to do renderTable
-    res <- B.des()}, width = "500px", rownames = TRUE, colnames = TRUE)
+  output$bas2 <- DT::renderDT({  ## don't use renerPrint to do DT::renderDT
+    res <- B.des()},
+    class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 
-  output$download2b <- downloadHandler(
-    filename = function() {
-      "desc2.csv"
-    },
-    content = function(file) {
-      write.csv(B.des(), file, row.names = TRUE)
-    }
-  )
+  #output$download2b <- downloadHandler(
+  #  filename = function() {
+  #    "desc2.csv"
+  #  },
+  #  content = function(file) {
+  #    write.csv(B.des(), file, row.names = TRUE)
+  #  }
+  #)
 
   #plot
   output$bp2 = renderPlot({
@@ -116,14 +128,20 @@ output$table2 <-DT::renderDataTable({datatable(B() ,rownames = TRUE)})
     return(res.table)
     })
 
-  output$mwu.test.t<-renderTable({
-    mwu.test()}, width = "500px", rownames = TRUE)
+  output$mwu.test.t<-DT::renderDT({
+    mwu.test()},
+    class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-  output$download2.1 <- downloadHandler(
-    filename = function() {
-      "mwu.csv"
-    },
-    content = function(file) {
-      write.csv(mwu.test(), file, row.names = TRUE)
-    }
-  )
+  #output$download2.1 <- downloadHandler(
+  #  filename = function() {
+  #    "mwu.csv"
+  #  },
+  #  content = function(file) {
+  #    write.csv(mwu.test(), file, row.names = TRUE)
+  #  }
+  #)

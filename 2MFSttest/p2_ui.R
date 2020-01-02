@@ -122,19 +122,19 @@ sidebarPanel(
 
     tabPanel("Data Preview", p(br()),
 
-      DT::dataTableOutput("table2", width = "500px")),
+      DT::DTOutput("table2")),
 
     tabPanel("Basic Descriptives", p(br()),
           
-          tableOutput("bas2"),
+          DT::DTOutput("bas2")#,
 
-         p(br()), 
-        downloadButton("download3", "Download Results")
+         #p(br()), 
+        #downloadButton("download3", "Download Results")
       ),
 
       tabPanel("Box-Plot",p(br()),     
         
-      plotOutput("bp2",width = "500px",height = "400px",click = "plot_click2"),
+      plotOutput("bp2",width = "600px",height = "400px",click = "plot_click2"),
            
         verbatimTextOutput("info2"), 
         hr(),
@@ -151,7 +151,7 @@ sidebarPanel(
 
       tabPanel("Mean and SD Plot", p(br()), 
 
-        plotOutput("meanp2", width = "500px", height = "400px")),
+        plotOutput("meanp2", width = "600px", height = "400px")),
 
     tabPanel("Distribution Plots", p(br()),
 
@@ -174,7 +174,7 @@ sidebarPanel(
 
     tags$b("Check the equivalence of 2 variances"),
 
-    tableOutput("var.test"),
+    DT::DTOutput("var.test"),
 
     HTML(
     "<b> Explanations </b> 
@@ -192,7 +192,7 @@ sidebarPanel(
 
     tags$b("Decide the T Test"),
 
-    tableOutput("t.test2"),
+    DT::DTOutput("t.test2"),
     p(br()), 
 
       HTML(
@@ -203,11 +203,11 @@ sidebarPanel(
     </ul>"
   ),
 
-    p(tags$i("In this example, we concluded that the age of lymph node positive population with ER positive was not significantly different from ER negative (P=0.24, from 'Two-Sample t-test')")),
+    p(tags$i("In this example, we concluded that the age of lymph node positive population with ER positive was not significantly different from ER negative (P=0.24, from 'Two-Sample t-test')"))#,
 
 
-    downloadButton("download2", "Download Results of Variance Test"),
-    downloadButton("download4", "Download Results of T Test")
+    #downloadButton("download2", "Download Results of Variance Test"),
+    #downloadButton("download4", "Download Results of T Test")
     
     )
   )

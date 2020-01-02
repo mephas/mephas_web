@@ -47,7 +47,13 @@ names1 <- reactive({
   })
 
   #table 
-output$table <- DT::renderDT(datatable(A()))
+output$table <- DT::renderDT(A(),
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
   A.des <- reactive({
     x <- A()
@@ -57,19 +63,25 @@ output$table <- DT::renderDT(datatable(A()))
     return(res)
   })
 
-  output$bas <- renderTable({  
+  output$bas <- DT::renderDT({  
     res <- A.des()
-    }, width = "500px", rownames = TRUE, colnames = TRUE)
-
-
-  output$download1b <- downloadHandler(
-    filename = function() {
-      "des.csv"
     },
-    content = function(file) {
-      write.csv(A.des(), file, row.names = TRUE)
-    }
-  )
+    class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
+
+
+  #output$download1b <- downloadHandler(
+  #  filename = function() {
+  #    "des.csv"
+  #  },
+  #  content = function(file) {
+  #    write.csv(A.des(), file, row.names = TRUE)
+  #  }
+  #)
 
   #plot
    output$bp = renderPlot({
@@ -118,16 +130,21 @@ output$table <- DT::renderDT(datatable(A()))
     return(res.table)
     })
 
-  output$ws.test.t <- renderTable({ws.test()},
-    width = "500px", rownames = TRUE, colnames = TRUE)
+  output$ws.test.t <- DT::renderDT({ws.test()},
+    class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 
-output$download1 <- downloadHandler(
-    filename = function() {
-      "ws.csv"
-    },
-    content = function(file) {
-      write.csv(ws.test(), file, row.names = TRUE)
-    }
-  )
+#output$download1 <- downloadHandler(
+#    filename = function() {
+#      "ws.csv"
+#    },
+#    content = function(file) {
+#      write.csv(ws.test(), file, row.names = TRUE)
+#    }
+#  )
 

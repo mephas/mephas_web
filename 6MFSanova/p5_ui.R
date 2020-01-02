@@ -91,7 +91,7 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::DTOutput("tablenp1",width = "500px")
+        DT::DTOutput("tablenp1")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
@@ -103,7 +103,7 @@ mainPanel(
 
     tabPanel("Box-Plot",p(br()),
 
-      plotOutput("mmeannp1", width = "500px", height = "400px")
+      plotOutput("mmeannp1", width = "600px", height = "400px")
       )
     ),
 

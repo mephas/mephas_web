@@ -45,7 +45,13 @@ Y <- reactive({
     return(as.data.frame(x))
 })
 
-output$table2 <-DT::renderDataTable({datatable(Y() ,rownames = TRUE)})
+output$table2 <-DT::renderDT(Y(),
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 basic_desc2 <- reactive({
   x <- Y()
@@ -55,18 +61,24 @@ basic_desc2 <- reactive({
   return(res)
   })
 
-output$bas2 <- renderTable({
+output$bas2 <- DT::renderDT({
 basic_desc2()
-}, width = "500px", rownames = TRUE, colnames = TRUE)
+},
+class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$download3 <- downloadHandler(
-    filename = function() {
-      "basic_desc.csv"
-    },
-    content = function(file) {
-      write.csv(basic_desc2(), file, row.names = TRUE)
-    }
-  )
+#output$download3 <- downloadHandler(
+#    filename = function() {
+#      "basic_desc.csv"
+#    },
+#    content = function(file) {
+#      write.csv(basic_desc2(), file, row.names = TRUE)
+#    }
+#  )
 
   #plots
 output$bp2 = renderPlot({
@@ -135,8 +147,14 @@ var.test0 <- reactive({
   return(res.table)
   })
 
-output$var.test <- renderTable({
-  var.test0() }, width = "500px", rownames = TRUE)
+output$var.test <- DT::renderDT({
+  var.test0() }, 
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 t.test20 <- reactive({
   x <- Y()
@@ -182,22 +200,28 @@ res.table <- t(
   return(res2.table)
   })
 
-output$t.test2 <- renderTable({
-  t.test20()},  width = "800px", rownames = TRUE)
+output$t.test2 <- DT::renderDT({
+  t.test20()},  
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$download2 <- downloadHandler(
-    filename = function() {
-      "var_test.csv"
-    },
-    content = function(file) {
-      write.csv(var.test0(), file, row.names = TRUE)
-    }
-  )
-output$download4 <- downloadHandler(
-    filename = function() {
-      "t2_test.csv"
-    },
-    content = function(file) {
-      write.csv(t.test20(), file, row.names = TRUE)
-    }
-  )
+#output$download2 <- downloadHandler(
+#    filename = function() {
+#      "var_test.csv"
+#    },
+#    content = function(file) {
+#      write.csv(var.test0(), file, row.names = TRUE)
+#    }
+#  )
+#output$download4 <- downloadHandler(
+#    filename = function() {
+#      "t2_test.csv"
+#    },
+#    content = function(file) {
+#      write.csv(t.test20(), file, row.names = TRUE)
+#    }
+#  )

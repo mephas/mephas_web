@@ -111,7 +111,7 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::DTOutput("tablem2",width = "500px")
+        DT::DTOutput("tablem2")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
@@ -123,7 +123,7 @@ mainPanel(
 
     tabPanel("Marginal Means Plot",p(br()),
 
-      plotOutput("mmeanm2", width = "500px", height = "400px")
+      plotOutput("mmeanm2", width = "600px", height = "400px")
       )
     ),
 

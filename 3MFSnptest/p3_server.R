@@ -48,7 +48,13 @@ names3 <- reactive({
     })
   
   #table
-output$table3 <-DT::renderDataTable({datatable(C() ,rownames = TRUE)})
+output$table3 <-DT::renderDT(C() ,
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
   C.des <- reactive({
     x<- C()
@@ -58,17 +64,23 @@ output$table3 <-DT::renderDataTable({datatable(C() ,rownames = TRUE)})
     return(res)
   })
 
-  output$bas3 <- renderTable({  ## don't use renerPrint to do renderTable
-    res <- C.des()}, width = "500px", rownames = TRUE, colnames = TRUE)
+  output$bas3 <- DT::renderDT({  ## don't use renerPrint to do DT::renderDT
+    res <- C.des()}, 
+    class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
   
-  output$download3b <- downloadHandler(
-    filename = function() {
-      "desc3.csv"
-    },
-    content = function(file) {
-      write.csv(C.des(), file, row.names = TRUE)
-    }
-  )
+  #output$download3b <- downloadHandler(
+  #  filename = function() {
+  ##    "desc3.csv"
+  #  },
+  #  content = function(file) {
+  #    write.csv(C.des(), file, row.names = TRUE)
+  #  }
+  #)
   # plots
   output$bp3 = renderPlot({
     x <- C()
@@ -113,15 +125,21 @@ psr.test <- reactive({
     return(res.table)
     })
 
-  output$psr.test.t <- renderTable({
-    psr.test()}, width = "500px", rownames = TRUE)
+  output$psr.test.t <- DT::renderDT({
+    psr.test()}, 
+    class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
   
-output$download3.2 <- downloadHandler(
-    filename = function() {
-      "psr.csv"
-    },
-    content = function(file) {
-      write.csv(psr.test(), file, row.names = TRUE)
-    }
-  )
+#output$download3.2 <- downloadHandler(
+#    filename = function() {
+#      "psr.csv"
+#    },
+##    content = function(file) {
+#      write.csv(psr.test(), file, row.names = TRUE)
+#    }
+#  )

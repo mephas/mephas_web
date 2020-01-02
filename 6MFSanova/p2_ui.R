@@ -98,7 +98,7 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::DTOutput("table",width = "700px")
+        DT::DTOutput("table")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
@@ -110,12 +110,12 @@ mainPanel(
 
       tabPanel("Means plot",p(br()),
       checkboxInput('tick', 'Untick to change the group and x-axis', TRUE), #p
-      plotOutput("meanp.a", width = "500px", height = "400px")
+      plotOutput("meanp.a", width = "600px", height = "400px")
     ),
 
       tabPanel("Marginal means plot",p(br()),
       checkboxInput('tick2', 'Untick to change the x-axis', TRUE), #p
-      plotOutput("mmean.a", width = "500px", height = "400px")
+      plotOutput("mmean.a", width = "600px", height = "400px")
       )
     ),
 

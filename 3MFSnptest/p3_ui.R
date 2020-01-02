@@ -118,15 +118,15 @@ mainPanel(
 
     tabPanel("Basic Descriptives", p(br()), 
 
-        tableOutput("bas3"), 
+        DT::DTOutput("bas3")#, 
 
-        p(br()),
-  downloadButton("download3b", "Download Results")  
+        #p(br()),
+  #downloadButton("download3b", "Download Results")  
   ),
 
     tabPanel("Box-Plot of the Difference", p(br()),   
 
-        plotOutput("bp3", width = "400px", height = "400px", click = "plot_click3"),
+        plotOutput("bp3", width = "600px", height = "400px", click = "plot_click3"),
 
         verbatimTextOutput("info3"), hr(),
 
@@ -159,7 +159,7 @@ mainPanel(
 
   h4(tags$b("Output 2. Test Results")),p(br()), 
   tags$b('Results of Wilcoxon Signed-Rank Test'), 
-    tableOutput("psr.test.t"), 
+    DT::DTOutput("psr.test.t"), 
       HTML(
     "<b> Explanations </b> 
     <ul> 
@@ -167,9 +167,9 @@ mainPanel(
     <li> P Value >= 0.05, then the Before and After are NOT significantly different. (Accept null hypothesis)
     </ul>"
   ),
-  p(tags$i("From the default settings, we concluded no significant difference is found after the treatment. (P=0.46)")),
+  p(tags$i("From the default settings, we concluded no significant difference is found after the treatment. (P=0.46)"))#,
 
-  downloadButton("download3.2", "Download Results")
+  #downloadButton("download3.2", "Download Results")
 
 )
 )

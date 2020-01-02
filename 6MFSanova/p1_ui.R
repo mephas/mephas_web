@@ -91,7 +91,7 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::DTOutput("table1",width = "500px")
+        DT::DTOutput("table1")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),

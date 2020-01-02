@@ -100,20 +100,20 @@ sidebarPanel(
 
     tabPanel("Data Preview", p(br()),
 
-      DT::dataTableOutput("table.p", width = "500px")),
+      DT::DTOutput("table.p")),
 
     tabPanel("Basic Descriptives", p(br()),
 
       tags$b("Basic Descriptives of the Difference"),
             
-              tableOutput("bas.p"),
-      p(br()), 
-      downloadButton("download5", "Download Results")
+              DT::DTOutput("bas.p")#,
+      #p(br()), 
+      #downloadButton("download5", "Download Results")
             ),
 
       tabPanel("Boxplot of the difference", p(br()), 
         
-       plotOutput("bp.p",width = "400px",height = "400px",click = "plot_click3"),
+       plotOutput("bp.p",width = "600px",height = "400px",click = "plot_click3"),
           
        verbatimTextOutput("info3"), hr(),
             
@@ -130,7 +130,7 @@ sidebarPanel(
 
           tabPanel("Mean and SD Plot", p(br()), 
 
-            plotOutput("meanp.p", width = "400px", height = "400px")),
+            plotOutput("meanp.p", width = "600px", height = "400px")),
 
     tabPanel("Distribution Plots", p(br()),
 
@@ -149,7 +149,7 @@ sidebarPanel(
 
           hr(),
     h4(tags$b("Output 2. Test Results")),p(br()), 
-          tableOutput("t.test.p"),p(br()), 
+          DT::DTOutput("t.test.p"),p(br()), 
 
             HTML(
     "<b> Explanations </b> 
@@ -159,8 +159,8 @@ sidebarPanel(
     </ul>"
   ),
 
-  p(tags$i("From the default settings, we concluded that the drug has no significant effect on the sleep hour. (P=0.2)")),
+  p(tags$i("From the default settings, we concluded that the drug has no significant effect on the sleep hour. (P=0.2)"))#,
 
-  downloadButton("download6", "Download Results")
+ # downloadButton("download6", "Download Results")
         )
       )
