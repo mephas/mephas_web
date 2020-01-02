@@ -38,7 +38,7 @@ radioButtons("sep", "4. Which separator for data?",
     HTML("Semicolon (;)"),
     HTML("One Space (_)")
     ),
-  choiceValues = list(",", ";", " ", "\t")
+          choiceValues = list(",", "\t", ";", " ")
   ),
 
 radioButtons("quote", "5. Which quote for characters?",

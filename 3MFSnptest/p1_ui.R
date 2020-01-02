@@ -62,7 +62,7 @@ sidebarPanel(
             HTML("Semicolon (;)"),
             HTML("One Space (_)")
             ),
-          choiceValues = list(",", ";", " ", "\t")
+          choiceValues = list(",", "\t", ";", " ")
           ),
 
         p("Correct Separator ensures data input successfully"),
