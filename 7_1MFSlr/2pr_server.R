@@ -51,17 +51,17 @@ pred.lm()
     scrollY = 290,
     scroller = TRUE))
 
-output$download12 <- downloadHandler(
-    filename = function() {
-      "lm.pred.csv"
-    },
-    content = function(file) {
-      write.csv(pred.lm(), file, row.names = TRUE)
-    }
-  )
+#output$download12 <- downloadHandler(
+#    filename = function() {
+#      "lm.pred.csv"
+#    },
+#    content = function(file) {
+#      write.csv(pred.lm(), file, row.names = TRUE)
+#    }
+#  )
 
  output$p.s = plotly::renderPlotly({
-  validate(need(length(pred.lm()[, input$y])>1, "This figure will not show unless Y is given in the new data"))
+  validate(need((pred.lm()[, input$y]), "This figure will not show unless Y is given in the new data"))
   min = min(c(pred.lm()[, input$y], pred.lm()[, 1]))
   max = max(c(pred.lm()[, input$y], pred.lm()[, 1]))
    p <- ggplot(pred.lm(), aes(x = pred.lm()[, input$y], y = pred.lm()[, 1])) + geom_point(shape = 1) + 

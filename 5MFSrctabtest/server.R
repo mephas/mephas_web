@@ -2,6 +2,7 @@ if (!require(gridExtra)) {install.packages("gridExtra")}; library(gridExtra)
 if (!require(psych)) {install.packages("psych")}; library(psych)
 if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
+if (!require(DT)) {install.packages("DT")}; library(DT)
 
 ##----------#----------#----------#----------
 ##
