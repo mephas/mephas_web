@@ -22,7 +22,7 @@ namesm2 <- reactive({
 #  return(x)
 #  })
 
-#output$level.t2 <- renderTable({level()},
+#output$level.t2 <- DT::renderDT({level()},
 #   width = "700px", colnames=TRUE)
 
 Ym2 <- reactive({
@@ -54,7 +54,13 @@ if(!input$colm2){
     return(as.data.frame(x))
 })
 
-output$tablem2 <- DT::renderDataTable({datatable(Ym2() ,rownames = TRUE)})
+output$tablem2 <- DT::renderDT(Ym2(),
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 basm2 <- reactive({
   x <- Ym2()
@@ -65,18 +71,23 @@ basm2 <- reactive({
   return(res)
   })
 
-output$basm.t2 <- DT::renderDataTable({
+output$basm.t2 <- DT::renderDT({
   basm2()}, 
-  width = "700px", rownames = TRUE)
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$download.m22 <- downloadHandler(
-    filename = function() {
-      "des.csv"
-    },
-    content = function(file) {
-      write.csv(basm2(), file, row.names = TRUE)
-    }
-  )
+#output$download.m22 <- downloadHandler(
+#    filename = function() {
+#      "des.csv"
+#    },
+##    content = function(file) {
+ #     write.csv(basm2(), file, row.names = TRUE)
+ ##   }
+ # )
 
 output$mmeanm2 = renderPlot({
   x = Ym2()
@@ -125,18 +136,23 @@ multiple2 <- reactive({
   return(res)
 })
 
-output$multiple.t2 <- renderTable({multiple2()},
-  width = "700px", rownames = TRUE, colnames=TRUE, digits=6)
+output$multiple.t2 <- DT::renderDT({multiple2()},
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 
- output$download.m222 <- downloadHandler(
-    filename = function() {
-      "multiple.csv"
-    },
-    content = function(file) {
-      write.csv(multiple2(), file, row.names = TRUE)
-    }
-  )
+ #output$download.m222 <- downloadHandler(
+ #   filename = function() {
+ #     "multiple.csv"
+ #   },
+ #   content = function(file) {
+ #     write.csv(multiple2(), file, row.names = TRUE)
+ #   }
+ # )
 
 
 

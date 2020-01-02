@@ -109,14 +109,14 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::dataTableOutput("tablem",width = "500px")
+        DT::DTOutput("tablem",width = "500px")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      DT::dataTableOutput("basm.t"),
-         p(br()), 
-        downloadButton("download.m", "Download Results")
+      DT::DTOutput("basm.t")#,
+         #p(br()), 
+        #downloadButton("download.m", "Download Results")
       ),
 
     tabPanel("Marginal Means Plot",p(br()),
@@ -129,7 +129,7 @@ mainPanel(
 
   h4(tags$b("Output 2. Test Results")), p(br()),
   p(tags$b("1. The categories in the factor group")),
-  tableOutput("level.t"),p(br()),
+  DT::DTOutput("level.t"),p(br()),
 
 
     HTML(
@@ -149,7 +149,7 @@ mainPanel(
 
 
   p(tags$b("2. Pairwise P Value Table")),
-  tableOutput("multiple.t"),p(br()),
+  DT::DTOutput("multiple.t"),p(br()),
 
       HTML(
   "<b> Explanations </b>
@@ -163,9 +163,9 @@ mainPanel(
       HS was significant different from the other groups; 
       LS was significantly different from MS and NS;
       MS was significantly different from NI and PS;
-      NI was significantly different from NS.")),
+      NI was significantly different from NS."))#,
 
 
-  downloadButton("download.m1", "Download Results")
+  #downloadButton("download.m1", "Download Results")
   )
 )

@@ -111,14 +111,14 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::dataTableOutput("tablem2",width = "500px")
+        DT::DTOutput("tablem2",width = "500px")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      DT::dataTableOutput("basm.t2"),
-         p(br()), 
-        downloadButton("download.m22", "Download Results")
+      DT::DTOutput("basm.t2")#,
+         #p(br()), 
+        #downloadButton("download.m22", "Download Results")
       ),
 
     tabPanel("Marginal Means Plot",p(br()),
@@ -140,13 +140,13 @@ mainPanel(
     ),
 
  # p(tags$b("The categories/levels in the Group status")),p(br()),
- # tableOutput("level.t2"),
+ # DT::DTOutput("level.t2"),
  # numericInput("control", HTML("For Dunnett Methods, you can change the control/base level"), 
  #   value = 1, min = 1, max = 20, step=1),
 
 
   p(tags$b("Pairwise P Value Table under Each Factor")),
-  tableOutput("multiple.t2"),p(br()),
+  DT::DTOutput("multiple.t2"),p(br()),
 
         HTML(
   "<b> Explanations </b>
@@ -156,9 +156,9 @@ mainPanel(
   </ul>"
     ),
 
-    p(tags$i("In this example, all the pairs, normal vs LV, SV vs LV, SV vs normal, and male vs female had significant differences on SBP.")),
+    p(tags$i("In this example, all the pairs, normal vs LV, SV vs LV, SV vs normal, and male vs female had significant differences on SBP."))#,
 
 
-  downloadButton("download.m222", "Download Results")
+ # downloadButton("download.m222", "Download Results")
   )
 )

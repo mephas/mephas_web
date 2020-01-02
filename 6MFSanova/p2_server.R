@@ -21,7 +21,7 @@ level21 <- reactive({
   rownames(x) <- names2()[2]
   return(x)
   })
-output$level.t21 <- renderTable({level21()},
+output$level.t21 <- DT::renderDT({level21()},
    width = "700px", rownames=TRUE,colnames=TRUE)
 
 level22 <- reactive({
@@ -31,8 +31,13 @@ level22 <- reactive({
   rownames(x) <- names2()[3]
   return(x)
   })
-output$level.t22 <- renderTable({level22()},
-   width = "700px", rownames=TRUE,colnames=TRUE)
+output$level.t22 <- DT::renderDT({level22()},
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 
 Y <- reactive({
@@ -64,7 +69,13 @@ if(!input$col){
     return(as.data.frame(x))
 })
 
-output$table <- DT::renderDataTable({datatable(Y() ,rownames = TRUE)})
+output$table <- DT::renderDT({Y()},
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 bas <- reactive({
   x <- Y()
@@ -75,18 +86,23 @@ bas <- reactive({
   return(res)
   })
 
-output$bas.t <- DT::renderDataTable({
+output$bas.t <- DT::renderDT({
   bas()}, 
-  width = "700px", rownames = TRUE)
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$download2.1 <- downloadHandler(
-    filename = function() {
-      "des.csv"
-    },
-    content = function(file) {
-      write.csv(bas(), file, row.names = TRUE)
-    }
-  )
+#output$download2.1 <- downloadHandler(
+#    filename = function() {
+#      "des.csv"
+#    },
+#    content = function(file) {
+#      write.csv(bas(), file, row.names = TRUE)
+#    }
+#  )
 
 
 output$meanp.a = renderPlot({
@@ -153,16 +169,21 @@ anova0 <- reactive({
   
   return(res.table)
   })
-output$anova <- renderTable({
+output$anova <- DT::renderDT({
   anova0()
   }, 
-  width = "700px", rownames = TRUE)
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
- output$download2 <- downloadHandler(
-    filename = function() {
-      "anv2.csv"
-    },
-    content = function(file) {
-      write.csv(anova0(), file, row.names = TRUE)
-    }
-  )
+ #output$download2 <- downloadHandler(
+ #   filename = function() {
+ #     "anv2.csv"
+ #   },
+ #   content = function(file) {
+ #     write.csv(anova0(), file, row.names = TRUE)
+ #   }
+ # )

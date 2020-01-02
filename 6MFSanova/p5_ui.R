@@ -91,14 +91,14 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::dataTableOutput("tablenp1",width = "500px")
+        DT::DTOutput("tablenp1",width = "500px")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      DT::dataTableOutput("basnp1.t"),
-         p(br()), 
-        downloadButton("downloadnp1.1", "Download Results")
+      DT::DTOutput("basnp1.t")#,
+         #p(br()), 
+        #downloadButton("downloadnp1.1", "Download Results")
       ),
 
     tabPanel("Box-Plot",p(br()),
@@ -112,11 +112,11 @@ mainPanel(
   h4(tags$b("Output 2. Test Results")), p(br()),
 
   p(tags$b("1. The categories in the Factor Group")),
-  tableOutput("level.tnp1"),
+  DT::DTOutput("level.tnp1"),
 
   p(tags$b("2. Test result table")),p(br()),
 
-  tableOutput("kwtest"),p(br()),
+  DT::DTOutput("kwtest"),p(br()),
   
     p(tags$i("In this example, smoking groups showed significant, so we could conclude that FEF were significantly different among the 6 groups from Kruskal-Wallis rank sum test. ")),
 

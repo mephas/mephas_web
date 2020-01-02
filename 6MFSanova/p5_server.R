@@ -21,8 +21,13 @@ levelnp1 <- reactive({
   rownames(x) <- names1()[2]
   return(x)
   })
-output$level.tnp1 <- renderTable({levelnp1()},
-   width = "700px", rownames=TRUE,colnames=TRUE)
+output$level.tnp1 <- DT::renderDT({levelnp1()},
+   class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 Ynp1 <- reactive({
   inFile <- input$filenp1
@@ -52,7 +57,7 @@ if(!input$colnp1){
     return(as.data.frame(x))
 })
 
-#output$label1 <- renderTable({
+#output$label1 <- DT::renderDT({
 #  x <-matrix(levels(as.factor(unlist(strsplit(input$f11, "[\n]")))),
 #    ncol=1)
 #  rownames(x) <- c(1:length(levels(as.factor(unlist(strsplit(input$f11, "[\n]"))))))
@@ -60,7 +65,13 @@ if(!input$colnp1){
 #  }, 
 #  width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
 
-output$tablenp1 <- DT::renderDataTable({datatable(Ynp1() ,rownames = TRUE)})
+output$tablenp1 <- DT::renderDT(Ynp1(),
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 basnp1 <- reactive({
   x <- Ynp1()
@@ -70,18 +81,23 @@ basnp1 <- reactive({
   return(res)
   })
 
-output$basnp1.t <- DT::renderDataTable({
+output$basnp1.t <- DT::renderDT({
   basnp1()}, 
-  width = "500px", rownames = TRUE)
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$downloadnp1.1 <- downloadHandler(
-    filename = function() {
-      "des.csv"
-    },
-    content = function(file) {
-      write.csv(basnp1(), file, row.names = TRUE)
-    }
-  )
+#output$downloadnp1.1 <- downloadHandler(
+#    filename = function() {
+#      "des.csv"
+#    },
+#    content = function(file) {
+#      write.csv(basnp1(), file, row.names = TRUE)
+#    }
+#  )
 
 output$mmeannp1 = renderPlot({
   x = Ynp1()
@@ -89,7 +105,7 @@ output$mmeannp1 = renderPlot({
     scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })
 
-output$kwtest <- renderTable({
+output$kwtest <- DT::renderDT({
   x <- Ynp1()
   res <- kruskal.test(x[,1]~x[,2])
   res.table <- t(data.frame(W = res[["statistic"]][["Kruskal-Wallis chi-squared"]],
@@ -98,4 +114,10 @@ output$kwtest <- renderTable({
   colnames(res.table) <- res$method
   rownames(res.table) <- c("Kruskal-Wallis chi-squared", "P Value","Degree of Freedom")
   return(res.table)
-    },width = "500px", rownames = TRUE, colnames=TRUE)
+    },
+    class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))

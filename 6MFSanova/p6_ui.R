@@ -105,12 +105,12 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::dataTableOutput("tablenp2",width = "500px")
+        DT::DTOutput("tablenp2",width = "500px")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      DT::dataTableOutput("basnp2.t"),
+      DT::DTOutput("basnp2.t"),
          p(br()), 
         downloadButton("downloadnp2.1", "Download Results")
       ),
@@ -126,7 +126,7 @@ mainPanel(
   h4(tags$b("Output 2. Test Results")), p(br()),
 
   p(tags$b("1. The categories in the Factor Group")),
-  tableOutput("level.tnp2"),
+  DT::DTOutput("level.tnp2"),
 
   p(tags$b("2. Test result table")),p(br()),
 
@@ -146,11 +146,11 @@ mainPanel(
   "
     ),
 
-  tableOutput("dunntest.t"),p(br()),
+  DT::DTOutput("dunntest.t"),p(br()),
   
-    p(tags$i("In this example, smoking groups showed significant, so we could conclude that FEF were not significantly different in LS-NI, LS-PS, and NI-PS groups. For other groups, P <0.025. ")),
+    p(tags$i("In this example, smoking groups showed significant, so we could conclude that FEF were not significantly different in LS-NI, LS-PS, and NI-PS groups. For other groups, P <0.025. "))#,
 
-  downloadButton("downloadnp2.2", "Download Results")
+  #downloadButton("downloadnp2.2", "Download Results")
 
 
   )

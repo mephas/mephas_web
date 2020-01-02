@@ -91,19 +91,19 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::dataTableOutput("table1",width = "500px")
+        DT::DTOutput("table1",width = "500px")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      DT::dataTableOutput("bas1.t"),
-         p(br()), 
-        downloadButton("download1.1", "Download Results")
+      DT::DTOutput("bas1.t")#,
+         #p(br()), 
+        #downloadButton("download1.1", "Download Results")
       ),
 
     tabPanel("Marginal Means Plot",p(br()),
 
-      plotOutput("mmean1", width = "500px", height = "400px")
+      plotOutput("mmean1", width = "600px", height = "400px")
       )
     ),
 
@@ -112,11 +112,11 @@ mainPanel(
   h4(tags$b("Output 2. ANOVA Table")), p(br()),
 
   p(tags$b("1. The categories in the Factor Group")),
-  tableOutput("level.t1"),
+  DT::DTOutput("level.t1"),
 
   p(tags$b("2. ANOVA table")),p(br()),
 
-  tableOutput("anova1"),p(br()),
+  DT::DTOutput("anova1"),p(br()),
   HTML(
   "<b> Explanations </b>
   <ul> 
@@ -129,7 +129,7 @@ mainPanel(
   </ul>"
     ),
     p(tags$i("In this example, smoking groups showed significant, so we could conclude that FEF were significantly different among the 6 groups. ")),
-        downloadButton("download1", "Download Results"),
+        #downloadButton("download1", "Download Results"),
 
     hr(),
     HTML("<p><b>When P < 0.05,</b> if you want to find which pairwise factor groups are significantly different, please go to next page for <b>Multiple Comparison</b></p>")

@@ -21,8 +21,13 @@ levelnp2 <- reactive({
   rownames(x) <- names1()[2]
   return(x)
   })
-output$level.tnp2 <- renderTable({levelnp2()},
-   width = "700px", rownames=TRUE,colnames=TRUE)
+output$level.tnp2 <- DT::renderDT({levelnp2()},
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 Ynp2 <- reactive({
   inFile <- input$filenp2
@@ -52,7 +57,7 @@ if(!input$colnp2){
     return(as.data.frame(x))
 })
 
-#output$label1 <- renderTable({
+#output$label1 <- DT::renderDT({
 #  x <-matrix(levels(as.factor(unlist(strsplit(input$f11, "[\n]")))),
 #    ncol=1)
 #  rownames(x) <- c(1:length(levels(as.factor(unlist(strsplit(input$f11, "[\n]"))))))
@@ -60,7 +65,13 @@ if(!input$colnp2){
 #  }, 
 #  width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
 
-output$tablenp2 <- DT::renderDataTable({datatable(Ynp2() ,rownames = TRUE)})
+output$tablenp2 <- DT::renderDT(Ynp2(),
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 basnp2 <- reactive({
   x <- Ynp2()
@@ -70,18 +81,23 @@ basnp2 <- reactive({
   return(res)
   })
 
-output$basnp2.t <- DT::renderDataTable({
+output$basnp2.t <- DT::renderDT({
   basnp2()}, 
-  width = "500px", rownames = TRUE)
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$downloadnp2.1 <- downloadHandler(
-    filename = function() {
-      "des.csv"
-    },
-    content = function(file) {
-      write.csv(basnp2(), file, row.names = TRUE)
-    }
-  )
+#output$downloadnp2.1 <- downloadHandler(
+#    filename = function() {
+#      "des.csv"
+#    },
+#    content = function(file) {
+#      write.csv(basnp2(), file, row.names = TRUE)
+#    }
+#  )
 
 output$mmeannp2 = renderPlot({
   x = Ynp2()
@@ -97,14 +113,20 @@ dunntest <- reactive({
   return(res.table)
   })
 
-output$dunntest.t <- renderTable({dunntest()
-    },width = "500px", rownames = TRUE, colnames=TRUE)
-
-output$downloadnp2.2 <- downloadHandler(
-    filename = function() {
-      "des.csv"
+output$dunntest.t <- DT::renderDT({dunntest()
     },
-    content = function(file) {
-      write.csv(dunntest(), file, row.names = TRUE)
-    }
-  )
+    class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
+
+#output$downloadnp2.2 <- downloadHandler(
+#    filename = function() {
+#      "des.csv"
+#    },
+#    content = function(file) {
+#      write.csv(dunntest(), file, row.names = TRUE)
+#    }
+#  )

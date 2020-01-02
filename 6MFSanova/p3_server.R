@@ -23,8 +23,13 @@ level <- reactive({
   return(x)
   })
 
-output$level.t <- renderTable({level()},
-   width = "700px", colnames=TRUE, rownames=TRUE)
+output$level.t <- DT::renderDT({level()},
+   class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 Ym <- reactive({
   inFile <- input$filem
@@ -55,7 +60,13 @@ Ym <- reactive({
     return(as.data.frame(x))
 })
 
-output$tablem <- DT::renderDataTable({datatable(Ym() ,rownames = TRUE)})
+output$tablem <- DT::renderDT(Ym(),
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 basm <- reactive({
   x <- Ym()
@@ -65,18 +76,23 @@ basm <- reactive({
   return(res)
   })
 
-output$basm.t <- DT::renderDataTable({
+output$basm.t <- DT::renderDT({
   basm()}, 
-  width = "500px", rownames = TRUE)
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$download.m <- downloadHandler(
-    filename = function() {
-      "des.csv"
-    },
-    content = function(file) {
-      write.csv(basm(), file, row.names = TRUE)
-    }
-  )
+#output$download.m <- downloadHandler(
+#    filename = function() {
+#      "des.csv"
+#    },
+#    content = function(file) {
+#      write.csv(basm(), file, row.names = TRUE)
+#    }
+#  )
 
 output$mmeanm = renderPlot({
   x = Ym()
@@ -136,18 +152,23 @@ multiple <- reactive({
   return(res)
 })
 
-output$multiple.t <- renderTable({multiple()},
-  width = "700px", rownames = TRUE, colnames=TRUE, digits=6)
+output$multiple.t <- DT::renderDT({multiple()},
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 
- output$download.m2 <- downloadHandler(
-    filename = function() {
-      "multiple.csv"
-    },
-    content = function(file) {
-      write.csv(multiple(), file, row.names = TRUE)
-    }
-  )
+ #output$download.m2 <- downloadHandler(
+ #   filename = function() {
+ #     "multiple.csv"
+ #   },
+ #   content = function(file) {
+ #     write.csv(multiple(), file, row.names = TRUE)
+ ##   }
+ # )
 
 
 

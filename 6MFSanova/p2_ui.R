@@ -98,14 +98,14 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::dataTableOutput("table",width = "700px")
+        DT::DTOutput("table",width = "700px")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      DT::dataTableOutput("bas.t"),
-      p(br()), 
-      downloadButton("download2.1", "Download Results")
+      DT::DTOutput("bas.t"),
+      p(br())#, 
+      #downloadButton("download2.1", "Download Results")
       ),
 
       tabPanel("Means plot",p(br()),
@@ -124,12 +124,12 @@ mainPanel(
   h4(tags$b("Output 2. ANOVA Table")), p(br()),
 
   p(tags$b("1. The categories in the Factor Groups")),
-  tableOutput("level.t21"),
-  tableOutput("level.t22"),
+  DT::DTOutput("level.t21"),
+  DT::DTOutput("level.t22"),
 
   p(tags$b("1. ANOVA Table")),
   checkboxInput('inter', 'Interaction', TRUE),
-  tableOutput("anova"),p(br()),
+  DT::DTOutput("anova"),p(br()),
   HTML(
   "<b> Explanations </b>
   <ul> 
@@ -143,9 +143,9 @@ mainPanel(
   </ul>"
     ),
 
-  p(tags$i("In this example, dietary types and sex both have effects on the SBP (P<0.001), and dietary types also significantly related with sex (P<0.001). ")),
+  p(tags$i("In this example, dietary types and sex both have effects on the SBP (P<0.001), and dietary types also significantly related with sex (P<0.001). "))#,
 
 
-  downloadButton("download2", "Download Results")
+  #downloadButton("download2", "Download Results")
   )
 )

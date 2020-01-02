@@ -22,8 +22,13 @@ level1 <- reactive({
   rownames(x) <- names1()[2]
   return(x)
   })
-output$level.t1 <- renderTable({level1()},
-   width = "700px", rownames=TRUE,colnames=TRUE)
+output$level.t1 <- DT::renderDT({level1()},
+    class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 Y1 <- reactive({
   inFile <- input$file1
@@ -56,7 +61,7 @@ if(!input$col1){
     return(as.data.frame(x))
 })
 
-#output$label1 <- renderTable({
+#output$label1 <- DT::renderDT({
 #  x <-matrix(levels(as.factor(unlist(strsplit(input$f11, "[\n]")))),
 #    ncol=1)
 #  rownames(x) <- c(1:length(levels(as.factor(unlist(strsplit(input$f11, "[\n]"))))))
@@ -64,7 +69,13 @@ if(!input$col1){
 #  }, 
 #  width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
 
-output$table1 <- DT::renderDataTable({datatable(Y1() ,rownames = TRUE)})
+output$table1 <- DT::renderDT(Y1(),
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 bas1 <- reactive({
   x <- Y1()
@@ -74,18 +85,23 @@ bas1 <- reactive({
   return(res)
   })
 
-output$bas1.t <- DT::renderDataTable({
+output$bas1.t <- DT::renderDT({
   bas1()}, 
-  width = "500px", rownames = TRUE)
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$download1.1 <- downloadHandler(
-    filename = function() {
-      "des.csv"
-    },
-    content = function(file) {
-      write.csv(bas1(), file, row.names = TRUE)
-    }
-  )
+#output$download1.1 <- downloadHandler(
+#    filename = function() {
+#      "des.csv"
+#    },
+#    content = function(file) {
+#      write.csv(bas1(), file, row.names = TRUE)
+#    }
+#  )
 
 output$mmean1 = renderPlot({
   x = Y1()
@@ -108,15 +124,20 @@ anova10 <- reactive({
   return(res.table)
   })
 
-output$anova1 <- renderTable({
+output$anova1 <- DT::renderDT({
   anova10()}, 
-  width = "700px", rownames = TRUE, digits=6)
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$download1 <- downloadHandler(
-    filename = function() {
-      "anv1.csv"
-    },
-    content = function(file) {
-      write.csv(anova10(), file, row.names = TRUE)
-    }
-  )
+#output$download1 <- downloadHandler(
+#    filename = function() {
+#      "anv1.csv"
+#    },
+#    content = function(file) {
+#      write.csv(anova10(), file, row.names = TRUE)
+#    }
+#  )
