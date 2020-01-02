@@ -65,7 +65,7 @@
 
       p(tags$b("Data Table")),
 
-      tableOutput("n.t"),
+      DT::DTOutput("n.t"),
 
       p(tags$b("Percentage Plot")),
 
@@ -75,7 +75,7 @@
 
       h4(tags$b("Output 2. Test Results")), p(br()), 
 
-      tableOutput("n.test"),
+      DT::DTOutput("n.test"),
 
 
      HTML(

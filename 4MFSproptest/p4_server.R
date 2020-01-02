@@ -10,25 +10,36 @@
 ##---------- Panel 4: 2, K table ----------
 
 T4 = reactive({ # prepare dataset
-  X <- as.numeric(unlist(strsplit(input$x4, "[\n, \t, ]")))
-  Y <- as.numeric(unlist(strsplit(input$x44, "[\n, \t, ]")))
+  X <- as.numeric(unlist(strsplit(input$x4, "[\n,;\t ]")))
+  Y <- as.numeric(unlist(strsplit(input$x44, "[\n,;\t ]")))
   validate(need(length(Y)==length(X), "Please check whether your data groups have equal length "))
 
   x <- rbind(X,Y-X)
   validate(need((sum((Y-X)<0))==0, "Please check your data whether x <= n"))
   x <- as.matrix(x)
-  rownames(x) = unlist(strsplit(input$rn4, "[\n, \t, ]"))
-  colnames(x) = unlist(strsplit(input$cn4, "[\n, \t, ]"))
+  rownames(x) = unlist(strsplit(input$rn4, "[\n]"))
+  colnames(x) = unlist(strsplit(input$cn4, "[\n]"))
   return(x)
   })
 
-output$dt4 = renderTable({
+output$dt4 = DT::renderDT({
   addmargins(T4(), 
     margin = seq_along(dim(T4())), 
     FUN = list(Total=sum), quiet = TRUE)},  
-  rownames = TRUE, width = "800px")
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$dt4.2 = renderTable({prop.table(T4(), 2)}, width = "700px" ,rownames = TRUE, digits = 4)
+output$dt4.2 = DT::renderDT({prop.table(T4(), 2)},
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 
 output$makeplot4 <- renderPlot({  #shinysession 
@@ -39,22 +50,27 @@ output$makeplot4 <- renderPlot({  #shinysession
 # grid.arrange(plot1, plot2, ncol=2)
  }) 
 
-output$c.test4 = renderTable({
-  X <- as.numeric(unlist(strsplit(input$x4, "[\n, \t, ]")))
-  Y <- as.numeric(unlist(strsplit(input$x44, "[\n, \t, ]")))
+output$c.test4 = DT::renderDT({
+  X <- as.numeric(unlist(strsplit(input$x4, "[\n;\t, ]")))
+  Y <- as.numeric(unlist(strsplit(input$x44, "[\n;\t, ]")))
   validate(need((sum((Y-X)<0))==0, "Please check your data whether x <= n"))
 
-  score <- as.numeric(unlist(strsplit(input$xs, "[\n, \t, ]")))
+  score <- as.numeric(unlist(strsplit(input$xs, "[\n;\t, ]")))
 
     res = prop.trend.test(X,Y,score)
     res.table = t(data.frame(
     Statistic = res$statistic,
     Degree.of.freedom = res$parameter,
-    P.value = round(res$p.value,6)
+    P.value = (res$p.value)
     ))
   colnames(res.table) = c(res$method)
   rownames(res.table) =c("Chi-Squared Statistic", "Degree of Freedom", "P Value")
   return(res.table)
     }, 
-    rownames = TRUE, width="500px")
+   class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 

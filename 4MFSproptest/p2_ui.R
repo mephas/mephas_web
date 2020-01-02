@@ -73,7 +73,7 @@ sidebarLayout(
     h4(tags$b("Output 1. Data Preview")), p(br()), 
 
     p(tags$b("Data Table")),
-    tableOutput("n.t2"),
+    DT::DTOutput("n.t2"),
 
     p(tags$b("Percentage Plot")),
 
@@ -83,7 +83,7 @@ sidebarLayout(
 
     h4(tags$b("Output 2. Test Results")), p(br()), 
 
-    tableOutput("p.test"),
+    DT::DTOutput("p.test"),
 
      HTML(
     "<b> Explanations </b> 

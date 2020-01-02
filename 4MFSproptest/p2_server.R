@@ -20,21 +20,26 @@ T = reactive({ # prepare dataset
   return(x)
   })
 
-output$n.t2 = renderTable({
+output$n.t2 = DT::renderDT({
   addmargins(T(), 
     margin = seq_along(dim(N())), 
     FUN = list(Total=sum), quiet = TRUE)},  
-  rownames = TRUE, width = "500px")
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 output$makeplot2 <- renderPlot({  #shinysession 
   validate(need(input$n1>=input$x1, "Please check your data whether x <= n"))
   validate(need(input$n2>=input$x2, "Please check your data whether x <= n"))
     x1 = data.frame(
-    group = c(unlist(strsplit(input$cn.2, "[\n,;\t]"))), 
+    group = c(unlist(strsplit(input$cn.2, "[\n]"))), 
     value = c(input$x1, input$n1-input$x1)
     )
     x2 = data.frame(
-    group = c(unlist(strsplit(input$cn.2, "[\n,;\t]"))), 
+    group = c(unlist(strsplit(input$cn.2, "[\n]"))), 
     value = c(input$x2, input$n2-input$x2)
     )
   p1 = ggplot(x1, aes(x="", y=x1[,"value"], fill=x1[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab(rownames(T())[1])+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
@@ -42,7 +47,7 @@ output$makeplot2 <- renderPlot({  #shinysession
   grid.arrange(p1, p2, ncol=2)
   })
 
-output$p.test = renderTable({
+output$p.test = DT::renderDT({
   validate(need(input$n1>=input$x1, "Please check your data whether x <= n"))
   validate(need(input$n2>=input$x2, "Please check your data whether x <= n"))
   x <- c(input$x1, input$x2)
@@ -51,15 +56,20 @@ output$p.test = renderTable({
   res.table = t(data.frame(
     Statistic = res$statistic,
     Degree.of.freedom = res$parameter,
-    Estimated.prop = paste0("prop.1 = ",round(res$estimate[1],4),", ","prop.2 = ",round(res$estimate[2],4)),
-    P.value = round(res$p.value,6),
-    Confidence.Interval.95 = paste0("(", round(res$conf.int[1],4),",",round(res$conf.int[2],4), ")")
+    Estimated.prop = paste0("prop.1 = ",round(res$estimate[1],6),", ","prop.2 = ",round(res$estimate[2],6)),
+    P.value = (res$p.value),
+    Confidence.Interval.95 = paste0("(", round(res$conf.int[1],6),",",round(res$conf.int[2],6), ")")
 ))
 
   colnames(res.table) = c(res$method)
     rownames(res.table) =c("X-squared Statistic", "Degree of Freedom","Estimated Probability/Proportion", "P Value", "95% Confidence Interval")
 
   return(res.table)}, 
-  rownames = TRUE)
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 

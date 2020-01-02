@@ -64,11 +64,11 @@
 
     p(tags$b("1. Normal Theory Method with Yates' Continuity Correction, when np0(1-p0) >= 5")), p(br()), 
 
-    tableOutput("b.test1"),
+    DT::DTOutput("b.test1"),
 
     p(tags$b("2. Exact Binomial Method, when np0(1-p0) < 5")),  p(br()), 
 
-    tableOutput("b.test"),
+    DT::DTOutput("b.test"),
 
      HTML(
     "<b> Explanations </b> 
