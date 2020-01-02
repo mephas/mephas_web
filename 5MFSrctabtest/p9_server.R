@@ -23,22 +23,40 @@ T9 = reactive({ # prepare dataset
   return(x)
   })
 
-output$dt9 = DT::renderDataTable({T9()}, options = list(scrollX = TRUE))
+output$dt9 = DT::renderDT({T9()}, 
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$dt9.0 =  DT::renderDataTable({
+output$dt9.0 =  DT::renderDT({
     x = T9()
     res = as.data.frame(cohen.kappa(x)$agree)[,3]
     res.table <- round(matrix(res, nrow=nrow(x), ncol=nrow(x)),6)
     rownames(res.table) <- paste0("Rater", 1:nrow(x))
     colnames(res.table) <- paste0("Rater", 1:nrow(x))
     return(res.table)
-    }, options = list(scrollX = TRUE))
+    }, 
+    class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$dt9.1 =  DT::renderDataTable({
+output$dt9.1 =  DT::renderDT({
     x = T9()
     res = as.data.frame(round(cohen.kappa(x)$weight,6))
     return(res)
-    }, options = list(scrollX = TRUE))
+    }, 
+    class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 #output$dt9.1 = renderTable({prop.table(T9(), 1)}, width = "700px" ,rownames = TRUE, digits = 4)
 
@@ -47,11 +65,17 @@ output$dt9.1 =  DT::renderDataTable({
 #output$dt9.3 = renderTable({prop.table(T9())}, width = "700px" ,rownames = TRUE, digits = 4)
 
 
-output$c.test9 = renderTable({
+output$c.test9 = DT::renderDT({
     x = as.matrix(T9())
     res = cohen.kappa(x)
     res.table = res[["confid"]]
     colnames(res.table) =c("95% CI Low", "Kappa Estimate", "95% CI High")
     return(res.table)
-    }, rownames = TRUE, width="700px")
+    }, 
+    class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 

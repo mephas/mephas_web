@@ -23,23 +23,51 @@ T3 = reactive({ # prepare dataset
   return(x)
   })
 
-output$dt3 = renderTable({
+output$dt3 = DT::renderDT({
   addmargins(T3(), 
     margin = seq_along(dim(T3())), 
     FUN = list(Total=sum), quiet = TRUE)},  
-  rownames = TRUE, width = "800px")
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$dt3.0 = renderTable({
-  res = chisq.test(T3(), correct = FALSE)
+output$dt3.0 = DT::renderDT({
+  res = chisq.test(T3())
   exp = res$expected
   return(exp)}, 
-  width = "700px" ,rownames = TRUE, digits = 2)
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$dt3.1 = renderTable({prop.table(T3(), 1)}, width = "700px" ,rownames = TRUE, digits = 4)
+output$dt3.1 = DT::renderDT({prop.table(T3(), 1)}, 
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$dt3.2 = renderTable({prop.table(T3(), 2)}, width = "700px" ,rownames = TRUE, digits = 4)
+output$dt3.2 = DT::renderDT({prop.table(T3(), 2)}, 
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$dt3.3 = renderTable({prop.table(T3())}, width = "700px" ,rownames = TRUE, digits = 4)
+output$dt3.3 = DT::renderDT({prop.table(T3())},
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 
 output$makeplot3 <- renderPlot({  #shinysession 
@@ -50,7 +78,7 @@ output$makeplot3 <- renderPlot({  #shinysession
 # grid.arrange(plot1, plot2, ncol=2)
  }) 
 
-output$c.test3 = renderTable({
+output$c.test3 = DT::renderDT({
     x = as.matrix(T3())
 
     res = chisq.test(x=x, y=NULL,correct = TRUE)
@@ -62,5 +90,10 @@ output$c.test3 = renderTable({
     rownames(res.table) <- c("Chi-Square", "Degree of freedom", "P Value")
     return(res.table)
     }, 
-    rownames = TRUE, width="700px")
+   class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 

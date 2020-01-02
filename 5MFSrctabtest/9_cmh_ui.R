@@ -59,13 +59,13 @@
     p(tags$b("K layers R x C Contingency Table")),
     p("The first R rows indicated R x C contingency table in the first stratum, and followed by R x C table from the second stratum. "),
 
-    tableOutput("dt7"),
+    DT::DTOutput("dt7"),
 
     hr(),
 
     h4(tags$b("Output 2. Test Results")), p(br()), 
 
-    tableOutput("c.test7"),
+    DT::DTOutput("c.test7"),
 
      HTML(
     "<b> Explanations </b> 

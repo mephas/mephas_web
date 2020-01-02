@@ -74,13 +74,13 @@
     p(tags$b("K layers 2 x 2 Contingency Table")),
     p("The first 2 rows indicated 2 x 2 contingency table in the first stratum, and followed by 2 x 2 table from the second stratum. "),
 
-    tableOutput("dt8"),
+    DT::DTOutput("dt8"),
 
     hr(),
 
     h4(tags$b("Output 2. Test Results")), p(br()), 
 
-    tableOutput("c.test8"),
+    DT::DTOutput("c.test8"),
 
      HTML(
     "<b> Explanations </b> 

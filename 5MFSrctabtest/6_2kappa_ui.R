@@ -44,14 +44,14 @@
 
     tabPanel("Table Preview", p(br()),
     p(tags$b("2 x K Contingency Table with Total Number")),
-    DT::dataTableOutput("dt9", width = "500px")
+    DT::DTOutput("dt9", width = "500px")
     ),
 
     tabPanel("Agreement Table", p(br()),
-    DT::dataTableOutput("dt9.0")
+    DT::DTOutput("dt9.0")
     ),
     tabPanel("Weight Table", p(br()),
-    DT::dataTableOutput("dt9.1")
+    DT::DTOutput("dt9.1")
     )
     ),
 
@@ -59,7 +59,7 @@
 
     h4(tags$b("Output 2. Test Results")), p(br()), 
 
-    tableOutput("c.test9"),
+    DT::DTOutput("c.test9"),
 
      HTML(
     "<b> Explanations and Guidelines for Evaluating Kappa </b> 

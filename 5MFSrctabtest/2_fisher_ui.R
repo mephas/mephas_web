@@ -57,22 +57,22 @@ sidebarPanel(
     tabPanel("Table Preview", p(br()),
 
         p(tags$b("2 x 2 Contingency Table with Total Number")),
-        tableOutput("dt4"),
+        DT::DTOutput("dt4"),
 
         p(tags$b("Expected Value")),
-        tableOutput("dt4.0")
+        DT::DTOutput("dt4.0")
         ),
 
     tabPanel("Percentage Table", p(br()),
 
         p(tags$b("Cell/Total %")),
-        tableOutput("dt4.3"),
+        DT::DTOutput("dt4.3"),
 
         p(tags$b("Cell/Row-Total %")),
-        tableOutput("dt4.1"),
+        DT::DTOutput("dt4.1"),
 
         p(tags$b("Cell/Column-Total %")),
-        tableOutput("dt4.2")
+        DT::DTOutput("dt4.2")
         ),
 
     tabPanel("Percentage Plot", p(br()),
@@ -85,7 +85,7 @@ sidebarPanel(
 
     h4(tags$b("Output 2. Test Results")), p(br()), 
 
-    tableOutput("c.test4"),
+    DT::DTOutput("c.test4"),
 
      HTML(
     "<b> Explanations </b> 

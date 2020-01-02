@@ -27,7 +27,7 @@ p(tags$b("2. Show 1st row as column names?")),
 checkboxInput("newheader", "Yes", TRUE),
 
 p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-checkboxInput("newcol", "Yes", FALSE),
+checkboxInput("newcol", "Yes", TRUE),
 
      # Input: Select separator ----
 radioButtons("newsep", "4. Which separator for data?",

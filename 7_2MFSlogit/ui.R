@@ -31,13 +31,13 @@ HTML(
 <li> To get the descriptive statistics plot of the variables in your data
 </ul>
 
-<h4><b> 2. About your data (training) </b></h4>
+<h4><b> 2. About your data (training set) </b></h4>
 
 <ul>
 <li> Your data need to include one binary dependent variable (outcome/response) as Y (Y=1/0, or a 2-level factor), and >=1 independent variables (factors/predictors)
 <li> Your data need to have more rows than columns
 <li> Do not mix character and numbers in the same column 
-<li> The data used to build model is called <b>training data</b>
+<li> The data used to build model is called <b>training set</b>
 </ul> 
 
 <i><h4>Case Example</h4>
@@ -96,11 +96,11 @@ HTML(
 <li> If you have input the data and built a model in the previous tabs, you can upload new data and get the predictive results.
 </ul>
 
-<h4><b> 2. About your data (test) </b></h4>
+<h4><b> 2. About your data (test set) </b></h4>
 
 <ul>
 <li> New data need to have all the independent variables in the model.
-<li> New data not used in the model is called <b> test data</b>
+<li> New data not used in the model is called <b> test set</b>
 </ul> 
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>

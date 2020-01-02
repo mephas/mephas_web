@@ -68,21 +68,21 @@
     tabPanel("Table Preview", p(br()),
 
         p(tags$b("2 x C Contingency Table with Total Number")),
-        tableOutput("dt3"),
+        DT::DTOutput("dt3"),
 
         p(tags$b("Expected Value")),
-        tableOutput("dt3.0")
+        DT::DTOutput("dt3.0")
         ),
     tabPanel("Percentage Table", p(br()),
 
         p(tags$b("Cell/Total %")),
-        tableOutput("dt3.3"),
+        DT::DTOutput("dt3.3"),
 
         p(tags$b("Cell/Row-Total %")),
-        tableOutput("dt3.1"),
+        DT::DTOutput("dt3.1"),
 
         p(tags$b("Cell/Column-Total %")),
-        tableOutput("dt3.2")
+        DT::DTOutput("dt3.2")
         ),
 
     tabPanel("Percentage Plot", p(br()),
@@ -95,7 +95,7 @@
 
     h4(tags$b("Output 2. Test Results")), p(br()), 
 
-    tableOutput("c.test3"),
+    DT::DTOutput("c.test3"),
 
      HTML(
     "<b> Explanations </b> 

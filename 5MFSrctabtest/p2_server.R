@@ -24,23 +24,51 @@ T2 = reactive({ # prepare dataset
   return(x)
   })
 
-output$dt2 = renderTable({
+output$dt2 = DT::renderDT({
   addmargins(T2(), 
     margin = seq_along(dim(T2())), 
     FUN = list(Total=sum), quiet = TRUE)},  
-  rownames = TRUE, width = "800px")
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$dt2.0 = renderTable({
-  res = chisq.test(T2(), correct = FALSE)
+output$dt2.0 = DT::renderDT({
+  res = chisq.test(T2())
   exp = res$expected
   return(exp)}, 
-  width = "700px" ,rownames = TRUE, digits = 2)
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$dt2.1 = renderTable({prop.table(T2(), 1)}, width = "700px" ,rownames = TRUE, digits = 4)
+output$dt2.1 = DT::renderDT({prop.table(T2(), 1)}, 
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$dt2.2 = renderTable({prop.table(T2(), 2)}, width = "700px" ,rownames = TRUE, digits = 4)
+output$dt2.2 = DT::renderDT({prop.table(T2(), 2)}, 
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$dt2.3 = renderTable({prop.table(T2())}, width = "700px" ,rownames = TRUE, digits = 4)
+output$dt2.3 = DT::renderDT({prop.table(T2())}, 
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 
 output$makeplot2 <- renderPlot({  #shinysession 
@@ -49,7 +77,7 @@ output$makeplot2 <- renderPlot({  #shinysession
   ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
   })
 
-output$c.test2 = renderTable({
+output$c.test2 = DT::renderDT({
     x = as.matrix(T2())
     if (input$yt2 == TRUE){
     res = mcnemar.test(x=x,correct = TRUE)
@@ -67,5 +95,10 @@ output$c.test2 = renderTable({
     rownames(res.table) <- c("McNemar Chi-Square", "Degree of freedom", "P Value")
     return(res.table)
     }, 
-    rownames = TRUE, width="700px")
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 

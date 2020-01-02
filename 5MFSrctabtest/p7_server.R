@@ -26,7 +26,7 @@ T7 = reactive({ # prepare dataset
   return(x)
   })
 
-output$dt7 = renderTable({
+output$dt7 = DT::renderDT({
   T <- T7()[,,1]
   for (i in 2:length(kn())){
     T <- rbind.data.frame(T, T7()[,,i])
@@ -38,9 +38,15 @@ output$dt7 = renderTable({
   rownames(T) <- paste0(rep(dm[[3]], each=n), "-*-", dm[[1]])
   colnames(T)<- cn()
   return(T)
-  }, width = "600px" ,rownames = TRUE, digits=1)
+  }, 
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$c.test7 = renderTable({
+output$c.test7 = DT::renderDT({
     x =T7()
     #dimnames(x) = list(status=rn(), groups=cn(), confound=kn())
     res <- mantelhaen.test(x)
@@ -53,5 +59,10 @@ output$c.test7 = renderTable({
     rownames(res.table) <- c("Mantel-Haenszel Chi-Square", "P Value")
     return(res.table)
     }, 
-    rownames = TRUE, width="500px")
+    class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 

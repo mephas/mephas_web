@@ -59,7 +59,7 @@ tabPanel("Upload Data", p(br()),
     p(tags$b("2. Show 1st row as header?")),
     checkboxInput("header", "Show Data Header?", TRUE),
     p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-    checkboxInput("col", "Yes", FALSE),
+    checkboxInput("col", "Yes", TRUE),
 
     radioButtons("sep", 
       "4. Which Separator for Data?",

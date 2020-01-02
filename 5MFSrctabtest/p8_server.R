@@ -26,7 +26,7 @@ T8 = reactive({ # prepare dataset
   return(x)
   })
 
-output$dt8 = renderTable({
+output$dt8 = DT::renderDT({
   T <- T8()[,,1]
   for (i in 2:length(kn8())){
     T <- rbind.data.frame(T, T8()[,,i])
@@ -38,9 +38,15 @@ output$dt8 = renderTable({
   rownames(T) <- paste0(rep(dm[[3]], rep(2,k)), "-*-",dm[[2]])
   colnames(T)<- cn8()
   return(T)
-  }, width = "600px" ,rownames = TRUE, digits=1)
+  }, 
+  class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
-output$c.test8 = renderTable({
+output$c.test8 = DT::renderDT({
     x <- T8()
     if (input$md8=="a"){
       res <- mantelhaen.test(x, alternative=input$alt8, correct=TRUE, exact=FALSE)
@@ -62,5 +68,10 @@ output$c.test8 = renderTable({
     rownames(res.table) <- c("Mantel-Haenszel Chi-Square", "Estimated Odds Ratio", "P Value", "95% Confidence Interval")
     return(res.table)
     }, 
-    rownames = TRUE, width="700px")
+    class="row-border", 
+  extensions = 'Buttons', 
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
