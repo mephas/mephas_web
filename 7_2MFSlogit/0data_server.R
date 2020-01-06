@@ -107,9 +107,7 @@ return(df)
   })
 
 
-
 output$Xdata <- DT::renderDT(DF3(),
-  class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

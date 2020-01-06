@@ -17,7 +17,7 @@ sidebarPanel(
 tags$head(tags$style("#cox_form {height: 100px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
 tags$head(tags$style("#str4 {overflow-y:scroll; height: 350px; background: white};")),
 tags$head(tags$style("#fitcx {overflow-y:scroll; height: 400px; background: white};")),
-#tags$head(tags$style("#fit2 {overflow-y:scroll; height: 400px; background: white};")),
+tags$head(tags$style("#fitcx2 {overflow-y:scroll; height: 400px; background: white};")),
 #tags$head(tags$style("#step {overflow-y:scroll;height: 400px; background: white};")),
 
 
@@ -28,10 +28,10 @@ p("The Survival Object has been decided in the Data Tab"),
 
 uiOutput('var.cx'),
 
-radioButtons("intercept.cx", "2. Add or remove intercept/constant term, if you need", ##> intercept or not
-     choices = c("Remove intercept/constant" = "-1",
-                 "Keep intercept/constant term" = ""),
-     selected = ""),
+#radioButtons("intercept.cx", "2. Add or remove intercept/constant term, if you need", ##> intercept or not
+#     choices = c("Remove intercept/constant" = "-1",
+#                 "Keep intercept/constant term" = ""),
+#     selected = ""),
 
 h4(tags$b("Step 2 (Optional). Choose Method for Ties Handling")),      
 
@@ -89,7 +89,7 @@ actionButton("B2", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh"))
 p(br()),
 tabsetPanel(
 
-tabPanel("Model Estimation", 
+tabPanel("Model Estimation", br(),
 verbatimTextOutput("fitcx"),
 HTML(
 "

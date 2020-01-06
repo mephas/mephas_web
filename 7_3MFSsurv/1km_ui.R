@@ -12,7 +12,13 @@
 
 sidebarLayout(
 
+
 sidebarPanel(
+
+tags$head(tags$style("#str {overflow-y:scroll; max-height: 350px; background: white};")),
+tags$head(tags$style("#kmt {overflow-y:scroll; max-height: 350px; background: white};")),
+tags$head(tags$style("#kmt1 {overflow-y:scroll; max-height: 350px; background: white};")),
+tags$head(tags$style("#kmlr {overflow-y:scroll; max-height: 350px; background: white};")),
 
 ("Example data: NKI70"),      
 
@@ -70,8 +76,7 @@ h4(tags$b("Output 1. Data Preview")),
  DT::DTOutput("Xdata2")
  ),
  tabPanel("Variables information",p(br()),
- verbatimTextOutput("str"),
- tags$head(tags$style("#str {overflow-y:scroll; max-height: 350px; background: white};"))
+ verbatimTextOutput("str")
  
  )
  ),
@@ -83,8 +88,7 @@ h4(tags$b("Output 2. Estimate and Test Results")),
 p(br()),
 tabsetPanel(
 tabPanel("Life Table",  p(br()),
-    verbatimTextOutput("kmt"),
-     tags$head(tags$style("#kmt {overflow-y:scroll; max-height: 350px; background: white};"))
+    verbatimTextOutput("kmt")
      ),
 tabPanel("Kaplan-Meier Plot by Group",  p(br()),
     radioButtons("fun2", "Which plot do you want to see?", 
@@ -96,13 +100,11 @@ tabPanel("Kaplan-Meier Plot by Group",  p(br()),
   choiceValues = list("pct", "event","cumhaz")
   ),
     plotOutput("km.p", width = "800px", height = "600px"),
-     verbatimTextOutput("kmt1"),
-     tags$head(tags$style("#kmt1 {overflow-y:scroll; max-height: 350px; background: white};"))
+     verbatimTextOutput("kmt1")
      ),
 tabPanel("Log-Rank Test",  p(br()),
 p(tags$b("Log-rank Test Result")),
     verbatimTextOutput("kmlr"),
-     tags$head(tags$style("#kmlr {overflow-y:scroll; max-height: 350px; background: white};")),
        HTML("
 <b> Explanations </b>
 <p>This implements the G-rho family of Harrington and Fleming (1982), with weights on each death of S(t)<sup>rho</sup>, where S is the Kaplan-Meier estimate of survival.</p>
@@ -117,9 +119,7 @@ p(tags$b("Log-rank Test Result")),
 
 tabPanel("Pairwise Log-Rank Test",  p(br()),
 
-p(tags$b("Pairwise Log-rank Test Result")),
-    DT::DTOutput("PLR"),
-     tags$head(tags$style("#kmlr {overflow-y:scroll; max-height: 350px; background: white};")),
+
      HTML(
   "<b> Explanations </b>
   <p>This implements the G-rho family of Harrington and Fleming (1982), with weights on each death of S(t)<sup>rho</sup>, where S is the Kaplan-Meier estimate of survival.</p>
@@ -133,7 +133,10 @@ p(tags$b("Pairwise Log-rank Test Result")),
     <li> p < 0.05 indicates the curves are significantly different in the survival probabilities
     <li> p >= 0.05 indicates the curves are NOT significantly different in the survival probabilities
   </ul>"
-    )
+    ),
+     p(tags$b("Pairwise Log-rank Test Result")),
+
+    DT::DTOutput("PLR")
      )
 )
 

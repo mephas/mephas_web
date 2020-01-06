@@ -130,8 +130,8 @@ plotly::ggplotly(p)
 # 
  fit.lm <- reactive({
  res <- data.frame(Y=DF3()[,input$y],
- Fittings = (fit()[["fitted.values"]],
- Residuals = (fit()[["residuals"]])
+ Fittings = fit()[["fitted.values"]],
+ Residuals = fit()[["residuals"]]
  )
  colnames(res) <- c("Dependent Variable = Y", "Fittings = Predicted Y", "Residuals = Y - Predicted Y")
  return(res)

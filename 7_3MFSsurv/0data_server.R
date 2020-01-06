@@ -39,7 +39,7 @@ return(as.data.frame(x))
 
 ## variable type
 type.num0 <- reactive({
-DF0() %>% select_if(is.numeric) %>% colnames()
+colnames(DF0()[unlist(lapply(DF0(), is.numeric))])
 })
 
 output$factor1 = renderUI({
@@ -60,7 +60,7 @@ return(df)
   })
 
 type.fac1 <- reactive({
-DF1() %>% select_if(is.factor) %>% colnames()
+colnames(DF1()[unlist(lapply(DF1(), is.factor))])
 })
 
 output$factor2 = renderUI({
@@ -83,7 +83,7 @@ return(df)
   })
 
 type.fac2 <- reactive({
-DF2() %>% select_if(is.factor) %>% colnames()
+colnames(DF2()[unlist(lapply(DF2(), is.factor))])
 })
 
 output$lvl = renderUI({
@@ -116,36 +116,61 @@ return(df)
   
   })
 
+type.bi3 <- reactive({
+  df <- DF3()
+  names <- apply(df,2,function(x) { length(levels(as.factor(x)))==2 &&  max(x)==1 && min(x)==0 })
+  #df <- DF3()[,names]
+  #names <- apply(df,2,function(x) {  })
+  x <- colnames(df)[names]
+  return(x)
+  })
+
+type.time3 <- reactive({
+  df <- DF3()
+  names <- apply(df,2,function(x) { length(levels(as.factor(x)))>2 })
+  df <- DF3()[,names]
+  x <- colnames(df[unlist(lapply(df, is.numeric))])
+  return(x)
+  })
+
+type.num3 <- reactive({
+colnames(DF3()[unlist(lapply(DF3(), is.numeric))])
+})
+
+type.fac3 <- reactive({
+colnames(DF3()[unlist(lapply(DF3(), is.factor))])
+})
+
 output$t = renderUI({
 selectInput(
 't',
-tags$b('Choice 1. Right-censored time: choose time-duration variable, numeric'),
-selected = type.num3()[1],
-choices = c("NULL",type.num3()))
+tags$b('Choose time-duration variable, numeric'),
+selected = type.time3()[1],
+choices = c("NULL",type.time3()))
 })
 
 output$t1 = renderUI({
 selectInput(
 't1',
-('2.1. Start-time variable, numeric'),
+('Start-time variable, numeric'),
 selected = "NULL",
-choices = c("NULL",type.num3()))
+choices = c("NULL",type.time3()))
 })
 
 output$t2 = renderUI({
 selectInput(
 't2',
-('2.2. End-time variable, numeric'),
+('End-time variable, numeric'),
 selected = "NULL",
-choices = c("NULL",type.num3()))
+choices = c("NULL",type.time3()))
 })
 
 output$c = renderUI({
 selectInput(
 'c',
-('2. Choose 1/0 censoring information variable (1=death, 0=censor)'),
-selected = names(DF3())[2],
-choices = names(DF3()))
+('1. Choose 1/0 censoring information variable (1=death, 0=censor)'),
+selected = type.bi3()[1],
+choices = type.bi3())
 })
 
 ##3. Survival Object
@@ -160,27 +185,20 @@ return(y)
 })
 
 output$surv = renderPrint({
-validate(need(length(levels(as.factor(DF3()[, input$c])))==2, "Please choose a binary variable as Y")) 
+validate(need(length(levels(as.factor(DF3()[, input$c])))==2, "Please choose a binary variable as censoring information")) 
 surv()
 })
 
 
 output$Xdata <- DT::renderDT(
-DF3(),
-class="row-border", 
-    extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+DF3(), 
+extensions = 'Buttons', 
+options = list(
+dom = 'Bfrtip',
+buttons = c('copy', 'csv', 'excel'),
+scrollX = TRUE))
 
-type.num3 <- reactive({
-DF3() %>% select_if(is.numeric) %>% colnames()
-})
 
-type.fac3 <- reactive({
-DF3() %>% select_if(is.factor) %>% colnames()
-})
 
 output$strnum <- renderPrint({str(DF3()[,type.num3()])})
 #output$str.fac <- renderPrint({str(DF2()[,type.fac()])})
@@ -196,12 +214,11 @@ sum <- reactive({
   })
 
 output$sum <- DT::renderDT({sum()},
-  class="row-border", 
-    extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+extensions = 'Buttons', 
+options = list(
+dom = 'Bfrtip',
+buttons = c('copy', 'csv', 'excel'),
+scrollX = TRUE))
 
 fsum = reactive({
   x <- DF3()[,type.fac3()]
@@ -256,19 +273,31 @@ ggsurvplot(fit, data=DF3(),
 output$kmat1= renderPrint({
 (km.a())})
 
-output$kmat= renderPrint({
-summary(km.a())})
-# 
+output$kmat= DT::renderDT({
+res<- data.frame(
+  time=km.a()[["time"]],
+  n.risk=km.a()[["n.risk"]],
+  n.event=km.a()[["n.event"]],
+  n.censor=km.a()[["n.censor"]],
+  surv=km.a()[["surv"]],
+  lower=km.a()[["lower"]],
+  upper=km.a()[["upper"]],
+  std.err=km.a()[["std.err"]],
+  cumhaz=km.a()[["cumhaz"]]
+  #std.chaz=km.a()[["std.chaz"]],
+  )
+colnames(res) <- c("Time", "Number of at Risk", "Number of Event", "Number of Censor", 
+  "Survival Probability", "95% CI lower limit", "95% CI upper limit",
+  "SE of Surv. Prob.", "Cumulative Hazard Probability")
+return(res)
+},
+extensions = 'Buttons', 
+options = list(
+dom = 'Bfrtip',
+buttons = c('copy', 'csv', 'excel'),
+scrollX = TRUE)
+)
 
- ## scatter plot
- output$p1 = renderPlot({
-  validate(need(length(levels(as.factor(DF3()[, input$ty])))==2, "Please choose a binary variable as Y")) 
-   #ggplot(DF3(), aes(x = DF3()[, input$tx], y = DF3()[, input$ty])) + geom_point(shape = 1) + 
-   #  geom_smooth(method = lm) + xlab(input$tx) + ylab(input$ty) + theme_minimal()
-   ggplot(DF3(), aes(x=DF3()[, input$tx], y=(as.numeric(as.factor(DF3()[, input$ty]))-1))) + geom_point(shape = 1) + 
-  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE) +
-  xlab(input$tx) + ylab(input$ty) + theme_minimal()
-   })
  
 ## histogram
  output$hx = renderUI({

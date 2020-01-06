@@ -13,6 +13,12 @@ sidebarLayout(
 
 sidebarPanel(
 
+  tags$style(type='text/css', '#surv {background-color: rgba(0,0,255,0.10); color: blue;}'),
+  tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 200px; background: white};")),
+  tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
+  tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 200px; background: white};")),
+  tags$head(tags$style("#kmat1 {overflow-y:scroll; max-height: 200px; background: white};")),
+
 selectInput("edata", "Example Data", 
         choices =  c("NKI70"), 
         selected = "NKI70"),
@@ -54,9 +60,11 @@ hr(),
 
 h4(tags$b("Step 2. Create a Survival Object")), 
 
-#p(tags$b("1. Choose a Time Variable")),      
+#p(tags$b("1. Choose a Time Variable")),   
 
-radioButtons("time", "1. What kind of time?", select="A",
+uiOutput('c'),
+
+radioButtons("time", "2. Set Survival Time", select="A",
   choiceNames = list(
     HTML("Choice 1. <b>Right-censored time</b>: needs time duration / follow-up"),
     HTML("Choice 2. <b>Left-truncated right-censored time</b>: needs start and end time points")
@@ -64,17 +72,18 @@ radioButtons("time", "1. What kind of time?", select="A",
   choiceValues = list("A", "B" )
   ),
 
-uiOutput('t'),
-
-p(tags$b("Choice 2. Left-truncated right-censored time: choose start-end time-points")),      
-uiOutput('t1'),
-uiOutput('t2'),
-
-uiOutput('c'),
+tabsetPanel(
+  tabPanel("Right-censored", br(),
+    uiOutput('t')
+    ),
+  tabPanel("Left-truncated Right-censored", br(),
+    uiOutput('t1'),
+    uiOutput('t2')
+    )
+  ),
 
 p(tags$b("3. Check the Survival Object")),      
 
-tags$style(type='text/css', '#surv {background-color: rgba(0,0,255,0.10); color: blue;}'),
 verbatimTextOutput("surv", placeholder = TRUE),
 
 
@@ -111,12 +120,10 @@ DT::DTOutput("Xdata"),
 
 p(tags$b("1. Continuous variable information list")),
 verbatimTextOutput("strnum"),
-tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
 
 
 p(tags$b("2. Factor/ Catrorical variable information list")),
 verbatimTextOutput("strfac"),
-tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 200px; background: white};")),
 
 
 hr(),   
@@ -132,7 +139,6 @@ DT::DTOutput("sum"),
 
 p(tags$b("2. Categorical variables")),
 verbatimTextOutput("fsum"),
-tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 200px; background: white};")),
 
 
 #downloadButton("download1", "Download Results (Continuous variables)"),
@@ -150,14 +156,13 @@ tabPanel("Survival Probability Plot",  p(br()),
   choiceValues = list("pct", "event","cumhaz")
   ),
 plotOutput("km.a", width = "600px", height = "400px"),
-verbatimTextOutput("kmat1"),
-tags$head(tags$style("#kmat1 {overflow-y:scroll; max-height: 200px; background: white};"))
+verbatimTextOutput("kmat1")
      ),
 
 tabPanel("Survival Probability Table",  p(br()),
-  p(tags$b("For all samples")),
-    verbatimTextOutput("kmat"),
-tags$head(tags$style("#kmat {overflow-y:scroll; max-height: 400px; background: white};"))
+  #p(tags$b("For all samples")),
+DT::DTOutput("kmat")
+#tags$head(tags$style("#kmat {overflow-y:scroll; max-height: 400px; background: white};"))
      ),
 
 tabPanel("Histogram", p(br()),

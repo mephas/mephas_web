@@ -13,11 +13,13 @@
 ## 2. choose variable to put in the model/ and summary
 
 DF4 <- reactive({
-  df <-dplyr::select(DF3(), subset=c(-input$c))
+  if (input$t=="NULL") {df <-DF3()[ ,-which(names(DF3()) %in% c(input$c,input$t1,input$t2))]}
+  else {df <-DF3()[ ,-which(colnames(DF3()) %in% c(input$c,input$t))]}
 return(df)
   })
+
 type.fac4 <- reactive({
-DF3() %>% select_if(is.factor) %>% colnames()
+colnames(DF4()[unlist(lapply(DF4(), is.factor))])
 })
 
 output$g = renderUI({
@@ -42,6 +44,7 @@ output$str <- renderPrint({str(DF3())})
 ### 4.2. model
 
 kmfit = reactive({
+  validate(need(input$g, "Please choose a group variable"))
   y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
   fit <- surv_fit(as.formula(y), data = DF3())
   fit$call <- NULL
@@ -56,6 +59,7 @@ kmfit = reactive({
 #	})
 
 output$km.p= renderPlot({
+  validate(need(input$g, "Please choose a group variable"))
 
   y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
   fit <- surv_fit(as.formula(y), data = DF3())
@@ -84,6 +88,8 @@ summary(kmfit())
   })
 # 
  LR = reactive({
+  validate(need(input$g, "Please choose a group variable"))
+
    y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
   fit <- survdiff(as.formula(y), rho=input$rho, data = DF3())
   fit$call <- NULL
@@ -94,6 +100,8 @@ output$kmlr = renderPrint({
 LR()})
 
  PLR = reactive({
+  validate(need(input$g, "Please choose a group variable"))
+
    y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
 
   if (input$pm == "B"){
@@ -120,14 +128,12 @@ LR()})
   res <- as.data.frame(res)
   return(res)
 })
- output$PLR = DT::renderDT({
- (PLR())
-  }, 
-  class="row-border", 
-    extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+
+output$PLR = DT::renderDT({PLR()}, 
+extensions = 'Buttons', 
+options = list(
+dom = 'Bfrtip',
+buttons = c('copy', 'csv', 'excel'),
+scrollX = TRUE))
 # 
  

@@ -24,7 +24,7 @@ output$var = renderUI({
 selectInput(
 'var',
 tags$b('1. Choose one or more independent variables'),
-selected = names(DF4())[3],
+selected = names(DF4())[2],
 choices = names(DF4()),
 multiple=TRUE)
 })
@@ -34,8 +34,8 @@ output$fx.c = renderUI({
 selectInput(
   'fx.c',
   tags$b('3.2. Choose random effect variable as additional effect, categorical'),
-  selected = "NULL",
-  choices = c("NULL", names(DF4()))
+selected = names(DF4())[2],
+choices = names(DF4())
 )
 })
 
