@@ -71,7 +71,7 @@ coxfit = eventReactive(input$B2, {
 # 
 output$fitcx = renderPrint({ 
 res <- summary(coxfit())
-res$call <- "Cox Model Result"
+res$call <- "Cox Regression Result"
 return(res)
 
 })

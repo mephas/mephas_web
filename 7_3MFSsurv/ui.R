@@ -116,7 +116,7 @@ hr()
 
 tabPanel("Prediction1",
 
-headerPanel("Prediction from Accelerate Failure Models"),
+headerPanel("Prediction after Accelerate Failure Models"),
 HTML(
 "
 
@@ -171,7 +171,7 @@ hr()
 
 tabPanel("Prediction2",
 
-headerPanel("Prediction from Model"),
+headerPanel("Prediction after Cox Regression"),
 HTML(
 "
 
