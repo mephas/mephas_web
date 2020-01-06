@@ -25,17 +25,13 @@ shinyServer(
 
 function(input, output, session) {
 
-#----------0. dataset input----------
 source("0data_server.R", local=TRUE)$value
 
-#----------1. Linear regression----------
 source("1km_server.R", local=TRUE)$value
 
-#----------2. Logistic regression----------
-#source("2pr_server.R", local=TRUE)$value
+source("2aft_server.R", local=TRUE)$value
 
-#----------3. Cox regression----------
-#source("3cr_server.R", local=TRUE)$value
+source("3cox_server.R", local=TRUE)$value
 
 
 ##########----------##########----------##########

@@ -17,6 +17,7 @@ sidebarPanel(
 ("Example data: NKI70"),      
 
 h4(tags$b("Step 1. Choose Group Variable")),      
+p("The Survival Object has been decided in the Data Tab"),  
 
 uiOutput('g'),
 
@@ -66,7 +67,7 @@ h4(tags$b("Output 1. Data Preview")),
  tabsetPanel(
  tabPanel("Browse Data",p(br()),
  p("This only shows the first several lines, please check full data in the 1st tab"),
- DT::dataTableOutput("Xdata2")
+ DT::DTOutput("Xdata2")
  ),
  tabPanel("Variables information",p(br()),
  verbatimTextOutput("str"),
@@ -117,7 +118,7 @@ p(tags$b("Log-rank Test Result")),
 tabPanel("Pairwise Log-Rank Test",  p(br()),
 
 p(tags$b("Pairwise Log-rank Test Result")),
-    DT::dataTableOutput("PLR",width = "800px"),
+    DT::DTOutput("PLR"),
      tags$head(tags$style("#kmlr {overflow-y:scroll; max-height: 350px; background: white};")),
      HTML(
   "<b> Explanations </b>

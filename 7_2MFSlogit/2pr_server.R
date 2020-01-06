@@ -30,18 +30,16 @@ pred = eventReactive(input$B2,
 })
 
 pred.lm <- reactive({
-	cbind.data.frame(round(pred(), 4), newX())
+	cbind.data.frame((pred()), newX())
 	})
 
 output$pred = DT::renderDT(pred.lm(),
  class="row-border", 
-  extensions = c('Buttons'), 
-  options = list(
+    extensions = 'Buttons', 
+    options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
-        scrollX = TRUE,
-    scrollY = 290,
-    scroller = TRUE))
+    scrollX = TRUE))
 
  output$p.s = plotly::renderPlotly({
   p <- ROCR::prediction(pred.lm()[,2], pred.lm()[,input$y])
@@ -73,15 +71,13 @@ colnames(perf2) <- c("Sensitivity", "Specificity", "1-Specificity","Cut-off Poin
 return(perf2)
   })
 
- output$sst.s = DT::renderDT(round(sst.s(),6),
+ output$sst.s = DT::renderDT((sst.s()),
    class="row-border", 
-  extensions = c('Buttons'), 
-  options = list(
+    extensions = 'Buttons', 
+    options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
-        scrollX = TRUE,
-    scrollY = 290,
-    scroller = TRUE))
+    scrollX = TRUE))
 
 
 # sx <- reactive({input$x})

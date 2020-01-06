@@ -36,7 +36,8 @@ multiple = TRUE
 })
 
 output$Xdata2 <- DT::renderDT(
-head(DF3()), options = list(scrollX = TRUE))
+head(DF3()), 
+options = list(scrollX = TRUE))
 ### for summary
 output$str <- renderPrint({str(DF3())})
 
@@ -91,13 +92,13 @@ afit = eventReactive(input$B1, {
   return(res.table)
   })
 
-output$anova = DT::renderDT({round(afit(),6)},
+output$anova = DT::renderDT({(afit())},
   class="row-border", 
-  extensions = c('Buttons'), 
-  options = list(
+    extensions = 'Buttons', 
+    options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel')
-    ))
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 sp = eventReactive(input$B1, {step(fit())})
 output$step = renderPrint({sp()})
@@ -129,8 +130,8 @@ plotly::ggplotly(p)
 # 
  fit.lm <- reactive({
  res <- data.frame(Y=DF3()[,input$y],
- Fittings = round(fit()[["fitted.values"]], 4),
- Residuals = round(fit()[["residuals"]], 4)
+ Fittings = (fit()[["fitted.values"]],
+ Residuals = (fit()[["residuals"]])
  )
  colnames(res) <- c("Dependent Variable = Y", "Fittings = Predicted Y", "Residuals = Y - Predicted Y")
  return(res)
@@ -138,12 +139,11 @@ plotly::ggplotly(p)
 # 
  output$fitdt0 = DT::renderDT(fit.lm(),
  class="row-border", 
-  extensions = c('Buttons'), 
-  options = list(
+    extensions = 'Buttons', 
+    options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
-    scrollY = 290,
-    scroller = TRUE))
+    scrollX = TRUE))
 # 
 
 # newX = reactive({

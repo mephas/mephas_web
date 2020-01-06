@@ -30,97 +30,86 @@ multiple=TRUE)
 })
 
 
+output$fx.c = renderUI({
+selectInput(
+  'fx.c',
+  tags$b('3.2. Choose random effect variable as additional effect, categorical'),
+  selected = "NULL",
+  choices = c("NULL", names(DF4()))
+)
+})
 
-
-output$Xdata3 <- DT::renderDataTable(
+output$Xdata3 <- DT::renderDT(
 head(DF3()), options = list(scrollX = TRUE))
 ### for summary
 output$str3 <- renderPrint({str(DF3())})
 
-## 4. output results
-### 4.2. model
 
-regfit = reactive({
-  y <- paste0(surv(), "~", paste0(input$g, collapse = "+"), input$conf, input$intercept)
-  fit <- survreg(as.formula(y), data = DF3(), dist=input$dist)
-  fit$call <- NULL
-  return(fit)
-})
+aft = reactive({
 
-# 
-# # residual plot
-# output$km.p= renderPlot({
-#autoplot(kmfit(), conf.int = FALSE)+ theme_minimal() + ggtitle("") 
-#+annotate("text", x = .75, y = .25, label = paste("P value ="))
-#	})
+if (input$effect=="") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), input$conf,input$intercept)}
+if (input$effect=="Strata") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+strata(", input$fx.c, ")",input$conf,input$intercept)}
+if (input$effect=="Cluster") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+cluster(", input$fx.c, ")", input$conf,input$intercept)}
+if (input$effect=="Gamma Frailty") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+frailty(", input$fx.c, ")", input$conf,input$intercept)}
+if (input$effect=="Gaussian Frailty") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+frailty.gaussian(", input$fx.c, ")", input$conf,input$intercept)}
 
-output$km.p= renderPlot({
-
-  y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
-  fit <- surv_fit(as.formula(y), data = DF3())
-
-ggsurvplot(fit, data=DF3(),
-          fun=paste0(input$fun2), 
-           conf.int = FALSE,
-           pval = TRUE,
-           risk.table = "abs_pct",
-           #surv.median.line = "hv", 
-           palette = "Paired",
-           ggtheme = theme_minimal(),
-           legend="bottom",
-           risk.table.y.text.col = TRUE, # colour risk table text annotations.
-           risk.table.y.text = FALSE,
-            surv.plot.height =0.7,        
-           risk.table.height =0.3) 
-  })
-
-output$kmt1= renderPrint({
-(kmfit())
-  })
-
-output$kmt= renderPrint({
-summary(kmfit())
-  })
-# 
- LR = reactive({
-   y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
-  fit <- survdiff(as.formula(y), rho=input$rho, data = DF3())
-  fit$call <- NULL
-  return(fit)
-})
-
-output$kmlr = renderPrint({
-LR()})
-
- PLR = reactive({
-   y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
-
-  if (input$pm == "B"){
-  res <- pairwise_survdiff(as.formula(y), rho=input$rho2, p.adjust.method = "bonf", data = DF3())$p.value
-}
-  if (input$pm == "BH"){
-  res <- pairwise_survdiff(as.formula(y), rho=input$rho2, p.adjust.method = "holm", data = DF3())$p.value
-  }
-  #if (input$method == "BHG"){
-  #  res <- pairwise.t.test(x[,namesm()[1]], x[,namesm()[2]], 
-  #  p.adjust.method = "hochberg")$p.value
-  #}
-  #  if (input$method == "BHL"){
-  #  res <- pairwise.t.test(x[,namesm()[1]], x[,namesm()[2]], 
-  #  p.adjust.method = "hommel")$p.value
-  #}
-    if (input$pm == "FDR"){
-  res <- pairwise_survdiff(as.formula(y), rho=input$rho2, p.adjust.method = "BH", data = DF3())$p.value
-  }
-    if (input$pm == "BY"){
-  res <- pairwise_survdiff(as.formula(y), rho=input$rho2, p.adjust.method = "BY", data = DF3())$p.value
-
-  }
-  res <- as.data.frame(res)
-  return(res)
-})
- output$PLR = DT::renderDataTable({
- round(PLR(),6)
-  }, options = list(scrollX = TRUE))
-# 
+  #fit <- survreg(as.formula(f), data = DF3(), dist=input$dist)
  
+  return(f)
+})
+
+output$aft_form = renderPrint({cat(aft()) })
+
+aftfit = eventReactive(input$B1, {
+  survreg(as.formula(aft()), data = DF3(), dist=input$dist)
+  })
+
+
+#gfit = eventReactive(input$B1, {
+#  glm(formula(), data = DF3())
+#})
+# 
+output$fit = renderPrint({ 
+res <- summary(aftfit())
+res$call <- "AFT Model Result"
+return(res)
+})
+
+fit.aft <- reactive({
+ res <- data.frame(
+  Y = DF3()[,input$t],
+  lp = aftfit()$linear.predictors,
+  fit = predict(aftfit(), type="response"),
+  Residuals = resid(aftfit(),  type="response")
+ )
+ std <- (log(res[,1])-res[,2])/aftfit()$scale
+  
+  if (input$dist=="weibull") {res$csr <- -log(exp(-exp(std)))}
+  if (input$dist=="exponential") {res$csr <- -log(exp(-exp(std)))}
+  if (input$dist=="lognormal") {res$csr <- -log(1-pnorm(std))}
+  if (input$dist=="loglogistic") {res$csr <- -log(1-plogis(std))}
+
+ colnames(res) <- c("Time", "Linear Part = bX", "Predicted Time","Residuals = Time - Predicted Time", "Cox-snell Residuals")
+ return(res)
+  })
+# 
+ output$fit.aft = DT::renderDT(fit.aft(),
+ class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
+
+output$csplot = renderPlot({
+
+fit = survfit(Surv(fit.aft()[,5], DF3()[, input$c]) ~ 1)
+Htilde=cumsum(fit$n.event/fit$n.risk)
+
+d = data.frame(time = fit$time, H = Htilde)
+ggplot() + geom_step(data = d, mapping = aes(x = d[,"time"], y = d[,"H"])) + 
+  geom_abline(intercept =0,slope = 1, color = "red") +
+  theme_minimal() + xlab("Cox-Snell residuals") + ylab("Estimated Cumulative Hazard Function")
+  })
+
+

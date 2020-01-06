@@ -110,11 +110,11 @@ return(df)
 
 output$Xdata <- DT::renderDT(DF3(),
   class="row-border", 
-  extensions = 'Scroller', 
-  options = list(
-    scrollX = TRUE,
-    scrollY = 290,
-  scroller = TRUE))
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 type.num3 <- reactive({
 colnames(DF3()[unlist(lapply(DF3(), is.numeric))])
@@ -139,13 +139,11 @@ sum <- reactive({
 
 output$sum <- DT::renderDT({sum()},
   class="row-border", 
-  extensions = 'Buttons', 
-  options = list(
+    extensions = 'Buttons', 
+    options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE,
-    scrollY = 290,
-    scroller = TRUE))
+    scrollX = TRUE))
 
 fsum = reactive({
   x <- DF3()[,type.fac3()]

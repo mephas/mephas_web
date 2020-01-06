@@ -31,7 +31,8 @@ multiple = TRUE
 })
 
 output$Xdata2 <- DT::renderDT(
-head(DF3()), options = list(scrollX = TRUE))
+head(DF3()),
+options = list(scrollX = TRUE))
 ### for summary
 output$str <- renderPrint({str(DF3())})
 
@@ -132,8 +133,8 @@ plotly::ggplotly(p)
 # 
  fit.lm <- reactive({
  res <- data.frame(Y=DF3()[,input$y],
- Fittings = round(fit()[["linear.predictors"]], 4),
- Residuals = round(fit()[["fitted.values"]], 4)
+ Fittings = (fit()[["linear.predictors"]]),
+ Residuals = (fit()[["fitted.values"]])
  )
  colnames(res) <- c("Dependent Variable = Y", "Linear Predictors = bX", "Predicted Y = 1/(1+exp(-bX))")
  return(res)
@@ -141,13 +142,11 @@ plotly::ggplotly(p)
 # 
  output$fitdt0 = DT::renderDT(fit.lm(),
  class="row-border", 
-  extensions = c('Buttons'), 
-  options = list(
+    extensions = 'Buttons', 
+    options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE,
-    scrollY = 290,
-    scroller = TRUE))
+    scrollX = TRUE))
 # 
 
 sst <- reactive({
@@ -162,15 +161,13 @@ colnames(perf2) <- c("Sensitivity", "Specificity", "1-Specificity","Cut-off Poin
 return(perf2)
   })
 
- output$sst = DT::renderDT(round(sst(),6),
+ output$sst = DT::renderDT(sst(),
   class="row-border", 
-  extensions = c('Buttons'), 
-  options = list(
+    extensions = 'Buttons', 
+    options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE,
-    scrollY = 290,    
-    scroller = TRUE))
+    scrollX = TRUE))
 
 # 
 # newX = reactive({

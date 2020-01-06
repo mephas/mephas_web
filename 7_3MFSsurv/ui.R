@@ -88,7 +88,7 @@ hr()
 
 tabPanel("Parametric Model",
 
-headerPanel("Parametric Models by  an Arbitrary Transform of the Time Variable"),
+headerPanel("Accelerate Failure Models by an Arbitrary Transform of the Time Variable"),
 HTML(
 "
 
@@ -110,13 +110,13 @@ HTML(
 ),
 
 hr(),
-#source("1lm_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("2aft_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
 
 tabPanel("Prediction1",
 
-headerPanel("Prediction from Model"),
+headerPanel("Prediction from Accelerate Failure Models"),
 HTML(
 "
 
@@ -141,9 +141,9 @@ hr(),
 hr()
 ),
 
-tabPanel("Cox Model",
+tabPanel("Semi-Parametric Model",
 
-headerPanel("Logistic Regression"),
+headerPanel("Cox Regression"),
 HTML(
 "
 
@@ -165,7 +165,7 @@ HTML(
 ),
 
 hr(),
-#source("1lm_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("3cox_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
 

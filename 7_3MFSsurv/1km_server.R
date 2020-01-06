@@ -30,8 +30,9 @@ multiple=TRUE)
 })
 
 
-output$Xdata2 <- DT::renderDataTable(
-head(DF3()), options = list(scrollX = TRUE))
+output$Xdata2 <- DT::renderDT(
+head(DF3()),
+options = list(scrollX = TRUE))
 ### for summary
 output$str <- renderPrint({str(DF3())})
 
@@ -119,8 +120,14 @@ LR()})
   res <- as.data.frame(res)
   return(res)
 })
- output$PLR = DT::renderDataTable({
- round(PLR(),6)
-  }, options = list(scrollX = TRUE))
+ output$PLR = DT::renderDT({
+ (PLR())
+  }, 
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 # 
  

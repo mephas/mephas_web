@@ -82,7 +82,7 @@ mainPanel(
 h4(tags$b("Output 1. Data Information")),
 p(tags$b("Data Preview")), 
 p(br()),
-DT::dataTableOutput("Xdata"),
+DT::DTOutput("Xdata"),
 
 p(tags$b("1. Continuous variable information list")),
 verbatimTextOutput("strnum"),
@@ -99,7 +99,7 @@ tabPanel("Basic Descriptives", p(br()),
 
 p(tags$b("1. Continuous variables")),
 
-DT::dataTableOutput("sum"),
+DT::DTOutput("sum"),
 
 p(tags$b("2. Categorical variables")),
 verbatimTextOutput("fsum"),

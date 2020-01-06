@@ -119,23 +119,23 @@ return(df)
 output$t = renderUI({
 selectInput(
 't',
-tags$b('Choice 1. Time-duration, numeric'),
+tags$b('Choice 1. Right-censored time: choose time-duration variable, numeric'),
 selected = type.num3()[1],
-choices = type.num3())
+choices = c("NULL",type.num3()))
 })
 
 output$t1 = renderUI({
 selectInput(
 't1',
-('1. Start-time variable, numeric'),
-selected = type.num3()[1],
-choices = type.num3())
+('2.1. Start-time variable, numeric'),
+selected = "NULL",
+choices = c("NULL",type.num3()))
 })
 
 output$t2 = renderUI({
 selectInput(
 't2',
-('2. End-time variable, numeric'),
+('2.2. End-time variable, numeric'),
 selected = "NULL",
 choices = c("NULL",type.num3()))
 })
@@ -165,8 +165,14 @@ surv()
 })
 
 
-output$Xdata <- DT::renderDataTable(
-DF3(), options = list(scrollX = TRUE))
+output$Xdata <- DT::renderDT(
+DF3(),
+class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 type.num3 <- reactive({
 DF3() %>% select_if(is.numeric) %>% colnames()
@@ -189,7 +195,13 @@ sum <- reactive({
   return(res)
   })
 
-output$sum <- DT::renderDataTable({sum()}, options = list(scrollX = TRUE))
+output$sum <- DT::renderDT({sum()},
+  class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 fsum = reactive({
   x <- DF3()[,type.fac3()]
@@ -198,14 +210,14 @@ fsum = reactive({
 
 output$fsum = renderPrint({fsum()})
  
-output$download1 <- downloadHandler(
-     filename = function() {
-       "lr.des1.csv"
-     },
-     content = function(file) {
-       write.csv(sum(), file, row.names = TRUE)
-     }
-   )
+#output$download1 <- downloadHandler(
+#     filename = function() {
+#       "lr.des1.csv"
+#     },
+##     content = function(file) {
+#       write.csv(sum(), file, row.names = TRUE)
+ #    }
+#   )
  
  output$download2 <- downloadHandler(
      filename = function() {

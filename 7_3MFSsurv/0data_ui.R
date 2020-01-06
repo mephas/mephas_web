@@ -54,23 +54,25 @@ hr(),
 
 h4(tags$b("Step 2. Create a Survival Object")), 
 
-p(tags$b("1. Choose a Time Variable")),      
+#p(tags$b("1. Choose a Time Variable")),      
 
-radioButtons("time", "What kind of time do you use?", select="A",
+radioButtons("time", "1. What kind of time?", select="A",
   choiceNames = list(
-    HTML("Choice 1. Right-censored time: time-duration / follow-up"),
-    HTML("Choice 2. left-truncated right-censored time: start-end time-point")
+    HTML("Choice 1. <b>Right-censored time</b>: needs time duration / follow-up"),
+    HTML("Choice 2. <b>Left-truncated right-censored time</b>: needs start and end time points")
     ),
   choiceValues = list("A", "B" )
   ),
 
 uiOutput('t'),
 
-p(tags$b("Choice 2. Choose start-end time-points")),      
+p(tags$b("Choice 2. Left-truncated right-censored time: choose start-end time-points")),      
 uiOutput('t1'),
 uiOutput('t2'),
 
 uiOutput('c'),
+
+p(tags$b("3. Check the Survival Object")),      
 
 tags$style(type='text/css', '#surv {background-color: rgba(0,0,255,0.10); color: blue;}'),
 verbatimTextOutput("surv", placeholder = TRUE),
@@ -105,7 +107,7 @@ mainPanel(
 h4(tags$b("Output 1. Data Information")),
 p(tags$b("Data Preview")), 
 p(br()),
-DT::dataTableOutput("Xdata"),
+DT::DTOutput("Xdata"),
 
 p(tags$b("1. Continuous variable information list")),
 verbatimTextOutput("strnum"),
@@ -126,14 +128,14 @@ tabPanel("Basic Descriptives", p(br()),
 
 p(tags$b("1. Continuous variables")),
 
-DT::dataTableOutput("sum"),
+DT::DTOutput("sum"),
 
 p(tags$b("2. Categorical variables")),
 verbatimTextOutput("fsum"),
 tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 200px; background: white};")),
 
 
-downloadButton("download1", "Download Results (Continuous variables)"),
+#downloadButton("download1", "Download Results (Continuous variables)"),
 downloadButton("download2", "Download Results (Categorical variables)")
 
 ),

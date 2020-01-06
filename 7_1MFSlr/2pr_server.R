@@ -38,18 +38,18 @@ pred = eventReactive(input$B2,
 })
 
 pred.lm <- reactive({
-	cbind.data.frame("Predicted Y"=round(pred(), 4),newX())
+	cbind.data.frame("Predicted Y"=(pred()),newX())
 	})
 
 output$pred = DT::renderDT({
 pred.lm()
-},class="row-border", 
-  extensions = c('Buttons'), 
-  options = list(
+},
+class="row-border", 
+    extensions = 'Buttons', 
+    options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
-    scrollY = 290,
-    scroller = TRUE))
+    scrollX = TRUE))
 
 #output$download12 <- downloadHandler(
 #    filename = function() {
