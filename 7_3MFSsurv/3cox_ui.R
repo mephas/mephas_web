@@ -18,7 +18,7 @@ tags$head(tags$style("#cox_form {height: 100px; background: ghostwhite; color: b
 tags$head(tags$style("#str4 {overflow-y:scroll; height: 350px; background: white};")),
 tags$head(tags$style("#fitcx {overflow-y:scroll; height: 400px; background: white};")),
 tags$head(tags$style("#fitcx2 {overflow-y:scroll; height: 400px; background: white};")),
-#tags$head(tags$style("#step {overflow-y:scroll;height: 400px; background: white};")),
+tags$head(tags$style("#zph {overflow-y:scroll; height: 150px; background: white};")),
 
 
 ("Example data: NKI70"),      
@@ -105,14 +105,62 @@ HTML(
 )
 ),
 
+tabPanel("Test of Proportional Hazards", br(),
+    
+numericInput("num", HTML("Choose N'th variable"), value = 1, min = 1),
+
+plotOutput("zphplot", width = "500px", height = "400px"),
+
+DT::DTOutput("zph"),
+
+
+HTML(
+"
+<b> Explanations  </b>
+<ul>
+<li> For each variable, estimated coefficients (95% confidence interval), T statistic for the significance of single variable, and P value are given.
+<li> p < 0.05 indicates this variable is statistical significant to the model
+<li> Observations: the number of samples
+<li> Akaike Inf. Crit. = AIC = -2 (log likelihood) + 2k; k is the number of variables + constant
+<li> Table in the right shows OR; OR= exp(coefficients in the left)
+</ul>
+"
+)
+),
+
 tabPanel("Fitting", p(br()),
     p(tags$b("Fitting values and residuals from the existed data")),
     DT::DTOutput("fit.cox")
 ),
 
+tabPanel("Survival Curve", p(br()),
+    p(tags$b("This is the adjusted survival curves from Cox regression")),
+     plotOutput("splot", width = "500px", height = "400px"),
+
+HTML(
+     "
+<b> Explanations  </b>
+<ul>
+<li> this plot is to present expected survival curves calculated based on Cox model separately for subpopulations / strata
+<li> If there is no strata() component then only a single curve will be plotted - average for the whole population
+</ul>
+"
+)
+
+),
+
 tabPanel("Cox-Snell Plot", p(br()),
     
  plotOutput("csplot.cx", width = "500px", height = "400px")
+),
+tabPanel("Diagnostic Plot", p(br()),
+ 
+ p(tags$b("1. Martingale residuals plot by observational id")),   
+ plotOutput("diaplot1", width = "500px", height = "400px"),
+  
+ p(tags$b("2. Deviance residuals plot by observational id")),
+ plotOutput("diaplot2", width = "500px", height = "400px")
+
 )
 
 )

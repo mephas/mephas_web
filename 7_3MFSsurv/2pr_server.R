@@ -15,7 +15,7 @@
 newX = reactive({
   inFile = input$newfile
   if (is.null(inFile)){
-    x<-LGT.new
+    x<-Surv.new
     }
   else{
 if(!input$newcol){
@@ -33,86 +33,34 @@ return(as.data.frame(x))
 })
 #prediction plot
 # prediction
-pred = eventReactive(input$B2,
+pred = eventReactive(input$B1.1,
 {
-  res <- data.frame(lp = predict(fit(), newdata = newX(), type="link"),
-  predict= predict(fit(), newdata = newX(), type="response"))
+  res <- data.frame(
+  lp = predict(aftfit(), newdata = newX(), type="link"),
+  predict= predict(aftfit(), newdata = newX(), type="response"))
   colnames(res) <- c("Linear Predictors", "Predictors")
+  res <- cbind.data.frame(res, newX())
   return(res)
 })
 
-pred.lm <- reactive({
-	cbind.data.frame(round(pred(), 4), newX())
-	})
-
-output$pred = DT::renderDataTable({
-pred.lm()
+output$pred = DT::renderDT({
+pred()
 },
-options = list(scrollX = TRUE))
+extensions = 'Buttons', 
+options = list(
+dom = 'Bfrtip',
+buttons = c('copy', 'csv', 'excel'),
+scrollX = TRUE))
 
-output$download12 <- downloadHandler(
-    filename = function() {
-      "lm.pred.csv"
-    },
-    content = function(file) {
-      write.csv(pred.lm(), file, row.names = TRUE)
-    }
-  )
 
 
  output$p.s = renderPlot({
-  p <- ROCR::prediction(pred.lm()[,2], pred.lm()[,input$y])
-  ps <- ROCR::performance(p, "tpr", "fpr")
-  pf <- ROCR::performance(p, "auc")
+  ptime <- predict(aftfit(), newdata=pred()[input$line,], type='quantile', p=c(1:98/100), se=TRUE)
+  matplot(cbind(ptime$fit, ptime$fit + 1.96*ptime$se.fit,
+                           ptime$fit - 1.96*ptime$se.fit), 1-pct,
+        xlab="Time", ylab="Survival", type='l', lty=c(1,2,2), col=1)
 
-autoplot(ps)+ theme_minimal()+theme(legend.position="none") + ggtitle("") +
-annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
   })
 
-sst.s <- reactive({
-pred <- ROCR::prediction(pred.lm()[,2], pred.lm()[,input$y])
-perf <- ROCR::performance(pred,"sens","spec")
-perf2 <- data.frame(
-  sen=unlist(perf@y.values), 
-  spec=unlist(perf@x.values), 
-  spec2=1-unlist(perf@x.values), 
-  cut=unlist(perf@alpha.values))
-colnames(perf2) <- c("Sensitivity", "Specificity", "1-Specificity","Cut-off Point")
-return(perf2)
-  })
 
- output$sst.s = DT::renderDataTable({ round(sst.s(),6) })
 
-  output$download122 <- downloadHandler(
-     filename = function() {
-       "sens_spec.csv"
-     },
-     content = function(file) {
-       write.csv(sst.s(), file, row.names = TRUE)
-     }
-   )
-
-# sx <- reactive({input$x})
-# 
-# output$sx = renderUI({
-# selectInput(
-# 'sx',
-# tags$b('Choose one independent variables / factors / predictors (X)'),
-# selected = sx()[1],
-# choices = sx()
-# )
-# })
-# 
-# pred.s = eventReactive(input$B2,
-# {
-# pfit1 = predict(fit(), newdata = select(newX(), subset=c(input$sx)), interval = "prediction")
-# pfit2 = predict(fit(), newdata = select(newX(), subset=c(input$sx)), interval = "confidence")
-# mat <- cbind(pfit1, pfit2[,-1])
-# return(mat)
-# 
-# })
-# 
-# output$p.s = renderPlot({
-# 	graphics::matplot(
-# 		pred.s(), ty = c(1,2,2,3,3), type = "l", ylab = "predicted y")
-# 	})

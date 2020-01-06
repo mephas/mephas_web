@@ -27,7 +27,7 @@ p(tags$b("2. Show 1st row as column names?")),
 checkboxInput("newheader", "Yes", TRUE),
 
 p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-checkboxInput("newcol", "Yes", FALSE),
+checkboxInput("newcol", "Yes", TRUE),
 
      # Input: Select separator ----
 radioButtons("newsep", "4. Which separator for data?",
@@ -37,7 +37,7 @@ radioButtons("newsep", "4. Which separator for data?",
     HTML("Semicolon (;)"),
     HTML("One Space (_)")
     ),
-  choiceValues = list(",", ";", " ", "\t")
+  choiceValues = list(",", "\t", ";", " ")
   ),
 
 radioButtons("newquote", "5. Which quote for characters?",
@@ -52,31 +52,21 @@ p("Correct separator and quote ensures data input successfully")
 
 mainPanel(
 
-actionButton("B2", h4(tags$b("Click 2: Output. Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
+actionButton("B1.1", h4(tags$b("Click 2: Output. Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 p(br()),
 tabsetPanel(
 tabPanel("Prediction Table",p(br()),
-DT::dataTableOutput("pred"),
-downloadButton("download12", "Download Results")
+DT::DTOutput("pred")
 ),
 
-tabPanel("ROC Plot",p(br()),
-p("This is to show the ROC plot between predicted values and true values, based on the new data not used in the model."),
-plotOutput("p.s", width = "500px", height = "400px")
-),
+tabPanel("Predicted Survival Plot",p(br()),
+p("This is the predicted survival plot from one row of new data."),
 
-tabPanel(
-p("This is based on the new data not used in the model."),
-DT::dataTableOutput("sst.s"),
-downloadButton("download122", "Download Results")
+numericInput("line", HTML("Choose N'th line of new data to make plot"), value = 1, min = 1),
 
-  )
+plotOutput("p.s", width = "600px", height = "400px")
 )
-
-
-# h4(tags$b("Output 2. Prediction Plot between one independent variable (X) and dependent variable (Y)")),
-# uiOutput('sx'),  
-# plotOutput("p.s", width = "500px", height = "400px")
+)
 
 
 ) 

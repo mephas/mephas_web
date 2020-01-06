@@ -137,7 +137,7 @@ HTML(
 ),
 
 hr(),
-#source("2pr_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("2pr_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
 
@@ -192,7 +192,7 @@ HTML(
 ),
 
 hr(),
-#source("2pr_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("3pr_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
 ##---------- other panels ----------

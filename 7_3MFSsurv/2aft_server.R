@@ -77,7 +77,7 @@ return(res)
 
 fit.aft <- reactive({
  res <- data.frame(
-  Y = DF3()[,input$t],
+  #Y = DF3()[,input$t],
   lp = aftfit()$linear.predictors,
   fit = predict(aftfit(), type="response"),
   Residuals = resid(aftfit(),  type="response")
@@ -94,7 +94,6 @@ fit.aft <- reactive({
   })
 # 
  output$fit.aft = DT::renderDT(fit.aft(),
- class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
