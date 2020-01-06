@@ -80,7 +80,7 @@ h4(tags$b("Output 1. Data Preview")),
  DT::DTOutput("Xdata4")
  ),
  tabPanel("Variables information",p(br()),
- verbatimTextOutput("str4"), 
+ verbatimTextOutput("str4")
  )
  ),
  hr(),
