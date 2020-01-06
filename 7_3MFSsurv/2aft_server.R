@@ -76,8 +76,12 @@ return(res)
 })
 
 fit.aft <- reactive({
+
+if (input$t=="NUll") {y = DF3()[,input$t2]-DF3()[,input$t1]}
+else {y=DF3()[,input$t]}
+
  res <- data.frame(
-  #Y = DF3()[,input$t],
+  Y = y,
   lp = aftfit()$linear.predictors,
   fit = predict(aftfit(), type="response"),
   Residuals = resid(aftfit(),  type="response")
@@ -89,7 +93,7 @@ fit.aft <- reactive({
   if (input$dist=="lognormal") {res$csr <- -log(1-pnorm(std))}
   if (input$dist=="loglogistic") {res$csr <- -log(1-plogis(std))}
 
- colnames(res) <- c("Time", "Linear Part = bX", "Predicted Time","Residuals = Time - Predicted Time", "Cox-snell Residuals")
+ colnames(res) <- c("Times","Linear Part = bX", "Predicted Time","Residuals = Time - Predicted Time", "Cox-snell Residuals")
  return(res)
   })
 # 

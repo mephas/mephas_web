@@ -98,9 +98,11 @@ scrollX = TRUE))
 
 
 fit.cox <- reactive({
+if (input$t=="NUll") {y = DF3()[,input$t2]-DF3()[,input$t1]}
+else {y=DF3()[,input$t]}
  res <- data.frame(
-  #Y = DF3()[,input$t],
-  #E = DF3()[,input$c],
+  Y = y,
+  E = DF3()[,input$c],
   lp = coxfit()$linear.predictors,
   risk=exp(coxfit()$linear.predictors),
   expected=predict(coxfit(),type="expected"),
