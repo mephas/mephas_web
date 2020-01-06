@@ -5,6 +5,7 @@ if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(psych)) {install.packages("psych")}; library(psych)
 if (!require(reshape2)) {install.packages("reshape2")}; library(reshape2)
+if (!require(survAUC)) {install.packages("survAUC")}; library(survAUC)
   
 ##----------#----------#----------#----------
 ##
