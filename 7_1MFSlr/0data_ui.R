@@ -17,24 +17,24 @@ sidebarPanel(
   tags$head(tags$style("#strfac {overflow-y:scroll; height: 100px; background: white};")),
   tags$head(tags$style("#fsum {overflow-y:scroll; height: 100px; background: white};")),
 
-selectInput("edata", "Example Data", 
+selectInput("edata", h4(tags$b("Use example data (training set)")), 
         choices =  c("Birth weight"), 
         selected = "Birth weight"),
+hr(),
 
-h4(tags$b("Step 1. Upload Data File (Training Data)")), 
-##-------csv file-------##   
-p("We suggested the first variable is the dependent variable (Y)"),
-fileInput('file', "1. Choose CSV/TXT file",
-          accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-#helpText("The columns of X are not suggested greater than 500"),
-# Input: Checkbox if file has header ----
-p(tags$b("2. Show 1st row as column names?")),
+h4(tags$b("Use my own data (training set)")),
+p("We suggested putting the dependent variable (Y) in the left side of all independent variables (X) "),
+
+h4(tags$b("Step 1. Upload Data File")), 
+
+fileInput('file', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
+
+p(tags$b("2. Show 1st row as column names?")), 
 checkboxInput("header", "Yes", TRUE),
 
-p(tags$b("3. Use 1st column as row names? (No duplicates)")),
+p(tags$b("3. Use 1st column as row names? (No duplicates)")), 
 checkboxInput("col", "Yes", TRUE),
 
-     # Input: Select separator ----
 radioButtons("sep", "4. Which separator for data?",
   choiceNames = list(
     HTML("Comma (,): CSV often uses this"),
@@ -42,7 +42,7 @@ radioButtons("sep", "4. Which separator for data?",
     HTML("Semicolon (;)"),
     HTML("One Space (_)")
     ),
-          choiceValues = list(",", "\t", ";", " ")
+  choiceValues = list(",", "\t", ";", " ")
   ),
 
 radioButtons("quote", "5. Which quote for characters?",
@@ -73,7 +73,7 @@ uiOutput("lvl"),
 
 p(tags$b("2. Input the referential level, each line for one variable")),
 
-tags$textarea(id='ref', column=40, "")
+tags$textarea(id='ref',"")
 
 
 ),
@@ -111,7 +111,7 @@ downloadButton("download2", "Download Results (Categorical variable)")
 
 tabPanel("Linear fitting plot",p(br()),
 
-p("Linear fitting plot: to roughly show the linear relation between any two numeric variable. Grey area is confidence interval."),
+HTML("<p><b>Linear fitting plot</b>: to roughly show the linear relation between any two numeric variable. Grey area is 95% confidence interval.</p>"),
 
 uiOutput('tx'),
 uiOutput('ty'),
@@ -121,7 +121,7 @@ plotOutput("p1", width = "500px", height = "400px")
 
 tabPanel("Histogram", p(br()),
 
-p("Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values"),
+HTML("<p><b>Histogram</b>: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values.</p>"),
 uiOutput('hx'),
 plotOutput("p2", width = "500px", height = "400px"),
 sliderInput("bin", "The width of bins in the histogram", min = 0, max = 10, value = 1))

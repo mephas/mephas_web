@@ -23,6 +23,9 @@ headerPanel("Data Preparation"),
 
 HTML(
 "
+<b>linear regression</b> is a linear approach to modeling the relationship between a dependent variable and one or more independent variables. 
+The case of one explanatory variable is called simple <b>linear regression</b>. 
+For more than one explanatory variable, the process is called <b>multiple linear regression</b>.
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
@@ -43,7 +46,7 @@ HTML(
 <i><h4>Case Example</h4>
 
 Suppose in one study, the doctors recorded the birth weight of 10 infants, together with age (month), age group (a: age < 4 month, b; other wise), and SBP.
-We were interested to predict the birth weight of a infants, and find the relations between birth weight and the other variables. 
+We were interested (1) to predict the birth weight of a infants, and (2) find the relations between birth weight and the other variables. 
 
 </h4></i>
 
@@ -69,18 +72,19 @@ HTML(
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To build a linear regression model, given the dependent variables is continuous with underlying normal distribution.
-<li> To get the estimates of linear regressions, such as estimate of coefficient, model information, ANOVA table of variables, AIC-based best model selection, plots of residuals, and model predictions 
-<li> To get fitted values which are predicted from the existed data
+<li> To build a simple or multiple linear regression model
+<li> To get the estimates of linear regressions, including (1) estimate of coefficients with t test, p value, and 95% CI, (2) R<sup>2</sup> and adjusted R<sup>2</sup>, and (3) F-Test for overall significance in Regression 
+<li> Yo get the predicted dependent variable and residuals, (3) ANOVA table of model, (4) AIC-based variable selection, and (5) diagnostic plot based from the residuals and predicted dependent variable 
 </ul>
 
-<h4><b> 2. About your data  (training set)</b></h4>
+<h4><b> 2. About your data (training set)</b></h4>
 
 <ul>
+<li> The dependent variable is real-valued and continuous with underlying normal distribution.
 <li> Please prepare the training set data in the previous <b>Data</b> tab
 </ul> 
 
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
+<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
 ),
 
@@ -98,14 +102,15 @@ HTML(
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> If you have input the data and built a model in the previous tabs, you can upload new data and get the predictive results from new data.
+<li> To upload new data and get the prediction
+<li> To get the evaluation if new data contains new dependent variable
 </ul>
 
 <h4><b> 2. About your data (test set)</b></h4>
 
 <ul>
-<li> New data need to have all the independent variables in the model.
-<li> New data not used in the model is called <b> test set</b>
+<li> New data cover all the independent variables used in the model.
+<li> New data not used to build the model is called <b>test set</b>
 </ul> 
 
 <i><h4>Case Example</h4>

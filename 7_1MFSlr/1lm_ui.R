@@ -20,7 +20,7 @@ tags$head(tags$style("#fit {overflow-y:scroll; height: 400px; background: white}
 tags$head(tags$style("#step {overflow-y:scroll;height: 400px; background: white};")),
 
 
-h4("Example data: Birth weight"),      
+h4("Example data is upload in Data tab"),      
 
 h4(tags$b("Step 1. Choose variables to build the model")),      
 
@@ -28,24 +28,24 @@ uiOutput('y'),
 uiOutput('x'),
 #uiOutput('fx'),
 
-radioButtons("intercept", "3. Add or remove intercept/constant term, if you need", ##> intercept or not
-     choices = c("Remove intercept/constant" = "-1",
-                 "Keep intercept/constant term" = ""),
+radioButtons("intercept", "3. (Optional) Keep or remove intercept / constant term", ##> intercept or not
+     choices = c("Remove intercept / constant term" = "-1",
+                 "Keep intercept / constant term" = ""),
      selected = ""),
-p(tags$b("4. Add interaction term between categorical variables")), 
+p(tags$b("4. (Optional) Add interaction term between categorical variables")), 
 p('Please input: + var1:var2'), 
 tags$textarea(id='conf', " " ), 
 hr(),
-h4(tags$b("Step 2. Check Linear Regression Model")),
+h4(tags$b("Step 2. Check the model")),
 verbatimTextOutput("formula"),
-p("Note: '-1' in the formula indicates that intercept / constant term has been removed")
+p("'-1' in the formula indicates that intercept / constant term has been removed")
 ),
 
 mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
 tabsetPanel(
-tabPanel("Browse Data",p(br()),
+tabPanel("Browse",p(br()),
 p("This only shows the first several lines, please check full data in the 1st tab"),
 DT::DTOutput("Xdata2")
 ),
@@ -61,27 +61,28 @@ actionButton("B1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh"))
 p(br()),
 tabsetPanel(
 
-tabPanel("Model Estimation", 
-    verbatimTextOutput("fit"),
+tabPanel("Model Estimation", br(),
+    
 HTML(
 "
 <b> Explanations  </b>
 <ul>
-<li> For each variable, estimated coefficients (95% confidence interval), T statistic for the significance of single variable, and P value are given.
-<li> P < 0.05 indicates this variable is statistical significant to the model
-<li> Observations: the number of samples
-<li> R-squared is a goodness-of-fit measure for linear regression models, and indicates the percentage of the variance in the dependent variable that the independent variables explain collectively.
-<li> Adjusted R-squared is used to compare the goodness-of-fit for regression models that contain differing numbers of independent variables.
-<li> F statistic ( F- Test for overall significance in Regression ) judges on multiple coefficients taken together at the same time. F=(R^2/(k-1))/(1-R^2)/(n-k); n is sample size; k is number of variable + constant term
+<li> For each variable, estimated coefficients (95% confidence interval), T statistic (t = ) for the significance of single variable, and P value (p = ) are given
+<li> T test of each variable and P < 0.05 indicates this variable is statistical significant to the model
+<li> Observations means the number of samples
+<li> R2 (R<sup>2</sup>) is a goodness-of-fit measure for linear regression models, and indicates the percentage of the variance in the dependent variable that the independent variables explain collectively.
+<li> Adjusted R2 (adjusted R<sup>2</sup>) is used to compare the goodness-of-fit for regression models that contain differing numbers of independent variables.
+<li> F statistic (F-Test for overall significance in regression) judges on multiple coefficients taken together at the same time. 
+     F=(R^2/(k-1))/(1-R^2)/(n-k); n is sample size; k is number of variable + constant term
 </ul>
 "
-)
+),
+verbatimTextOutput("fit")
 
     ),
 
 tabPanel("Data Fitting", p(br()),
 
-    p(tags$b("Fitting values and residuals from the existed data")),
     DT::DTOutput("fitdt0")
 ),
 
@@ -90,11 +91,11 @@ tabPanel("ANOVA", p(br()),
 HTML(
 "<b> Explanations </b>
 <ul> 
-<li> DF<sub>Factor</sub> = [number of factor group categories] -1
-<li> DF<sub>Residuals</sub> = [number of sample values] - [number of factor group categories]
+<li> DF<sub>variable</sub> = 1
+<li> DF<sub>residual</sub> = [number of sample values] - [number of variables] -1
 <li> MS = SS/DF
-<li> F = MS<sub>Factor</sub> / MS<sub>Residuals</sub> 
-<li> P Value < 0.05, then the variable is significant to the model. (Accept alternative hypothesis)
+<li> F = MS<sub>variable</sub> / MS<sub>residual</sub> 
+<li> P Value < 0.05:  the variable is significant to the model.
 </ul>"
     ),
     p(tags$b("ANOVA Table")),  
@@ -104,7 +105,9 @@ tabPanel("AIC-based Selection", p(br()),
     HTML(
     "<b> Explanations </b>
   <ul> 
-    <li> The Akaike Information Criterion (AIC) is a way of selecting a model from a set of models. When model fits are ranked according to their AIC values, the model with the lowest AIC value is sometime considered the ‘best’. 
+    <li> The Akaike Information Criterion (AIC) is a way of selecting a model from a set of models. 
+    <li> Model fits are ranked according to their AIC values, and the model with the lowest AIC value is sometime considered the ‘best’. 
+    <li> This selection is just for your reference.
   </ul>"
     ),
 
@@ -117,8 +120,8 @@ tabPanel("Diagnostics Plot",  p(br()),
 HTML(
 "<b> Explanations </b>
 <ul> 
-<li> <b>Q-Q normal plot</b> of residuals checks the normality of residuals. The linearity of the points suggests that the data are normally distributed.
-<li> <b>Residuals vs Fitting</b> plot finds the outliers
+<li> Q-Q normal plot of residuals checks the normality of residuals. The linearity of the points suggests that the data are normally distributed.
+<li> Residuals vs fitting plot finds the outliers
 </ul>"
 ),
 p(tags$b("1. Q-Q normal plot of residuals")),
