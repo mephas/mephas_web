@@ -23,7 +23,7 @@ headerPanel("Data Preparation"),
 
 HTML(
 "
-<b>linear regression</b> is a linear approach to modeling the relationship between a dependent variable and one or more independent variables. 
+<b>Linear regression</b> is a linear approach to modeling the relationship between a dependent variable and one or more independent variables. 
 The case of one explanatory variable is called simple <b>linear regression</b>. 
 For more than one explanatory variable, the process is called <b>multiple linear regression</b>.
 
@@ -46,7 +46,8 @@ For more than one explanatory variable, the process is called <b>multiple linear
 <i><h4>Case Example</h4>
 
 Suppose in one study, the doctors recorded the birth weight of 10 infants, together with age (month), age group (a: age < 4 month, b; other wise), and SBP.
-We were interested (1) to predict the birth weight of a infants, and (2) find the relations between birth weight and the other variables. 
+We were interested (1) to predict the birth weight of a infants, 
+and (2) find the relations between birth weight and the other variables, that is, to find out which variable contributes greatly to the dependent variable.
 
 </h4></i>
 
@@ -73,8 +74,8 @@ HTML(
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To build a simple or multiple linear regression model
-<li> To get the estimates of linear regressions, including (1) estimate of coefficients with t test, p value, and 95% CI, (2) R<sup>2</sup> and adjusted R<sup>2</sup>, and (3) F-Test for overall significance in Regression 
-<li> Yo get the predicted dependent variable and residuals, (3) ANOVA table of model, (4) AIC-based variable selection, and (5) diagnostic plot based from the residuals and predicted dependent variable 
+<li> To get the estimates of regressions, including (1) estimate of coefficients with t test, p value, and 95% CI, (2) R<sup>2</sup> and adjusted R<sup>2</sup>, and (3) F-Test for overall significance in Regression 
+<li> To get additional information: (1) predicted dependent variable and residuals, (2) ANOVA table of model, (3) AIC-based variable selection, and (4) diagnostic plot based from the residuals and predicted dependent variable 
 </ul>
 
 <h4><b> 2. About your data (training set)</b></h4>
@@ -119,7 +120,7 @@ Suppose in the same study, the doctors got another 6 infants data, and wanted to
 
 </h4></i>
 
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
+<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
 ),
 

@@ -25,7 +25,7 @@ pred = eventReactive(input$B2,
 {
   res <- data.frame(lp = predict(fit(), newdata = newX(), type="link"),
   predict= predict(fit(), newdata = newX(), type="response"))
-  colnames(res) <- c("Linear Predictors", "Predictors")
+  colnames(res) <- c("Linear Predictors", "Predicted Y")
   return(res)
 })
 
@@ -34,7 +34,6 @@ pred.lm <- reactive({
 	})
 
 output$pred = DT::renderDT(pred.lm(),
- class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -42,6 +41,8 @@ output$pred = DT::renderDT(pred.lm(),
     scrollX = TRUE))
 
  output$p.s = renderPlot({
+  validate(need((pred.lm()[, input$y]), "This evaluation plot will not show unless dependent variable Y is given in the new data"))
+
   p <- ROCR::prediction(pred.lm()[,2], pred.lm()[,input$y])
   ps <- ROCR::performance(p, "tpr", "fpr")
   pf <- ROCR::performance(p, "auc")
@@ -60,6 +61,8 @@ ggplot(df, aes(fpr,tpr)) +
   })
 
 sst.s <- reactive({
+validate(need((pred.lm()[, input$y]), "This evaluation plot will not show unless dependent variable Y is given in the new data"))
+
 pred <- ROCR::prediction(pred.lm()[,2], pred.lm()[,input$y])
 perf <- ROCR::performance(pred,"sens","spec")
 perf2 <- data.frame(
@@ -72,7 +75,6 @@ return(perf2)
   })
 
  output$sst.s = DT::renderDT((sst.s()),
-   class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

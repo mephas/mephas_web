@@ -45,11 +45,11 @@ mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
 tabsetPanel(
-tabPanel("Browse",p(br()),
+tabPanel("Browse", br(),
 p("This only shows the first several lines, please check full data in the 1st tab"),
 DT::DTOutput("Xdata2")
 ),
-tabPanel("Variables information",p(br()),
+tabPanel("Variables information", br(),
 verbatimTextOutput("str")
 
 )
@@ -58,10 +58,10 @@ hr(),
 
 #h4(tags$b("Output 2. Model Results")),
 actionButton("B1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-p(br()),
+ p(br()),
 tabsetPanel(
 
-tabPanel("Model Estimation", br(),
+tabPanel("Model Estimation",  br(),
     
 HTML(
 "
@@ -71,6 +71,7 @@ HTML(
 <li> T test of each variable and P < 0.05 indicates this variable is statistical significant to the model
 <li> Observations means the number of samples
 <li> R2 (R<sup>2</sup>) is a goodness-of-fit measure for linear regression models, and indicates the percentage of the variance in the dependent variable that the independent variables explain collectively.
+Suppose R2 = 0.49. This implies that 49% of the variability of the dependent variable has been accounted for, and the remaining 51% of the variability is still unaccounted for.
 <li> Adjusted R2 (adjusted R<sup>2</sup>) is used to compare the goodness-of-fit for regression models that contain differing numbers of independent variables.
 <li> F statistic (F-Test for overall significance in regression) judges on multiple coefficients taken together at the same time. 
      F=(R^2/(k-1))/(1-R^2)/(n-k); n is sample size; k is number of variable + constant term
@@ -81,12 +82,12 @@ verbatimTextOutput("fit")
 
     ),
 
-tabPanel("Data Fitting", p(br()),
+tabPanel("Data Fitting",  br(),
 
     DT::DTOutput("fitdt0")
 ),
 
-tabPanel("ANOVA", p(br()),
+tabPanel("ANOVA",  br(),
 
 HTML(
 "<b> Explanations </b>
@@ -101,7 +102,7 @@ HTML(
     p(tags$b("ANOVA Table")),  
     DT::DTOutput("anova")),
 
-tabPanel("AIC-based Selection", p(br()),
+tabPanel("AIC-based Selection",  br(),
     HTML(
     "<b> Explanations </b>
   <ul> 
@@ -116,7 +117,7 @@ tabPanel("AIC-based Selection", p(br()),
 
     ),
 
-tabPanel("Diagnostics Plot",  p(br()),
+tabPanel("Diagnostics Plot",   br(),
 HTML(
 "<b> Explanations </b>
 <ul> 

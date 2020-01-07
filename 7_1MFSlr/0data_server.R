@@ -177,6 +177,7 @@ output$tx = renderUI({
  
  ## scatter plot
  output$p1 = renderPlot({
+
    ggplot(DF3(), aes(x = DF3()[, input$tx], y = DF3()[, input$ty])) + geom_point(shape = 1) + 
      geom_smooth(method = "lm") + xlab(input$tx) + ylab(input$ty) + theme_minimal()
    })

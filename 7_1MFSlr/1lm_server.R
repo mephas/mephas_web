@@ -96,8 +96,8 @@ output$anova = DT::renderDT({(afit())},
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-sp = reactive({step(fit())})
-output$step = renderPrint({sp()})
+#sp = reactive({step(fit())})
+output$step = renderPrint({step(fit())})
 
 # 
 # # residual plot

@@ -51,7 +51,7 @@ choices = c("None" = "",
            "Single Quote" = "'"),
 selected = '"'),
 
-p("Correct separator and quote ensures data input successfully")
+p("Correct separator and quote ensure the successful data input"),
 ),
 
 
@@ -61,7 +61,7 @@ actionButton("B2", h4(tags$b("Click 2: Output. Prediction Results / Refresh, giv
 p(br()),
 tabsetPanel(
 tabPanel("Prediction",p(br()),
-  p("Predicted dependent variable is shown in the 1st column"),
+p("Predicted dependent variable is shown in the 1st column"),
 DT::DTOutput("pred")
 ),
 
@@ -71,9 +71,6 @@ p("This plot is shown when new dependent variable is provided in the test data."
 p("This plot shows the relation between predicted dependent variable and new dependent variable, using linear smooth. Grey area is confidence interval."),
 plotOutput("p.s", width = "500px", height = "400px")
 )
-)
-# h4(tags$b("Output 2. Prediction Plot between one independent variable (X) and dependent variable (Y)")),
-# uiOutput('sx'),  
-# 
+) 
 ) 
 )

@@ -23,25 +23,31 @@ headerPanel("Data Preparation"),
 
 HTML(
 "
+<b>Logistic regression</b> is used to model the probability of a certain class or event existing such as pass/fail, win/lose, alive/dead or healthy/sick. 
+Logistic regression uses a logistic function to model a binary dependent variable.
+
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To get your data prepared for logistic regression model
-<li> To change the type of some variables for linear regression model
-<li> To get the basic descriptive statistics of the variables in your data
-<li> To get the descriptive statistics plot of the variables in your data
+<li> To upload data file, preview data set, and check the correctness of data input 
+<li> To pre-process some variables (when necessary) for building the linear regression
+<li> To get the basic descriptive statistics and plots of the variables 
 </ul>
 
 <h4><b> 2. About your data (training set) </b></h4>
 
 <ul>
-<li> Your data need to include one binary dependent variable (outcome/response) as Y (Y=1/0, or a 2-level factor), and >=1 independent variables (factors/predictors)
+<li> Your data need to include <b>one dependent variable (denoted as Y)</b> and <b> at least one independent variables (denoted as X)</b>
 <li> Your data need to have more rows than columns
 <li> Do not mix character and numbers in the same column 
 <li> The data used to build model is called <b>training set</b>
 </ul> 
 
 <i><h4>Case Example</h4>
-Suppose we wanted to explore the Breast Cancer dataset and develop a model to try classifying suspected cells to Benign (B) or Malignant (M).
+
+Suppose we wanted to explore the Breast Cancer dataset and develop a model to try classifying suspected cells to Benign (B) or Malignant (M). 
+The dependent variable is binary outcome (B/M). We were interested (1) to build a model which calculates the probability of benign or malignant and then help us to determine whether the patient is benign or malignant, 
+and (2) find the relations between binary dependent variable and the other variables, that is find out which variable contributes greatly to the dependent variable.
+
 
 </h4></i>
 
@@ -65,18 +71,18 @@ HTML(
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To build a logistic regression model, given the dependent variables is binary with underlying binomial distribution.
-<li> To get the estimates of linear regressions, such as estimate of coefficient, model information, AIC-based best model selection,ROC plot, sensitivity and specificity table, and model predictions 
-<li> To get fitted values which are predicted from the existed data
+<li> To build simple or multiple logistic regression model
+<li> To get the estimates of regressions, including (1) estimate of coefficients with t test, p value, and 95% CI, (2) R<sup>2</sup> and adjusted R<sup>2</sup>, and (3) F-Test for overall significance in Regression 
+<li> To get additional information: (1) predicted dependent variable and residuals, (2) AIC-based variable selection, (3) ROC plot, and (4) sensitivity and specificity table for ROC plot
 </ul>
 
 <h4><b> 2. About your data </b></h4>
 
 <ul>
-<li> Please prepare the data in the Data tab
-</ul> 
+<li> The dependent variable is binary
+<li> Please prepare the training set data in the previous <b>Data</b> tab</ul> 
 
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
+<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
 ),
 
@@ -93,17 +99,24 @@ HTML(
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> If you have input the data and built a model in the previous tabs, you can upload new data and get the predictive results.
+<li> To upload new data and get the prediction
+<li> To get the evaluation if new data contains new dependent variable
 </ul>
 
-<h4><b> 2. About your data (test set) </b></h4>
+<h4><b> 2. About your data (test set)</b></h4>
 
 <ul>
-<li> New data need to have all the independent variables in the model.
-<li> New data not used in the model is called <b> test set</b>
+<li> New data cover all the independent variables used in the model.
+<li> New data not used to build the model is called <b>test set</b>
 </ul> 
 
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
+<i><h4>Case Example</h4>
+
+Suppose in the same study, we got the new data, and wanted to classify the patients based on the model we build.
+
+</h4></i>
+
+<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
 ),
 

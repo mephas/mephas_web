@@ -19,24 +19,26 @@ sidebarPanel(
   tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 200px; background: white};")),
   tags$head(tags$style("#kmat1 {overflow-y:scroll; max-height: 200px; background: white};")),
 
-selectInput("edata", "Example Data", 
+selectInput("edata", h4(tags$b("Use example data (training set)")), 
         choices =  c("NKI70"), 
         selected = "NKI70"),
 
+hr(),
+
+h4(tags$b("Use my own data (training set)")),
+p("We suggested putting the survival time variable and censoring variable in the left side of all independent variables (X) "),
+
 h4(tags$b("Step 1. Upload Data File")), 
-##-------csv file-------##   
-p("We suggest the first variable is the dependent variable (Y) / outcome /response "),
-fileInput('file', "Choose CSV/TXT file",
+
+fileInput('file', "1. Choose CSV/TXT file",
           accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-#helpText("The columns of X are not suggested greater than 500"),
-# Input: Checkbox if file has header ----
+
 p(tags$b("2. Show 1st row as column names?")),
 checkboxInput("header", "Yes", TRUE),
 
 p(tags$b("3. Use 1st column as row names? (No duplicates)")),
 checkboxInput("col", "Yes", TRUE),
 
-     # Input: Select separator ----
 radioButtons("sep", "4. Which separator for data?",
   choiceNames = list(
     HTML("Comma (,): CSV often use this"),
@@ -44,7 +46,7 @@ radioButtons("sep", "4. Which separator for data?",
     HTML("Semicolon (;)"),
     HTML("One Space (_)")
     ),
-          choiceValues = list(",", "\t", ";", " ")
+  choiceValues = list(",", "\t", ";", " ")
   ),
 
 radioButtons("quote", "5. Which quote for characters?",
@@ -56,6 +58,7 @@ selected = '"'),
 p("Correct separator and quote ensures data input successfully"),
 
 a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets"),
+
 hr(),
 
 h4(tags$b("Step 2. Create a Survival Object")), 

@@ -16,7 +16,7 @@ choices = type.bi())
 })
 
 DF4 <- reactive({
-  df <-select(DF3(), subset=c(-input$y))
+  df <-DF3()[ ,-which(names(DF3()) %in% c(input$y))]
 return(df)
   })
 
@@ -38,6 +38,7 @@ output$str <- renderPrint({str(DF3())})
 
 ##3. regression formula
 formula = reactive({
+validate(need(input$x, "Please choose some independent variable"))
 as.formula(paste0(input$y,' ~ ',paste0(input$x, collapse = "+"), 
 	input$conf, 
   input$intercept)
@@ -46,7 +47,8 @@ as.formula(paste0(input$y,' ~ ',paste0(input$x, collapse = "+"),
 })
 
 output$formula = renderPrint({
-validate(need(length(levels(as.factor(DF3()[, input$y])))==2, "Please choose a binary variable as Y")) 
+#validate(need(length(levels(as.factor(DF3()[, input$y])))==2, "Please choose a binary variable as Y")) 
+validate(need(input$x, "Please choose some independent variable"))
 #formula()
 cat(paste0(input$y,' ~ ',paste0(input$x, collapse = " + "), 
   input$conf, 
@@ -56,6 +58,7 @@ cat(paste0(input$y,' ~ ',paste0(input$x, collapse = " + "),
 ## 4. output results
 ### 4.2. model
 fit = eventReactive(input$B1, {
+validate(need(input$x, "Please choose some independent variable"))
 glm(formula(),family = binomial(link = "logit"), data = DF3())
           })
 
@@ -88,27 +91,19 @@ header=FALSE,
 dep.var.caption="Logistic Regression in Odds Ratio",
 dep.var.labels = paste("Y = ",input$y),
 type = "text",
-style = "all",
+style = "all2",
 apply.coef = exp,
-apply.ci = exp,
+apply.ci = NULL,
 align = TRUE,
-ci = TRUE,
+ci = FALSE,
 single.row = TRUE,
 title=paste(Sys.time()),
 model.names = FALSE
 )
 })
 
-#afit = eventReactive(input$B1, {
-#  res.table <- anova(fit())
-#  colnames(res.table) <- c("Degree of Freedom (DF)", "Sum of Squares (SS)", "Mean Squares (MS)", "F Statistic", "P Value")
-#  return(res.table)
-#  })
-
-#output$anova = renderTable({afit()}, rownames = TRUE)
-
-sp = eventReactive(input$B1, {step(fit())})
-output$step = renderPrint({sp()})
+#sp = reactive({step(fit())})
+output$step = renderPrint({step(fit())})
 
 # 
 # # residual plot
@@ -131,16 +126,17 @@ ggplot(df, aes(fpr,tpr)) +
 	})
 # 
  fit.lm <- reactive({
- res <- data.frame(Y=DF3()[,input$y],
+ res <- data.frame(
+  Y=DF3()[,input$y],
+  nY=fit()$y,
  Fittings = (fit()[["linear.predictors"]]),
  Residuals = (fit()[["fitted.values"]])
  )
- colnames(res) <- c("Dependent Variable = Y", "Linear Predictors = bX", "Predicted Y = 1/(1+exp(-bX))")
+ colnames(res) <- c("Dependent Variable = Y", "Numeric Y", "Linear Predictors = bX", "Predicted Y = 1/(1+exp(-bX))")
  return(res)
  	})
 # 
  output$fitdt0 = DT::renderDT(fit.lm(),
- class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -161,7 +157,6 @@ return(perf2)
   })
 
  output$sst = DT::renderDT(sst(),
-  class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
