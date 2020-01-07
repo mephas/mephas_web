@@ -44,12 +44,11 @@ pred.lm <- reactive({
 output$pred = DT::renderDT({
 pred.lm()
 },
-class="row-border", 
-    extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+extensions = 'Buttons', 
+options = list(
+dom = 'Bfrtip',
+buttons = c('copy', 'csv', 'excel'),
+scrollX = TRUE))
 
 #output$download12 <- downloadHandler(
 #    filename = function() {
@@ -60,13 +59,12 @@ class="row-border",
 #    }
 #  )
 
- output$p.s = plotly::renderPlotly({
-  validate(need((pred.lm()[, input$y]), "This figure will not show unless Y is given in the new data"))
+ output$p.s = renderPlot({
+  validate(need((pred.lm()[, input$y]), "This evaluation plot will not show unless dependent variable Y is given in the new data"))
   min = min(c(pred.lm()[, input$y], pred.lm()[, 1]))
   max = max(c(pred.lm()[, input$y], pred.lm()[, 1]))
-   p <- ggplot(pred.lm(), aes(x = pred.lm()[, input$y], y = pred.lm()[, 1])) + geom_point(shape = 1) + 
+  ggplot(pred.lm(), aes(x = pred.lm()[, input$y], y = pred.lm()[, 1])) + geom_point(shape = 1) + 
      geom_smooth(method = "lm") + xlab(input$y) + ylab("Prediction") + xlim(min, max)+ ylim(min, max)+ theme_minimal()
-plotly::ggplotly(p)
    })
 
 

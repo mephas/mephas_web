@@ -112,7 +112,7 @@ output$step = renderPrint({sp()})
 
 # 
 # # residual plot
- output$p.lm = plotly::renderPlotly({
+ output$p.lm = renderPlot({
 
   p <- ROCR::prediction(predict(fit()), DF3()[,input$y])
   ps <- ROCR::performance(p, "tpr", "fpr")
@@ -121,14 +121,13 @@ output$step = renderPrint({sp()})
   df <- data.frame(tpr=unlist(ps@y.values), 
     fpr=unlist(ps@x.values))
 
-p<-ggplot(df, aes(fpr,tpr)) + 
+ggplot(df, aes(fpr,tpr)) + 
   geom_step() +
   coord_cartesian(xlim=c(0,1), ylim=c(0,1)) +
   theme_minimal()+ ggtitle("") +
   xlab("False positive rate (1-specificity)")+
-  ylab("True positive rate (sensitivity)")
+  ylab("True positive rate (sensitivity)")+
   annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
-plotly::ggplotly(p)
 	})
 # 
  fit.lm <- reactive({

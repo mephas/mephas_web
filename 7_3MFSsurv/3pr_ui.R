@@ -59,7 +59,7 @@ tabPanel("Prediction Table",p(br()),
 DT::DTOutput("pred2")
 ),
 
-tabPanel("Brier Score Plot",p(br()),
+tabPanel("Brier Score",p(br()),
 
 numericInput("ss", HTML("Set time series start point"), value = 1, min = 0),
 numericInput("ee", HTML("Set time series end point"), value = 10, min = 1),
@@ -71,7 +71,7 @@ DT::DTOutput("bstab")
 
 ),
 
-tabPanel("AUC Plot",p(br()),
+tabPanel("Time Dependent AUC",p(br()),
 
 numericInput("ss1", HTML("Set time series start point"), value = 1, min = 0),
 numericInput("ee1", HTML("Set time series end point"), value = 10, min = 1),

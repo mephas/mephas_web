@@ -59,9 +59,10 @@ tabPanel("Prediction",p(br()),
 DT::DTOutput("pred")
 ),
 
-tabPanel("Prediction vs True Dependent Variable Plot",p(br()),
-p("This is to show the relation between predicted values and true values, using Linear Smooth. Grey area is confidence interval."),
-plotly::plotlyOutput("p.s", width = "500px", height = "400px")
+tabPanel("Evaluation Plot",p(br()),
+p(tags$b("Prediction vs True Dependent Variable Plot")),
+p("This plot shows the relation between predicted values and true values, using linear smooth. Grey area is confidence interval."),
+plotOutput("p.s", width = "500px", height = "400px")
 )
 )
 # h4(tags$b("Output 2. Prediction Plot between one independent variable (X) and dependent variable (Y)")),

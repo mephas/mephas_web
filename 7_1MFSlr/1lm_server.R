@@ -14,21 +14,21 @@
 output$y = renderUI({
 selectInput(
 'y',
-tags$b('1. Choose a dependent variable / outcome / response (Y), numeric'),
+tags$b('1. Choose one dependent variable (Y), real-valued numeric'),
 selected = type.num3()[1],
 choices = type.num3()
 )
 })
 
 DF4 <- reactive({
-  df <-select(DF3(), subset=c(-input$y))
+  df <-DF3()[ ,-which(names(DF3()) %in% c(input$y))]
 return(df)
   })
 
 output$x = renderUI({
 selectInput(
 'x',
-tags$b('2. Choose independent variables / factors / predictors (X)'),
+tags$b('2. Choose some independent variables (X)'),
 selected = names(DF4())[1],
 choices = names(DF4()),
 multiple = TRUE
@@ -43,7 +43,7 @@ output$str <- renderPrint({str(DF3())})
 
 ##3. regression formula
 formula = reactive({
-
+validate(need(input$x, "Please choose some independent variable"))
 as.formula(paste0(input$y,' ~ ',paste0(input$x, collapse = "+"), 
 	input$conf, 
   input$intercept)
@@ -52,6 +52,7 @@ as.formula(paste0(input$y,' ~ ',paste0(input$x, collapse = "+"),
 })
 
 output$formula = renderPrint({
+validate(need(input$x, "Please choose some independent variable"))
 cat(paste0(input$y,' ~ ',paste0(input$x, collapse = " + "), 
   input$conf, 
   input$intercept))
@@ -60,14 +61,10 @@ cat(paste0(input$y,' ~ ',paste0(input$x, collapse = " + "),
 ## 4. output results
 ### 4.2. model
 fit = eventReactive(input$B1, {
+validate(need(input$x, "Please choose some independent variable"))
 lm(formula(), data = DF3())
 })
 
-
-#gfit = eventReactive(input$B1, {
-#  glm(formula(), data = DF3())
-#})
-# 
  output$fit = renderPrint({
  stargazer::stargazer(
  fit(),
@@ -86,46 +83,42 @@ lm(formula(), data = DF3())
  
  })
 
-afit = eventReactive(input$B1, {
+afit = reactive( {
   res.table <- anova(fit())
   colnames(res.table) <- c("Degree of Freedom (DF)", "Sum of Squares (SS)", "Mean Squares (MS)", "F Statistic", "P Value")
   return(res.table)
   })
 
 output$anova = DT::renderDT({(afit())},
-  class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-sp = eventReactive(input$B1, {step(fit())})
+sp = reactive({step(fit())})
 output$step = renderPrint({sp()})
 
 # 
 # # residual plot
-output$p.lm1 = plotly::renderPlotly({
+output$p.lm1 = renderPlot({
 
 x <-data.frame(res=fit()$residuals)
-p <- ggplot(x, aes(sample = res)) + 
+ggplot(x, aes(sample = res)) + 
 stat_qq() + 
 ggtitle("") + 
 xlab("") + 
 theme_minimal()  ## add line,
-plotly::ggplotly(p)
 	})
 
-output$p.lm2 = plotly::renderPlotly({
+output$p.lm2 = renderPlot({
 x <- data.frame(fit=fit()$fitted.values, res=fit()$residuals)
-p<- ggplot(x, aes(fit, res))+
+ggplot(x, aes(fit, res))+
 geom_point()+
 stat_smooth(method="loess")+
 geom_hline(yintercept=0, col="red", linetype="dashed")+
 xlab("Fitted values")+ylab("Residuals")+
 ggtitle("")+theme_minimal()
-
-plotly::ggplotly(p)
   })
 # 
  fit.lm <- reactive({
@@ -137,62 +130,9 @@ plotly::ggplotly(p)
  return(res)
  	})
 # 
- output$fitdt0 = DT::renderDT(fit.lm(),
- class="row-border", 
-    extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
-# 
-
-# newX = reactive({
-# inFile = input$newfile
-# if (is.null(inFile))
-# {
-# df = DF3()[1:10, ] ##>  example data
-# }
-# else{
-# df = read.csv(
-# inFile$datapath,
-# header = input$newheader,
-# sep = input$newsep,
-# quote = input$newquote
-# )
-# }
-# return(df)
-# })
- #prediction plot
-# # prediction
-# pred = eventReactive(input$B2,
-# {
-# fit = lm(formula(), data = DF3())
-# pfit = predict(fit, newdata = newDF3(), interval = input$interval)
-# })
-# 
-# pred.lm <- reactive({
-# 	cbind(newDF3(), round(pred(), 4))
-# 	})
-# 
-# output$pred = renderDT({
-# pred.lm()
-# }, 
-# options = list(pageLength = 5, scrollX = TRUE))
-# 
-# output$download12 <- downloadHandler(
-#     filename = function() {
-#       "lm.pred.csv"
-#     },
-#     content = function(file) {
-#       write.csv(pred.lm(), file, row.names = TRUE)
-#     }
-#   )
-# 
-# output$px = renderUI({
-# selectInput(
-# 'px',
-# h5('Choose one independent Variable (X)'),
-# selected = "NULL",
-# choices = c("NULL", names(newDF3()))
-# )
-# })
+output$fitdt0 = DT::renderDT(fit.lm(),
+extensions = 'Buttons', 
+options = list(
+dom = 'Bfrtip',
+buttons = c('copy', 'csv', 'excel'),
+scrollX = TRUE))

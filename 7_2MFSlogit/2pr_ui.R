@@ -61,7 +61,7 @@ DT::DTOutput("pred")
 
 tabPanel("ROC Plot",p(br()),
 p("This is to show the ROC plot between predicted values and true values, based on the new data not used in the model."),
-plotly::plotlyOutput("p.s", width = "500px", height = "400px")
+plotOutput("p.s", width = "500px", height = "400px")
 ),
 
 tabPanel(

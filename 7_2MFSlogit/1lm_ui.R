@@ -88,7 +88,7 @@ tabPanel("AIC-based Selection", p(br()),
     ),
 
 tabPanel("ROC Plot",  p(br()),
-    plotly::plotlyOutput("p.lm", width = "500px", height = "400px")
+    plotOutput("p.lm", width = "500px", height = "400px")
     ),
 
 tabPanel("Sensitivity and Specificity",  p(br()),

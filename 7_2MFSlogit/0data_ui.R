@@ -103,14 +103,14 @@ p("This is to show the relation between any two numeric variables"),
 uiOutput('tx'),
 uiOutput('ty'),
 
-plotly::plotlyOutput("p1", width = "500px", height = "400px")
+plotOutput("p1", width = "500px", height = "400px")
 ),
 
 tabPanel("Histogram", p(br()),
 
 p("This is to show the distribution of any numeric variable"),
 uiOutput('hx'),
-plotly::plotlyOutput("p2", width = "500px", height = "400px"),
+plotOutput("p2", width = "500px", height = "400px"),
 sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 5, value = 1))
 
 )

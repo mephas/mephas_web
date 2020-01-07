@@ -26,16 +26,15 @@ HTML(
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To get your data prepared for linear regression model
-<li> To change the type of some variables for linear regression model
-<li> To get the basic descriptive statistics of the variables in your data
-<li> To get the descriptive statistics plot of the variables in your data
+<li> To upload data file, preview data set, and check the correctness of data input 
+<li> To pre-process some variables (when necessary) for building the linear regression
+<li> To get the basic descriptive statistics and plots of the variables 
 </ul>
 
 <h4><b> 2. About your data (training set)</b></h4>
 
 <ul>
-<li> Your data need to include one dependent variable (outcome/response) as Y, and >=1 independent variables (factors/predictors)
+<li> Your data need to include <b>one dependent variable (denoted as Y)</b> and <b> at least one independent variables (denoted as X)</b>
 <li> Your data need to have more rows than columns
 <li> Do not mix character and numbers in the same column 
 <li> The data used to build model is called <b>training set</b>
@@ -49,7 +48,7 @@ We were interested to predict the birth weight of a infants, and find the relati
 </h4></i>
 
 
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please build the model in the next tab.</h4>
 "
 ),
 
@@ -75,10 +74,10 @@ HTML(
 <li> To get fitted values which are predicted from the existed data
 </ul>
 
-<h4><b> 2. About your data </b></h4>
+<h4><b> 2. About your data  (training set)</b></h4>
 
 <ul>
-<li> Please prepare the data in the Data tab
+<li> Please prepare the training set data in the previous <b>Data</b> tab
 </ul> 
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>

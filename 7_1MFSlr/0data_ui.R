@@ -23,8 +23,8 @@ selectInput("edata", "Example Data",
 
 h4(tags$b("Step 1. Upload Data File (Training Data)")), 
 ##-------csv file-------##   
-p("We suggest the first variable is the dependent variable (Y) / outcome /response "),
-fileInput('file', "Choose CSV/TXT file",
+p("We suggested the first variable is the dependent variable (Y)"),
+fileInput('file', "1. Choose CSV/TXT file",
           accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 #helpText("The columns of X are not suggested greater than 500"),
 # Input: Checkbox if file has header ----
@@ -37,8 +37,8 @@ checkboxInput("col", "Yes", TRUE),
      # Input: Select separator ----
 radioButtons("sep", "4. Which separator for data?",
   choiceNames = list(
-    HTML("Comma (,): CSV often use this"),
-    HTML("One Tab (->|): TXT often use this"),
+    HTML("Comma (,): CSV often uses this"),
+    HTML("One Tab (->|): TXT often uses this"),
     HTML("Semicolon (;)"),
     HTML("One Space (_)")
     ),
@@ -51,26 +51,27 @@ choices = c("None" = "",
            "Single Quote" = "'"),
 selected = '"'),
 
-p("Correct separator and quote ensures data input successfully"),
+p("Correct separator and quote ensure the successful data input"),
 
 a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets"),
+
 hr(),
 
-p(tags$b("Do you need to change the attribute or type of some variables?")),
+h4(tags$b("(Optional) Change the types of some variable?")),
 
-p(tags$b("Choice 1. Change Numeric Variables (Numbers) into Categorical Variable (Factors)")), 
+#p(tags$b("Choice 1. Change Real-valued Variables into Categorical Variable")), 
 
 uiOutput("factor1"),
 
-p(tags$b("Choice 2. Change Categorical Variable (Numeric Factors) into Numeric Variables (Numbers)")),
+#p(tags$b("Choice 2. Change Categorical Variable (Numeric Factors) into Numeric Variables (Numbers)")),
 
 uiOutput("factor2"),
 
-p(tags$b("Choice 3. Change the Base/Referential Level for Categorical Variable (Factors)")), 
+h4(tags$b("(Optional) Change the referential level for categorical variable?")), 
 
 uiOutput("lvl"),
 
-p("2. Input the  Base/Referential Level, one line for one variable"),
+p(tags$b("2. Input the referential level, each line for one variable")),
 
 tags$textarea(id='ref', column=40, "")
 
@@ -84,10 +85,10 @@ p(tags$b("Data Preview")),
 p(br()),
 DT::DTOutput("Xdata"),
 
-p(tags$b("1. Continuous variable information list")),
+p(tags$b("1. Numeric variable information list")),
 verbatimTextOutput("strnum"),
 
-p(tags$b("2. Factor/ Catrorical variable information list")),
+p(tags$b("2. Categorical variable information list")),
 verbatimTextOutput("strfac"),
 
 hr(),   
@@ -97,32 +98,32 @@ tabsetPanel(
 
 tabPanel("Basic Descriptives", p(br()),
 
-p(tags$b("1. Continuous variables")),
+p(tags$b("1. For numeric variable")),
 
 DT::DTOutput("sum"),
 
-p(tags$b("2. Categorical variables")),
+p(tags$b("2. For categorical variable")),
 verbatimTextOutput("fsum"),
 
-downloadButton("download2", "Download Results (Categorical variables)")
+downloadButton("download2", "Download Results (Categorical variable)")
 
 ),
 
-tabPanel("Local fitting plot",p(br()),
+tabPanel("Linear fitting plot",p(br()),
 
-p("This is to show the relation between any two numeric variables, using Linear Smooth. Grey area is confidence interval."),
+p("Linear fitting plot: to roughly show the linear relation between any two numeric variable. Grey area is confidence interval."),
 
 uiOutput('tx'),
 uiOutput('ty'),
 
-plotly::plotlyOutput("p1", width = "500px", height = "400px")
+plotOutput("p1", width = "500px", height = "400px")
 ),
 
 tabPanel("Histogram", p(br()),
 
-p("This is to show the distribution of any numeric variable"),
+p("Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values"),
 uiOutput('hx'),
-plotly::plotlyOutput("p2", width = "500px", height = "400px"),
+plotOutput("p2", width = "500px", height = "400px"),
 sliderInput("bin", "The width of bins in the histogram", min = 0, max = 10, value = 1))
 
 )

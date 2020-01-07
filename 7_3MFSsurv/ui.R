@@ -31,7 +31,7 @@ HTML(
 <li> To get the descriptive statistics plot of the variables in your data
 </ul>
 
-<h4><b> 2. About your data </b></h4>
+<h4><b> 2. About your data (training set)</b></h4>
 
 <ul>
 <li> Your data need to include one binary dependent variable (outcome/response) as Y (Y=1/0, or a 2-level factor), and >=1 independent variables (factors/predictors)
@@ -154,7 +154,7 @@ HTML(
 <li> To get fitted values which are predicted from the existed data
 </ul>
 
-<h4><b> 2. About your data </b></h4>
+<h4><b> 2. About your data (test set) </b></h4>
 
 <ul>
 <li> Please prepare the data in the Data tab

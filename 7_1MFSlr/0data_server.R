@@ -35,9 +35,8 @@ colnames(DF0()[unlist(lapply(DF0(), is.numeric))])
 output$factor1 = renderUI({
 selectInput(
   'factor1',
-  h5('Numeric Variables/ Numbers --> Categorical Variables / Factors'),
+  HTML('1. Convert real-valued numeric variable into categorical variable'),
   selected = NULL,
-  #choices = names(DF()),
   choices = type.num0(),
   multiple = TRUE
 )
@@ -56,7 +55,7 @@ colnames(DF1()[unlist(lapply(DF1(), is.factor))])
 output$factor2 = renderUI({
 selectInput(
   'factor2',
-  h5('Categorical Variables / Factors --> Numeric Variables/ Numbers'),
+  HTML('2. Convert categorical variable into real-valued numeric variable'),
   selected = NULL,
   #choices = names(DF()),
   choices = type.fac1(),
@@ -79,7 +78,7 @@ colnames(DF2()[unlist(lapply(DF2(), is.factor))])
 output$lvl = renderUI({
 selectInput(
 'lvl',
-h5('1. Choose Categorical Variables / Factors'),
+HTML('1. Choose categorical variable'),
 selected = NULL,
 choices = type.fac2(),
 multiple = TRUE
@@ -107,7 +106,6 @@ return(df)
   })
 
 output$Xdata <- DT::renderDT(DF3(),   
-  class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -135,7 +133,6 @@ sum <- reactive({
   })
 
 output$sum <- DT::renderDT({sum()}, 
-  class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -163,7 +160,8 @@ output$fsum = renderPrint({fsum()})
 # 
 output$tx = renderUI({
    selectInput(
-     'tx', tags$b('1. Choose a numeric variable for the x-axis'),
+     'tx', 
+     tags$b('1. Choose a numeric variable for the x-axis'),
      selected=type.num3()[2],
      choices = type.num3())
    })
@@ -178,26 +176,24 @@ output$tx = renderUI({
  })
  
  ## scatter plot
- output$p1 = plotly::renderPlotly({
-   p<-ggplot(DF3(), aes(x = DF3()[, input$tx], y = DF3()[, input$ty])) + geom_point(shape = 1) + 
+ output$p1 = renderPlot({
+   ggplot(DF3(), aes(x = DF3()[, input$tx], y = DF3()[, input$ty])) + geom_point(shape = 1) + 
      geom_smooth(method = "lm") + xlab(input$tx) + ylab(input$ty) + theme_minimal()
-  plotly::ggplotly(p)
    })
  
 ## histogram
  output$hx = renderUI({
    selectInput(
      'hx',
-     tags$b('Choose a numeric variable to see the distribution'),
+     tags$b('Choose a numeric variable'),
      selected = type.num3()[1], 
      choices = type.num3())
  })
  
-output$p2 = plotly::renderPlotly({
-   p<-ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
+output$p2 = renderPlot({
+   ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
      geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
      geom_density()+
      xlab("") + theme_minimal() + theme(legend.title = element_blank())
-    plotly::ggplotly(p)
    })
  

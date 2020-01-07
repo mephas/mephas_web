@@ -178,16 +178,15 @@ output$tx = renderUI({
  })
  
  ## scatter plot
- output$p1 = plotly::renderPlotly({
+ output$p1 = renderPlot({
   validate(need(length(levels(as.factor(DF3()[, input$ty])))==2, "Please choose a binary variable as Y")) 
    #ggplot(DF3(), aes(x = DF3()[, input$tx], y = DF3()[, input$ty])) + geom_point(shape = 1) + 
    #  geom_smooth(method = lm) + xlab(input$tx) + ylab(input$ty) + theme_minimal()
-   p<- ggplot(DF3(), aes(x=DF3()[, input$tx], y=(as.numeric(as.factor(DF3()[, input$ty]))-1))) + 
+    ggplot(DF3(), aes(x=DF3()[, input$tx], y=(as.numeric(as.factor(DF3()[, input$ty]))-1))) + 
    geom_point(shape = 1,  size = 1) + 
   stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE,  size = 0.5) +
   xlab(input$tx) + ylab(input$ty) + theme_minimal()
 
-  plotly::ggplotly(p)
    })
  
 ## histogram
@@ -199,15 +198,13 @@ output$tx = renderUI({
      choices = type.num3())
  })
  
-output$p2 = plotly::renderPlotly({
+output$p2 = renderPlot({
    validate(
        need(input$hx != "NULL", "Please select one numeric variable")
      )
-   p<-ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
+   ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
      geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white",size = 0.5) + 
      geom_density(size = 0.5)+
      xlab("") + theme_minimal() + theme(legend.title = element_blank())
-
-plotly::ggplotly(p)
    })
  

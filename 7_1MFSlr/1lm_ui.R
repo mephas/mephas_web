@@ -79,53 +79,56 @@ HTML(
 
     ),
 
+tabPanel("Data Fitting", p(br()),
+
+    p(tags$b("Fitting values and residuals from the existed data")),
+    DT::DTOutput("fitdt0")
+),
+
 tabPanel("ANOVA", p(br()),
+
+HTML(
+"<b> Explanations </b>
+<ul> 
+<li> DF<sub>Factor</sub> = [number of factor group categories] -1
+<li> DF<sub>Residuals</sub> = [number of sample values] - [number of factor group categories]
+<li> MS = SS/DF
+<li> F = MS<sub>Factor</sub> / MS<sub>Residuals</sub> 
+<li> P Value < 0.05, then the variable is significant to the model. (Accept alternative hypothesis)
+</ul>"
+    ),
     p(tags$b("ANOVA Table")),  
-    DT::DTOutput("anova"),
-    HTML(
-    "<b> Explanations </b>
-  <ul> 
-    <li> DF<sub>Factor</sub> = [number of factor group categories] -1
-    <li> DF<sub>Residuals</sub> = [number of sample values] - [number of factor group categories]
-    <li> MS = SS/DF
-    <li> F = MS<sub>Factor</sub> / MS<sub>Residuals</sub> 
-    <li> P Value < 0.05, then the variable is significant to the model. (Accept alternative hypothesis)
-  </ul>"
-    )),
+    DT::DTOutput("anova")),
 
 tabPanel("AIC-based Selection", p(br()),
-    p(tags$b("Model selection suggested by AIC")),
-    verbatimTextOutput("step"),
-
-        HTML(
+    HTML(
     "<b> Explanations </b>
   <ul> 
     <li> The Akaike Information Criterion (AIC) is a way of selecting a model from a set of models. When model fits are ranked according to their AIC values, the model with the lowest AIC value is sometime considered the ‘best’. 
   </ul>"
-    )
+    ),
+
+    p(tags$b("Model selection suggested by AIC")),
+    verbatimTextOutput("step")
+
     ),
 
 tabPanel("Diagnostics Plot",  p(br()),
+HTML(
+"<b> Explanations </b>
+<ul> 
+<li> <b>Q-Q normal plot</b> of residuals checks the normality of residuals. The linearity of the points suggests that the data are normally distributed.
+<li> <b>Residuals vs Fitting</b> plot finds the outliers
+</ul>"
+),
 p(tags$b("1. Q-Q normal plot of residuals")),
-plotly::plotlyOutput("p.lm1", width = "500px", height = "300px"),
-p(tags$b("1. Residuals vs Fitting plot")),
-plotly::plotlyOutput("p.lm2", width = "500px", height = "300px"),
+plotOutput("p.lm1", width = "500px", height = "400px"),
+p(tags$b("2. Residuals vs Fitting plot")),
+plotOutput("p.lm2", width = "500px", height = "400px")
 
-   HTML(
-    "<b> Explanations </b>
-  <ul> 
-    <li> Residuals vs Fitting plot finds the outliers
-    <li> QQ Plot of the Residuals checks the normality of residuals
-
-    </ul>"
     )
-    ),
 
-tabPanel("Fitting", p(br()),
 
-    p(tags$b("Fitting values and residuals from the existed data")),
-    DT::DTOutput("fitdt0")
-)
 
 )
 )
