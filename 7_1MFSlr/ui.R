@@ -30,7 +30,7 @@ For more than one explanatory variable, the process is called <b>multiple linear
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To upload data file, preview data set, and check the correctness of data input 
-<li> To pre-process some variables (when necessary) for building the linear regression
+<li> To pre-process some variables (when necessary) for building the model
 <li> To get the basic descriptive statistics and plots of the variables 
 </ul>
 

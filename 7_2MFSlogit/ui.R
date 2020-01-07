@@ -29,14 +29,14 @@ Logistic regression uses a logistic function to model a binary dependent variabl
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To upload data file, preview data set, and check the correctness of data input 
-<li> To pre-process some variables (when necessary) for building the linear regression
+<li> To pre-process some variables (when necessary) for building the model
 <li> To get the basic descriptive statistics and plots of the variables 
 </ul>
 
 <h4><b> 2. About your data (training set) </b></h4>
 
 <ul>
-<li> Your data need to include <b>one dependent variable (denoted as Y)</b> and <b> at least one independent variables (denoted as X)</b>
+<li> Your data need to include <b>one binary dependent variable (denoted as Y)</b> and <b> at least one independent variables (denoted as X)</b>
 <li> Your data need to have more rows than columns
 <li> Do not mix character and numbers in the same column 
 <li> The data used to build model is called <b>training set</b>
