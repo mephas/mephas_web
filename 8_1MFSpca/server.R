@@ -1,7 +1,9 @@
 if (!require(shiny)) {install.packages("shiny")}; library(shiny)
-if (!require(ggfortify)) {install.packages("ggfortify")}; library(ggfortify)
-if (!require(pls)) {install.packages("pls")}; library(pls)
-if (!require(spls)) {install.packages("spls")}; library(spls)
+if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
+if (!require(plotly)) {install.packages("plotly")}; library(plotly)
+#if (!require(ggfortify)) {install.packages("ggfortify")}; library(ggfortify)
+#if (!require(pls)) {install.packages("pls")}; library(pls)
+#if (!require(spls)) {install.packages("spls")}; library(spls)
 ##----------#----------#----------#----------
 ##
 ## 8MFSpcapls SERVER
