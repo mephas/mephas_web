@@ -53,7 +53,17 @@ selected = '"'),
 
 p("Correct separator and quote ensure the successful data input"),
 
-a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
+a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets"),
+
+h4(tags$b("(Optional) Change the types of some variable?")),
+
+#p(tags$b("Choice 1. Change Real-valued Variables into Categorical Variable")), 
+
+uiOutput("factor1"),
+
+#p(tags$b("Choice 2. Change Categorical Variable (Numeric Factors) into Numeric Variables (Numbers)")),
+
+uiOutput("factor2")
 
 ),
 

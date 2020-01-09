@@ -19,7 +19,7 @@ data <- reactive({
                #"Independent variable matrix (Gene sample2)" = genesample2)
         })
 
-X <- reactive({
+DF0 <- reactive({
   # req(input$file)
   inFile <- input$file
   if (is.null(inFile)){
@@ -40,6 +40,50 @@ if(!input$col){
 return(as.data.frame(x))
 })
 
+type.num0 <- reactive({
+colnames(DF0()[unlist(lapply(DF0(), is.numeric))])
+})
+
+output$factor1 = renderUI({
+selectInput(
+  'factor1',
+  HTML('1. Convert real-valued numeric variable into categorical variable'),
+  selected = NULL,
+  choices = type.num0(),
+  multiple = TRUE
+)
+})
+
+DF1 <- reactive({
+df <-DF0() 
+df[input$factor1] <- as.data.frame(lapply(df[input$factor1], factor))
+return(df)
+  })
+
+type.fac1 <- reactive({
+colnames(DF1()[unlist(lapply(DF1(), is.factor))])
+})
+
+output$factor2 = renderUI({
+selectInput(
+  'factor2',
+  HTML('2. Convert categorical variable into real-valued numeric variable'),
+  selected = NULL,
+  #choices = names(DF()),
+  choices = type.fac1(),
+  multiple = TRUE
+)
+})
+
+X <- reactive({
+  df <-DF1() 
+df[input$factor2] <- as.data.frame(lapply(df[input$factor2], as.numeric))
+return(df)
+  })
+
+type.fac2 <- reactive({
+colnames(X()[unlist(lapply(X(), is.factor))])
+})
 
  output$Xdata <- DT::renderDT(
     X(), 

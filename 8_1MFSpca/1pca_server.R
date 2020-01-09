@@ -74,6 +74,19 @@ output$load <- DT::renderDT({pca()$rotation},
 #    }
 #  )
 # Plot of two components
+type.fac4 <- reactive({
+colnames(X()[unlist(lapply(X(), is.factor))])
+})
+
+output$g = renderUI({
+selectInput(
+'g',
+tags$b('4. Choose one group variable, categorical (if add group circle)'),
+selected = type.fac4()[1],
+choices = type.fac4()
+)
+})
+
 output$pca.ind  <- renderPlot({ 
 
 df <- as.data.frame(pca()$x)
@@ -122,15 +135,15 @@ layout <- list(
   scene = list(
     xaxis = list(
       title = paste0("PC", input$td1), 
-      showline = FALSE
+      showline = TRUE
     ), 
     yaxis = list(
       title = paste0("PC", input$td2), 
-      showline = FALSE
+      showline = TRUE
     ), 
     zaxis = list(
       title = paste0("PC", input$td3), 
-      showline = FALSE
+      showline = TRUE
     )
   ), 
   title = "PCA (3D)"
@@ -157,3 +170,9 @@ for (k in 1:nrow(loads)) {
 p
 
 })
+
+output$tdtrace <- renderPrint({
+  x <- rownames(pca()$rotation)
+  names(x) <- paste0("trace", 1:length(x)) 
+  return(x)
+  })
