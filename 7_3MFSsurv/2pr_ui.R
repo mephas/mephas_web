@@ -60,9 +60,9 @@ DT::DTOutput("pred")
 ),
 
 tabPanel("Predicted Survival Plot",p(br()),
-p("This is the predicted survival plot from one row of new data."),
+p("This is the predicted survival probability of N'th observation."),
 
-numericInput("line", HTML("Choose N'th line of new data to make plot"), value = 1, min = 1),
+numericInput("line", HTML("Choose N'th observation (N'th row of new data)"), value = 1, min = 1),
 
 plotOutput("p.s", width = "600px", height = "400px")
 )

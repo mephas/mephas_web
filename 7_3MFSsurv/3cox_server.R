@@ -23,8 +23,8 @@
 output$var.cx = renderUI({
 selectInput(
 'var.cx',
-tags$b('1. Choose one or more independent variables'),
-selected = names(DF4())[2],
+tags$b('2. Choose some independent variables (X)'),
+selected = names(DF4())[1],
 choices = names(DF4()),
 multiple=TRUE)
 })
@@ -33,7 +33,7 @@ multiple=TRUE)
 output$fx.cx = renderUI({
 selectInput(
   'fx.cx',
-  tags$b('3.2. Choose random effect variable as additional effect, categorical'),
+  tags$b('Choose one random effect variable'),
 selected = names(DF4())[2],
 choices = names(DF4())
 )
@@ -46,6 +46,8 @@ output$str4 <- renderPrint({str(DF3())})
 
 
 cox = reactive({
+
+validate(need(input$var.cx, "Please choose some independent variable"))
 
 if (input$effect.cx=="") {f = paste0(surv(), '~', paste0(input$var.cx, collapse = "+"), input$conf.cx)}
 if (input$effect.cx=="Strata") {f = paste0(surv(), '~', paste0(input$var.cx, collapse = "+"), "+strata(", input$fx.cx, ")",input$conf.cx)}
@@ -142,11 +144,38 @@ ggplot() + geom_step(data = d, mapping = aes(x = d[,"time"], y = d[,"H"])) +
   theme_minimal() + xlab("Cox-Snell residuals") + ylab("Estimated Cumulative Hazard Function")
   })
 
+type.num4 <- reactive({
+colnames(DF4()[unlist(lapply(DF4(), is.numeric))])
+})
+
+output$var.mr = renderUI({
+selectInput(
+'var.mr',
+tags$b('Choose one continuous independent variable'),
+selected = type.num4()[1],
+choices = type.num4())
+})
+
 output$diaplot1 = renderPlot({
-ggcoxdiagnostics(coxfit(), ox.scale ="observation.id",
-  type = "martingale", hline.size = 0.5,point.size = 0.5, point.shape = 10,
+#ggcoxdiagnostics(coxfit(), ox.scale ="observation.id",
+#  type = "martingale", hline.size = 0.5,point.size = 0.5, point.shape = 10,
+#  ggtheme = theme_minimal(),font.x = 12,font.y = 12,font.main = 12)
+#validate(need(length(levels(as.factor(DF3()[,input$var.mr])))>2, "Please choose a continuous variable"))
+
+f = paste0(surv(), '~', paste0(input$var.mr))
+
+fit<-coxph(as.formula(f), data = DF3(), ties=input$tie)
+ggcoxfunctional(fit, data = DF3(), ylim=c(-2,2),
+  point.size = 1, point.shape = 10,
   ggtheme = theme_minimal(),font.x = 12,font.y = 12,font.main = 12)
+
   })
+
+#output$diaplot1.2 = renderPlot({
+#ggcoxdiagnostics(coxfit(), ox.scale ="observation.id",
+#  type = "martingale", hline.size = 0.5,point.size = 0.5, point.shape = 10,
+#  ggtheme = theme_minimal(),font.x = 12,font.y = 12,font.main = 12)
+#  })
 
 output$diaplot2 = renderPlot({
 ggcoxdiagnostics(coxfit(), ox.scale ="observation.id",

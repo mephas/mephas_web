@@ -20,8 +20,8 @@ sidebarPanel(
   tags$head(tags$style("#kmat1 {overflow-y:scroll; max-height: 200px; background: white};")),
 
 selectInput("edata", h4(tags$b("Use example data (training set)")), 
-        choices =  c("NKI70"), 
-        selected = "NKI70"),
+        choices =  c("Diabetes","NKI70"), 
+        selected = "Diabetes"),
 
 hr(),
 
@@ -84,8 +84,8 @@ tabsetPanel(
     uiOutput('t2')
     )
   ),
-
-p(tags$b("3. Check the Survival Object")),      
+hr(),
+h4(tags$b("Step 3. Check the Survival Object")),      
 
 verbatimTextOutput("surv", placeholder = TRUE),
 
@@ -93,21 +93,21 @@ verbatimTextOutput("surv", placeholder = TRUE),
 hr(),
 
 
-p(tags$b("Do you need to change the attribute or type of some variables?")),
+h4(tags$b("(Optional) Change the types of some variable?")),
 
-p(tags$b("Choice 1. Change Numeric Variables (Numbers) into Categorical Variable (Factors)")), 
+#p(tags$b("Choice 1. Change Numeric Variables (Numbers) into Categorical Variable (Factors)")), 
 
 uiOutput("factor1"),
 
-p(tags$b("Choice 2. Change Categorical Variable (Numeric Factors) into Numeric Variables (Numbers)")),
+#p(tags$b("Choice 2. Change Categorical Variable (Numeric Factors) into Numeric Variables (Numbers)")),
 
 uiOutput("factor2"),
 
-p(tags$b("Choice 3. Change the Base/Referential Level for Categorical Variable (Factors)")), 
+h4(tags$b("(Optional) Change the referential level for categorical variable?")), 
 
 uiOutput("lvl"),
 
-p("2. Input the  Base/Referential Level, one line for one variable"),
+p(tags$b("2. Input the referential level, each line for one variable")),
 
 tags$textarea(id='ref', column=40, "")
 
@@ -121,11 +121,11 @@ p(tags$b("Data Preview")),
 p(br()),
 DT::DTOutput("Xdata"),
 
-p(tags$b("1. Continuous variable information list")),
+p(tags$b("1. Numeric variable information list")),
 verbatimTextOutput("strnum"),
 
 
-p(tags$b("2. Factor/ Catrorical variable information list")),
+p(tags$b("2. Categorical variable information list")),
 verbatimTextOutput("strfac"),
 
 
@@ -136,11 +136,11 @@ tabsetPanel(
 
 tabPanel("Basic Descriptives", p(br()),
 
-p(tags$b("1. Continuous variables")),
+p(tags$b("1. For numeric variable")),
 
 DT::DTOutput("sum"),
 
-p(tags$b("2. Categorical variables")),
+p(tags$b("2. For categorical variable")),
 verbatimTextOutput("fsum"),
 
 
@@ -149,8 +149,8 @@ downloadButton("download2", "Download Results (Categorical variables)")
 
 ),
 
-tabPanel("Survival Probability Plot",  p(br()),
-  radioButtons("fun1", "Which plot do you want to see?", 
+tabPanel("Survival Curves",  p(br()),
+  radioButtons("fun1", "Choose one plot", 
   choiceNames = list(
     HTML("1. Survival Probability"),
     HTML("2. Cumulative Events"),
@@ -162,7 +162,7 @@ plotOutput("km.a", width = "600px", height = "400px"),
 verbatimTextOutput("kmat1")
      ),
 
-tabPanel("Survival Probability Table",  p(br()),
+tabPanel("Life Table",  p(br()),
   #p(tags$b("For all samples")),
 DT::DTOutput("kmat")
 #tags$head(tags$style("#kmat {overflow-y:scroll; max-height: 400px; background: white};"))

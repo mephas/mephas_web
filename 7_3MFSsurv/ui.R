@@ -40,8 +40,16 @@ HTML(
 <li> The data used to build model is called <b>training set</b>
 </ul> 
 
-<i><h4>Case Example</h4>
+<i><h4>Case Example 1: Diabetes data</h4>
+Suppose in a study, we got some observations from a trial of laser coagulation for the treatment of diabetic retinopathy. 
+Each patient had one eye randomized to laser treatment and the other eye received no treatment. 
+For each eye, the event of interest was the time from initiation of treatment to the time when visual acuity dropped below 5/200 two visits in a row. 
+Thus there is a built-in lag time of approximately 6 months (visits were every 3 months). 
+Survival times in this dataset are therefore the actual time to blindness in months, minus the minimum possible time to event (6.5 months). 
+Censor status of 0= censored; 1 = visual loss. Treatment: 0 = no treatment, 1= laser. Age is age at diagnosis.
 
+
+<h4>Case Example 2: Nki70 data</h4>
 Suppose we wanted to explore 100 lymph node positive breast cancer patients on metastasis-free survival. 
 Data contained 5 clinical risk factors: (1) Diam: diameter of the tumor; (2) N: number of affected lymph nodes; (3) ER: estrogen receptor status; (4) Grade: grade of the tumor; and (5) Age: Patient age at diagnosis (years); 
 and gene expression measurements of 70 genes found to be prognostic for metastasis-free survival in an earlier study. 
@@ -93,6 +101,63 @@ source("1km_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
 
+tabPanel("Semi-Parametric Model",
+
+headerPanel("Cox Regression"),
+HTML(
+"
+<p><b> Cox Regression</b>, also known as Cox proportional hazard regression assumes that if the proportional hazards assumption holds (or, is assumed to hold) then it is possible to estimate the effect parameter(s) without any consideration of the hazard function.
+Cox regression assumes that the effects of the predictor variables upon survival are constant over time and are additive in one scale.</p>
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To build a Cox regression model
+<li> To get the estimates of linear regressions, such as estimate of coefficient, model information, AIC-based best model selection,ROC plot, sensitivity and specificity table, and model predictions 
+<li> To get fitted values which are predicted from the existed data
+</ul>
+
+<h4><b> 2. About your data (test set) </b></h4>
+
+<ul>
+<li> Please prepare the data in the Data tab
+</ul> 
+
+<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
+"
+),
+
+hr(),
+source("3cox_ui.R", local=TRUE, encoding="UTF-8")$value,
+hr()
+), ## tabPanel
+
+tabPanel("Prediction1",
+
+headerPanel("Prediction after Cox Regression"),
+HTML(
+"
+
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To upload new data and get the prediction
+<li> To get the evaluation if new data contains new dependent variable
+</ul>
+
+<h4><b> 2. About your data (test set)</b></h4>
+
+<ul>
+<li> New data cover all the independent variables used in the model.
+<li> New data not used to build the model is called <b>test set</b>
+</ul> 
+
+<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
+"
+),
+
+hr(),
+source("3pr_ui.R", local=TRUE, encoding="UTF-8")$value,
+hr()
+),
+
 tabPanel("Parametric Model",
 
 headerPanel("Accelerated Failure Time (AFT) Model"),
@@ -122,7 +187,7 @@ source("2aft_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
 
-tabPanel("Prediction1",
+tabPanel("Prediction2",
 
 headerPanel("Prediction after Accelerated Failure Time (AFT) model"),
 HTML(
@@ -150,61 +215,6 @@ source("2pr_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
 
-tabPanel("Semi-Parametric Model",
-
-headerPanel("Cox Regression"),
-HTML(
-"
-<p><b> Cox Regression</b>, also known as Cox proportional hazard regression assumes that if the proportional hazards assumption holds (or, is assumed to hold) then it is possible to estimate the effect parameter(s) without any consideration of the hazard function. </p>
-<h4><b> 1. What you can do on this page  </b></h4>
-<ul>
-<li> To build a Cox regression model
-<li> To get the estimates of linear regressions, such as estimate of coefficient, model information, AIC-based best model selection,ROC plot, sensitivity and specificity table, and model predictions 
-<li> To get fitted values which are predicted from the existed data
-</ul>
-
-<h4><b> 2. About your data (test set) </b></h4>
-
-<ul>
-<li> Please prepare the data in the Data tab
-</ul> 
-
-<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"
-),
-
-hr(),
-source("3cox_ui.R", local=TRUE, encoding="UTF-8")$value,
-hr()
-), ## tabPanel
-
-tabPanel("Prediction2",
-
-headerPanel("Prediction after Cox Regression"),
-HTML(
-"
-
-<h4><b> 1. What you can do on this page  </b></h4>
-<ul>
-<li> To upload new data and get the prediction
-<li> To get the evaluation if new data contains new dependent variable
-</ul>
-
-<h4><b> 2. About your data (test set)</b></h4>
-
-<ul>
-<li> New data cover all the independent variables used in the model.
-<li> New data not used to build the model is called <b>test set</b>
-</ul> 
-
-<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"
-),
-
-hr(),
-source("3pr_ui.R", local=TRUE, encoding="UTF-8")$value,
-hr()
-),
 ##---------- other panels ----------
 
 

@@ -15,7 +15,8 @@
 newX = reactive({
   inFile = input$newfile
   if (is.null(inFile)){
-    x<-Surv.new
+    if (input$edata=="Diabetes") {x <- dia.test}
+    else {x<- nki.test}
     }
   else{
 if(!input$newcol){
@@ -57,9 +58,8 @@ scrollX = TRUE))
  output$p.s = renderPlot({
   ptime <- predict(aftfit(), newdata=pred()[input$line,], type='quantile', p=c(1:98/100), se=TRUE)
   matplot(cbind(ptime$fit, ptime$fit + 1.96*ptime$se.fit,
-                           ptime$fit - 1.96*ptime$se.fit), 1-pct,
+                           ptime$fit - 1.96*ptime$se.fit), 1-c(1:98/100),
         xlab="Time", ylab="Survival", type='l', lty=c(1,2,2), col=1)
-
   })
 
 

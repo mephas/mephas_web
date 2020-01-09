@@ -20,30 +20,37 @@ tags$head(tags$style("#kmt {overflow-y:scroll; max-height: 350px; background: wh
 tags$head(tags$style("#kmt1 {overflow-y:scroll; max-height: 350px; background: white};")),
 tags$head(tags$style("#kmlr {overflow-y:scroll; max-height: 350px; background: white};")),
 
-("Example data: NKI70"),      
+h4("Example data is upload in Data tab"),      
 
-h4(tags$b("Step 1. Choose Group Variable")),      
-p("The Survival Object has been decided in the Data Tab"),  
+h4(tags$b("Choose group variable to build the model")),  
+
+p(tags$b("1. Check Surv(time, event), survival object, in the Data Tab")), 
 
 uiOutput('g'),
 
 hr(),
 
-h4(tags$b("Step 2. Choose Test Method")),      
+h4(tags$b("Log-rank Test")),      
 
-radioButtons("rho", "Which test do you want to use to compare the survival curves", select=1,
+p(tags$b("Null hypothesis")),
+p("Two groups have identical hazard functions"),
+
+radioButtons("rho", "Choose Log-rank Test Method", select=1,
   choiceNames = list(
     HTML("1. Log-rank test"),
     HTML("2. Peto & Peto modification of the Gehan-Wilcoxon test")
     ),
   choiceValues = list(1, 2)
   ),
-
+p("See methods explanations in the Output 2. Log-rank Test tab."),
 hr(),
-h4(tags$b("Step 3. Choose Pairwise Test Method")),      
 
+h4(tags$b("Pairwise Log-rank Test")),      
 
-radioButtons("rho2", "1. For pairwise test, which method do you want to use", select=1,
+p(tags$b("Null hypothesis")),
+p("Two groups have identical hazard functions"),
+
+radioButtons("rho2", "1. Choose Log-rank Test Method)", select=1,
   choiceNames = list(
     HTML("1. Log-rank test"),
     HTML("2. Peto & Peto modification of the Gehan-Wilcoxon test")
@@ -51,7 +58,7 @@ radioButtons("rho2", "1. For pairwise test, which method do you want to use", se
   choiceValues = list(1, 2)
   ),
 radioButtons("pm", 
-  "2. Which p adjust method do you want to use? See explanations", selected="BH",
+  "2. Choose method to adjust P value", selected="BH",
   choiceNames = list(
     HTML("Bonferroni"),
     HTML("Bonferroni-Holm: often used"),
@@ -61,7 +68,9 @@ radioButtons("pm",
     HTML("False Discovery Rate-BY")
     ),
   choiceValues = list("B", "BH", "FDR", "BY")
-  )
+  ),
+p("See methods explanations in the Output 2. Pairwise Log-rank Test tab.")
+
 #tags$style(type='text/css', '#km {background-color: rgba(0,0,255,0.10); color: blue;}'),
 #verbatimTextOutput("km", placeholder = TRUE),
 
@@ -71,7 +80,7 @@ mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
  tabsetPanel(
- tabPanel("Browse Data",p(br()),
+ tabPanel("Browse",p(br()),
  p("This only shows the first several lines, please check full data in the 1st tab"),
  DT::DTOutput("Xdata2")
  ),
@@ -87,7 +96,8 @@ h4(tags$b("Output 1. Data Preview")),
 h4(tags$b("Output 2. Estimate and Test Results")),
 p(br()),
 tabsetPanel(
-tabPanel("Life Table",  p(br()),
+tabPanel("Kaplan-Meier Survival Probability",  p(br()),
+  p(tags$b("Kaplan-Meier survival probability by group")),
     verbatimTextOutput("kmt")
      ),
 tabPanel("Kaplan-Meier Plot by Group",  p(br()),
@@ -103,18 +113,20 @@ tabPanel("Kaplan-Meier Plot by Group",  p(br()),
      verbatimTextOutput("kmt1")
      ),
 tabPanel("Log-Rank Test",  p(br()),
-p(tags$b("Log-rank Test Result")),
-    verbatimTextOutput("kmlr"),
        HTML("
 <b> Explanations </b>
 <p>This implements the G-rho family of Harrington and Fleming (1982), with weights on each death of S(t)<sup>rho</sup>, where S is the Kaplan-Meier estimate of survival.</p>
 <ul>
-<li><b>rho = 0:</b> log-rank or Mantel-Haenszel test
-<li><b>rho = 1:</b> Peto & Peto modification of the Gehan-Wilcoxon test.
+<li>rho = 0: log-rank or Mantel-Haenszel test
+<li>rho = 1: Peto & Peto modification of the Gehan-Wilcoxon test.
 <li> p < 0.05 indicates the curves are significantly different in the survival probabilities
 <li> p >= 0.05 indicates the curves are NOT significantly different in the survival probabilities
 
-</ul>")
+</ul>"),
+
+p(tags$b("Log-rank Test Result")),
+    verbatimTextOutput("kmlr")
+
      ),
 
 tabPanel("Pairwise Log-Rank Test",  p(br()),
@@ -134,7 +146,7 @@ tabPanel("Pairwise Log-Rank Test",  p(br()),
     <li> p >= 0.05 indicates the curves are NOT significantly different in the survival probabilities
   </ul>"
     ),
-     p(tags$b("Pairwise Log-rank Test Result")),
+     p(tags$b("Pairwise Log-rank Test P Value Table")),
 
     DT::DTOutput("PLR")
      )

@@ -13,7 +13,7 @@
 ## 2. choose variable to put in the model/ and summary
 
 DF4 <- reactive({
-  if (input$t=="NULL") {df <-DF3()[ ,-which(names(DF3()) %in% c(input$c,input$t1,input$t2))]}
+  if (input$time=="B") {df <-DF3()[ ,-which(names(DF3()) %in% c(input$c,input$t1,input$t2))]}
   else {df <-DF3()[ ,-which(colnames(DF3()) %in% c(input$c,input$t))]}
 return(df)
   })
@@ -25,8 +25,8 @@ colnames(DF4()[unlist(lapply(DF4(), is.factor))])
 output$g = renderUI({
 selectInput(
 'g',
-tags$b('Choose one or more factor group variable, categorical'),
-selected = type.fac4()[2],
+tags$b('2. Choose categorical variable'),
+selected = type.fac4()[1],
 choices = type.fac4(),
 multiple=TRUE)
 })
@@ -44,7 +44,7 @@ output$str <- renderPrint({str(DF3())})
 ### 4.2. model
 
 kmfit = reactive({
-  validate(need(input$g, "Please choose a group variable"))
+  validate(need(input$g, "Please choose categorical variable"))
   y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
   fit <- surv_fit(as.formula(y), data = DF3())
   fit$call <- NULL
@@ -59,7 +59,7 @@ kmfit = reactive({
 #	})
 
 output$km.p= renderPlot({
-  validate(need(input$g, "Please choose a group variable"))
+  validate(need(input$g, "Please choose categorical variable"))
 
   y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
   fit <- surv_fit(as.formula(y), data = DF3())
@@ -88,7 +88,7 @@ summary(kmfit())
   })
 # 
  LR = reactive({
-  validate(need(input$g, "Please choose a group variable"))
+  validate(need(input$g, "Please choose categorical variable"))
 
    y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
   fit <- survdiff(as.formula(y), rho=input$rho, data = DF3())
@@ -100,7 +100,7 @@ output$kmlr = renderPrint({
 LR()})
 
  PLR = reactive({
-  validate(need(input$g, "Please choose a group variable"))
+  validate(need(input$g, "Please choose categorical variable"))
 
    y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
 

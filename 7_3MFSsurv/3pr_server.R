@@ -15,7 +15,8 @@
 newX2 = reactive({
   inFile = input$newfile2
   if (is.null(inFile)){
-    x<-Surv.new
+    if (input$edata=="Diabetes") {x <- dia.test}
+    else {x<- nki.test}
     }
   else{
 if(!input$newcol2){
@@ -54,7 +55,7 @@ scrollX = TRUE))
 
 BStab <- reactive(
 {
-if (input$t=="NULL") {
+if (input$time=="B") {
 Surv.rsp <- Surv(DF3()[,input$t1], DF3()[,input$t2], DF3()[,input$c])
 Surv.rsp.new <- Surv(pred2()[,input$t1], pred2()[,input$t2], pred2()[,input$c])
 }
@@ -93,7 +94,7 @@ ggplot(BStab(), aes(x=Times, y=BrierScore)) + geom_line() +ylim(0,1) + theme_min
 #AUCtab <- eventReactive(input$B2.1,
 AUCtab <- reactive(
 {
-if (input$t=="NULL") {
+if (input$time=="B") {
 Surv.rsp <- Surv(DF3()[,input$t1], DF3()[,input$t2], DF3()[,input$c])
 Surv.rsp.new <- Surv(pred2()[,input$t1], pred2()[,input$t2], pred2()[,input$c])
 }

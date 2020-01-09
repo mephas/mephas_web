@@ -23,8 +23,8 @@
 output$var = renderUI({
 selectInput(
 'var',
-tags$b('1. Choose one or more independent variables'),
-selected = names(DF4())[2],
+tags$b('2. Choose some independent variables (X)'),
+selected = names(DF4())[1],
 choices = names(DF4()),
 multiple=TRUE)
 })
@@ -33,7 +33,7 @@ multiple=TRUE)
 output$fx.c = renderUI({
 selectInput(
   'fx.c',
-  tags$b('3.2. Choose random effect variable as additional effect, categorical'),
+  tags$b('Choose one random effect variable'),
 selected = names(DF4())[2],
 choices = names(DF4())
 )
@@ -46,6 +46,7 @@ output$str3 <- renderPrint({str(DF3())})
 
 
 aft = reactive({
+validate(need(input$var, "Please choose some independent variable"))
 
 if (input$effect=="") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), input$conf,input$intercept)}
 if (input$effect=="Strata") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+strata(", input$fx.c, ")",input$conf,input$intercept)}
@@ -75,25 +76,31 @@ res$call <- "AFT Model Result"
 return(res)
 })
 
-fit.aft <- reactive({
+fit.aft <- eventReactive(input$B1, {
 
-if (input$t=="NUll") {y = DF3()[,input$t2]-DF3()[,input$t1]}
+if (input$time=="B") {y = DF3()[,input$t2]-DF3()[,input$t1]}
 else {y=DF3()[,input$t]}
 
  res <- data.frame(
   Y = y,
+  c= DF3()[,input$c],
   lp = aftfit()$linear.predictors,
   fit = predict(aftfit(), type="response"),
-  Residuals = resid(aftfit(),  type="response")
+  Residuals = resid(aftfit(),  type="response"),
+  devres = resid(aftfit(),  type="deviance")
  )
- std <- (log(res[,1])-res[,2])/aftfit()$scale
+ res$std <- (log(res[,1])-res[,3])/aftfit()$scale
   
-  if (input$dist=="weibull") {res$csr <- -log(exp(-exp(std)))}
-  if (input$dist=="exponential") {res$csr <- -log(exp(-exp(std)))}
-  if (input$dist=="lognormal") {res$csr <- -log(1-pnorm(std))}
-  if (input$dist=="loglogistic") {res$csr <- -log(1-plogis(std))}
+  if (input$dist=="weibull") {res$csr <- -log(exp(-exp(res$std)))}
+  if (input$dist=="exponential") {res$csr <- -log(-exp(-exp(res$std)))}
+  #if (input$dist=="extreme") {res$csr <- -log(exp(-exp(res$std)))}
+  if (input$dist=="lognormal") {res$csr <- -log(1-pnorm(res$std))}
+  if (input$dist=="loglogistic") {res$csr <- -log(1-plogis(res$std))}
 
- colnames(res) <- c("Times","Linear Part = bX", "Predicted Time","Residuals = Time - Predicted Time", "Cox-snell Residuals")
+res$mar <- res$c- res$csr
+
+ colnames(res) <- c("Times", "Censor","Linear Part = bX", "Predicted Time","Residuals = Time - Predicted Time", "Deviance residuals",
+  "Standardized residuals = (log(Times)-bX)/scale", "Cox-snell Residuals", "Martingale residuals = censor - Cox-snell")
  return(res)
   })
 # 
@@ -106,13 +113,38 @@ else {y=DF3()[,input$t]}
 
 output$csplot = renderPlot({
 
-fit = survfit(Surv(fit.aft()[,5], DF3()[, input$c]) ~ 1)
+fit = survfit(Surv(fit.aft()[,8], fit.aft()[,2]) ~ 1)
 Htilde=cumsum(fit$n.event/fit$n.risk)
 
 d = data.frame(time = fit$time, H = Htilde)
 ggplot() + geom_step(data = d, mapping = aes(x = d[,"time"], y = d[,"H"])) + 
   geom_abline(intercept =0,slope = 1, color = "red") +
   theme_minimal() + xlab("Cox-Snell residuals") + ylab("Estimated Cumulative Hazard Function")
+  })
+
+output$deplot = renderPlot({
+
+df <- data.frame(id=seq_len(nrow(fit.aft())), dev=resid(aftfit(),  type="deviance"))
+
+ggplot(df, aes(x=id, y=dev)) + geom_point(shape = 20) + geom_hline(yintercept = 0, color="red", linetype=2)+
+geom_smooth(method = "loess", linetype=2) + xlab("Observation Id") + ylab("Deviance residuals") + theme_minimal()
+  })
+
+output$var.mr2 = renderUI({
+selectInput(
+'var.mr2',
+tags$b('Choose one continuous independent variable'),
+selected = type.num4()[1],
+choices = type.num4())
+})
+
+output$mrplot = renderPlot({
+
+df <- data.frame(id=DF3()[,input$var.mr2], dev=fit.aft()[,9])
+validate(need(length(levels(as.factor(DF3()[,input$var.mr2])))>2, "Please choose a continuous variable"))
+
+ggplot(df, aes(x=id, y=dev)) + geom_point(shape = 20, color="red")+ ylim(-2,2)+
+geom_smooth(method = "loess", se = FALSE, linetype=1, color="black", size = 0.5) + xlab(input$var.mr) + ylab("Martingale residuals") + theme_minimal()
   })
 
 

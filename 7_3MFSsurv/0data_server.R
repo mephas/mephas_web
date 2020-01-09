@@ -13,7 +13,9 @@ load("Surv.RData")
 
 data <- reactive({
                 switch(input$edata,
-               "NKI70" = Surv)  
+               "Diabetes" = dia.train,
+               "NKI70" = nki.train
+               )  
                 })
 
 
@@ -45,7 +47,7 @@ colnames(DF0()[unlist(lapply(DF0(), is.numeric))])
 output$factor1 = renderUI({
 selectInput(
   'factor1',
-  h5('Numeric Variables/ Numbers --> Categorical Variables / Factors'),
+  HTML('1. Convert real-valued numeric variable into categorical variable'),
   selected = NULL,
   #choices = names(DF()),
   choices = type.num0(),
@@ -66,7 +68,7 @@ colnames(DF1()[unlist(lapply(DF1(), is.factor))])
 output$factor2 = renderUI({
 selectInput(
   'factor2',
-  h5('Categorical Variables / Factors --> Numeric Variables/ Numbers'),
+  HTML('2. Convert categorical variable into real-valued numeric variable'),
   selected = NULL,
   #choices = names(DF()),
   choices = type.fac1(),
@@ -89,7 +91,7 @@ colnames(DF2()[unlist(lapply(DF2(), is.factor))])
 output$lvl = renderUI({
 selectInput(
 'lvl',
-h5('1. Choose Categorical Variables / Factors'),
+HTML('1. Choose categorical variable'),
 selected = NULL,
 choices = type.fac2(),
 multiple = TRUE
@@ -168,7 +170,7 @@ choices = c("NULL",type.time3()))
 output$c = renderUI({
 selectInput(
 'c',
-('1. Choose 1/0 censoring information variable (1=death, 0=censor)'),
+('1. Choose 1/0 censoring information variable (1= event, 0=censor)'),
 selected = type.bi3()[1],
 choices = type.bi3())
 })
@@ -303,15 +305,12 @@ scrollX = TRUE)
  output$hx = renderUI({
    selectInput(
      'hx',
-     tags$b('Choose a numeric variable to see the distribution'),
+     tags$b('Choose a numeric variable'),
      selected = type.num3()[1], 
      choices = type.num3())
  })
  
 output$p2 = renderPlot({
-   validate(
-       need(input$hx != "NULL", "Please select one numeric variable")
-     )
    ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
      geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
      geom_density()+

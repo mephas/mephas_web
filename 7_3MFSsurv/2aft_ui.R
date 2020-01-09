@@ -21,62 +21,60 @@ tags$head(tags$style("#fit {overflow-y:scroll; height: 400px; background: white}
 #tags$head(tags$style("#step {overflow-y:scroll;height: 400px; background: white};")),
 
 
-("Example data: NKI70"),      
+h4("Example data is upload in Data tab"),      
 
-h4(tags$b("Step 1. Build the AFT model")),      
-p("The Survival Object has been decided in the Data Tab"), 
+
+h4(tags$b("Step 1. Choose independent variables to build the model")),    
+
+p(tags$b("1. Check Surv(time, event), survival object, in the Data Tab")), 
 
 uiOutput('var'),
 
-radioButtons("intercept", "2. Add or remove intercept/constant term, if you need", ##> intercept or not
-     choices = c("Remove intercept/constant" = "-1",
-                 "Keep intercept/constant term" = ""),
-     selected = ""),
-
-h4(tags$b("Step 2. Choose AFT Model")),      
-
-radioButtons("dist", "Which distribution do you want to fit the survival curves",
+radioButtons("dist", "3. Choose AFT Model",
   choiceNames = list(
-    
-    HTML("1. Weibull regression model"),
-    HTML("2. Exponential regression model"),
-    HTML("3. Log-normal regression model"),
+    HTML("1. Log-normal regression model"),
+   # HTML("2. Extreme regression model"),
+    HTML("2. Weibull regression model"),
+    HTML("3. Exponential regression model"),  
     HTML("4. Log-logistic regression model")
     ),
-  choiceValues = list("weibull", "exponential", "lognormal", "loglogistic")
+  choiceValues = list("lognormal","weibull", "exponential","loglogistic")
   ),
 
-h4(tags$b("Step 3 (Optional). Add random effect term")),
+radioButtons("intercept", "4. (Optional) Keep or remove intercept / constant term", ##> intercept or not
+     choices = c("Remove intercept / constant" = "-1",
+                 "Keep intercept / constant term" = ""),
+     selected = ""),
 
-radioButtons("effect", "3.1. Choose random effect term type",
+radioButtons("effect", "5. (Optional) Add random effect term",
      choices = c(
       "None" = "",
-      "Strata" = "Strata",
-      "Cluster" = "Cluster",
-      "Gamma Frailty" = "Gamma Frailty",
-      "Gaussian Frailty" = "Gaussian Frailty"
+      "Strata: identifies stratification variable" = "Strata",
+      "Cluster: identifies correlated groups of observations" = "Cluster",
+      "Gamma Frailty: allows one to add a simple gamma distributed random effects term" = "Gamma Frailty",
+      "Gaussian Frailty: allows one to add a simple Gaussian distributed random effects term" = "Gaussian Frailty"
                  ),
      selected = ""),
 
 uiOutput('fx.c'),
 
 
-h4(tags$b("Step 4 (Optional). Add interaction term between categorical variables")),
+p(tags$b("6. (Optional) Add interaction term between categorical variables")),
 
 p('Please input: + var1:var2'), 
 tags$textarea(id='conf', " " ), 
 hr(),
 
-h4(tags$b("Step 5. Check AFT Model")),
+h4(tags$b("Step 2. Check AFT Model")),
 verbatimTextOutput("aft_form", placeholder = TRUE),
-p("Note: '-1' in the formula indicates that intercept / constant term has been removed")
+p("'-1' in the formula indicates that intercept / constant term has been removed")
 ),
 
 mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
  tabsetPanel(
- tabPanel("Browse Data",p(br()),
+ tabPanel("Browse",p(br()),
  p("This only shows the first several lines, please check full data in the 1st tab"),
  DT::DTOutput("Xdata3")
  ),
@@ -90,30 +88,65 @@ actionButton("B1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh"))
 p(br()),
 tabsetPanel(
 
-tabPanel("Model Estimation", 
-verbatimTextOutput("fit"),
+tabPanel("Model Estimation", br(),
 HTML(
 "
 <b> Explanations  </b>
 <ul>
-<li> For each variable, estimated coefficients (95% confidence interval), T statistic for the significance of single variable, and P value are given.
-<li> p < 0.05 indicates this variable is statistical significant to the model
-<li> Observations: the number of samples
-<li> Akaike Inf. Crit. = AIC = -2 (log likelihood) + 2k; k is the number of variables + constant
-<li> Table in the right shows OR; OR= exp(coefficients in the left)
+<li>
 </ul>
 "
-)
+),
+verbatimTextOutput("fit")
+
 ),
 
-tabPanel("Fitting", p(br()),
+tabPanel("Data Fitting", p(br()),
+
     p(tags$b("Fitting values and residuals from the existed data")),
     DT::DTOutput("fit.aft")
 ),
 
-tabPanel("Cox-Snell Plot", p(br()),
-    
- plotOutput("csplot", width = "500px", height = "400px")
+tabPanel("Diagnostics Plot", p(br()),
+
+HTML(
+     "
+<p><b> Explanations  </b></p>
+<b>Martingale residuals</b> against continuous independent variable is a common approach used to detect nonlinearity. For a given continuous covariate, patterns in the plot may suggest that the variable is not properly fit.
+Martingale residuals may present any value in the range (-INF, +1):
+<ul>
+<li>A value of martingale residuals near 1 represents individuals that “died too soon”,
+<li>Large negative values correspond to individuals that “lived too long”.
+</ul>
+
+<b>Deviance residual</b> is a normalized transform of the martingale residual. These residuals should be roughly symmetrically distributed about zero with a standard deviation of 1.
+<ul>
+<li>Positive values correspond to individuals that “died too soon” compared to expected survival times.
+<li>Negative values correspond to individual that “lived too long”.
+<li>Very large or small values are outliers, which are poorly predicted by the model.
+</ul>
+
+<b>Cox-Snell residuals</b> are used to check for overall goodness of fit in survival models.
+<ul>
+<li> Cox-Snell residuals are equal to the -log(survival probability) for each observation
+<li> If the model fits the data well, Cox-Snell residuals should behave like a sample from an exponential distribution with a mean of 1
+<li> If the residuals act like a sample from a unit exponential distribution, they should lie along the 45-degree diagonal line.
+</ul>
+
+The residuals can be found in Data Fitting tab.
+"
+),
+
+p(tags$b("1. Martingale residuals plot against continuous independent variable")), 
+uiOutput('var.mr2'),
+plotOutput("mrplot", width = "500px", height = "400px"),
+
+p(tags$b("2. Deviance residuals plot by observational id")),
+plotOutput("deplot", width = "500px", height = "400px"),
+
+p(tags$b("3. Cox-Snell residuals plot")),
+plotOutput("csplot", width = "500px", height = "400px")
+
 )
 
 )

@@ -61,7 +61,7 @@ cat(paste0(input$y,' ~ ',paste0(input$x, collapse = " + "),
 ## 4. output results
 ### 4.2. model
 fit = eventReactive(input$B1, {
-validate(need(input$x, "Please choose some independent variable"))
+#validate(need(input$x, "Please choose some independent variable"))
 lm(formula(), data = DF3())
 })
 
