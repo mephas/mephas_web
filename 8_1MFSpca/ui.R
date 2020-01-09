@@ -20,11 +20,41 @@ title = "Dimensional Analysis",
 
 #----------1. dataset panel----------
 
-tabPanel("Dataset",
+tabPanel("Data",
 
-titlePanel("Data Preparation"),
+headerPanel("Data Preparation"),
 
-source("0data_ui.R", local=TRUE, encoding="UTF-8")$value
+HTML(
+"
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To upload data file, preview data set, and check the correctness of data input 
+<li> To pre-process some variables (when necessary) for building the model
+<li> To get the basic descriptive statistics and plots of the variables
+<li> To prepare the survival object as 'dependent variable' for building model
+</ul>
+
+<h4><b> 2. About your data (training set)</b></h4>
+
+<ul>
+<li> Your data need to include <b>one survival time variable and one 1/0 censoring variable</b> and <b> at least one independent variables (denoted as X)</b>
+<li> Your data need to have more rows than columns
+<li> Do not mix character and numbers in the same column 
+<li> The data used to build model is called <b>training set</b>
+</ul> 
+
+<i><h4>Case Example 1: Diabetes data</h4>
+
+
+
+</i>
+
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
+"
+),
+
+source("0data_ui.R", local=TRUE, encoding="UTF-8")$value,
+hr()
 
 ),
 
@@ -32,34 +62,82 @@ source("0data_ui.R", local=TRUE, encoding="UTF-8")$value
 ## 1. PCA ---------------------------------------------------------------------------------
 tabPanel("PCA",
 
-titlePanel("Principal Component Analysis"),
+headerPanel("Principal Component Analysis"),
 
-source("1pca_ui.R", local=TRUE, encoding="UTF-8")$value
+HTML(
+"
+<p> <b>Kaplan–Meier estimator</b>, also known as the product limit estimator, is a non-parametric statistic used to estimate the survival function from lifetime data. </p>
+<p> <b>Log-rank test</b> is a hypothesis test to compare the survival distributions of two samples. It compares estimates of the hazard functions of the two groups at each observed event time.
+
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To get Kaplan-Meier survival probability estimate
+<li> To get Kaplan-Meier survival curves, cumulative events distribution curves, and cumulative hazard curves by group variable
+<li> To conduct log-rank test to compare the survival curves from 2 groups
+<li> To conduct pairwise log-rank test to compare the survival curves from more than two groups
+</ul>
+
+<h4><b> 2. About your data </b></h4>
+
+<ul>
+<li> The independent variable is categorical
+<li> Please prepare the survival object in the Data tab
+</ul> 
+
+<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
+"),
+hr(),
+source("1pca_ui.R", local=TRUE, encoding="UTF-8")$value,
+hr()
 
 ), #penal tab end
 
 ## 2.  PLS, ---------------------------------------------------------------------------------
-tabPanel("PLS(R)",
+tabPanel("PCR",
 
-titlePanel("Partial Least Squares (Regression)"),
+headerPanel("Principal Component Regression"),
 
-source("2pls_ui.R", local=TRUE, encoding="UTF-8")$value
+HTML(
+"
+<p> <b>Kaplan–Meier estimator</b>, also known as the product limit estimator, is a non-parametric statistic used to estimate the survival function from lifetime data. </p>
+<p> <b>Log-rank test</b> is a hypothesis test to compare the survival distributions of two samples. It compares estimates of the hazard functions of the two groups at each observed event time.
+
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To get Kaplan-Meier survival probability estimate
+<li> To get Kaplan-Meier survival curves, cumulative events distribution curves, and cumulative hazard curves by group variable
+<li> To conduct log-rank test to compare the survival curves from 2 groups
+<li> To conduct pairwise log-rank test to compare the survival curves from more than two groups
+</ul>
+
+<h4><b> 2. About your data </b></h4>
+
+<ul>
+<li> The independent variable is categorical
+<li> Please prepare the survival object in the Data tab
+</ul> 
+
+<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
+"),
+hr(),
+#source("2plar_ui.R", local=TRUE, encoding="UTF-8")$value,
+hr(),
 ),
 
 ## 3. SPLS, ---------------------------------------------------------------------------------
-tabPanel("SPLS(R)",
+#tabPanel("SPLS(R)",
 
-titlePanel("Sparse Partial Least Squares (Regression)"),
+#headerPanel("Sparse Partial Least Squares (Regression)"),
 
-source("3spls_ui.R", local=TRUE, encoding="UTF-8")$value
-),
+#source("3spls_ui.R", local=TRUE, encoding="UTF-8")$value
+#),
 #penal tab end
 
 ##----------------------------------------------------------------------
 ## 4. Regularization ---------------------------------------------------------------------------------
 #tabPanel("Elastic net",
 
-#titlePanel("Ridge, LASSO, and elastic net"),
+#headerPanel("Ridge, LASSO, and elastic net"),
 
 #sidebarLayout(
 #sidebarPanel(
@@ -102,9 +180,9 @@ source("3spls_ui.R", local=TRUE, encoding="UTF-8")$value
 
 ##---------- other panels ----------
 
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/help8.R",local=TRUE, encoding="UTF-8")$value
+source("../0tabs/help8.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
 
 ))
 )

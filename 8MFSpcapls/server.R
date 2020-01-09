@@ -26,11 +26,11 @@ source("1pca_server.R", local=TRUE, encoding="UTF-8")
 
 #----------2. PLS ----------
 
-#source("2pls_server.R", local=TRUE, encoding="UTF-8") 
+source("2pls_server.R", local=TRUE, encoding="UTF-8") 
 
 #----------3. SPLS ----------
 
-#source("3spls_server.R", local=TRUE, encoding="UTF-8") 
+source("3spls_server.R", local=TRUE, encoding="UTF-8") 
 
 
 #---------------------------##
