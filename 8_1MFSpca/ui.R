@@ -52,7 +52,7 @@ HTML(
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
 "
 ),
-
+hr(),
 source("0data_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
@@ -121,7 +121,7 @@ HTML(
 "),
 hr(),
 #source("2plar_ui.R", local=TRUE, encoding="UTF-8")$value,
-hr(),
+hr()
 ),
 
 ## 3. SPLS, ---------------------------------------------------------------------------------
