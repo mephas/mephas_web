@@ -17,7 +17,7 @@ DF4.fa <- reactive({
 return(df)
   })
 
-output$x.fa <- renderPrint({colnames(DF4.fa()) })
+output$xfa <- renderPrint({colnames(DF4.fa()) })
 
 output$table.x.fa <- DT::renderDT(
     head(X()), 
