@@ -162,13 +162,16 @@ layout <- list(
   title = "FA (3D)"
 )
 
+rnn <- rownames(as.data.frame(scores))
+
 p <- plot_ly() %>%
   add_trace(x=x, y=y, z=z, 
-            type="scatter3d", mode="markers",
-            marker = list(size=5, 
-                          #color="gray", 
-                          opacity = 0.7)
-            ) %>%
+            type="scatter3d", mode = "text+markers", 
+            name = "original", 
+            linetypes = NULL, 
+            opacity = 0.5,
+            marker = list(size=2),
+            text = rnn) %>%
   layout(p, scene=layout$scene, title=layout$title)
 
 for (k in 1:nrow(loads)) {

@@ -67,8 +67,7 @@ headerPanel("Principal Component Analysis"),
 
 HTML(
 "
-<p> <b>Kaplan–Meier estimator</b>, also known as the product limit estimator, is a non-parametric statistic used to estimate the survival function from lifetime data. </p>
-<p> <b>Log-rank test</b> is a hypothesis test to compare the survival distributions of two samples. It compares estimates of the hazard functions of the two groups at each observed event time.
+<b>Principal components analysis (PCA)</b> is a data reduction technique that transforms a larger number of correlated variables into a much smaller set of uncorrelated variables called principal components.
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
@@ -94,15 +93,12 @@ hr()
 ), #penal tab end
 
 ## 2.  PLS, ---------------------------------------------------------------------------------
-tabPanel("FA",
+tabPanel("EFA",
 
-headerPanel("Factor Analysis"),
+headerPanel("Exploratory Factor Analysis"),
 
 HTML(
 "
-<p> <b>Kaplan–Meier estimator</b>, also known as the product limit estimator, is a non-parametric statistic used to estimate the survival function from lifetime data. </p>
-<p> <b>Log-rank test</b> is a hypothesis test to compare the survival distributions of two samples. It compares estimates of the hazard functions of the two groups at each observed event time.
-
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To get Kaplan-Meier survival probability estimate
