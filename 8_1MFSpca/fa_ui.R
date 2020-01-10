@@ -82,7 +82,7 @@ tabPanel("Loading Table", p(br()),
 
 tabPanel("Loading Plot" ,p(br()),
 plotOutput("pca.ind.fa", width = "600px", height = "400px"),
-plotOutput("pca.ind.fa2", width = "600px", height = "400px"),
+plotOutput("pca.ind.fa2", width = "600px", height = "400px")
 ),
 
 
