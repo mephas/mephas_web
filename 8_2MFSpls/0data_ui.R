@@ -1,148 +1,122 @@
 ##----------#----------#----------#----------
 ##
-## 8MFSpcapls UI
+## 7MFSreg UI
 ##
-##    > data
+##    >data
 ##
 ## Language: EN
 ## 
-## DT: 2019-01-08
+## DT: 2019-01-11
 ##
 ##----------#----------#----------#----------
-
 sidebarLayout(
-sidebarPanel(##-------csv file-------##   
-# Input: Select a file as variable----
-helpText("If no data set is uploaded, the example data is shown in the Data Display."),
 
-tabsetPanel(
-tabPanel("Predictor (X)", br(p()),
+sidebarPanel(
 
-selectInput("edata.x", "Choose data as X matrix", 
-        choices =  c("Gene sample1","Gene sample2"), 
-        selected = "Gene sample1"),
+  tags$head(tags$style("#strnum {overflow-y:scroll; height: 200px; background: white};")),
+  tags$head(tags$style("#strfac {overflow-y:scroll; height: 100px; background: white};")),
+  tags$head(tags$style("#fsum {overflow-y:scroll; height: 100px; background: white};")),
 
-fileInput('file.x', "Upload .csv data set of X matrix (numeric predictors)",
-  multiple = TRUE,
-  accept = c("text/csv",
-           "text/comma-separated-values,text/plain",
-           ".csv")),
-#helpText("The columns of X are not suggested greater than 500"),
-# Input: Checkbox if file has header ----
-checkboxInput("header.x", "Header", TRUE),
+selectInput("edata", h4(tags$b("Use example data (training set)")), 
+        choices =  c("Chemical"), 
+        selected = "Chemical"),
+hr(),
 
-#fluidRow(
+h4(tags$b("Use my own data (training set)")),
+p("We suggested putting the dependent variable (Y) in the left side of all independent variables (X) "),
 
-#column(4, 
-# Input: Select separator ----
-radioButtons("sep.x", "Separator",
-     choices = c(Comma = ',',
-                 Semicolon = ';',
-                 Tab = '\t'),
-     selected = ','),
+h4(tags$b("Step 1. Upload Data File")), 
 
-#column(4,
-# Input: Select quotes ----
-radioButtons("quote.x", "Quote",
-     choices = c(None = "",
-                 "Double Quote" = '"',
-                 "Single Quote" = "'"),
-     selected = '"')
-),
+fileInput('file', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
-tabPanel("Responder (Y)", p(br()),
-checkboxInput("add.y", "Add Y data (necessary in PLS and SPLS)", FALSE), 
-selectInput("edata.y", "Choose data as Y matrix", 
-        choices =  c("Y group pca","Y array pls_spls", "Y matrix pls_spls"), 
-        selected = "Y_group_pca"),
+p(tags$b("2. Show 1st row as column names?")), 
+checkboxInput("header", "Yes", TRUE),
 
-fileInput('file.y', "Upload .csv data set of Y matrix (Group variable or numeric responder matrix)",
-  multiple = TRUE,
-  accept = c("text/csv",
-           "text/comma-separated-values,text/plain",
-           ".csv")),
-helpText("The columns of Y can be one or more than one."),
-# Input: Checkbox if file has header ----
-checkboxInput("header.y", "Header", TRUE),
+p(tags$b("3. Use 1st column as row names? (No duplicates)")), 
+checkboxInput("col", "Yes", TRUE),
 
-# Input: Select separator ----
-radioButtons("sep.y", "Separator",
-     choices = c(Comma = ',',
-                 Semicolon = ';',
-                 Tab = '\t'),
-     selected = ','),
+radioButtons("sep", "4. Which separator for data?",
+  choiceNames = list(
+    HTML("Comma (,): CSV often uses this"),
+    HTML("One Tab (->|): TXT often uses this"),
+    HTML("Semicolon (;)"),
+    HTML("One Space (_)")
+    ),
+  choiceValues = list(",", "\t", ";", " ")
+  ),
 
-# Input: Select quotes ----
-radioButtons("quote.y", "Quote",
-     choices = c(None = "",
-                 "Double Quote" = '"',
-                 "Single Quote" = "'"),
-     selected = '"')
+radioButtons("quote", "5. Which quote for characters?",
+choices = c("None" = "",
+           "Double Quote" = '"',
+           "Single Quote" = "'"),
+selected = '"'),
 
-  )
-  )
-# Input: Select a file as response----
+p("Correct separator and quote ensure the successful data input"),
 
+a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets"),
+
+h4(tags$b("(Optional) Change the types of some variable?")),
+
+#p(tags$b("Choice 1. Change Real-valued Variables into Categorical Variable")), 
+
+uiOutput("factor1"),
+
+#p(tags$b("Choice 2. Change Categorical Variable (Numeric Factors) into Numeric Variables (Numbers)")),
+
+uiOutput("factor2")
 
 ),
 
 
 mainPanel(
-h4(("Data Display")), 
-tags$head(tags$style(".shiny-output-error{color: blue;}")),
+h4(tags$b("Output 1. Data Information")),
+p(tags$b("Data Preview")), 
+p(br()),
+DT::DTOutput("Xdata"),
+
+p(tags$b("1. Numeric variable information list")),
+verbatimTextOutput("strnum"),
+
+p(tags$b("2. Categorical variable information list")),
+verbatimTextOutput("strfac"),
+
+hr(),   
+h4(tags$b("Output 2. Basic Descriptives")),
+
 tabsetPanel(
-  tabPanel("X matrix", p(br()),
-    dataTableOutput("table.x")),
 
-  tabPanel("Y matrix", p(br()),
-    dataTableOutput("table.y"))
-  ),
+tabPanel("Basic Descriptives", p(br()),
 
-hr(),  
-h4(("Basic Descriptives")),
+p(tags$b("1. For numeric variable")),
 
-tabsetPanel(
+DT::DTOutput("sum"),
 
-tabPanel("Continuous variables", p(br()),
+p(tags$b("2. For categorical variable")),
+verbatimTextOutput("fsum"),
 
-uiOutput('cv'), 
-actionButton("Bc", "Show descriptives"),p(br()),
-tableOutput("sum"),
-helpText(HTML(
-"
-Note:
-<ul>
-<li> nbr.: the number of </li>
-</ul>
-"
-))),
+downloadButton("download2", "Download Results (Categorical variable)")
 
-tabPanel("Discrete variables", p(br()),
-
-  uiOutput('dv'),
-actionButton("Bd", "Show descriptives"),p(br()),
-verbatimTextOutput("fsum")
-  )
 ),
 
-h4(("First Exploration of Variables")),  
+tabPanel("Linear fitting plot",p(br()),
 
-tabsetPanel(
-tabPanel("Scatter plot (with line) between two variables",
+HTML("<p><b>Linear fitting plot</b>: to roughly show the linear relation between any two numeric variable. Grey area is 95% confidence interval.</p>"),
+
 uiOutput('tx'),
 uiOutput('ty'),
-plotOutput("p1", width = "400px", height = "400px")
+
+plotOutput("p1", width = "500px", height = "400px")
 ),
-tabPanel("Bar plots",
-fluidRow(
-column(6,
+
+tabPanel("Histogram", p(br()),
+
+HTML("<p><b>Histogram</b>: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values.</p>"),
 uiOutput('hx'),
-plotOutput("p2", width = "400px", height = "400px"),
-sliderInput("bin", "The width of bins in the histogram", min = 10, max = 150, value = 1)),
-column(6,
-uiOutput('hxd'),
-plotOutput("p3", width = "400px", height = "400px"))))
+plotOutput("p2", width = "500px", height = "400px"),
+sliderInput("bin", "The width of bins in the histogram", min = 0, max = 2, value = 0.05))
+
 )
+
 )
 
 )

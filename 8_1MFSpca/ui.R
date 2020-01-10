@@ -16,7 +16,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 
-title = "Dimensional Analysis",
+title = "Dimensional Analysis 1",
 
 #----------1. dataset panel----------
 

@@ -10,193 +10,171 @@
 ##
 ##----------#----------#----------#----------
 
-load("pcapls.RData")
+load("pca.RData")
 
-
-example.x <- reactive({
-                switch(input$edata.x,
-               "Gene sample1" = genesample1,
-               "Gene sample2" = genesample2)
-        })
-
-X <- reactive({
-  # req(input$file)
-  inFile <- input$file.x
-  if (is.null(inFile)){
-    df = example.x()
-  }
-  else{
-    df <- as.data.frame(
-      read.csv(
-        inFile$datapath,
-        header = input$header.x,
-        sep = input$sep.x,
-        quote = input$quote.x
-      )
-    )
-  }
-  return(df)
-})
-
-example.y <- reactive({
-                switch(input$edata.y,
-               "Y group pca" = ygroup_pca,
-               "Y array pls_spls" = yarray_s_pls,
-               "Y matrix pls_spls"= ymatrix_s_pls)
-        })
-
-
-Y <- reactive({
-  if (input$add.y == FALSE)
-  {
-    df = NULL
-  }
-  else
-  {
-    inFile <- input$file.y
-  if (is.null(inFile))
-    # eg data
-  {
-    df = as.data.frame(example.y())
-  }
-  else{
-  df <- as.data.frame(
-    read.csv(
-      inFile$datapath,
-      header = input$header.y,
-      sep = input$sep.y,
-      quote = input$quote.y
-      )
-    )
-  }
-  }
-  
-  return(df)
-})
-
-
- output$table.x <- renderDataTable(
-    X(), options = list(pageLength = 5, scrollX = TRUE))
- output$table.y <- renderDataTable(
-    Y(), options = list(pageLength = 5, scrollX = TRUE))
 
 data <- reactive({
-  if (input$add.y == FALSE) X()
-  else cbind.data.frame(Y(),X())})
+                switch(input$edata,
+               "Chemical" = chem)
+               #"Independent variable matrix (Gene sample2)" = genesample2)
+        })
 
-output$table.z <- renderDataTable(
-    head(data()), options = list(pageLength = 6, scrollX = TRUE))
-output$table.z2 <- renderDataTable(
-    head(data()), options = list(pageLength = 6, scrollX = TRUE))
-output$table.z3 <- renderDataTable(
-    head(data()), options = list(pageLength = 6, scrollX = TRUE))
+DF0 <- reactive({
+  # req(input$file)
+  inFile <- input$file
+  if (is.null(inFile)){
+    x<-data()
+    }
+  else{
+if(!input$col){
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote)
+    }
+    else{
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote, row.names=1)
+    }
+    validate( need(ncol(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
 
-# Basic Descriptives
-
-
-output$cv = renderUI({
-  selectInput(
-    'cv', h5('Select continuous variables from data'), 
-    selected = NULL, choices = names(data()), multiple = TRUE)
+  x <- as.data.frame(csv)
+}
+return(as.data.frame(x))
 })
 
-output$dv = renderUI({
+type.num0 <- reactive({
+colnames(DF0()[unlist(lapply(DF0(), is.numeric))])
+})
+
+output$factor1 = renderUI({
 selectInput(
-'dv', h5('Select categorical/discrete variables from data'), 
-selected = NULL, choices = names(data()), multiple = TRUE)
+  'factor1',
+  HTML('1. Convert real-valued numeric variable into categorical variable'),
+  selected = NULL,
+  choices = type.num0(),
+  multiple = TRUE
+)
 })
 
-sum = eventReactive(input$Bc,  ##> cont var
-{
-pastecs::stat.desc(data()[, input$cv], desc = TRUE, norm=TRUE)
-#Hmisc::describe(X()[,input$cv])
+DF1 <- reactive({
+df <-DF0() 
+df[input$factor1] <- as.data.frame(lapply(df[input$factor1], factor))
+return(df)
+  })
+
+type.fac1 <- reactive({
+colnames(DF1()[unlist(lapply(DF1(), is.factor))])
 })
 
-fsum = eventReactive(input$Bd, ##> dis var
-{
-data = as.data.frame(data()[, input$dv])
-colnames(data) = input$dv
-lapply(data, table)
+output$factor2 = renderUI({
+selectInput(
+  'factor2',
+  HTML('2. Convert categorical variable into real-valued numeric variable'),
+  selected = NULL,
+  #choices = names(DF()),
+  choices = type.fac1(),
+  multiple = TRUE
+)
 })
 
-output$sum <- renderTable({sum()}, rownames = TRUE)
+X <- reactive({
+  df <-DF1() 
+df[input$factor2] <- as.data.frame(lapply(df[input$factor2], as.numeric))
+return(df)
+  })
 
-fsum = eventReactive(input$Bd, ##> dis var
-{
-data = as.data.frame(data()[, input$dv])
-colnames(data) = input$dv
-lapply(data, table)
+type.fac2 <- reactive({
+colnames(X()[unlist(lapply(X(), is.factor))])
 })
 
-output$sum = renderTable({sum()}, rownames = TRUE)
+ output$Xdata <- DT::renderDT(
+    X(), 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
+
+
+type.num3 <- reactive({
+colnames(X()[unlist(lapply(X(), is.numeric))])
+})
+
+type.fac3 <- reactive({
+colnames(X()[unlist(lapply(X(), is.factor))])
+})
+
+output$strnum <- renderPrint({str(X()[,type.num3()])})
+output$strfac <- renderPrint({Filter(Negate(is.null), lapply(X(),levels))})
+
+sum <- reactive({
+  x <- X()[,type.num3()]
+  res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
+  colnames(res) = names(x)
+  rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
+  return(res)
+  })
+
+output$sum <- DT::renderDT({sum()}, 
+    extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
+
+fsum = reactive({
+  x <- X()[,type.fac3()]
+  summary(x)
+  })
 
 output$fsum = renderPrint({fsum()})
 
+ output$download2 <- downloadHandler(
+     filename = function() {
+       "lr.des2.txt"
+     },
+     content = function(file) {
+       write.table(fsum(), file, row.names = TRUE)
+     }
+   )
+
 # First Exploration of Variables
 
-output$tx = renderUI({  
-  selectInput(
-    'tx', h5('Variable in the x-axis'),
-    selected = "NULL", 
-    choices = c("NULL",names(data())))
-  
-})
+output$tx = renderUI({
+   selectInput(
+     'tx', 
+     tags$b('1. Choose a numeric variable for the x-axis'),
+     selected=type.num3()[2],
+     choices = type.num3())
+   })
+ 
+ output$ty = renderUI({
+   selectInput(
+     'ty',
+     tags$b('2. Choose a numeric variable for the y-axis'),
+     selected = type.num3()[1],
+     choices = type.num3())
+   
+ })
 
-output$ty = renderUI({
-  selectInput(
-    'ty',
-    h5('Variable in the y-axis'),
-    selected = "NULL", 
-    choices = c("NULL",names(data())))
-  
-})
+ output$p1 = renderPlot({
 
-output$p1 <- renderPlot({
-     validate(
-      need(input$tx != "NULL", "Please select one continuous variable")
-    )
-        validate(
-      need(input$ty != "NULL", "Please select one continuous variable")
-    )
-  ggplot(data(), aes(x=data()[,input$tx], y=data()[,input$ty])) + geom_point(shape=1) + 
-    geom_smooth(method=lm) +xlab(input$tx) +ylab(input$ty)+ theme_minimal()
-})
+   ggplot(X(), aes(x = X()[, input$tx], y = X()[, input$ty])) + geom_point(shape = 1) + 
+     geom_smooth(method = "lm") + xlab(input$tx) + ylab(input$ty) + theme_minimal()
+   })
 
 ## histogram
 output$hx = renderUI({
 
   selectInput(
     'hx',
-    h5('Histogram of the continuous variable'),
-    selected = "NULL",
-    choices = c("NULL",names(data())))
-})
-
-
-
-output$hxd = renderUI({
-  selectInput(
-    'hxd',
-    h5('Histogram of the categorical/discrete variable'),
-    selected = "NULL",
-    choices = c("NULL",names(data())))
+     tags$b('Choose a numeric variable'),
+     selected = type.num3()[1], 
+     choices = type.num3())
 })
 
 output$p2 = renderPlot({
-   validate(
-      need(input$hx != "NULL", "Please select one continuous variable")
-    )
-  ggplot(data(), aes(x = data()[, input$hx])) + 
-    geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
-    geom_density()+
-    xlab("") + theme_minimal() + theme(legend.title = element_blank())
-})
+   ggplot(X(), aes(x = X()[, input$hx])) + 
+     geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
+     geom_density()+
+     xlab("") + theme_minimal() + theme(legend.title = element_blank())
+   })
 
-output$p3 = renderPlot({
-     validate(
-      need(input$hxd != "NULL", "Please select one categorical/discrete variable")
-    )
-  ggplot(data(), aes(x = data()[, input$hxd])) + 
-    geom_histogram(colour = "black",fill = "white",  stat="count") + 
-    xlab("") + theme_minimal() + theme(legend.title = element_blank())
-})
