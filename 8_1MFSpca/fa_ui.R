@@ -13,8 +13,8 @@ sidebarLayout(
 
 sidebarPanel(
 
-tags$head(tags$style("#x.fa {height: 150px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#fa {overflow-y:scroll; height: 350px; background: white};")),
+tags$head(tags$style("#xfa {height: 150px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
+tags$head(tags$style("#fa {overflow-y:scroll; height: 400px; background: white};")),
 tags$head(tags$style("#tdtrace.fa {overflow-y:scroll; height: 150px; background: white};")),
 
 h4("Example data is upload in Data tab"),      
@@ -26,7 +26,7 @@ p("If no need to remove, please choose NULL"),
 
 tags$b('2. Check the variables used in the model, numeric only'),
 
-verbatimTextOutput("x.fa"),   
+verbatimTextOutput("xfa"),   
 
 #checkboxInput("scale1.fa", tags$b("3. Whether to scale the data"), TRUE),
 

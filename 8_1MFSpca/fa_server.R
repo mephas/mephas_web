@@ -42,6 +42,7 @@ fa <- eventReactive(input$pca1.fa,{
 #  res})
 output$fa  <- renderPrint({
   fa()
+  fa()$Call <-NULL
   #res.tab<- as.data.frame(res$importance)
   #return(t(res.tab))
   })
@@ -138,15 +139,15 @@ scale.loads <- input$lines
 layout <- list(
   scene = list(
     xaxis = list(
-      title = paste0("Factor", input$td1.fa), 
+      title = paste0("ML", input$td1.fa), 
       showline = TRUE
     ), 
     yaxis = list(
-      title = paste0("Factor", input$td2.fa), 
+      title = paste0("ML", input$td2.fa), 
       showline = TRUE
     ), 
     zaxis = list(
-      title = paste0("Factor", input$td3.fa), 
+      title = paste0("ML", input$td3.fa), 
       showline = TRUE
     )
   ), 
