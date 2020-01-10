@@ -130,7 +130,7 @@ x <- scores[,input$td1]
 y <- scores[,input$td2]
 z <- scores[,input$td3]
 
-loads <- t(fa()$loadings[,1:input$ncfa])
+loads <- (fa()$loadings[,1:input$ncfa])
 
 # Scale factor for loadings
 scale.loads <- input$lines
@@ -176,7 +176,7 @@ p
 })
 
 output$tdtrace.fa <- renderPrint({
-  x <- rownames(t(fa()$loadings[,1:input$ncfa]))
+  x <- rownames((fa()$loadings[,1:input$ncfa]))
   names(x) <- paste0("trace", 1:length(x)) 
   return(x)
   })
