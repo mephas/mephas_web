@@ -43,9 +43,10 @@ HTML(
 <li> The data used to build model is called <b>training set</b>
 </ul> 
 
-<i><h4>Case Example 1: Diabetes data</h4>
+<i><h4>Case Example 1: Chemical data</h4>
 
-
+SUppose in one study, people measured the 9 chemical attributes of 7 types of drugs. However, not all the attributes are important.
+We wanted to explore the important or principal components from the chemical attributes matrix.
 
 </i>
 
@@ -87,15 +88,15 @@ HTML(
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "),
 hr(),
-source("1pca_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("pca_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 ), #penal tab end
 
 ## 2.  PLS, ---------------------------------------------------------------------------------
-tabPanel("PCR",
+tabPanel("FA",
 
-headerPanel("Principal Component Regression"),
+headerPanel("Factor Analysis"),
 
 HTML(
 "
@@ -120,7 +121,7 @@ HTML(
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "),
 hr(),
-#source("2plar_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("fa_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
 

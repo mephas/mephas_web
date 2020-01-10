@@ -1,6 +1,7 @@
 if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 if (!require(plotly)) {install.packages("plotly")}; library(plotly)
+if (!require(psych)) {install.packages("psych")}; library(psych)
 #if (!require(ggfortify)) {install.packages("ggfortify")}; library(ggfortify)
 #if (!require(pls)) {install.packages("pls")}; library(pls)
 #if (!require(spls)) {install.packages("spls")}; library(spls)
@@ -24,11 +25,11 @@ source("0data_server.R", local=TRUE, encoding="UTF-8")
 
 #----------1. PCA ----------
 
-source("1pca_server.R", local=TRUE, encoding="UTF-8")
+source("pca_server.R", local=TRUE, encoding="UTF-8")
 
 #----------2. PLS ----------
 
-#source("2pls_server.R", local=TRUE, encoding="UTF-8") 
+source("fa_server.R", local=TRUE, encoding="UTF-8") 
 
 #----------3. SPLS ----------
 

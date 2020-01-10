@@ -100,7 +100,7 @@ df <- as.data.frame(pca()$x)
   }
   else
   {
-  df$group <- X()[,1]
+  df$group <- X()[,input$g]
   ggplot(df, aes(x = df[,input$c1], y = df[,input$c2], color=group))+
   geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
   stat_ellipse(type = input$type)+ theme_minimal()+
@@ -153,7 +153,8 @@ p <- plot_ly() %>%
   add_trace(x=x, y=y, z=z, 
             type="scatter3d", mode="markers",
             marker = list(size=5, 
-                          color="gray", 
+                          #color=level(X()[,input$g]),
+                          #color="gray", 
                           opacity = 0.7)
             ) %>%
   layout(p, scene=layout$scene, title=layout$title)

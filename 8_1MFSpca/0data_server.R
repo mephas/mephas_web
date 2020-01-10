@@ -10,12 +10,12 @@
 ##
 ##----------#----------#----------#----------
 
-load("pcapls.RData")
+load("pca.RData")
 
 
 data <- reactive({
                 switch(input$edata,
-               "Mouse" = mouse.train)
+               "Chemical" = chem)
                #"Independent variable matrix (Gene sample2)" = genesample2)
         })
 
