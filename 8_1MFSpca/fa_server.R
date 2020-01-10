@@ -32,6 +32,7 @@ output$table.x.fa <- DT::renderDT(
 fa <- eventReactive(input$pca1.fa,{
   #pca = mixOmics::pca(as.matrix(X()), ncomp = input$nc, scale = TRUE)
   psych::fa(DF4.fa(),nfactors=input$ncfa, rotate="varimax", fm="ml")
+  #factanal(DF4.fa(), factors = input$ncfa, scores= "regression")
   })
 
 #pca.x <- reactive({ pca()$x })
@@ -43,6 +44,16 @@ fa <- eventReactive(input$pca1.fa,{
 output$fa  <- renderPrint({
   fa()
   })
+
+output$fa.plot   <- renderPlot({ 
+psych::fa.parallel((DF4.fa()),fa="fa",fm="ml")
+})
+
+output$fancomp   <- renderPrint({ 
+x <- psych::fa.parallel((DF4.fa()),fa="fa",fm="ml")
+cat(paste0("Parallel analysis suggests that the number of factors: ", x$nfact))
+})
+
 
 output$comp.fa <- DT::renderDT({as.data.frame(fa()$scores)}, 
   extensions = 'Buttons', 
@@ -89,7 +100,7 @@ ggplot(loadings.m, aes(group, abs(value), fill=value)) +
 
   })
 
-output$cor.fa <- DT::renderDT({as.data.frame(fa()$residual+fa()$model)}, 
+output$cor.fa <- DT::renderDT({as.data.frame(cor(DF4()))}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

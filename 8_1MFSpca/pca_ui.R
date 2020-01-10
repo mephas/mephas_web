@@ -29,7 +29,7 @@ verbatimTextOutput("x"),
 
 checkboxInput("scale1", tags$b("3. Whether to scale the data"), TRUE),
 
-numericInput("nc", "4. How many new components", 5, min = 2, max = NA),
+numericInput("nc", "4. How many new components", 4, min = 2, max = NA),
 p("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
 
 hr(),
@@ -66,7 +66,9 @@ actionButton("pca1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh"
 
 tabsetPanel(
 tabPanel("Variance Table",p(br()),
-	plotOutput("pca.plot", width = "600px", height = "400px"),
+  plotOutput("pc.plot", width = "600px", height = "400px"),
+  verbatimTextOutput("pcncomp"),
+	#plotOutput("pca.plot", width = "600px", height = "400px"),
 
   DT::DTOutput("fit")),
 

@@ -109,10 +109,17 @@ df <- as.data.frame(pca()$x)
   })
 # Plot of the loadings of two components
 
+output$pc.plot   <- renderPlot({ 
+psych::fa.parallel((DF4()),fa="pc",fm="ml")
+})
+
+output$pcncomp   <- renderPrint({ 
+x <- psych::fa.parallel((DF4()),fa="pc",fm="ml")
+cat(paste0("Parallel analysis suggests that the number of components: ", x$ncomp))
+})
+
 output$pca.bp   <- renderPlot({ 
-  #autoplot(pca(), data=X(), x = input$c1, y = input$c2, label = TRUE, label.size = 3, shape = FALSE, 
-  #  loadings = TRUE, loadings.label = TRUE, loadings.label.size = 3)+ theme_minimal()
-#pca3d(pca(), group=X()[,1], biplot=TRUE)
+
 biplot(pca(), choice=c(input$c1,input$c2))
 })
 

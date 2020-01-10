@@ -30,7 +30,7 @@ verbatimTextOutput("x_fa"),
 
 #checkboxInput("scale1.fa", tags$b("3. Whether to scale the data"), TRUE),
 
-numericInput("ncfa", "4. How many factors", 3, min = 2, max = NA),
+numericInput("ncfa", "4. How many factors", 4, min = 2, max = NA),
 #p("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
 
 hr(),
@@ -67,8 +67,8 @@ actionButton("pca1.fa", h4(tags$b("Click 1: Output 2. Show Model Results / Refre
 
 tabsetPanel(
 tabPanel("Results",p(br()),
-	#plotOutput("pca.plot.fa", width = "600px", height = "400px"),
-
+	plotOutput("fa.plot", width = "600px", height = "400px"),
+  verbatimTextOutput("fancomp"),
   verbatimTextOutput("fa")),
 
 tabPanel("Factors", p(br()),
