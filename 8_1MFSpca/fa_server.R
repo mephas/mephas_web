@@ -12,12 +12,12 @@ multiple = TRUE
 DF4.fa <- reactive({
   df <- X()[,type.num3()]
   validate(need(input$y.fa, "Please choose NULL or some variable to remove"))
-  if ("NULL" %in% input$y.fa) {df <-df[ ,type.num3()]}
+  if ("NULL" %in% input$y.fa) {df <-df}
   else {df <-df[ ,-which(type.num3() %in% c(input$y.fa))]}
 return(df)
   })
 
-output$xfa <- renderPrint({colnames(DF4.fa()) })
+output$x_fa <- renderPrint({colnames(DF4.fa()) })
 
 output$table.x.fa <- DT::renderDT(
     head(X()), 
@@ -42,9 +42,6 @@ fa <- eventReactive(input$pca1.fa,{
 #  res})
 output$fa  <- renderPrint({
   fa()
-  fa()$Call <-NULL
-  #res.tab<- as.data.frame(res$importance)
-  #return(t(res.tab))
   })
 
 output$comp.fa <- DT::renderDT({as.data.frame(fa()$scores)}, 
