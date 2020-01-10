@@ -154,7 +154,7 @@ p <- plot_ly() %>%
             type="scatter3d", mode="markers",
             marker = list(size=5, 
                           #color=level(X()[,input$g]),
-                          #color="gray", 
+                          #color=DF4()[,input$g], 
                           opacity = 0.7)
             ) %>%
   layout(p, scene=layout$scene, title=layout$title)

@@ -130,7 +130,7 @@ x <- scores[,input$td1]
 y <- scores[,input$td2]
 z <- scores[,input$td3]
 
-loads <- fa()$loadings[,1:input$ncfa]
+loads <- t(fa()$loadings[,1:input$ncfa])
 
 # Scale factor for loadings
 scale.loads <- input$lines
@@ -138,15 +138,15 @@ scale.loads <- input$lines
 layout <- list(
   scene = list(
     xaxis = list(
-      title = paste0("PC", input$td1.fa), 
+      title = paste0("Factor", input$td1.fa), 
       showline = TRUE
     ), 
     yaxis = list(
-      title = paste0("PC", input$td2.fa), 
+      title = paste0("Factor", input$td2.fa), 
       showline = TRUE
     ), 
     zaxis = list(
-      title = paste0("PC", input$td3.fa), 
+      title = paste0("Factor", input$td3.fa), 
       showline = TRUE
     )
   ), 
@@ -157,7 +157,7 @@ p <- plot_ly() %>%
   add_trace(x=x, y=y, z=z, 
             type="scatter3d", mode="markers",
             marker = list(size=5, 
-                          color="gray", 
+                          #color="gray", 
                           opacity = 0.7)
             ) %>%
   layout(p, scene=layout$scene, title=layout$title)
@@ -176,7 +176,7 @@ p
 })
 
 output$tdtrace.fa <- renderPrint({
-  x <- rownames(fa()$loadings[,1:input$ncfa])
+  x <- rownames(t(fa()$loadings[,1:input$ncfa]))
   names(x) <- paste0("trace", 1:length(x)) 
   return(x)
   })
