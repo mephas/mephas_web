@@ -45,13 +45,13 @@ output$spls.cv  <- renderPrint({
   
   })
 
-output$heat.cv <- renderPlot({ 
-  Y <- as.matrix(X()[,input$y.s])
-  X <- as.matrix(X()[,input$x.s])
-  set.seed(10)
-  spls::cv.spls(X,Y, eta = seq(0.1,input$cv.eta,0.1), K = c(1:input$cv.s),
-    select="pls2", fit = input$method.s, plot.it = TRUE)
-  })
+#output$heat.cv <- renderPlot({ 
+#  Y <- as.matrix(X()[,input$y.s])
+#  X <- as.matrix(X()[,input$x.s])
+#  set.seed(10)
+#  spls::cv.spls(X,Y, eta = seq(0.1,input$cv.eta,0.1), K = c(1:input$cv.s),
+#    select="pls2", fit = input$method.s, plot.it = TRUE)
+#  })
 
 
 #output$nc <- renderText({input$nc})

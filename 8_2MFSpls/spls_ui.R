@@ -48,7 +48,7 @@ DT::DTOutput("spls.x")
 tabPanel("Cross-validated SPLS", p(br()),
 numericInput("cv.s", "4. Maximum new components", 10, min = 1, max = NA),
 numericInput("cv.eta", "5. Parameter for selection range (larger number chooses less variables)", 0.9, min = 0, max = 1, step=0.1),
-plotOutput("heat.cv", width = "600px", height = "600px"),
+#plotOutput("heat.cv", width = "600px", height = "600px"),
 verbatimTextOutput("spls.cv")
   )
 ),
