@@ -124,7 +124,7 @@ output$pca.ind2  <- renderPlot({
 ll <- as.data.frame(pca()$rotation)
 ll$group <- rownames(ll)
 loadings.m <- reshape::melt(ll, id="group",
-                   measure=colnames(ll)[1:input$ncfa])
+                   measure=colnames(ll)[1:input$nc])
 
 ggplot(loadings.m, aes(group, abs(value), fill=value)) + 
   facet_wrap(~ variable, nrow=1) + #place the factors in separate facets

@@ -86,8 +86,10 @@ type.fac2 <- reactive({
 colnames(X()[unlist(lapply(X(), is.factor))])
 })
 
- output$Xdata <- DT::renderDT(
-    X(), 
+ output$Xdata <- DT::renderDT({
+  if (ncol(X())>1000 || nrow(X())>1000) {X()[,1:1000]}
+  else { X()}
+  }, 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -108,9 +110,9 @@ output$strfac <- renderPrint({Filter(Negate(is.null), lapply(X(),levels))})
 
 sum <- reactive({
   x <- X()[,type.num3()]
-  res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
-  colnames(res) = names(x)
-  rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
+  res <- as.data.frame(psych::describe(x))[,-c(1,6,7)]
+  rownames(res) = names(x)
+  colnames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
   return(res)
   })
 
