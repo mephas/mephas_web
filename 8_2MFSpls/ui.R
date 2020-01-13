@@ -72,6 +72,15 @@ hr()
 
 ), #penal tab end
 
+tabPanel("Prediction1",
+
+titlePanel("Prediction after Principal Component Regression"),
+
+hr(),
+source("pr1_ui.R", local=TRUE, encoding="UTF-8")$value,
+hr()
+
+),
 ## 2.  PLS, ---------------------------------------------------------------------------------
 tabPanel("PLSR",
 
@@ -80,6 +89,16 @@ titlePanel("Partial Least Squares Regression"),
 hr(),
 source("plsr_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
+),
+
+tabPanel("Prediction2",
+
+titlePanel("Prediction after Partial Least Squares Regression"),
+
+hr(),
+source("pr2_ui.R", local=TRUE, encoding="UTF-8")$value,
+hr()
+
 ),
 
 ## 3. SPLS, ---------------------------------------------------------------------------------

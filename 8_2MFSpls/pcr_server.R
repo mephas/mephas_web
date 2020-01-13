@@ -43,7 +43,7 @@ pcr <- eventReactive(input$pcr1,{
   Y <- as.matrix(X()[,input$y])
   X <- as.matrix(X()[,input$x])
   validate(need(min(ncol(X), nrow(X))>input$nc, "Please input enough independent variables"))
-  mvr(Y~X, ncomp=input$nc, validation="none", model=FALSE, method = "svdpc")
+  mvr(Y~X, ncomp=input$nc.r, validation=input$val, model=FALSE, method = "svdpc",scale = TRUE, center = TRUE)
   })
 
 #pca.x <- reactive({ pca()$x })
@@ -56,25 +56,38 @@ output$pcr  <- renderPrint({
   summary(pcr())
   })
 
-output$pcr.s <- DT::renderDT({as.data.frame(pcr()$scores[,1:input$nc])}, 
+output$pcr.s <- DT::renderDT({as.data.frame(pcr()$scores[,1:pcr()$ncomp])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pcr.l <- DT::renderDT({as.data.frame(pcr()$loadings[,1:input$nc])}, 
+output$pcr.l <- DT::renderDT({as.data.frame(pcr()$loadings[,1:pcr()$ncomp])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
+output$pcr.pres <- DT::renderDT({as.data.frame(pcr()$fitted.values[,,1:pcr()$ncomp])}, 
+  extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
+
+output$pcr.resi <- DT::renderDT({as.data.frame(pcr()$residuals[,,1:pcr()$ncomp])}, 
+  extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
 
 
 output$pcr.s.plot  <- renderPlot({ 
 
-df <- as.data.frame(pcr()$scores[,1:input$nc])
+df <- as.data.frame(pcr()$scores[,1:pcr()$ncomp])
 
   ggplot(df, aes(x = df[,input$c1], y = df[,input$c2]))+
   geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
@@ -84,10 +97,10 @@ df <- as.data.frame(pcr()$scores[,1:input$nc])
   })
 
 output$pcr.l.plot  <- renderPlot({ 
-ll <- as.data.frame(pcr()$loadings[,1:input$nc])
+ll <- as.data.frame(pcr()$loadings[,1:pcr()$ncomp])
 ll$group <- rownames(ll)
 loadings.m <- reshape::melt(ll, id="group",
-                   measure=colnames(ll)[1:input$nc])
+                   measure=colnames(ll)[1:pcr()$ncomp])
 
 ggplot(loadings.m, aes(group, abs(value), fill=value)) + 
   facet_wrap(~ variable, nrow=1) + #place the factors in separate facets
@@ -103,7 +116,7 @@ ggplot(loadings.m, aes(group, abs(value), fill=value)) +
   })
 
 output$pcr.bp   <- renderPlot({ 
-plot(pcr(), plottype = c("biplot"), comps=c(input$c1,input$c2))
+plot(pcr(), plottype = c("biplot"), comps=c(input$c1,input$c2),var.axes = TRUE)
 })
 
 # Plot of the explained variance
@@ -111,12 +124,12 @@ plot(pcr(), plottype = c("biplot"), comps=c(input$c1,input$c2))
 
 output$tdplot <- plotly::renderPlotly({ 
 
-scores <- as.data.frame(pcr()$scores[,1:input$nc])
+scores <- as.data.frame(pcr()$scores[,1:pcr()$ncomp])
 x <- scores[,input$td1]
 y <- scores[,input$td2]
 z <- scores[,input$td3]
 
-loads <- as.data.frame(pcr()$loadings[,1:input$nc])
+loads <- as.data.frame(pcr()$loadings[,1:pcr()$ncomp])
 
 # Scale factor for loadings
 scale.loads <- input$lines
@@ -139,7 +152,7 @@ layout <- list(
   title = "PCA (3D)"
 )
 
-rnn <- rownames(as.data.frame(pcr()$scores[,1:input$nc]))
+rnn <- rownames(as.data.frame(pcr()$scores[,1:pcr()$ncomp]))
 
 p <- plot_ly() %>%
   add_trace(x=x, y=y, z=z, 
@@ -165,7 +178,7 @@ p
 })
 
 output$tdtrace <- renderPrint({
-  x <- rownames(as.data.frame(pcr()$loadings[,1:input$nc]))
+  x <- rownames(as.data.frame(pcr()$loadings[,1:pcr()$ncomp]))
   names(x) <- paste0("trace", 1:length(x)) 
   return(x)
   })

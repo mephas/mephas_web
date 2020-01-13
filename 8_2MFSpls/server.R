@@ -23,10 +23,12 @@ source("0data_server.R", local=TRUE, encoding="UTF-8")
 #----------1. PCA ----------
 
 source("pcr_server.R", local=TRUE, encoding="UTF-8")
+source("pr1_server.R", local=TRUE, encoding="UTF-8")
 
 #----------2. PLS ----------
 
 source("plsr_server.R", local=TRUE, encoding="UTF-8") 
+source("pr2_server.R", local=TRUE, encoding="UTF-8")
 
 #----------3. SPLS ----------
 

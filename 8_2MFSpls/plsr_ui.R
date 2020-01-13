@@ -4,7 +4,7 @@ sidebarLayout(
 sidebarPanel(
 
 #tags$head(tags$style("#x {height: 150px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#pls {overflow-y:scroll; height: 200px; background: white};")),
+tags$head(tags$style("#pls {overflow-y:scroll; height: 300px; background: white};")),
 tags$head(tags$style("#pls_tdtrace {overflow-y:scroll; height: 200px; background: white};")),
 
 
@@ -50,10 +50,28 @@ actionButton("pls1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh"
 
 tabsetPanel(
 tabPanel("Result",p(br()),
-  #plotOutput("pc.plot", width = "600px", height = "400px"),
-  verbatimTextOutput("pls")
+radioButtons("val.r", "Whether to do cross-validation",
+choices = c("No cross-validation" = 'none',
+           "10-fold cross-validation" = "CV",
+           "Leave-one-out cross-validation" = "LOO"),
+selected = 'none'),
 
+
+radioButtons("method.r", "Which PLS algorithm",
+  choices = c("SIMPLS: simple and fast" = 'simpls',
+           "Kernel algorithm" = "kernelpls",
+           "Wide kernel algorithm" = "widekernelpls",
+           "Classical orthogonal scores algorithm" = "oscorespls"),
+selected = 'simpls'),
+
+
+verbatimTextOutput("pls")
   ),
+
+tabPanel("Data Fitting",p(br()),
+DT::DTOutput("pls.pres"),br(),
+DT::DTOutput("pls.resi")
+),
 
 tabPanel("Components", p(br()),
   plotOutput("pls.s.plot", width = "600px", height = "400px"),

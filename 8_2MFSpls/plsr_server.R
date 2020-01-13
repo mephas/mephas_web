@@ -43,7 +43,7 @@ pls <- eventReactive(input$pls1,{
   Y <- as.matrix(X()[,input$y.r])
   X <- as.matrix(X()[,input$x.r])
   validate(need(min(ncol(X), nrow(X))>input$nc.r, "Please input enough independent variables"))
-  mvr(Y~X, ncomp=input$nc.r, validation="none", model=FALSE, method = "simpls")
+  mvr(Y~X, ncomp=input$nc.r, validation=input$val.r, model=FALSE, method = input$method.r,scale = TRUE, center = TRUE)
   })
 
 #pca.x <- reactive({ pca()$x })
@@ -56,14 +56,28 @@ output$pls  <- renderPrint({
   summary(pls())
   })
 
-output$pls.s <- DT::renderDT({as.data.frame(pls()$scores[,1:input$nc.r])}, 
+output$pls.s <- DT::renderDT({as.data.frame(pls()$scores[,1:pls()$ncomp])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pls.l <- DT::renderDT({as.data.frame(pls()$loadings[,1:input$nc.r])}, 
+output$pls.l <- DT::renderDT({as.data.frame(pls()$loadings[,1:pls()$ncomp])}, 
+  extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
+
+output$pls.pres <- DT::renderDT({as.data.frame(pls()$fitted.values[,,1:pls()$ncomp])}, 
+  extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
+
+output$pls.resi <- DT::renderDT({as.data.frame(pls()$residuals[,,1:pls()$ncomp])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -103,7 +117,7 @@ ggplot(loadings.m, aes(group, abs(value), fill=value)) +
   })
 
 output$pls.bp   <- renderPlot({ 
-plot(pls(), plottype = c("biplot"), comps=c(input$c1.r,input$c2.r))
+plot(pls(), plottype = c("biplot"), comps=c(input$c1.r,input$c2.r),var.axes = TRUE)
 })
 
 # Plot of the explained variance

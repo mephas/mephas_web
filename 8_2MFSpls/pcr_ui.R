@@ -4,7 +4,7 @@ sidebarLayout(
 sidebarPanel(
 
 #tags$head(tags$style("#x {height: 150px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#pcr {overflow-y:scroll; height: 200px; background: white};")),
+tags$head(tags$style("#pcr {overflow-y:scroll; height: 300px; background: white};")),
 tags$head(tags$style("#tdtrace {overflow-y:scroll; height: 200px; background: white};")),
 
 h4("Example data is upload in Data tab"),      
@@ -31,7 +31,7 @@ numericInput("td2", "2. Component at y-axis", 2, min = 1, max = NA),
 numericInput("td3", "3. Component at z-axis", 3, min = 1, max = NA),
 p("x y z must be different"),
 
-numericInput("lines", "4. (Optional) Change line scale (length)", 5, min = 1, max = NA)
+numericInput("lines", "4. (Optional) Change line scale (length)", 20, min = 1, max = NA)
 ),
 
 mainPanel(
@@ -49,10 +49,18 @@ actionButton("pcr1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh"
 
 tabsetPanel(
 tabPanel("Result",p(br()),
-  #plotOutput("pc.plot", width = "600px", height = "400px"),
-  verbatimTextOutput("pcr")
+radioButtons("val", "Whether to do cross-validation",
+choices = c("No" = 'none',
+           "10-fold cross-validation" = "CV",
+           "Leave-one-out cross-validation" = "LOO"),
+selected = 'none'),
+verbatimTextOutput("pcr")
+),
 
-  ),
+tabPanel("Data Fitting",p(br()),
+DT::DTOutput("pcr.pres"),br(),
+DT::DTOutput("pcr.resi")
+),
 
 tabPanel("Components", p(br()),
   plotOutput("pcr.s.plot", width = "600px", height = "400px"),
