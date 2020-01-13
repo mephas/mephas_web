@@ -18,8 +18,8 @@ sidebarPanel(
   tags$head(tags$style("#fsum {overflow-y:scroll; height: 100px; background: white};")),
 
 selectInput("edata", h4(tags$b("Use example data (training set)")), 
-        choices =  c("Chemical"), 
-        selected = "Chemical"),
+        choices =  c("NKI", "Liver"), 
+        selected = "NKI"),
 hr(),
 
 h4(tags$b("Use my own data (training set)")),

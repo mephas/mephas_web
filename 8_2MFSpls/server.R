@@ -22,7 +22,7 @@ source("0data_server.R", local=TRUE, encoding="UTF-8")
 
 #----------1. PCA ----------
 
-source("1pcr_server.R", local=TRUE, encoding="UTF-8")
+source("pcr_server.R", local=TRUE, encoding="UTF-8")
 
 #----------2. PLS ----------
 
