@@ -150,7 +150,7 @@ layout <- list(
       showline = TRUE
     )
   ), 
-  title = "PCA (3D)"
+  title = "PLS (3D)"
 )
 
 rnn <- rownames(as.data.frame(pls()$scores[,1:input$nc.r]))

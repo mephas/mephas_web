@@ -24,7 +24,7 @@ uiOutput('x'),
 
 #checkboxInput("scale1", tags$b("3. Whether to scale the data"), TRUE),
 
-numericInput("nc", "2. How many components", 4, min = 2, max = NA),
+numericInput("nc", "2. How many components", 4, min = 1, max = NA),
 p("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
 
 hr(),

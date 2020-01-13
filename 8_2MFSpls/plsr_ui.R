@@ -15,7 +15,7 @@ h4(tags$b("Step 1. Choose parameters to build the model")),
 uiOutput('x.r'), 
 uiOutput('y.r'), 
 
-numericInput("nc.r", "4. How many new components", 4, min = 2, max = NA),
+numericInput("nc.r", "4. How many new components", 4, min = 1, max = NA),
 #p("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
 
 hr(),

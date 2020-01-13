@@ -107,8 +107,17 @@ tabPanel("SPLSR",
 titlePanel("Sparse Partial Least Squares Regression"),
 
 hr(),
-#source("3spls_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("spls_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
+),
+tabPanel("Prediction3",
+
+titlePanel("Prediction after Partial Least Squares Regression"),
+
+hr(),
+source("pr3_ui.R", local=TRUE, encoding="UTF-8")$value,
+hr()
+
 ),
 #penal tab end
 
