@@ -78,7 +78,7 @@ tabPanel("PLSR",
 titlePanel("Partial Least Squares Regression"),
 
 hr(),
-#source("2pls_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("plsr_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
 

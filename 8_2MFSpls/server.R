@@ -26,7 +26,7 @@ source("pcr_server.R", local=TRUE, encoding="UTF-8")
 
 #----------2. PLS ----------
 
-#source("2pls_server.R", local=TRUE, encoding="UTF-8") 
+source("plsr_server.R", local=TRUE, encoding="UTF-8") 
 
 #----------3. SPLS ----------
 

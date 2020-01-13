@@ -29,13 +29,13 @@ p("If data are complete, 'pca' uses Singular Value Decomposition; if there are s
 
 hr(),
 
-h4(tags$b("Choose components to show in component and loading 2D Plot")),
+h4(tags$b("Choose components to show component and loading 2D Plot")),
 numericInput("c1", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c2", "2. Component at y-axis", 2, min = 1, max = NA),
 p("x and y must be different"),
 
 hr(),
-h4(tags$b("Choose components to show in component and loading 3D Plot")),
+h4(tags$b("Choose components to show component and loading 3D Plot")),
 numericInput("td1", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("td2", "2. Component at y-axis", 2, min = 1, max = NA),
 numericInput("td3", "3. Component at z-axis", 3, min = 1, max = NA),

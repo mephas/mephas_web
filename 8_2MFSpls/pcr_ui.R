@@ -4,7 +4,8 @@ sidebarLayout(
 sidebarPanel(
 
 #tags$head(tags$style("#x {height: 150px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#tdtrace {overflow-y:scroll; height: 150px; background: white};")),
+tags$head(tags$style("#pcr {overflow-y:scroll; height: 200px; background: white};")),
+tags$head(tags$style("#tdtrace {overflow-y:scroll; height: 200px; background: white};")),
 
 h4("Example data is upload in Data tab"),      
 
@@ -17,20 +18,20 @@ numericInput("nc", "4. How many new components", 4, min = 2, max = NA),
 #p("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
 
 hr(),
-h4(tags$b("Choose components to show in Component Plot and Loading Plot")),
+h4(tags$b("Choose components to show factor and loading 2D plot")),
 numericInput("c1", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c2", "2. Component at y-axis", 2, min = 1, max = NA),
 p("x and y must be different"),
 
 
 hr(),
-h4(tags$b("Choose components to show in 3D Plot")),
+h4(tags$b("Choose components to show factor and loading 3D plot")),
 numericInput("td1", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("td2", "2. Component at y-axis", 2, min = 1, max = NA),
 numericInput("td3", "3. Component at z-axis", 3, min = 1, max = NA),
 p("x y z must be different"),
 
-numericInput("lines", "4. (Optional) Change line scale (length)", 10, min = 1, max = NA)
+numericInput("lines", "4. (Optional) Change line scale (length)", 5, min = 1, max = NA)
 ),
 
 mainPanel(
@@ -47,7 +48,7 @@ actionButton("pcr1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh"
  p(br()),
 
 tabsetPanel(
-tabPanel("Variance Table",p(br()),
+tabPanel("Result",p(br()),
   #plotOutput("pc.plot", width = "600px", height = "400px"),
   verbatimTextOutput("pcr")
 

@@ -151,7 +151,7 @@ z <- scores[,input$td3]
 loads <- (fa()$loadings[,1:input$ncfa])
 
 # Scale factor for loadings
-scale.loads <- input$lines
+scale.loads <- input$lines.fa
 
 layout <- list(
   scene = list(
