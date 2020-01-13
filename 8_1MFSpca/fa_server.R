@@ -1,23 +1,25 @@
 
-output$y.fa = renderUI({
+output$x.fa = renderUI({
 selectInput(
-'y.fa',
-tags$b('1. Remove variables (not put in the independent matrix)'),
-selected = "NULL",
-choices = c("NULL",type.num3()),
+'x.fa',
+tags$b('1. Choose independent variable matrix'),
+selected = type.num3(),
+choices = type.num3(),
 multiple = TRUE
 )
 })
 
 DF4.fa <- reactive({
-  df <- X()[,type.num3()]
-  validate(need(input$y.fa, "Please choose NULL or some variable to remove"))
-  if ("NULL" %in% input$y.fa) {df <-df}
-  else {df <-df[ ,-which(type.num3() %in% c(input$y.fa))]}
-return(df)
+  X()[,input$x.fa]
   })
+##  df <- X()[,type.num3()]
+#  validate(need(input$y.fa, "Please choose NULL or some variable to remove"))
+#  if ("NULL" %in% input$y.fa) {df <-df}
+#  else {df <-df[ ,-which(type.num3() %in% c(input$y.fa))]}
+#return(df)
+#  })
 
-output$x_fa <- renderPrint({colnames(DF4.fa()) })
+#output$x_fa <- renderPrint({colnames(DF4.fa()) })
 
 output$table.x.fa <- DT::renderDT(
     head(X()), 
@@ -30,8 +32,9 @@ output$table.x.fa <- DT::renderDT(
 #output$nc <- renderText({input$nc})
 # model
 fa <- eventReactive(input$pca1.fa,{
-  #pca = mixOmics::pca(as.matrix(X()), ncomp = input$nc, scale = TRUE)
-  psych::fa(DF4.fa(),nfactors=input$ncfa, rotate="varimax", fm="ml")
+  X <- DF4.fa()
+  a <- input$ncfa
+  psych::fa(X, nfactors=a, rotate="varimax", fm="ml")
   #factanal(DF4.fa(), factors = input$ncfa, scores= "regression")
   })
 
@@ -42,7 +45,7 @@ fa <- eventReactive(input$pca1.fa,{
 #  rownames(res) <- c("explained_variance", "cumulative_variance")
 #  res})
 output$fa  <- renderPrint({
-  fa()
+  summary(fa())
   })
 
 output$fa.plot   <- renderPlot({ 
@@ -100,7 +103,7 @@ ggplot(loadings.m, aes(group, abs(value), fill=value)) +
 
   })
 
-output$cor.fa <- DT::renderDT({as.data.frame(cor(DF4()))}, 
+output$cor.fa <- DT::renderDT({as.data.frame(cor(DF4.fa()))}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -108,7 +111,7 @@ output$cor.fa <- DT::renderDT({as.data.frame(cor(DF4()))},
     scrollX = TRUE))
 
 output$cor.fa.plot   <- renderPlot({ 
-c <- as.data.frame(fa()$residual+fa()$model)
+c <- as.data.frame(cor(DF4.fa()))
 c$group <- rownames(c)
 corrs.m <- reshape::melt(c, id="group",
                             measure=rownames(c))
@@ -128,6 +131,12 @@ ggplot(corrs.m, aes(group, variable, fill=abs(value))) +
   #set correlation fill gradient
   scale_fill_gradient(low="white", high="red") + 
   guides(fill=F) #omit unnecessary gradient legend
+
+})
+
+output$fa.bp   <- renderPlot({ 
+
+biplot(fa(),labels=rownames(DF4.fa()), choose=c(input$c1,input$c2), main="")
 
 })
 

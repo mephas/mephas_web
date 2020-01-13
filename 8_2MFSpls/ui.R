@@ -67,7 +67,7 @@ tabPanel("PCR",
 titlePanel("Principal Component Regression"),
 
 hr(),
-#source("1pcr_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("pcr_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 ), #penal tab end

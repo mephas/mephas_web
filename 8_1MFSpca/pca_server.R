@@ -1,23 +1,17 @@
 
-output$y = renderUI({
+output$x = renderUI({
 selectInput(
-'y',
-tags$b('1. Remove variables (not put in the independent matrix)'),
-selected = "NULL",
-choices = c("NULL",type.num3()),
+'x',
+tags$b('1. Choose independent variable matrix'),
+selected = type.num3(),
+choices = type.num3(),
 multiple = TRUE
 )
 })
 
 DF4 <- reactive({
-  df <- X()[,type.num3()]
-  validate(need(input$y, "Please choose NULL or some variable to remove"))
-  if ("NULL" %in% input$y) {df <-df[ ,type.num3()]}
-  else {df <-df[ ,-which(type.num3() %in% c(input$y))]}
-return(df)
+  X()[,input$x]
   })
-
-output$x <- renderPrint({colnames(DF4()) })
 
 output$table.x <- DT::renderDT(
     head(X()), 
@@ -27,23 +21,49 @@ output$table.x <- DT::renderDT(
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
+output$cor <- DT::renderDT({as.data.frame(cor(DF4()))}, 
+  extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
+
+output$cor.plot   <- renderPlot({ 
+c <- as.data.frame(cor(DF4()))
+c$group <- rownames(c)
+corrs.m <- reshape::melt(c, id="group",
+                            measure=rownames(c))
+
+ggplot(corrs.m, aes(group, variable, fill=abs(value))) + 
+  geom_tile() + #rectangles for each correlation
+  #add actual correlation value in the rectangle
+  geom_text(aes(label = round(value, 2)), size=2.5) + 
+  theme_bw(base_size=10) + #black and white theme with set font size
+  #rotate x-axis labels so they don't overlap, 
+  #get rid of unnecessary axis titles
+  #adjust plot margins
+  theme(axis.text.x = element_text(angle = 90), 
+        axis.title.x=element_blank(), 
+        axis.title.y=element_blank(), 
+        plot.margin = unit(c(3, 1, 0, 0), "mm")) +
+  #set correlation fill gradient
+  scale_fill_gradient(low="white", high="red") + 
+  guides(fill=F) #omit unnecessary gradient legend
+})
+
 #output$nc <- renderText({input$nc})
 # model
 pca <- eventReactive(input$pca1,{
-  #pca = mixOmics::pca(as.matrix(X()), ncomp = input$nc, scale = TRUE)
-  prcomp(as.matrix(DF4()), rank.=input$nc, scale. = input$scale1)
+  X <- DF4()
+  a <- input$nc
+  prcomp(X, rank.=a, scale.=TRUE)
   })
 
-#pca.x <- reactive({ pca()$x })
 
-#output$fit  <- renderPrint({
-#  res <- rbind(pca()$explained_variance,pca()$cum.var)
-#  rownames(res) <- c("explained_variance", "cumulative_variance")
-#  res})
-output$fit  <- DT::renderDT({
+output$var  <- DT::renderDT({
   res <- summary(pca())
-  res.tab<- as.data.frame(res$importance)
-  return(t(res.tab))
+  res.tab<- as.data.frame(res$importance)[,1:input$nc]
+  return(res.tab)
   },
   extensions = 'Buttons', 
     options = list(
@@ -65,15 +85,7 @@ output$load <- DT::renderDT({pca()$rotation},
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-#output$downloadData <- downloadHandler(
-#    filename = function() {
-#      "pca_components.csv"
-#    },
-#    content = function(file) {
-#      write.csv(pca.x(), file, row.names = FALSE)
-#    }
-#  )
-# Plot of two components
+
 type.fac4 <- reactive({
 colnames(X()[unlist(lapply(X(), is.factor))])
 })
@@ -107,7 +119,25 @@ df <- as.data.frame(pca()$x)
   xlab(paste0("PC", input$c1))+ylab(paste0("PC", input$c2))
   }
   })
-# Plot of the loadings of two components
+
+output$pca.ind2  <- renderPlot({ 
+ll <- as.data.frame(pca()$rotation)
+ll$group <- rownames(ll)
+loadings.m <- reshape::melt(ll, id="group",
+                   measure=colnames(ll)[1:input$ncfa])
+
+ggplot(loadings.m, aes(group, abs(value), fill=value)) + 
+  facet_wrap(~ variable, nrow=1) + #place the factors in separate facets
+  geom_bar(stat="identity") + #make the bars
+  coord_flip() + #flip the axes so the test names can be horizontal  
+  #define the fill color gradient: blue=positive, red=negative
+  scale_fill_gradient2(name = "Loading", 
+                       high = "blue", mid = "white", low = "red", 
+                       midpoint=0, guide=F) +
+  ylab("Loading Strength") + #improve y-axis label
+  theme_bw(base_size=10)
+
+  })
 
 output$pc.plot   <- renderPlot({ 
 psych::fa.parallel((DF4()),fa="pc",fm="ml")

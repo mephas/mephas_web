@@ -14,10 +14,10 @@ sidebarLayout(
 sidebarPanel(
 h4("Model's configuration"),
 
-checkboxInput("scale1", "Scale the data (X)", FALSE),
+#checkboxInput("scale1", "Scale the data (X)", FALSE),
 
-numericInput("nc", "Number of components in PCA:", 5, min = 2, max = NA),
-helpText("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
+numericInput("nc", "Number of components in PCR:", 4, min = 2, max = NA),
+#helpText("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
 
 hr(),
 h4("Figure's configuration"),
