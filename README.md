@@ -63,36 +63,22 @@ MEPHAS integrates the medical and pharmaceutical data analysis methods in order 
 <a id="3-non-parametric-tests"></a>
 #### 3. [Non-parametric Tests](https://alain003.phs.osaka-u.ac.jp/mephas_web/3MFSnptest/)
 
-  - One Sample t-Test
-  
-    + Wilcoxon Signed-Rank Test
+  - One Sample Wilcoxon Signed-Rank Test
     
-  - Two Samples t-Test
-  
-    + Wilcoxon Rank-Sum Test (Mann-Whitney U Test)
+  - Two Samples Wilcoxon Rank-Sum Test (Mann-Whitney U Test)
     
-  - Paired Samples
-  
-    + Wilcoxon Signed-Rank Test
+  - Paired Samples Wilcoxon Signed-Rank Test
 
 <a id="4-test-for-binomial-proportions"></a>
 #### 4. [Test for Binomial Proportions](https://alain003.phs.osaka-u.ac.jp/mephas_web/4MFSproptest/)
 
-  - One Single Proportion
+  - One Single Proportion: Binomial Test
   
-    + Exact Binomial Test
+  - Two Independent Proportions: Chi-square Test
   
-  - Two Independent Proportions
-  
-    + Chi-square Test
-  
-  - Over Two Independent Proportions
-  
-    + Chi-square Test
+  - Over Two Independent Proportions: Chi-square Test
 
-  - Trend in Over Two Independent Proportions
-  
-    + Chi-square Trend Test
+  - Trend in Over Two Independent Proportions: Chi-square Trend Test
 
 <a id="5-test-for-contingency-table"></a>
 #### 5. [Test for Contingency Table](https://alain003.phs.osaka-u.ac.jp/mephas_web/5MFSrctabtest/)
@@ -140,13 +126,19 @@ MEPHAS integrates the medical and pharmaceutical data analysis methods in order 
   - 7.3. [Cox Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_3MFSsurv/)
 
 <a id="8-principal-components"></a>
-#### 8. [Principal Components](https://alain003.phs.osaka-u.ac.jp/mephas_web/8MFSpcapls/)
+#### 8.1. [Dimensional Analysis 1](https://alain003.phs.osaka-u.ac.jp/mephas_web/8_1MFSpca/)
 
   - Principle Component Analysis (PCA)
+
+  - Exploratory Factor Analysis (EFA)
+
+ #### 8.2. [Dimensional Analysis 2](https://alain003.phs.osaka-u.ac.jp/mephas_web/8_2MFSpls/) 
   
-  - Partial Least Square Regression (PLS-R)
+  - Principal Component Regression (PCR)
+
+  - Partial Least Squares Regression (PLSR)
   
-  - Sparse Partial Least Square Regression (SPLS)
+  - Sparse Partial Least Squares Regression (SPLSR)
 
 <a id="more-apllications-are-still-under-construction"></a>
 ##### More applications are still under construction.
