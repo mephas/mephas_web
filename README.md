@@ -156,12 +156,12 @@
 
 #### 5. Statistical tables, downloadable
 
-#### 6. Statistical plots
+#### 6. Statistical plots 
 
 <a id="the-help-files"></a>
 ## The help files
 
-<a id="1-probability-distributions-1"></a>
+<!--a id="1-probability-distributions-1"></a>
 #### 1. [Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas/help1.html)
  
 <a id="2-t-test-1"></a>
