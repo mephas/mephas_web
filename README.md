@@ -12,17 +12,18 @@
 <a id="news"></a>
 ## News 
 
-- (2020-01) New site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/){:target="_blank"}
+- (2020-01) New site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/)
 
-- (2019-12) ~~Old site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/index_old.html){:target="_blank"}~~
+- (2019-12) ~~Old site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/index_old.html)~~
 
-- (2019) Source code: [here](https://github.com/mephas/mephas_web){:target="_blank"}
+- (2019) Source code: [here](https://github.com/mephas/mephas_web)
 
 <a id="statistical-methods-in-mephas"></a>
 ## Statistical methods in MEPHAS
 
-<a id="1-probability-distributions"></a>
-#### 1.1. [Continuous Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_1MFScondist/){:target="_blank"}{:target="_blank"}
+**Note: control+click will open link in the new tab**
+
+#### 1.1. [Continuous Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_1MFScondist/)
   
 - Normal/Gaussian distribution
 
@@ -38,14 +39,13 @@
 
 - F Distribution
 
-#### 1.2. [Discrete Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_2MFSdisdist/){:target="_blank"}
+#### 1.2. [Discrete Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_2MFSdisdist/)
 
 - Binomial Distribution
 
 - Poisson Distribution
        
-<a id="2-t-test"></a>
-#### 2. [T Test](https://alain003.phs.osaka-u.ac.jp/mephas_web/2MFSttest/){:target="_blank"}
+#### 2. [T Test](https://alain003.phs.osaka-u.ac.jp/mephas_web/2MFSttest/)
   
   - One Sample t-Test
   
@@ -53,8 +53,7 @@
   
   - Paired Samples
 
-<a id="3-non-parametric-tests"></a>
-#### 3. [Non-parametric Tests](https://alain003.phs.osaka-u.ac.jp/mephas_web/3MFSnptest/){:target="_blank"}
+#### 3. [Non-parametric Tests](https://alain003.phs.osaka-u.ac.jp/mephas_web/3MFSnptest/)
 
   - One Sample Wilcoxon Signed-Rank Test
     
@@ -62,8 +61,7 @@
     
   - Paired Samples Wilcoxon Signed-Rank Test
 
-<a id="4-test-for-binomial-proportions"></a>
-#### 4. [Test for Binomial Proportions](https://alain003.phs.osaka-u.ac.jp/mephas_web/4MFSproptest/){:target="_blank"}
+#### 4. [Test for Binomial Proportions](https://alain003.phs.osaka-u.ac.jp/mephas_web/4MFSproptest/)
 
   - One Single Proportion: Binomial Test
   
@@ -73,8 +71,7 @@
 
   - Trend in Over Two Independent Proportions: Chi-square Trend Test
 
-<a id="5-test-for-contingency-table"></a>
-#### 5. [Test for Contingency Table](https://alain003.phs.osaka-u.ac.jp/mephas_web/5MFSrctabtest/){:target="_blank"}
+#### 5. [Test for Contingency Table](https://alain003.phs.osaka-u.ac.jp/mephas_web/5MFSrctabtest/)
 
   - Chi-square Test (2x2 Table)
 
@@ -94,8 +91,7 @@
 
   - Cochran-Mantel-Haenszel Test for confounding data (RxC table under K confounding)
 
-<a id="6-analysis-of-variance"></a>
-#### 6. [Analysis of Variance](https://alain003.phs.osaka-u.ac.jp/mephas_web/6MFSanova/){:target="_blank"}
+#### 6. [Analysis of Variance](https://alain003.phs.osaka-u.ac.jp/mephas_web/6MFSanova/)
 
   - One-way ANOVA
 
@@ -109,24 +105,21 @@
 
   - Multiple Comparison for Kruskal-Wallis Test
 
-<a id="7-regression-model"></a>
 #### 7. Regression Models
 
-  - 7.1. [Linear Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_1MFSlr/){:target="_blank"}
+  - 7.1. [Linear Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_1MFSlr/)
   
-  - 7.2. [Logistic Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_2MFSlogit/){:target="_blank"}
+  - 7.2. [Logistic Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_2MFSlogit/)
   
-  - 7.3. [Cox Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_3MFSsurv/){:target="_blank"}
+  - 7.3. [Cox Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_3MFSsurv/)
 
-<a id="8-principal-components"></a>
-
-#### 8.1. [Dimensional Analysis 1](https://alain003.phs.osaka-u.ac.jp/mephas_web/8_1MFSpca/){:target="_blank"}
+#### 8.1. [Dimensional Analysis 1](https://alain003.phs.osaka-u.ac.jp/mephas_web/8_1MFSpca/)
 
   - Principle Component Analysis (PCA)
 
   - Exploratory Factor Analysis (EFA)
 
-#### 8.2. [Dimensional Analysis 2](https://alain003.phs.osaka-u.ac.jp/mephas_web/8_2MFSpls/){:target="_blank"} 
+#### 8.2. [Dimensional Analysis 2](https://alain003.phs.osaka-u.ac.jp/mephas_web/8_2MFSpls/) 
   
   - Principal Component Regression (PCR)
 
@@ -161,22 +154,22 @@
 ~~#### 1. [Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas/help1.html)~~
  
 <a id="2-t-test-1"></a>
-~~#### 2. [T Test](https://alain003.phs.osaka-u.ac.jp/mephas/help2.html/){:target="_blank"}~~
+~~#### 2. [T Test](https://alain003.phs.osaka-u.ac.jp/mephas/help2.html/)~~
 
 <a id="3-non-parametric-tests-1"></a>
-~~#### 3. [Non-parametric Tests](https://alain003.phs.osaka-u.ac.jp/mephas/help3.html/){:target="_blank"}~~
+~~#### 3. [Non-parametric Tests](https://alain003.phs.osaka-u.ac.jp/mephas/help3.html/)~~
 
 <a id="4-test-for-binomial-proportions-1"></a>
-~~#### 4. [Test for Binomial Proportions](https://alain003.phs.osaka-u.ac.jp/mephas/help4.html/){:target="_blank"}~~
+~~#### 4. [Test for Binomial Proportions](https://alain003.phs.osaka-u.ac.jp/mephas/help4.html/)~~
 
 <a id="5-test-for-contingency-table-1"></a>
-~~#### 5. [Test for Contingency Table](https://alain003.phs.osaka-u.ac.jp/mephas/help5.html/){:target="_blank"}~~
+~~#### 5. [Test for Contingency Table](https://alain003.phs.osaka-u.ac.jp/mephas/help5.html/)~~
 
 <a id="6-analysis-of-variance-1"></a>
-~~#### 6. [Analysis of Variance](https://alain003.phs.osaka-u.ac.jp/mephas/help6.html/){:target="_blank"}~~
+~~#### 6. [Analysis of Variance](https://alain003.phs.osaka-u.ac.jp/mephas/help6.html/)~~
 
 <a id="7-regression-model-1"></a>
-~~#### 7. [Regression Model](https://alain003.phs.osaka-u.ac.jp/mephas/help7.html/){:target="_blank"}~~
+~~#### 7. [Regression Model](https://alain003.phs.osaka-u.ac.jp/mephas/help7.html/)~~
 
 <a id="8-principal-components-1"></a>
-~~#### 8. [Principal Components](https://alain003.phs.osaka-u.ac.jp/mephas/help8.html/){:target="_blank"}~~
+~~#### 8. [Principal Components](https://alain003.phs.osaka-u.ac.jp/mephas/help8.html/)~~
