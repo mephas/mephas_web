@@ -90,11 +90,15 @@ colnames(X()[unlist(lapply(X(), is.factor))])
   if (ncol(X())>1000 || nrow(X())>1000) {X()[,1:1000]}
   else { X()}
   }, 
-    extensions = 'Buttons', 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 300,
+      scroller = TRUE))
 
 
 type.num3 <- reactive({

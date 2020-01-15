@@ -109,14 +109,14 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::DTOutput("tablem")
+        DT::DTOutput("tablem"),
+  p(tags$b("The categories in the factor group")),
+  DT::DTOutput("level.t")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      DT::DTOutput("basm.t")#,
-         #p(br()), 
-        #downloadButton("download.m", "Download Results")
+      DT::DTOutput("basm.t")
       ),
 
     tabPanel("Marginal Means Plot",p(br()),
@@ -128,9 +128,6 @@ mainPanel(
     hr(),
 
   h4(tags$b("Output 2. Test Results")), p(br()),
-  p(tags$b("1. The categories in the factor group")),
-  DT::DTOutput("level.t"),p(br()),
-
 
     HTML(
   "<b> Explanations </b>
@@ -148,7 +145,7 @@ mainPanel(
     value = 1, min = 1, max = 20, step=1),
 
 
-  p(tags$b("2. Pairwise P Value Table")),
+  p(tags$b("Pairwise P Value Table")),
   DT::DTOutput("multiple.t"),p(br()),
 
       HTML(

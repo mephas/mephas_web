@@ -22,13 +22,7 @@ level1 <- reactive({
   rownames(x) <- names1()[2]
   return(x)
   })
-output$level.t1 <- DT::renderDT({level1()},
-    #class="row-border", 
-    extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+output$level.t1 <- DT::renderDT({level1()}, options = list(dom = 't'))
 
 Y1 <- reactive({
   inFile <- input$file1
@@ -70,18 +64,21 @@ if(!input$col1){
 #  width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
 
 output$table1 <- DT::renderDT(Y1(),
-  #class="row-border", 
-    extensions = 'Buttons', 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 300,
+      scroller = TRUE))
 
 bas1 <- reactive({
   x <- Y1()
-  res <- t(describeBy(x[,1], x[,2], mat=TRUE))[-c(1,2,3,8,9),]
-  colnames(res) <- levels(x[,2])
-  rownames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
+  res <- (describeBy(x[,1], x[,2], mat=TRUE))[,-c(1,2,3,8,9)]
+  rownames(res) <- levels(x[,2])
+  colnames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
   return(res)
   })
 

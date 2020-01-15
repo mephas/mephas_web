@@ -111,7 +111,11 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::DTOutput("tablem2")
+        DT::DTOutput("tablem2"),
+          p(tags$b("The categories in the Factor 1")),
+  DT::DTOutput("level.t21m"),
+  p(tags$b("The categories in the Factor 2")),
+  DT::DTOutput("level.t22m")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),

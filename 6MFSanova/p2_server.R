@@ -21,8 +21,7 @@ level21 <- reactive({
   rownames(x) <- names2()[2]
   return(x)
   })
-output$level.t21 <- DT::renderDT({level21()},
-   width = "700px", rownames=TRUE,colnames=TRUE)
+output$level.t21 <- DT::renderDT({level21()}, options = list(dom = 't'))
 
 level22 <- reactive({
   F1 <-as.factor(unlist(strsplit(input$f2, "[,;\n\t ]")))
@@ -31,13 +30,7 @@ level22 <- reactive({
   rownames(x) <- names2()[3]
   return(x)
   })
-output$level.t22 <- DT::renderDT({level22()},
-  #class="row-border", 
-    extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+output$level.t22 <- DT::renderDT({level22()}, options = list(dom = 't'))
 
 
 Y <- reactive({
@@ -70,19 +63,22 @@ if(!input$col){
 })
 
 output$table <- DT::renderDT({Y()},
-  #class="row-border", 
-    extensions = 'Buttons', 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 300,
+      scroller = TRUE))
 
 bas <- reactive({
   x <- Y()
   x$grp <- paste0(x[,2]," : ",x[,3])
-  res <- t(psych::describeBy(x[,1], x$grp, mat=TRUE))[-c(1,2,3,8,9),]
-  colnames(res) <- levels(as.factor(x$grp))
-  rownames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
+  res <- (psych::describeBy(x[,1], x$grp, mat=TRUE))[,-c(1,2,3,8,9)]
+  rownames(res) <- levels(as.factor(x$grp))
+  colnames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
   return(res)
   })
 

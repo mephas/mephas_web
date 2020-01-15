@@ -91,7 +91,9 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::DTOutput("table1")
+        DT::DTOutput("table1"),
+        p(tags$b("The categories in the Factor Group")),
+        DT::DTOutput("level.t1")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
@@ -110,11 +112,6 @@ mainPanel(
     hr(),
 
   h4(tags$b("Output 2. ANOVA Table")), p(br()),
-
-  p(tags$b("1. The categories in the Factor Group")),
-  DT::DTOutput("level.t1"),
-
-  p(tags$b("2. ANOVA table")),p(br()),
 
   DT::DTOutput("anova1"),p(br()),
   HTML(

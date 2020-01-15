@@ -23,13 +23,7 @@ level <- reactive({
   return(x)
   })
 
-output$level.t <- DT::renderDT({level()},
-   #class="row-border", 
-    extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+output$level.t <- DT::renderDT({level()}, options = list(dom = 't'))
 
 Ym <- reactive({
   inFile <- input$filem
@@ -61,18 +55,21 @@ Ym <- reactive({
 })
 
 output$tablem <- DT::renderDT(Ym(),
-  #class="row-border", 
-    extensions = 'Buttons', 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 300,
+      scroller = TRUE))
 
 basm <- reactive({
   x <- Ym()
-  res <- t(describeBy(x[,1], x[,2], mat=TRUE))[-c(1,2,3,8,9),]
-  colnames(res) <- levels(x[,2])
-  rownames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
+  res <- (describeBy(x[,1], x[,2], mat=TRUE))[,-c(1,2,3,8,9)]
+  rownames(res) <- levels(x[,2])
+  colnames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
   return(res)
   })
 

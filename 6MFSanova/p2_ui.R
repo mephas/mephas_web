@@ -98,14 +98,16 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::DTOutput("table")
+  DT::DTOutput("table"),
+  p(tags$b("The categories in the Factor 1")),
+  DT::DTOutput("level.t21"),
+  p(tags$b("The categories in the Factor 2")),
+  DT::DTOutput("level.t22")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      DT::DTOutput("bas.t"),
-      p(br())#, 
-      #downloadButton("download2.1", "Download Results")
+      DT::DTOutput("bas.t")
       ),
 
       tabPanel("Means plot",p(br()),
@@ -123,11 +125,6 @@ mainPanel(
 
   h4(tags$b("Output 2. ANOVA Table")), p(br()),
 
-  p(tags$b("1. The categories in the Factor Groups")),
-  DT::DTOutput("level.t21"),
-  DT::DTOutput("level.t22"),
-
-  p(tags$b("1. ANOVA Table")),
   checkboxInput('inter', 'Interaction', TRUE),
   DT::DTOutput("anova"),p(br()),
   HTML(

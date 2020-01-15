@@ -106,11 +106,15 @@ return(df)
   })
 
 output$Xdata <- DT::renderDT(DF3(),   
-    extensions = 'Buttons', 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 300,
+      scroller = TRUE))
 
 type.num3 <- reactive({
 colnames(DF3()[unlist(lapply(DF3(), is.numeric))])
@@ -126,9 +130,9 @@ output$strfac <- renderPrint({Filter(Negate(is.null), lapply(DF3(),levels))})
 
 sum <- reactive({
   x <- DF3()[,type.num3()]
-  res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
-  colnames(res) = names(x)
-  rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
+  res <- as.data.frame(psych::describe(x))[,-c(1,6,7)]
+  rownames(res) = names(x)
+  colnames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
   return(res)
   })
 

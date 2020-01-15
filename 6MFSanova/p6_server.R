@@ -21,13 +21,7 @@ levelnp2 <- reactive({
   rownames(x) <- names1()[2]
   return(x)
   })
-output$level.tnp2 <- DT::renderDT({levelnp2()},
-  #class="row-border", 
-    extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+output$level.tnp2 <- DT::renderDT({levelnp2()}, options = list(dom = 't'))
 
 Ynp2 <- reactive({
   inFile <- input$filenp2
@@ -66,18 +60,21 @@ if(!input$colnp2){
 #  width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
 
 output$tablenp2 <- DT::renderDT(Ynp2(),
-  #class="row-border", 
-    extensions = 'Buttons', 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 300,
+      scroller = TRUE))
 
 basnp2 <- reactive({
   x <- Ynp2()
-  res <- t(psych::describeBy(x[,1], x[,2], mat=TRUE))[-c(1,2,3,8,9),]
-  colnames(res) <- levels(x[,2])
-  rownames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
+  res <- (psych::describeBy(x[,1], x[,2], mat=TRUE))[,-c(1,2,3,8,9)]
+  rownames(res) <- levels(x[,2])
+  colnames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
   return(res)
   })
 

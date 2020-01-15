@@ -15,15 +15,23 @@ namesm2 <- reactive({
   return(x[1:2])
   }) 
 
-#level2 <- reactive({
-#  F1 <-as.factor(unlist(strsplit(input$fm2, "[,;\n\t ]")))
-#  x <- matrix(levels(F1), nrow=1)
-#  colnames(x) <- c(1:length(x))
-#  return(x)
-#  })
+level21m <- reactive({
+  F1 <-as.factor(unlist(strsplit(input$fm1, "[,;\n\t ]")))
+  x <- matrix(levels(F1), nrow=1)
+  colnames(x) <- c(1:length(x))
+  rownames(x) <- names2()[2]
+  return(x)
+  })
+output$level.t21m <- DT::renderDT({level21m()}, options = list(dom = 't'))
 
-#output$level.t2 <- DT::renderDT({level()},
-#   width = "700px", colnames=TRUE)
+level22m <- reactive({
+  F1 <-as.factor(unlist(strsplit(input$fm2, "[,;\n\t ]")))
+  x <- matrix(levels(F1), nrow=1)
+  colnames(x) <- c(1:length(x))
+  rownames(x) <- names2()[3]
+  return(x)
+  })
+output$level.t22m <- DT::renderDT({level22m()}, options = list(dom = 't'))
 
 Ym2 <- reactive({
   inFile <- input$filem2
@@ -55,19 +63,22 @@ if(!input$colm2){
 })
 
 output$tablem2 <- DT::renderDT(Ym2(),
-  #class="row-border", 
-    extensions = 'Buttons', 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 300,
+      scroller = TRUE))
 
 basm2 <- reactive({
   x <- Ym2()
   x$grp <- paste0(x[,2]," : ",x[,3])
-  res <- t(psych::describeBy(x[,1], x$grp, mat=TRUE))[-c(1,2,3,8,9),]
-  colnames(res) <- levels(as.factor(x$grp))
-  rownames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
+  res <- (psych::describeBy(x[,1], x$grp, mat=TRUE))[,-c(1,2,3,8,9)]
+  rownames(res) <- levels(as.factor(x$grp))
+  colnames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
   return(res)
   })
 

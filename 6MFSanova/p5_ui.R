@@ -91,7 +91,9 @@ mainPanel(
     tabsetPanel(
 
     tabPanel("Data Preview", p(br()),
-        DT::DTOutput("tablenp1")
+  DT::DTOutput("tablenp1"),
+  p(tags$b("The categories in the Factor Group")),
+  DT::DTOutput("level.tnp1")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
@@ -110,11 +112,6 @@ mainPanel(
     hr(),
 
   h4(tags$b("Output 2. Test Results")), p(br()),
-
-  p(tags$b("1. The categories in the Factor Group")),
-  DT::DTOutput("level.tnp1"),
-
-  p(tags$b("2. Test result table")),p(br()),
 
   DT::DTOutput("kwtest"),p(br()),
   
