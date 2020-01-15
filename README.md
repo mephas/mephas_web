@@ -16,7 +16,7 @@
 <a id="the-brandly-new-site-is-here"></a>
 #### New site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/)
 
-Old site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/index_old.html)
+Old site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/index_old.html) (Not recommend)
 
 <a id="source-code-is-here"></a>
 #### Source code: [here](https://github.com/mephas/mephas_web)
