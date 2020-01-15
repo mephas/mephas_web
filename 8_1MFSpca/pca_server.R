@@ -14,12 +14,7 @@ DF4 <- reactive({
   })
 
 output$table.x <- DT::renderDT(
-    head(X()), 
-    extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+    head(X()), options = list(scrollX = TRUE,dom = 't'))
 
 output$cor <- DT::renderDT({as.data.frame(cor(DF4()))}, 
   extensions = 'Buttons', 

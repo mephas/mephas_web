@@ -40,7 +40,7 @@ choices = names(DF4())
 })
 
 output$Xdata3 <- DT::renderDT(
-head(DF3()), options = list(scrollX = TRUE))
+head(DF3()), options = list(scrollX = TRUE,dom = 't'))
 ### for summary
 output$str3 <- renderPrint({str(DF3())})
 

@@ -22,12 +22,7 @@ DF4.fa <- reactive({
 #output$x_fa <- renderPrint({colnames(DF4.fa()) })
 
 output$table.x.fa <- DT::renderDT(
-    head(X()), 
-    extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+    head(X()), options = list(scrollX = TRUE,dom = 't'))
 
 #output$nc <- renderText({input$nc})
 # model

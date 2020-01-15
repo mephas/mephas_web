@@ -29,12 +29,7 @@ output$spls.x <- DT::renderDT({
     if (ncol(X())>50) {lim <- 50}
     else {lim <-ncol(X())}
 
-    head(X()[,1:lim])}, 
-    extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+    head(X()[,1:lim])}, options = list(scrollX = TRUE,dom = 't'))
 
 output$spls.cv  <- renderPrint({
   Y <- as.matrix(X()[,input$y.s])

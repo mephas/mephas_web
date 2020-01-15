@@ -24,7 +24,7 @@ output$x = renderUI({
 selectInput(
 'x',
 tags$b('2. Choose independent variables / factors / predictors (X)'),
-selected = names(DF4())[1],
+selected = names(DF4()),
 choices = names(DF4()),
 multiple = TRUE
 )
@@ -32,7 +32,7 @@ multiple = TRUE
 
 output$Xdata2 <- DT::renderDT(
 head(DF3()),
-options = list(scrollX = TRUE))
+options = list(scrollX = TRUE,dom = 't'))
 ### for summary
 output$str <- renderPrint({str(DF3())})
 
