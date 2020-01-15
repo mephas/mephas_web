@@ -82,7 +82,7 @@ sidebarLayout(
 		tabsetPanel(
 			 tabPanel("Model-based Plot", p(br()),
 			 	p(tags$b("Binomial probability plot")),
-				plotOutput("b.plot", width = "65%"),
+				plotOutput("b.plot", width = "80%"),
 				p(tags$b("Probability at the observed number of success /event (Red-Dot)")),
 				tableOutput("b.k"),
 				p(tags$i("Explanation: the probability of 2 lymphocytes was about 0.03"))
@@ -92,7 +92,7 @@ sidebarLayout(
 			 	
 			 	numericInput("size", "The sample size of random numbers", value = 100, min = 1, max = 1000000, step = 1),
 			 	p(tags$b("Histogram from random numbers")),
-			 	plotOutput("b.plot2", width = "65%"),	
+			 	plotOutput("b.plot2", width = "80%"),	
 
 			 	sliderInput("bin", "The width of bins in histogram", min = 0, max = 2, value = 1, step=0.1),
 			 	downloadButton("download1", "Download Random Numbers"),
@@ -101,7 +101,7 @@ sidebarLayout(
 			 	),    
 			tabPanel("Distribution of Your Data", p(br()),
 				p(tags$b("Histogram from upload data")),
-			plotOutput("makeplot.1", width = "65%"),
+			plotOutput("makeplot.1", width = "80%"),
       sliderInput("bin1","The width of bins in histogram",min = 0,max = 2,value = 1, step=0.1),
 				p(tags$b("Sample descriptive statistics")),
 				tableOutput("sum2")

@@ -75,7 +75,7 @@ sidebarLayout(
 			 tabPanel("Mathematical-based Plot", p(br()),
 			 	tags$b("Beta distribution plot"),
 
-				plotOutput("b.plot", click = "plot_click13", width = "65%"),
+				plotOutput("b.plot", click = "plot_click13", width = "80%"),
 			 	verbatimTextOutput("b.info"),
 
 			 	p(tags$b("The position of Red-line, x0")),
@@ -85,7 +85,7 @@ sidebarLayout(
 
 			 	numericInput("b.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
 			 	tags$b("Histogram from random numbers"),
-				plotOutput("b.plot2", click = "plot_click14", width = "65%"),
+				plotOutput("b.plot2", click = "plot_click14", width = "80%"),
 			 	sliderInput("b.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.01, step=0.01),
 				verbatimTextOutput("b.info2"),
 				downloadButton("download4", "Download Random Numbers"),				
@@ -104,9 +104,9 @@ sidebarLayout(
 
 			 tabPanel("Distribution of Your Data", p(br()),
 			 	tags$b("Density from upload data"),
-				plotOutput("makeplot.b2", width = "65%"),
+				plotOutput("makeplot.b2", width = "80%"),
 			 	tags$b("Histogram from upload data"),
-				plotOutput("makeplot.b1", width = "65%"),
+				plotOutput("makeplot.b1", width = "80%"),
 	      sliderInput("bin.b","The width of bins in histogram", min = 0,max = 2,value = 0.01, step=0.01),
 				tableOutput("b.sum2")
 

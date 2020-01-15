@@ -37,7 +37,7 @@ output$p.k = renderTable({
 rownames(x) <- c("Red-Dot Position", "Probability of Red-Dot Position", "Cumulated Probability of Red-Dot Position")
   colnames(x)="Result"
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "80%")
 
 N.p = reactive({ 
   df = data.frame(x = rpois(input$size.p, input$lad))
@@ -60,7 +60,7 @@ output$sum.p = renderTable({
   rownames(x) <- c("Mean", "Standard Deviation")
   colnames(x) <-"Result"
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "80%")
 
 output$download2 <- downloadHandler(
     filename = function() {
@@ -114,5 +114,5 @@ output$sum2.p = renderTable({
   rownames(x) <- c("Mean", "Standard Deviation")
   colnames(x)<- "Result"
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "80%")
 

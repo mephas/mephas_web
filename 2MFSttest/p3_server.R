@@ -49,25 +49,27 @@ Z <- reactive({
  
 
 output$table.p <-DT::renderDT({Z()},
-  class="row-border", 
-    extensions = 'Buttons', 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 300,
+      scroller = TRUE))
 
 basic_desc3 <- reactive({
   x <- Z()
-  res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
-  colnames(res) = names(x)
-  rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
+  res <- as.data.frame((psych::describe(x))[-c(1,6,7), ])
+  rownames(res) = names(x)
+  colnames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
   return(res)
   })
 
 output$bas.p <- DT::renderDT({
   basic_desc3()
   }, 
-  class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -151,7 +153,6 @@ t.test.p0 <- reactive({
   })
 output$t.test.p <- DT::renderDT({
   t.test.p0()}, 
-  class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
