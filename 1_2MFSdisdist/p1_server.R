@@ -35,8 +35,8 @@ output$b.k = renderTable({
   x <- t(B()[(input$k+1),])
   rownames(x) <- c("Red-Dot Position", "Probability of Red-Dot Position", "Cumulated Probability of Red-Dot Position")
   colnames(x)="Result"
-  return(round(x,6))
-  }, colnames=FALSE, rownames=TRUE, width = "500px")
+  return(x)
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
 
 N = reactive({ 
   df = data.frame(x = rbinom(input$size, input$m, input$p))
@@ -59,8 +59,8 @@ output$sum = renderTable({
   x <- matrix(c(mean(x), sd(x)), nrow=2)
   rownames(x) <- c("Mean", "Standard Deviation")
   colnames(x)="Result"
-  return(round(x,6))
-  }, colnames=FALSE, rownames=TRUE, width = "500px")
+  return(x)
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
 
 output$download1 <- downloadHandler(
     filename = function() {
@@ -112,6 +112,6 @@ output$sum2 = renderTable({
   x <- matrix(c(mean(x), sd(x)), nrow=2)
   rownames(x) <- c("Mean", "Standard Deviation")
   colnames(x)="Result"
-  return(round(x,6))
-  }, colnames=FALSE, rownames=TRUE, width = "500px")
+  return(x)
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
 

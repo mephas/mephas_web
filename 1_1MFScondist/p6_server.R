@@ -20,7 +20,7 @@ output$xn = renderTable({
   x <- data.frame(x.postion = qchisq(input$x.pr, df = input$x.df))
   rownames(x) <- c("Red-line Position (x)")
   return(x)
-  }, digits = 4, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
 
 X = reactive({ # prepare dataset
   #set.seed(1)
@@ -58,7 +58,7 @@ output$x.sum = renderTable({
   x <- t(data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = quantile(x[,1], probs = input$x.pr, na.rm = FALSE)))
   rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
   return(x)
-  }, digits = 4, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
 
 XX <- reactive({
   inFile <- input$x.file
@@ -96,4 +96,4 @@ output$x.sum2 = renderTable({
   x <- t(data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = quantile(x[,1], probs = input$x.pr, na.rm = FALSE)))
   rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
   return(x)
-  }, digits = 4, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
