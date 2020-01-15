@@ -1,4 +1,4 @@
-# MEPHAS Web Server Description File 
+# MEPHAS Web Server File 
 <!-- MarkdownTOC -->
 
 - [News](#news)
@@ -21,7 +21,7 @@
 <a id="statistical-methods-in-mephas"></a>
 ## Statistical methods in MEPHAS
 
-**Note: control+click will open link in the new tab**
+**Note: "Ctrl/command + click" will open link in the new tab**
 
 #### 1.1. *1_1MFScondist*: [Continuous Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_1MFScondist/)
   
