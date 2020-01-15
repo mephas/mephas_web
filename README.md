@@ -14,7 +14,7 @@
 
 - (2020-01) New site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/){:target="_blank"}
 
-- (2019-12) ~~Old site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/index_old.html){:target="_blank"} ~~
+- (2019-12) ~~Old site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/index_old.html){:target="_blank"}~~
 
 - (2019) Source code: [here](https://github.com/mephas/mephas_web){:target="_blank"}
 
