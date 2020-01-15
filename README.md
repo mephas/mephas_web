@@ -14,7 +14,7 @@
 
 - (2020-01) New site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/){:target="_blank"}
 
-- (2019-12) Old site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/index_old.html){:target="_blank"} (Not recommend)
+- (2019-12) ~~Old site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/index_old.html){:target="_blank"} ~~
 
 - (2019) Source code: [here](https://github.com/mephas/mephas_web){:target="_blank"}
 
@@ -157,28 +157,26 @@
 <a id="the-help-files"></a>
 ## The help files
 
-<!--a id="1-probability-distributions-1"></a>
-#### 1. [Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas/help1.html)
+<a id="1-probability-distributions-1"></a>
+~~#### 1. [Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas/help1.html)~~
  
 <a id="2-t-test-1"></a>
-#### 2. [T Test](https://alain003.phs.osaka-u.ac.jp/mephas/help2.html/){:target="_blank"}
+~~#### 2. [T Test](https://alain003.phs.osaka-u.ac.jp/mephas/help2.html/){:target="_blank"}~~
 
 <a id="3-non-parametric-tests-1"></a>
-#### 3. [Non-parametric Tests](https://alain003.phs.osaka-u.ac.jp/mephas/help3.html/){:target="_blank"}
+~~#### 3. [Non-parametric Tests](https://alain003.phs.osaka-u.ac.jp/mephas/help3.html/){:target="_blank"}~~
 
 <a id="4-test-for-binomial-proportions-1"></a>
-#### 4. [Test for Binomial Proportions](https://alain003.phs.osaka-u.ac.jp/mephas/help4.html/){:target="_blank"}
+~~#### 4. [Test for Binomial Proportions](https://alain003.phs.osaka-u.ac.jp/mephas/help4.html/){:target="_blank"}~~
 
 <a id="5-test-for-contingency-table-1"></a>
-#### 5. [Test for Contingency Table](https://alain003.phs.osaka-u.ac.jp/mephas/help5.html/){:target="_blank"}
+~~#### 5. [Test for Contingency Table](https://alain003.phs.osaka-u.ac.jp/mephas/help5.html/){:target="_blank"}~~
 
 <a id="6-analysis-of-variance-1"></a>
-#### 6. [Analysis of Variance](https://alain003.phs.osaka-u.ac.jp/mephas/help6.html/){:target="_blank"}
+~~#### 6. [Analysis of Variance](https://alain003.phs.osaka-u.ac.jp/mephas/help6.html/){:target="_blank"}~~
 
 <a id="7-regression-model-1"></a>
-#### 7. [Regression Model](https://alain003.phs.osaka-u.ac.jp/mephas/help7.html/){:target="_blank"}
+~~#### 7. [Regression Model](https://alain003.phs.osaka-u.ac.jp/mephas/help7.html/){:target="_blank"}~~
 
 <a id="8-principal-components-1"></a>
-#### 8. [Principal Components](https://alain003.phs.osaka-u.ac.jp/mephas/help8.html/){:target="_blank"}
-
--->
+~~#### 8. [Principal Components](https://alain003.phs.osaka-u.ac.jp/mephas/help8.html/){:target="_blank"}~~
