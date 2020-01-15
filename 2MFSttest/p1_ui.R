@@ -109,20 +109,20 @@ mainPanel(
 
     tabPanel("Data Preview", p(br()),
 
-      DT::DTOutput("table")
+      DT::DTOutput("table", width="50%")
       #shiny::dataTableOutput("table")
       ),
 
     tabPanel("Basic Descriptives", p(br()),
 
-        DT::DTOutput("bas")#,
+        DT::DTOutput("bas", width="50%")#,
       #p(br()),
        # downloadButton("download0", "Download Results")
        ),
 
     tabPanel("Box-Plot", p(br()),
       
-        plotOutput("bp", width = "600px", height = "400px", click = "plot_click1"),
+        plotOutput("bp", width = "65%", click = "plot_click1"),
      
         verbatimTextOutput("info1"), 
           HTML(
@@ -139,7 +139,7 @@ mainPanel(
 
     tabPanel("Mean and SD Plot", p(br()),
 
-      plotOutput("meanp", width = "600px", height = "400px")),
+      plotOutput("meanp", width = "65%")),
 
     tabPanel("Distribution Plots", p(br()),
 
@@ -160,7 +160,7 @@ mainPanel(
 
   hr(),
   h4(tags$b("Output 2. Test Results")),p(br()),
-  DT::DTOutput("t.test"),
+  DT::DTOutput("t.test", width="50%"),
 
 
   HTML(

@@ -72,6 +72,7 @@ sidebarLayout(
 
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
+			 	tags$b("Exponential distribution plot"),
 
 				plotOutput("e.plot", click = "plot_click9", width = "65%"),
 			 	verbatimTextOutput("e.info"),
@@ -80,8 +81,8 @@ sidebarLayout(
 				tableOutput("e")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-
 			 	numericInput("e.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	tags$b("Histogram from random numbers"),
 				plotOutput("e.plot2", click = "plot_click10", width = "65%"),
 			 	sliderInput("e.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),
 
@@ -100,15 +101,13 @@ sidebarLayout(
 			    "
 			    )
 			  ),
-
-
-
-			 tabPanel("Distribution of Your Data", p(br()),
-
-			plotOutput("makeplot.e1", width = "65%"),
-			plotOutput("makeplot.e2", width = "65%"),
-      sliderInput("bin.e","The width of bins in histogram", min = 0,max = 2,value = 0.1, step=0.01),
-			tableOutput("e.sum2")
+			 tabPanel("Distribution of Your Data", p(br()),	
+			 	tags$b("Density from upload data"),
+				plotOutput("makeplot.e2", width = "65%"),
+			 	tags$b("Histogram from upload data"),
+				plotOutput("makeplot.e1", width = "65%"),
+      	sliderInput("bin.e","The width of bins in histogram", min = 0,max = 2,value = 0.1, step=0.01),
+				tableOutput("e.sum2")
 
 			 	)
 

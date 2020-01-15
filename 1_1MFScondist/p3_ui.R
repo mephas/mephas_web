@@ -74,6 +74,7 @@ sidebarLayout(
 
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
+			 	tags$b("Gamma distribution plot"),
 
 				plotOutput("g.plot", click = "plot_click11", width = "65%"),
 			 	verbatimTextOutput("g.info"),
@@ -82,8 +83,8 @@ sidebarLayout(
 				tableOutput("g")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-
 			 	numericInput("g.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	tags$b("Histogram from random numbers"),
 				plotOutput("g.plot2", click = "plot_click12", width = "65%"),
 			 	sliderInput("g.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.3, step=0.01),
 
@@ -103,10 +104,11 @@ sidebarLayout(
 			 	),
 
 			 tabPanel("Distribution of Your Data", p(br()),
-
-			plotOutput("makeplot.g1", width = "65%"),
-			plotOutput("makeplot.g2", width = "65%"),
-      sliderInput("bin.g","The width of bins in histogram", min = 0,max = 2,value = 0.3, step=0.01),
+			 	tags$b("Density from upload data"),
+				plotOutput("makeplot.g2", width = "65%"),
+			 	tags$b("Histogram from upload data"),
+				plotOutput("makeplot.g1", width = "65%"),
+      	sliderInput("bin.g","The width of bins in histogram", min = 0,max = 2,value = 0.3, step=0.01),
 				tableOutput("g.sum2")
 			 	)
 

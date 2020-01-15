@@ -5,7 +5,7 @@ output$e.plot <- renderPlot({
   stat_function(fun = "dexp", args = list(rate = input$r)) + ylab("Density") +
   scale_y_continuous(breaks = NULL) + 
   theme_minimal() + 
-  ggtitle("Exponential Distribution") + #ylim(0, input$e.ylim) +
+  ggtitle("") + #ylim(0, input$e.ylim) +
   geom_vline(aes(xintercept=qexp(input$e.pr, rate = input$r)), colour = "red")
   })
 
@@ -35,8 +35,6 @@ output$download2 <- downloadHandler(
       write.csv(E(), file)
     }
   )
-
-#output$table5 = renderDataTable({head(E(), n = 100L)},  options = list(pageLength = 10))
 
 output$e.plot2 = renderPlot(
 {df = E()
@@ -90,17 +88,15 @@ output$makeplot.e1 <- renderPlot({
   ggplot(x, aes(x = x[,1])) + 
   geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.e, position = "identity") + 
   xlab("") + 
-  ggtitle("Histogram") + 
+  ggtitle("") + 
   theme_minimal() + 
   theme(legend.title =element_blank())
-  #plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+geom_vline(aes(xintercept=quantile(x[,1], probs = input$e.pr, na.rm = TRUE)), color="red", size=0.5)
    })
 output$makeplot.e2 <- renderPlot({
   x = Y()
-  #plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.e, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
   ggplot(x, aes(x = x[,1])) + 
   geom_density() + 
-  ggtitle("Density Plot") + 
+  ggtitle("") + 
   xlab("") + theme_minimal() + 
   theme(legend.title =element_blank())+
   geom_vline(aes(xintercept=quantile(x[,1], probs = input$e.pr, na.rm = TRUE)), color="red", size=0.5)

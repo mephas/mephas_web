@@ -71,6 +71,7 @@ sidebarLayout(
 
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
+			 	tags$b("F distribution plot"),
 
 				plotOutput("f.plot", click = "plot_click7", width = "65%"),
 			 	verbatimTextOutput("f.info"),
@@ -79,8 +80,8 @@ sidebarLayout(
 				tableOutput("f")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-
 			 	numericInput("f.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	tags$b("Histogram from random numbers"),
 				plotOutput("f.plot2", click = "plot_click8", width = "65%"),
 			 	sliderInput("f.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),
 				verbatimTextOutput("f.info2"),
@@ -90,12 +91,12 @@ sidebarLayout(
 			 	),
 
 			 tabPanel("Distribution of Your Data", p(br()),
-
-			plotOutput("makeplot.f1", width = "65%"),
-			plotOutput("makeplot.f2", width = "65%"),
-
-      sliderInput("bin.f","The width of bins in histogram", min = 0,max = 2,value = 0.1, step=0.01),
-      				tableOutput("f.sum2")
+			 	tags$b("Density from upload data"),
+				plotOutput("makeplot.f2", width = "65%"),
+			 	tags$b("Histogram from upload data"),
+				plotOutput("makeplot.f1", width = "65%"),
+      	sliderInput("bin.f","The width of bins in histogram", min = 0,max = 2,value = 0.1, step=0.01),
+				tableOutput("f.sum2")
 
 			 	)
 

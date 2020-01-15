@@ -5,7 +5,7 @@ output$g.plot <- renderPlot({
   stat_function(fun = "dgamma", args = list(shape = input$g.shape, scale=input$g.scale)) + 
   ylab("Density") +
   theme_minimal() + 
-  ggtitle("Gamma distribution")+
+  ggtitle("")+
   scale_y_continuous(breaks = NULL) + #ylim(0, input$g.ylim) +
   geom_vline(aes(xintercept=qgamma(input$g.pr, shape = input$g.shape, scale=input$g.scale)), colour = "red")
   })
@@ -42,7 +42,7 @@ output$g.plot2 = renderPlot(
 ggplot(df, aes(x = x)) + 
 ylab("Frequency")+ 
 theme_minimal() + 
-ggtitle("Histogram of Random Numbers")+
+ggtitle("")+
 geom_histogram(binwidth = input$g.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
 xlim(-0.1, input$g.xlim) + 
 geom_vline(aes(xintercept=quantile(x, probs = input$g.pr, na.rm = FALSE)), color="red", size=0.5)})
@@ -89,7 +89,7 @@ output$makeplot.g1 <- renderPlot({
   ggplot(x, aes(x = x[,1])) + 
   geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.g, position = "identity") + 
   xlab("") + 
-  ggtitle("Histogram") + 
+  ggtitle("") + 
   theme_minimal() + 
   theme(legend.title =element_blank())
  
@@ -99,7 +99,7 @@ output$makeplot.g2 <- renderPlot({
   x = Z()
   ggplot(x, aes(x = x[,1])) + 
   geom_density() + 
-  ggtitle("Density Plot") + 
+  ggtitle("") + 
   xlab("") + 
   theme_minimal() + 
   theme(legend.title =element_blank())+ 

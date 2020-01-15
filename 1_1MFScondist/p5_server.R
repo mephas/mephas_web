@@ -7,7 +7,7 @@ output$t.plot <- renderPlot({
   ylab("Density") + 
   scale_y_continuous(breaks = NULL) + 
   theme_minimal() + 
-  ggtitle("T distribution")+
+  ggtitle("")+
   geom_vline(aes(xintercept=qt(input$t.pr, df = input$t.df)), colour = "red")})
 
 output$t.info = renderText({
@@ -44,7 +44,7 @@ output$t.plot2 = renderPlot(
 {df = T()
 ggplot(df, aes(x = x)) + 
 theme_minimal() + 
-ggtitle("Histogram of Random Numbers")+
+ggtitle("")+
 ylab("Frequency")+ 
 geom_histogram(binwidth = input$t.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
 xlim(-input$t.xlim, input$t.xlim) + 
@@ -91,13 +91,11 @@ TT <- reactive({
 
 output$makeplot.t1 <- renderPlot({
   x = as.data.frame(TT())
-  ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.t, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  #plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank()) + geom_vline(aes(xintercept=quantile(x[,1], probs = input$t.pr, na.rm = FALSE)), color="red", size=0.5)
+  ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.t, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
    })
 output$makeplot.t2 <- renderPlot({
   x = as.data.frame(TT())
-  #plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.t, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank()) + geom_vline(aes(xintercept=quantile(x[,1], probs = input$t.pr, na.rm = FALSE)), color="red", size=0.5)
+  ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title =element_blank()) + geom_vline(aes(xintercept=quantile(x[,1], probs = input$t.pr, na.rm = FALSE)), color="red", size=0.5)
    })
 
 output$t.sum2 = renderTable({

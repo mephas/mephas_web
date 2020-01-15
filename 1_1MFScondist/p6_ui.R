@@ -71,6 +71,7 @@ sidebarLayout(
 
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
+			 	tags$b("Chi-square distribution plot"),
 
 				plotOutput("x.plot", click = "plot_click5", width = "65%"),
 			 	verbatimTextOutput("x.info"),
@@ -79,8 +80,8 @@ sidebarLayout(
 				tableOutput("x")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-
 			 	numericInput("x.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	tags$b("Histogram from random numbers"),
 				plotOutput("x.plot2", click = "plot_click6", width = "65%"),
 			 	sliderInput("x.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),
 				verbatimTextOutput("x.info2"),
@@ -99,11 +100,12 @@ sidebarLayout(
 			 	),
 
 			 tabPanel("Distribution of Your Data", p(br()),
-
-			plotOutput("makeplot.x1", width = "65%"),
-			plotOutput("makeplot.x2", width = "65%"),
-      sliderInput("bin.x","The width of bins in histogram", min = 0,max = 2,value = 0.1, step=0.01),
-      				tableOutput("x.sum2")
+			 	tags$b("Density from upload data"),
+				plotOutput("makeplot.x2", width = "65%"),
+			 	tags$b("Histogram from upload data"),
+				plotOutput("makeplot.x1", width = "65%"),
+	      sliderInput("bin.x","The width of bins in histogram", min = 0,max = 2,value = 0.1, step=0.01),
+	      tableOutput("x.sum2")
 
 			 	)
 

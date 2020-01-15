@@ -15,7 +15,7 @@ output$norm.plot <- renderPlot({
   scale_x_continuous(breaks = c(-input$xlim, input$xlim))+
   ylab("Density") + 
   theme_minimal() + 
-  ggtitle("Normal distribution")+
+  ggtitle("")+
   geom_vline(aes(xintercept=input$mu), color="red", linetype="dashed", size=0.5) +
   geom_vline(aes(xintercept=qnorm(input$pr, mean = input$mu, sd = input$sigma, lower.tail = TRUE, log.p = FALSE)), color="red", size=0.5) })
 
@@ -44,7 +44,7 @@ output$norm.plot2 = renderPlot(
 {df = N()
 ggplot(df, aes(x = x)) + 
 theme_minimal() + 
-ggtitle("Histogram of Random Numbers")+
+ggtitle("")+
 ylab("Frequency")+ geom_histogram(binwidth = input$bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
 xlim(-input$xlim, input$xlim) + 
 geom_vline(aes(xintercept=quantile(x, probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
@@ -101,20 +101,20 @@ output$makeplot.1 <- renderPlot({
   ggplot(x, aes(x = x[,1])) + 
   geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + 
   xlab("") + 
-  ggtitle("Histogram") + 
+  ggtitle("") + 
   theme_minimal() + 
   theme(legend.title =element_blank())
-  #plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+geom_vline(aes(xintercept=quantile(x[,1], probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
+  #plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + #ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+geom_vline(aes(xintercept=quantile(x[,1], probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
  
   #grid.arrange(plot2, plot3, ncol = 2)
   })
 
 output$makeplot.2 <- renderPlot({
   x = NN()
-  #ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
+  #ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + xlab("") + #ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
   ggplot(x, aes(x = x[,1])) + 
   geom_density() + 
-  ggtitle("Density Plot") + 
+  #ggtitle("Density Plot") + 
   xlab("") + 
   theme_minimal() + 
   theme(legend.title =element_blank())+

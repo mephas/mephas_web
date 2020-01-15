@@ -6,7 +6,7 @@ output$b.plot <- renderPlot({
   ylab("Density") +
   scale_y_continuous(breaks = NULL) + 
   theme_minimal() + 
-  ggtitle("Gamma distribution") + #ylim(0, input$b.ylim) +
+  ggtitle("") + #ylim(0, input$b.ylim) +
   geom_vline(aes(xintercept=qbeta(input$b.pr, shape1 = input$b.shape, shape2=input$b.scale)), colour = "red")})
 
 output$b.info = renderText({
@@ -40,7 +40,7 @@ output$b.plot2 = renderPlot(
 {df = B()
 ggplot(df, aes(x = x)) + 
 theme_minimal() + 
-ggtitle("Histogram of Random Numbers")+
+ggtitle("")+
 ylab("Frequency")+ 
 geom_histogram(binwidth = input$b.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
 xlim(-0.1, input$b.xlim) + 
@@ -86,14 +86,12 @@ ZZ <- reactive({
 
 output$makeplot.b1 <- renderPlot({
   x = as.data.frame(ZZ())
-  ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.b, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  #plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank()) + geom_vline(aes(xintercept=quantile(x[,1], probs = input$b.pr, na.rm = FALSE)), color="red", size=0.5)
+  ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.b, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
    })
 
 output$makeplot.b2 <- renderPlot({
   x = as.data.frame(ZZ())
-  #plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.b, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank()) + geom_vline(aes(xintercept=quantile(x[,1], probs = input$b.pr, na.rm = FALSE)), color="red", size=0.5)
+  ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title =element_blank()) + geom_vline(aes(xintercept=quantile(x[,1], probs = input$b.pr, na.rm = FALSE)), color="red", size=0.5)
    })
 
 output$b.sum2 = renderTable({

@@ -6,7 +6,7 @@ output$x.plot <- renderPlot({
   ylab("Density") +
   scale_y_continuous(breaks = NULL) + 
   theme_minimal() + 
-  ggtitle("Chi-squared distribution") + #ylim(0, input$x.ylim) +
+  ggtitle("") + #ylim(0, input$x.ylim) +
   geom_vline(aes(xintercept=qchisq(input$x.pr, df = input$x.df)), colour = "red")})
 
 output$x.info = renderText({
@@ -40,7 +40,7 @@ output$x.plot2 = renderPlot(
 {df = X()
 ggplot(df, aes(x = x)) + 
 theme_minimal() + 
-ggtitle("Histogram of Random Numbers")+
+ggtitle("")+
 ylab("Frequency")+ 
 geom_histogram(binwidth = input$x.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
 xlim(-0.1, input$x.xlim) + 
@@ -84,11 +84,11 @@ XX <- reactive({
 
 output$makeplot.x1 <- renderPlot({
   x = as.data.frame(XX())
-  ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.x, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
+  ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.x, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
    })
 output$makeplot.x2 <- renderPlot({
   x = as.data.frame(XX())
-ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+ geom_vline(aes(xintercept=quantile(x[,1], probs = input$x.pr, na.rm = FALSE)), color="red", size=0.5)
+ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+ geom_vline(aes(xintercept=quantile(x[,1], probs = input$x.pr, na.rm = FALSE)), color="red", size=0.5)
    })
 
 output$x.sum2 = renderTable({

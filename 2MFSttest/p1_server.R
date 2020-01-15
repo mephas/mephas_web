@@ -47,12 +47,15 @@ X <- reactive({
   })
 
 output$table <- DT::renderDT({X()}, 
-  class="row-border", 
-    extensions = 'Buttons', 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 300,
+      scroller = TRUE))
 
 basic_desc <- reactive({
   x <- X()
@@ -63,9 +66,7 @@ basic_desc <- reactive({
   })
 
 output$bas <- DT::renderDT({
-  basic_desc()
-  }, 
-  class="row-border", 
+  basic_desc()}, 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
