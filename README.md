@@ -2,7 +2,7 @@
 <!-- MarkdownTOC -->
 
 - [News](#news)
-- [The Contents of MEPHAS](#the-contents-of-mephas)
+- [Statistical Methods in MEPHAS](#statistical-methods-in-mephas)
 - [The main functionalities](#the-main-functionalities)
 - [The help files](#the-help-files)
 
@@ -18,8 +18,8 @@
 
 - (2019) Source code: [here](https://github.com/mephas/mephas_web){:target="_blank"}
 
-<a id="the-contents-of-mephas"></a>
-## The Contents of MEPHAS
+<a id="statistical-methods-in-mephas"></a>
+## Statistical Methods in MEPHAS
 
 <a id="1-probability-distributions"></a>
 #### 1.1. [Continuous Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_1MFScondist/){:target="_blank"}{:target="_blank"}
