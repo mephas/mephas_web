@@ -78,7 +78,7 @@ sidebarLayout(
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
 
-			 	plotOutput("norm.plot", width = "600px", height = "400px"), #click = "plot_click", 
+			 	plotOutput("norm.plot", click = "plot_click", width = "600px", height = "400px"), #click = "plot_click", 
 			 	verbatimTextOutput("info"),
 
 			 	p(tags$b("The position of Red-line and the Blue Ares")),
