@@ -23,7 +23,7 @@
 
 **Note: control+click will open link in the new tab**
 
-#### 1.1. [Continuous Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_1MFScondist/)
+#### 1.1. *1_1MFScondist*: [Continuous Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_1MFScondist/)
   
 - Normal/Gaussian distribution
 
@@ -39,13 +39,13 @@
 
 - F Distribution
 
-#### 1.2. [Discrete Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_2MFSdisdist/)
+#### 1.2. *1_2MFSdisdist*: [Discrete Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_2MFSdisdist/)
 
 - Binomial Distribution
 
 - Poisson Distribution
        
-#### 2. [T Test](https://alain003.phs.osaka-u.ac.jp/mephas_web/2MFSttest/)
+#### 2. *2MFSttest*: [Parametric T Test](https://alain003.phs.osaka-u.ac.jp/mephas_web/2MFSttest/)
   
   - One Sample t-Test
   
@@ -53,7 +53,7 @@
   
   - Paired Samples
 
-#### 3. [Non-parametric Tests](https://alain003.phs.osaka-u.ac.jp/mephas_web/3MFSnptest/)
+#### 3. *3MFSnptest*: [Non-parametric Tests](https://alain003.phs.osaka-u.ac.jp/mephas_web/3MFSnptest/)
 
   - One Sample Wilcoxon Signed-Rank Test
     
@@ -61,7 +61,7 @@
     
   - Paired Samples Wilcoxon Signed-Rank Test
 
-#### 4. [Test for Binomial Proportions](https://alain003.phs.osaka-u.ac.jp/mephas_web/4MFSproptest/)
+#### 4. *4MFSproptest*: [Test for Binomial Proportions](https://alain003.phs.osaka-u.ac.jp/mephas_web/4MFSproptest/)
 
   - One Single Proportion: Binomial Test
   
@@ -71,7 +71,7 @@
 
   - Trend in Over Two Independent Proportions: Chi-square Trend Test
 
-#### 5. [Test for Contingency Table](https://alain003.phs.osaka-u.ac.jp/mephas_web/5MFSrctabtest/)
+#### 5. *5MFSrctabtest*: [Test for Contingency Table](https://alain003.phs.osaka-u.ac.jp/mephas_web/5MFSrctabtest/)
 
   - Chi-square Test (2x2 Table)
 
@@ -91,7 +91,7 @@
 
   - Cochran-Mantel-Haenszel Test for confounding data (RxC table under K confounding)
 
-#### 6. [Analysis of Variance](https://alain003.phs.osaka-u.ac.jp/mephas_web/6MFSanova/)
+#### 6. *6MFSanova*: [Analysis of Variance](https://alain003.phs.osaka-u.ac.jp/mephas_web/6MFSanova/)
 
   - One-way ANOVA
 
@@ -107,19 +107,19 @@
 
 #### 7. Regression Models
 
-  - 7.1. [Linear Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_1MFSlr/)
+  - 7.1. *7_1MFSlr*: [Linear Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_1MFSlr/)
   
-  - 7.2. [Logistic Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_2MFSlogit/)
+  - 7.2. *7_2MFSlogit*: [Logistic Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_2MFSlogit/)
   
-  - 7.3. [Cox Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_3MFSsurv/)
+  - 7.3. *7_3MFSsurv*: [Cox Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_3MFSsurv/)
 
-#### 8.1. [Dimensional Analysis 1](https://alain003.phs.osaka-u.ac.jp/mephas_web/8_1MFSpca/)
+#### 8.1. *8_1MFSpca*: [Dimensional Analysis 1](https://alain003.phs.osaka-u.ac.jp/mephas_web/8_1MFSpca/)
 
   - Principle Component Analysis (PCA)
 
   - Exploratory Factor Analysis (EFA)
 
-#### 8.2. [Dimensional Analysis 2](https://alain003.phs.osaka-u.ac.jp/mephas_web/8_2MFSpls/) 
+#### 8.2. *8_2MFSpls*: [Dimensional Analysis 2](https://alain003.phs.osaka-u.ac.jp/mephas_web/8_2MFSpls/) 
   
   - Principal Component Regression (PCR)
 
