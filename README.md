@@ -22,7 +22,7 @@
 ## The Contents of MEPHAS
 
 <a id="1-probability-distributions"></a>
-#### 1.1. [Continuous Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_1MFScondist/)
+#### 1.1. [Continuous Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_1MFScondist/){:target="_blank"}
   
 - Normal/Gaussian distribution
 
