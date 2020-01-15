@@ -157,7 +157,7 @@ hr()
 
 ##---------- other panels ----------
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/help2.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
 
 )
