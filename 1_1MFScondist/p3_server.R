@@ -15,7 +15,7 @@ output$g.info = renderText({
       if(is.null(e)) return("NULL\n")
       paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
     }
-    paste0("Position: ", "\n", xy_str(input$plot_click11))})
+    paste0("Click Position: ", "\n", xy_str(input$plot_click11))})
 
 output$g = renderTable({
   x <- data.frame(x.postion = qgamma(input$g.pr, shape = input$g.shape, scale=input$g.scale))
@@ -53,7 +53,7 @@ output$g.info2 = renderText({
       paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
     }
 
-    paste0("Position: ", "\n", xy_str(input$plot_click12))})
+    paste0("Click Position: ", "\n", xy_str(input$plot_click12))})
 
 output$g.sum = renderTable({
   x = G()

@@ -14,7 +14,7 @@ output$e.info = renderText({
       if(is.null(e)) return("NULL\n")
       paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
     }
-    paste0("Position: ", "\n", xy_str(input$plot_click9))})
+    paste0("Click Position: ", "\n", xy_str(input$plot_click9))})
 
 output$e = renderTable({
   x <- data.frame(x.postion = qexp(input$e.pr, rate = input$r))
@@ -53,7 +53,7 @@ output$e.info2 = renderText({
       paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
     }
 
-    paste0("Position: ", "\n", xy_str(input$plot_click10))})
+    paste0("Click Position: ", "\n", xy_str(input$plot_click10))})
 
 output$e.sum = renderTable({
   x = E()[,1]

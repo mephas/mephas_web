@@ -12,7 +12,7 @@ output$f.info = renderText({
       if(is.null(e)) return("NULL\n")
       paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
     }
-    paste0("Position: ", "\n", xy_str(input$plot_click7))})
+    paste0("Click Position: ", "\n", xy_str(input$plot_click7))})
 
 output$f = renderTable({
   x <- data.frame(x.postion = qf(input$f.pr, df1 = input$df11, df2 = input$df21))
@@ -53,7 +53,7 @@ output$f.info2 = renderText({
       paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
     }
 
-    paste0("Position: ", "\n", xy_str(input$plot_click8))})
+    paste0("Click Position: ", "\n", xy_str(input$plot_click8))})
 
 output$f.sum = renderTable({
   x = F()

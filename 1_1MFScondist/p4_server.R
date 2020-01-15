@@ -14,7 +14,7 @@ output$b.info = renderText({
       if(is.null(e)) return("NULL\n")
       paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
     }
-    paste0("Position: ", "\n", xy_str(input$plot_click13))})
+    paste0("Click Position: ", "\n", xy_str(input$plot_click13))})
 
 output$b = renderTable({
   x <- data.frame(x.postion = qbeta(input$b.pr, shape1 = input$b.shape, shape2=input$b.scale))
@@ -53,7 +53,7 @@ output$b.info2 = renderText({
       paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
     }
 
-    paste0("Position: ", "\n", xy_str(input$plot_click12))})
+    paste0("Click Position: ", "\n", xy_str(input$plot_click12))})
 
 output$b.sum = renderTable({
   x = B()

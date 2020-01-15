@@ -24,7 +24,7 @@ output$info = renderText({
       if(is.null(e)) return("NULL\n")
       paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
     }
-    paste0("Position: ", "\n", xy_str(input$plot_click))})
+    paste0("Click Position: ", "\n", xy_str(input$plot_click))})
 
 output$xs = renderTable({
   a = qnorm(input$pr, mean = input$mu, sd = input$sigma, lower.tail = TRUE, log.p = FALSE)
@@ -63,7 +63,7 @@ output$info2 = renderText({
       if(is.null(e)) return("NULL\n")
       paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
     }
-    paste0("Position: ", "\n", xy_str(input$plot_click2))})
+    paste0("Click Position: ", "\n", xy_str(input$plot_click2))})
 
 output$download1 <- downloadHandler(
     filename = function() {
