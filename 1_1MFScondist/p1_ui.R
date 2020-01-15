@@ -78,7 +78,9 @@ sidebarLayout(
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
 
-			 	plotOutput("norm.plot", click = "plot_click", width = "600px", height = "400px"), #click = "plot_click", 
+			 	#plotOutput("norm.plot", click = "plot_click", width = "600px", height = "400px"), #click = "plot_click", 
+			 	plotOutput("norm.plot", click = "plot_click", width = "65%"), #click = "plot_click", 
+
 			 	verbatimTextOutput("info"),
 
 			 	p(tags$b("The position of Red-line and the Blue Ares")),
@@ -87,7 +89,7 @@ sidebarLayout(
 			 tabPanel("Simulation-based Plot", p(br()),
 			 	
 			 	numericInput("size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
-			 	plotOutput("norm.plot2", click = "plot_click2", width = "600px", height = "400px"),	
+			 	plotOutput("norm.plot2", click = "plot_click2",  width = "65%"),	
 
 			 	sliderInput("bin", "The width of bins in histogram", min = 0, max = 2, value = 0.2, step=0.01),
 				verbatimTextOutput("info2"),
@@ -101,8 +103,8 @@ sidebarLayout(
 
 			 tabPanel("Distribution of Your Data", p(br()),
 
-			plotOutput("makeplot.1", width = "500px", height = "300px"),
-			plotOutput("makeplot.2", width = "500px", height = "300px"),
+			plotOutput("makeplot.1", width = "65%"),
+			plotOutput("makeplot.2", width = "65%"),
       sliderInput("bin1","The width of bins in histogram",min = 0,max = 2,value = 0.2, step=0.01),
 				p(tags$b("Sample descriptive statistics")),
 				tableOutput("sum2")

@@ -32,7 +32,7 @@ output$xs = renderTable({
   x <- t(data.frame(x.position = a, blue.area = b))
   rownames(x) <- c("Red-line Position (x0)", "Blue Area, Probability %")
   return(x)}, 
-  digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
+  digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
 
 N = reactive({ 
   df = data.frame(x = rnorm(input$size, input$mu, input$sigma))
@@ -56,7 +56,7 @@ output$sum = renderTable({
   x <- matrix(c(mean(x), sd(x), quantile(x, probs = input$pr)),3,1)
   rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
 
 output$info2 = renderText({
     xy_str = function(e) {
@@ -128,7 +128,7 @@ output$sum2 = renderTable({
   x <- matrix(c(mean(x), sd(x), quantile(x, probs = input$pr)),3,1)
   rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
 
 
 

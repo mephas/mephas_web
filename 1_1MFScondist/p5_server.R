@@ -21,7 +21,7 @@ output$t = renderTable({
   x <-data.frame(x.position = qt(input$t.pr, df = input$t.df))
   rownames(x) <- c("Red-line Position (x)")
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
 
 
 T = reactive({ # prepare dataset
@@ -63,7 +63,7 @@ output$t.sum = renderTable({
   x <- t(data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = quantile(x[,1], probs = input$t.pr, na.rm = FALSE)))
   rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
 
 
 TT <- reactive({
@@ -105,4 +105,4 @@ output$t.sum2 = renderTable({
   x <- t(data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = quantile(x[,1], probs = input$t.pr, na.rm = FALSE)))
   rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")

@@ -20,7 +20,7 @@ output$b = renderTable({
   x <- data.frame(x.postion = qbeta(input$b.pr, shape1 = input$b.shape, shape2=input$b.scale))
   rownames(x) <- c("Red-line Position (x)")
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
 
 B = reactive({ # prepare dataset
   #set.seed(1)
@@ -60,7 +60,7 @@ output$b.sum = renderTable({
   x <- t(data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), va=quantile(x[,1], probs = input$b.pr, na.rm = FALSE)))
   rownames(x) <- c("Mean", "Standard Deviation","Red-line Position (x0)")
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
 
 ZZ <- reactive({
   inFile <- input$b.file
@@ -101,6 +101,6 @@ output$b.sum2 = renderTable({
   x <- t(data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance =quantile(x[,1], probs = input$b.pr, na.rm = FALSE)))
   rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
 
 

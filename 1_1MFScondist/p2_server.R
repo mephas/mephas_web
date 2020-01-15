@@ -20,7 +20,7 @@ output$e = renderTable({
   x <- data.frame(x.postion = qexp(input$e.pr, rate = input$r))
   rownames(x) <- c("Red-line Position (x)")
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
 
 E = reactive({ # prepare dataset
   #set.seed(1)
@@ -60,7 +60,7 @@ output$e.sum = renderTable({
   x <- t(data.frame(Mean = mean(x), SD = sd(x), Variance = quantile(x, probs = input$e.pr)))
   rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
 
 Y <- reactive({
   inFile <- input$e.file
@@ -111,6 +111,6 @@ output$e.sum2 = renderTable({
   x <- t(data.frame(Mean = mean(x[,1]), SD = sd(x[,1]), Variance = quantile(x[,1], probs = input$e.pr)))
   rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
   return(x)
-  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "500px")
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "50%")
 
 

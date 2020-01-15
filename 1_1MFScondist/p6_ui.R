@@ -72,7 +72,7 @@ sidebarLayout(
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
 
-				plotOutput("x.plot", click = "plot_click5", width = "600px", height = "400px"),
+				plotOutput("x.plot", click = "plot_click5", width = "65%"),
 			 	verbatimTextOutput("x.info"),
 
 			 	p(tags$b("The position of Red-line, x0")),
@@ -81,7 +81,7 @@ sidebarLayout(
 			 tabPanel("Simulation-based Plot", p(br()),
 
 			 	numericInput("x.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
-				plotOutput("x.plot2", click = "plot_click6", width = "600px", height = "400px"),
+				plotOutput("x.plot2", click = "plot_click6", width = "65%"),
 			 	sliderInput("x.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),
 				verbatimTextOutput("x.info2"),
 				downloadButton("download6", "Download Random Numbers"),
@@ -100,8 +100,8 @@ sidebarLayout(
 
 			 tabPanel("Distribution of Your Data", p(br()),
 
-			plotOutput("makeplot.x1", width = "500px", height = "300px"),
-			plotOutput("makeplot.x2", width = "500px", height = "300px"),
+			plotOutput("makeplot.x1", width = "65%"),
+			plotOutput("makeplot.x2", width = "65%"),
       sliderInput("bin.x","The width of bins in histogram", min = 0,max = 2,value = 0.1, step=0.01),
       				tableOutput("x.sum2")
 

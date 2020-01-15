@@ -78,7 +78,7 @@ sidebarLayout(
 		h4(tags$b("Output. Plots")),
 	tabsetPanel(
 		tabPanel("Model-based Plot", p(br()),
-		plotOutput("p.plot", width = "600px", height = "400px"),
+		plotOutput("p.plot", width = "65%"),
 		p(tags$b("Probability at the observed number of occurrences (Red-Dot)")),
 		tableOutput("p.k"),
 		p(tags$i("Explanation: the probability distribution until 5 month was 0.97. Thus, the probability distribution after 6 months was about 0.03"))
@@ -87,7 +87,7 @@ sidebarLayout(
 			 	
 			 	numericInput("size.p", "The sample size of random numbers", value = 100, min = 1, max = 1000000, step = 1),
 
-			 	plotOutput("p.plot2", width = "600px", height = "400px"),	
+			 	plotOutput("p.plot2", width = "65%"),	
 
 			 	sliderInput("bin.p", "The width of bins in histogram", min = 0, max = 2, value = 1, step=0.1),
 			 	downloadButton("download2", "Download Random Numbers"),
@@ -99,7 +99,7 @@ sidebarLayout(
 			 	),    
 		tabPanel("Distribution of Your Data", p(br()),
 
-			plotOutput("makeplot.2", width = "600px", height = "400px"),
+			plotOutput("makeplot.2", width = "65%"),
 			#plotOutput("makeplot.2", width = "500px", height = "300px"),
       sliderInput("bin1.p","The width of bins in histogram",min = 0,max = 2,value = 1, step=0.1),
 				p(tags$b("Sample descriptive statistics")),

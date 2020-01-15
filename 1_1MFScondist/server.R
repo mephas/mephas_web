@@ -1,22 +1,11 @@
 if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
-#if (!require(gridExtra)) {install.packages("gridExtra")}; library(gridExtra)
-##----------#----------#----------#----------
-##
-## 1MFSdistribution SERVER
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
 
 shinyServer(
 
 function(input, output) {
-  #options(warn=-1)
-###---------- 1.1 Normal Distribution ----------
+
+##---------- Continuous Probability Distribution ----------
 
 source("p1_server.R", local=TRUE)$value
 

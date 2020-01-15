@@ -35,7 +35,6 @@ HTML(
 <li> Get the probability distribution of your data which can be roughly compared to N(&#956, &#963)
 
 </ul>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 
 <i><h4>Case Example</h4>
 Suppose we wanted to see the shape of N(0, 1), and wanted to know 1. at which point x0 when Pr(X < x0)= 0.025, and 2. what is the probability between means+/-1SD area  </i>
