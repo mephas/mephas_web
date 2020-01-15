@@ -1,7 +1,7 @@
-# MEPHAS 
+# MEPHAS Web Server
 <!-- MarkdownTOC -->
 
-- [Introduction](#introduction)
+- [News](#news)
 - [The structure of MEPHAS web](#the-structure-of-mephas-web)
   - [Eight categories of statistics](#eight-categories-of-statistics)
 - [The main functionality in each applications](#the-main-functionality-in-each-applications)
@@ -10,21 +10,16 @@
 <!-- /MarkdownTOC -->
 
 
-<a id="introduction"></a>
-## Introduction
-
-MEPHAS integrates the medical and pharmaceutical data analysis methods in order to facilitate researchers analyze or explore their data.
+<a id="news"></a>
+## News
 
 <a id="the-brandly-new-site-is-here"></a>
-#### Please find the new site [here](https://alain003.phs.osaka-u.ac.jp/mephas/).
+#### New site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/)
 
 <a id="source-code-is-here"></a>
-#### Find source code [here](https://github.com/mephas/mephas_web)
+#### Source code: [here](https://github.com/mephas/mephas_web)
 
-<a id="the-r-package-mephas-is-here"></a>
-#### The R package `mephas` is [here](https://mephas.github.io/mephas/)
-
-~~The old site is [here](http://www.gen-info.osaka-u.ac.jp/MEPHAS/).~~
+~~~#### Old site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/index_old.html)~~~
 
 <a id="the-structure-of-mephas-web"></a>
 ## The structure of MEPHAS web
@@ -126,13 +121,14 @@ MEPHAS integrates the medical and pharmaceutical data analysis methods in order 
   - 7.3. [Cox Regression](https://alain003.phs.osaka-u.ac.jp/mephas_web/7_3MFSsurv/)
 
 <a id="8-principal-components"></a>
+
 #### 8.1. [Dimensional Analysis 1](https://alain003.phs.osaka-u.ac.jp/mephas_web/8_1MFSpca/)
 
   - Principle Component Analysis (PCA)
 
   - Exploratory Factor Analysis (EFA)
 
- #### 8.2. [Dimensional Analysis 2](https://alain003.phs.osaka-u.ac.jp/mephas_web/8_2MFSpls/) 
+#### 8.2. [Dimensional Analysis 2](https://alain003.phs.osaka-u.ac.jp/mephas_web/8_2MFSpls/) 
   
   - Principal Component Regression (PCR)
 
