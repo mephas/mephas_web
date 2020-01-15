@@ -2,49 +2,51 @@
 <!-- MarkdownTOC -->
 
 - [News](#news)
-- [The structure of MEPHAS web](#the-structure-of-mephas-web)
-  - [Eight categories of statistics](#eight-categories-of-statistics)
-- [The main functionality in each applications](#the-main-functionality-in-each-applications)
+- [The Contents of MEPHAS](#the-contents-of-mephas)
+  - [Categories of statistics](#categories-of-statistics)
+- [The main functionalities](#the-main-functionalities)
 - [The help files](#the-help-files)
 
 <!-- /MarkdownTOC -->
 
 
 <a id="news"></a>
-## News
+## News 
 
-<a id="the-brandly-new-site-is-here"></a>
-#### New site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/)
+- (2020-01) New site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/)
 
-Old site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/index_old.html) (Not recommend)
+- (2019-12) Old site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/index_old.html) (Not recommend)
 
-<a id="source-code-is-here"></a>
-#### Source code: [here](https://github.com/mephas/mephas_web)
+- (2019) Source code: [here](https://github.com/mephas/mephas_web)
 
-<a id="the-structure-of-mephas-web"></a>
-## The structure of MEPHAS web
+<a id="the-contents-of-mephas"></a>
+## The Contents of MEPHAS
 
-<a id="eight-categories-of-statistics"></a>
-### Eight categories of statistics
+<a id="categories-of-statistics"></a>
+### Categories of statistics
 
 <a id="1-probability-distributions"></a>
-#### 1.1. [Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_1MFScondist/)
-
-  - Continuous Random Variable
+#### 1.1. [Continuous Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_1MFScondist/)
   
-    + Normal/Gaussian distribution
-    + Exponential Distribution
-    + Gamma Distribution
-    + Beta Distribution
-    + Student's t Distribution
-    + Chi-square Distribution
-    + F Distribution
+- Normal/Gaussian distribution
 
-#### 1.2. [Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_2MFSdisdist/)
+- Exponential Distribution
 
-  - Discrete Random Variable
-    + Binomial Distribution
-    + Poisson Distribution
+- Gamma Distribution
+
+- Beta Distribution
+
+- Student's t Distribution
+
+- Chi-square Distribution
+
+- F Distribution
+
+#### 1.2. [Discrete Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas_web/1_2MFSdisdist/)
+
+- Binomial Distribution
+
+- Poisson Distribution
        
 <a id="2-t-test"></a>
 #### 2. [T Test](https://alain003.phs.osaka-u.ac.jp/mephas_web/2MFSttest/)
@@ -136,29 +138,25 @@ Old site: [here](https://alain003.phs.osaka-u.ac.jp/mephas/index_old.html) (Not 
   
   - Sparse Partial Least Squares Regression (SPLSR)
 
-<a id="more-apllications-are-still-under-construction"></a>
-##### More applications are still under construction.
 
-<a id="the-main-functionality-in-each-applications"></a>
-## The main functionality in each applications
+##### Updated by 2020-01, more applications are still under construction.
 
-<a id="1-data-preparation-manual-input-or-upload-csv-file"></a>
+<a id="the-main-functionalities"></a>
+## The main functionalities
+
 #### 1. Data preparation (manual input or upload CSV file)
 
-<a id="2-parameter-input"></a>
 #### 2. Parameter input
 
-<a id="3-data-display"></a>
 #### 3. Data display
 
-<a id="3-datas-descriptive-statistics"></a>
 #### 3. Descriptive statistics
 
-<a id="4-models-results"></a>
 #### 4. Model's results
 
-<a id="5-statistical-tables-and-figures-downloadable"></a>
-#### 5. Statistical tables and figures (downloadable)
+#### 5. Statistical tables, downloadable
+
+#### 6. Statistical plots
 
 <a id="the-help-files"></a>
 ## The help files
