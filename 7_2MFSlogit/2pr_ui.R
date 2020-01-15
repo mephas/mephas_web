@@ -49,7 +49,7 @@ choices = c("None" = "",
            "Single Quote" = "'"),
 selected = '"'),
 
-p("Correct separator and quote ensure the successful data input"),
+p("Correct separator and quote ensure the successful data input")
 ),
 
 
