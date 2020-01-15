@@ -30,7 +30,7 @@ output$dt6 = DT::renderDT({
   addmargins(T6(), 
     margin = seq_along(dim(T6())), 
     FUN = list(Total=sum), quiet = TRUE)},
-  class="row-border", 
+  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -42,7 +42,7 @@ output$dt6.0 = DT::renderDT({
   res = round(cohen.kappa(x)$agree,6)
     return(res)
 }, 
-class="row-border", 
+#class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -54,7 +54,7 @@ output$dt6.1 = DT::renderDT({
   res = round(cohen.kappa(x)$weight,6)
     return(res)
 }, 
-class="row-border", 
+#class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -81,7 +81,7 @@ output$c.test6 = DT::renderDT({
     colnames(res.table) =c("95% CI Low", "Kappa Estimate", "95% CI High")
     return(res.table)
     }, 
-    class="row-border", 
+    #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',

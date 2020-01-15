@@ -24,7 +24,7 @@ level <- reactive({
   })
 
 output$level.t <- DT::renderDT({level()},
-   class="row-border", 
+   #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -61,7 +61,7 @@ Ym <- reactive({
 })
 
 output$tablem <- DT::renderDT(Ym(),
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -78,7 +78,7 @@ basm <- reactive({
 
 output$basm.t <- DT::renderDT({
   basm()}, 
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -153,7 +153,7 @@ multiple <- reactive({
 })
 
 output$multiple.t <- DT::renderDT({multiple()},
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

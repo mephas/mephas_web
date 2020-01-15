@@ -35,11 +35,11 @@ output$dt8 = DT::renderDT({
   k <- length(kn8())
   n <- length(rn8())
   dm <- dimnames(T8())
-  rownames(T) <- paste0(rep(dm[[3]], rep(2,k)), "-*-",dm[[2]])
+  rownames(T) <- paste0(rep(dm[[3]], rep(2,k)), " : ",dm[[2]])
   colnames(T)<- cn8()
   return(T)
   }, 
-  class="row-border", 
+  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -68,7 +68,7 @@ output$c.test8 = DT::renderDT({
     rownames(res.table) <- c("Mantel-Haenszel Chi-Square", "Estimated Odds Ratio", "P Value", "95% Confidence Interval")
     return(res.table)
     }, 
-    class="row-border", 
+    #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',

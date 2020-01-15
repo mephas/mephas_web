@@ -56,7 +56,7 @@
 
     h4(tags$b("Output 1. Proportion Plot")), p(br()), 
 
-    plotOutput("makeplot", width = "400px", height = "400px"),
+    plotOutput("makeplot", width = "80%"),
 
     hr(),
 

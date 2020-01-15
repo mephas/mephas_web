@@ -158,7 +158,7 @@ tabPanel("Survival Curves",  p(br()),
     ),
   choiceValues = list("pct", "event","cumhaz")
   ),
-plotOutput("km.a", width = "600px", height = "400px"),
+plotOutput("km.a", width = "80%"),
 verbatimTextOutput("kmat1")
      ),
 
@@ -172,7 +172,7 @@ tabPanel("Histogram", p(br()),
 
 p("This is to show the distribution of any numeric variable"),
 uiOutput('hx'),
-plotOutput("p2", width = "500px", height = "400px"),
+plotOutput("p2", width = "80%"),
 sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 50, value = 1))
 
 )

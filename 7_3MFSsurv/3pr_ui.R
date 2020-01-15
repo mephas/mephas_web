@@ -74,7 +74,7 @@ numericInput("ee", HTML("Set time series:end point"), value = 10, min = 1),
 numericInput("by", HTML("Set time series: sequence"), value = 1, min = 0),
 
 p(tags$b("Brier score at given time")),
-plotOutput("bsplot", width = "500px", height = "400px"),
+plotOutput("bsplot", width = "80%"),
 DT::DTOutput("bstab")
 
 ),
@@ -119,7 +119,7 @@ radioButtons("auc", "Choose one AUC estimator",
   choiceValues = list("a", "b", "c", "d")
   ),
 p(tags$b("Time dependent AUC at given time")),
-plotOutput("aucplot", width = "500px", height = "400px"),
+plotOutput("aucplot", width = "80%"),
 DT::DTOutput("auctab")
 
 )

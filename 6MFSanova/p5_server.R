@@ -22,7 +22,7 @@ levelnp1 <- reactive({
   return(x)
   })
 output$level.tnp1 <- DT::renderDT({levelnp1()},
-   class="row-border", 
+   #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -66,7 +66,7 @@ if(!input$colnp1){
 #  width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
 
 output$tablenp1 <- DT::renderDT(Ynp1(),
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -83,7 +83,7 @@ basnp1 <- reactive({
 
 output$basnp1.t <- DT::renderDT({
   basnp1()}, 
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -115,7 +115,7 @@ output$kwtest <- DT::renderDT({
   rownames(res.table) <- c("Kruskal-Wallis chi-squared", "P Value","Degree of Freedom")
   return(res.table)
     },
-    class="row-border", 
+    #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

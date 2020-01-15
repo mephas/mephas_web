@@ -69,7 +69,7 @@
 
       p(tags$b("Percentage Plot")),
 
-      plotOutput("makeplot3", width = "600px", height = "300px"),
+      plotOutput("makeplot3", width = "80%"),
 
       hr(),
 

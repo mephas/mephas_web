@@ -61,9 +61,9 @@ output$table.p <-DT::renderDT({Z()},
 
 basic_desc3 <- reactive({
   x <- Z()
-  res <- as.data.frame((psych::describe(x))[-c(1,6,7), ])
-  rownames(res) = names(x)
-  colnames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
+  res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
+  colnames(res) = names(x)
+  rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
   return(res)
   })
 
@@ -97,34 +97,33 @@ output$meanp.p = renderPlot({
   x = Z()[,3]
   des = data.frame(psych::describe(x))
   rownames(des) = names(x)
-  #p1 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
-  #  geom_errorbar(width = .1, aes(ymin = mean - des$std.dev, ymax = mean + des$std.dev),data = des) +
-  #  xlab("") + ylab(expression(Mean %+-% SD)) + geom_point(shape = 21, size = 3) + theme_minimal() + theme(legend.title = element_blank())
-
-  p2 = ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
+  ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
     xlab("") + ylab(expression(Mean %+-% SD)) + geom_bar(position = position_dodge(), stat = "identity", width = 0.2, alpha = .3) + 
     geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - des$sd, ymax = mean + des$sd), data = des) + 
     theme_minimal() + theme(legend.title = element_blank())
   
-  grid.arrange(p2)
   })
 
 output$info3 <- renderText({
   xy_str = function(e) {
     if (is.null(e))
     return("NULL\n")
-    paste0("The approximate value: ", round(e$y, 4))
+    paste0("Click to get value: ", round(e$y, 4))
   }
-  paste0("Horizontal position ", "\n", xy_str(input$plot_click3))
+  paste0("Y-axis position ", "\n", xy_str(input$plot_click3))
   })
 
 output$makeplot.p <- renderPlot({
   x <- Z()
-  plot1 <- ggplot(x, aes(sample = x[, 3])) + stat_qq() + ggtitle("Normal Q-Q Plot of the Mean Differences") + xlab("") + theme_minimal()  ## add line,
-  plot2 <- ggplot(x, aes(x = x[, 3])) + geom_histogram(colour = "black",fill = "grey", binwidth = input$bin.p, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  plot3 <- ggplot(x, aes(x = x[, 3])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title = element_blank())
-
-  grid.arrange(plot1, plot2, plot3, ncol = 3)
+  ggplot(x, aes(sample = x[, 3])) + stat_qq() + ggtitle("Normal Q-Q Plot of the Mean Differences") + xlab("") + theme_minimal()  ## add line,
+  })
+output$makeplot.p2 <- renderPlot({
+  x <- Z()
+  ggplot(x, aes(x = x[, 3])) + geom_histogram(colour = "black",fill = "grey", binwidth = input$bin.p, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
+  })
+output$makeplot.p3 <- renderPlot({
+  x <- Z()
+  ggplot(x, aes(x = x[, 3])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title = element_blank())
   })
 
 t.test.p0 <- reactive({
@@ -142,7 +141,7 @@ t.test.p0 <- reactive({
       T = res$statistic,
       P = res$p.value,
       EMD = res$estimate,
-      CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4),")"),
+      CI = paste0("(",round(res$conf.int[1], digits = 6),", ",round(res$conf.int[2], digits = 6),")"),
       DF = res$parameter
       )
     )

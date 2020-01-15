@@ -35,11 +35,11 @@ output$dt7 = DT::renderDT({
   k <- length(kn())
   n <- length(rn())
   dm <- dimnames(T7())
-  rownames(T) <- paste0(rep(dm[[3]], each=n), "-*-", dm[[1]])
+  rownames(T) <- paste0(rep(dm[[3]], each=n), " : ", dm[[1]])
   colnames(T)<- cn()
   return(T)
   }, 
-  class="row-border", 
+  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -59,7 +59,7 @@ output$c.test7 = DT::renderDT({
     rownames(res.table) <- c("Mantel-Haenszel Chi-Square", "P Value")
     return(res.table)
     }, 
-    class="row-border", 
+    #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',

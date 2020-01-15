@@ -28,7 +28,7 @@ output$dt2 = DT::renderDT({
   addmargins(T2(), 
     margin = seq_along(dim(T2())), 
     FUN = list(Total=sum), quiet = TRUE)},  
-  class="row-border", 
+  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -39,7 +39,7 @@ output$dt2.0 = DT::renderDT({
   res = chisq.test(T2())
   exp = res$expected
   return(exp)}, 
-  class="row-border", 
+  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -47,7 +47,7 @@ output$dt2.0 = DT::renderDT({
     scrollX = TRUE))
 
 output$dt2.1 = DT::renderDT({prop.table(T2(), 1)}, 
-  class="row-border", 
+  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -55,7 +55,7 @@ output$dt2.1 = DT::renderDT({prop.table(T2(), 1)},
     scrollX = TRUE))
 
 output$dt2.2 = DT::renderDT({prop.table(T2(), 2)}, 
-  class="row-border", 
+  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -63,7 +63,7 @@ output$dt2.2 = DT::renderDT({prop.table(T2(), 2)},
     scrollX = TRUE))
 
 output$dt2.3 = DT::renderDT({prop.table(T2())}, 
-  class="row-border", 
+  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -95,7 +95,7 @@ output$c.test2 = DT::renderDT({
     rownames(res.table) <- c("McNemar Chi-Square", "Degree of freedom", "P Value")
     return(res.table)
     }, 
-  class="row-border", 
+  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',

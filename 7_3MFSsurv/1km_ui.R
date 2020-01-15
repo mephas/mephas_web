@@ -109,7 +109,7 @@ tabPanel("Kaplan-Meier Plot by Group",  p(br()),
     ),
   choiceValues = list("pct", "event","cumhaz")
   ),
-    plotOutput("km.p", width = "800px", height = "600px"),
+    plotOutput("km.p", width = "80%"),
      verbatimTextOutput("kmt1")
      ),
 tabPanel("Log-Rank Test",  p(br()),

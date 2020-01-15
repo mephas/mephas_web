@@ -55,7 +55,7 @@ if(!input$colm2){
 })
 
 output$tablem2 <- DT::renderDT(Ym2(),
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -73,7 +73,7 @@ basm2 <- reactive({
 
 output$basm.t2 <- DT::renderDT({
   basm2()}, 
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -137,7 +137,7 @@ multiple2 <- reactive({
 })
 
 output$multiple.t2 <- DT::renderDT({multiple2()},
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

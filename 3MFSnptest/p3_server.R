@@ -49,12 +49,15 @@ names3 <- reactive({
   
   #table
 output$table3 <-DT::renderDT(C() ,
-  class="row-border", 
-    extensions = 'Buttons', 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 300,
+      scroller = TRUE))
 
   C.des <- reactive({
     x<- C()
@@ -66,7 +69,7 @@ output$table3 <-DT::renderDT(C() ,
 
   output$bas3 <- DT::renderDT({  ## don't use renerPrint to do DT::renderDT
     res <- C.des()}, 
-    class="row-border", 
+  
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -90,15 +93,18 @@ output$table3 <-DT::renderDT(C() ,
   output$info3 <- renderText({
     xy_str = function(e) {
       if(is.null(e)) return("NULL\n")
-      paste0("The approximate value: ", round(e$y, 4))
+      paste0("Click to get the value: ", round(e$y, 4))
     }
-    paste0("Horizontal position", "\n", xy_str(input$plot_click3))})
+    paste0("Y-axis position", "\n", xy_str(input$plot_click3))})
 
   output$makeplot3 <- renderPlot({
     x <- C()
-    plot1 <- ggplot(x, aes(x=x[,3])) + geom_histogram(colour="black", fill = "grey", binwidth=input$bin3, alpha=.5, position="identity") + ylab("Frequncy") + xlab("") +  ggtitle("Histogram") + theme_minimal() + theme(legend.title=element_blank())
-    plot2 <- ggplot(x, aes(x=x[,3])) + geom_density() + ggtitle("Density Plot") + theme_minimal() + ylab("Density") + xlab("") + theme(legend.title=element_blank())
-    grid.arrange(plot1, plot2, ncol=2)  })
+    ggplot(x, aes(x=x[,3])) + geom_histogram(colour="black", fill = "grey", binwidth=input$bin3, alpha=.5, position="identity") + ylab("Frequncy") + xlab("") +  ggtitle("") + theme_minimal() + theme(legend.title=element_blank())
+    })
+  output$makeplot3.1 <- renderPlot({
+    x <- C()
+    ggplot(x, aes(x=x[,3])) + geom_density() + ggtitle("") + theme_minimal() + ylab("Density") + xlab("") + theme(legend.title=element_blank())
+    })
 
 psr.test <- reactive({
   x <- C()
@@ -127,7 +133,7 @@ psr.test <- reactive({
 
   output$psr.test.t <- DT::renderDT({
     psr.test()}, 
-    class="row-border", 
+  
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

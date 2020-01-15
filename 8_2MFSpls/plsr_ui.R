@@ -74,22 +74,22 @@ DT::DTOutput("pls.resi")
 ),
 
 tabPanel("Components", p(br()),
-  plotOutput("pls.s.plot", width = "600px", height = "400px"),
+  plotOutput("pls.s.plot", width = "80%"),
   DT::DTOutput("pls.s")
   ),
 
 tabPanel("Loading", p(br()),
-  plotOutput("pls.l.plot", width = "600px", height = "600px"),
+  plotOutput("pls.l.plot", width = "80%"),
   DT::DTOutput("pls.l")
   ),
 
 tabPanel("Component and Loading 2D Plot", p(br()),
-  plotOutput("pls.bp", width = "600px", height = "600px")
+  plotOutput("pls.bp", width = "80%")
   #DT::DTOutput("pls.l")
   ),
 
 tabPanel("Component and Loading 3D Plot" ,p(br()),
-plotly::plotlyOutput("pls.tdplot", width = "800px", height = "800px"),
+plotly::plotlyOutput("pls.tdplot"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("pls_tdtrace")
 )

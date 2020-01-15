@@ -103,7 +103,7 @@ mainPanel(
 
     tabPanel("Marginal Means Plot",p(br()),
 
-      plotOutput("mmean1", width = "600px", height = "400px")
+      plotOutput("mmean1", width = "80%")
       )
     ),
 

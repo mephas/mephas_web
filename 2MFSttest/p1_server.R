@@ -65,8 +65,7 @@ basic_desc <- reactive({
   return(res)
   })
 
-output$bas <- DT::renderDT({
-  basic_desc()}, 
+output$bas <- DT::renderDT({basic_desc()}, 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -92,31 +91,33 @@ output$info1 <- renderText({
   xy_str = function(e) {
     if (is.null(e))
     return("NULL\n")
-    paste0("The approximate value: ", round(e$y, 4))
+    paste0("Click to get value: ", round(e$y, 4))
   }
-  paste0("Horizontal position", "\n", xy_str(input$plot_click1))
+  paste0("Y-axis position", "\n", xy_str(input$plot_click1))
 })
 
 output$meanp = renderPlot({
   x = X()
-  des = data.frame((psych::describe(x)))
+  des = data.frame(psych::describe(x))
   rownames(des) = names(x)
-  p2 = ggplot(des, aes(x = rownames(des), y = mean)) + 
+  ggplot(des, aes(x = rownames(des), y = mean)) + 
   geom_bar(position = position_dodge(),stat = "identity",width = 0.2, alpha = .3) +
   geom_errorbar(width = .1,position = position_dodge(.9),aes(ymin = mean - des$sd, ymax = mean + des$sd),data = des) + 
   xlab("") + ylab(expression(Mean %+-% SD)) + 
   theme_minimal() + theme(legend.title = element_blank())
- 
-  grid.arrange(p2)
   })
 
-output$makeplot <- renderPlot({
+output$makeplot1 <- renderPlot({
   x = X()
-  plot1 <- ggplot(x, aes(sample = x[,1])) + stat_qq() + ggtitle("Normal Q-Q Plot") + xlab("") + theme_minimal()  ## add line,
-  plot2 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin, position = "identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
-  plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
- 
-  grid.arrange(plot1, plot2, plot3, ncol = 3)
+  ggplot(x, aes(sample = x[,1])) + stat_qq() + ggtitle("") + xlab("") + theme_minimal()  ## add line, 
+  })
+output$makeplot1.2 <- renderPlot({
+  x = X()
+  ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank()) 
+  })
+output$makeplot1.3 <- renderPlot({
+  x = X()
+  ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
   })
 
 t.test0 <- reactive({
@@ -127,10 +128,10 @@ t.test0 <- reactive({
     alternative = input$alt)
   res.table <- t(
     data.frame(
-      T = round(res$statistic, digits=4),
+      T = round(res$statistic, digits=6),
       P = res$p.value,
-      E.M = round(res$estimate, digits=4),
-      CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4),")"),
+      E.M = round(res$estimate, digits=6),
+      CI = paste0("(",round(res$conf.int[1], digits = 6),", ",round(res$conf.int[2], digits = 6),")"),
       DF = res$parameter
       )
     )
@@ -140,20 +141,9 @@ t.test0 <- reactive({
   return(res.table)
   })
 
-output$t.test <- DT::renderDT({
-  t.test0()}, 
-  class="row-border", 
+output$t.test <- DT::renderDT({t.test0()}, 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
-
-#output$download1 <- downloadHandler(
-#    filename = function() {
-#      "t_test.csv"
-#    },
-#    content = function(file) {
-#      write.csv(t.test0(), file, row.names = TRUE)
-#    }
-#  )

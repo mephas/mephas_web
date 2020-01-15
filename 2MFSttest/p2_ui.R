@@ -134,7 +134,7 @@ sidebarPanel(
 
       tabPanel("Box-Plot",p(br()),     
         
-      plotOutput("bp2",width = "600px",height = "400px",click = "plot_click2"),
+      plotOutput("bp2",width = "80%",click = "plot_click2"),
            
         verbatimTextOutput("info2"), 
         hr(),
@@ -151,20 +151,26 @@ sidebarPanel(
 
       tabPanel("Mean and SD Plot", p(br()), 
 
-        plotOutput("meanp2", width = "600px", height = "400px")),
+        plotOutput("meanp2", width = "80%")),
 
     tabPanel("Distribution Plots", p(br()),
-
-        plotOutput("makeplot2", width = "800px", height = "800px"),
+HTML(
+"<b> Explanations </b>
+<ul> 
+<li> Normal Q–Q Plot: to compare randomly generated, independent standard normal data on the vertical axis to a standard normal population on the horizontal axis. The linearity of the points suggests that the data are normally distributed.
+<li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
+<li> Density Plot: to estimate the probability density function of the data
+</ul>"
+),
+        p(tags$b("Normal Q-Q plot")),
+        plotOutput("makeplot2", width = "80%"),
+        plotOutput("makeplot2.2", width = "80%"),
+        p(tags$b("Histogram")),
+        plotOutput("makeplot2.3", width = "80%"),
         sliderInput("bin2","The width of bins in histogram",min = 0.01,max = 5,value = 0.2),
-         HTML(
-          "<b> Explanations </b>
-          <ul> 
-            <li> Normal Q–Q Plot: to compare randomly generated, independent standard normal data on the vertical axis to a standard normal population on the horizontal axis. The linearity of the points suggests that the data are normally distributed.
-            <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
-            <li> Density Plot: to estimate the probability density function of the data
-          </ul>"
-            )
+        p(tags$b("Density plot")),
+        plotOutput("makeplot2.4", width = "80%")
+
          )
 
       ),

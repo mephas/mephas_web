@@ -26,7 +26,7 @@ output$dt4 = DT::renderDT({
   addmargins(T4(), 
     margin = seq_along(dim(T4())), 
     FUN = list(Total=sum), quiet = TRUE)},  
-  class="row-border", 
+
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -34,7 +34,7 @@ output$dt4 = DT::renderDT({
     scrollX = TRUE))
 
 output$dt4.2 = DT::renderDT({prop.table(T4(), 2)},
-  class="row-border", 
+
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -67,7 +67,7 @@ output$c.test4 = DT::renderDT({
   rownames(res.table) =c("Chi-Squared Statistic", "Degree of Freedom", "P Value")
   return(res.table)
     }, 
-   class="row-border", 
+ 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

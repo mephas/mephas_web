@@ -48,7 +48,7 @@ DT::DTOutput("spls.x")
 tabPanel("Cross-validated SPLS", p(br()),
 numericInput("cv.s", "4. Maximum new components", 10, min = 1, max = NA),
 numericInput("cv.eta", "5. Parameter for selection range (larger number chooses less variables)", 0.9, min = 0, max = 1, step=0.1),
-#plotOutput("heat.cv", width = "600px", height = "600px"),
+#plotOutput("heat.cv", width = "80%"),
 verbatimTextOutput("spls.cv")
   )
 ),
@@ -72,7 +72,7 @@ verbatimTextOutput("spls")
 ),
 
 tabPanel("Selection",p(br()),
-plotOutput("spls.bp", width = "600px", height = "600px"),
+plotOutput("spls.bp", width = "80%"),
 DT::DTOutput("spls.coef")
 ),
 
@@ -87,12 +87,12 @@ tabPanel("Components", p(br()),
   ),
 
 tabPanel("Loading", p(br()),
-  #plotOutput("spls.l.plot", width = "600px", height = "600px"),
+  #plotOutput("spls.l.plot", width = "80%"),
   DT::DTOutput("spls.l")
   ),
 
 tabPanel("Component and Loading 3D Plot" ,p(br()),
-plotly::plotlyOutput("tdplot.s", width = "800px", height = "800px"),
+plotly::plotlyOutput("tdplot.s"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("tdtrace.s")
 )

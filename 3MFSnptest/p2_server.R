@@ -46,12 +46,15 @@ B <- reactive({
 })
 
 output$table2 <-DT::renderDT({B()},
-  class="row-border", 
-    extensions = 'Buttons', 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 300,
+      scroller = TRUE))
 
   B.des <- reactive({
     x <- B()
@@ -62,7 +65,7 @@ output$table2 <-DT::renderDT({B()},
   })
   output$bas2 <- DT::renderDT({  ## don't use renerPrint to do DT::renderDT
     res <- B.des()},
-    class="row-border", 
+  
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -89,18 +92,20 @@ output$table2 <-DT::renderDT({B()},
   output$info2 <- renderText({
     xy_str = function(e) {
       if(is.null(e)) return("NULL\n")
-      paste0("The approximate value: ", round(e$y, 4))
+      paste0("Click to get the value: ", round(e$y, 4))
     }
-    paste0("Horizontal position", "\n", xy_str(input$plot_click2))})
+    paste0("Y-axis position", "\n", xy_str(input$plot_click2))})
 
   output$makeplot2 <- renderPlot({
     x <- B()
     mx <- melt(B(), idvar = colnames(x))
-    # density plot
-    plot1 <- ggplot(mx, aes(x=mx[,"value"], fill=mx[,"variable"])) + geom_histogram(binwidth=input$bin2, alpha=.5, position="identity") + xlab("")+ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
-    plot2 <- ggplot(mx, aes(x=mx[,"value"], colour=mx[,"variable"])) + geom_density()+ xlab("")+ ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
-    grid.arrange(plot1, plot2, ncol=2)  })
-
+    ggplot(mx, aes(x=mx[,"value"], fill=mx[,"variable"])) + geom_histogram(binwidth=input$bin2, alpha=.5, position="identity") + xlab("")+ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    })
+  output$makeplot2.1 <- renderPlot({
+    x <- B()
+    mx <- melt(B(), idvar = colnames(x))
+    ggplot(mx, aes(x=mx[,"value"], colour=mx[,"variable"])) + geom_density()+ xlab("")+ ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    })
 #test
   mwu.test <- reactive({
     x <- B()
@@ -130,7 +135,7 @@ output$table2 <-DT::renderDT({B()},
 
   output$mwu.test.t<-DT::renderDT({
     mwu.test()},
-    class="row-border", 
+  
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

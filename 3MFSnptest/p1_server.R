@@ -48,12 +48,15 @@ names1 <- reactive({
 
   #table 
 output$table <- DT::renderDT(A(),
-  class="row-border", 
-    extensions = 'Buttons', 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 300,
+      scroller = TRUE))
 
   A.des <- reactive({
     x <- A()
@@ -66,7 +69,7 @@ output$table <- DT::renderDT(A(),
   output$bas <- DT::renderDT({  
     res <- A.des()
     },
-    class="row-border", 
+  
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -92,15 +95,18 @@ output$table <- DT::renderDT(A(),
   output$info <- renderText({
     xy_str = function(e) {
       if(is.null(e)) return("NULL\n")
-      paste0("The approximate value: ", round(e$y, 4))
+      paste0("Click to get the value: ", round(e$y, 4))
     }
-    paste0("Horizontal position", "\n", xy_str(input$plot_click))})
+    paste0("Y-axis position", "\n", xy_str(input$plot_click))})
 
   output$makeplot <- renderPlot({  #shinysession 
     x <- A()
-    plot1 <- ggplot(x, aes(x = x[,1])) + geom_histogram(colour="black", fill = "grey", binwidth=input$bin, position="identity") + xlab("") + ggtitle("Histogram") + theme_minimal() + theme(legend.title=element_blank())
-    plot2 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title=element_blank())
-    grid.arrange(plot1, plot2, ncol=2)  })
+    ggplot(x, aes(x = x[,1])) + geom_histogram(colour="black", fill = "grey", binwidth=input$bin, position="identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title=element_blank())
+    })
+  output$makeplot.1 <- renderPlot({  #shinysession 
+    x <- A()
+    ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title=element_blank())
+    })
   
 
   ws.test<- reactive({
@@ -131,7 +137,7 @@ output$table <- DT::renderDT(A(),
     })
 
   output$ws.test.t <- DT::renderDT({ws.test()},
-    class="row-border", 
+  
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

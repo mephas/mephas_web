@@ -113,7 +113,7 @@ mainPanel(
 
     tabPanel("Data Preview", p(br()),  
 
-      DT::DTOutput("table3", width = "500px")
+      DT::DTOutput("table3")
       ),
 
     tabPanel("Basic Descriptives", p(br()), 
@@ -126,7 +126,7 @@ mainPanel(
 
     tabPanel("Box-Plot of the Difference", p(br()),   
 
-        plotOutput("bp3", width = "600px", height = "400px", click = "plot_click3"),
+        plotOutput("bp3", width = "80%", click = "plot_click3"),
 
         verbatimTextOutput("info3"), hr(),
 
@@ -142,16 +142,19 @@ mainPanel(
       ),
 
     tabPanel("Histogram", p(br()), 
-
-      plotOutput("makeplot3", width = "800px", height = "400px"),
-      sliderInput("bin3", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2),
             HTML(
           "Notes:
           <ul> 
             <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
             <li> Density Plot: to estimate the probability density function of the data
           </ul>"
-            )
+            ),
+      p(tags$b("Histogram")),
+      plotOutput("makeplot3", width = "80%"),
+      sliderInput("bin3", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2),
+      p(tags$b("Density plot")),
+      plotOutput("makeplot3.1", width = "80%")
+
       )
     ),
 

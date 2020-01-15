@@ -66,7 +66,7 @@ DT::DTOutput("pred")
 tabPanel("ROC Evaluation",p(br()),
 p("This plot is shown when new dependent variable is provided in the test data."),
 p("This plot shows the ROC plot between predicted values and true values, based on the new data not used in the model."),
-plotOutput("p.s", width = "500px", height = "400px"),
+plotOutput("p.s", width = "80%"),
 p(tags$b("Sensitivity and specificity table")),
 DT::DTOutput("sst.s")
 )

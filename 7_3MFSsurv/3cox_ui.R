@@ -116,7 +116,7 @@ tabPanel("Survival Curve", p(br()),
 "
 ),
 p(tags$b("The adjusted survival curves from Cox regression")),
- plotOutput("splot", width = "500px", height = "400px")
+ plotOutput("splot", width = "80%")
 
 ),
 
@@ -134,7 +134,7 @@ HTML(
 ),
 numericInput("num", HTML("Choose N'th variable"), value = 1, min = 1, step=1),
 
-plotOutput("zphplot", width = "500px", height = "400px"),
+plotOutput("zphplot", width = "80%"),
 
 DT::DTOutput("zph")
 
@@ -177,16 +177,16 @@ The residuals can be found in Data Fitting tab.
 p(tags$b("1. Martingale residuals plot against continuous independent variable")), 
 
 uiOutput('var.mr'),
-plotOutput("diaplot1", width = "500px", height = "400px"),
+plotOutput("diaplot1", width = "80%"),
 
 #p(tags$b("2. Martingale residuals plot against observation id")), 
-# plotOutput("diaplot1.2", width = "500px", height = "400px"),
+# plotOutput("diaplot1.2", width = "80%"),
 
  p(tags$b("2. Deviance residuals plot by observational id")),
- plotOutput("diaplot2", width = "500px", height = "400px"),
+ plotOutput("diaplot2", width = "80%"),
 
  p(tags$b("3. Cox-Snell residuals plot")),
- plotOutput("csplot.cx", width = "500px", height = "400px")
+ plotOutput("csplot.cx", width = "80%")
 )
 
 )

@@ -32,7 +32,7 @@ level22 <- reactive({
   return(x)
   })
 output$level.t22 <- DT::renderDT({level22()},
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -70,7 +70,7 @@ if(!input$col){
 })
 
 output$table <- DT::renderDT({Y()},
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -88,7 +88,7 @@ bas <- reactive({
 
 output$bas.t <- DT::renderDT({
   bas()}, 
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -172,7 +172,7 @@ anova0 <- reactive({
 output$anova <- DT::renderDT({
   anova0()
   }, 
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

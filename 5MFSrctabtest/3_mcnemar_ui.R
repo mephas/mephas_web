@@ -84,8 +84,7 @@ sidebarPanel(
         ),
 
     tabPanel("Percentage Plot", p(br()),
-
-      plotOutput("makeplot2", width = "800px", height = "400px")
+      plotOutput("makeplot2", width = "80%")
       )
     ),
 

@@ -76,8 +76,10 @@ sidebarPanel(
         ),
 
     tabPanel("Percentage Plot", p(br()),
-
-      plotOutput("makeplot4", width = "1000px", height = "400px")
+      p(tags$b("Percentages in the rows")),
+      plotOutput("makeplot4", width = "80%"),
+      p(tags$b("Percentages in the columns")),
+      plotOutput("makeplot4.1", width = "80%")
       )
     ),
 

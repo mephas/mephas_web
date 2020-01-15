@@ -64,7 +64,7 @@ p("This is the predicted survival probability of N'th observation."),
 
 numericInput("line", HTML("Choose N'th observation (N'th row of new data)"), value = 1, min = 1),
 
-plotOutput("p.s", width = "600px", height = "400px")
+plotOutput("p.s", width = "80%")
 )
 )
 

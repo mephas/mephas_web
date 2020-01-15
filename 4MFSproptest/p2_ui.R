@@ -77,7 +77,8 @@ sidebarLayout(
 
     p(tags$b("Percentage Plot")),
 
-    plotOutput("makeplot2", width = "800px", height = "400px"),
+    plotOutput("makeplot2", width = "80%"),
+    plotOutput("makeplot2.1", width = "80%"),
 
     hr(),
 

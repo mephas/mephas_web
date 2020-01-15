@@ -113,7 +113,7 @@ sidebarPanel(
 
       tabPanel("Boxplot of the difference", p(br()), 
         
-       plotOutput("bp.p",width = "600px",height = "400px",click = "plot_click3"),
+       plotOutput("bp.p",width = "80%",click = "plot_click3"),
           
        verbatimTextOutput("info3"), hr(),
             
@@ -130,12 +130,10 @@ sidebarPanel(
 
           tabPanel("Mean and SD Plot", p(br()), 
 
-            plotOutput("meanp.p", width = "600px", height = "400px")),
+            plotOutput("meanp.p", width = "80%")),
 
     tabPanel("Distribution Plots", p(br()),
 
-            plotOutput("makeplot.p", width = "900px", height = "300px"),
-            sliderInput("bin.p","The width of bins in histogram",min = 0.01,max = 5,value = 0.2),
             HTML(
           "<b> Explanations </b>
           <ul> 
@@ -143,7 +141,15 @@ sidebarPanel(
             <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
             <li> Density Plot: to estimate the probability density function of the difference
           </ul>"
-            )
+            ),
+            p(tags$b("Normal Q-Q plot")),
+            plotOutput("makeplot.p", width = "80%"),
+            p(tags$b("Histogram")),
+            plotOutput("makeplot.p2", width = "80%"),
+            sliderInput("bin.p","The width of bins in histogram",min = 0.01,max = 5,value = 0.2),
+            p(tags$b("Density plot")),
+            plotOutput("makeplot.p3", width = "80%")
+            
             )
           ),
 

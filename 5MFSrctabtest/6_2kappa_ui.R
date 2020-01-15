@@ -44,7 +44,7 @@
 
     tabPanel("Table Preview", p(br()),
     p(tags$b("2 x K Contingency Table with Total Number")),
-    DT::DTOutput("dt9", width = "500px")
+    DT::DTOutput("dt9")
     ),
 
     tabPanel("Agreement Table", p(br()),

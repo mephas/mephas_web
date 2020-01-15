@@ -116,14 +116,14 @@ HTML("<p><b>Linear fitting plot</b>: to roughly show the linear relation between
 uiOutput('tx'),
 uiOutput('ty'),
 
-plotOutput("p1", width = "500px", height = "400px")
+plotOutput("p1", width = "80%")
 ),
 
 tabPanel("Histogram", p(br()),
 
 HTML("<p><b>Histogram</b>: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values.</p>"),
 uiOutput('hx'),
-plotOutput("p2", width = "500px", height = "400px"),
+plotOutput("p2", width = "80%"),
 sliderInput("bin", "The width of bins in the histogram", min = 0, max = 10, value = 1))
 
 )

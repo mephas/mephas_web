@@ -128,7 +128,7 @@ mainPanel(
 
     tabPanel("Box-Plot", p(br()), 
 
-        plotOutput("bp", width = "600px", height = "400px", click = "plot_click"),
+        plotOutput("bp", width = "80%", click = "plot_click"),
 
         verbatimTextOutput("info"), hr(),
 
@@ -144,16 +144,19 @@ mainPanel(
       ),
 
     tabPanel("Histogram", p(br()), 
-
-      plotOutput("makeplot", width = "800px", height = "400px"),
-      sliderInput("bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2),
-      HTML(
+            HTML(
           "<b> Explanations </b>
           <ul> 
             <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
             <li> Density Plot: to estimate the probability density function of the data
           </ul>"
-            )
+            ),
+      p(tags$b("Histogram")),
+      plotOutput("makeplot", width = "80%"),
+      sliderInput("bin", "The width of bins in histogram", min = 0.01, max = 5, value = 0.2),
+      p(tags$b("Density plot")),
+      plotOutput("makeplot.1", width = "80%")
+
       )
     ),
 hr(),

@@ -22,7 +22,7 @@ levelnp2 <- reactive({
   return(x)
   })
 output$level.tnp2 <- DT::renderDT({levelnp2()},
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -66,7 +66,7 @@ if(!input$colnp2){
 #  width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
 
 output$tablenp2 <- DT::renderDT(Ynp2(),
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -83,7 +83,7 @@ basnp2 <- reactive({
 
 output$basnp2.t <- DT::renderDT({
   basnp2()}, 
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -115,7 +115,7 @@ dunntest <- reactive({
 
 output$dunntest.t <- DT::renderDT({dunntest()
     },
-    class="row-border", 
+    #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

@@ -110,14 +110,12 @@ mainPanel(
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      DT::DTOutput("basnp2.t"),
-         p(br()), 
-        downloadButton("downloadnp2.1", "Download Results")
+      DT::DTOutput("basnp2.t")
       ),
 
     tabPanel("Box-Plot",p(br()),
 
-      plotOutput("mmeannp2", width = "600px", height = "400px")
+      plotOutput("mmeannp2", width = "80%")
       )
     ),
 
@@ -142,7 +140,7 @@ mainPanel(
     <li> <b>Benjamini-Yekutieli</b> adjusted p-values = max[1, pmC/(m+1-i)]; C = 1 + 1/2 + ... + 1/m
   </ul>
 
-  <b> * Reject NUll Hypothesis if p <= 0.025 </b>
+  <b> * Reject Null Hypothesis if p <= 0.025 </b>
   "
     ),
 

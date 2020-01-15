@@ -29,7 +29,7 @@ output$n.t = DT::renderDT({
   addmargins(N(), 
     margin = seq_along(dim(N())), 
     FUN = list(Total=sum), quiet = TRUE)},  
-  class="row-border", 
+
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -66,7 +66,7 @@ output$n.test = DT::renderDT({
   rownames(res.table) =c("X-squared Statistic", "Degree of Freedom","Estimated Probability/Proportions", "P Value")
 
   return(res.table)}, 
-  class="row-border", 
+
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

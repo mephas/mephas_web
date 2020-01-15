@@ -82,8 +82,10 @@ hr(),
         ),
 
     tabPanel("Percentage Plot", p(br()),
-
-      plotOutput("makeplot1", width = "1000px", height = "400px")
+      p(tags$b("Percentages in the rows")),
+      plotOutput("makeplot1", width = "80%"),
+      p(tags$b("Percentages in the columns")),
+      plotOutput("makeplot1.1", width = "80%"),
       )
     ),
 

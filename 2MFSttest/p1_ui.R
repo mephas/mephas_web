@@ -109,20 +109,20 @@ mainPanel(
 
     tabPanel("Data Preview", p(br()),
 
-      DT::DTOutput("table", width="50%")
+      DT::DTOutput("table")
       #shiny::dataTableOutput("table")
       ),
 
     tabPanel("Basic Descriptives", p(br()),
 
-        DT::DTOutput("bas", width="50%")#,
+        DT::DTOutput("bas")#,
       #p(br()),
        # downloadButton("download0", "Download Results")
        ),
 
     tabPanel("Box-Plot", p(br()),
       
-        plotOutput("bp", width = "65%", click = "plot_click1"),
+        plotOutput("bp", width = "80%", click = "plot_click1"),
      
         verbatimTextOutput("info1"), 
           HTML(
@@ -138,29 +138,33 @@ mainPanel(
       ),
 
     tabPanel("Mean and SD Plot", p(br()),
+plotOutput("meanp", width = "80%")),
 
-      plotOutput("meanp", width = "65%")),
 
     tabPanel("Distribution Plots", p(br()),
+HTML(
+"<b> Explanations </b>
+<ul> 
+<li> Normal Q–Q Plot: to compare randomly generated, independent standard normal data on the vertical axis to a standard normal population on the horizontal axis. The linearity of the points suggests that the data are normally distributed.
+<li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
+<li> Density Plot: to estimate the probability density function of the data
+</ul>"
+),
 
-      plotOutput("makeplot", width = "900px", height = "300px"),
+      p(tags$b("Normal Q–Q plot")),
+      plotOutput("makeplot1", width = "80%"),
+      p(tags$b("Histogram")),
+      plotOutput("makeplot1.2", width = "80%"),
       sliderInput("bin","The width of bins in histogram",min = 0.01,max = 5,value = 0.2),
-
-          HTML(
-          "<b> Explanations </b>
-          <ul> 
-            <li> Normal Q–Q Plot: to compare randomly generated, independent standard normal data on the vertical axis to a standard normal population on the horizontal axis. The linearity of the points suggests that the data are normally distributed.
-            <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
-            <li> Density Plot: to estimate the probability density function of the data
-          </ul>"
-            )
-
-      )
-  ),
+      p(tags$b("Density plot")),
+      plotOutput("makeplot1.3", width = "80%")
+      
+)
+),
 
   hr(),
   h4(tags$b("Output 2. Test Results")),p(br()),
-  DT::DTOutput("t.test", width="50%"),
+  DT::DTOutput("t.test"),
 
 
   HTML(

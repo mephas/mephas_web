@@ -79,7 +79,7 @@
 
     tabPanel("Percentage Plot", p(br()),
 
-      plotOutput("makeplot4", width = "600px", height = "300px")
+      plotOutput("makeplot4", width = "80%")
       )
     ),
 

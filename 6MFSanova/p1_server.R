@@ -23,7 +23,7 @@ level1 <- reactive({
   return(x)
   })
 output$level.t1 <- DT::renderDT({level1()},
-    class="row-border", 
+    #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -70,7 +70,7 @@ if(!input$col1){
 #  width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
 
 output$table1 <- DT::renderDT(Y1(),
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -87,7 +87,7 @@ bas1 <- reactive({
 
 output$bas1.t <- DT::renderDT({
   bas1()}, 
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -126,7 +126,7 @@ anova10 <- reactive({
 
 output$anova1 <- DT::renderDT({
   anova10()}, 
-  class="row-border", 
+  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

@@ -27,7 +27,7 @@ output$dt4 = DT::renderDT({
   addmargins(T4(), 
     margin = seq_along(dim(T4())), 
     FUN = list(Total=sum), quiet = TRUE)},  
-  class="row-border", 
+  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -38,7 +38,7 @@ output$dt4.0 = DT::renderDT({
   res = chisq.test(T4())
   exp = res$expected
   return(exp)}, 
-  class="row-border", 
+  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -46,21 +46,21 @@ output$dt4.0 = DT::renderDT({
     scrollX = TRUE))
 
 output$dt4.1 = DT::renderDT({prop.table(T4(), 1)}, 
-  class="row-border", 
+  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$dt4.2 = DT::renderDT({prop.table(T4(), 2)}, class="row-border", 
+output$dt4.2 = DT::renderDT({prop.table(T4(), 2)}, #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$dt4.3 = DT::renderDT({prop.table(T4())}, class="row-border", 
+output$dt4.3 = DT::renderDT({prop.table(T4())}, #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -71,9 +71,13 @@ output$dt4.3 = DT::renderDT({prop.table(T4())}, class="row-border",
 output$makeplot4 <- renderPlot({  #shinysession 
   x <- as.data.frame(T4())
   mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
-  plot1 = ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
-  plot2 = ggplot(mx, aes(x = mx[,"id"], y = mx[,2], fill = mx[,"time"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
- grid.arrange(plot1, plot2, ncol=2)})
+  ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
+  })
+output$makeplot4.1 <- renderPlot({  #shinysession 
+  x <- as.data.frame(T4())
+  mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
+  ggplot(mx, aes(x = mx[,"id"], y = mx[,2], fill = mx[,"time"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
+ })
 
 output$c.test4 = DT::renderDT({
     x = as.matrix(T4())
@@ -86,7 +90,7 @@ output$c.test4 = DT::renderDT({
     rownames(res.table) <- c("Odds Ratio (Group 1 vs Group 2)","P Value", "95% Confidence Interval")
     return(res.table)
     }, 
-   class="row-border", 
+   #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',

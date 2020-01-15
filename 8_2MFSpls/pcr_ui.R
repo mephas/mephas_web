@@ -63,22 +63,22 @@ DT::DTOutput("pcr.resi")
 ),
 
 tabPanel("Components", p(br()),
-  plotOutput("pcr.s.plot", width = "600px", height = "400px"),
+  plotOutput("pcr.s.plot", width = "80%"),
   DT::DTOutput("pcr.s")
   ),
 
 tabPanel("Loading", p(br()),
-  plotOutput("pcr.l.plot", width = "600px", height = "600px"),
+  plotOutput("pcr.l.plot", width = "80%"),
   DT::DTOutput("pcr.l")
   ),
 
 tabPanel("Component and Loading 2D Plot", p(br()),
-  plotOutput("pcr.bp", width = "600px", height = "600px")
+  plotOutput("pcr.bp", width = "80%")
   #DT::DTOutput("pcr.l")
   ),
 
 tabPanel("Component and Loading 3D Plot" ,p(br()),
-plotly::plotlyOutput("tdplot", width = "800px", height = "800px"),
+plotly::plotlyOutput("tdplot"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("tdtrace")
 )

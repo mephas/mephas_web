@@ -26,7 +26,7 @@ validate(need(input$n>=input$x, "Please check your data whether x <= n"))
   rownames(res.table) =c("Number of Success/Events", "Number of Total Trials/Samples", "Estimated Probability/Proportion", "P Value", "95% Confidence Interval")
   return(res.table)
   }, 
-  class="row-border", 
+
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -48,7 +48,7 @@ validate(need(input$n>=input$x, "Please check your data whether x <= n"))
   rownames(res.table) =c("X-squared Statistic", "Estimated Probability/Proportion", "P Value", "95% Confidence Interval")
   return(res.table)
   }, 
-  class="row-border", 
+
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

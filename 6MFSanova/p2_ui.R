@@ -110,12 +110,12 @@ mainPanel(
 
       tabPanel("Means plot",p(br()),
       checkboxInput('tick', 'Untick to change the group and x-axis', TRUE), #p
-      plotOutput("meanp.a", width = "600px", height = "400px")
+      plotOutput("meanp.a", width = "80%")
     ),
 
       tabPanel("Marginal means plot",p(br()),
       checkboxInput('tick2', 'Untick to change the x-axis', TRUE), #p
-      plotOutput("mmean.a", width = "600px", height = "400px")
+      plotOutput("mmean.a", width = "80%")
       )
     ),
 

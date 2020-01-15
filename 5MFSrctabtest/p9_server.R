@@ -24,7 +24,7 @@ T9 = reactive({ # prepare dataset
   })
 
 output$dt9 = DT::renderDT({T9()}, 
-  class="row-border", 
+  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -39,7 +39,7 @@ output$dt9.0 =  DT::renderDT({
     colnames(res.table) <- paste0("Rater", 1:nrow(x))
     return(res.table)
     }, 
-    class="row-border", 
+    #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -51,7 +51,7 @@ output$dt9.1 =  DT::renderDT({
     res = as.data.frame(round(cohen.kappa(x)$weight,6))
     return(res)
     }, 
-    class="row-border", 
+    #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -72,7 +72,7 @@ output$c.test9 = DT::renderDT({
     colnames(res.table) =c("95% CI Low", "Kappa Estimate", "95% CI High")
     return(res.table)
     }, 
-    class="row-border", 
+    #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',

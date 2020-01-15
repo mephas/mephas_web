@@ -54,11 +54,11 @@ p("This only shows the first several lines, please check full data in the 1st ta
 DT::DTOutput("table.x")
 ),
 tabPanel("Parallel Analysis", p(br()),
-plotOutput("pc.plot", width = "600px", height = "400px"),
+plotOutput("pc.plot", width = "80%"),
 verbatimTextOutput("pcncomp")
 ),
 tabPanel("Correlation Matrix", p(br()),
-plotOutput("cor.plot", width = "600px", height = "400px"),p(br()),
+plotOutput("cor.plot", width = "80%"),p(br()),
 DT::DTOutput("cor")
 )
   ),
@@ -80,26 +80,26 @@ radioButtons("type", "The type of ellipse",
              "Euclid: the euclidean distance from the center" = "euclid"),
  selected = 't',
  width="500px"),
-plotOutput("pca.ind", width = "600px", height = "400px"),
+plotOutput("pca.ind", width = "80%"),
 
 DT::DTOutput("comp")
   #downloadButton("downloadData", "Download")
   ),
 
 tabPanel("Loading", p(br()),
-  plotOutput("pca.ind2", width = "600px", height = "400px"),
+  plotOutput("pca.ind2", width = "80%"),
   DT::DTOutput("load"),
   DT::DTOutput("var")
   #downloadButton("downloadData", "Download")
   ),
 tabPanel("Component and Loading 2D Plot" ,p(br()),
 
-plotOutput("pca.bp", width = "600px", height = "600px")
+plotOutput("pca.bp", width = "80%")
 
 ),
 
 tabPanel("Component and Loading 3D Plot" ,p(br()),
-plotly::plotlyOutput("tdplot", width = "800px", height = "800px"),
+plotly::plotlyOutput("tdplot"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("tdtrace")
 )

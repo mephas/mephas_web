@@ -103,7 +103,7 @@ HTML(
 <li> ROC curve is created by plotting the true positive rate (TPR) against the false positive rate (FPR) at various threshold settings
 </ul>"
 ),
-plotOutput("p.lm", width = "500px", height = "400px")
+plotOutput("p.lm", width = "80%")
     ),
 
 tabPanel("Sensitivity and Specificity",   br(),

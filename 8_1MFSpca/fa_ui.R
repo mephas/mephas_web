@@ -63,11 +63,11 @@ p("This only shows the first several lines, please check full data in the 1st ta
 DT::DTOutput("table.x.fa")
 ),
 tabPanel("Parallel Analysis", p(br()),
-plotOutput("fa.plot", width = "600px", height = "400px"),
+plotOutput("fa.plot", width = "80%"),
 verbatimTextOutput("fancomp")
 ),
 tabPanel("Correlation Matrix", p(br()),
-plotOutput("cor.fa.plot", width = "600px", height = "400px"),p(br()),
+plotOutput("cor.fa.plot", width = "80%"),p(br()),
 DT::DTOutput("cor.fa")
 )
   ),
@@ -79,7 +79,7 @@ actionButton("pca1.fa", h4(tags$b("Click 1: Output 2. Show Model Results / Refre
 tabsetPanel(
 tabPanel("Factors Result",p(br()),
   
-  plotOutput("pca.ind.fa", width = "600px", height = "400px"),
+  plotOutput("pca.ind.fa", width = "80%"),
   verbatimTextOutput("fa")),
 
 tabPanel("Factors", p(br()),
@@ -87,18 +87,18 @@ tabPanel("Factors", p(br()),
   ),
 
 tabPanel("Loading", p(br()),
-	plotOutput("pca.ind.fa2", width = "600px", height = "400px"),
+	plotOutput("pca.ind.fa2", width = "80%"),
   DT::DTOutput("load.fa"),
   DT::DTOutput("var.fa")  ),
 
 tabPanel("Factors and Loading 2D Plot" ,p(br()),
 
-plotOutput("fa.bp", width = "600px", height = "600px")
+plotOutput("fa.bp", width = "80%")
 
 ),
 
 tabPanel("Factors and Loading 3D Plot" ,p(br()),
-plotly::plotlyOutput("tdplot.fa", width = "800px", height = "800px"),
+plotly::plotlyOutput("tdplot.fa"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("tdtrace.fa")
 )

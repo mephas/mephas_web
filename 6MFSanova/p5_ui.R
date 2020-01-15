@@ -103,7 +103,7 @@ mainPanel(
 
     tabPanel("Box-Plot",p(br()),
 
-      plotOutput("mmeannp1", width = "600px", height = "400px")
+      plotOutput("mmeannp1", width = "80%")
       )
     ),
 
