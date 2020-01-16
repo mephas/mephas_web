@@ -14,14 +14,16 @@ shinyUI(
 tagList(
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
+
 ##########----------##########----------##########
+
 navbarPage(
 
 
 title = "Parametric T Test for Means",
 
-##---------- Panel 1 ---------
 
+##########----------##########----------##########
 tabPanel( "One Sample",
 
 headerPanel("One-Sample T-Test"), 
@@ -61,8 +63,8 @@ hr()
 
 ),
 
-##---------- Panel 2 ---------
 
+##########----------##########----------##########
 tabPanel("Two Samples",
 
 headerPanel("Independent Two-Sample T-Test"),
@@ -102,8 +104,8 @@ hr()
 
 ),
 
-##---------- Panel 3 ---------
 
+##########----------##########----------##########
 tabPanel("Paired Samples",
 
 headerPanel("Dependent T-Test for Paired Samples"),
@@ -154,8 +156,6 @@ hr()
 ),
 
 ##########----------##########----------##########
-
-##---------- other panels ----------
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value

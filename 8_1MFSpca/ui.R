@@ -34,13 +34,11 @@ HTML(
 <li> To prepare the survival object as 'dependent variable' for building model
 </ul>
 
-<h4><b> 2. About your data (training set)</b></h4>
+<h4><b> 2. About your data</b></h4>
 
 <ul>
-<li> Your data need to include <b>one survival time variable and one 1/0 censoring variable</b> and <b> at least one independent variables (denoted as X)</b>
 <li> Your data need to have more rows than columns
-<li> Do not mix character and numbers in the same column 
-<li> The data used to build model is called <b>training set</b>
+<li> Your data need to be all numeric 
 </ul> 
 
 <i><h4>Case Example 1: Chemical data</h4>
@@ -71,9 +69,9 @@ HTML(
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To get Kaplan-Meier survival probability estimate
-<li> To get Kaplan-Meier survival curves, cumulative events distribution curves, and cumulative hazard curves by group variable
-<li> To conduct log-rank test to compare the survival curves from 2 groups
+<li> From <parallel analysis> to estimate the number of components
+<li> To get correlation matrix and plot
+<li> To the components and loadings result table and plot
 <li> To conduct pairwise log-rank test to compare the survival curves from more than two groups
 </ul>
 

@@ -1,13 +1,4 @@
-##----------#----------#----------#----------
-##
-## 1MFSdistribution UI
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************2. poisson
 sidebarLayout(
 
 	sidebarPanel(	
@@ -42,8 +33,6 @@ sidebarLayout(
       hr(),
 
       h4(tags$b("Or, 2. Upload Data")),
-
-      ##-------csv file-------##
         p(tags$b("This only reads the 1st column of your data")),
         fileInput('file.p', "1. Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
@@ -53,8 +42,6 @@ sidebarLayout(
 
         p(tags$b("3. Use 1st column as row names? (No duplicates)")),
         checkboxInput("col.p", "Yes", TRUE),
-
-             # Input: Select separator ----
         radioButtons("sep.p", 
           "4. Which Separator for Data?",
           choiceNames = list(
@@ -98,7 +85,6 @@ sidebarLayout(
 		tabPanel("Distribution of Your Data", p(br()),
 			p(tags$b("Histogram from upload data")),
 			plotOutput("makeplot.2", width = "80%"),
-			#plotOutput("makeplot.2", width = "500px", height = "300px"),
       sliderInput("bin1.p","The width of bins in histogram",min = 0,max = 2,value = 1, step=0.1),
 				p(tags$b("Sample descriptive statistics")),
 				tableOutput("sum2.p")

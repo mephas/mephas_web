@@ -16,7 +16,9 @@ if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 shinyServer(
 
 function(input, output) {
-  #options(warn=-1)
+
+##########----------##########----------##########
+
 source("p1_server.R", local=TRUE)$value
 
 source("p2_server.R", local=TRUE)$value

@@ -9,28 +9,22 @@ shinyServer(
 
 function(input, output, session) {
 
-#----------0. dataset input----------
 
+##########----------##########----------##########
 source("0data_server.R", local=TRUE, encoding="UTF-8")
 
-#----------1. PCA ----------
 
 source("pcr_server.R", local=TRUE, encoding="UTF-8")
 source("pr1_server.R", local=TRUE, encoding="UTF-8")
 
-#----------2. PLS ----------
-
 source("plsr_server.R", local=TRUE, encoding="UTF-8") 
 source("pr2_server.R", local=TRUE, encoding="UTF-8")
-
-#----------3. SPLS ----------
 
 source("spls_server.R", local=TRUE, encoding="UTF-8") 
 source("pr3_server.R", local=TRUE, encoding="UTF-8")
 
 
-#---------------------------##
-
+##########----------##########----------##########
 observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })

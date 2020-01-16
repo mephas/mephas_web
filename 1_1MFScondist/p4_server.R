@@ -1,5 +1,4 @@
-###---------- 2.3 Beta distribution ----------
-
+#****************************************************************************************************************************************************1.4. beta
 output$b.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$b.xlim)), aes(x)) +
   stat_function(fun = "dbeta", args = list(shape1 = input$b.shape, shape2=input$b.scale)) + 

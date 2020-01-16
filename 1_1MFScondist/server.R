@@ -5,7 +5,7 @@ shinyServer(
 
 function(input, output) {
 
-##---------- Continuous Probability Distribution ----------
+##########----------##########----------##########
 
 source("p1_server.R", local=TRUE)$value
 

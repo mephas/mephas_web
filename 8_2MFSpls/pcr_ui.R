@@ -54,7 +54,14 @@ choices = c("No" = 'none',
            "10-fold cross-validation" = "CV",
            "Leave-one-out cross-validation" = "LOO"),
 selected = 'none'),
-verbatimTextOutput("pcr")
+verbatimTextOutput("pcr"),
+
+HTML(
+"
+<Explanations>
+
+"
+)
 ),
 
 tabPanel("Data Fitting",p(br()),

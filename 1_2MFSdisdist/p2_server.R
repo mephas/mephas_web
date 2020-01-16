@@ -1,20 +1,7 @@
 if (!require(shiny)) {install.packages("shiny")}; library(shiny)
 if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 
-##----------#----------#----------#----------
-##
-## 1MFSdistribution SERVER
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
-
-
-###---------- 3.2 Poisson Distribution ----------
-
+#****************************************************************************************************************************************************2. poisson
 P = reactive({
 x1 = ppois(0:(input$k2-1), input$lad)
 x2 = ppois(1:input$k2, input$lad)
@@ -102,10 +89,6 @@ output$makeplot.2 <- renderPlot({
   ggtitle("") + 
   theme_minimal() + 
   theme(legend.title =element_blank())
-  
-  #plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+geom_vline(aes(xintercept=quantile(x[,1], probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
- 
-  #grid.arrange(plot2, plot3, ncol = 2)
   })
 
 output$sum2.p = renderTable({

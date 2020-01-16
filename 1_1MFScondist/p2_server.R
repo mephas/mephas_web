@@ -1,5 +1,4 @@
-###---------- 2.2. exp Distribution ----------
-
+#****************************************************************************************************************************************************1.2. Exp distribution
 output$e.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$e.xlim)), aes(x)) +
   stat_function(fun = "dexp", args = list(rate = input$r)) + ylab("Density") +

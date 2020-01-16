@@ -1,5 +1,4 @@
-###---------- T ----------
-
+#****************************************************************************************************************************************************1.5. T
 output$t.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-input$t.xlim, input$t.xlim)), aes(x)) + 
   stat_function(fun = dt, n = 100, args = list(df = input$t.df)) + 

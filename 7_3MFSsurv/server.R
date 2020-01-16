@@ -7,20 +7,12 @@ if (!require(psych)) {install.packages("psych")}; library(psych)
 if (!require(reshape2)) {install.packages("reshape2")}; library(reshape2)
 if (!require(survAUC)) {install.packages("survAUC")}; library(survAUC)
   
-##----------#----------#----------#----------
-##
-## 7MFSreg SERVER
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
-
-# start server
 shinyServer(
 
 function(input, output, session) {
+
+
+##########----------##########----------##########
 
 source("0data_server.R", local=TRUE)$value
 

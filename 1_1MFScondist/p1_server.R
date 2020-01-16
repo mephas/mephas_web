@@ -1,5 +1,4 @@
-###---------- 1.1 Normal Distribution ----------
-
+#****************************************************************************************************************************************************1.1. Normal
 output$norm.plot <- renderPlot({
   
   mynorm = function (x) {
@@ -104,23 +103,16 @@ output$makeplot.1 <- renderPlot({
   ggtitle("") + 
   theme_minimal() + 
   theme(legend.title =element_blank())
-  #plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + #ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+geom_vline(aes(xintercept=quantile(x[,1], probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
- 
-  #grid.arrange(plot2, plot3, ncol = 2)
   })
 
 output$makeplot.2 <- renderPlot({
   x = NN()
-  #ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + xlab("") + #ggtitle("Histogram") + theme_minimal() + theme(legend.title =element_blank())
   ggplot(x, aes(x = x[,1])) + 
   geom_density() + 
-  #ggtitle("Density Plot") + 
   xlab("") + 
   theme_minimal() + 
   theme(legend.title =element_blank())+
   geom_vline(aes(xintercept=quantile(x[,1], probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
- 
-  #grid.arrange(plot2, plot3, ncol = 2)
   })
 
 output$sum2 = renderTable({

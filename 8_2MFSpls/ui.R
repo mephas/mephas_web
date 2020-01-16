@@ -43,7 +43,14 @@ HTML(
 <li> The data used to build model is called <b>training set</b>
 </ul> 
 
-<i><h4>Case Example 1: Chemical data</h4>
+<i><h4>Case Example 1: NKI data</h4>
+
+SUppose in one study, people measured the 9 chemical attributes of 7 types of drugs. However, not all the attributes are important.
+We wanted to explore the important or principal components from the chemical attributes matrix.
+
+</i>
+
+<i><h4>Case Example 2: NKI data</h4>
 
 SUppose in one study, people measured the 9 chemical attributes of 7 types of drugs. However, not all the attributes are important.
 We wanted to explore the important or principal components from the chemical attributes matrix.

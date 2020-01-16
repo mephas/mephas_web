@@ -1,5 +1,4 @@
-###---------- 1.3 chi Distribution ----------
-
+#****************************************************************************************************************************************************1.6. chi
 output$x.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$x.xlim)), aes(x)) +
   stat_function(fun = dchisq, n = 100, args = list(df = input$x.df)) + 

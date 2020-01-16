@@ -1,19 +1,4 @@
-##----------#----------#----------#----------
-##
-## 1MFSdistribution SERVER
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
-
-
-
-##---------- 3. Discrete RV ----------
-###----------3.1 Binomial Distribution ----------
-
+#****************************************************************************************************************************************************1. binom
 B = reactive({
   x1 = pbinom(0:(input$m-1), input$m, input$p)
   x2 = pbinom(1:input$m, input$m, input$p)
@@ -101,10 +86,7 @@ output$makeplot.1 <- renderPlot({
   ggtitle("") + 
   theme_minimal() + 
   theme(legend.title =element_blank())
-  
-  #plot3 <- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+geom_vline(aes(xintercept=quantile(x[,1], probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
- 
-  #grid.arrange(plot2, plot3, ncol = 2)
+
   })
 
 output$sum2 = renderTable({

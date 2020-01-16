@@ -1,5 +1,4 @@
-###---------- 2.3 Gamma distribution ----------
-
+#****************************************************************************************************************************************************1.3. gamma
 output$g.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$g.xlim)), aes(x)) +
   stat_function(fun = "dgamma", args = list(shape = input$g.shape, scale=input$g.scale)) + 

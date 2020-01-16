@@ -1,4 +1,4 @@
-###---------- 2.3 F distribution ----------
+#****************************************************************************************************************************************************1.7. F
 output$f.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$f.xlim)), aes(x)) +
   stat_function(fun = "df", n= 100, args = list(df1 = input$df11, df2 = input$df21)) + ylab("Density") +

@@ -6,19 +6,11 @@ if (!require(Rmisc)) {install.packages("Rmisc")}; library(Rmisc)
 if (!require(dunn.test)) {install.packages("dunn.test")}; library(dunn.test)
 if (!require(DT)) {install.packages("DT")}; library(DT)
 
-##----------#----------#----------#----------
-##
-## 6MFSanova SERVER
-##
-## Language: EN
-## 
-## DT: 2019-04-07
-##
-##----------#----------#----------#----------
-
 shinyServer(
 
 function(input, output) {
+
+##########----------##########----------##########
 
 source("p1_server.R", local=TRUE)$value
 source("p2_server.R", local=TRUE)$value

@@ -1,13 +1,3 @@
-##----------#----------#----------#----------
-##
-## 1MFSdistribution UI
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
 
 shinyUI(
 
@@ -18,7 +8,7 @@ navbarPage(
 
 title = "Continuous Probability Distribution",
 
-##---------- Panel 1 ---------
+##########----------##########----------##########
 tabPanel("Normal",
 
 headerPanel("Normal Distribution"),
@@ -48,10 +38,9 @@ hr(),
 source("p1_ui.R", local=TRUE)$value,
 
 hr()
-)
-,
+),
 
-##---------- Panel 2 ---------
+##########----------##########----------##########
 tabPanel("Exponential",
 
 headerPanel("Exponential Distribution"), 
@@ -83,7 +72,8 @@ source("p2_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 3 ---------
+
+##########----------##########----------##########
 tabPanel("Gamma",
 
 headerPanel("Gamma Distribution"), 
@@ -114,7 +104,8 @@ source("p3_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 4 ---------
+
+##########----------##########----------##########
 tabPanel("Beta",
 
 headerPanel("Beta Distribution"), 
@@ -145,7 +136,8 @@ source("p4_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 5 ---------
+
+##########----------##########----------##########
 tabPanel("T",
 
 headerPanel("Student's T Distribution"), 
@@ -175,7 +167,8 @@ source("p5_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 6 ---------
+
+##########----------##########----------##########
 tabPanel("Chi",
 
 headerPanel("Chi-Squared Distribution"), 
@@ -205,7 +198,7 @@ source("p6_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 7 ---------
+##########----------##########----------##########
 tabPanel("F",
 
 headerPanel("F Distribution"), 
@@ -236,9 +229,6 @@ hr()
 ),
 
 ##########----------##########----------##########
-
-##---------- other panels ----------
-
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,

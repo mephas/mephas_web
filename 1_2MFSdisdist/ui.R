@@ -18,8 +18,8 @@ navbarPage(
 
 title = "Discrete Probability Distribution",
 
-##---------- Panel 1 ---------
 
+##########----------##########----------##########
 tabPanel("Binomial",
 
 titlePanel("Binomial Distribution"),
@@ -37,13 +37,15 @@ Suppose we wanted to know the probability of 2 lymphocytes of 10 white blood cel
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 
 "
-),
+), 
 hr(),
-
 source("p1_ui.R", local=TRUE)$value,
 hr()
 
 ),
+
+
+##########----------##########----------##########
 
 tabPanel("Poisson",
 
@@ -69,8 +71,8 @@ source("p2_ui.R", local=TRUE)$value,
 hr()
 
 ),
-##---------- other panels ----------
 
+##########----------##########----------##########
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
