@@ -17,7 +17,7 @@ navbarPage(
 
 title = "Analysis of Variance",
 
-##---------- Panel 1 ----------
+##########----------##########----------##########
 tabPanel("One-way",
 
 headerPanel("One-way ANOVA (Overall F Test) to Compare Means from Multiple Factor Groups"),
@@ -56,7 +56,7 @@ source("p1_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 2 ----------
+##########----------##########----------##########
 tabPanel("Pairwise1",
 
 headerPanel("Multiple Comparison Post-Hoc Correction for Specific Groups after One-way ANOVA"),
@@ -91,7 +91,7 @@ source("p3_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 3 ----------
+##########----------##########----------##########
 
 tabPanel("Two-way",
 
@@ -132,7 +132,7 @@ source("p2_ui.R", local=TRUE)$value,
 hr()
 ),
 #
-##---------- Panel 4 ----------
+##########----------##########----------##########
 tabPanel("Pairwise2",
 
 headerPanel("Multiple Comparison Post-Hoc Correction for Specific Groups after Two-way ANOVA"),
@@ -169,7 +169,7 @@ source("p4_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 5 ----------
+##########----------##########----------##########
 tabPanel("One-way (Non-parametric)",
 
 headerPanel("Kruskal-Wallis Non-parametric Test to Compare Multiple Samples"),
@@ -206,7 +206,7 @@ source("p5_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 6 ----------
+##########----------##########----------##########
 tabPanel("Pairwise3",
 
 headerPanel("Multiple Comparison Post-Hoc Correction for Specific Groups after Kruskal-Wallis Non-parametric Test"),
@@ -243,8 +243,6 @@ source("p6_ui.R", local=TRUE)$value,
 hr()
 ),
 ##########----------##########----------##########
-
-##---------- other panels ----------
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,

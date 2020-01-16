@@ -1,16 +1,6 @@
-##----------#----------#----------#----------
-##
-## 3MFSnptest UI
-##
-##    >Panel 1
-##
-## Language: EN
-## 
-## DT: 2019-01-09
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************3.npp
+
 sidebarLayout(  
-##########----------##########----------##########
 
 sidebarPanel(
 
@@ -118,10 +108,7 @@ mainPanel(
 
     tabPanel("Basic Descriptives", p(br()), 
 
-        DT::DTOutput("bas3")#, 
-
-        #p(br()),
-  #downloadButton("download3b", "Download Results")  
+        DT::DTOutput("bas3") 
   ),
 
     tabPanel("Box-Plot of the Difference", p(br()),   
@@ -170,9 +157,8 @@ mainPanel(
     <li> P Value >= 0.05, then the Before and After are NOT significantly different. (Accept null hypothesis)
     </ul>"
   ),
-  p(tags$i("From the default settings, we concluded no significant difference is found after the treatment. (P=0.46)"))#,
+  p(tags$i("From the default settings, we concluded no significant difference is found after the treatment. (P=0.46)"))
 
-  #downloadButton("download3.2", "Download Results")
 
 )
 )

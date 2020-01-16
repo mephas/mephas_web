@@ -1,26 +1,16 @@
-##----------#----------#----------#----------
-##
-## 4MFSproptest UI
-##
-## Language: EN
-## 
-## DT: 2019-04-07
-##
-##----------#----------#----------#----------
 
 shinyUI(
 
 tagList(
-#shinythemes::themeSelector(),
-source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
-##########----------##########----------##########
+source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
 
 title = "Test for Binomial Proportions",
 
-##---------- 1. Panel 1 ----------
+##########----------##########----------##########
+
 tabPanel("One Sample",
 
 titlePanel("Chi-square Test and Exact Binomial Method for One Proportion"),
@@ -58,7 +48,7 @@ hr()
 
 ),
 
-##----------  Panel 2 ----------
+##########----------##########----------##########
 tabPanel("Two Samples",
 
 titlePanel("Chi-square Test for Two Independent Proportions"),
@@ -91,7 +81,7 @@ hr()
 
 ),
 
-##---------- 3. Chi-square test for 2 paired-independent sample ----------
+##########----------##########----------##########
 tabPanel(">2 Samples",
 
 titlePanel("Chi-square Test for More than Two Independent Proportions"),
@@ -123,7 +113,7 @@ source("p3_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- 4. trend test ----------
+##########----------##########----------##########
 tabPanel("Trend in >2 Samples ",
 
 titlePanel("Chi-square Test for Trend in Multiple Independent Samples"),
@@ -158,8 +148,6 @@ hr()
 
 
 ##########----------##########----------##########
-
-##---------- other panels ----------
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,

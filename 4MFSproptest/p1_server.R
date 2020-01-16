@@ -1,15 +1,5 @@
-##----------#----------#----------#----------
-##
-## 4MFSproptest SERVER
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************1.prop1
 
-
-##----------1. Chi-square test for single sample ----------
 output$b.test = DT::renderDT({
 validate(need(input$n>=input$x, "Please check your data whether x <= n"))
   res = binom.test(x = input$x, n= input$n, p = input$p, alternative = input$alt)

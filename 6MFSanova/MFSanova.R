@@ -1,5 +1,3 @@
-
-##' The mirror function of https://alain003.phs.osaka-u.ac.jp/mephas_web/6MFSanova/
 ##'
 ##' MFSanova includes
 ##' (1) one-way ANOVA,
@@ -8,7 +6,6 @@
 ##' (4) pairwise post-hoc test for two-way ANOVA
 ##' (5) Kruskal-Wallis test
 ##' and (6) post-hoc test for Kruskal-Wallis test
-##'
 ##'
 ##' @title MEPHAS: ANOVA (Hypothesis Testing)
 ##'
@@ -1156,17 +1153,12 @@ mainPanel(
 
     p(tags$i("In this example, smoking groups showed significant, so we could conclude that FEF were not significantly different in LS-NI, LS-PS, and NI-PS groups. For other groups, P <0.025. "))#,
 
-  #downloadButton("downloadnp2.2", "Download Results")
-
-
   )
 ),
 
 hr()
 ),
 ##########----------##########----------##########
-
-##---------- other panels ----------
 
 tabPanel((a("Help",
             target = "_blank",

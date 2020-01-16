@@ -1,14 +1,5 @@
-##----------#----------#----------#----------
-##
-## 8MFSpcapls UI
-##
-##		>pca
-##
-## Language: EN
-## 
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************fa
+
 sidebarLayout(
 
 sidebarPanel(
@@ -24,23 +15,13 @@ h4(tags$b("Step 1. Choose parameters to build the model")),
 uiOutput('x.fa'), 
 p("If no need to remove, please choose NULL"),
 
-#tags$b('2. Check the variables used in the model, numeric only'),
-
-#verbatimTextOutput("x_fa"),   
-
-#checkboxInput("scale1.fa", tags$b("3. Whether to scale the data"), TRUE),
-
 numericInput("ncfa", "2. How many factors", 4, min = 1, max = NA),
-#p("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
 
 hr(),
 h4(tags$b("Choose factors to show factor and loading 2D plot")),
 numericInput("c1.fa", "1. Factor at x-axis", 1, min = 1, max = NA),
 numericInput("c2.fa", "2. Factor at y-axis", 2, min = 1, max = NA),
 p("x and y must be different"),
-#p(br()),
-#checkboxInput("frame", tags$b("3. Add group circle in the plot"), FALSE),
-#uiOutput('g'), 
 
 hr(),
 h4(tags$b("Choose factors to show factor and loading 3D plot")),
@@ -72,7 +53,6 @@ DT::DTOutput("cor.fa")
 )
   ),
 hr(),
-#p("Please make sure both X and Y have been prepared. If Error happened, please check your X and Y data."),
 actionButton("pca1.fa", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
  p(br()),
 

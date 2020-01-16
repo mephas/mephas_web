@@ -1,9 +1,8 @@
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************plsr
 sidebarLayout(
 
 sidebarPanel(
 
-#tags$head(tags$style("#x {height: 150px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
 tags$head(tags$style("#pls {overflow-y:scroll; height: 300px; background: white};")),
 tags$head(tags$style("#pls_tdtrace {overflow-y:scroll; height: 200px; background: white};")),
 
@@ -16,7 +15,6 @@ uiOutput('x.r'),
 uiOutput('y.r'), 
 
 numericInput("nc.r", "4. How many new components", 4, min = 1, max = NA),
-#p("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
 
 hr(),
 h4(tags$b("Choose components to show factor and loading 2D plot")),
@@ -44,7 +42,6 @@ p("This only shows the first several lines, please check full data in the 1st ta
 DT::DTOutput("pls.x"),
 
 hr(),
-#p("Please make sure both X and Y have been prepared. If Error happened, please check your X and Y data."),
 actionButton("pls1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
  p(br()),
 
@@ -85,7 +82,6 @@ tabPanel("Loading", p(br()),
 
 tabPanel("Component and Loading 2D Plot", p(br()),
   plotOutput("pls.bp", width = "80%")
-  #DT::DTOutput("pls.l")
   ),
 
 tabPanel("Component and Loading 3D Plot" ,p(br()),

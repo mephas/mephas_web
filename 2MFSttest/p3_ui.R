@@ -1,14 +1,4 @@
-##----------#----------#----------#----------
-##
-## 2MFSttest UI
-##
-##    >Panel 3
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************3.tp
 
 sidebarLayout(
 
@@ -46,8 +36,7 @@ sidebarPanel(
     p(tags$b("This only reads the 2 columns from your data file")),
     fileInput('file.p', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-        #helpText("The columns of X are not suggested greater than 500"),
-        # Input: Checkbox if file has header ----
+
         p(tags$b("2. Show 1st row as header?")),
         checkboxInput("header.p", "Show Data Header?", TRUE),
         p(tags$b("3. Use 1st column as row names? (No duplicates)")),
@@ -106,9 +95,7 @@ sidebarPanel(
 
       tags$b("Basic Descriptives of the Difference"),
             
-              DT::DTOutput("bas.p")#,
-      #p(br()), 
-      #downloadButton("download5", "Download Results")
+              DT::DTOutput("bas.p")
             ),
 
       tabPanel("Boxplot of the difference", p(br()), 
@@ -126,7 +113,6 @@ sidebarPanel(
           </ul>"
             )        
          ),
-
 
           tabPanel("Mean and SD Plot", p(br()), 
 
@@ -165,8 +151,6 @@ sidebarPanel(
     </ul>"
   ),
 
-  p(tags$i("From the default settings, we concluded that the drug has no significant effect on the sleep hour. (P=0.2)"))#,
-
- # downloadButton("download6", "Download Results")
+  p(tags$i("From the default settings, we concluded that the drug has no significant effect on the sleep hour. (P=0.2)"))
         )
       )

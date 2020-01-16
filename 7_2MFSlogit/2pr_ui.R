@@ -1,14 +1,4 @@
-##----------#----------#----------#----------
-##
-## 7MFSreg UI
-##
-##    >Linear regression
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************pred
 
 sidebarLayout(
 
@@ -32,7 +22,6 @@ checkboxInput("newheader", "Yes", TRUE),
 p(tags$b("3. Use 1st column as row names? (No duplicates)")),
 checkboxInput("newcol", "Yes", TRUE),
 
-     # Input: Select separator ----
 radioButtons("newsep", "4. Which separator for data?",
   choiceNames = list(
     HTML("Comma (,): CSV often use this"),
@@ -73,6 +62,4 @@ DT::DTOutput("sst.s")
 )
 
 ) 
-
-
 )

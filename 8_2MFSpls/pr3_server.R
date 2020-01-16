@@ -1,16 +1,4 @@
-##----------#----------#----------#----------
-##
-## 7MFSreg SERVER
-##
-##    >Linear regression
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
-
-
+#****************************************************************************************************************************************************spls-pred
 
 newX.spls = reactive({
   inFile = input$newfile.spls
@@ -32,8 +20,8 @@ if(!input$newcol.spls){
 }
 return(as.data.frame(x))
 })
-#prediction plot
-# prediction
+
+
 output$newX.spls  = DT::renderDT({newX.spls()},
 extensions = 'Buttons', 
 options = list(

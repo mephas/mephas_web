@@ -15,7 +15,7 @@ navbarPage(
 
 title = "Logistic Regression",
 
-#----------0. dataset panel----------
+##########----------##########----------##########
 
 tabPanel("Data",
 
@@ -62,7 +62,7 @@ hr()
 
 ),
 
-#----------1. LM regression panel----------
+##########----------##########----------##########
 tabPanel("Model",
 
 headerPanel("Logistic Regression"),
@@ -90,6 +90,8 @@ hr(),
 source("1lm_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
+
+##########----------##########----------##########
 
 tabPanel("Prediction",
 
@@ -124,15 +126,13 @@ hr(),
 source("2pr_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
-##---------- other panels ----------
-
+##########----------##########----------##########
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
 
 )
-##-----------------------over
 )
 )
 

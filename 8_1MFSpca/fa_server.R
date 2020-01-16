@@ -1,3 +1,4 @@
+#****************************************************************************************************************************************************fa
 
 output$x.fa = renderUI({
 selectInput(
@@ -12,20 +13,11 @@ multiple = TRUE
 DF4.fa <- reactive({
   X()[,input$x.fa]
   })
-##  df <- X()[,type.num3()]
-#  validate(need(input$y.fa, "Please choose NULL or some variable to remove"))
-#  if ("NULL" %in% input$y.fa) {df <-df}
-#  else {df <-df[ ,-which(type.num3() %in% c(input$y.fa))]}
-#return(df)
-#  })
 
-#output$x_fa <- renderPrint({colnames(DF4.fa()) })
 
 output$table.x.fa <- DT::renderDT(
     head(X()), options = list(scrollX = TRUE,dom = 't'))
 
-#output$nc <- renderText({input$nc})
-# model
 fa <- eventReactive(input$pca1.fa,{
   X <- DF4.fa()
   a <- input$ncfa
@@ -33,12 +25,7 @@ fa <- eventReactive(input$pca1.fa,{
   #factanal(DF4.fa(), factors = input$ncfa, scores= "regression")
   })
 
-#pca.x <- reactive({ pca()$x })
 
-#output$fit  <- renderPrint({
-#  res <- rbind(pca()$explained_variance,pca()$cum.var)
-#  rownames(res) <- c("explained_variance", "cumulative_variance")
-#  res})
 output$fa  <- renderPrint({
   summary(fa())
   })

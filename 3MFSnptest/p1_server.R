@@ -1,16 +1,5 @@
-##----------#----------#----------#----------
-##
-## 3MFSnptest P1 SERVER
-##
-## Language: EN
-## 
-## DT: 2019-01-09
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************1.np1
 
-##########----------##########----------##########
-
-##---------- 1. one sample ----------
 names1 <- reactive({
   x <- unlist(strsplit(input$cn, "[\n]"))
   return(x[1])
@@ -76,17 +65,6 @@ output$table <- DT::renderDT(A(),
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-
-  #output$download1b <- downloadHandler(
-  #  filename = function() {
-  #    "des.csv"
-  #  },
-  #  content = function(file) {
-  #    write.csv(A.des(), file, row.names = TRUE)
-  #  }
-  #)
-
-  #plot
    output$bp = renderPlot({
     x = A()
     ggplot(x, aes(x = 0, y = x[,1])) + geom_boxplot(width = 0.2, outlier.colour = "red", outlier.size = 2) + xlim(-1,1)+
@@ -143,14 +121,4 @@ output$table <- DT::renderDT(A(),
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
-
-
-#output$download1 <- downloadHandler(
-#    filename = function() {
-#      "ws.csv"
-#    },
-#    content = function(file) {
-#      write.csv(ws.test(), file, row.names = TRUE)
-#    }
-#  )
 

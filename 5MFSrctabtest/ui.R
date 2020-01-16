@@ -1,12 +1,3 @@
-##----------#----------#----------#----------
-##
-## 5MFSrctabtest UI
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
 
 shinyUI(
 tagList(
@@ -19,7 +10,7 @@ navbarPage(
 
 title = "Test for Contingency Table",
 
-##---------- Panel 1 ----------
+##########----------##########----------##########
 tabPanel("2x2",
 
 titlePanel("Chi-square Test for 2 Categories of Factor in Case-Control Status"),
@@ -57,7 +48,7 @@ source("1_chi_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 2 ----------
+##########----------##########----------##########
 tabPanel("2x2(Exact)",
 
 titlePanel("Fisher Exact Test for 2 Categories of Factor with Small Expected Counts in Case-Control Status "),
@@ -95,7 +86,7 @@ source("2_fisher_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 3 ----------
+##########----------##########----------##########
 tabPanel("2x2(Paired)",
 
 titlePanel("McNemar Test for 2 Categories of  of Factor with Matched Counts in Case-Control Status"),
@@ -144,7 +135,7 @@ source("3_mcnemar_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 4 ----------
+##########----------##########----------##########
 tabPanel("2xC",
 
 titlePanel("Chi-square Test for >2 Categories of Factor in Case-Control Status"),
@@ -182,8 +173,7 @@ source("4_2cchi_ui.R", local=TRUE)$value,
 hr()
 ),
 
-##---------- Panel 5 ----------
-
+##########----------##########----------##########
 
 tabPanel("RxC",
 
@@ -223,7 +213,7 @@ hr()
 ),
 
 
-##---------- Panel 6 ----------
+##########----------##########----------##########
 
 tabPanel("Kappa(2xK)",
 
@@ -257,7 +247,7 @@ hr()
 
 ),
 
-##---------- Panel 7 ----------
+##########----------##########----------##########
 
 tabPanel("Kappa(KxK)",
 
@@ -297,7 +287,7 @@ source("7_kappa_ui.R", local=TRUE)$value,
 hr()
 
 ),
-##---------- Panel 8 ----------
+##########----------##########----------##########
 
 tabPanel("(2x2)xK",
 
@@ -335,7 +325,7 @@ hr()
 
 ),
 
-##---------- Panel 9 ----------
+##########----------##########----------##########
 
 tabPanel("(RxC)xK",
 
@@ -371,13 +361,9 @@ source("9_cmh_ui.R", local=TRUE)$value,
 
 hr()
 
-)
+),
 
 ##########----------##########----------##########
-
-,
-##---------- other panels ----------
-
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,

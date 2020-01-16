@@ -1,4 +1,4 @@
-##----------#logistic data#----------#----------
+#****************************************************************************************************************************************************
 sidebarLayout(
 
 sidebarPanel(
@@ -45,13 +45,7 @@ a(tags$i("Find some example data here"),href = "https://github.com/mephas/datase
 hr(),
 
 h4(tags$b("(Optional) Change the types of some variable?")),
-
-#p(tags$b("Choice 1. Change Real-valued Variables into Categorical Variable")), 
-
 uiOutput("factor1"),
-
-#p(tags$b("Choice 2. Change Categorical Variable (Numeric Factors) into Numeric Variables (Numbers)")),
-
 uiOutput("factor2"),
 
 h4(tags$b("(Optional) Change the referential level for categorical variable?")), 
@@ -110,8 +104,4 @@ uiOutput('hx'),
 plotOutput("p2", width = "80%"),
 sliderInput("bin", "The width of bins in the histogram", min = 0.01, max = 5, value = 1))
 
-)
-
-)
-
-)
+)))

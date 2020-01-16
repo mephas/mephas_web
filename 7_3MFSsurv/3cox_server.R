@@ -1,24 +1,5 @@
-##----------#----------#----------#----------
-##
-## 7MFSreg SERVER
-##
-##    >Linear regression
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************cox
 
-## 2. choose variable to put in the model/ and summary
-
-#DF4 <- reactive({
-#  df <-dplyr::select(DF3(), subset=c(-input$c))
-#return(df)
-#  })
-#type.fac4 <- reactive({
-#DF3() %>% select_if(is.factor) %>% colnames()
-#})
 
 output$var.cx = renderUI({
 selectInput(

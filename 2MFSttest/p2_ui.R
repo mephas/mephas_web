@@ -1,15 +1,4 @@
-##----------#----------#----------#----------
-##
-## 2MFSttest UI
-##
-##    >Panel 2
-##
-## Language: EN
-## 
-## DT: 2019-04-07
-##
-##----------#----------#----------#----------
-
+#****************************************************************************************************************************************************2.t2
 sidebarLayout(
 
 sidebarPanel(
@@ -126,10 +115,7 @@ sidebarPanel(
 
     tabPanel("Basic Descriptives", p(br()),
           
-          DT::DTOutput("bas2")#,
-
-         #p(br()), 
-        #downloadButton("download3", "Download Results")
+          DT::DTOutput("bas2")
       ),
 
       tabPanel("Box-Plot",p(br()),     
@@ -209,11 +195,7 @@ HTML(
     </ul>"
   ),
 
-    p(tags$i("In this example, we concluded that the age of lymph node positive population with ER positive was not significantly different from ER negative (P=0.24, from 'Two-Sample t-test')"))#,
-
-
-    #downloadButton("download2", "Download Results of Variance Test"),
-    #downloadButton("download4", "Download Results of T Test")
+    p(tags$i("In this example, we concluded that the age of lymph node positive population with ER positive was not significantly different from ER negative (P=0.24, from 'Two-Sample t-test')"))
     
     )
   )

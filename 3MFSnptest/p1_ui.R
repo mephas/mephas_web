@@ -1,18 +1,7 @@
-##----------#----------#----------#----------
-##
-## 3MFSnptest UI
-##
-##    >Panel 1
-##
-## Language: EN
-## 
-## DT: 2019-01-09
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************1.np1
 
-##---------- data ----------
 sidebarLayout(  
-##########----------##########----------##########
+
 sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
@@ -46,14 +35,12 @@ sidebarPanel(
         p(tags$b("This only reads the one column from your data file")),
         fileInput('file', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-        #helpText("The columns of X are not suggested greater than 500"),
-        # Input: Checkbox if file has header ----
+
         p(tags$b("2. Show 1st row as column names?")),
         checkboxInput("header", "Yes", TRUE),
         p(tags$b("3. Use 1st column as row names? (No duplicates)")),
         checkboxInput("col", "Yes", TRUE),
 
-             # Input: Select separator ----
         radioButtons("sep", 
           "4. Which Separator for Data?",
           choiceNames = list(
@@ -120,10 +107,7 @@ mainPanel(
 
     tabPanel("Basic Descriptives", p(br()), 
 
-        DT::DTOutput("bas")#, 
-        
-        #p(br()), 
-      #downloadButton("download1b", "Download Results")
+        DT::DTOutput("bas")
       ),
 
     tabPanel("Box-Plot", p(br()), 
@@ -173,11 +157,5 @@ h4(tags$b("Output 2. Test Results")),
   ),
 
   p(tags$i("From the default settings, we concluded that the scales was significantly greater than 1 (P=0.006), which indicated the patients were suffering from depression."))#,
-
-
-    #downloadButton("download1", "Download Results")
-
-
-
   )
 )

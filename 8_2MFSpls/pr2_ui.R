@@ -1,14 +1,4 @@
-##----------#----------#----------#----------
-##
-## 7MFSreg UI
-##
-##    >Linear regression
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************pls-pred
 
 sidebarLayout(
 
@@ -26,15 +16,12 @@ p("We suggested putting the dependent variable (Y) (if existed) in the left side
 h4(tags$b("Step 1. Upload New Data File")),      
 
 fileInput('newfile.pls', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-#helpText("The columns of X are not suggested greater than 500"),
-# Input: Checkbox if file has header ----
+
 p(tags$b("2. Show 1st row as column names?")),
 checkboxInput("newheader.pls", "Yes", TRUE),
 
 p(tags$b("3. Use 1st column as row names? (No duplicates)")),
 checkboxInput("newcol.pls", "Yes", TRUE),
-
-     # Input: Select separator ----
 radioButtons("newsep.pls", "4. Which separator for data?",
   choiceNames = list(
     HTML("Comma (,): CSV often use this"),

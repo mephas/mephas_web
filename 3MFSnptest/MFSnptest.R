@@ -1,24 +1,29 @@
 ##'
-##' MFSpca includes  
-##' (1) principal component analysis
-##' and (2) factor analysis
+##' MFSnptest includes Non-parametric test of
+##' (1) one sample,
+##' (2) two independent samples,
+##' and (3) two paried samples.
 ##'
-##' @title MEPHAS: Dimensional analysis 1 (Advanced Method)
+##' @title MEPHAS: Non-parametric Test (Hypothesis Testing)
 ##'
 ##' @return shiny interface
 ##'
 ##' @import shiny
 ##' @import ggplot2
-##' @import psych
-
+##'
+##' @importFrom reshape melt
+##' @importFrom psych describe
+##' @importFrom exactRankTests wilcox.exact
+##'
 ##' @examples
-##' # mephas::MFSpca()
-##' ##-----
+##' # mephas::MFSnptest()
+##' #
 ##' # library(mephas)
-##' # MFSpca()
+##' # MFSnptest()
+
 
 ##' @export
-MFSpca <- function(){
+MFSnptest <- function(){
 
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
 ui <- tagList(

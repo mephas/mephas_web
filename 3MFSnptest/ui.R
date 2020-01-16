@@ -1,15 +1,3 @@
-##----------#----------#----------#----------
-##
-## 3MFSnptest UI
-##
-## Language: EN
-## 
-## DT: 2019-01-09
-##
-##----------#----------#----------#----------
-#source("p1_ui.R", local=TRUE,encoding = "UTF-8")
-#source("p2_ui.R", local=TRUE,encoding = "UTF-8")
-#source("p3_ui.R", local=TRUE,encoding = "UTF-8")
 
 shinyUI(
 
@@ -21,8 +9,8 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 title = "Non-parametric Test for Medians",  
+##########----------##########----------##########
 
-##---------- Panel 1 ----------
 tabPanel("One Sample",
 
 headerPanel("Wilcoxon Signed-Rank Test for One Sample"),
@@ -59,17 +47,12 @@ We wanted to know if the DRS of patients was significantly greater than 1.
     ),
 
 hr(),
-##---------- 1.1 ----------
-
 source("p1_ui.R", local=TRUE)$value,
-
 hr()
-
-
 
 ),
 
-##---------- Panel 2 ----------
+##########----------##########----------##########
 
 tabPanel("Two Samples",
 
@@ -108,16 +91,12 @@ We wanted to know if the DRS of patients was significantly different among diffe
     ),
 
 hr(),
-
-##---------- 2.1 ----------
 source("p2_ui.R", local=TRUE)$value,
-
 hr()
 
 ),
 
-##---------- Panel 3 ----------
-
+##########----------##########----------##########
 tabPanel("Paired Samples",    
 
 headerPanel("Wilcoxon Signed-Rank Test for Two Paired Samples"),
@@ -160,15 +139,11 @@ We wanted to know if the DRS of patients before and after were significantly; or
     ),
 
 hr(),
-##---------- 3.1 ----------
-
 source("p3_ui.R", local=TRUE)$value,
-
 hr()
 
 ),
 ##########----------##########----------##########
-##---------- other panels ----------
 
 source("../0tabs/stop.R",local=TRUE,encoding = "UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,

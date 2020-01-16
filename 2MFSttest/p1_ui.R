@@ -1,14 +1,4 @@
-##----------#----------#----------#----------
-##
-## 2MFSttest UI
-##
-##    >Panel 1
-##
-## Language: EN
-##
-## DT: 2019-04-07
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************1.t1
 sidebarLayout(
 
 sidebarPanel(
@@ -175,13 +165,7 @@ HTML(
     </ul>"
   ),
 
-  p(tags$i("Because P <0.05 , we concluded that the age of lymph node positive population was significantly different from 50 years old. Thus the general age was not 50. If we reset the specified mean to 44, we could get P > 0.05"))#,
-
-  #p(br()),
-  #downloadButton("download1", "Download Results")
-
-
-
+  p(tags$i("Because P <0.05 , we concluded that the age of lymph node positive population was significantly different from 50 years old. Thus the general age was not 50. If we reset the specified mean to 44, we could get P > 0.05"))
  )
 
 )

@@ -18,7 +18,7 @@ navbarPage(
 
 title = "Dimensional Analysis 2",
 
-#----------1. dataset panel----------
+##########----------##########----------##########
 
 tabPanel("Dataset",
 
@@ -68,7 +68,7 @@ hr()
 ),
 
 
-## 1. PCA ---------------------------------------------------------------------------------
+##########----------##########----------##########
 tabPanel("PCR",
 
 titlePanel("Principal Component Regression"),
@@ -77,7 +77,10 @@ hr(),
 source("pcr_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
-), #penal tab end
+), 
+
+##########----------##########----------##########
+
 
 tabPanel("Prediction1",
 
@@ -88,7 +91,8 @@ source("pr1_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 ),
-## 2.  PLS, ---------------------------------------------------------------------------------
+
+##########----------##########----------##########
 tabPanel("PLSR",
 
 titlePanel("Partial Least Squares Regression"),
@@ -97,6 +101,9 @@ hr(),
 source("plsr_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
+
+##########----------##########----------##########
+
 
 tabPanel("Prediction2",
 
@@ -108,7 +115,7 @@ hr()
 
 ),
 
-## 3. SPLS, ---------------------------------------------------------------------------------
+##########----------##########----------##########
 tabPanel("SPLSR",
 
 titlePanel("Sparse Partial Least Squares Regression"),
@@ -117,6 +124,9 @@ hr(),
 source("spls_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
+
+##########----------##########----------##########
+
 tabPanel("Prediction3",
 
 titlePanel("Prediction after Partial Least Squares Regression"),
@@ -126,10 +136,7 @@ source("pr3_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 ),
-#penal tab end
-
-
-##---------- other panels ----------
+##########----------##########----------##########
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,

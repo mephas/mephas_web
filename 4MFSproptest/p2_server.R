@@ -1,15 +1,5 @@
-##----------#----------#----------#----------
-##
-## 4MFSproptest SERVER
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************2.prop2
 
-
-##---------- 2. Two sample ----------
 T = reactive({ # prepare dataset
   validate(need(input$n1>=input$x1, "Please check your data whether x1 <= n1"))
   validate(need(input$n2>=input$x2, "Please check your data whether x2 <= n2"))

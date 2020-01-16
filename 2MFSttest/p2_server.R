@@ -1,14 +1,5 @@
-##----------#----------#----------#----------
-##
-## 2MFSttest SERVER
-##
-##    >Panel 2
-##
-## Language: EN
-##
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************2.t2
+
 names2 <- reactive({
   x <- unlist(strsplit(input$cn2, "[\n]"))[1:2]
   return(x)
@@ -73,16 +64,7 @@ basic_desc2()
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-#output$download3 <- downloadHandler(
-#    filename = function() {
-#      "basic_desc.csv"
-#    },
-#    content = function(file) {
-#      write.csv(basic_desc2(), file, row.names = TRUE)
-#    }
-#  )
 
-  #plots
 output$bp2 = renderPlot({
   x = Y()
   mx = melt(x, idvar = names(x))
@@ -219,19 +201,3 @@ output$t.test2 <- DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-#output$download2 <- downloadHandler(
-#    filename = function() {
-#      "var_test.csv"
-#    },
-#    content = function(file) {
-#      write.csv(var.test0(), file, row.names = TRUE)
-#    }
-#  )
-#output$download4 <- downloadHandler(
-#    filename = function() {
-#      "t2_test.csv"
-#    },
-#    content = function(file) {
-#      write.csv(t.test20(), file, row.names = TRUE)
-#    }
-#  )

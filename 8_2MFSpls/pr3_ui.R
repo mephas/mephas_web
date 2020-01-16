@@ -1,14 +1,4 @@
-##----------#----------#----------#----------
-##
-## 7MFSreg UI
-##
-##    >Linear regression
-##
-## Language: EN
-## 
-## DT: 2019-01-11
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************spls-pred
 
 sidebarLayout(
 
@@ -26,8 +16,7 @@ p("We suggested putting the dependent variable (Y) (if existed) in the left side
 h4(tags$b("Step 1. Upload New Data File")),      
 
 fileInput('newfile.spls', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-#helpText("The columns of X are not suggested greater than 500"),
-# Input: Checkbox if file has header ----
+
 p(tags$b("2. Show 1st row as column names?")),
 checkboxInput("newheader.spls", "Yes", TRUE),
 
@@ -62,15 +51,8 @@ DT::DTOutput("newX.spls"),
 hr(),
 actionButton("B.spls", h4(tags$b("Click 2: Output. Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 p(br()),
-#tabsetPanel(
-#tabPanel("Prediction",p(br()),
 
 DT::DTOutput("pred.lp.spls")
-#),
 
-#tabPanel("Predicted Components",p(br()),
-#DT::DTOutput("pred.comp.spls")
-#)
-#) 
 ) 
 )
