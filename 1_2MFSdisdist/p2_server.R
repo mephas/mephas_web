@@ -1,5 +1,3 @@
-if (!require(shiny)) {install.packages("shiny")}; library(shiny)
-if (!require(ggplot2)) {install.packages("ggplot2")}; library(ggplot2)
 
 #****************************************************************************************************************************************************2. poisson
 P = reactive({
