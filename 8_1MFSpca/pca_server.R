@@ -67,7 +67,8 @@ output$var  <- DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$comp <- DT::renderDT({pca()$x}, 
+output$comp <- DT::renderDT({
+  as.data.frame(pca()$x)}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

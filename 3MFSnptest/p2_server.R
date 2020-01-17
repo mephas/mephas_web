@@ -122,11 +122,3 @@ output$table2 <-DT::renderDT({B()},
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-  #output$download2.1 <- downloadHandler(
-  #  filename = function() {
-  #    "mwu.csv"
-  #  },
-  #  content = function(file) {
-  #    write.csv(mwu.test(), file, row.names = TRUE)
-  #  }
-  #)

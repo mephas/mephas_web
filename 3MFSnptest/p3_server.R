@@ -66,15 +66,7 @@ output$table3 <-DT::renderDT(C() ,
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-  #output$download3b <- downloadHandler(
-  #  filename = function() {
-  ##    "desc3.csv"
-  #  },
-  #  content = function(file) {
-  #    write.csv(C.des(), file, row.names = TRUE)
-  #  }
-  #)
-  # plots
+
   output$bp3 = renderPlot({
     x <- C()
     ggplot(x, aes(x = 0, y = x[,3])) + geom_boxplot(width = 0.2, outlier.color = "red") + xlim(-1,1)+
@@ -130,12 +122,3 @@ psr.test <- reactive({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-
-#output$download3.2 <- downloadHandler(
-#    filename = function() {
-#      "psr.csv"
-#    },
-##    content = function(file) {
-#      write.csv(psr.test(), file, row.names = TRUE)
-#    }
-#  )

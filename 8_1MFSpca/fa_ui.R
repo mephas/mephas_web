@@ -13,15 +13,17 @@ h4("Example data is upload in Data tab"),
 h4(tags$b("Step 1. Choose parameters to build the model")),    
 
 uiOutput('x.fa'), 
-p("If no need to remove, please choose NULL"),
 
 numericInput("ncfa", "2. How many factors", 4, min = 1, max = NA),
+p(tags$i("According to the suggested results from parallel analysis, we chose to generate 4 factors from the data")),
 
 hr(),
 h4(tags$b("Choose factors to show factor and loading 2D plot")),
 numericInput("c1.fa", "1. Factor at x-axis", 1, min = 1, max = NA),
 numericInput("c2.fa", "2. Factor at y-axis", 2, min = 1, max = NA),
 p("x and y must be different"),
+p(tags$i("The default is to show the first 2 factors for all the 2D plot")),
+
 
 hr(),
 h4(tags$b("Choose factors to show factor and loading 3D plot")),
@@ -29,6 +31,7 @@ numericInput("td1.fa", "1. Factor at x-axis", 1, min = 1, max = NA),
 numericInput("td2.fa", "2. Factor at y-axis", 2, min = 1, max = NA),
 numericInput("td3.fa", "3. Factor at z-axis", 3, min = 1, max = NA),
 p("x y z must be different"),
+p(tags$i("The default is to show the first 3 factors for the 3D plot")),
 
 numericInput("lines.fa", "4. (Optional) Change line scale (length)", 10, min = 1, max = NA)
 ),
@@ -58,26 +61,69 @@ actionButton("pca1.fa", h4(tags$b("Click 1: Output 2. Show Model Results / Refre
 
 tabsetPanel(
 tabPanel("Factors Result",p(br()),
-  
+    HTML("
+<b>Explanations</b>
+<ul>
+<li> This plot graphs the factor relations to the variables
+<li> Results in the window shows the statistical test for the sufficiency of factors.
+</ul>
+
+  "),
   plotOutput("pca.ind.fa", width = "80%"),
   verbatimTextOutput("fa")),
 
 tabPanel("Factors", p(br()),
+
   DT::DTOutput("comp.fa")
   ),
 
 tabPanel("Loading", p(br()),
+	    HTML("
+<b>Explanations</b>
+<ul>
+<li> This plot show the contributions from the variables to the PCs (choose PC in the left panel)
+<li> Red indicates negative and blue indicates positive effects
+<li> Use the proportion of variance (in the variance table) to determine the amount of variance that the factors explain. 
+<li> For descriptive purposes, you may need only 80% (0.8) of the variance explained. 
+<li> If you want to perform other analyses on the data, you may want to have at least 90% of the variance explained by the factors.
+</ul>
+
+  "),
 	plotOutput("pca.ind.fa2", width = "80%"),
+	p(tags$b("Loadings")),
   DT::DTOutput("load.fa"),
+  p(tags$b("Variance table")),
   DT::DTOutput("var.fa")  ),
 
 tabPanel("Factors and Loading 2D Plot" ,p(br()),
+    HTML("
+<b>Explanations</b>
+<ul>
+<li> This plot (biplots) overlays the components and the loadings (choose PC in the left panel)
+<li> If the data follow a normal distribution and no outliers are present, the points are randomly distributed around zero
+<li> Loadings identify which variables have the largest effect on each component
+<li> Loadings can range from -1 to 1. Loadings close to -1 or 1 indicate that the variable strongly influences the component. Loadings close to 0 indicate that the variable has a weak influence on the component.
+</ul>
 
+
+  "),
 plotOutput("fa.bp", width = "80%")
 
 ),
 
 tabPanel("Factors and Loading 3D Plot" ,p(br()),
+HTML("
+  <b>Explanations</b>
+<ul>
+<li> This is the extension for 2D plot. This plot overlays the components and the loadings for 3 PCs (choose PCs and the length of lines in the left panel)
+<li> We can find the outliers in the plot. 
+<li> If the data follow a normal distribution and no outliers are present, the points are randomly distributed around zero
+<li> Loadings identify which variables have the largest effect on each component
+<li> Loadings can range from -1 to 1. Loadings close to -1 or 1 indicate that the variable strongly influences the component. Loadings close to 0 indicate that the variable has a weak influence on the component.
+</ul>
+
+  "),
+p(tags$b("If data is big, this plot needs some time to load")),
 plotly::plotlyOutput("tdplot.fa"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("tdtrace.fa")

@@ -22,7 +22,6 @@ HTML(
 <li> To upload data file, preview data set, and check the correctness of data input 
 <li> To pre-process some variables (when necessary) for building the model
 <li> To get the basic descriptive statistics and plots of the variables
-<li> To prepare the survival object as 'dependent variable' for building model
 </ul>
 
 <h4><b> 2. About your data</b></h4>
@@ -62,15 +61,14 @@ HTML(
 <ul>
 <li> From <parallel analysis> to estimate the number of components
 <li> To get correlation matrix and plot
-<li> To the components and loadings result table and plot
-<li> To conduct pairwise log-rank test to compare the survival curves from more than two groups
+<li> To get the components and loadings result tables and plots
 </ul>
 
 <h4><b> 2. About your data </b></h4>
 
 <ul>
-<li> The independent variable is categorical
-<li> Please prepare the survival object in the Data tab
+<li> All the data for analysis are numeric
+<li> More samples size than the number of independent variables, that is, he number of rows is greater than the number of columns
 </ul> 
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
@@ -88,19 +86,20 @@ headerPanel("Exploratory Factor Analysis"),
 
 HTML(
 "
+<b>Exploratory Factor analysis (EFA)</b> is a statistical method used to describe variability among observed, correlated variables in terms of a potentially lower number of unobserved variables called factors.
+
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To get Kaplan-Meier survival probability estimate
-<li> To get Kaplan-Meier survival curves, cumulative events distribution curves, and cumulative hazard curves by group variable
-<li> To conduct log-rank test to compare the survival curves from 2 groups
-<li> To conduct pairwise log-rank test to compare the survival curves from more than two groups
+<li> From <parallel analysis> to estimate the number of components
+<li> To get correlation matrix and plot
+<li> To get the factor and loadings result tables and plots
 </ul>
 
 <h4><b> 2. About your data </b></h4>
 
 <ul>
-<li> The independent variable is categorical
-<li> Please prepare the survival object in the Data tab
+<li> All the data for analysis are numeric
+<li> More samples size than the number of independent variables, that is, he number of rows is greater than the number of columns
 </ul> 
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>

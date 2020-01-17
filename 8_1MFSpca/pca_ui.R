@@ -13,10 +13,8 @@ h4(tags$b("Step 1. Choose parameters to build the model")),
 
 uiOutput('x'), 
 
-#checkboxInput("scale1", tags$b("3. Whether to scale the data"), TRUE),
-
 numericInput("nc", "2. How many components", 4, min = 1, max = NA),
-p("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
+p(tags$i("According to the suggested results from parallel analysis, we chose to generate 4 components from the data")),
 
 hr(),
 
@@ -24,6 +22,8 @@ h4(tags$b("Choose components to show component and loading 2D Plot")),
 numericInput("c1", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c2", "2. Component at y-axis", 2, min = 1, max = NA),
 p("x and y must be different"),
+p(tags$i("The default is to show the first 2 PC for all the 2D plot")),
+
 
 hr(),
 h4(tags$b("Choose components to show component and loading 3D Plot")),
@@ -31,6 +31,7 @@ numericInput("td1", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("td2", "2. Component at y-axis", 2, min = 1, max = NA),
 numericInput("td3", "3. Component at z-axis", 3, min = 1, max = NA),
 p("x y z must be different"),
+p(tags$i("The default is to show the first 3 PCsfor the 3D plot")),
 
 numericInput("lines", "4. (Optional) Change line scale (length)", 10, min = 1, max = NA)
 ),
@@ -55,41 +56,91 @@ DT::DTOutput("cor")
   ),
 
 hr(),
-#p("Please make sure both X and Y have been prepared. If Error happened, please check your X and Y data."),
 actionButton("pca1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
  p(br()),
 
 tabsetPanel(
 
 tabPanel("Components", p(br()),
+  HTML("
+<b>Explanations</b>
+<ul>
+<li> This plot graphs the components relations from two components, you can use the score plot to assess the data structure and detect clusters, outliers, and trends
+<li> Groupings of data on the plot may indicate two or more separate distributions in the data
+<li> If the data follow a normal distribution and no outliers are present, the points are randomly distributed around zero
+</ul>
+
+<i> Click the button to show and update the result. 
+<ul>
+<li> In the plot of PC1 and PC2 (without group circle), we could find some outliers in the up. After soring PC2 in the table, we could see 107 and 108 are two of the outliers.
+<li> In the plot of PC1 and PC2 (add group circle in Euclid distance), we could find chem2 is separated from chem3 and 5, and from others. 
+
+</ul></i>
+  "),
 checkboxInput("frame", tags$b("Add group circle in the component plot"), FALSE),
 uiOutput('g'), 
 radioButtons("type", "The type of ellipse",
  choices = c("T: assumes a multivariate t-distribution" = 't',
              "Normal: assumes a multivariate normal-distribution" = "norm",
-             #Convex = "convex",
              "Euclid: the euclidean distance from the center" = "euclid"),
- selected = 't',
+ selected = 'euclid',
  width="500px"),
 plotOutput("pca.ind", width = "80%"),
 
 DT::DTOutput("comp")
-  #downloadButton("downloadData", "Download")
   ),
 
 tabPanel("Loading", p(br()),
+    HTML("
+<b>Explanations</b>
+<ul>
+<li> This plot show the contributions from the variables to the PCs (choose PC in the left panel)
+<li> Red indicates negative and blue indicates positive effects
+<li> Use the cumulative proportion of variance (in the variance table) to determine the amount of variance that the factors explain. 
+<li> For descriptive purposes, you may need only 80% (0.8) of the variance explained. 
+<li> If you want to perform other analyses on the data, you may want to have at least 90% of the variance explained by the factors.
+</ul>
+</ul>
+  "),
   plotOutput("pca.ind2", width = "80%"),
+  p(tags$b("Loadings")),
   DT::DTOutput("load"),
+  p(tags$b("Variance table")),
   DT::DTOutput("var")
-  #downloadButton("downloadData", "Download")
   ),
 tabPanel("Component and Loading 2D Plot" ,p(br()),
+    HTML("
+<b>Explanations</b>
+<ul>
+<li> This plot (biplots) overlays the components and the loadings (choose PC in the left panel)
+<li> If the data follow a normal distribution and no outliers are present, the points are randomly distributed around zero
+<li> Loadings identify which variables have the largest effect on each component.
+<li> Loadings can range from -1 to 1. Loadings close to -1 or 1 indicate that the variable strongly influences the component. Loadings close to 0 indicate that the variable has a weak influence on the component.
+</ul>
+<i> Click the button to show and update the result. 
+<ul>
+<li> In the plot of PC1 and PC2, we could find chem1,7 have comparatively strong negative effect to PC1, and chem 4 has comparatively strong positive effect on PC1. For PC2, chem 8 has strong positive effect and chem3 has strong negative effect. 
+The results are corresponding to the loading plot
+</ul></i>
 
-plotOutput("pca.bp", width = "80%")
+  "),
+plotOutput("pca.bp")
 
 ),
 
 tabPanel("Component and Loading 3D Plot" ,p(br()),
+      HTML("
+  <b>Explanations</b>
+<ul>
+<li> This is the extension for 2D plot. This plot overlays the components and the loadings for 3 PCs (choose PCs and the length of lines in the left panel)
+<li> We can find the outliers in the plot. 
+<li> If the data follow a normal distribution and no outliers are present, the points are randomly distributed around zero
+<li> Loadings identify which variables have the largest effect on each component
+<li> Loadings can range from -1 to 1. Loadings close to -1 or 1 indicate that the variable strongly influences the component. Loadings close to 0 indicate that the variable has a weak influence on the component.
+</ul>
+
+  "),
+p(tags$b("If data is big, this plot needs some time to load")),
 plotly::plotlyOutput("tdplot"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("tdtrace")

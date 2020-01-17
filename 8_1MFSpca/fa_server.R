@@ -118,17 +118,17 @@ ggplot(corrs.m, aes(group, variable, fill=abs(value))) +
 
 output$fa.bp   <- renderPlot({ 
 
-biplot(fa(),labels=rownames(DF4.fa()), choose=c(input$c1,input$c2), main="")
+biplot(fa(),labels=rownames(DF4.fa()), choose=c(input$c1.fa,input$c2.fa), main="")
 
 })
 
 # Plot of the explained variance
 output$tdplot.fa <- plotly::renderPlotly({ 
 
-scores <- fa()$scores
-x <- scores[,input$td1]
-y <- scores[,input$td2]
-z <- scores[,input$td3]
+scores <- as.data.frame(fa()$scores)
+x <- scores[,input$td1.fa]
+y <- scores[,input$td2.fa]
+z <- scores[,input$td3.fa]
 
 loads <- (fa()$loadings[,1:input$ncfa])
 
@@ -138,15 +138,15 @@ scale.loads <- input$lines.fa
 layout <- list(
   scene = list(
     xaxis = list(
-      title = paste0("ML", input$td1.fa), 
+      title = names(scores)[input$td1.fa], 
       showline = TRUE
     ), 
     yaxis = list(
-      title = paste0("ML", input$td2.fa), 
+      title = names(scores)[input$td2.fa], 
       showline = TRUE
     ), 
     zaxis = list(
-      title = paste0("ML", input$td3.fa), 
+      title = names(scores)[input$td3.fa], 
       showline = TRUE
     )
   ), 
