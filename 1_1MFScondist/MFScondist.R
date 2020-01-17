@@ -38,12 +38,24 @@ title = "Continuous Probability Distribution",
 
 ##########----------##########----------##########
 
+##########----------##########----------##########
 tabPanel("Normal",
 
 headerPanel("Normal Distribution"),
 
 HTML(
 " 
+<h4><b> What you can do on this page</b></h4>
+<ul>
+<li> Draw a Normal Distribution with N(&#956, &#963); &#956 is the location, and &#963 indicates the shape 
+<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line and Pr(x1 less than X greater than x2) in the blue area
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
+<li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+<li> Get the probability distribution of your data which can be roughly compared to N(&#956, &#963)
+
+</ul>
+
 <i><h4>Case Example</h4>
 Suppose we wanted to see the shape of N(0, 1), and wanted to know 1. at which point x0 when Pr(X < x0)= 0.025, and 2. what is the probability between means+/-1SD area  </i>
 
@@ -65,17 +77,17 @@ sidebarLayout(
 			"Draw a Normal Distribution", p(br()),
 
 		  HTML("<h4><b>Step 1. Set Parameters for N(&#956, &#963)</h4></b>"), 
-		  numericInput("mu", HTML("Mean (&#956), the dashed line, indicates the location  "), value = 0, min = -10000000, max = 10000000),
-		  numericInput("sigma", HTML("Standard Deviation (&#963), indicates the shape"), value = 1, min = 0, max = 10000000),
+		  numericInput("mu", HTML("Mean (&#956), the dashed line, indicates the location  "), value = 0),
+		  numericInput("sigma", HTML("Standard Deviation (&#963), indicates the shape"), value = 1, min = 0),
 		  hr(),
 
 		  h4(tags$b("Step 2. Show Probability")),   
-		  numericInput("n", HTML("Blue Area = Pr(Mean-n*SD < X < Mean+n*SD)"), value = 1, min = 0, max = 10),
+		  numericInput("n", HTML("Blue Area = Pr(Mean-n*SD < X < Mean+n*SD)"), value = 1, min = 0),
 	 		numericInput("pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 is the position of Red-line"), value = 0.025, min = 0, max = 1, step = 0.05),
 
 	 		hr(),
 	 		p(tags$b("You can adjust x-axes range")), 
-		  numericInput("xlim", "Range of x-asis, symmetric to 0", value = 5, min = 1, max = 10000000)
+		  numericInput("xlim", "Range of x-asis, symmetric to 0", value = 5, min = 1)
 		  #numericInput("ylim", "Range of y-asis > 0", value = 0.5, min = 0.1, max = 1),
 
 
@@ -142,7 +154,7 @@ sidebarLayout(
 				tableOutput("xs")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-			 	numericInput("size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	numericInput("size", "Sample size of simulated numbers", value = 100, min = 1),
 			 	tags$b("Histogram from random numbers"),
 			 	plotOutput("norm.plot2", click = "plot_click2",  width = "80%"),	
 
@@ -170,10 +182,8 @@ sidebarLayout(
 			)
 	)
 	),
-
 hr()
-)
-,
+),
 
 ##########----------##########----------##########
 tabPanel("Exponential",
@@ -182,6 +192,16 @@ headerPanel("Exponential Distribution"),
 
 HTML(
 " 
+<h4><b> What you can do on this page</b></h4>
+<ul>
+<li> Draw an Exponential Distribution with E(Rate); Rate indicates the rate of change
+<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
+<li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+<li> Get the probability distribution of your data which can be roughly compared to E(Rate)
+</ul>
+
 <i><h4>Case Example</h4>
 Suppose we wanted to see the shape of E(2), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
@@ -203,7 +223,7 @@ sidebarLayout(
 		tabPanel(
 			"Draw an Exponential Distribution", p(br()),
 		  h4(tags$b("Step 1. Set Parameters for E(Rate)")), 
-		  numericInput("r", HTML("Rate (> 0) indicates the rate of change"), value = 2, min = 0, max = 1000000000, step=1),
+		  numericInput("r", HTML("Rate (> 0) indicates the rate of change"), value = 2, min = 0),
 		  hr(),
 
 		  h4(tags$b("Step 2. Show Probability")),   
@@ -212,7 +232,7 @@ sidebarLayout(
 		  #numericInput("e.ylim", "Range of y-asis > 0", value = 2.5, min = 0.1, max = 3),
 		  hr(),
 	 		p(tags$b("You can adjust x-axes range")), 
-		  numericInput("e.xlim", "Range of x-asis > 0", value = 5, min = 1, max = 10000000)
+		  numericInput("e.xlim", "Range of x-asis > 0", value = 5, min = 1)
 
 
 		),
@@ -275,7 +295,7 @@ sidebarLayout(
 				tableOutput("e")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-			 	numericInput("e.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	numericInput("e.size", "Sample size of simulated numbers", value = 100, min = 1,step = 1),
 			 	tags$b("Histogram from random numbers"),
 				plotOutput("e.plot2", click = "plot_click10", width = "80%"),
 			 	sliderInput("e.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),
@@ -311,6 +331,7 @@ sidebarLayout(
 hr()
 ),
 
+
 ##########----------##########----------##########
 tabPanel("Gamma",
 
@@ -318,6 +339,16 @@ headerPanel("Gamma Distribution"),
 
 HTML(
 " 
+<h4><b> What you can do on this page</b></h4>    
+<ul>
+<li> Draw a Gamma Distribution with Gamma(&#945, &#952); &#945 controls the shape, 1/&#952 controls the change of rate
+<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
+<li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+<li> Get the probability distribution of your data which can be roughly compared to  Gamma(&#945, &#952)  
+</ul>
+
 <i><h4>Case Example</h4>
 Suppose we wanted to see the shape of Gamma(9,0.5), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
 
@@ -338,8 +369,8 @@ sidebarLayout(
 		tabPanel(
 			"Draw a Gamma Distribution", p(br()),
 		  HTML("<h4><b>Step 1. Set Parameters for Gamma(&#945, &#952)</h4></b>"), 
-		  numericInput("g.shape", HTML("&#945 > 0, Shape parameter"), value = 9, min = 0, max = 1000000000),
-		  numericInput("g.scale", HTML("&#952 > 0, Scale parameter"), value = 0.5, min = 0, max = 1000000000),
+		  numericInput("g.shape", HTML("&#945 > 0, Shape parameter"), value = 9, min = 0),
+		  numericInput("g.scale", HTML("&#952 > 0, Scale parameter"), value = 0.5, min = 0),
 
 		  hr(),
 		  h4(tags$b("Step 2. Show Probability")),   
@@ -347,7 +378,7 @@ sidebarLayout(
  			
  			hr(),
 	 		p(tags$b("You can adjust x-axes range")), 
-		  numericInput("g.xlim", "Range of x-asis, > 0", value = 20, min = 1, max = 10000000)
+		  numericInput("g.xlim", "Range of x-asis, > 0", value = 20, min = 1)
 		  #numericInput("g.ylim", "Range of y-asis, > 0", value = 0.5, min = 0.1, max = 3),
 		 
 
@@ -412,7 +443,7 @@ sidebarLayout(
 				tableOutput("g")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-			 	numericInput("g.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	numericInput("g.size", "Sample size of simulated numbers", value = 100, min = 1, step = 1),
 			 	tags$b("Histogram from random numbers"),
 				plotOutput("g.plot2", click = "plot_click12", width = "80%"),
 			 	sliderInput("g.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.3, step=0.01),
@@ -447,6 +478,7 @@ sidebarLayout(
 hr()
 ),
 
+
 ##########----------##########----------##########
 tabPanel("Beta",
 
@@ -454,6 +486,16 @@ headerPanel("Beta Distribution"),
 
 HTML(
 " 
+<h4><b> What you can do on this page</b></h4>    
+<ul>
+<li> Draw a Beta Distribution with Beta(&#945, &#946); &#945, &#946 controls the shape
+<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
+<li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+<li> Get the probability distribution of your data which can be roughly compared to Beta(&#945, &#946)  
+</ul>
+
 <i><h4>Case Example</h4>
 Suppose we wanted to see the shape of Beta(2, 2), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
 
@@ -475,15 +517,15 @@ sidebarLayout(
 		tabPanel(
 			"Draw a Beta Distribution", p(br()),
 		  HTML("<h4><b>Step 1. Set Parameters for Beta(&#945, &#946)</h4></b>"), 
-		  numericInput("b.shape", HTML("&#945 > 0, Shape parameter"), value = 2, min = 0, max = 1000000000),
-		  numericInput("b.scale", HTML("&#946 > 0, Shape parameter"), value = 2, min = 0, max = 1000000000),
+		  numericInput("b.shape", HTML("&#945 > 0, Shape parameter"), value = 2, min = 0),
+		  numericInput("b.scale", HTML("&#946 > 0, Shape parameter"), value = 2, min = 0),
 
 		  hr(),
 		  h4(tags$b("Step 2. Show Probability")),   
 	 		numericInput("b.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
 		  hr(),
 	 		p(tags$b("You can adjust x-axes range")), 
-		  numericInput("b.xlim", "Range of x-asis, > 0", value = 1, min = 1, max = 1000000000)
+		  numericInput("b.xlim", "Range of x-asis, > 0", value = 1, min = 1)
 		  #snumericInput("b.ylim", "Range of y-asis, > 0", value = 2.5, min = 0.1, max = 3),
 
 
@@ -549,7 +591,7 @@ sidebarLayout(
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
 
-			 	numericInput("b.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	numericInput("b.size", "Sample size of simulated numbers", value = 100, min = 1, step = 1),
 			 	tags$b("Histogram from random numbers"),
 				plotOutput("b.plot2", click = "plot_click14", width = "80%"),
 			 	sliderInput("b.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.01, step=0.01),
@@ -584,6 +626,7 @@ sidebarLayout(
 hr()
 ),
 
+
 ##########----------##########----------##########
 tabPanel("T",
 
@@ -591,6 +634,15 @@ headerPanel("Student's T Distribution"),
 
 HTML(
 " 
+<h4><b> What you can do on this page</b></h4>    
+<ul>
+<li> Draw a T Distribution with T(v); v is the degree of freedom related to your sample size and control the shape 
+<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
+<li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+<li> Get the probability distribution of your data which can be roughly compared to T(v)  </ul>
+
 <i><h4>Case Example</h4>
 Suppose we wanted to see the shape of T(4) and wanted to know at which point x0 when Pr(X < x0)= 0.025 </i>
 
@@ -611,7 +663,7 @@ sidebarLayout(
 		tabPanel(
 			"Draw a T Distribution", p(br()),
 		  h4(tags$b("Step 1. Set Parameters for T(v)")), 
-		  numericInput("t.df", HTML("v > 0, Degree of Freedom, related to the shape"), value = 4, min = 0, max = 1000000000),
+		  numericInput("t.df", HTML("v > 0, Degree of Freedom, related to the shape"), value = 4, min = 0),
 		  
 		  hr(),
 		  h4(tags$b("Step 2. Show Probability")),   
@@ -619,7 +671,7 @@ sidebarLayout(
 		  
 		  hr(),	 		
 		  p(tags$b("You can adjust x-axes range")), 
-		  numericInput("t.xlim", "Range of x-asis", value = 5, min = 1, max = 1000000000)
+		  numericInput("t.xlim", "Range of x-asis", value = 5, min = 1)
 		  #numericInput("t.ylim", "Range of y-asis, > 0", value = 0.5, min = 0.1, max = 3),
 
 
@@ -686,7 +738,7 @@ sidebarLayout(
 
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-			 	numericInput("t.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	numericInput("t.size", "Sample size of simulated numbers", value = 100, min = 1, step = 1),
 			 	tags$b("Histogram from random numbers"),
 				plotOutput("t.plot2", click = "plot_click4", width ="80%"),
 			 	sliderInput("t.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.2, step=0.01),
@@ -713,6 +765,7 @@ sidebarLayout(
 hr()
 ),
 
+
 ##########----------##########----------##########
 tabPanel("Chi",
 
@@ -720,6 +773,15 @@ headerPanel("Chi-Squared Distribution"),
 
 HTML(
 " 
+<h4><b> What you can do on this page</b></h4>    
+<ul>
+<li> Draw a Chi-Squared Distribution with Chi(v); v is the degree of freedom related to your sample size and control the shape 
+<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
+<li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+<li> Get the probability distribution of your data which can be roughly compared to Chi(v)</ul>
+
 <i><h4>Case Example</h4>
 Suppose we wanted to see the shape of Chi(4), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
 
@@ -740,7 +802,7 @@ sidebarLayout(
 		tabPanel(
 			"Draw a Chi-squared Distribution", p(br()),
 		  h4(tags$b("Step 1. Set Parameters for Chi(v)")), 
-		  numericInput("x.df", HTML("v > 0, Degree of Freedom related the the shape"), value = 4, min = 0, max = 1000000000),
+		  numericInput("x.df", HTML("v > 0, Degree of Freedom related the the shape"), value = 4, min = 0),
 
 		  hr(),
 
@@ -749,7 +811,7 @@ sidebarLayout(
 		  hr(),
 
 	 		p(tags$b("You can adjust x-axes range")), 
-		  numericInput("x.xlim", "Range of x-asis, > 0", value = 8, min = 1, max = 1000000000)
+		  numericInput("x.xlim", "Range of x-asis, > 0", value = 8, min = 1)
 
 		),
 
@@ -811,7 +873,7 @@ sidebarLayout(
 				tableOutput("x")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-			 	numericInput("x.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	numericInput("x.size", "Sample size of simulated numbers", value = 100, min = 1, step = 1),
 			 	tags$b("Histogram from random numbers"),
 				plotOutput("x.plot2", click = "plot_click6", width = "80%"),
 			 	sliderInput("x.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),
@@ -853,6 +915,15 @@ headerPanel("F Distribution"),
 
 HTML(
 " 
+<h4><b> What you can do on this page</b></h4>    
+<ul>
+<li> Draw a F Distribution with F(df1, df2) ; df1 and df2 are the degree of freedom related to your sample size and control the shape 
+<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
+<li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
+<li> Get the probability distribution of your data which can be roughly compared to F(df1, df2)  </ul>
+
 <i><h4>Case Example</h4>
 Suppose we wanted to see the shape of F(100, 10), and wanted to know at which point x0 when Pr(X < x0)= 0.05 </i>
 
@@ -873,8 +944,8 @@ sidebarLayout(
 		tabPanel(
 			"Draw a Beta Distribution", p(br()),
 		  h4(tags$b("Step 1. Set Parameters")), 
-		  numericInput("df11", HTML("df1 > 0, Degree of Freedom 1"), value = 100, min = 0, max = 1000000000),
-		  numericInput("df21", HTML("df2 > 0, Degree of Freedom 2"), value = 100, min = 0, max = 1000000000),
+		  numericInput("df11", HTML("df1 > 0, Degree of Freedom 1"), value = 100, min = 0),
+		  numericInput("df21", HTML("df2 > 0, Degree of Freedom 2"), value = 100, min = 0),
 
 		  #numericInput("f.ylim", "Range of y-asis, > 0", value = 2.5, min = 0.1, max = 3),
 		  hr(),
@@ -884,7 +955,7 @@ sidebarLayout(
 		  hr(),
 
 	 		p(tags$b("You can adjust x-axes range")), 
-		  numericInput("f.xlim", "Range of x-asis, > 0", value = 5, min = 1, max = 1000000000)
+		  numericInput("f.xlim", "Range of x-asis, > 0", value = 5, min = 1)
 
 		),
 
@@ -944,7 +1015,7 @@ sidebarLayout(
 				tableOutput("f")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-			 	numericInput("f.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	numericInput("f.size", "Sample size of simulated numbers", value = 100, min = 1, step = 1),
 			 	tags$b("Histogram from random numbers"),
 				plotOutput("f.plot2", click = "plot_click8", width = "80%"),
 			 	sliderInput("f.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),
@@ -970,15 +1041,22 @@ sidebarLayout(
 hr()
 ),
 
+
 ##########----------##########----------##########
-tabPanel((a("Help",
+tabPanel((a("Help Pages Online",
             target = "_blank",
             style = "margin-top:-30px; color:DodgerBlue",
-            href = paste0("https://mephas.github.io/helppage/"))))
+            href = paste0("https://mephas.github.io/helppage/")))),
+tabPanel(
+  tags$button(
+    id = 'close',
+    type = "button",
+    class = "btn action-button",
+    style = "margin-top:-8px; color:Tomato; background-color: #F8F8F8  ",
+    onclick = "setTimeout(function(){window.close();},500);",  # close browser
+    "Stop and Quit"))
 
-)
-
-)
+))
 
 
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
@@ -1750,7 +1828,10 @@ output$f.sum2 = renderTable({
   return(x)
   }, digits = 6, colnames=FALSE, rownames=TRUE, width = "80%")
 
-}
+
+observe({
+      if (input$close > 0) stopApp()                             # stop shiny
+    })
 
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########

@@ -38,12 +38,26 @@ titlePanel("Chi-square Test and Exact Binomial Method for One Proportion"),
 
 
 HTML("
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To determine if the population rate/proportion behind your data is significantly different from the specified rate/proportion
+<li> To determine how compatible the sample rate/proportion with a population rate/proportion
+<li> To determine the probability of success in a Bernoulli experiment
+</ul>
+
+<h4><b> 2. About your data </b></h4>
+
+<ul>
+<li> Your data come from binomial distribution (the proportion of success)
+<li> You know the whole sample and the number of specified events (the proportion of sub-group)
+<li> You have a specified proportion (p<sub>0</sub>)
+</ul>
 
 <i><h4>Case Example</h4>
 Suppose that in the general population, 20% women who had infertility. Suppose a treatment may affect infertility. 200 women who were trying to get pregnant accepted the treatment.
-Among 40 women who got the treatment, 10 were still infertile. We wanted to know if there was a significant difference in the rate of infertility among treated women compared to 20% the general infertile rate.
+Among 40 women who got the treatment, 10 were still infertile. We wanted to know if there was a significant difference in the rate of infertility among treated women compared to 20% the general infertile rate. 
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
 " ),
 
 hr(),
@@ -133,14 +147,26 @@ tabPanel("Two Samples",
 titlePanel("Chi-square Test for Two Independent Proportions"),
 
 HTML("
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To determine if the population rate/proportion behind your 2 Groups data are significantly different </ul>
+
+<h4><b> 2. About your data </b></h4>
+
+<ul>
+<li> Your 2 Groups data come from binomial distribution (the proportion of success)
+<li> You know the whole sample and the number of specified events (the proportion of sub-group) from 2 Groups
+<li> The 2 Groups are independent observations
+</ul>
 
 <i><h4>Case Example</h4>
-Suppose all women in the study had at least on birth. We investigated 3220 breast cancer women as case. Among them, 683 had at least one birth after 30 years old.
+Suppose all women in the study had at least on birth. We investigated 3220 breast cancer women as case. Among them, 683 had at least one birth after 30 years old. 
 Also we investigated 10245 no breast cancer women as control. Among them, 1498 had at least one birth after 30 years old.
 we wanted to know if the underlying probability of having first birth over 30 years old was different in breast cancer and non-breast cancer groups.
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
 "),
+
 hr(),
 
 #source("p2_ui.R", local=TRUE)$value
@@ -244,13 +270,25 @@ tabPanel(">2 Samples",
 titlePanel("Chi-square Test for More than Two Independent Proportions"),
 
 HTML("
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To determine if the population rate/proportion behind your multiple Groups data are significantly different </ul>
+
+<h4><b> 2. About your data </b></h4>
+
+<ul>
+<li> Your Groups data come from binomial distribution (the proportion of success)
+<li> You know the whole sample and the number of specified events (the proportion of sub-group) from each Groups
+<li> The multiple Groups are independent observations
+</ul>
+
 <i><h4>Case Example</h4>
 Suppose we wanted to study the relationship between age at first birth and development of breast cancer. Thus, we investigated 3220 breast cancer cases and 10254 no breast cancer cases.
-Then, we categorize women into different age groups.
+Then, we categorize women into different age groups. 
 We wanted to know if the probability to have cancer were different among different age groups; or, if there age related to breast cancer.
 
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
 "),
 hr(),
 
@@ -344,14 +382,27 @@ tabPanel("Trend in >2 Samples ",
 titlePanel("Chi-square Test for Trend in Multiple Independent Samples"),
 
 HTML("
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To determine if the population rate/proportion behind your multiple Groups data vary with score 
+</ul>
+
+<h4><b> 2. About your data </b></h4>
+
+<ul>
+<li> Your Groups data come from binomial distribution (the proportion of success)
+<li> You know the whole sample and the number of specified events (the proportion of sub-group) from each Groups
+<li> The multiple Groups are independent observations
+</ul>
 
 <i><h4>Case Example</h4>
 Suppose we wanted to study the relationship between age at first birth and development of breast cancer. Thus, we investigated 3220 breast cancer cases and 10254 no breast cancer cases.
-Then, we categorize women into different age groups.
+Then, we categorize women into different age groups. 
 In this example, we wanted to know if the rate to have cancer had tendency from small to large ages.
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
 "),
+
 hr(),
 
 #source("p4_ui.R", local=TRUE)$value
@@ -453,14 +504,22 @@ hr(),
 hr()
 
 ),
+
 ##########----------##########----------##########
-tabPanel((a("Help",
+tabPanel((a("Help Pages Online",
             target = "_blank",
             style = "margin-top:-30px; color:DodgerBlue",
-            href = paste0("https://mephas.github.io/helppage/"))))
+            href = paste0("https://mephas.github.io/helppage/")))),
+tabPanel(
+  tags$button(
+    id = 'close',
+    type = "button",
+    class = "btn action-button",
+    style = "margin-top:-8px; color:Tomato; background-color: #F8F8F8  ",
+    onclick = "setTimeout(function(){window.close();},500);",  # close browser
+    "Stop and Quit"))
 
-)
-)
+))
 
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
@@ -733,6 +792,10 @@ output$c.test4 = DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
+
+observe({
+      if (input$close > 0) stopApp()                             # stop shiny
+    })
 
 }
 

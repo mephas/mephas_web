@@ -26,13 +26,20 @@ ui <- tagList(
 
 
 ##########----------##########----------##########
-tabPanel((a("Help",
+tabPanel((a("Help Pages Online",
             target = "_blank",
             style = "margin-top:-30px; color:DodgerBlue",
-            href = paste0("https://mephas.github.io/helppage/"))))
+            href = paste0("https://mephas.github.io/helppage/")))),
+tabPanel(
+  tags$button(
+    id = 'close',
+    type = "button",
+    class = "btn action-button",
+    style = "margin-top:-8px; color:Tomato; background-color: #F8F8F8  ",
+    onclick = "setTimeout(function(){window.close();},500);",  # close browser
+    "Stop and Quit"))
 
-)
-)
+))
 
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
@@ -44,6 +51,10 @@ source("p1_server.R", local=TRUE)$value
 source("p2_server.R", local=TRUE)$value
 
 source("p3_server.R", local=TRUE)$value
+
+observe({
+      if (input$close > 0) stopApp()                             # stop shiny
+    })
 
 }
 

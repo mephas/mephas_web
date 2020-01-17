@@ -10,10 +10,10 @@
 ##'
 ##' @import shiny
 ##' @import ggplot2
+##' @import exactRankTests
 ##'
 ##' @importFrom reshape melt
 ##' @importFrom psych describe
-##' @importFrom exactRankTests wilcox.exact
 ##' @importFrom stats wilcox.test
 ##'
 ##' @examples
@@ -40,14 +40,31 @@ headerPanel("Wilcoxon Signed-Rank Test for One Sample"),
 
 HTML(
     "    
+<p>This is an alternative to one-sample t-test, when the data cannot be assumed to be normally distributed.
+This method is based on the ranks of observations rather than on their true values</p>
+
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To determine if the median / location of the population from which your data is drawn statistically significantly different from the specified median
+<li> To know the basic descriptive statistics about your data
+<li> To know the descriptive statistics plot such as box-plot, distribution histogram, and density distribution plot about your data  
+</ul>
+
+<h4><b> 2. About your data </b></h4>
+
+<ul>
+<li> Your data contain only 1 group of values (or 1 numeric vector)
+<li> Your data are meaningful to measure the distance from the specified median
+<li> The values are independent observations
+<li> No assumption on the distributional shape of your data, which means your data may be not normally distributed
+</ul> 
+
 <i><h4>Case Example</h4>
 Suppose we collected the Depression Rating Scale (DRS) measurements of 9 patients from a certain group of patients. DRS Scale > 1 indicated Depression.
 We wanted to know if the DRS of patients was significantly greater than 1. 
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
-    
-
-    "
+"
     ),
 
 hr(),
@@ -225,6 +242,26 @@ headerPanel("Wilcoxon Rank-Sum Test (Mann&#8211;Whitney U test) for Two Independ
 
 HTML(
     "
+<p>This is an alternative to two-sample t-test, when the data cannot be assumed to be normally distributed</p>
+
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To determine if the medians of two population from which your 2 groups data drawn are statistically significantly different from each other
+<li> To determine if the distributions of 2 groups of data differ in locations
+<li> To know the basic descriptive statistics about your data
+<li> To know the descriptive statistics plot such as box-plot, distribution histogram, and density distribution plot about your data  
+</ul>
+
+<h4><b> 2. About your data </b></h4>
+
+<ul>
+<li> Your data contain only 2 group of values (or 2 numeric vectors) 
+<li> Your data are meaningful to measure the distance between 2 groups values
+<li> The values are independent observations
+<li> No assumption on the distributional shape of your data
+<li> Your data may be not normally distributed
+</ul> 
+
 <i><h4>Case Example</h4>
 Suppose we collected the Depression Rating Scale (DRS) measurements of 19 patients from a certain group of patients. Among 19 people, 9 were women, and 10 were men.
 We wanted to know if the DRS of patients was significantly different among different genders; or, whether age was related to DRS scores. 
@@ -418,6 +455,33 @@ headerPanel("Wilcoxon Signed-Rank Test for Two Paired Samples"),
 
 HTML(
     "
+<b>In paired case, we compare the differences of 2 groups to zero. Thus, it becomes a one-sample test problem.</b>
+<p>This is an alternative to paired-sample t-test, when the data cannot be assumed to be normally distributed</p>
+
+<h4><b> 1. What you can do on this page  </b></h4>
+<ul>
+<li> To determine if the difference of paired data is statistically significantly different from 0
+<li> To know the basic descriptive statistics about your data
+<li> To know the descriptive statistics plot such as box-plot, distribution histogram, and density distribution plot about your data  
+</ul>
+
+<h4><b> 2. About your data </b></h4>
+
+<ul>
+<li> Your data contain 2 group of values (or 2 numeric vectors)
+<li> Your data are meaningful to measure the distance from the specified median
+<li> The values are paired or matched observations
+<li> No assumption on the distributional shape of your data
+<li> Your data may be not normally distributed
+</ul> 
+
+<h4><b> 3. Examples for Matched or Paired Data </b></h4>
+<ul>
+<li>  One person's pre-test and post-test scores 
+<li>  When there are two samples that have been matched or paired
+</ul>  
+
+
 <i><h4>Case Example</h4>
 Suppose we collected the Depression Rating Scale (DRS) measurements of 9 patients from a certain group of patients. We decided to give them some treatment, and after the treatment we tested the DRS again.
 We wanted to know if the DRS of patients before and after were significantly; or, whether the differences were significantly different from 0, which could indicate if the treatment was effective.
@@ -604,13 +668,20 @@ hr()
 
 
 ##########----------##########----------##########
-tabPanel((a("Help",
+tabPanel((a("Help Pages Online",
             target = "_blank",
             style = "margin-top:-30px; color:DodgerBlue",
-            href = paste0("https://mephas.github.io/helppage/"))))
+            href = paste0("https://mephas.github.io/helppage/")))),
+tabPanel(
+  tags$button(
+    id = 'close',
+    type = "button",
+    class = "btn action-button",
+    style = "margin-top:-8px; color:Tomato; background-color: #F8F8F8  ",
+    onclick = "setTimeout(function(){window.close();},500);",  # close browser
+    "Stop and Quit"))
 
-)
-)
+))
 
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
@@ -991,6 +1062,9 @@ psr.test <- reactive({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
+observe({
+      if (input$close > 0) stopApp()                             # stop shiny
+    })
 
 }
 

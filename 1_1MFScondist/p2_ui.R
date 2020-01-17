@@ -8,7 +8,7 @@ sidebarLayout(
 		tabPanel(
 			"Draw an Exponential Distribution", p(br()),
 		  h4(tags$b("Step 1. Set Parameters for E(Rate)")), 
-		  numericInput("r", HTML("Rate (> 0) indicates the rate of change"), value = 2, min = 0, max = 1000000000, step=1),
+		  numericInput("r", HTML("Rate (> 0) indicates the rate of change"), value = 2, min = 0),
 		  hr(),
 
 		  h4(tags$b("Step 2. Show Probability")),   
@@ -17,7 +17,7 @@ sidebarLayout(
 		  #numericInput("e.ylim", "Range of y-asis > 0", value = 2.5, min = 0.1, max = 3),
 		  hr(),
 	 		p(tags$b("You can adjust x-axes range")), 
-		  numericInput("e.xlim", "Range of x-asis > 0", value = 5, min = 1, max = 10000000)
+		  numericInput("e.xlim", "Range of x-asis > 0", value = 5, min = 1)
 
 
 		),
@@ -80,7 +80,7 @@ sidebarLayout(
 				tableOutput("e")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-			 	numericInput("e.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	numericInput("e.size", "Sample size of simulated numbers", value = 100, min = 1,step = 1),
 			 	tags$b("Histogram from random numbers"),
 				plotOutput("e.plot2", click = "plot_click10", width = "80%"),
 			 	sliderInput("e.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),

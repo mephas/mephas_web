@@ -9,17 +9,17 @@ sidebarLayout(
 			"Draw a Normal Distribution", p(br()),
 
 		  HTML("<h4><b>Step 1. Set Parameters for N(&#956, &#963)</h4></b>"), 
-		  numericInput("mu", HTML("Mean (&#956), the dashed line, indicates the location  "), value = 0, min = -10000000, max = 10000000),
-		  numericInput("sigma", HTML("Standard Deviation (&#963), indicates the shape"), value = 1, min = 0, max = 10000000),
+		  numericInput("mu", HTML("Mean (&#956), the dashed line, indicates the location  "), value = 0),
+		  numericInput("sigma", HTML("Standard Deviation (&#963), indicates the shape"), value = 1, min = 0),
 		  hr(),
 
 		  h4(tags$b("Step 2. Show Probability")),   
-		  numericInput("n", HTML("Blue Area = Pr(Mean-n*SD < X < Mean+n*SD)"), value = 1, min = 0, max = 10),
+		  numericInput("n", HTML("Blue Area = Pr(Mean-n*SD < X < Mean+n*SD)"), value = 1, min = 0),
 	 		numericInput("pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 is the position of Red-line"), value = 0.025, min = 0, max = 1, step = 0.05),
 
 	 		hr(),
 	 		p(tags$b("You can adjust x-axes range")), 
-		  numericInput("xlim", "Range of x-asis, symmetric to 0", value = 5, min = 1, max = 10000000)
+		  numericInput("xlim", "Range of x-asis, symmetric to 0", value = 5, min = 1)
 		  #numericInput("ylim", "Range of y-asis > 0", value = 0.5, min = 0.1, max = 1),
 
 
@@ -86,7 +86,7 @@ sidebarLayout(
 				tableOutput("xs")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-			 	numericInput("size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	numericInput("size", "Sample size of simulated numbers", value = 100, min = 1),
 			 	tags$b("Histogram from random numbers"),
 			 	plotOutput("norm.plot2", click = "plot_click2",  width = "80%"),	
 

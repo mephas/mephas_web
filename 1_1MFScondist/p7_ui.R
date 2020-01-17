@@ -8,8 +8,8 @@ sidebarLayout(
 		tabPanel(
 			"Draw a Beta Distribution", p(br()),
 		  h4(tags$b("Step 1. Set Parameters")), 
-		  numericInput("df11", HTML("df1 > 0, Degree of Freedom 1"), value = 100, min = 0, max = 1000000000),
-		  numericInput("df21", HTML("df2 > 0, Degree of Freedom 2"), value = 100, min = 0, max = 1000000000),
+		  numericInput("df11", HTML("df1 > 0, Degree of Freedom 1"), value = 100, min = 0),
+		  numericInput("df21", HTML("df2 > 0, Degree of Freedom 2"), value = 100, min = 0),
 
 		  #numericInput("f.ylim", "Range of y-asis, > 0", value = 2.5, min = 0.1, max = 3),
 		  hr(),
@@ -19,7 +19,7 @@ sidebarLayout(
 		  hr(),
 
 	 		p(tags$b("You can adjust x-axes range")), 
-		  numericInput("f.xlim", "Range of x-asis, > 0", value = 5, min = 1, max = 1000000000)
+		  numericInput("f.xlim", "Range of x-asis, > 0", value = 5, min = 1)
 
 		),
 
@@ -79,7 +79,7 @@ sidebarLayout(
 				tableOutput("f")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-			 	numericInput("f.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	numericInput("f.size", "Sample size of simulated numbers", value = 100, min = 1, step = 1),
 			 	tags$b("Histogram from random numbers"),
 				plotOutput("f.plot2", click = "plot_click8", width = "80%"),
 			 	sliderInput("f.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),

@@ -316,7 +316,8 @@ Thus, we controlled for personal active smoking before looking at the relationsh
 We got two 2 x 2 table, one was from the active smoking group including 466 people, and the other was from non-active smoking group with 532 people. As shown in the inputed data.
 We wanted to know if passive smoking significantly related to cancer risk after controlling for active smoking; or, whether the odds ratios were significantly different.
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    "),
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
+"),
 
 hr(),
 source("8_mh_ui.R", local=TRUE)$value,

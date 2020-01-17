@@ -8,7 +8,7 @@ sidebarLayout(
 		tabPanel(
 			"Draw a T Distribution", p(br()),
 		  h4(tags$b("Step 1. Set Parameters for T(v)")), 
-		  numericInput("t.df", HTML("v > 0, Degree of Freedom, related to the shape"), value = 4, min = 0, max = 1000000000),
+		  numericInput("t.df", HTML("v > 0, Degree of Freedom, related to the shape"), value = 4, min = 0),
 		  
 		  hr(),
 		  h4(tags$b("Step 2. Show Probability")),   
@@ -16,7 +16,7 @@ sidebarLayout(
 		  
 		  hr(),	 		
 		  p(tags$b("You can adjust x-axes range")), 
-		  numericInput("t.xlim", "Range of x-asis", value = 5, min = 1, max = 1000000000)
+		  numericInput("t.xlim", "Range of x-asis", value = 5, min = 1)
 		  #numericInput("t.ylim", "Range of y-asis, > 0", value = 0.5, min = 0.1, max = 3),
 
 
@@ -83,7 +83,7 @@ sidebarLayout(
 
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-			 	numericInput("t.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	numericInput("t.size", "Sample size of simulated numbers", value = 100, min = 1, step = 1),
 			 	tags$b("Histogram from random numbers"),
 				plotOutput("t.plot2", click = "plot_click4", width ="80%"),
 			 	sliderInput("t.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.2, step=0.01),

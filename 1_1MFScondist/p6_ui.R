@@ -8,7 +8,7 @@ sidebarLayout(
 		tabPanel(
 			"Draw a Chi-squared Distribution", p(br()),
 		  h4(tags$b("Step 1. Set Parameters for Chi(v)")), 
-		  numericInput("x.df", HTML("v > 0, Degree of Freedom related the the shape"), value = 4, min = 0, max = 1000000000),
+		  numericInput("x.df", HTML("v > 0, Degree of Freedom related the the shape"), value = 4, min = 0),
 
 		  hr(),
 
@@ -17,7 +17,7 @@ sidebarLayout(
 		  hr(),
 
 	 		p(tags$b("You can adjust x-axes range")), 
-		  numericInput("x.xlim", "Range of x-asis, > 0", value = 8, min = 1, max = 1000000000)
+		  numericInput("x.xlim", "Range of x-asis, > 0", value = 8, min = 1)
 
 		),
 
@@ -79,7 +79,7 @@ sidebarLayout(
 				tableOutput("x")
 				),
 			 tabPanel("Simulation-based Plot", p(br()),
-			 	numericInput("x.size", "Sample size of simulated numbers", value = 100, min = 1, max = 1000000, step = 1),
+			 	numericInput("x.size", "Sample size of simulated numbers", value = 100, min = 1, step = 1),
 			 	tags$b("Histogram from random numbers"),
 				plotOutput("x.plot2", click = "plot_click6", width = "80%"),
 			 	sliderInput("x.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),
