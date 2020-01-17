@@ -1,3 +1,4 @@
+
 ##'
 ##' MFSanova includes
 ##' (1) one-way ANOVA,
@@ -6,6 +7,7 @@
 ##' (4) pairwise post-hoc test for two-way ANOVA
 ##' (5) Kruskal-Wallis test
 ##' and (6) post-hoc test for Kruskal-Wallis test
+##'
 ##'
 ##' @title MEPHAS: ANOVA (Hypothesis Testing)
 ##'
@@ -36,27 +38,13 @@ navbarPage(
 
 title = "Analysis of Variance",
 
-##---------- Panel 1 ----------
+##########----------##########----------##########
 tabPanel("One-way",
 
 headerPanel("One-way ANOVA (Overall F Test) to Compare Means from Multiple Factor Groups"),
 
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
-<ul>
-<li> To determine if the means differ significantly among the factor groups
-</ul>
-
-<h4><b> 2. About your data </b></h4>
-
-<ul>
-<li> Your data contain several separate factor groups shown in two vectors
-<li> One vector is the observed values; one vector is to mark your values in different factor groups
-<li> The separate factor groups are independent and identically approximately normally distributed
-<li> Each mean of the factor group follows a normal distribution with the same variance and can be compared
-</ul>
-
 <i><h4>Case Example</h4>
 Suppose we want to find whether passive smoking had a measurable effect on the incidence of cancer. In a study, we studied 6 group of smokers: nonsmokers (NS), passive smokers (PS), non-inhaling smokers (NI), light smokers (LS), moderate smokers (MS), and heavy smokers (HS).
 NS,PS,LS,MS,and HS group had 200 people in each. NI group had 50 people. The study measured the forced mid-expiatory flow (FEF).
@@ -70,19 +58,7 @@ We wanted to the know the FEF differences among the 6 groups.
 
 hr(),
 
-# source("p1_ui.R", local=TRUE)$value
-##----------#----------#----------#----------
-##
-## 6MFSanova UI
-##
-##    > P1
-##
-## Language: EN
-##
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
-##1-way
+#****************************************************************************************************************************************************1. one-way
 sidebarLayout(
 
 sidebarPanel(
@@ -96,7 +72,7 @@ sidebarPanel(
   p(tags$b("2. Input data")),
 
 tabsetPanel(
-      ##-------input data-------##
+
     tabPanel("Manual Input", p(br()),
 
     p(tags$i("Example here was the FEF data from smokers and smoking groups. Detailed information can be found in the Output 1.")),
@@ -117,7 +93,7 @@ tabsetPanel(
     p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error")
 
         ),
-      ##-------csv file-------##
+
 tabPanel("Upload Data", p(br()),
 
     p(tags$b("This only reads 2 columns from your data")),
@@ -125,7 +101,6 @@ tabPanel("Upload Data", p(br()),
     p(tags$b("2nd and 3rd columns are factors" )),
     fileInput('file1', "1. Choose CSV/TXT file",
               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-    #helpText("The columns of X are not suggested greater than 500"),
     p(tags$b("2. Show 1st row as header?")),
     checkboxInput("header1", "Show Data Header?", TRUE),
     p(tags$b("3. Use 1st column as row names? (No duplicates)")),
@@ -171,9 +146,7 @@ mainPanel(
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      DT::DTOutput("bas1.t")#,
-         #p(br()),
-        #downloadButton("download1.1", "Download Results")
+      DT::DTOutput("bas1.t")
       ),
 
     tabPanel("Marginal Means Plot",p(br()),
@@ -199,8 +172,6 @@ mainPanel(
   </ul>"
     ),
     p(tags$i("In this example, smoking groups showed significant, so we could conclude that FEF were significantly different among the 6 groups. ")),
-        #downloadButton("download1", "Download Results"),
-
     hr(),
     HTML("<p><b>When P < 0.05,</b> if you want to find which pairwise factor groups are significantly different, please go to next page for <b>Multiple Comparison</b></p>")
 
@@ -212,7 +183,8 @@ mainPanel(
 hr()
 ),
 
-##---------- Panel 2 ----------
+##########----------##########----------##########
+
 tabPanel("Pairwise1",
 
 headerPanel("Multiple Comparison Post-Hoc Correction for Specific Groups after One-way ANOVA"),
@@ -244,18 +216,7 @@ We wanted to the know in which pairs of the 6 groups, FEF were significantly dif
 ),
 hr(),
 # source("p3_ui.R", local=TRUE)$value
-##----------#----------#----------#----------
-##
-## 6MFSanova UI
-##
-##    > P3
-##
-## Language: EN
-##
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
-##Pairwise1
+#****************************************************************************************************************************************************1.1. p-one-way
 sidebarLayout(
 
 sidebarPanel(
@@ -297,7 +258,6 @@ tabPanel("Upload Data", p(br()),
     p(tags$b("2nd and 3rd columns are factors" )),
     fileInput('filem', "Choose CSV/TXT file",
               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-    #helpText("The columns of X are not suggested greater than 500"),
     p(tags$b("2. Show 1st row as header?")),
     checkboxInput("headerm", "Show Data Header?", TRUE),
     p(tags$b("3. Use 1st column as row names? (No duplicates)")),
@@ -406,17 +366,12 @@ mainPanel(
       HS was significant different from the other groups;
       LS was significantly different from MS and NS;
       MS was significantly different from NI and PS;
-      NI was significantly different from NS."))#,
-
-
-  #downloadButton("download.m1", "Download Results")
-  )
+      NI was significantly different from NS."))  )
 ),
 hr()
 ),
 
-##---------- Panel 3 ----------
-
+##########----------##########----------##########
 tabPanel("Two-way",
 
 headerPanel("Two-way ANOVA to Compare Means from Multiple Groups"),
@@ -453,18 +408,8 @@ We wanted to know the effect of dietary group and sex on the SPB and whether the
 hr(),
 
 # source("p2_ui.R", local=TRUE)$value
-##----------#----------#----------#----------
-##
-## 6MFSanova UI
-##
-##    > P1
-##
-## Language: EN
-##
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
-## 2-way
+#****************************************************************************************************************************************************2. two-way
+
 sidebarLayout(
 
 sidebarPanel(
@@ -596,15 +541,12 @@ mainPanel(
     ),
 
   p(tags$i("In this example, dietary types and sex both have effects on the SBP (P<0.001), and dietary types also significantly related with sex (P<0.001). "))#,
-
-
-  #downloadButton("download2", "Download Results")
   )
 ),
 hr()
 ),
 #
-##---------- Panel 4 ----------
+##########----------##########----------##########
 tabPanel("Pairwise2",
 
 headerPanel("Multiple Comparison Post-Hoc Correction for Specific Groups after Two-way ANOVA"),
@@ -638,17 +580,7 @@ We wanted to know the pairwise effect of dietary group and sex on the SPB. For e
 ),
 hr(),
 # source("p4_ui.R", local=TRUE)$value
-##----------#----------#----------#----------
-##
-## 6MFSanova UI
-##
-##    > P3
-##
-## Language: EN
-##
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************2.1. p-two-way
 sidebarLayout(
 
 sidebarPanel(
@@ -760,9 +692,7 @@ mainPanel(
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      DT::DTOutput("basm.t2")#,
-         #p(br()),
-        #downloadButton("download.m22", "Download Results")
+      DT::DTOutput("basm.t2")
       ),
 
     tabPanel("Marginal Means Plot",p(br()),
@@ -783,12 +713,6 @@ mainPanel(
   </ul>"
     ),
 
- # p(tags$b("The categories/levels in the Group status")),p(br()),
- # DT::DTOutput("level.t2"),
- # numericInput("control", HTML("For Dunnett Methods, you can change the control/base level"),
- #   value = 1, min = 1, max = 20, step=1),
-
-
   p(tags$b("Pairwise P Value Table under Each Factor")),
   DT::DTOutput("multiple.t2"),p(br()),
 
@@ -801,15 +725,12 @@ mainPanel(
     ),
 
     p(tags$i("In this example, all the pairs, normal vs LV, SV vs LV, SV vs normal, and male vs female had significant differences on SBP."))#,
-
-
- # downloadButton("download.m222", "Download Results")
   )
 ),
 hr()
 ),
 
-##---------- Panel 5 ----------
+##########----------##########----------##########
 tabPanel("One-way (Non-parametric)",
 
 headerPanel("Kruskal-Wallis Non-parametric Test to Compare Multiple Samples"),
@@ -843,18 +764,8 @@ We wanted to the know the FEF differences among the 6 groups.
 ),
 hr(),
 # source("p5_ui.R", local=TRUE)$value
-##----------#----------#----------#----------
-##
-## 6MFSanova UI
-##
-##    > P1
-##
-## Language: EN
-##
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
-## NP 1-way
+#****************************************************************************************************************************************************3. np-one-way
+
 sidebarLayout(
 
 sidebarPanel(
@@ -943,9 +854,7 @@ mainPanel(
 
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
-      DT::DTOutput("basnp1.t")#,
-         #p(br()),
-        #downloadButton("downloadnp1.1", "Download Results")
+      DT::DTOutput("basnp1.t")
       ),
 
     tabPanel("Box-Plot",p(br()),
@@ -972,7 +881,7 @@ mainPanel(
 hr()
 ),
 
-##---------- Panel 6 ----------
+##########----------##########----------##########
 tabPanel("Pairwise3",
 
 headerPanel("Multiple Comparison Post-Hoc Correction for Specific Groups after Kruskal-Wallis Non-parametric Test"),
@@ -1006,17 +915,8 @@ We wanted to know the pairwise effect of dietary group and sex on the SPB. For e
 ),
 hr(),
 # source("p6_ui.R", local=TRUE)$value
-##----------#----------#----------#----------
-##
-## 6MFSanova UI
-##
-##    > P1
-##
-## Language: EN
-##
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************3.1. p-np-one-way
+
 sidebarLayout(
 
 sidebarPanel(
@@ -1153,14 +1053,17 @@ mainPanel(
 
     p(tags$i("In this example, smoking groups showed significant, so we could conclude that FEF were not significantly different in LS-NI, LS-PS, and NI-PS groups. For other groups, P <0.025. "))#,
 
+  #downloadButton("downloadnp2.2", "Download Results")
+
+
   )
 ),
 
 hr()
 ),
-##########----------##########----------##########
+#****************************************************************************************************************************************************
 
-tabPanel((a("Help",
+tabPanel((a("Help pages online",
             target = "_blank",
             style = "margin-top:-30px; color:DodgerBlue",
             href = paste0("https://mephas.github.io/helppage/"))))
@@ -1173,18 +1076,7 @@ tabPanel((a("Help",
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
 
 server <- function(input, output) {
-##----------#----------#----------#----------
-##
-## 6MFSanova SERVER
-##
-##    > P1
-##
-## Language: EN
-##
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
-
+#****************************************************************************************************************************************************1. one-way
 names1 <- reactive({
   x <- unlist(strsplit(input$cn1, "[\n]"))
   return(x[1:2])
@@ -1230,13 +1122,6 @@ if(!input$col1){
     return(as.data.frame(x))
 })
 
-#output$label1 <- DT::renderDT({
-#  x <-matrix(levels(as.factor(unlist(strsplit(input$f11, "[\n]")))),
-#    ncol=1)
-#  rownames(x) <- c(1:length(levels(as.factor(unlist(strsplit(input$f11, "[\n]"))))))
-#  return(x)
-#  },
-#  width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
 
 output$table1 <- DT::renderDT(Y1(),
     extensions = list(
@@ -1259,21 +1144,12 @@ bas1 <- reactive({
 
 output$bas1.t <- DT::renderDT({
   bas1()},
-  #class="row-border",
     extensions = 'Buttons',
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-#output$download1.1 <- downloadHandler(
-#    filename = function() {
-#      "des.csv"
-#    },
-#    content = function(file) {
-#      write.csv(bas1(), file, row.names = TRUE)
-#    }
-#  )
 
 output$mmean1 = renderPlot({
   x = Y1()
@@ -1305,28 +1181,9 @@ output$anova1 <- DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-#output$download1 <- downloadHandler(
-#    filename = function() {
-#      "anv1.csv"
-#    },
-#    content = function(file) {
-#      write.csv(anova10(), file, row.names = TRUE)
-#    }
-#  )
-
-
 #source("p2_server.R", local=TRUE)$value
-##----------#----------#----------#----------
-##
-## 6MFSanova SERVER
-##
-##    > P2
-##
-## Language: EN
-##
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************1.1. p-one-way
+
 names2 <- reactive({
   x <- unlist(strsplit(input$cn, "[\n]"))
   return(x[1:3])
@@ -1408,17 +1265,6 @@ output$bas.t <- DT::renderDT({
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
-
-#output$download2.1 <- downloadHandler(
-#    filename = function() {
-#      "des.csv"
-#    },
-#    content = function(file) {
-#      write.csv(bas(), file, row.names = TRUE)
-#    }
-#  )
-
-
 output$meanp.a = renderPlot({
   x = Y()
   b = Rmisc::summarySE(x,colnames(x)[1], c(colnames(x)[2], colnames(x)[3]))
@@ -1495,17 +1341,8 @@ output$anova <- DT::renderDT({
 
 
 #source("p3_server.R", local=TRUE)$value
-##----------#----------#----------#----------
-##
-## 6MFSanova SERVER
-##
-##    > P3
-##
-## Language: EN
-##
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************2. two-way
+
 namesm <- reactive({
   x <- unlist(strsplit(input$cnm, "[\n]"))
   return(x[1:2])
@@ -1602,14 +1439,6 @@ multiple <- reactive({
     res <- pairwise.t.test(x[,names(x)[1]], x[,names(x)[2]],
     p.adjust.method = "holm")$p.value
   }
-  #if (input$method == "BHG"){
-  #  res <- pairwise.t.test(x[,namesm()[1]], x[,namesm()[2]],
-  #  p.adjust.method = "hochberg")$p.value
-  #}
-  #  if (input$method == "BHL"){
-  #  res <- pairwise.t.test(x[,namesm()[1]], x[,namesm()[2]],
-  #  p.adjust.method = "hommel")$p.value
-  #}
     if (input$method == "FDR"){
     res <- pairwise.t.test(x[,names(x)[1]], x[,names(x)[2]],
     p.adjust.method = "BH")$p.value
@@ -1647,17 +1476,8 @@ output$multiple.t <- DT::renderDT({multiple()},
 
 
 #source("p4_server.R", local=TRUE)$value
-##----------#----------#----------#----------
-##
-## 6MFSanova SERVER
-##
-##    > P3
-##
-## Language: EN
-##
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************2.1. p-two-way
+
 ##Pairwise2
 namesm2 <- reactive({
   x <- unlist(strsplit(input$cnm2, "[\n]"))
@@ -1796,17 +1616,8 @@ output$multiple.t2 <- DT::renderDT({multiple2()},
     scrollX = TRUE))
 
 #source("p5_server.R", local=TRUE)$value
-##----------#----------#----------#----------
-##
-## 6MFSanova SERVER
-##
-##    > P1
-##
-## Language: EN
-##
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************3. np-one-way
+
 namesnp1 <- reactive({
   x <- unlist(strsplit(input$cnnp1, "[\n]"))
   return(x[1:2])
@@ -1849,14 +1660,6 @@ if(!input$colnp1){
     return(as.data.frame(x))
 })
 
-#output$label1 <- DT::renderDT({
-#  x <-matrix(levels(as.factor(unlist(strsplit(input$f11, "[\n]")))),
-#    ncol=1)
-#  rownames(x) <- c(1:length(levels(as.factor(unlist(strsplit(input$f11, "[\n]"))))))
-#  return(x)
-#  },
-#  width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
-
 output$tablenp1 <- DT::renderDT(Ynp1(),
     extensions = list(
       'Buttons'=NULL,
@@ -1878,21 +1681,11 @@ basnp1 <- reactive({
 
 output$basnp1.t <- DT::renderDT({
   basnp1()},
-  #class="row-border",
     extensions = 'Buttons',
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
-
-#output$downloadnp1.1 <- downloadHandler(
-#    filename = function() {
-#      "des.csv"
-#    },
-#    content = function(file) {
-#      write.csv(basnp1(), file, row.names = TRUE)
-#    }
-#  )
 
 output$mmeannp1 = renderPlot({
   x = Ynp1()
@@ -1910,7 +1703,6 @@ output$kwtest <- DT::renderDT({
   rownames(res.table) <- c("Kruskal-Wallis chi-squared", "P Value","Degree of Freedom")
   return(res.table)
     },
-    #class="row-border",
     extensions = 'Buttons',
     options = list(
     dom = 'Bfrtip',
@@ -1918,17 +1710,8 @@ output$kwtest <- DT::renderDT({
     scrollX = TRUE))
 
 #source("p6_server.R", local=TRUE)$value
-##----------#----------#----------#----------
-##
-## 6MFSanova SERVER
-##
-##    > P1
-##
-## Language: EN
-##
-## DT: 2019-05-04
-##
-##----------#----------#----------#----------
+#****************************************************************************************************************************************************3.1. p-np-one-way
+
 namesnp2 <- reactive({
   x <- unlist(strsplit(input$cnnp2, "[\n]"))
   return(x[1:2])
@@ -1992,7 +1775,6 @@ basnp2 <- reactive({
 
 output$basnp2.t <- DT::renderDT({
   basnp2()},
-  #class="row-border",
     extensions = 'Buttons',
     options = list(
     dom = 'Bfrtip',
@@ -2015,7 +1797,6 @@ dunntest <- reactive({
 
 output$dunntest.t <- DT::renderDT({dunntest()
     },
-    #class="row-border",
     extensions = 'Buttons',
     options = list(
     dom = 'Bfrtip',
@@ -2023,9 +1804,8 @@ output$dunntest.t <- DT::renderDT({dunntest()
     scrollX = TRUE))
 
 }
-
-##########----------##########----------##########
-##########----------##########----------##########
+##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
+##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
 
 
 app <- shinyApp(ui = ui, server = server)
