@@ -63,20 +63,10 @@ output$table2 <-DT::renderDT({B()},
     scrollX = TRUE))
 
 
-  #output$download2b <- downloadHandler(
-  #  filename = function() {
-  #    "desc2.csv"
-  #  },
-  #  content = function(file) {
-  #    write.csv(B.des(), file, row.names = TRUE)
-  #  }
-  #)
-
-  #plot
   output$bp2 = renderPlot({
     x <- B()
     mx <- melt(B(), idvar = colnames(x))
-    ggplot(mx, aes(x = variable, y = value, fill=variable)) + geom_boxplot(alpha=.3, width = 0.2, outlier.color = "red", outlier.size = 2)+ 
+    ggplot(mx, aes(x =mx[,"variable"], y = mx[,"value"], fill=mx[,"variable"])) + geom_boxplot(alpha=.3, width = 0.2, outlier.color = "red", outlier.size = 2)+ 
     ylab("") + ggtitle("") + theme_minimal() + theme(legend.title=element_blank()) })
 
   output$info2 <- renderText({

@@ -15,9 +15,7 @@ tabPanel("One Sample",
 
 titlePanel("Chi-square Test and Exact Binomial Method for One Proportion"),
 
-#tags$b("Introduction"),
 
-#p("To test the probability of events (success) in a series of Bernoulli experiments. "),
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>

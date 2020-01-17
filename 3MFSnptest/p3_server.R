@@ -23,7 +23,7 @@ names3 <- reactive({
     csv <- read.csv(inFile$datapath, header = input$header3, sep = input$sep3)
     }
     else{
-    csv <- read.csv(inFile$datapath, header = input$header3, sep = input$sep3, row.names=1)  
+    csv <- read.csv(inFile$datapath, header = input$header3, sep = input$sep3, row.names=1)
     }
     validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
     validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
@@ -31,12 +31,12 @@ names3 <- reactive({
     x <- csv[,1:2]
     x$diff <- round(x[, 2] - x[, 1], 4)
     if(input$header3==FALSE){
-      colnames(x) = names.p()
+      colnames(x) = names3()
       }
     }
     return(as.data.frame(x))
     })
-  
+
   #table
 output$table3 <-DT::renderDT(C() ,
     extensions = list(
@@ -58,14 +58,14 @@ output$table3 <-DT::renderDT(C() ,
   })
 
   output$bas3 <- DT::renderDT({  ## don't use renerPrint to do DT::renderDT
-    res <- C.des()}, 
-  
-    extensions = 'Buttons', 
+    res <- C.des()},
+
+    extensions = 'Buttons',
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
-  
+
   #output$download3b <- downloadHandler(
   #  filename = function() {
   ##    "desc3.csv"
@@ -122,15 +122,15 @@ psr.test <- reactive({
     })
 
   output$psr.test.t <- DT::renderDT({
-    psr.test()}, 
-  
-    extensions = 'Buttons', 
+    psr.test()},
+
+    extensions = 'Buttons',
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-  
+
 #output$download3.2 <- downloadHandler(
 #    filename = function() {
 #      "psr.csv"

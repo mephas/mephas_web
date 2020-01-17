@@ -20,7 +20,6 @@ output$dt6 = DT::renderDT({
   addmargins(T6(), 
     margin = seq_along(dim(T6())), 
     FUN = list(Total=sum), quiet = TRUE)},
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -32,7 +31,6 @@ output$dt6.0 = DT::renderDT({
   res = round(cohen.kappa(x)$agree,6)
     return(res)
 }, 
-#class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -44,25 +42,11 @@ output$dt6.1 = DT::renderDT({
   res = round(cohen.kappa(x)$weight,6)
     return(res)
 }, 
-#class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
-
-#output$dt6.1 = renderTable({prop.table(T6(), 1)}, width = "700px" ,rownames = TRUE, digits = 4)
-
-#output$dt6.2 = renderTable({prop.table(T6(), 2)}, width = "700px" ,rownames = TRUE, digits = 4)
-
-#output$dt6.3 = renderTable({prop.table(T6())}, width = "700px" ,rownames = TRUE, digits = 4)
-
-
-#output$makeplot6 <- renderPlot({  #shinysession 
-#  x <- as.data.frame(T6())
-#  mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
-#  ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
-#  })
 
 output$c.test6 = DT::renderDT({
     x = as.matrix(T6())
@@ -71,7 +55,6 @@ output$c.test6 = DT::renderDT({
     colnames(res.table) =c("95% CI Low", "Kappa Estimate", "95% CI High")
     return(res.table)
     }, 
-    #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
