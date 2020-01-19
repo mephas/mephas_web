@@ -35,7 +35,7 @@ output$makeplot3 <- renderPlot({  #shinysession
   xm <- rbind(X,Y)
   rownames(xm) = unlist(strsplit(input$ln3, "[\n]"))
   colnames(xm) = unlist(strsplit(input$gn, "[\n]"))
-  x <- melt(xm)
+  x <- reshape::melt(xm)
   ggplot(x, aes(fill=x[,1], y=x[,"value"], x=x[,2])) + geom_bar(position="fill", stat="identity")+ 
   xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })  
