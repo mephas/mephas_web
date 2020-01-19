@@ -21,6 +21,7 @@ output$table.x.fa <- DT::renderDT(
 fa <- eventReactive(input$pca1.fa,{
   X <- DF4.fa()
   a <- input$ncfa
+  validate(need(input$ncfa>=1, "Components must be >= 1."))
   psych::fa(X, nfactors=a, rotate="varimax", fm="ml")
   #factanal(DF4.fa(), factors = input$ncfa, scores= "regression")
   })
@@ -47,7 +48,9 @@ output$comp.fa <- DT::renderDT({as.data.frame(fa()$scores)},
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$load.fa <- DT::renderDT({as.data.frame(fa()$loadings[,1:input$ncfa])}, 
+output$load.fa <- DT::renderDT({
+  validate(need(input$ncfa>=2, "Components must be >= 2."))
+  as.data.frame(fa()$loadings[,1:input$ncfa])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -63,10 +66,12 @@ output$var.fa <- DT::renderDT({as.data.frame(fa()$Vaccounted)},
 
 
 output$pca.ind.fa  <- renderPlot({ 
+    validate(need(input$ncfa>=1, "Components are not enough to create the plot."))
 psych::fa.diagram(fa(), cut = 0)
   })
 
 output$pca.ind.fa2  <- renderPlot({ 
+    validate(need(input$ncfa>=2, "Components are not enough to create the plot."))
 ll <- as.data.frame(fa()$loadings[,1:input$ncfa])
 ll$group <- rownames(ll)
 loadings.m <- reshape::melt(ll, id="group",
@@ -117,14 +122,14 @@ ggplot(corrs.m, aes(group, variable, fill=abs(value))) +
 })
 
 output$fa.bp   <- renderPlot({ 
-
+  validate(need(input$ncfa>=2, "Components are not enough to create the plot."))
 biplot(fa(),labels=rownames(DF4.fa()), choose=c(input$c1.fa,input$c2.fa), main="")
 
 })
 
 # Plot of the explained variance
 output$tdplot.fa <- plotly::renderPlotly({ 
-
+  validate(need(input$ncfa>=3, "Components are not enough to create the plot."))
 scores <- as.data.frame(fa()$scores)
 x <- scores[,input$td1.fa]
 y <- scores[,input$td2.fa]

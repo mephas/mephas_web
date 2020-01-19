@@ -13,12 +13,12 @@ h4(tags$b("Step 1. Choose parameters to build the model")),
 
 uiOutput('x'), 
 
-numericInput("nc", "2. How many components", 4, min = 1, max = NA),
+numericInput("nc", "2. How many components (a)", 4, min = 1, max = NA),
 p(tags$i("According to the suggested results from parallel analysis, we chose to generate 4 components from the data")),
 
 hr(),
 
-h4(tags$b("Choose components to show component and loading 2D Plot")),
+h4(tags$b("When components >=2, choose components to show component and loading 2D Plot")),
 numericInput("c1", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c2", "2. Component at y-axis", 2, min = 1, max = NA),
 p("x and y must be different"),
@@ -26,7 +26,7 @@ p(tags$i("The default is to show the first 2 PC for all the 2D plot")),
 
 
 hr(),
-h4(tags$b("Choose components to show component and loading 3D Plot")),
+h4(tags$b("When components >=3, choose components to show component and loading 3D Plot")),
 numericInput("td1", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("td2", "2. Component at y-axis", 2, min = 1, max = NA),
 numericInput("td3", "3. Component at z-axis", 3, min = 1, max = NA),

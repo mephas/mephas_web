@@ -52,11 +52,13 @@ ggplot(corrs.m, aes(group, variable, fill=abs(value))) +
 pca <- eventReactive(input$pca1,{
   X <- DF4()
   a <- input$nc
+validate(need(input$nc>=2, "Components must be >= 1."))
   prcomp(X, rank.=a, scale.=TRUE)
   })
 
 
 output$var  <- DT::renderDT({
+  validate(need(input$nc>=2, "Components must be >= 2."))
   res <- summary(pca())
   res.tab<- as.data.frame(res$importance)[,1:input$nc]
   return(res.tab)
@@ -97,7 +99,7 @@ choices = type.fac4()
 })
 
 output$pca.ind  <- renderPlot({ 
-
+validate(need(input$nc>=2, "Components are not enough to create the plot."))
 df <- as.data.frame(pca()$x)
   if (input$frame == FALSE)
   {
@@ -118,6 +120,7 @@ df <- as.data.frame(pca()$x)
   })
 
 output$pca.ind2  <- renderPlot({ 
+  validate(need(input$nc>=2, "Components are not enough to create the plot."))
 ll <- as.data.frame(pca()$rotation)
 ll$group <- rownames(ll)
 loadings.m <- reshape::melt(ll, id="group",
@@ -146,7 +149,7 @@ cat(paste0("Parallel analysis suggests that the number of components: ", x$ncomp
 })
 
 output$pca.bp   <- renderPlot({ 
-
+validate(need(input$nc>=2, "Components are not enough to create the plot."))
 biplot(pca(), choice=c(input$c1,input$c2))
 })
 
@@ -154,6 +157,7 @@ biplot(pca(), choice=c(input$c1,input$c2))
 output$pca.plot <- renderPlot({ screeplot(pca(), npcs= input$nc, type="lines", main="") })
 
 output$tdplot <- plotly::renderPlotly({ 
+validate(need(input$nc>=3, "Components are not enough to create the plot."))
 
 scores <- pca()$x
 x <- scores[,input$td1]
