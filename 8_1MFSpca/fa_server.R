@@ -3,7 +3,7 @@
 output$x.fa = renderUI({
 selectInput(
 'x.fa',
-tags$b('1. Choose independent variable matrix'),
+tags$b('1. Choose independent variable matrix (X)'),
 selected = type.num3(),
 choices = type.num3(),
 multiple = TRUE

@@ -14,7 +14,7 @@ h4(tags$b("Step 1. Choose parameters to build the model")),
 
 uiOutput('x.fa'), 
 
-numericInput("ncfa", "2. How many factors", 4, min = 1, max = NA),
+numericInput("ncfa", "2. How many factors (a)", 4, min = 1, max = NA),
 p(tags$i("According to the suggested results from parallel analysis, we chose to generate 4 factors from the data")),
 
 hr(),

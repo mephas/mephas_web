@@ -61,7 +61,8 @@ HTML(
 <ul>
 <li> From <parallel analysis> to estimate the number of components
 <li> To get correlation matrix and plot
-<li> To get the components and loadings result tables and plots
+<li> To get the principal components and loadings result tables and 
+<li> To get the principal components and loadings distribution plots in 2D and 3D
 </ul>
 
 <h4><b> 2. About your data </b></h4>
@@ -92,7 +93,8 @@ HTML(
 <ul>
 <li> From <parallel analysis> to estimate the number of components
 <li> To get correlation matrix and plot
-<li> To get the factor and loadings result tables and plots
+<li> To get the factors and loadings result tables and 
+<li> To get the factors and loadings distribution plots in 2D and 3D
 </ul>
 
 <h4><b> 2. About your data </b></h4>
