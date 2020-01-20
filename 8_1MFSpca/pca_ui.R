@@ -100,7 +100,6 @@ tabPanel("Loading", p(br()),
 <li> For descriptive purposes, you may need only 80% (0.8) of the variance explained. 
 <li> If you want to perform other analyses on the data, you may want to have at least 90% of the variance explained by the factors.
 </ul>
-</ul>
   "),
   plotOutput("pca.ind2", width = "80%"),
   p(tags$b("Loadings")),

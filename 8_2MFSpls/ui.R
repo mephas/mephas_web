@@ -237,6 +237,8 @@ hr()
 ##########----------##########----------##########
 
 tabPanel("Prediction3",
+
+	titlePanel("Prediction after Partial Least Squares Regression"),
 HTML(
 "
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -259,7 +261,7 @@ Suppose in the same study, the doctors got another 6 infants data, and wanted to
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "),
-titlePanel("Prediction after Partial Least Squares Regression"),
+
 
 hr(),
 source("pr3_ui.R", local=TRUE, encoding="UTF-8")$value,

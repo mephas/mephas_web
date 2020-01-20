@@ -30,13 +30,13 @@ buttons = c('copy', 'csv', 'excel'),
 scrollX = TRUE))
 
 pred.lp.pls = eventReactive(input$B.pls,
-{x <- as.data.frame(predict(pls(), newdata = as.matrix(newX.pls())[,input$x], type="response")[,,pls()$ncomp])
+{x <- as.data.frame(predict(pls(), newdata = as.data.frame(newX.pls())[,input$x], type="response")[,,pls()$ncomp])
 colnames(x) <- input$y.r
 return(x)
 })
 
 pred.comp.pls = eventReactive(input$B.pls,
-{as.data.frame(predict(pls(), newdata = as.matrix(newX.pls())[,input$x], type="scores"))
+{as.data.frame(predict(pls(), newdata = as.data.frame(newX.pls())[,input$x], type="scores"))
 })
 
 

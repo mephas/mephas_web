@@ -3,7 +3,7 @@
 output$x.s = renderUI({
 selectInput(
 'x.s',
-tags$b('1. Choose independent variable matrix'),
+tags$b('1. Choose independent variable matrix (X)'),
 selected = type.num3()[-c(1:3)],
 choices = type.num3(),
 multiple = TRUE
@@ -18,7 +18,7 @@ return(df)
 output$y.s = renderUI({
 selectInput(
 'y.s',
-tags$b('2. Choose dependent variable matrix'),
+tags$b('2. Choose one or more dependent variable (Y)'),
 selected = names(DF4.s())[1],
 choices = names(DF4.s()),
 multiple = TRUE
@@ -32,31 +32,24 @@ output$spls.x <- DT::renderDT({
 
     head(X()[,1:lim])}, options = list(scrollX = TRUE,dom = 't'))
 
-output$spls.cv  <- renderPrint({
+output$spls_cv  <- renderPrint({
   Y <- as.matrix(X()[,input$y.s])
   X <- as.matrix(X()[,input$x.s])
-  set.seed(10)
+  validate(need(min(ncol(X), nrow(X))>input$cv.s, "Please input enough independent variables"))
+  validate(need(input$cv.s>=1, "Please input correct number of components"))
+  validate(need(input$cv.eta>0 && input$nc.eta<1, "Please correct parameters"))
   spls::cv.spls(X,Y, eta = seq(0.1,input$cv.eta,0.1), K = c(1:input$cv.s),
     select="pls2", fit = input$method.s, plot.it = FALSE)
   
   })
 
-#output$heat.cv <- renderPlot({ 
-#  Y <- as.matrix(X()[,input$y.s])
-#  X <- as.matrix(X()[,input$x.s])
-#  set.seed(10)
-#  spls::cv.spls(X,Y, eta = seq(0.1,input$cv.eta,0.1), K = c(1:input$cv.s),
-#    select="pls2", fit = input$method.s, plot.it = TRUE)
-#  })
-
-
-#output$nc <- renderText({input$nc})
-# model
 spls <- eventReactive(input$spls1,{
 
   Y <- as.matrix(X()[,input$y.s])
   X <- as.matrix(X()[,input$x.s])
   validate(need(min(ncol(X), nrow(X))>input$nc.s, "Please input enough independent variables"))
+  validate(need(input$nc.s>=1, "Please input correct number of components"))
+  validate(need(input$nc.eta>0 && input$nc.eta<1, "Please correct parameters"))
   spls::spls(X, Y, K=input$nc.s, eta=input$nc.eta, kappa=0.5, select="pls2", fit=input$method.s)
   })
 
@@ -71,7 +64,7 @@ plot(spls())
 
 output$spls.coef <- DT::renderDT({
   x<-as.data.frame(spls()$betamat)
-  colnames(x) <- paste0("step", 1:spls()$K)
+  colnames(x) <- paste0("At comp", 1:spls()$K)
   rownames(x) <- input$x.s
   return(x)}, 
   extensions = 'Buttons', 
@@ -114,6 +107,7 @@ output$spls.sv <- DT::renderDT({as.data.frame(X()[spls()$A])},
 
 
 output$spls.s.plot  <- renderPlot({ 
+  validate(need(input$nc.s>=2, "The number of components must be >=2"))
 
 df <- data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))
 
@@ -143,12 +137,8 @@ ggplot(loadings.m, aes(group, abs(value), fill=value)) +
 
   })
 
-
-
-# Plot of the explained variance
-#output$pca.plot <- renderPlot({ screeplot(pca(), npcs= input$nc, type="lines", main="") })
-
 output$tdplot.s <- plotly::renderPlotly({ 
+  validate(need(input$nc.s>=3, "The number of components must be >=3"))
 
 scores <- data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))
 x <- scores[,input$td1.s]

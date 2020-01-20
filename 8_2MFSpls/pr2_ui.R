@@ -50,7 +50,7 @@ hr(),
 actionButton("B.pls", h4(tags$b("Click 2: Output. Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 p(br()),
 tabsetPanel(
-tabPanel("Prediction",p(br()),
+tabPanel("Predicted dependent variables",p(br()),
 
 DT::DTOutput("pred.lp.pls")
 ),

@@ -3,7 +3,7 @@
 output$x = renderUI({
 selectInput(
 'x',
-tags$b('1. Choose independent variable matrix'),
+tags$b('1. Choose independent variable matrix (X)'),
 selected = type.num3()[-c(1:3)],
 choices = type.num3(),
 multiple = TRUE
@@ -18,7 +18,7 @@ return(df)
 output$y = renderUI({
 selectInput(
 'y',
-tags$b('2. Choose dependent variable matrix'),
+tags$b('2. Choose one dependent variable (Y)'),
 selected = names(DF4())[1],
 choices = names(DF4()),
 multiple = FALSE
@@ -39,7 +39,8 @@ pcr <- eventReactive(input$pcr1,{
   Y <- as.matrix(X()[,input$y])
   X <- as.matrix(X()[,input$x])
   validate(need(min(ncol(X), nrow(X))>input$nc, "Please input enough independent variables"))
-  mvr(Y~X, ncomp=input$nc.r, validation=input$val, model=FALSE, method = "svdpc",scale = TRUE, center = TRUE)
+  validate(need(input$nc>=1, "Please input correct number of components"))
+  mvr(Y~X, ncomp=input$nc, validation=input$val, model=FALSE, method = "svdpc",scale = TRUE, center = TRUE)
   })
 
 #pca.x <- reactive({ pca()$x })
@@ -50,6 +51,18 @@ pcr <- eventReactive(input$pcr1,{
 #  res})
 output$pcr  <- renderPrint({
   summary(pcr())
+  })
+
+output$pcr_r  <- renderPrint({
+  R2(pcr(),estimate = "all")
+  })
+
+output$pcr_msep  <- renderPrint({
+  MSEP(pcr(),estimate = "all")
+  })
+
+output$pcr_rmsep  <- renderPrint({
+  RMSEP(pcr(),estimate = "all")
   })
 
 output$pcr.s <- DT::renderDT({as.data.frame(pcr()$scores[,1:pcr()$ncomp])}, 
@@ -73,6 +86,13 @@ output$pcr.pres <- DT::renderDT({as.data.frame(pcr()$fitted.values[,,1:pcr()$nco
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
+output$pcr.coef <- DT::renderDT({as.data.frame(pcr()$coefficients)}, 
+  extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
+
 output$pcr.resi <- DT::renderDT({as.data.frame(pcr()$residuals[,,1:pcr()$ncomp])}, 
   extensions = 'Buttons', 
     options = list(
@@ -82,13 +102,13 @@ output$pcr.resi <- DT::renderDT({as.data.frame(pcr()$residuals[,,1:pcr()$ncomp])
 
 
 output$pcr.s.plot  <- renderPlot({ 
-
+validate(need(input$nc>=2, "The number of components must be >= 2"))
 df <- as.data.frame(pcr()$scores[,1:pcr()$ncomp])
 
   ggplot(df, aes(x = df[,input$c1], y = df[,input$c2]))+
   geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
   theme_minimal()+
-  xlab(paste0("Comp", input$c1))+ylab(paste0("Comp", input$c2))
+  xlab(paste0("Score", input$c1))+ylab(paste0("Score", input$c2))
 
   })
 
@@ -112,13 +132,15 @@ ggplot(loadings.m, aes(group, abs(value), fill=value)) +
   })
 
 output$pcr.bp   <- renderPlot({ 
-plot(pcr(), plottype = c("biplot"), comps=c(input$c1,input$c2),var.axes = TRUE)
+validate(need(input$nc>=2, "The number of components must be >= 2"))
+plot(pcr(), plottype = c("biplot"), comps=c(input$c1,input$c2),var.axes = TRUE, main="")
 })
 
 # Plot of the explained variance
 #output$pca.plot <- renderPlot({ screeplot(pca(), npcs= input$nc, type="lines", main="") })
 
 output$tdplot <- plotly::renderPlotly({ 
+validate(need(input$nc>=3, "The number of components must be >= 3"))
 
 scores <- as.data.frame(pcr()$scores[,1:pcr()$ncomp])
 x <- scores[,input$td1]
@@ -174,6 +196,7 @@ p
 })
 
 output$tdtrace <- renderPrint({
+  validate(need(input$nc>=3, "The number of components must be >= 3"))
   x <- rownames(as.data.frame(pcr()$loadings[,1:pcr()$ncomp]))
   names(x) <- paste0("trace", 1:length(x)) 
   return(x)

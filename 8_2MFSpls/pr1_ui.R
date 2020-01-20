@@ -51,8 +51,8 @@ hr(),
 actionButton("B.pcr", h4(tags$b("Click 2: Output. Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 p(br()),
 tabsetPanel(
-tabPanel("Prediction",p(br()),
-
+tabPanel("Predicted Dependent Variable",p(br()),
+p("The first column (1 comps) is predicted value when #comp is 1, the second column (2 comps) is predicted value when #comp is 2, and so forth."),
 DT::DTOutput("pred.lp")
 ),
 

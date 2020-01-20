@@ -3,7 +3,7 @@
 output$x.r = renderUI({
 selectInput(
 'x.r',
-tags$b('1. Choose independent variable matrix'),
+tags$b('1. Choose independent variable matrix (X)'),
 selected = type.num3()[-c(1:3)],
 choices = type.num3(),
 multiple = TRUE
@@ -18,7 +18,7 @@ return(df)
 output$y.r = renderUI({
 selectInput(
 'y.r',
-tags$b('2. Choose dependent variable matrix'),
+tags$b('2. Choose one or more dependent variables (Y)'),
 selected = names(DF4.r())[1],
 choices = names(DF4.r()),
 multiple = TRUE
@@ -39,17 +39,24 @@ pls <- eventReactive(input$pls1,{
   Y <- as.matrix(X()[,input$y.r])
   X <- as.matrix(X()[,input$x.r])
   validate(need(min(ncol(X), nrow(X))>input$nc.r, "Please input enough independent variables"))
+  validate(need(input$nc.r>=1, "Please input correct number of components"))
   mvr(Y~X, ncomp=input$nc.r, validation=input$val.r, model=FALSE, method = input$method.r,scale = TRUE, center = TRUE)
   })
 
-#pca.x <- reactive({ pca()$x })
-
-#output$fit  <- renderPrint({
-#  res <- rbind(pca()$explained_variance,pca()$cum.var)
-#  rownames(res) <- c("explained_variance", "cumulative_variance")
-#  res})
 output$pls  <- renderPrint({
   summary(pls())
+  })
+
+output$pls_r  <- renderPrint({
+  R2(pls(),estimate = "all")
+  })
+
+output$pls_msep  <- renderPrint({
+  MSEP(pls(),estimate = "all")
+  })
+
+output$pls_rmsep  <- renderPrint({
+  RMSEP(pls(),estimate = "all")
   })
 
 output$pls.s <- DT::renderDT({as.data.frame(pls()$scores[,1:pls()$ncomp])}, 
@@ -73,6 +80,13 @@ output$pls.pres <- DT::renderDT({as.data.frame(pls()$fitted.values[,,1:pls()$nco
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
+output$pls.coef <- DT::renderDT({as.data.frame(pls()$coefficients)}, 
+  extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
+
 output$pls.resi <- DT::renderDT({as.data.frame(pls()$residuals[,,1:pls()$ncomp])}, 
   extensions = 'Buttons', 
     options = list(
@@ -83,7 +97,7 @@ output$pls.resi <- DT::renderDT({as.data.frame(pls()$residuals[,,1:pls()$ncomp])
 
 
 output$pls.s.plot  <- renderPlot({ 
-
+validate(need(input$nc.r>=2, "The number of components must be >= 2"))
 df <- as.data.frame(pls()$scores[,1:input$nc.r])
 
   ggplot(df, aes(x = df[,input$c1], y = df[,input$c2]))+
@@ -113,6 +127,7 @@ ggplot(loadings.m, aes(group, abs(value), fill=value)) +
   })
 
 output$pls.bp   <- renderPlot({ 
+  validate(need(input$nc.r>=2, "The number of components must be >= 2"))
 plot(pls(), plottype = c("biplot"), comps=c(input$c1.r,input$c2.r),var.axes = TRUE)
 })
 
@@ -120,7 +135,7 @@ plot(pls(), plottype = c("biplot"), comps=c(input$c1.r,input$c2.r),var.axes = TR
 #output$pca.plot <- renderPlot({ screeplot(pca(), npcs= input$nc.r, type="lines", main="") })
 
 output$pls.tdplot <- plotly::renderPlotly({ 
-
+validate(need(input$nc.r>=3, "The number of components must be >= 3"))
 scores <- as.data.frame(pls()$scores[,1:input$nc.r])
 x <- scores[,input$td1.r]
 y <- scores[,input$td2.r]
