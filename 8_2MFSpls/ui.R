@@ -72,7 +72,7 @@ tabPanel("PCR",
 titlePanel("Principal Component Regression"),
 HTML(
 "
-<b>Principal component regression (PCR)</b> is a regression analysis technique that is based on principal component analysis (PCA).
+<b>Principal component regression (PCR)</b> is a regression analysis technique that is based on principal component analysis (PCA). It finds hyperplanes of maximum variance between the response and independent variables.
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
@@ -141,7 +141,7 @@ tabPanel("PLSR",
 titlePanel("Partial Least Squares Regression"),
 HTML(
 "
-<b>Principal component regression (PCR)</b> is a regression analysis technique that is based on principal component analysis (PCA).
+<b>Partial least squares regression (PLSR)</b> is a regression analysis technique that finds a linear regression model by projecting the predicted variables and the observable variables to a new space.
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
@@ -208,7 +208,7 @@ tabPanel("SPLSR",
 titlePanel("Sparse Partial Least Squares Regression"),
 HTML(
 "
-<b>Principal component regression (PCR)</b> is a regression analysis technique that is based on principal component analysis (PCA).
+<b>Sparse partial least squares regression (SPLSR)</b> is a regression analysis technique that aims simultaneously to achieve good predictive performance and variable selection by producing sparse linear combinations of the original predictors.
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
