@@ -122,7 +122,7 @@ HTML(
 
 <i><h4>Case Example</h4>
 
-Suppose in the same study, the doctors got another 6 infants data, and wanted to predict their birth weights based on the model we build.
+Suppose in the same study, we got more measurements and wanted to predict the outcome.
 
 </h4></i>
 
@@ -190,7 +190,7 @@ HTML(
 
 <i><h4>Case Example</h4>
 
-Suppose in the same study, the doctors got another 6 infants data, and wanted to predict their birth weights based on the model we build.
+Suppose in the same study, we got more measurements and wanted to predict the outcome.
 
 </h4></i>
 
@@ -224,7 +224,6 @@ HTML(
 <ul>
 <li> All the data for analysis are numeric
 <li> Data used to build the model is called <b>training set</b>
-
 </ul> 
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
@@ -255,7 +254,7 @@ HTML(
 
 <i><h4>Case Example</h4>
 
-Suppose in the same study, the doctors got another 6 infants data, and wanted to predict their birth weights based on the model we build.
+Suppose in the same study, we got more measurements and wanted to predict the outcome.
 
 </h4></i>
 
