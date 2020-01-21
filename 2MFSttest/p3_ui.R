@@ -129,12 +129,13 @@ sidebarPanel(
           </ul>"
             ),
             p(tags$b("Normal Q-Q plot")),
-            plotOutput("makeplot.p", width = "80%"),
+            plotly::plotlyOutput("makeplot.p", width = "80%"),
             p(tags$b("Histogram")),
-            plotOutput("makeplot.p2", width = "80%"),
-            sliderInput("bin.p","The width of bins in histogram",min = 0.01,max = 5,value = 0.2),
+            plotly::plotlyOutput("makeplot.p2", width = "80%"),
+            sliderInput("bin.p","The number of bins in histogram",min = 0,max = 100,value = 0),
+            p("When the number of bins is 0, plot will use the default number of bins"),
             p(tags$b("Density plot")),
-            plotOutput("makeplot.p3", width = "80%")
+            plotly::plotlyOutput("makeplot.p3", width = "80%")
             
             )
           ),

@@ -142,12 +142,13 @@ HTML(
 ),
 
       p(tags$b("Normal Q–Q plot")),
-      plotOutput("makeplot1", width = "80%"),
+      plotly::plotlyOutput("makeplot1", width = "80%"),
       p(tags$b("Histogram")),
-      plotOutput("makeplot1.2", width = "80%"),
-      sliderInput("bin","The width of bins in histogram",min = 0.01,max = 5,value = 0.2),
+      plotly::plotlyOutput("makeplot1.2", width = "80%"),
+      sliderInput("bin","The number of bins in histogram",min = 0,max = 100,value = 0),
+      p("When the number of bins is 0, plot will use the default number of bins"),
       p(tags$b("Density plot")),
-      plotOutput("makeplot1.3", width = "80%")
+      plotly::plotlyOutput("makeplot1.3", width = "80%")
       
 )
 ),

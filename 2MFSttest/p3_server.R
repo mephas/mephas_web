@@ -104,17 +104,26 @@ output$info3 <- renderText({
   paste0("Y-axis position ", "\n", xy_str(input$plot_click3))
   })
 
-output$makeplot.p <- renderPlot({
+output$makeplot.p <- plotly::renderPlotly({
   x <- Z()
-  ggplot(x, aes(sample = x[, 3])) + stat_qq() + ggtitle("Normal Q-Q Plot of the Mean Differences") + xlab("") + theme_minimal()  ## add line,
+  var <- names(x)[3]
+  p <- MFSqq1(x, var)
+  plotly::ggplotly(p)
+  #ggplot(x, aes(sample = x[, 3])) + stat_qq() + ggtitle("Normal Q-Q Plot of the Mean Differences") + xlab("") + theme_minimal()  ## add line,
   })
-output$makeplot.p2 <- renderPlot({
+output$makeplot.p2 <- plotly::renderPlotly({
   x <- Z()
-  ggplot(x, aes(x = x[, 3])) + geom_histogram(colour = "black",fill = "grey", binwidth = input$bin.p, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
+  var <- names(x)[3]
+  p <- MFShist1(x, var, input$bin.p)
+  plotly::ggplotly(p)
+  #ggplot(x, aes(x = x[, 3])) + geom_histogram(colour = "black",fill = "grey", binwidth = input$bin.p, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
   })
-output$makeplot.p3 <- renderPlot({
+output$makeplot.p3 <- plotly::renderPlotly({
   x <- Z()
-  ggplot(x, aes(x = x[, 3])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title = element_blank())
+  var <- names(x)[3]
+  p <- MFSdensity1(x, var)
+  plotly::ggplotly(p)
+  #ggplot(x, aes(x = x[, 3])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title = element_blank())
   })
 
 t.test.p0 <- reactive({

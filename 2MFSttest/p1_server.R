@@ -97,17 +97,26 @@ output$meanp = renderPlot({
   theme_minimal() + theme(legend.title = element_blank())
   })
 
-output$makeplot1 <- renderPlot({
+output$makeplot1 <- plotly::renderPlotly({
   x = X()
-  ggplot(x, aes(sample = x[,1])) + stat_qq() + ggtitle("") + xlab("") + theme_minimal()  ## add line, 
+  var <- names(x)[1]
+  p <- MFSqq1(x, var)
+  plotly::ggplotly(p)
+  #ggplot(x, aes(sample = x[,1])) + stat_qq() + ggtitle("") + xlab("") + theme_minimal()  ## add line, 
   })
-output$makeplot1.2 <- renderPlot({
+output$makeplot1.2 <- plotly::renderPlotly({
   x = X()
-  ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank()) 
+  var <- names(x)[1]
+  p <- MFShist1(x, var, input$bin)
+  plotly::ggplotly(p)
+  #ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank()) 
   })
-output$makeplot1.3 <- renderPlot({
+output$makeplot1.3 <- plotly::renderPlotly({
   x = X()
-  ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
+  var <- names(x)[1]
+  p <- MFSdensity1(x, var)
+  plotly::ggplotly(p)
+  #ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
   })
 
 t.test0 <- reactive({

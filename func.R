@@ -50,6 +50,14 @@ MFSdensity1 <- function(data, varx){
   theme_minimal() + theme(legend.title = element_blank())
 }
 
+MFSqq1 <- function(data, varx){
+  variable = data[, varx]
+  ggplot(data, aes(sample = variable)) + 
+    stat_qq() + stat_qq_line(size=0.3, color="red")+
+    xlab(varx) + 
+    theme_minimal() + theme(legend.title = element_blank())
+}
+
 ###----------PCA and PLS
 
 MFS3D <- function(scores, loads, nx,ny,nz, scale){

@@ -90,14 +90,15 @@ output$step = renderPrint({step(fit())})
 
 # 
 # # residual plot
-output$p.lm1 = renderPlot({
-
+output$p.lm1 = plotly::renderPlotly({
 x <-data.frame(res=fit()$residuals)
-ggplot(x, aes(sample = res)) + 
-stat_qq() + stat_qq_line()+
-ggtitle("") + 
-xlab("") + 
-theme_minimal()  ## add line,
+p <- MFSqq1(data=x, varx="res")
+plotly::ggplotly(p)
+#ggplot(x, aes(sample = res)) + 
+#stat_qq() + stat_qq_line()+
+#ggtitle("") + 
+#xlab("") + 
+#theme_minimal()  ## add line,
 	})
 
 output$p.lm2 = renderPlot({

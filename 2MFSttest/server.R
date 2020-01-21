@@ -7,7 +7,8 @@ if (!require(DT)) {install.packages("DT")}; library(DT)
 shinyServer(
 
 function(input, output) {
-
+	
+source("../func.R")
 ##########----------##########----------##########
 source("p1_server.R", local=TRUE)$value
 
