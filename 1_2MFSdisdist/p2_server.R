@@ -8,13 +8,17 @@ data = data.frame(x0 = c(0:length(x)), Pr.at.x0 = round(c(x1[1], x), 6), Pr.x0.c
 return(data) 
 })
 
-output$p.plot <- renderPlot({
+output$p.plot <- plotly::renderPlotly({
 X = P()
- ggplot(X, aes(X[,"x0"],X[,"Pr.at.x0"])) + geom_step() + 
-  geom_point(aes(x = X$x0[input$x0+1], y = X$Pr.at.x0[input$x0+1]),color = "red", size = 2.5) +
+obs = X$x0[input$k+1]
+y = X$Pr.at.x0[input$k+1]
+x0= X[,"x0"]
+prob = X[,"Pr.at.x0"]
+p <-ggplot(X, aes(x0, prob)) + geom_step(size=0.3) + 
+  geom_point(aes(x = obs, y = y),color = "red", size = 2) +
   stat_function(fun = dnorm, args = list(mean = input$lad, sd = sqrt(input$lad)), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
   xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("")
- 
+plotly::ggplotly(p)
    })
 
 output$p.k = renderTable({
@@ -28,14 +32,19 @@ N.p = reactive({
   df = data.frame(x = rpois(input$size.p, input$lad))
   return(df)})
 
-output$p.plot2 <- renderPlot({
-df = N.p()
-ggplot(df, aes(x = x)) + 
-theme_minimal() + 
-ggtitle("")+
-ylab("Frequency")+ 
-geom_histogram(binwidth = input$bin.p, colour = "white", fill = "cornflowerblue", size = 1)
-#geom_vline(aes(xintercept=quantile(x, probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
+output$p.plot2 <- plotly::renderPlotly({
+  df = N.p()
+  x <- names(df)
+p<-MFShist1c(data=df, var=x, bw=input$bin.p)
+plotly::ggplotly(p)
+
+# df = N.p()
+# ggplot(df, aes(x = x)) + 
+# theme_minimal() + 
+# ggtitle("")+
+# ylab("Frequency")+ 
+# geom_histogram(binwidth = input$bin.p, colour = "white", fill = "cornflowerblue", size = 1)
+# #geom_vline(aes(xintercept=quantile(x, probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
 
 })
 
@@ -79,14 +88,20 @@ NN.p <- reactive({
     return(as.data.frame(x))
   })
 
-output$makeplot.2 <- renderPlot({
-  x = NN.p()
-  ggplot(x, aes(x = x[,1])) + 
-  geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1.p, position = "identity") + 
-  xlab("") + 
-  ggtitle("") + 
-  theme_minimal() + 
-  theme(legend.title =element_blank())
+output$makeplot.2 <- plotly::renderPlotly({
+
+    df = NN.p()
+  x <- names(df)
+  p<-MFShist1(data=df, var=x, bw=input$bin1.p)
+  plotly::ggplotly(p)
+  
+  # x = NN.p()
+  # ggplot(x, aes(x = x[,1])) + 
+  # geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1.p, position = "identity") + 
+  # xlab("") + 
+  # ggtitle("") + 
+  # theme_minimal() + 
+  # theme(legend.title =element_blank())
   })
 
 output$sum2.p = renderTable({

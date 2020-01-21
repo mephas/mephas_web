@@ -70,7 +70,7 @@ sidebarLayout(
 		tabsetPanel(
 			 tabPanel("Model-based Plot", p(br()),
 			 	p(tags$b("Binomial probability plot")),
-				plotOutput("b.plot", width = "80%"),
+				plotly::plotlyOutput("b.plot", width = "80%"),
 				p(tags$b("Probability at the observed number of success /event (Red-Dot)")),
 				tableOutput("b.k"),
 				p(tags$i("Explanation: the probability of 2 lymphocytes was about 0.03"))
@@ -80,17 +80,19 @@ sidebarLayout(
 			 	
 			 	numericInput("size", "The sample size of random numbers", value = 100, min = 1, max = 1000000, step = 1),
 			 	p(tags$b("Histogram from random numbers")),
-			 	plotOutput("b.plot2", width = "80%"),	
+			 	plotly::plotlyOutput("b.plot2", width = "80%"),	
 
-			 	sliderInput("bin", "The width of bins in histogram", min = 0, max = 2, value = 1, step=0.1),
+			 	sliderInput("bin", "The number of bins in histogram", min = 0, max = 100, value = 0),
+			 	p("When the number of bins is 0, plot will use the default number of bins"),
 			 	downloadButton("download1", "Download Random Numbers"),
 				p(tags$b("Sample descriptive statistics")),
 				tableOutput("sum")
 			 	),    
 			tabPanel("Distribution of Your Data", p(br()),
 				p(tags$b("Histogram from upload data")),
-			plotOutput("makeplot.1", width = "80%"),
-      sliderInput("bin1","The width of bins in histogram",min = 0,max = 2,value = 1, step=0.1),
+			plotly::plotlyOutput("makeplot.1", width = "80%"),
+      sliderInput("bin1","The number of bins in histogram", min = 0, max = 100, value = 0),
+			 	p("When the number of bins is 0, plot will use the default number of bins"),
 				p(tags$b("Sample descriptive statistics")),
 				tableOutput("sum2")
 

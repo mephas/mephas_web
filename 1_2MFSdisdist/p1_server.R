@@ -7,13 +7,17 @@ B = reactive({
   return(data) 
 })
 
-output$b.plot <- renderPlot({
+output$b.plot <- plotly::renderPlotly({
 X = B()
- ggplot(X, aes(X[,"x0"], X[,"Pr.at.x0"])) + geom_step() + 
-  geom_point(aes(x = X$x0[input$k+1], y = X$Pr.at.x0[input$k+1]),color = "red", size = 2.5) +
+obs = X$x0[input$k+1]
+y = X$Pr.at.x0[input$k+1]
+x0= X[,"x0"]
+prob = X[,"Pr.at.x0"]
+p <-ggplot(X, aes(x0, prob)) + geom_step(size=0.3) + 
+  geom_point(aes(x = obs, y = y),color = "red", size = 2) +
   stat_function(fun = dnorm, args = list(mean = input$m*input$p, sd = sqrt(input$m*input$p*(1-input$p))), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
   xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("")
-
+plotly::ggplotly(p)
 })
 
 output$b.k = renderTable({
@@ -27,13 +31,19 @@ N = reactive({
   df = data.frame(x = rbinom(input$size, input$m, input$p))
   return(df)})
 
-output$b.plot2 <- renderPlot({
-df = N()
-ggplot(df, aes(x = x)) + 
-theme_minimal() + 
-ggtitle("")+
-ylab("Frequency")+ 
-geom_histogram(binwidth = input$bin, colour = "white", fill = "cornflowerblue", size = 1)
+output$b.plot2 <- plotly::renderPlotly({
+
+  df = N()
+  x <- names(df)
+p<-MFShist1c(data=df, var=x, bw=input$bin)
+plotly::ggplotly(p)
+
+# df = N()
+# ggplot(df, aes(x = x)) + 
+# theme_minimal() + 
+# ggtitle("")+
+# ylab("Frequency")+ 
+# geom_histogram(binwidth = input$bin, colour = "white", fill = "cornflowerblue", size = 1)
 #geom_vline(aes(xintercept=quantile(x, probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
 
 })
@@ -78,14 +88,19 @@ NN <- reactive({
     return(as.data.frame(x))
   })
 
-output$makeplot.1 <- renderPlot({
-  x = NN()
-  ggplot(x, aes(x = x[,1])) + 
-  geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + 
-  xlab("") + 
-  ggtitle("") + 
-  theme_minimal() + 
-  theme(legend.title =element_blank())
+output$makeplot.1 <- plotly::renderPlotly({
+  df = NN()
+  x <- names(df)
+  p<-MFShist1(data=df, var=x, bw=input$bin1)
+  plotly::ggplotly(p)
+
+  # x = NN()
+  # ggplot(x, aes(x = x[,1])) + 
+  # geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1, position = "identity") + 
+  # xlab("") + 
+  # ggtitle("") + 
+  # theme_minimal() + 
+  # theme(legend.title =element_blank())
 
   })
 
