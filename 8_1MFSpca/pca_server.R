@@ -25,26 +25,27 @@ output$cor <- DT::renderDT({as.data.frame(cor(DF4()))},
     scrollX = TRUE))
 
 output$cor.plot   <- renderPlot({ 
-c <- as.data.frame(cor(DF4()))
-c$group <- rownames(c)
-corrs.m <- reshape::melt(c, id="group",
-                            measure=rownames(c))
+MFScorr(DF4())
+#c <- as.data.frame(cor(DF4()))
+#c$group <- rownames(c)
+#corrs.m <- reshape::melt(c, id="group",
+#                            measure=rownames(c))
 
-ggplot(corrs.m, aes(group, variable, fill=abs(value))) + 
-  geom_tile() + #rectangles for each correlation
-  #add actual correlation value in the rectangle
-  geom_text(aes(label = round(value, 2)), size=2.5) + 
-  theme_bw(base_size=10) + #black and white theme with set font size
+#ggplot(corrs.m, aes(group, variable, fill=abs(value))) + 
+#  geom_tile() + #rectangles for each correlation
+#  #add actual correlation value in the rectangle
+#  geom_text(aes(label = round(value, 2)), size=2.5) + 
+#  theme_bw(base_size=10) + #black and white theme with set font size
   #rotate x-axis labels so they don't overlap, 
   #get rid of unnecessary axis titles
   #adjust plot margins
-  theme(axis.text.x = element_text(angle = 90), 
-        axis.title.x=element_blank(), 
-        axis.title.y=element_blank(), 
-        plot.margin = unit(c(3, 1, 0, 0), "mm")) +
+#  theme(axis.text.x = element_text(angle = 90), 
+#        axis.title.x=element_blank(), 
+#        axis.title.y=element_blank(), 
+#        plot.margin = unit(c(3, 1, 0, 0), "mm")) +
   #set correlation fill gradient
-  scale_fill_gradient(low="white", high="red") + 
-  guides(fill=F) #omit unnecessary gradient legend
+#  scale_fill_gradient(low="white", high="red") + 
+#  guides(fill=F) #omit unnecessary gradient legend
 })
 
 #output$nc <- renderText({input$nc})
@@ -52,7 +53,7 @@ ggplot(corrs.m, aes(group, variable, fill=abs(value))) +
 pca <- eventReactive(input$pca1,{
   X <- DF4()
   a <- input$nc
-validate(need(input$nc>=2, "Components must be >= 1."))
+validate(need(input$nc>=1, "Components must be >= 1."))
   prcomp(X, rank.=a, scale.=TRUE)
   })
 
@@ -120,22 +121,24 @@ df <- as.data.frame(pca()$x)
   })
 
 output$pca.ind2  <- renderPlot({ 
-  validate(need(input$nc>=2, "Components are not enough to create the plot."))
-ll <- as.data.frame(pca()$rotation)
-ll$group <- rownames(ll)
-loadings.m <- reshape::melt(ll, id="group",
-                   measure=colnames(ll)[1:input$nc])
+#validate(need(input$nc>=1, "Components are not enough to create the plot."))
+load <- as.data.frame(pca()$rotation)
+MFSload(loads=load, a=input$nc)
 
-ggplot(loadings.m, aes(group, abs(value), fill=value)) + 
-  facet_wrap(~ variable, nrow=1) + #place the factors in separate facets
-  geom_bar(stat="identity") + #make the bars
-  coord_flip() + #flip the axes so the test names can be horizontal  
-  #define the fill color gradient: blue=positive, red=negative
-  scale_fill_gradient2(name = "Loading", 
-                       high = "blue", mid = "white", low = "red", 
-                       midpoint=0, guide=F) +
-  ylab("Loading Strength") + #improve y-axis label
-  theme_bw(base_size=10)
+#ll$group <- rownames(ll)
+#loadings.m <- reshape::melt(ll, id="group",
+#                   measure=colnames(ll)[1:input$nc])
+
+#ggplot(loadings.m, aes(group, abs(value), fill=value)) + 
+#  facet_wrap(~ variable, nrow=1) + #place the factors in separate facets
+#  geom_bar(stat="identity") + #make the bars
+#  coord_flip() + #flip the axes so the test names can be horizontal  
+#  #define the fill color gradient: blue=positive, red=negative
+#  scale_fill_gradient2(name = "Loading", 
+#                       high = "blue", mid = "white", low = "red", 
+#                       midpoint=0, guide=F) +
+#  ylab("Loading Strength") + #improve y-axis label
+#  theme_bw(base_size=10)
 
   })
 
@@ -159,56 +162,54 @@ output$pca.plot <- renderPlot({ screeplot(pca(), npcs= input$nc, type="lines", m
 output$tdplot <- plotly::renderPlotly({ 
 validate(need(input$nc>=3, "Components are not enough to create the plot."))
 
-scores <- pca()$x
-x <- scores[,input$td1]
-y <- scores[,input$td2]
-z <- scores[,input$td3]
+score <- as.data.frame(pca()$x)
+load <- as.data.frame(pca()$rotation)
 
-loads <- pca()$rotation
+MFS3D(scores=score, loads=load, nx=input$td1,ny=input$td2,nz=input$td3, scale=input$lines)
 
 # Scale factor for loadings
-scale.loads <- input$lines
+#scale.loads <- input$lines
 
-layout <- list(
-  scene = list(
-    xaxis = list(
-      title = paste0("PC", input$td1), 
-      showline = TRUE
-    ), 
-    yaxis = list(
-      title = paste0("PC", input$td2), 
-      showline = TRUE
-    ), 
-    zaxis = list(
-      title = paste0("PC", input$td3), 
-      showline = TRUE
-    )
-  ), 
-  title = "PCA (3D)"
-)
+#layout <- list(
+#  scene = list(
+#    xaxis = list(
+#      title = paste0("PC", input$td1), 
+#      showline = TRUE
+#    ), 
+#    yaxis = list(
+#      title = paste0("PC", input$td2), 
+#      showline = TRUE
+#    ), 
+#    zaxis = list(
+#      title = paste0("PC", input$td3), 
+#      showline = TRUE
+#    )
+#  ), 
+#  title = "PCA (3D)"
+#)
 
-rnn <- rownames(as.data.frame(scores))
+#rnn <- rownames(as.data.frame(scores))
 
-p <- plot_ly() %>%
-  add_trace(x=x, y=y, z=z, 
-            type="scatter3d", mode = "text+markers", 
-            name = "original", 
-            linetypes = NULL, 
-            opacity = 0.5,
-            marker = list(size=2),
-            text = rnn) %>%
-  layout(p, scene=layout$scene, title=layout$title)
+#p <- plot_ly() %>%
+#  add_trace(x=x, y=y, z=z, 
+#            type="scatter3d", mode = "text+markers", 
+#            name = "original", 
+#            linetypes = NULL, 
+#            opacity = 0.5,
+#            marker = list(size=2),
+#            text = rnn) %>%
+#  layout(p, scene=layout$scene, title=layout$title)
 
-for (k in 1:nrow(loads)) {
-  x <- c(0, loads[k,1])*scale.loads
-  y <- c(0, loads[k,2])*scale.loads
-  z <- c(0, loads[k,3])*scale.loads
-  p <- p %>% add_trace(x=x, y=y, z=z,
-                       type="scatter3d", mode="lines",
-                       line = list(width=4),
-                       opacity = 1) 
-}
-p
+#for (k in 1:nrow(loads)) {
+#  x <- c(0, loads[k,1])*scale.loads
+#  y <- c(0, loads[k,2])*scale.loads
+#  z <- c(0, loads[k,3])*scale.loads
+#  p <- p %>% add_trace(x=x, y=y, z=z,
+#                       type="scatter3d", mode="lines",
+#                       line = list(width=4),
+#                       opacity = 1) 
+#}
+#p
 
 })
 

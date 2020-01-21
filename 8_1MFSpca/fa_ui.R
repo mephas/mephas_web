@@ -18,20 +18,17 @@ numericInput("ncfa", "2. How many factors (a)", 4, min = 1, max = NA),
 p(tags$i("According to the suggested results from parallel analysis, we chose to generate 4 factors from the data")),
 
 hr(),
-h4(tags$b("Choose factors to show factor and loading 2D plot")),
+h4(tags$b("When factors >=2, choose 2 factors to show factors and loading 2D plot")),
+p(tags$i("The default is to show the first 2 factors for all the 2D plot")),
 numericInput("c1.fa", "1. Factor at x-axis", 1, min = 1, max = NA),
 numericInput("c2.fa", "2. Factor at y-axis", 2, min = 1, max = NA),
-p("x and y must be different"),
-p(tags$i("The default is to show the first 2 factors for all the 2D plot")),
-
 
 hr(),
-h4(tags$b("Choose factors to show factor and loading 3D plot")),
+h4(tags$b("When components >=2, choose 3 components to show factors and loading 3D plot")),
+p(tags$i("The default is to show the first 3 factors in the 3D plot")),
 numericInput("td1.fa", "1. Factor at x-axis", 1, min = 1, max = NA),
 numericInput("td2.fa", "2. Factor at y-axis", 2, min = 1, max = NA),
 numericInput("td3.fa", "3. Factor at z-axis", 3, min = 1, max = NA),
-p("x y z must be different"),
-p(tags$i("The default is to show the first 3 factors for the 3D plot")),
 
 numericInput("lines.fa", "4. (Optional) Change line scale (length)", 10, min = 1, max = NA)
 ),
@@ -123,7 +120,7 @@ HTML("
 </ul>
 
   "),
-p(tags$b("If data is big, this plot needs some time to load")),
+p(tags$b("This plot needs some time to load for the first time")),
 plotly::plotlyOutput("tdplot.fa"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("tdtrace.fa")

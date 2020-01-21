@@ -150,6 +150,7 @@ tabPanel("Component and Loading 3D Plot" ,p(br()),
 <li> Loadings can range from -1 to 1. Loadings close to -1 or 1 indicate that the variable strongly influences the component. Loadings close to 0 indicate that the variable has a weak influence on the component.
 </ul>
   "),
+p(tags$b("This plot needs some time to load for the first time")),
 plotly::plotlyOutput("pls.tdplot"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("pls_tdtrace")

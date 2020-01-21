@@ -119,78 +119,82 @@ df <- data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))
   })
 
 output$spls.l.plot  <- renderPlot({ 
-ll <- as.data.frame(spls()$projection)
-ll$group <- rownames(ll)
-loadings.m <- reshape::melt(ll, id="group",
-                   measure=colnames(ll)[1:spls()$K])
+load <- as.data.frame(spls()$projection)
+MFSload(loads=load, a=input$nc.s)
 
-ggplot(loadings.m, aes(loadings.m$group, abs(loadings.m$value), fill=loadings.m$value)) + 
-  facet_wrap(~ loadings.m$variable, nrow=1) + #place the factors in separate facets
-  geom_bar(stat="identity") + #make the bars
-  coord_flip() + #flip the axes so the test names can be horizontal  
-  #define the fill color gradient: blue=positive, red=negative
-  scale_fill_gradient2(name = "Loading", 
-                       high = "blue", mid = "white", low = "red", 
-                       midpoint=0, guide=F) +
-  ylab("Loading Strength") + #improve y-axis label
-  theme_bw(base_size=10)
+# ll$group <- rownames(ll)
+# loadings.m <- reshape::melt(ll, id="group",
+#                    measure=colnames(ll)[1:spls()$K])
+# 
+# ggplot(loadings.m, aes(loadings.m$group, abs(loadings.m$value), fill=loadings.m$value)) + 
+#   facet_wrap(~ loadings.m$variable, nrow=1) + #place the factors in separate facets
+#   geom_bar(stat="identity") + #make the bars
+#   coord_flip() + #flip the axes so the test names can be horizontal  
+#   #define the fill color gradient: blue=positive, red=negative
+#   scale_fill_gradient2(name = "Loading", 
+#                        high = "blue", mid = "white", low = "red", 
+#                        midpoint=0, guide=F) +
+#   ylab("Loading Strength") + #improve y-axis label
+#   theme_bw(base_size=10)
 
   })
 
 output$tdplot.s <- plotly::renderPlotly({ 
   validate(need(input$nc.s>=3, "The number of components must be >=3"))
 
-scores <- data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))
-x <- scores[,input$td1.s]
-y <- scores[,input$td2.s]
-z <- scores[,input$td3.s]
+score <- data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))
+load <- as.data.frame(spls()$projection)
 
-loads <- as.data.frame(spls()$projection)
+MFS3D(scores=score, loads=load, nx=input$td1.s,ny=input$td2.s,nz=input$td3.s, scale=input$lines.s)
 
-# Scale factor for loadings
-scale.loads <- input$lines.s
-
-layout <- list(
-  scene = list(
-    xaxis = list(
-      title = paste0("PC", input$td1.s), 
-      showline = TRUE
-    ), 
-    yaxis = list(
-      title = paste0("PC", input$td2.s), 
-      showline = TRUE
-    ), 
-    zaxis = list(
-      title = paste0("PC", input$td3.s), 
-      showline = TRUE
-    )
-  ), 
-  title = "SPLS (3D)"
-)
-
-rnn <- rownames(scores)
-
-p <- plot_ly() %>%
-  add_trace(x=x, y=y, z=z, 
-            type="scatter3d", mode = "text+markers", 
-            name = "original", 
-            linetypes = NULL, 
-            opacity = 0.5,
-            marker = list(size=2),
-            text = rnn
-            ) %>%
-  layout(p, scene=layout$scene, title=layout$title)
-
-for (k in 1:nrow(loads)) {
-  x <- c(0, loads[k,1])*scale.loads
-  y <- c(0, loads[k,2])*scale.loads
-  z <- c(0, loads[k,3])*scale.loads
-  p <- p %>% add_trace(x=x, y=y, z=z,
-                       type="scatter3d", mode="lines",
-                       line = list(width=4),
-                       opacity = 1) 
-}
-p
+# 
+# x <- scores[,input$td1.s]
+# y <- scores[,input$td2.s]
+# z <- scores[,input$td3.s]
+# # Scale factor for loadings
+# scale.loads <- input$lines.s
+# 
+# layout <- list(
+#   scene = list(
+#     xaxis = list(
+#       title = paste0("PC", input$td1.s), 
+#       showline = TRUE
+#     ), 
+#     yaxis = list(
+#       title = paste0("PC", input$td2.s), 
+#       showline = TRUE
+#     ), 
+#     zaxis = list(
+#       title = paste0("PC", input$td3.s), 
+#       showline = TRUE
+#     )
+#   ), 
+#   title = "SPLS (3D)"
+# )
+# 
+# rnn <- rownames(scores)
+# 
+# p <- plot_ly() %>%
+#   add_trace(x=x, y=y, z=z, 
+#             type="scatter3d", mode = "text+markers", 
+#             name = "original", 
+#             linetypes = NULL, 
+#             opacity = 0.5,
+#             marker = list(size=2),
+#             text = rnn
+#             ) %>%
+#   layout(p, scene=layout$scene, title=layout$title)
+# 
+# for (k in 1:nrow(loads)) {
+#   x <- c(0, loads[k,1])*scale.loads
+#   y <- c(0, loads[k,2])*scale.loads
+#   z <- c(0, loads[k,3])*scale.loads
+#   p <- p %>% add_trace(x=x, y=y, z=z,
+#                        type="scatter3d", mode="lines",
+#                        line = list(width=4),
+#                        opacity = 1) 
+# }
+# p
 
 })
 

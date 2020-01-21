@@ -18,20 +18,18 @@ p(tags$i("According to the suggested results from parallel analysis, we chose to
 
 hr(),
 
-h4(tags$b("When components >=2, choose components to show component and loading 2D Plot")),
+h4(tags$b("When components >=2, choose 2 components to show component and loading 2D plot")),
+p(tags$i("The default is to show the first 2 PCs for all the 2D plot")),
 numericInput("c1", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c2", "2. Component at y-axis", 2, min = 1, max = NA),
-p("x and y must be different"),
-p(tags$i("The default is to show the first 2 PC for all the 2D plot")),
 
 
 hr(),
-h4(tags$b("When components >=3, choose components to show component and loading 3D Plot")),
+h4(tags$b("When components >=3, choose 3 components to show component and loading 3D plot")),
+p(tags$i("The default is to show the first 3 PC in the 3D plot")),
 numericInput("td1", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("td2", "2. Component at y-axis", 2, min = 1, max = NA),
 numericInput("td3", "3. Component at z-axis", 3, min = 1, max = NA),
-p("x y z must be different"),
-p(tags$i("The default is to show the first 3 PCsfor the 3D plot")),
 
 numericInput("lines", "4. (Optional) Change line scale (length)", 10, min = 1, max = NA)
 ),
@@ -139,7 +137,7 @@ tabPanel("Component and Loading 3D Plot" ,p(br()),
 </ul>
 
   "),
-p(tags$b("If data is big, this plot needs some time to load")),
+p(tags$b("This plot needs some time to load for the first time")),
 plotly::plotlyOutput("tdplot"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("tdtrace")

@@ -120,6 +120,9 @@ tabPanel("Component and Loading 3D Plot" ,p(br()),
 </ul>
 
   "),
+
+p(tags$b("This plot needs some time to load for the first time")),
+
 plotly::plotlyOutput("tdplot.s"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("tdtrace.s")

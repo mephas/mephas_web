@@ -65,21 +65,21 @@ output$pcr_rmsep  <- renderPrint({
   RMSEP(pcr(),estimate = "all")
   })
 
-output$pcr.s <- DT::renderDT({as.data.frame(pcr()$scores[,1:pcr()$ncomp])}, 
+output$pcr.s <- DT::renderDT({as.data.frame(pcr()$scores[,1:input$nc])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pcr.l <- DT::renderDT({as.data.frame(pcr()$loadings[,1:pcr()$ncomp])}, 
+output$pcr.l <- DT::renderDT({as.data.frame(pcr()$loadings[,1:input$nc])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pcr.pres <- DT::renderDT({as.data.frame(pcr()$fitted.values[,,1:pcr()$ncomp])}, 
+output$pcr.pres <- DT::renderDT({as.data.frame(pcr()$fitted.values[,,1:input$nc])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -93,7 +93,7 @@ output$pcr.coef <- DT::renderDT({as.data.frame(pcr()$coefficients)},
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pcr.resi <- DT::renderDT({as.data.frame(pcr()$residuals[,,1:pcr()$ncomp])}, 
+output$pcr.resi <- DT::renderDT({as.data.frame(pcr()$residuals[,,1:input$nc])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -103,7 +103,7 @@ output$pcr.resi <- DT::renderDT({as.data.frame(pcr()$residuals[,,1:pcr()$ncomp])
 
 output$pcr.s.plot  <- renderPlot({ 
 validate(need(input$nc>=2, "The number of components must be >= 2"))
-df <- as.data.frame(pcr()$scores[,1:pcr()$ncomp])
+df <- as.data.frame(pcr()$scores[,1:input$nc])
 
   ggplot(df, aes(x = df[,input$c1], y = df[,input$c2]))+
   geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
@@ -113,21 +113,22 @@ df <- as.data.frame(pcr()$scores[,1:pcr()$ncomp])
   })
 
 output$pcr.l.plot  <- renderPlot({ 
-ll <- as.data.frame(pcr()$loadings[,1:pcr()$ncomp])
-ll$group <- rownames(ll)
-loadings.m <- reshape::melt(ll, id="group",
-                   measure=colnames(ll)[1:pcr()$ncomp])
+load <- as.data.frame(pcr()$loadings[,1:input$nc])
+MFSload(loads=load, a=input$nc)
+#ll$group <- rownames(ll)
+#loadings.m <- reshape::melt(ll, id="group",
+#                   measure=colnames(ll)[1:input$nc])
 
-ggplot(loadings.m, aes(loadings.m$group, abs(loadings.m$value), fill=loadings.m$value)) + 
-  facet_wrap(~ loadings.m$variable, nrow=1) + #place the factors in separate facets
-  geom_bar(stat="identity") + #make the bars
-  coord_flip() + #flip the axes so the test names can be horizontal  
+#ggplot(loadings.m, aes(loadings.m$group, abs(loadings.m$value), fill=loadings.m$value)) + 
+#  facet_wrap(~ loadings.m$variable, nrow=1) + #place the factors in separate facets
+#  geom_bar(stat="identity") + #make the bars
+#  coord_flip() + #flip the axes so the test names can be horizontal  
   #define the fill color gradient: blue=positive, red=negative
-  scale_fill_gradient2(name = "Loading", 
-                       high = "blue", mid = "white", low = "red", 
-                       midpoint=0, guide=F) +
-  ylab("Loading Strength") + #improve y-axis label
-  theme_bw(base_size=10)
+#  scale_fill_gradient2(name = "Loading", 
+#                       high = "blue", mid = "white", low = "red", 
+#                       midpoint=0, guide=F) +
+#  ylab("Loading Strength") + #improve y-axis label
+#  theme_bw(base_size=10)
 
   })
 
@@ -142,62 +143,63 @@ plot(pcr(), plottype = c("biplot"), comps=c(input$c1,input$c2),var.axes = TRUE, 
 output$tdplot <- plotly::renderPlotly({ 
 validate(need(input$nc>=3, "The number of components must be >= 3"))
 
-scores <- as.data.frame(pcr()$scores[,1:pcr()$ncomp])
-x <- scores[,input$td1]
-y <- scores[,input$td2]
-z <- scores[,input$td3]
+score <- as.data.frame(pcr()$scores[,1:input$nc])
+load <- as.data.frame(pcr()$loadings[,1:input$nc])
 
-loads <- as.data.frame(pcr()$loadings[,1:pcr()$ncomp])
+MFS3D(scores=score, loads=load, nx=input$td1,ny=input$td2,nz=input$td3, scale=input$lines)
 
+#x <- scores[,input$td1]
+#y <- scores[,input$td2]
+#z <- scores[,input$td3]
 # Scale factor for loadings
-scale.loads <- input$lines
+#scale.loads <- input$lines
 
-layout <- list(
-  scene = list(
-    xaxis = list(
-      title = paste0("PC", input$td1), 
-      showline = TRUE
-    ), 
-    yaxis = list(
-      title = paste0("PC", input$td2), 
-      showline = TRUE
-    ), 
-    zaxis = list(
-      title = paste0("PC", input$td3), 
-      showline = TRUE
-    )
-  ), 
-  title = "PCA (3D)"
-)
+#layout <- list(
+#  scene = list(
+#    xaxis = list(
+#      title = paste0("PC", input$td1), 
+#      showline = TRUE
+#    ), 
+#    yaxis = list(
+#      title = paste0("PC", input$td2), 
+#      showline = TRUE
+#    ), 
+#    zaxis = list(
+#      title = paste0("PC", input$td3), 
+#      showline = TRUE
+#    )
+#  ), 
+#  title = "PCA (3D)"
+#)
 
-rnn <- rownames(as.data.frame(pcr()$scores[,1:pcr()$ncomp]))
+#rnn <- rownames(as.data.frame(pcr()$scores[,1:input$nc]))
 
-p <- plot_ly() %>%
-  add_trace(x=x, y=y, z=z, 
-            type="scatter3d", mode = "text+markers", 
-            name = "original", 
-            linetypes = NULL, 
-            opacity = 0.5,
-            marker = list(size=2),
-            text = rnn) %>%
-  layout(p, scene=layout$scene, title=layout$title)
+#p <- plot_ly() %>%
+#  add_trace(x=x, y=y, z=z, 
+#            type="scatter3d", mode = "text+markers", 
+#            name = "original", 
+#            linetypes = NULL, 
+#            opacity = 0.5,
+#            marker = list(size=2),
+#            text = rnn) %>%
+#  layout(p, scene=layout$scene, title=layout$title)
 
-for (k in 1:nrow(loads)) {
-  x <- c(0, loads[k,1])*scale.loads
-  y <- c(0, loads[k,2])*scale.loads
-  z <- c(0, loads[k,3])*scale.loads
-  p <- p %>% add_trace(x=x, y=y, z=z,
-                       type="scatter3d", mode="lines",
-                       line = list(width=4),
-                       opacity = 1) 
-}
-p
+#for (k in 1:nrow(loads)) {
+#  x <- c(0, loads[k,1])*scale.loads
+#  y <- c(0, loads[k,2])*scale.loads
+#  z <- c(0, loads[k,3])*scale.loads
+#  p <- p %>% add_trace(x=x, y=y, z=z,
+#                       type="scatter3d", mode="lines",
+#                       line = list(width=4),
+#                       opacity = 1) 
+#}
+#p
 
 })
 
 output$tdtrace <- renderPrint({
   validate(need(input$nc>=3, "The number of components must be >= 3"))
-  x <- rownames(as.data.frame(pcr()$loadings[,1:pcr()$ncomp]))
+  x <- rownames(as.data.frame(pcr()$loadings[,1:input$nc]))
   names(x) <- paste0("trace", 1:length(x)) 
   return(x)
   })
