@@ -170,8 +170,15 @@ output$hx = renderUI({
 
 output$p2 = renderPlot({
    ggplot(X(), aes(x = X()[, input$hx])) + 
-     geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
-     geom_density()+
+     geom_histogram(binwidth = input$bin, colour = "black",fill = "grey") + 
+     #geom_density()+
+     xlab("") + theme_minimal() + theme(legend.title = element_blank())
+   })
+
+output$p21 = renderPlot({
+   ggplot(X(), aes(x = X()[, input$hx])) + 
+     #geom_histogram(binwidth = input$bin, colour = "black",fill = "white") + 
+     geom_density() + 
      xlab("") + theme_minimal() + theme(legend.title = element_blank())
    })
 

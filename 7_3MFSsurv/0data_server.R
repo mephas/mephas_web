@@ -224,15 +224,6 @@ fsum = reactive({
 
 output$fsum = renderPrint({fsum()})
  
-#output$download1 <- downloadHandler(
-#     filename = function() {
-#       "lr.des1.csv"
-#     },
-##     content = function(file) {
-#       write.csv(sum(), file, row.names = TRUE)
- #    }
-#   )
- 
  output$download2 <- downloadHandler(
      filename = function() {
        "lr.des2.txt"
@@ -307,8 +298,15 @@ scrollX = TRUE)
  
 output$p2 = renderPlot({
    ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
-     geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
-     geom_density()+
+     geom_histogram(binwidth = input$bin, colour = "black",fill = "grey") + 
+     #geom_density()+
+     xlab("") + theme_minimal() + theme(legend.title = element_blank())
+   })
+
+output$p21 = renderPlot({
+   ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
+     #geom_histogram(binwidth = input$bin, colour = "black",fill = "white") + 
+     geom_density() + 
      xlab("") + theme_minimal() + theme(legend.title = element_blank())
    })
  

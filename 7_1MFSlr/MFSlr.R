@@ -190,8 +190,11 @@ tabPanel("Histogram", p(br()),
 
 HTML("<p><b>Histogram</b>: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values.</p>"),
 uiOutput('hx'),
+p(tags$b("Histogram")),
 plotOutput("p2", width = "80%"),
-sliderInput("bin", "The width of bins in the histogram", min = 0, max = 10, value = 1))
+sliderInput("bin", "The width of bins in the histogram", min = 0, max = 10, value = 1),
+p(tags$b("Density plot")),
+plotOutput("p21", width = "80%"))
 
 )
 
@@ -687,8 +690,15 @@ output$tx = renderUI({
  
 output$p2 = renderPlot({
    ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
-     geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white") + 
-     geom_density()+
+     geom_histogram(binwidth = input$bin, colour = "black",fill = "grey") + 
+     #geom_density()+
+     xlab("") + theme_minimal() + theme(legend.title = element_blank())
+   })
+
+output$p21 = renderPlot({
+   ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
+     #geom_histogram(binwidth = input$bin, colour = "black",fill = "white") + 
+     geom_density() + 
      xlab("") + theme_minimal() + theme(legend.title = element_blank())
    })
  

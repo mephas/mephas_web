@@ -182,9 +182,6 @@ choices = type.bi())
  
  ## scatter plot
 output$p1 = renderPlot({
-#validate(need(length(levels(as.factor(DF3()[, input$ty])))==2, "Please choose a binary variable as Y")) 
-#ggplot(DF3(), aes(x = DF3()[, input$tx], y = DF3()[, input$ty])) + geom_point(shape = 1) + 
-#  geom_smooth(method = lm) + xlab(input$tx) + ylab(input$ty) + theme_minimal()
 ggplot(DF3(), aes(x=DF3()[, input$tx], y=(as.numeric(as.factor(DF3()[, input$ty]))-1))) + 
 geom_point(shape = 1,  size = 1) + 
 stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE,  size = 0.5) +
@@ -202,8 +199,15 @@ xlab(input$tx) + ylab(input$ty) + theme_minimal()
  
 output$p2 = renderPlot({
    ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
-     geom_histogram(aes(y=..density..),binwidth = input$bin, colour = "black",fill = "white",size = 0.5) + 
-     geom_density(size = 0.5)+
+     geom_histogram(binwidth = input$bin, colour = "black",fill = "grey") + 
+     #geom_density()+
+     xlab("") + theme_minimal() + theme(legend.title = element_blank())
+   })
+
+output$p21 = renderPlot({
+   ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
+     #geom_histogram(binwidth = input$bin, colour = "black",fill = "white") + 
+     geom_density() + 
      xlab("") + theme_minimal() + theme(legend.title = element_blank())
    })
  

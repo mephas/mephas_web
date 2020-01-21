@@ -113,8 +113,8 @@ ll$group <- rownames(ll)
 loadings.m <- reshape::melt(ll, id="group",
                    measure=colnames(ll)[1:input$nc.r])
 
-ggplot(loadings.m, aes(group, abs(value), fill=value)) + 
-  facet_wrap(~ variable, nrow=1) + #place the factors in separate facets
+ggplot(loadings.m, aes(loadings.m$group, abs(loadings.m$value), fill=loadings.m$value)) + 
+  facet_wrap(~ loadings.m$variable, nrow=1) + #place the factors in separate facets
   geom_bar(stat="identity") + #make the bars
   coord_flip() + #flip the axes so the test names can be horizontal  
   #define the fill color gradient: blue=positive, red=negative
