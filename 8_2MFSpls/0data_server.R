@@ -5,7 +5,7 @@ load("pls.RData")
 
 data <- reactive({
                 switch(input$edata,
-               "NKI" = nki.train,
+               "NKI" = nki2.train,
                "Liver" = liver.train)
                #"Independent variable matrix (Gene sample2)" = genesample2)
         })

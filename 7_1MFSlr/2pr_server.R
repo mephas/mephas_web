@@ -38,15 +38,6 @@ dom = 'Bfrtip',
 buttons = c('copy', 'csv', 'excel'),
 scrollX = TRUE))
 
-#output$download12 <- downloadHandler(
-#    filename = function() {
-#      "lm.pred.csv"
-#    },
-#    content = function(file) {
-#      write.csv(pred.lm(), file, row.names = TRUE)
-#    }
-#  )
-
  output$p.s = renderPlot({
   validate(need((pred.lm()[, input$y]), "This evaluation plot will not show unless dependent variable Y is given in the new data"))
   min = min(c(pred.lm()[, input$y], pred.lm()[, 1]))
@@ -56,29 +47,3 @@ scrollX = TRUE))
    })
 
 
-
-
-# sx <- reactive({input$x})
-# 
-# output$sx = renderUI({
-# selectInput(
-# 'sx',
-# tags$b('Choose one independent variables / factors / predictors (X)'),
-# selected = sx()[1],
-# choices = sx()
-# )
-# })
-# 
-# pred.s = eventReactive(input$B2,
-# {
-# pfit1 = predict(fit(), newdata = select(newX(), subset=c(input$sx)), interval = "prediction")
-# pfit2 = predict(fit(), newdata = select(newX(), subset=c(input$sx)), interval = "confidence")
-# mat <- cbind(pfit1, pfit2[,-1])
-# return(mat)
-# 
-# })
-# 
-# output$p.s = renderPlot({
-# 	graphics::matplot(
-# 		pred.s(), ty = c(1,2,2,3,3), type = "l", ylab = "predicted y")
-# 	})
