@@ -10,24 +10,41 @@ MFSscat <- function(data, varx, vary){
 
 MFShist1 <- function(data, varx, bw){
   
-  var = data[, varx]
+  variable = data[, varx]
   if (bw==0) {
-  ggplot(data, aes(x = var)) + 
-      stat_bin(fill = "grey",color="black", size=0.3, alpha = 1) + 
+  ggplot(data, aes(x = variable)) + 
+      stat_bin(color = "white", fill = "grey", size = 0.1, alpha = 1) + 
       xlab(varx) + 
       theme_minimal() + theme(legend.title = element_blank())  
   }
   else{
-  ggplot(data, aes(x = var)) + 
-    stat_bin(bins=bw, fill = "grey",color="black", alpha = 1, size=0.3, position = "identity") + 
+  ggplot(data, aes(x = variable)) + 
+    stat_bin(bins=bw, color = "white", fill = "grey", size = 0.1, alpha = 1) + 
     xlab(varx) + 
     theme_minimal() + theme(legend.title = element_blank())
   }
 }
 
+MFShist1c <- function(data, varx, bw){
+  
+  variable = data[, varx]
+  if (bw==0) {
+    ggplot(data, aes(x = variable)) + 
+      stat_bin(color = "white", fill = "cornflowerblue", size = 0.1, alpha = 1) + 
+      xlab(varx) + 
+      theme_minimal() + theme(legend.title = element_blank())  
+  }
+  else{
+    ggplot(data, aes(x = variable)) + 
+      stat_bin(bins=bw, color = "white", fill = "cornflowerblue", size = 0.1, alpha = 1) + 
+      xlab(varx) + 
+      theme_minimal() + theme(legend.title = element_blank())
+  }
+}
+
 MFSdensity1 <- function(data, varx){
-  var = data[, varx]
-  ggplot(data, aes(x = var)) + 
+  variable = data[, varx]
+  ggplot(data, aes(x = variable)) + 
   geom_density(size=0.3) + 
   xlab(varx) + 
   theme_minimal() + theme(legend.title = element_blank())

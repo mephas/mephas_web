@@ -73,7 +73,7 @@ sidebarLayout(
 			 tabPanel("Mathematical-based Plot", p(br()),
 			 	tags$b("Exponential distribution plot"),
 
-				plotOutput("e.plot", click = "plot_click9", width = "80%"),
+				plotOutput("e.plot", click = "plot_click9", width = "80%"),#
 			 	verbatimTextOutput("e.info"),
 
 			 	p(tags$b("The position of Red-line, x0")),
@@ -82,10 +82,11 @@ sidebarLayout(
 			 tabPanel("Simulation-based Plot", p(br()),
 			 	numericInput("e.size", "Sample size of simulated numbers", value = 100, min = 1,step = 1),
 			 	tags$b("Histogram from random numbers"),
-				plotOutput("e.plot2", click = "plot_click10", width = "80%"),
-			 	sliderInput("e.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),
+				plotly::plotlyOutput("e.plot2",  width = "80%"),#click = "plot_click10",
+			 	sliderInput("e.bin", "The number of bins in histogram", min = 0, max = 100, value = 0),
+			 	p("When the number of bins is 0, plot will use the default number of bins"),
 
-				verbatimTextOutput("e.info2"),
+				#verbatimTextOutput("e.info2"),
 				downloadButton("download2", "Download Random Numbers"),
 		
 				p(tags$b("Sample descriptive statistics")),
@@ -102,10 +103,12 @@ sidebarLayout(
 			  ),
 			 tabPanel("Distribution of Your Data", p(br()),	
 			 	tags$b("Density from upload data"),
-				plotOutput("makeplot.e2", width = "80%"),
+				plotly::plotlyOutput("makeplot.e2", width = "80%"),
 			 	tags$b("Histogram from upload data"),
-				plotOutput("makeplot.e1", width = "80%"),
-      	sliderInput("bin.e","The width of bins in histogram", min = 0,max = 2,value = 0.1, step=0.01),
+				plotly::plotlyOutput("makeplot.e1", width = "80%"),
+			 	sliderInput("bin.e", "The number of bins in histogram", min = 0, max = 100, value = 0),
+			 	p("When the number of bins is 0, plot will use the default number of bins"),
+
 				tableOutput("e.sum2")
 
 			 	)

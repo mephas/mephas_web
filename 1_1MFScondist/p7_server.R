@@ -37,23 +37,31 @@ output$download7 <- downloadHandler(
 
 output$table4 = renderDataTable({head(F(), n = 100L)},  options = list(pageLength = 10))
 
-output$f.plot2 = renderPlot(
-{df = F()
-ggplot(df, aes(x = x)) + 
-ggtitle("") + 
-theme_minimal() + 
-ylab("Frequency")+ 
-geom_histogram(binwidth = input$f.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
-xlim(-0.1, input$f.xlim) + 
-geom_vline(aes(xintercept=quantile(x, probs = input$f.pr, na.rm = FALSE)), color="red", size=0.5)})
+output$f.plot2 = plotly::renderPlotly({
+  df = F()
+  x <- names(df)
+p<-MFShist1c(data=df, var=x, bw=input$f.bin)
+p<-p+geom_vline(aes(xintercept=quantile(x, probs = input$f.pr, na.rm=TRUE)), color="red", size=0.3)
+plotly::ggplotly(p)
 
-output$f.info2 = renderText({
-    xy_str = function(e) {
-      if(is.null(e)) return("NULL\n")
-      paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
-    }
+#   df = F()
+# ggplot(df, aes(x = x)) + 
+# ggtitle("") + 
+# theme_minimal() + 
+# ylab("Frequency")+ 
+# geom_histogram(binwidth = input$f.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
+# xlim(-0.1, input$f.xlim) + 
+# geom_vline(aes(xintercept=quantile(x, probs = input$f.pr, na.rm = FALSE)), color="red", size=0.5)
 
-    paste0("Click Position: ", "\n", xy_str(input$plot_click8))})
+})
+
+# output$f.info2 = renderText({
+#     xy_str = function(e) {
+#       if(is.null(e)) return("NULL\n")
+#       paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
+#     }
+# 
+#     paste0("Click Position: ", "\n", xy_str(input$plot_click8))})
 
 output$f.sum = renderTable({
   x = F()
@@ -85,14 +93,26 @@ FF <- reactive({
     return(as.data.frame(x))
   })
 
-output$makeplot.f1 <- renderPlot({
-  x = as.data.frame(FF())
-  ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.f, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
-   })
-output$makeplot.f2 <- renderPlot({
-  x = as.data.frame(FF())
- ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+ geom_vline(aes(xintercept=quantile(x[,1], probs = input$f.pr, na.rm = FALSE)), color="red", size=0.5)
-   })
+output$makeplot.f1 <- plotly::renderPlotly({
+    df = FF()
+  x <- names(df)
+  p<-MFShist1(data=df, var=x, bw=input$bin.f)
+  p<-p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$f.pr, na.rm=TRUE)), color="red", size=0.3)
+  plotly::ggplotly(p)
+  # x = as.data.frame(FF())
+  # ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.f, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
+  
+  })
+output$makeplot.f2 <- plotly::renderPlotly({
+    df = FF()
+  x <- names(df)
+  p<-MFSdensity1(data=df, var=x)
+  p<- p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$f.pr, na.rm = TRUE)), color="red", size=0.3)
+  plotly::ggplotly(p)
+ #  x = as.data.frame(FF())
+ # ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title =element_blank())+ geom_vline(aes(xintercept=quantile(x[,1], probs = input$f.pr, na.rm = FALSE)), color="red", size=0.5)
+ #   
+ })
 
 output$f.sum2 = renderTable({
   x = FF()

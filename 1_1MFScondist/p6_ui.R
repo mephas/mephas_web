@@ -81,9 +81,10 @@ sidebarLayout(
 			 tabPanel("Simulation-based Plot", p(br()),
 			 	numericInput("x.size", "Sample size of simulated numbers", value = 100, min = 1, step = 1),
 			 	tags$b("Histogram from random numbers"),
-				plotOutput("x.plot2", click = "plot_click6", width = "80%"),
-			 	sliderInput("x.bin", "The width of bins in histogram", min = 0, max = 2, value = 0.1, step=0.01),
-				verbatimTextOutput("x.info2"),
+				plotly::plotlyOutput("x.plot2", width = "80%"),#click = "plot_click6", 
+			 	sliderInput("x.bin", "The number of bins in histogram", min = 0, max = 100, value = 0),
+			 	p("When the number of bins is 0, plot will use the default number of bins"),
+				#verbatimTextOutput("x.info2"),
 				downloadButton("download6", "Download Random Numbers"),
 				p(tags$b("Sample descriptive statistics")),
 				tableOutput("x.sum"),
@@ -100,10 +101,11 @@ sidebarLayout(
 
 			 tabPanel("Distribution of Your Data", p(br()),
 			 	tags$b("Density from upload data"),
-				plotOutput("makeplot.x2", width = "80%"),
+				plotly::plotlyOutput("makeplot.x2", width = "80%"),
 			 	tags$b("Histogram from upload data"),
-				plotOutput("makeplot.x1", width = "80%"),
-	      sliderInput("bin.x","The width of bins in histogram", min = 0,max = 2,value = 0.1, step=0.01),
+				plotly::plotlyOutput("makeplot.x1", width = "80%"),
+	      sliderInput("bin.x","The number of bins in histogram", min = 0, max = 100, value = 0),
+	      p("When the number of bins is 0, plot will use the default number of bins"),
 	      tableOutput("x.sum2")
 
 			 	)
