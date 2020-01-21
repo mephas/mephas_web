@@ -94,7 +94,7 @@ output$p.lm1 = renderPlot({
 
 x <-data.frame(res=fit()$residuals)
 ggplot(x, aes(sample = res)) + 
-stat_qq() + 
+stat_qq() + stat_qq_line()+
 ggtitle("") + 
 xlab("") + 
 theme_minimal()  ## add line,

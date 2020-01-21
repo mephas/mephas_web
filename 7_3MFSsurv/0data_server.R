@@ -296,17 +296,13 @@ scrollX = TRUE)
      choices = type.num3())
  })
  
-output$p2 = renderPlot({
-   ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
-     geom_histogram(binwidth = input$bin, colour = "black",fill = "grey") + 
-     #geom_density()+
-     xlab("") + theme_minimal() + theme(legend.title = element_blank())
+output$p2 = plotly::renderPlotly({
+   p<-MFShist1(data=DF3(), var=input$hx, bw=input$bin)
+   plotly::ggplotly(p)
    })
 
-output$p21 = renderPlot({
-   ggplot(DF3(), aes(x = DF3()[, input$hx])) + 
-     #geom_histogram(binwidth = input$bin, colour = "black",fill = "white") + 
-     geom_density() + 
-     xlab("") + theme_minimal() + theme(legend.title = element_blank())
+output$p21 = plotly::renderPlotly({
+     p<-MFSdensity1(data=DF3(), var=input$hx)
+     plotly::ggplotly(p)
    })
  

@@ -107,7 +107,7 @@ HTML("<p><b>Linear fitting plot</b>: to roughly show the linear relation between
 uiOutput('tx'),
 uiOutput('ty'),
 
-plotOutput("p1", width = "80%")
+plotly::plotlyOutput("p1", width = "80%")
 ),
 
 tabPanel("Histogram", p(br()),
@@ -115,9 +115,10 @@ tabPanel("Histogram", p(br()),
 HTML("<p><b>Histogram</b>: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values.</p>"),
 uiOutput('hx'),
 p(tags$b("Histogram")),
-plotOutput("p2", width = "80%"),
-sliderInput("bin", "The width of bins in the histogram", min = 0, max = 2, value = 0.05),
+plotly::plotlyOutput("p2", width = "80%"),
+sliderInput("bin", "The number of bins in the histogram", min = 0, max = 100, value = 0),
+p("When the number of bins is 0, plot will use the default number of bins "),
 p(tags$b("Density plot")),
-plotOutput("p21", width = "80%"))
+plotly::plotlyOutput("p21", width = "80%"))
 
 )))

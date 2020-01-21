@@ -1,6 +1,7 @@
 #****************************************************************************************************************************************************
 
 load("pca.RData")
+source("../func.R")
 
 
 data <- reactive({
@@ -151,10 +152,9 @@ output$tx = renderUI({
    
  })
 
- output$p1 = renderPlot({
-
-   ggplot(X(), aes(x = X()[, input$tx], y = X()[, input$ty])) + geom_point(shape = 1) + 
-     geom_smooth(method = "lm") + xlab(input$tx) + ylab(input$ty) + theme_minimal()
+ output$p1 = plotly::renderPlotly({
+   p<- MFSscat(data=X(), varx=input$tx, vary=input$ty)
+   plotly::ggplotly(p)
    })
 
 ## histogram
@@ -167,17 +167,13 @@ output$hx = renderUI({
      choices = type.num3())
 })
 
-output$p2 = renderPlot({
-   ggplot(X(), aes(x = X()[, input$hx])) + 
-     geom_histogram(binwidth = input$bin, colour = "black",fill = "grey") + 
-     #geom_density()+
-     xlab("") + theme_minimal() + theme(legend.title = element_blank())
+output$p2 = plotly::renderPlotly({
+   p<-MFShist1(data=X(), var=input$hx, bw=input$bin)
+   plotly::ggplotly(p)
    })
 
-output$p21 = renderPlot({
-   ggplot(X(), aes(x = X()[, input$hx])) + 
-     #geom_histogram(binwidth = input$bin, colour = "black",fill = "white") + 
-     geom_density() + 
-     xlab("") + theme_minimal() + theme(legend.title = element_blank())
+output$p21 = plotly::renderPlotly({
+     p<-MFSdensity1(data=X(), var=input$hx)
+     plotly::ggplotly(p)
    })
 

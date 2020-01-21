@@ -66,7 +66,7 @@ HTML(
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To build a simple or multiple linear regression model: 
+<li> To build a simple or multiple linear regression model
 <li> To get the estimates of regressions, including (1) estimate of coefficients with t test, p value, and 95% CI, (2) R<sup>2</sup> and adjusted R<sup>2</sup>, and (3) F-Test for overall significance in Regression 
 <li> To get additional information: (1) predicted dependent variable and residuals, (2) ANOVA table of model, (3) AIC-based variable selection, and (4) diagnostic plot based from the residuals and predicted dependent variable 
 </ul>
