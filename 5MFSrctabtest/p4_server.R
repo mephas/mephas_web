@@ -59,15 +59,19 @@ output$dt4.3 = DT::renderDT({prop.table(T4())}, #class="row-border",
     scrollX = TRUE))
 
 
-output$makeplot4 <- renderPlot({  #shinysession 
+output$makeplot4 <- plotly::renderPlotly({  #shinysession 
   x <- as.data.frame(T4())
-  mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
-  ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
+  p<-MFSbar(x)
+  plotly::ggplotly(p)
+  #mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
+  #ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
   })
-output$makeplot4.1 <- renderPlot({  #shinysession 
-  x <- as.data.frame(T4())
-  mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
-  ggplot(mx, aes(x = mx[,"id"], y = mx[,2], fill = mx[,"time"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
+output$makeplot4.1 <- plotly::renderPlotly({  #shinysession 
+  x <- as.data.frame(t(T4()))
+  p<-MFSbar(x)
+  plotly::ggplotly(p)
+  #mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
+  #ggplot(mx, aes(x = mx[,"id"], y = mx[,2], fill = mx[,"time"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
  })
 
 output$c.test4 = DT::renderDT({

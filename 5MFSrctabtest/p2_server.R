@@ -62,10 +62,12 @@ output$dt2.3 = DT::renderDT({prop.table(T2())},
     scrollX = TRUE))
 
 
-output$makeplot2 <- renderPlot({  #shinysession 
+output$makeplot2 <- plotly::renderPlotly({  #shinysession 
   x <- as.data.frame(T2())
-  mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
-  ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
+  p<-MFSbar(x)
+  plotly::ggplotly(p)
+  #mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
+  #ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
   })
 
 output$c.test2 = DT::renderDT({

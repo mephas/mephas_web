@@ -71,7 +71,7 @@
 
     tabPanel("Percentage Plot", p(br()),
 
-      plotOutput("makeplot5", width = "80%")
+      plotly::plotlyOutput("makeplot5", width = "80%")
       )
     ),
 
