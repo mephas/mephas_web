@@ -54,14 +54,14 @@ titlePanel("Chi-square Test for Two Independent Proportions"),
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To determine if the population rate/proportion behind your 2 Groups data are significantly different </ul>
+<li> To determine if the population rate/proportion behind your 2 groups data are significantly different </ul>
 
 <h4><b> 2. About your data </b></h4>
 
 <ul>
-<li> Your 2 Groups data come from binomial distribution (the proportion of success)
-<li> You know the whole sample and the number of specified events (the proportion of sub-group) from 2 Groups
-<li> The 2 Groups are independent observations
+<li> Your 2 groups data come from binomial distribution (the proportion of success)
+<li> You know the whole sample and the number of specified events (the proportion of sub-group) from 2 groups
+<li> The 2 groups are independent observations
 </ul>
 
 <i><h4>Case Example</h4>
@@ -87,14 +87,14 @@ titlePanel("Chi-square Test for More than Two Independent Proportions"),
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To determine if the population rate/proportion behind your multiple Groups data are significantly different </ul>
+<li> To determine if the population rate/proportion behind your multiple groups data are significantly different </ul>
 
 <h4><b> 2. About your data </b></h4>
 
 <ul>
-<li> Your Groups data come from binomial distribution (the proportion of success)
-<li> You know the whole sample and the number of specified events (the proportion of sub-group) from each Groups
-<li> The multiple Groups are independent observations
+<li> Your groups data come from binomial distribution (the proportion of success)
+<li> You know the whole sample and the number of specified events (the proportion of sub-group) from each groups
+<li> The multiple groups are independent observations
 </ul>
 
 <i><h4>Case Example</h4>
@@ -119,15 +119,15 @@ titlePanel("Chi-square Test for Trend in Multiple Independent Samples"),
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To determine if the population rate/proportion behind your multiple Groups data vary with score 
+<li> To determine if the population rate/proportion behind your multiple groups data vary 
 </ul>
 
 <h4><b> 2. About your data </b></h4>
 
 <ul>
-<li> Your Groups data come from binomial distribution (the proportion of success)
-<li> You know the whole sample and the number of specified events (the proportion of sub-group) from each Groups
-<li> The multiple Groups are independent observations
+<li> Your groups data come from binomial distribution (the proportion of success)
+<li> You know the whole sample and the number of specified events (the proportion of sub-group) from each groups
+<li> The multiple groups are independent observations
 </ul>
 
 <i><h4>Case Example</h4>

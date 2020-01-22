@@ -3,7 +3,7 @@
       sidebarPanel(
 
     h4(tags$b("Step 1. Data Preparation")),
-     p(tags$b("You can change Groups names")),
+     p(tags$b("You can change groups names")),
         tags$textarea(id = "gn",
           rows = 5,
         "~20\n20-24\n25-29\n30-34\n34~"
@@ -16,13 +16,12 @@
       ),
         p(br()), 
 
-          p("Data point can be separated by , ; /Enter /Tab"),
-        p(tags$b("How many success / events in every Group, x")),
+        p(tags$b("How many success / events in every group, x")),
         tags$textarea(id = "xx", rows = 5,
         "320\n1206\n1011\n463\n220"        
         ),
 
-        p(tags$b("How many trials / samples in every Group, n > x")),     
+        p(tags$b("How many trials / samples in every group, n > x")),     
         tags$textarea(id = "nn", rows = 5,
         "1742\n5638\n3904\n1555\n626"
         ),
@@ -37,7 +36,7 @@
 
      p(tags$b("Null hypothesis")), 
 
-      p("The probability/proportion are equal over the Groups"),
+      p("The probability/proportion are equal over the groups"),
       
       p(tags$b("Alternative hypothesis")), 
        p("The probability/proportions are not equal"),          
@@ -51,13 +50,19 @@
 
       h4(tags$b("Output 1. Data Preview")), p(br()), 
 
-      p(tags$b("Data Table")),
+      tabsetPanel(
+        tabPanel("Table",p(br()),
+          
+        p(tags$b("Data Table")),
 
-      DT::DTOutput("n.t"),
+        DT::DTOutput("n.t")
 
-      p(tags$b("Percentage Plot")),
+          ),
+        tabPanel("Percentage Plot",p(br()),
+          plotly::plotlyOutput("makeplot3", width = "80%")
 
-      plotOutput("makeplot3", width = "80%"),
+          )
+        ),
 
       hr(),
 

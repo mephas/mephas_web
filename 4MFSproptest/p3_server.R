@@ -26,18 +26,22 @@ output$n.t = DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$makeplot3 <- renderPlot({  #shinysession 
+output$makeplot3 <- plotly::renderPlotly({  #shinysession 
 
-  X <- as.numeric(unlist(strsplit(input$xx, "[\n,;\t ]")))
-  Y <- as.numeric(unlist(strsplit(input$nn, "[\n,;\t ]")))
-  validate(need((sum((Y-X)<0))==0, "Please check your data whether x <= n"))
+  x<-as.data.frame(N())
+  p<-MFSbar1(x)
+  plotly::ggplotly(p)
+  #X <- as.numeric(unlist(strsplit(input$xx, "[\n,;\t ]")))
+  #Y <- as.numeric(unlist(strsplit(input$nn, "[\n,;\t ]")))
+  #validate(need((sum((Y-X)<0))==0, "Please check your data whether x <= n"))
 
-  xm <- rbind(X,Y)
-  rownames(xm) = unlist(strsplit(input$ln3, "[\n]"))
-  colnames(xm) = unlist(strsplit(input$gn, "[\n]"))
-  x <- reshape::melt(xm)
-  ggplot(x, aes(fill=x[,1], y=x[,"value"], x=x[,2])) + geom_bar(position="fill", stat="identity")+ 
-  xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  #xm <- rbind(X,Y)
+  #rownames(xm) = unlist(strsplit(input$ln3, "[\n]"))
+  #colnames(xm) = unlist(strsplit(input$gn, "[\n]"))
+
+  #x <- reshape::melt(xm)
+  #ggplot(x, aes(fill=x[,1], y=x[,"value"], x=x[,2])) + geom_bar(position="fill", stat="identity")+ 
+  #xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })  
 
 output$n.test = DT::renderDT({

@@ -46,10 +46,11 @@ validate(need(input$n>=input$x, "Please check your data whether x <= n"))
     scrollX = TRUE))
  
 
-output$makeplot <- renderPlot({  #shinysession 
+output$makeplot <- plotly::renderPlotly({  #shinysession 
   x = data.frame(
     group = c(unlist(strsplit(input$ln, "[\n]"))), 
     value = c(input$x, input$n-input$x)
     )
-  ggplot(x, aes(x="", y=x[,"value"], fill=x[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  MFSpiely(x)
+  #ggplot(x, aes(x=" ", y=x[,"value"], fill=x[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })

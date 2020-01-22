@@ -64,10 +64,11 @@ sidebarLayout(
     p(tags$b("Data Table")),
     DT::DTOutput("n.t2"),
 
-    p(tags$b("Percentage Plot")),
-
-    plotOutput("makeplot2", width = "80%"),
-    plotOutput("makeplot2.1", width = "80%"),
+    p(tags$b("Percentage Plot of")),
+    p(tags$b("1. Case")),
+    plotly::plotlyOutput("makeplot2", width = "80%"),
+    p(tags$b("2. Control")),
+    plotly::plotlyOutput("makeplot2.1", width = "80%"),
 
     hr(),
 

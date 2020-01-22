@@ -206,6 +206,58 @@ MFSqq2 <- function(data2){
     theme_minimal() + theme(legend.title = element_blank())
 }
 
+##----------##----------##----------##----------##----------##----------##
+MFSpie <- function(data){
+  value <- data[,"value"]
+  groups <- data[,"group"]
+  ggplot(data, aes(x=" ", y=value, fill=groups))+ 
+  geom_bar(width = 1, stat = "identity", alpha = 0.7) + 
+  coord_polar("y", start=0) + 
+  xlab("")+ ylab("") + 
+  scale_fill_brewer(palette="Set1")+
+  theme_minimal()+theme(legend.title=element_blank())
+
+}
+
+MFSpiely <- function(data){
+  value <- data[,"value"]
+  groups <- data[,"group"]
+  colors <- c('rgb(211,94,96)', 'rgb(114,147,203)')
+  plotly::plot_ly(data, labels = ~group, values = ~value, type = 'pie',
+    textposition = 'inside',textinfo = 'label+percent',
+    marker = list(colors = colors, line = list(color = '#FFFFFF', width = 1))) %>%
+  layout(
+         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+}
+
+##----------##----------##----------##----------##----------##----------##
+
+MFSbar <- function(count){
+  mx <- reshape(count, varying = list(names(count)), times = names(count), ids = row.names(count), direction = "long")
+  variables <- mx[,"time"]
+  value <- mx[,2]
+  groups <- mx[,"id"]
+    ggplot(mx, aes(x = variables, y = value, fill = groups))+
+    geom_bar(stat = "identity", position = position_dodge(), colour="white", size=0.3, alpha=0.7) + 
+    ylab("") + xlab("") + labs(fill = "") + 
+    scale_fill_brewer(palette="Set1")+
+    theme_minimal() +theme(legend.title=element_blank())
+}
+
+MFSbar1 <- function(count){
+  mx <- reshape(count, varying = list(names(count)), times = names(count), ids = row.names(count), direction = "long")
+  variables <- mx[,"time"]
+  value <- mx[,2]
+  groups <- mx[,"id"]
+    ggplot(mx, aes(x = variables, y = value, fill = groups))+
+    geom_bar(position="fill", stat="identity", colour="white", size=0.3, alpha=0.7) + 
+    ylab("") + xlab("") +  
+    scale_fill_brewer(palette="Set1")+
+    theme_minimal() +theme(legend.title=element_blank())
+}
+##----------##----------##----------##----------##----------##----------##
+
 ###----------PCA and PLS
 
 MFS3D <- function(scores, loads, nx,ny,nz, scale){
