@@ -90,7 +90,14 @@ hr(),
     #HTML("Dunnett")
     ),
   choiceValues = list("SF", "TH")
-  )
+  ),
+      HTML(
+  "<b> Explanations </b>
+
+    <li> <b>Scheffe</b> procedure controls for the search over any possible contrast
+    <li> <b>Tukey Honest Significant Difference</b> is preferred if there are unequal group sizes among the experimental and control groups
+  "
+    )
 
 
 ),
@@ -110,29 +117,33 @@ mainPanel(
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
-      p(tags$b("Descriptive statistics by group")),
-      DT::DTOutput("basm.t2")#,
-         #p(br()), 
-        #downloadButton("download.m22", "Download Results")
+      radioButtons("bas.choice2", 
+      "Descriptive statistics by:",
+      choiceNames = list(
+        HTML("1. Factor1"),
+        HTML("2. Factor2"),
+        HTML("3. Both factor1 and factor2")
+        ),
+      choiceValues = list("A", "B", "C")
       ),
 
-    tabPanel("Marginal Means Plot",p(br()),
+      DT::DTOutput("bas.t2")
+      ),
 
-      plotOutput("mmeanm2", width = "80%")
+      tabPanel("Means plot",p(br()),
+      checkboxInput('tickm', 'Tick to change the factor group', FALSE), #p
+      plotly::plotlyOutput("meanp.am", width = "80%")
+    ),
+
+      tabPanel("Marginal means plot",p(br()),
+      checkboxInput('tick2m', 'Tick to change the factor group', FALSE), #p
+      plotly::plotlyOutput("mmean.am", width = "80%")
       )
     ),
 
     hr(),
 
   h4(tags$b("Output 2. Test Results")), p(br()),
-
-    HTML(
-  "<b> Explanations </b>
-  <ul> 
-    <li> <b>Scheffe</b> procedure controls for the search over any possible contrast
-    <li> <b>Tukey Honest Significant Difference</b> is preferred if there are unequal group sizes among the experimental and control groups
-  </ul>"
-    ),
 
  # p(tags$b("The categories/levels in the Group status")),p(br()),
  # DT::DTOutput("level.t2"),

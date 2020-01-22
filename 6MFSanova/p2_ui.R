@@ -96,18 +96,27 @@ mainPanel(
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
-      p(tags$b("Descriptive statistics by group")),
+      radioButtons("bas.choice", 
+      "Descriptive statistics by:",
+      choiceNames = list(
+        HTML("1. Factor1"),
+        HTML("2. Factor2"),
+        HTML("3. Both factor1 and factor2")
+        ),
+      choiceValues = list("A", "B", "C")
+      ),
+
       DT::DTOutput("bas.t")
       ),
 
       tabPanel("Means plot",p(br()),
-      checkboxInput('tick', 'Untick to change the group and x-axis', TRUE), #p
-      plotOutput("meanp.a", width = "80%")
+      checkboxInput('tick', 'Tick to change the factor group', FALSE), #p
+      plotly::plotlyOutput("meanp.a", width = "80%")
     ),
 
       tabPanel("Marginal means plot",p(br()),
-      checkboxInput('tick2', 'Untick to change the x-axis', TRUE), #p
-      plotOutput("mmean.a", width = "80%")
+      checkboxInput('tick2', 'Tick to change the factor group', FALSE), #p
+      plotly::plotlyOutput("mmean.a", width = "80%")
       )
     ),
 

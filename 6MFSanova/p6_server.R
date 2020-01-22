@@ -87,10 +87,12 @@ output$basnp2.t <- DT::renderDT({
 #    }
 #  )
 
-output$mmeannp2 = renderPlot({
+output$mmeannp2 = plotly::renderPlotly({
   x = Ynp2()
-  ggplot(x, aes(y=x[,1], x=x[,2], fill=x[,2])) + geom_boxplot()+ xlab("") +ylab("")+
-    scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  p<-MFSboxm(x)
+  plotly::ggplotly(p)
+  #ggplot(x, aes(y=x[,1], x=x[,2], fill=x[,2])) + geom_boxplot()+ xlab("") +ylab("")+
+  #  scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })
 
 dunntest <- reactive({

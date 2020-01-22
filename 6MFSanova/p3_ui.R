@@ -87,7 +87,19 @@ hr(),
     HTML("Dunnett")
     ),
   choiceValues = list("B", "BH", "FDR", "BY", "SF", "TH", "DT")
-  )
+  ),
+      HTML(
+  "<b> Explanations </b>
+  
+    <li> <b>Bonferroni</b> correction is a generic but very conservative approach
+    <li> <b>Bonferroni-Holm</b> is less conservative and uniformly more powerful than Bonferroni
+    <li> <b>False Discovery Rate-BH</b> is more powerful than the others, developed by Benjamini and Hochberg
+    <li> <b>False Discovery Rate-BY</b> is more powerful than the others, developed by Benjamini and Yekutieli
+    <li> <b>Scheffe</b> procedure controls for the search over any possible contrast
+    <li> <b>Tukey Honest Significant Difference</b> is preferred if there are unequal group sizes among the experimental and control groups
+    <li> <b>Dunnett</b> is useful for compare all treatment groups with a control group
+  "
+    )
 
 
 ),
@@ -104,14 +116,28 @@ mainPanel(
   DT::DTOutput("level.t")
         ),
 
-    tabPanel("Descriptive Statistics", p(br()),
+  tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
       DT::DTOutput("basm.t")
       ),
 
-    tabPanel("Marginal Means Plot",p(br()),
+    tabPanel("Box Plot",p(br()),
 
-      plotOutput("mmeanm", width = "80%")
+    plotly::plotlyOutput("mbp1m", width = "80%"),
+    HTML(
+    "<b> Explanations </b>
+    <ul>
+      <li> The band inside the box is the median
+      <li> The box measures the difference between 75th and 25th percentiles
+      <li> Outliers will be in red, if existing
+    </ul>"
+      
+    )
+      ),
+
+    tabPanel("Mean and SD Plot",p(br()),
+
+      plotly::plotlyOutput("mmeanm", width = "80%")
       )
     ),
 
@@ -119,18 +145,6 @@ mainPanel(
 
   h4(tags$b("Output 2. Test Results")), p(br()),
 
-    HTML(
-  "<b> Explanations </b>
-  <ul> 
-    <li> <b>Bonferroni</b> correction is a generic but very conservative approach
-    <li> <b>Bonferroni-Holm</b> is less conservative and uniformly more powerful than Bonferroni
-    <li> <b>False Discovery Rate-BH</b> is more powerful than the others, developed by Benjamini and Hochberg
-    <li> <b>False Discovery Rate-BY</b> is more powerful than the others, developed by Benjamini and Yekutieli
-    <li> <b>Scheffe</b> procedure controls for the search over any possible contrast
-    <li> <b>Tukey Honest Significant Difference</b> is preferred if there are unequal group sizes among the experimental and control groups
-    <li> <b>Dunnett</b> is useful for compare all treatment groups with a control group
-  </ul>"
-    ),
   numericInput("control", HTML("* For Dunnett Methods, you can change the control factor from the factor groups above"), 
     value = 1, min = 1, max = 20, step=1),
 

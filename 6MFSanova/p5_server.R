@@ -87,10 +87,12 @@ output$basnp1.t <- DT::renderDT({
 #    }
 #  )
 
-output$mmeannp1 = renderPlot({
+output$mmeannp1 = plotly::renderPlotly({
   x = Ynp1()
-  ggplot(x, aes(y=x[,1], x=x[,2], fill=x[,2])) + geom_boxplot()+ xlab("") +ylab("")+
-    scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  p<-MFSboxm(x)
+  plotly::ggplotly(p)
+  #ggplot(x, aes(y=x[,1], x=x[,2], fill=x[,2])) + geom_boxplot()+ xlab("") +ylab("")+
+  #  scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })
 
 output$kwtest <- DT::renderDT({

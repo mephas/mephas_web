@@ -92,10 +92,23 @@ mainPanel(
          #p(br()), 
         #downloadButton("download1.1", "Download Results")
       ),
+    tabPanel("Box Plot",p(br()),
 
-    tabPanel("Marginal Means Plot",p(br()),
+      plotly::plotlyOutput("mbp1", width = "80%"),
+    HTML(
+    "<b> Explanations </b>
+    <ul>
+      <li> The band inside the box is the median
+      <li> The box measures the difference between 75th and 25th percentiles
+      <li> Outliers will be in red, if existing
+    </ul>"
+      
+    )
+      ),
 
-      plotOutput("mmean1", width = "80%")
+    tabPanel("Mean and SD Plot",p(br()),
+
+      plotly::plotlyOutput("mmean1", width = "80%")
       )
     ),
 

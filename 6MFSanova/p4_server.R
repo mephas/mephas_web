@@ -63,18 +63,24 @@ output$tablem2 <- DT::renderDT(Ym2(),
       scrollY = 300,
       scroller = TRUE))
 
-basm2 <- reactive({
+output$bas.t2 <- DT::renderDT({
   x <- Ym2()
+  if (input$bas.choice2=="A"){
+  res <- (psych::describeBy(x[,1], x[,2],mat=TRUE))[,-c(1,2,3,8,9)]
+  rownames(res) <- levels(x[,2])
+    }
+  else if (input$bas.choice2=="B"){
+  res <- (psych::describeBy(x[,1], x[,3],mat=TRUE))[,-c(1,2,3,8,9)]
+  rownames(res) <- levels(x[,3])
+    }
+  else{
   x$grp <- paste0(x[,2]," : ",x[,3])
   res <- (psych::describeBy(x[,1], x$grp, mat=TRUE))[,-c(1,2,3,8,9)]
   rownames(res) <- levels(as.factor(x$grp))
+    }
   colnames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
   return(res)
-  })
-
-output$basm.t2 <- DT::renderDT({
-  basm2()}, 
-  #class="row-border", 
+  }, 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -90,28 +96,54 @@ output$basm.t2 <- DT::renderDT({
  ##   }
  # )
 
-output$mmeanm2 = renderPlot({
-  x = Ym2()
-  b = Rmisc::summarySE(x,colnames(x)[1], c(colnames(x)[2], colnames(x)[3]))
+#output$mmeanm2 = renderPlot({
+#  x = Ym2()
+  # = Rmisc::summarySE(x,colnames(x)[1], c(colnames(x)[2], colnames(x)[3]))
 
-  if (input$tick2 == "TRUE"){
-  ggplot(b, aes(x=b[,1], y=b[,4], fill=b[,2])) + 
-    geom_bar(stat="identity", position = "dodge")+ xlab("") +ylab("")+
-    geom_errorbar(aes(ymin=b[,4]-b[,6], ymax=b[,4]+b[,6]),
-                  width=.2,                    # Width of the error bars
-                  position=position_dodge(.9))+
-    scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+#  if (input$tick2 == "TRUE"){
+  #ggplot(b, aes(x=b[,1], y=b[,4], fill=b[,2])) + 
+  #  geom_bar(stat="identity", position = "dodge")+ xlab("") +ylab("")+
+  #  geom_errorbar(aes(ymin=b[,4]-b[,6], ymax=b[,4]+b[,6]),
+  #                width=.2,                    # Width of the error bars
+  #                position=position_dodge(.9))+
+  #  scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  #  }
+
+  #else {
+  #ggplot(b, aes(x=b[,2], y=b[,4], fill=b[,1])) + 
+  #  geom_bar(stat="identity", position = "dodge")+ xlab("") +ylab("")+
+  #      geom_errorbar(aes(ymin=b[,4]-b[,6], ymax=b[,4]+b[,6]),
+  #                width=.2,                    # Width of the error bars
+  #                position=position_dodge(.9))+
+  #  scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  #}
+
+  #})
+
+
+output$meanp.am = plotly::renderPlotly({
+  x = Ym2()
+
+  if (input$tickm == "TRUE"){
+  p<-MFSline2(x, names(x)[1], names(x)[2], names(x)[3])
     }
 
   else {
-  ggplot(b, aes(x=b[,2], y=b[,4], fill=b[,1])) + 
-    geom_bar(stat="identity", position = "dodge")+ xlab("") +ylab("")+
-        geom_errorbar(aes(ymin=b[,4]-b[,6], ymax=b[,4]+b[,6]),
-                  width=.2,                    # Width of the error bars
-                  position=position_dodge(.9))+
-    scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+  p<-MFSline2(x, names(x)[1], names(x)[3], names(x)[2])
   }
+  plotly::ggplotly(p)
+  })
 
+output$mmean.am = plotly::renderPlotly({
+  x = Ym2()  
+  if (input$tick2m == "TRUE"){
+  p<-MFSmsdm(x, names(x)[1], names(x)[2])
+    }
+
+  else {
+  p<-MFSmsdm(x, names(x)[1], names(x)[3])
+  }
+plotly::ggplotly(p)
   })
 
 
@@ -144,16 +176,6 @@ output$multiple.t2 <- DT::renderDT({multiple2()},
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
-
-
- #output$download.m222 <- downloadHandler(
- #   filename = function() {
- #     "multiple.csv"
- #   },
- #   content = function(file) {
- #     write.csv(multiple2(), file, row.names = TRUE)
- #   }
- # )
 
 
 

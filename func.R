@@ -29,6 +29,17 @@ MFSbox2 <- function(data2){
   
 }
 
+MFSboxm <- function(datam){
+  #data <- reshape::melt(datam, id=names(datam))
+  value = datam[,1]
+  variable = datam[,2]
+  ggplot(datam, aes(x = variable, y = value, fill = variable)) + 
+  geom_boxplot(outlier.colour = "red",size=0.3) + 
+  scale_fill_brewer(palette="Set1")+
+  theme_minimal() + theme(legend.title = element_blank())
+  
+}
+
 ##----------##----------##----------##----------##----------##----------##
 
 MFSmsd1 <- function(data, varx){
@@ -62,6 +73,36 @@ MFSmsd2 <- function(data){
   theme_minimal() + theme(legend.title = element_blank())
 }
 
+MFSmsdm <- function(datam, var, grp){
+  des = data.frame(psych::describeBy(datam[,var], datam[,grp], mat=TRUE))
+  rownames(des) = des[,"group1"]
+  variable <-rownames(des)
+  mean <- des[,"mean"]
+  sd <- des[,"sd"]
+  ggplot(des, aes(x = variable, y = mean, fill = variable)) + 
+  #ylab(expression(Mean %+-% SD)) + 
+  ylab("Mean with standard deviation bar") + 
+  xlab("")+
+  geom_bar(position = position_dodge(), stat = "identity", width = 0.3) + 
+  geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - sd, ymax = mean + sd), data = des) +
+  scale_fill_brewer(palette="Set1")+ 
+  theme_minimal() + theme(legend.title = element_blank())
+}
+
+##----------##----------##----------##----------##----------##----------##
+MFSline2 <- function(data2, var, grp1, grp2){
+  des <- data.frame(psych::describeBy(data2[,var], list(data2[,grp1],data2[,grp2]), mat=TRUE))
+  group1 <-des[,"group1"]
+  group2 <-des[,"group2"]
+  mean   <-des[,"mean"]
+
+  ggplot(des, aes(x=group1, y=mean, colour=group2, group=group2)) + 
+  geom_line() + 
+  xlab("") +ylab("")+
+  geom_point(shape=21, size=1) +
+  scale_colour_brewer(palette="Set1")+ 
+  theme_minimal() + theme(legend.title = element_blank())
+}
 
 
 ##----------##----------##----------##----------##----------##----------##

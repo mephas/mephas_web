@@ -73,7 +73,7 @@ hr(),
   hr(),
   h4(tags$b("Step 2. Choose Multiple Comparison Methods")),
   radioButtons("methodnp2", 
-  "Which method do you want to use? See explanations right",
+  "Which method do you want to use? See explanations below",
   choiceNames = list(
     HTML("Bonferroni's"),
     HTML("Sidak's"),
@@ -84,7 +84,20 @@ hr(),
     HTML("Benjamini-Yekutieli")
     ),
   choiceValues = list("bonferroni", "sidak", "holm", "hs", "hochberg", "bh", "by")
-  )
+  ),
+  HTML(
+  "<b> Explanations </b>
+
+    <li> <b>Bonferroni</b> adjusted p-values = max(1, pm); m= k(k-1)/2 multiple pairwise comparisons
+    <li> <b>Sidak</b> adjusted p-values = max(1, 1 - (1 - p)^m)
+    <li> <b>Holm's</b>  adjusted p-values = max[1, p(m+1-i)]; i is ordering index
+    <li> <b>Holm-Sidak</b> adjusted p-values = max[1, 1 - (1 - p)^(m+1-i)]
+    <li> <b>Hochberg's</b> adjusted p-values = max[1, p*i]
+    <li> <b>Benjamini-Hochberg</b> adjusted p-values = max[1, pm/(m+1-i)]
+    <li> <b>Benjamini-Yekutieli</b> adjusted p-values = max[1, pmC/(m+1-i)]; C = 1 + 1/2 + ... + 1/m
+
+  "
+    )
 
 
 ),
@@ -97,8 +110,8 @@ mainPanel(
 
     tabPanel("Data Preview", p(br()),
     DT::DTOutput("tablenp2"),
-  p(tags$b("1. The categories in the Factor Group")),
-  DT::DTOutput("level.tnp2")
+    p(tags$b("1. The categories in the Factor Group")),
+    DT::DTOutput("level.tnp2")
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
@@ -108,7 +121,7 @@ mainPanel(
 
     tabPanel("Box-Plot",p(br()),
 
-      plotOutput("mmeannp2", width = "80%")
+      plotly::plotlyOutput("mmeannp2", width = "80%")
       )
     ),
 
@@ -116,21 +129,7 @@ mainPanel(
 
   h4(tags$b("Output 2. Test Results")), p(br()),
 
-      HTML(
-  "<b> Explanations </b>
-  <ul> 
-    <li> <b>Bonferroni</b> adjusted p-values = max(1, pm); m= k(k-1)/2 multiple pairwise comparisons
-    <li> <b>Sidak</b> adjusted p-values = max(1, 1 - (1 - p)^m)
-    <li> <b>Holm's</b>  adjusted p-values = max[1, p(m+1-i)]; i is ordering index
-    <li> <b>Holm-Sidak</b> adjusted p-values = max[1, 1 - (1 - p)^(m+1-i)]
-    <li> <b>Hochberg's</b> adjusted p-values = max[1, p*i]
-    <li> <b>Benjamini-Hochberg</b> adjusted p-values = max[1, pm/(m+1-i)]
-    <li> <b>Benjamini-Yekutieli</b> adjusted p-values = max[1, pmC/(m+1-i)]; C = 1 + 1/2 + ... + 1/m
-  </ul>
-
-  <b> * Reject Null Hypothesis if p <= 0.025 </b>
-  "
-    ),
+  p(tags$b("Reject Null Hypothesis if p <= 0.025")),
 
   DT::DTOutput("dunntest.t"),p(br()),
   

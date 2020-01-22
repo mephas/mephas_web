@@ -95,7 +95,7 @@ mainPanel(
 
     tabPanel("Box-Plot",p(br()),
 
-      plotOutput("mmeannp1", width = "80%")
+      plotly::plotlyOutput("mmeannp1", width = "80%")
       )
     ),
 

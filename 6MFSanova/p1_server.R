@@ -89,17 +89,24 @@ output$bas1.t <- DT::renderDT({
 #      write.csv(bas1(), file, row.names = TRUE)
 #    }
 #  )
-
-output$mmean1 = renderPlot({
+output$mbp1 = plotly::renderPlotly({
   x = Y1()
-  b = Rmisc::summarySE(x,names(x)[1], names(x)[2])
+  p<-MFSboxm(x)
+  plotly::ggplotly(p)
+  })
 
-  ggplot(b, aes(x=b[,1], y=b[,3], fill=b[,1])) + 
-    geom_bar(stat="identity", position = "dodge")+ xlab("") +ylab("")+
-    geom_errorbar(aes(ymin=b[,3]-b[,5], ymax=b[,3]+b[,5]),
-                  width=.2,                    # Width of the error bars
-                  position=position_dodge(.9))+
-    scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
+output$mmean1 = plotly::renderPlotly({
+  x = Y1()
+  p<- MFSmsdm(x, names(x)[1], names(x)[2])
+  plotly::ggplotly(p)
+  #b = Rmisc::summarySE(x,names(x)[1], names(x)[2])
+
+  #ggplot(b, aes(x=b[,1], y=b[,3], fill=b[,1])) + 
+  #  geom_bar(stat="identity", position = "dodge")+ xlab("") +ylab("")+
+  #  geom_errorbar(aes(ymin=b[,3]-b[,5], ymax=b[,3]+b[,5]),
+  #                width=.2,                    # Width of the error bars
+  #                position=position_dodge(.9))+
+  #  scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })
 
 anova10 <- reactive({
