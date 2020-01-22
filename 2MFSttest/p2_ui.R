@@ -122,7 +122,7 @@ sidebarPanel(
         
       plotly::plotlyOutput("bp2",width = "80%"), #,click = "plot_click2"
            
-        verbatimTextOutput("info2"), 
+        #verbatimTextOutput("info2"), 
         hr(),
         
           HTML(

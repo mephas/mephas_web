@@ -114,7 +114,7 @@ mainPanel(
       
         plotly::plotlyOutput("bp", width = "80%"),#, click = "plot_click1"
      
-        verbatimTextOutput("info1"), 
+        #verbatimTextOutput("info1"), 
           HTML(
           "<b> Explanations </b>
           <ul>

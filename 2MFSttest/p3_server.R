@@ -102,14 +102,14 @@ output$meanp.p = plotly::renderPlotly({
   
   })
 
-output$info3 <- renderText({
-  xy_str = function(e) {
-    if (is.null(e))
-    return("NULL\n")
-    paste0("Click to get value: ", round(e$y, 4))
-  }
-  paste0("Y-axis position ", "\n", xy_str(input$plot_click3))
-  })
+# output$info3 <- renderText({
+#   xy_str = function(e) {
+#     if (is.null(e))
+#     return("NULL\n")
+#     paste0("Click to get value: ", round(e$y, 4))
+#   }
+#   paste0("Y-axis position ", "\n", xy_str(input$plot_click3))
+#   })
 
 output$makeplot.p <- plotly::renderPlotly({
   x <- Z()

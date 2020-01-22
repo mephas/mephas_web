@@ -80,14 +80,14 @@ output$bp = plotly::renderPlotly({
   plotly::ggplotly(p)
   })
 
-output$info1 <- renderText({
-  xy_str = function(e) {
-    if (is.null(e))
-    return("NULL\n")
-    paste0("Click to get value: ", round(e$y, 4))
-  }
-  paste0("Y-axis position", "\n", xy_str(input$plot_click1))
-})
+# output$info1 <- renderText({
+#   xy_str = function(e) {
+#     if (is.null(e))
+#     return("NULL\n")
+#     paste0("Click to get value: ", round(e$y, 4))
+#   }
+#   paste0("Y-axis position", "\n", xy_str(input$plot_click1))
+# })
 
 output$meanp = plotly::renderPlotly({
   x = X()

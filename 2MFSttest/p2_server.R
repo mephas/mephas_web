@@ -122,14 +122,14 @@ output$makeplot2.4 <- plotly::renderPlotly({
   })
 
 
-output$info2 <- renderText({
-  xy_str = function(e) {
-    if (is.null(e))
-    return("NULL\n")
-    paste0("Click to get value: ", round(e$y, 4))
-    }
-  paste0("Y-axis position", "\n", xy_str(input$plot_click2))
-  })
+# output$info2 <- renderText({
+#   xy_str = function(e) {
+#     if (is.null(e))
+#     return("NULL\n")
+#     paste0("Click to get value: ", round(e$y, 4))
+#     }
+#   paste0("Y-axis position", "\n", xy_str(input$plot_click2))
+#   })
 
   # test result
 
