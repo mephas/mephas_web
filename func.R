@@ -8,18 +8,76 @@ MFSscat <- function(data, varx, vary){
     theme_minimal() + theme(legend.title = element_blank())
 }
 
+##----------##----------##----------##----------##----------##----------##
+MFSbox1 <- function(data, varx){
+  value = data[,varx]
+  ggplot(data, aes(x = varx, y = value)) + 
+  geom_boxplot(width = 0.3, outlier.colour = "red", fill="cornflowerblue", size=0.3) + 
+  xlab("")+ylab("")+
+  theme_minimal() + theme(legend.title = element_blank())
+}
+
+MFSbox2 <- function(data2){
+  data2$group <- rownames(data2)
+  data <- reshape::melt(data2, id="group")
+  value = data$value
+  variable = data$variable
+  ggplot(data, aes(x = variable, y = value, fill = variable)) + 
+  geom_boxplot(width = 0.3, outlier.colour = "red",size=0.3) + 
+  scale_fill_brewer(palette="Set1")+
+  theme_minimal() + theme(legend.title = element_blank())
+  
+}
+
+##----------##----------##----------##----------##----------##----------##
+
+MFSmsd1 <- function(data, varx){
+  des <- data.frame(psych::describe(data[, varx]))
+  rownames(des) = varx
+  variable <-rownames(des)
+  mean <- des[,"mean"]
+  sd <- des[,"sd"]
+  ggplot(des, aes(x = variable, y = mean)) + 
+  #ylab(expression(Mean %+-% SD)) + 
+  ylab("Mean with standard deviation bar") + 
+  xlab("")+
+  geom_bar(position = position_dodge(), stat = "identity", width = 0.3, fill="cornflowerblue") + 
+  geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - sd, ymax = mean + sd), data = des) +
+  theme_minimal() + theme(legend.title = element_blank())
+}
+
+MFSmsd2 <- function(data){
+  des = data.frame(psych::describe(data))
+  rownames(des) = names(data)
+  variable <-rownames(des)
+  mean <- des[,"mean"]
+  sd <- des[,"sd"]
+  ggplot(des, aes(x = variable, y = mean, fill = variable)) + 
+  #ylab(expression(Mean %+-% SD)) + 
+  ylab("Mean with standard deviation bar") + 
+  xlab("")+
+  geom_bar(position = position_dodge(), stat = "identity", width = 0.3) + 
+  geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - sd, ymax = mean + sd), data = des) +
+  scale_fill_brewer(palette="Set1")+ 
+  theme_minimal() + theme(legend.title = element_blank())
+}
+
+
+
+##----------##----------##----------##----------##----------##----------##
+
 MFShist1 <- function(data, varx, bw){
   
   variable = data[, varx]
   if (bw==0) {
   ggplot(data, aes(x = variable)) + 
-      stat_bin(color = "white", fill = "grey", size = 0.1, alpha = 1) + 
+      stat_bin(colour = "white", fill = "grey", size = 0.1, alpha = 1) + 
       xlab(varx) + 
       theme_minimal() + theme(legend.title = element_blank())  
   }
   else{
   ggplot(data, aes(x = variable)) + 
-    stat_bin(bins=bw, color = "white", fill = "grey", size = 0.1, alpha = 1) + 
+    stat_bin(bins=bw, colour = "white", fill = "grey", size = 0.1, alpha = 1) + 
     xlab(varx) + 
     theme_minimal() + theme(legend.title = element_blank())
   }
@@ -30,17 +88,40 @@ MFShist1c <- function(data, varx, bw){
   variable = data[, varx]
   if (bw==0) {
     ggplot(data, aes(x = variable)) + 
-      stat_bin(color = "white", fill = "cornflowerblue", size = 0.1, alpha = 1) + 
+      stat_bin(colour = "white", fill = "cornflowerblue", size = 0.1, alpha = 1) + 
       xlab(varx) + 
       theme_minimal() + theme(legend.title = element_blank())  
   }
   else{
     ggplot(data, aes(x = variable)) + 
-      stat_bin(bins=bw, color = "white", fill = "cornflowerblue", size = 0.1, alpha = 1) + 
+      stat_bin(bins=bw, colour = "white", fill = "cornflowerblue", size = 0.1, alpha = 1) + 
       xlab(varx) + 
       theme_minimal() + theme(legend.title = element_blank())
   }
 }
+
+MFShist2 <- function(data2, bw){
+  data2$group <- rownames(data2)
+  data <- reshape::melt(data2, id="group")
+  value = data$value
+  variable = data$variable
+  if (bw==0) {
+    ggplot(data, aes(x = value, colour = variable, fill = variable)) + 
+      stat_bin(colour = "white", size=0.1, alpha = .5, position = "identity") + 
+      xlab("") + 
+      scale_fill_brewer(palette="Set1")+
+      theme_minimal() + theme(legend.title = element_blank())
+  }
+  else{
+    ggplot(data, aes(x = value, colour = variable, fill = variable)) + 
+      stat_bin(bins = bw, colour = "white", size=0.1,alpha = .5, position = "identity") + 
+      xlab("") + 
+      scale_fill_brewer(palette="Set1")+
+      theme_minimal() + theme(legend.title = element_blank())
+  }
+}
+
+##----------##----------##----------##----------##----------##----------##
 
 MFSdensity1 <- function(data, varx){
   variable = data[, varx]
@@ -50,11 +131,37 @@ MFSdensity1 <- function(data, varx){
   theme_minimal() + theme(legend.title = element_blank())
 }
 
+MFSdensity2 <- function(data2){
+  data2$group <- rownames(data2)
+  data <- reshape::melt(data2, id="group")
+  value = data$value
+  variable = data$variable
+  ggplot(data, aes(x = value, colour=variable)) + 
+    geom_density(size=0.3) + 
+    xlab("") + 
+    scale_colour_brewer(palette="Set1")+
+    theme_minimal() + theme(legend.title = element_blank())
+}
+
+##----------##----------##----------##----------##----------##----------##
+
 MFSqq1 <- function(data, varx){
   variable = data[, varx]
   ggplot(data, aes(sample = variable)) + 
-    stat_qq() + stat_qq_line(size=0.3, color="red")+
+    stat_qq() + stat_qq_line(size=0.3, colour="red")+
     xlab(varx) + 
+    theme_minimal() + theme(legend.title = element_blank())
+}
+
+MFSqq2 <- function(data2){
+  data2$group <- rownames(data2)
+  data <- reshape::melt(data2, id="group")
+  value <- data$value
+  variables <- factor(data$variable)
+  ggplot(data, aes(sample = value, color=variable)) + 
+    stat_qq() + stat_qq_line()+
+    xlab("") + 
+    scale_colour_brewer(palette="Set1")+
     theme_minimal() + theme(legend.title = element_blank())
 }
 
@@ -120,7 +227,7 @@ MFSload <- function(loads, a){
     facet_wrap(~ variable, nrow=1) + #place the factors in separate facets
     geom_bar(stat="identity") + #make the bars
     coord_flip() + #flip the axes so the test names can be horizontal  
-    #define the fill color gradient: blue=positive, red=negative
+    #define the fill colour gradient: blue=positive, red=negative
     scale_fill_gradient2(name = "Loading", 
                          high = "blue", mid = "white", low = "red", 
                          midpoint=0, guide=F) +

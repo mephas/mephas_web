@@ -72,9 +72,12 @@ output$bas <- DT::renderDT({basic_desc()},
 #  )
 
 # box plot
-output$bp = renderPlot({
+output$bp = plotly::renderPlotly({
   x = X()
-  ggplot(x, aes(x = 0, y = x[,1])) + geom_boxplot(width = 0.2, outlier.colour = "red") + xlim(-1,1) + ylab("") + xlab(names(x)) + ggtitle("") + theme_minimal()
+  var <- names(x)[1]
+  #ggplot(x, aes(x = 0, y = x[,1])) + geom_boxplot(width = 0.2, outlier.colour = "red") + xlim(-1,1) + ylab("") + xlab(names(x)) + ggtitle("") + theme_minimal()
+  p<-MFSbox1(x, var)
+  plotly::ggplotly(p)
   })
 
 output$info1 <- renderText({
@@ -86,15 +89,18 @@ output$info1 <- renderText({
   paste0("Y-axis position", "\n", xy_str(input$plot_click1))
 })
 
-output$meanp = renderPlot({
+output$meanp = plotly::renderPlotly({
   x = X()
-  des = data.frame(psych::describe(x))
-  rownames(des) = names(x)
-  ggplot(des, aes(x = rownames(des), y = mean)) + 
-  geom_bar(position = position_dodge(),stat = "identity",width = 0.2, alpha = .3) +
-  geom_errorbar(width = .1,position = position_dodge(.9),aes(ymin = mean - des$sd, ymax = mean + des$sd),data = des) + 
-  xlab("") + ylab(expression(Mean %+-% SD)) + 
-  theme_minimal() + theme(legend.title = element_blank())
+  var <- names(x)[1]
+  p<-MFSmsd1(x, var)
+  plotly::ggplotly(p)
+  #des = data.frame(psych::describe(x))
+  ##rownames(des) = names(x)
+  #ggplot(des, aes(x = rownames(des), y = mean)) + 
+  #geom_bar(position = position_dodge(),stat = "identity",width = 0.2, alpha = .3) +
+  #geom_errorbar(width = .1,position = position_dodge(.9),aes(ymin = mean - des$sd, ymax = mean + des$sd),data = des) + 
+  #xlab("") + ylab(expression(Mean %+-% SD)) + 
+  #theme_minimal() + theme(legend.title = element_blank())
   })
 
 output$makeplot1 <- plotly::renderPlotly({

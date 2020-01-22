@@ -78,20 +78,27 @@ output$bas.p <- DT::renderDT({
 #    }
 #  )
 
-output$bp.p = renderPlot({
+output$bp.p = plotly::renderPlotly({
+
   x = Z()
-  ggplot(x, aes(x = 0, y = x[, 3])) + geom_boxplot(width = 0.2, outlier.colour = "red") + xlim(-1,1) +
-  ylab("") + xlab("") + ggtitle("") + theme_minimal()
+  var <- names(Z())[3]
+  p<-MFSbox1(x, var)
+  plotly::ggplotly(p)
+  #ggplot(x, aes(x = 0, y = x[, 3])) + geom_boxplot(width = 0.2, outlier.colour = "red") + xlim(-1,1) +
+  #ylab("") + xlab("") + ggtitle("") + theme_minimal()
   })
 
-output$meanp.p = renderPlot({
-  x = Z()[,3]
-  des = data.frame(psych::describe(x))
-  rownames(des) = names(x)
-  ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
-    xlab("") + ylab(expression(Mean %+-% SD)) + geom_bar(position = position_dodge(), stat = "identity", width = 0.2, alpha = .3) + 
-    geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - des$sd, ymax = mean + des$sd), data = des) + 
-    theme_minimal() + theme(legend.title = element_blank())
+output$meanp.p = plotly::renderPlotly({
+  x = Z()
+  var <- names(Z())[3]
+  p<-MFSmsd1(x, var)
+  plotly::ggplotly(p)
+  #des = data.frame(psych::describe(x))
+  #rownames(des) = names(x)
+  #ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
+  #  xlab("") + ylab(expression(Mean %+-% SD)) + geom_bar(position = position_dodge(), stat = "identity", width = 0.2, alpha = .3) + 
+  #  geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - des$sd, ymax = mean + des$sd), data = des) + 
+  #  theme_minimal() + theme(legend.title = element_blank())
   
   })
 
@@ -106,14 +113,14 @@ output$info3 <- renderText({
 
 output$makeplot.p <- plotly::renderPlotly({
   x <- Z()
-  var <- names(x)[3]
+  var <- colnames(x)[3]
   p <- MFSqq1(x, var)
   plotly::ggplotly(p)
   #ggplot(x, aes(sample = x[, 3])) + stat_qq() + ggtitle("Normal Q-Q Plot of the Mean Differences") + xlab("") + theme_minimal()  ## add line,
   })
 output$makeplot.p2 <- plotly::renderPlotly({
   x <- Z()
-  var <- names(x)[3]
+  var <- colnames(x)[3]
   p <- MFShist1(x, var, input$bin.p)
   plotly::ggplotly(p)
   #ggplot(x, aes(x = x[, 3])) + geom_histogram(colour = "black",fill = "grey", binwidth = input$bin.p, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())

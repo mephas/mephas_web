@@ -100,7 +100,7 @@ sidebarPanel(
 
       tabPanel("Boxplot of the difference", p(br()), 
         
-       plotOutput("bp.p",width = "80%",click = "plot_click3"),
+       plotly::plotlyOutput("bp.p",width = "80%"),#,click = "plot_click3"
           
        verbatimTextOutput("info3"), hr(),
             
@@ -116,7 +116,7 @@ sidebarPanel(
 
           tabPanel("Mean and SD Plot", p(br()), 
 
-            plotOutput("meanp.p", width = "80%")),
+            plotly::plotlyOutput("meanp.p", width = "80%")),
 
     tabPanel("Distribution Plots", p(br()),
 

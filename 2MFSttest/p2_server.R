@@ -65,50 +65,60 @@ basic_desc2()
     scrollX = TRUE))
 
 
-output$bp2 = renderPlot({
+output$bp2 = plotly::renderPlotly({
   x = Y()
-  mx = melt(x, idvar = names(x))
-  ggplot(mx, aes(x = mx[,"variable"], y = mx[,"value"], fill = mx[,"variable"])) + 
-  geom_boxplot(width = 0.4,outlier.colour = "red",alpha = .3) + 
-  ylab(" ") + xlab(" ") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
+  p<-MFSbox2(x)
+  plotly::ggplotly(p)
+  #mx = melt(x, idvar = names(x))
+  #ggplot(mx, aes(x = mx[,"variable"], y = mx[,"value"], fill = mx[,"variable"])) + 
+  #geom_boxplot(width = 0.4,outlier.colour = "red",alpha = .3) + 
+  #ylab(" ") + xlab(" ") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
   })
 
-output$meanp2 = renderPlot({
+output$meanp2 = plotly::renderPlotly({
   x = Y()
-  des = data.frame(psych::describe(x))
-  rownames(des) = names(x)
-  ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
-    xlab("") + ylab(expression(Mean %+-% SD)) + geom_bar(position = position_dodge(), stat = "identity", width = 0.2, alpha = .3) + 
-    geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - des$sd, ymax = mean + des$sd), data = des) + 
-    theme_minimal() + theme(legend.title = element_blank())
+  p<-MFSmsd2(x)
+  plotly::ggplotly(p)
+  #des = data.frame(psych::describe(x))
+  #rownames(des) = names(x)
+  #ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
+  #  xlab("") + ylab(expression(Mean %+-% SD)) + geom_bar(position = position_dodge(), stat = "identity", width = 0.2, alpha = .3) + 
+  #  geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - des$sd, ymax = mean + des$sd), data = des) + 
+  #  theme_minimal() + theme(legend.title = element_blank())
   })
 
 
-output$makeplot2 <- renderPlot({
+output$makeplot2 <- plotly::renderPlotly({
   x <- Y()
-  mx <- melt(x, idvar = names(x))  ###bug: using as id variables
+  p<- MFSqq2(x)
+  plotly::ggplotly(p)
+  #mx <- melt(x, idvar = names(x))  ###bug: using as id variables
   # normal qq plot
-  ggplot(x, aes(sample = x[, 1])) + stat_qq(color = "brown1") + ggtitle(paste0("Normal Q-Q Plot of ", colnames(x[1]))) + theme_minimal()
+  #ggplot(x, aes(sample = x[, 1])) + stat_qq(color = "brown1") + ggtitle(paste0("Normal Q-Q Plot of ", colnames(x[1]))) + theme_minimal()
   })
-output$makeplot2.2 <- renderPlot({
-  x <- Y()
-  mx <- melt(x, idvar = names(x))  ###bug: using as id variables
-  # normal qq plot
-  ggplot(x, aes(sample = x[, 2])) + stat_qq(color = "forestgreen") + ggtitle(paste0("Normal Q-Q Plot of ", colnames(x[2]))) + theme_minimal()
+#output$makeplot2.2 <- renderPlot({
+#  x <- Y()
+#  mx <- melt(x, idvar = names(x))  ###bug: using as id variables
+#  # normal qq plot
+#  ggplot(x, aes(sample = x[, 2])) + stat_qq(color = "forestgreen") + ggtitle(paste0("Normal Q-Q Plot of ", colnames(x[2]))) + theme_minimal()#
 
-  })
-output$makeplot2.3 <- renderPlot({
+#  })
+output$makeplot2.3 <- plotly::renderPlotly({
   x <- Y()
-  mx <- melt(x, idvar = names(x))  ###bug: using as id variables
-  ggplot(mx, aes(x = mx[,"value"], colour = mx[,"variable"], fill = mx[,"variable"])) + 
-    geom_histogram(binwidth = input$bin2, alpha = .3, position = "identity") + 
-    ggtitle("Histogram") + xlab("") + theme_minimal() + theme(legend.title = element_blank())
+  p<-MFShist2(x, input$bin2)
+  plotly::ggplotly(p)
+  #mx <- melt(x, idvar = names(x))  ###bug: using as id variables
+  #ggplot(mx, aes(x = mx[,"value"], colour = mx[,"variable"], fill = mx[,"variable"])) + 
+  #  geom_histogram(binwidth = input$bin2, alpha = .3, position = "identity") + 
+  #  ggtitle("Histogram") + xlab("") + theme_minimal() + theme(legend.title = element_blank())
   })
-output$makeplot2.4 <- renderPlot({
+output$makeplot2.4 <- plotly::renderPlotly({
   x <- Y()
-  mx <- melt(x, idvar = names(x))  ###bug: using as id variables
-  ggplot(mx, aes(x = mx[,"value"], colour = mx[,"variable"])) + geom_density() + 
-    ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title = element_blank())
+  p<-MFSdensity2(x)
+  plotly::ggplotly(p)
+  #mx <- melt(x, idvar = names(x))  ###bug: using as id variables
+  #ggplot(mx, aes(x = mx[,"value"], colour = mx[,"variable"])) + geom_density() + 
+  #  ggtitle("Density Plot") + xlab("") + theme_minimal() + theme(legend.title = element_blank())
   })
 
 

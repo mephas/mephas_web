@@ -112,7 +112,7 @@ mainPanel(
 
     tabPanel("Box-Plot", p(br()),
       
-        plotOutput("bp", width = "80%", click = "plot_click1"),
+        plotly::plotlyOutput("bp", width = "80%"),#, click = "plot_click1"
      
         verbatimTextOutput("info1"), 
           HTML(
@@ -128,7 +128,7 @@ mainPanel(
       ),
 
     tabPanel("Mean and SD Plot", p(br()),
-plotOutput("meanp", width = "80%")),
+plotly::plotlyOutput("meanp", width = "80%")),
 
 
     tabPanel("Distribution Plots", p(br()),
