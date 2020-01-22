@@ -7,7 +7,7 @@ if (!require(plotly)) {install.packages("plotly")}; library(plotly)
 shinyServer(
 function(input, output) {
   
-
+source("../func.R")
 ##########----------##########----------##########
 source("p1_server.R", local=TRUE)$value
 source("p2_server.R", local=TRUE)$value
