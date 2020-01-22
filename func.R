@@ -8,6 +8,17 @@ MFSscat <- function(data, varx, vary){
     theme_minimal() + theme(legend.title = element_blank())
 }
 
+MFSres <- function(data, varx, vary){
+  x = data[, varx]
+  y = data[, vary]
+  ggplot(data, aes(x=x, y=y))+
+  geom_point(shape = 19, size=1) + 
+  stat_smooth(method="loess", size=0.5)+
+  geom_hline(yintercept=0, col="red", linetype="dashed", size=0.3)+
+  xlab("Fitted values")+ylab("Residuals")+
+  theme_minimal() + theme(legend.title = element_blank())
+}
+
 ##----------##----------##----------##----------##----------##----------##
 MFSbox1 <- function(data, varx){
   value = data[,varx]
@@ -112,13 +123,13 @@ MFShist1 <- function(data, varx, bw){
   variable = data[, varx]
   if (bw==0) {
   ggplot(data, aes(x = variable)) + 
-      stat_bin(colour = "white", fill = "grey", size = 0.1, alpha = 1) + 
+      stat_bin(colour = "white", fill = "lightblue4", size = 0.1, alpha = 0.7) + 
       xlab(varx) + 
       theme_minimal() + theme(legend.title = element_blank())  
   }
   else{
   ggplot(data, aes(x = variable)) + 
-    stat_bin(bins=bw, colour = "white", fill = "grey", size = 0.1, alpha = 1) + 
+    stat_bin(bins=bw, colour = "white", fill = "lightblue4", size = 0.1, alpha = 0.7) + 
     xlab(varx) + 
     theme_minimal() + theme(legend.title = element_blank())
   }
@@ -129,13 +140,13 @@ MFShist1c <- function(data, varx, bw){
   variable = data[, varx]
   if (bw==0) {
     ggplot(data, aes(x = variable)) + 
-      stat_bin(colour = "white", fill = "cornflowerblue", size = 0.1, alpha = 1) + 
+      stat_bin(colour = "white", fill = "cornflowerblue", size = 0.1, alpha = 0.7) + 
       xlab(varx) + 
       theme_minimal() + theme(legend.title = element_blank())  
   }
   else{
     ggplot(data, aes(x = variable)) + 
-      stat_bin(bins=bw, colour = "white", fill = "cornflowerblue", size = 0.1, alpha = 1) + 
+      stat_bin(bins=bw, colour = "white", fill = "cornflowerblue", size = 0.1, alpha = 0.7) + 
       xlab(varx) + 
       theme_minimal() + theme(legend.title = element_blank())
   }

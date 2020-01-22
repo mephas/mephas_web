@@ -101,14 +101,16 @@ plotly::ggplotly(p)
 #theme_minimal()  ## add line,
 	})
 
-output$p.lm2 = renderPlot({
+output$p.lm2 = plotly::renderPlotly({
 x <- data.frame(fit=fit()$fitted.values, res=fit()$residuals)
-ggplot(x, aes(fit, res))+
-geom_point()+
-stat_smooth(method="loess")+
-geom_hline(yintercept=0, col="red", linetype="dashed")+
-xlab("Fitted values")+ylab("Residuals")+
-ggtitle("")+theme_minimal()
+p <- MFSres(x, "fit", "res")
+plotly::ggplotly(p)
+#ggplot(x, aes(fit, res))+
+#geom_point()+
+#stat_smooth(method="loess")+
+#geom_hline(yintercept=0, col="red", linetype="dashed")+
+#xlab("Fitted values")+ylab("Residuals")+
+#ggtitle("")+theme_minimal()
   })
 # 
  fit.lm <- reactive({
