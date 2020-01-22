@@ -55,7 +55,6 @@ output$table2 <-DT::renderDT({B()},
   })
   output$bas2 <- DT::renderDT({  ## don't use renerPrint to do DT::renderDT
     res <- B.des()},
-  
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -63,28 +62,35 @@ output$table2 <-DT::renderDT({B()},
     scrollX = TRUE))
 
 
-  output$bp2 = renderPlot({
+  output$bp2 = plotly::renderPlotly({
     x <- B()
-    mx <- melt(B(), idvar = colnames(x))
-    ggplot(mx, aes(x =mx[,"variable"], y = mx[,"value"], fill=mx[,"variable"])) + geom_boxplot(alpha=.3, width = 0.2, outlier.color = "red", outlier.size = 2)+ 
-    ylab("") + ggtitle("") + theme_minimal() + theme(legend.title=element_blank()) })
-
-  output$info2 <- renderText({
-    xy_str = function(e) {
-      if(is.null(e)) return("NULL\n")
-      paste0("Click to get the value: ", round(e$y, 4))
-    }
-    paste0("Y-axis position", "\n", xy_str(input$plot_click2))})
-
-  output$makeplot2 <- renderPlot({
-    x <- B()
-    mx <- melt(B(), idvar = colnames(x))
-    ggplot(mx, aes(x=mx[,"value"], fill=mx[,"variable"])) + geom_histogram(binwidth=input$bin2, alpha=.5, position="identity") + xlab("")+ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    p<-MFSbox2(x)
+    plotly::ggplotly(p)
+    #mx <- melt(B(), idvar = colnames(x))
+    #ggplot(mx, aes(x =mx[,"variable"], y = mx[,"value"], fill=mx[,"variable"])) + geom_boxplot(alpha=.3, width = 0.2, outlier.color = "red", outlier.size = 2)+ 
+    #ylab("") + ggtitle("") + theme_minimal() + theme(legend.title=element_blank()) 
     })
-  output$makeplot2.1 <- renderPlot({
+
+  # output$info2 <- renderText({
+  #   xy_str = function(e) {
+  #     if(is.null(e)) return("NULL\n")
+  #     paste0("Click to get the value: ", round(e$y, 4))
+  #   }
+  #   paste0("Y-axis position", "\n", xy_str(input$plot_click2))})
+
+  output$makeplot2 <- plotly::renderPlotly({
     x <- B()
-    mx <- melt(B(), idvar = colnames(x))
-    ggplot(mx, aes(x=mx[,"value"], colour=mx[,"variable"])) + geom_density()+ xlab("")+ ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    p<-MFShist2(x, input$bin2)
+    plotly::ggplotly(p)
+    #mx <- melt(B(), idvar = colnames(x))
+    #ggplot(mx, aes(x=mx[,"value"], fill=mx[,"variable"])) + geom_histogram(binwidth=input$bin2, alpha=.5, position="identity") + xlab("")+ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    })
+  output$makeplot2.1 <- plotly::renderPlotly({
+    x <- B()
+    p<-MFSdensity2(x)
+    plotly::ggplotly(p)
+    #mx <- melt(B(), idvar = colnames(x))
+    #ggplot(mx, aes(x=mx[,"value"], colour=mx[,"variable"])) + geom_density()+ xlab("")+ ylab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
     })
 #test
   mwu.test <- reactive({

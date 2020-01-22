@@ -67,25 +67,35 @@ output$table3 <-DT::renderDT(C() ,
     scrollX = TRUE))
 
 
-  output$bp3 = renderPlot({
+  output$bp3 = plotly::renderPlotly({
     x <- C()
-    ggplot(x, aes(x = 0, y = x[,3])) + geom_boxplot(width = 0.2, outlier.color = "red") + xlim(-1,1)+
-    ylab("") + ggtitle("") + theme_minimal()})
-
-  output$info3 <- renderText({
-    xy_str = function(e) {
-      if(is.null(e)) return("NULL\n")
-      paste0("Click to get the value: ", round(e$y, 4))
-    }
-    paste0("Y-axis position", "\n", xy_str(input$plot_click3))})
-
-  output$makeplot3 <- renderPlot({
-    x <- C()
-    ggplot(x, aes(x=x[,3])) + geom_histogram(colour="black", fill = "grey", binwidth=input$bin3, alpha=.5, position="identity") + ylab("Frequncy") + xlab("") +  ggtitle("") + theme_minimal() + theme(legend.title=element_blank())
+    var <- names(C())[3]
+    p<-MFSbox1(x, var)
+    plotly::ggplotly(p)
+    #ggplot(x, aes(x = 0, y = x[,3])) + geom_boxplot(width = 0.2, outlier.color = "red") + xlim(-1,1)+
+    #ylab("") + ggtitle("") + theme_minimal()
     })
-  output$makeplot3.1 <- renderPlot({
+
+  # output$info3 <- renderText({
+  #   xy_str = function(e) {
+  #     if(is.null(e)) return("NULL\n")
+  #     paste0("Click to get the value: ", round(e$y, 4))
+  #   }
+  #   paste0("Y-axis position", "\n", xy_str(input$plot_click3))})
+
+  output$makeplot3 <- plotly::renderPlotly({
     x <- C()
-    ggplot(x, aes(x=x[,3])) + geom_density() + ggtitle("") + theme_minimal() + ylab("Density") + xlab("") + theme(legend.title=element_blank())
+    var <- colnames(x)[3]
+    p <- MFShist1(x, var, input$bin3)
+    plotly::ggplotly(p)
+    #ggplot(x, aes(x=x[,3])) + geom_histogram(colour="black", fill = "grey", binwidth=input$bin3, alpha=.5, position="identity") + ylab("Frequncy") + xlab("") +  ggtitle("") + theme_minimal() + theme(legend.title=element_blank())
+    })
+  output$makeplot3.1 <- plotly::renderPlotly({
+    x <- C()
+    var <- names(x)[3]
+    p <- MFSdensity1(x, var)
+    plotly::ggplotly(p)
+    #ggplot(x, aes(x=x[,3])) + geom_density() + ggtitle("") + theme_minimal() + ylab("Density") + xlab("") + theme(legend.title=element_blank())
     })
 
 psr.test <- reactive({

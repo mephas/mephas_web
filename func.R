@@ -12,7 +12,7 @@ MFSscat <- function(data, varx, vary){
 MFSbox1 <- function(data, varx){
   value = data[,varx]
   ggplot(data, aes(x = varx, y = value)) + 
-  geom_boxplot(width = 0.1, outlier.colour = "red", fill="cornflowerblue", size=0.3) + 
+  geom_boxplot(outlier.colour = "red", fill="cornflowerblue", size=0.3) + 
   xlab("")+ylab("")+
   theme_minimal() + theme(legend.title = element_blank())
 }
@@ -23,7 +23,7 @@ MFSbox2 <- function(data2){
   value = data$value
   variable = data$variable
   ggplot(data, aes(x = variable, y = value, fill = variable)) + 
-  geom_boxplot(width = 0.3, outlier.colour = "red",size=0.3) + 
+  geom_boxplot(outlier.colour = "red",size=0.3) + 
   scale_fill_brewer(palette="Set1")+
   theme_minimal() + theme(legend.title = element_blank())
   

@@ -65,25 +65,36 @@ output$table <- DT::renderDT(A(),
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-   output$bp = renderPlot({
+   output$bp = plotly::renderPlotly({
     x = A()
-    ggplot(x, aes(x = 0, y = x[,1])) + geom_boxplot(width = 0.2, outlier.colour = "red", outlier.size = 2) + xlim(-1,1)+
-    ylab("") + xlab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())}) 
+    var <- names(x)[1]
+    p<-MFSbox1(x, var)
+    plotly::ggplotly(p)
+    #ggplot(x, aes(x = 0, y = x[,1])) + geom_boxplot(width = 0.2, outlier.colour = "red", outlier.size = 2) + xlim(-1,1)+
+    #ylab("") + xlab("") + ggtitle("") + theme_minimal()+ theme(legend.title=element_blank())
+    }) 
   
-  output$info <- renderText({
-    xy_str = function(e) {
-      if(is.null(e)) return("NULL\n")
-      paste0("Click to get the value: ", round(e$y, 4))
-    }
-    paste0("Y-axis position", "\n", xy_str(input$plot_click))})
+  # output$info <- renderText({
+  #   xy_str = function(e) {
+  #     if(is.null(e)) return("NULL\n")
+  #     paste0("Click to get the value: ", round(e$y, 4))
+  #   }
+  #   paste0("Y-axis position", "\n", xy_str(input$plot_click))})
 
-  output$makeplot <- renderPlot({  #shinysession 
+  output$makeplot <- plotly::renderPlotly({  #shinysession 
     x <- A()
-    ggplot(x, aes(x = x[,1])) + geom_histogram(colour="black", fill = "grey", binwidth=input$bin, position="identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title=element_blank())
+    var <- names(x)[1]
+    p <- MFShist1(x, var, input$bin)
+    plotly::ggplotly(p)
+    
+    #ggplot(x, aes(x = x[,1])) + geom_histogram(colour="black", fill = "grey", binwidth=input$bin, position="identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title=element_blank())
     })
-  output$makeplot.1 <- renderPlot({  #shinysession 
+  output$makeplot.1 <- plotly::renderPlotly({  #shinysession 
     x <- A()
-    ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title=element_blank())
+    var <- names(x)[1]
+    p <- MFSdensity1(x, var)
+    plotly::ggplotly(p)
+    #ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title=element_blank())
     })
   
 
