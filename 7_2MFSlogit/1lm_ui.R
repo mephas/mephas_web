@@ -101,21 +101,12 @@ HTML(
 <ul> 
 <li> ROC curve: receiver operating characteristic curve, is a graphical plot that illustrates the diagnostic ability of a binary classifier system as its discrimination threshold is varied
 <li> ROC curve is created by plotting the true positive rate (TPR) against the false positive rate (FPR) at various threshold settings
+<li> Sensitivity (also called the true positive rate) measures the proportion of actual positives that are correctly identified as such
+<li> Specificity (also called the true negative rate) measures the proportion of actual negatives that are correctly identified as such
+
 </ul>"
 ),
-plotOutput("p.lm", width = "80%")
-    ),
-
-tabPanel("Sensitivity and Specificity",   br(),
-
-HTML(
-"<b> Explanations </b>
-<ul> 
-<li>Sensitivity (also called the true positive rate) measures the proportion of actual positives that are correctly identified as such
-<li>Specificity (also called the true negative rate) measures the proportion of actual negatives that are correctly identified as such
-</ul>"
-),
-
+plotly::plotlyOutput("p.lm", width = "80%"),
 DT::DTOutput("sst")
     )
 

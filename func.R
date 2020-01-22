@@ -8,6 +8,16 @@ MFSscat <- function(data, varx, vary){
     theme_minimal() + theme(legend.title = element_blank())
 }
 
+MFSslgt <- function(data, varx, vary){
+  x = data[, varx]
+  y = as.numeric(as.factor(data[, vary]))-1
+  ggplot(data, aes(x=x, y=y)) + 
+  geom_point(shape = 19,  size = 1) + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE,  size = 0.5) +
+  xlab(varx) + ylab(vary) +  
+  theme_minimal() + theme(legend.title = element_blank())
+}
+
 MFSres <- function(data, varx, vary){
   x = data[, varx]
   y = data[, vary]
@@ -268,6 +278,31 @@ MFSbar1 <- function(count){
     theme_minimal() +theme(legend.title=element_blank())
 }
 ##----------##----------##----------##----------##----------##----------##
+MFSroc <- function(yhat, y){
+
+  p <- ROCR::prediction(yhat, y)
+  ps <- ROCR::performance(p, "tpr", "fpr")
+  pf <- ROCR::performance(p, "auc")
+
+  df <- data.frame(
+    tpr=unlist(ps@y.values), 
+    fpr=unlist(ps@x.values))
+
+  ggplot(df, aes(fpr,tpr)) + 
+  #geom_step() +
+  geom_line() +
+  geom_point(size=0.5, color="cornflowerblue") +
+  coord_cartesian(xlim=c(0,1), ylim=c(0,1)) +
+  ggtitle("") +
+  xlab("False positive rate (1-specificity)")+
+  ylab("True positive rate (sensitivity)")+
+  theme_minimal() +theme(legend.title=element_blank())+
+  annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
+
+}
+
+##----------##----------##----------##----------##----------##----------##
+
 
 ###----------PCA and PLS
 

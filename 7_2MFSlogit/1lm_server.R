@@ -107,22 +107,26 @@ output$step = renderPrint({step(fit())})
 
 # 
 # # residual plot
- output$p.lm = renderPlot({
+ output$p.lm = plotly::renderPlotly({
 
-  p <- ROCR::prediction(predict(fit()), DF3()[,input$y])
-  ps <- ROCR::performance(p, "tpr", "fpr")
-  pf <- ROCR::performance(p, "auc")
+  yhat <- predict(fit())
+  y <- DF3()[,input$y]
+  p<-MFSroc(yhat, y)
+  #p <- ROCR::prediction(predict(fit()), DF3()[,input$y])
+  #ps <- ROCR::performance(p, "tpr", "fpr")
+  #pf <- ROCR::performance(p, "auc")
 
-  df <- data.frame(tpr=unlist(ps@y.values), 
-    fpr=unlist(ps@x.values))
+  #df <- data.frame(tpr=unlist(ps@y.values), 
+  #  fpr=unlist(ps@x.values))
 
-ggplot(df, aes(fpr,tpr)) + 
-  geom_step() +
-  coord_cartesian(xlim=c(0,1), ylim=c(0,1)) +
-  theme_minimal()+ ggtitle("") +
-  xlab("False positive rate (1-specificity)")+
-  ylab("True positive rate (sensitivity)")+
-  annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
+#p<- ggplot(df, aes(fpr,tpr)) + 
+#  geom_step() +
+#  coord_cartesian(xlim=c(0,1), ylim=c(0,1)) +
+#  theme_minimal()+ ggtitle("") +
+#  xlab("False positive rate (1-specificity)")+
+#  ylab("True positive rate (sensitivity)")+
+#  annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
+  plotly::ggplotly(p)
 	})
 # 
  fit.lm <- reactive({

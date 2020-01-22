@@ -94,7 +94,7 @@ tabPanel("Logit Plot",br(),
 uiOutput('tx'),
 uiOutput('ty'),
 
-plotOutput("p1", width = "80%")
+plotly::plotlyOutput("p1", width = "80%")
 ),
 
 tabPanel("Histogram", br(),

@@ -1,6 +1,6 @@
 #****************************************************************************************************************************************************
 load("LGT.RData")
-source("../func.R")
+
 data <- reactive({
                 switch(input$edata,
                "Breast Cancer" = LGT)  
@@ -181,11 +181,14 @@ choices = type.bi())
 })
  
  ## scatter plot
-output$p1 = renderPlot({
-ggplot(DF3(), aes(x=DF3()[, input$tx], y=(as.numeric(as.factor(DF3()[, input$ty]))-1))) + 
-geom_point(shape = 1,  size = 1) + 
-stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE,  size = 0.5) +
-xlab(input$tx) + ylab(input$ty) + theme_minimal()
+output$p1 = plotly::renderPlotly({
+x<-DF3()
+p<-MFSslgt(x, input$tx, input$ty)
+plotly::ggplotly(p)
+#ggplot(DF3(), aes(x=DF3()[, input$tx], y=(as.numeric(as.factor(DF3()[, input$ty]))-1))) + 
+#geom_point(shape = 1,  size = 1) + 
+#stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE,  size = 0.5) +
+#xlab(input$tx) + ylab(input$ty) + theme_minimal()
 })
  
 ## histogram
