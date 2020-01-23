@@ -99,7 +99,7 @@ tabPanel("Loading", p(br()),
 <li> If you want to perform other analyses on the data, you may want to have at least 90% of the variance explained by the factors.
 </ul>
   "),
-  plotOutput("pca.ind2", width = "80%"),
+  plotly::plotlyOutput("pca.ind2", width = "80%"),
   p(tags$b("Loadings")),
   DT::DTOutput("load"),
   p(tags$b("Variance table")),

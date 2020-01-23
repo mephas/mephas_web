@@ -120,10 +120,11 @@ df <- as.data.frame(pca()$x)
   }
   })
 
-output$pca.ind2  <- renderPlot({ 
+output$pca.ind2  <- plotly::renderPlotly({ 
 #validate(need(input$nc>=1, "Components are not enough to create the plot."))
 load <- as.data.frame(pca()$rotation)
-MFSload(loads=load, a=input$nc)
+p<-MFSload(loads=load, a=input$nc)
+plotly::ggplotly(p)
 
 #ll$group <- rownames(ll)
 #loadings.m <- reshape::melt(ll, id="group",

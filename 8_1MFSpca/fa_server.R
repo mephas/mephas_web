@@ -70,10 +70,11 @@ output$pca.ind.fa  <- renderPlot({
 psych::fa.diagram(fa(), cut = 0)
   })
 
-output$pca.ind.fa2  <- renderPlot({ 
+output$pca.ind.fa2  <- plotly::renderPlotly({ 
 #validate(need(input$ncfa>=1, "Components are not enough to create the plot."))
 load <- as.data.frame(fa()$loadings[,1:input$ncfa])
-MFSload(loads=load, a=input$ncfa)
+p<-MFSload(loads=load, a=input$ncfa)
+plotly::ggplotly(p)
 #ll$group <- rownames(ll)
 #loadings.m <- reshape::melt(ll, id="group",
 #                   measure=colnames(ll)[1:input$ncfa])

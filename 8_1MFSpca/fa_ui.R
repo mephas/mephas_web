@@ -86,7 +86,7 @@ tabPanel("Loading", p(br()),
 </ul>
 
   "),
-	plotOutput("pca.ind.fa2", width = "80%"),
+	plotly::plotlyOutput("pca.ind.fa2", width = "80%"),
 	p(tags$b("Loadings")),
   DT::DTOutput("load.fa"),
   p(tags$b("Variance table")),

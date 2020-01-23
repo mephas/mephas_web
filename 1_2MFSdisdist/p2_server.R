@@ -35,7 +35,7 @@ N.p = reactive({
 output$p.plot2 <- plotly::renderPlotly({
   df = N.p()
   x <- names(df)
-p<-MFShist1c(data=df, var=x, bw=input$bin.p)
+p<-MFShist1c(df, x, input$bin.p)
 plotly::ggplotly(p)
 
 # df = N.p()
@@ -92,7 +92,7 @@ output$makeplot.2 <- plotly::renderPlotly({
 
     df = NN.p()
   x <- names(df)
-  p<-MFShist1(data=df, var=x, bw=input$bin1.p)
+  p<-MFShist1(df, x, input$bin1.p)
   plotly::ggplotly(p)
   
   # x = NN.p()

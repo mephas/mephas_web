@@ -1,3 +1,5 @@
+## functions for MEPHAS
+
 ##' @title plot functions in MEPHAS
 ##'
 ##' @param data input data frame
@@ -338,6 +340,18 @@ MFSpie <- function(data){
 
 }
 
+MFSpiely <- function(data){
+  value <- data[,"value"]
+  groups <- data[,"group"]
+  colors <- c('rgb(211,94,96)', 'rgb(114,147,203)')
+  plotly::plot_ly(data, labels = ~group, values = ~value, type = 'pie',
+    textposition = 'inside',textinfo = 'label+percent',
+    marker = list(colors = colors, line = list(color = '#FFFFFF', width = 1))) %>%
+  layout(
+         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+}
+
 ##' @title plot functions in MEPHAS
 ##'
 ##' @param count input count data frame
@@ -493,3 +507,52 @@ MFScorr <- function(data){
 
 }
 
+###----------PCA and PLS
+
+MFS3D <- function(scores, loads, nx,ny,nz, scale){
+  
+  x <- scores[,nx]
+  y <- scores[,ny]
+  z <- scores[,nz]
+  scale.loads <- scale
+  layout <- list(
+    scene = list(
+      xaxis = list(
+        title = names(scores)[nx], 
+        showline = TRUE
+      ), 
+      yaxis = list(
+        title = names(scores)[ny], 
+        showline = TRUE
+      ), 
+      zaxis = list(
+        title = names(scores)[nz], 
+        showline = TRUE
+      )
+    )#, 
+    #title = "FA (3D)"
+  )
+  
+  rnn <- rownames(as.data.frame(scores))
+  
+  p <- plot_ly() %>%
+    add_trace(x=x, y=y, z=z, 
+              type="scatter3d", mode = "text+markers", 
+              name = "original", 
+              linetypes = NULL, 
+              opacity = 0.5,
+              marker = list(size=2),
+              text = rnn) %>%
+    layout(p, scene=layout$scene, title=layout$title)
+  
+  for (k in 1:nrow(loads)) {
+    x <- c(0, loads[k,1])*scale.loads
+    y <- c(0, loads[k,2])*scale.loads
+    z <- c(0, loads[k,3])*scale.loads
+    p <- p %>% add_trace(x=x, y=y, z=z,
+                         type="scatter3d", mode="lines",
+                         line = list(width=4),
+                         opacity = 1) 
+  }
+  p
+}

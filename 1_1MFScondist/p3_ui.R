@@ -109,6 +109,7 @@ sidebarLayout(
 				plotly::plotlyOutput("makeplot.g1", width = "80%"),
       	sliderInput("bin.g","The number of bins in histogram", min = 0, max = 100, value = 0),
       	p("When the number of bins is 0, plot will use the default number of bins"),
+      	p(tags$b("Sample descriptive statistics")),
 				tableOutput("g.sum2")
 			 	)
 

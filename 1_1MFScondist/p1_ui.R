@@ -89,13 +89,10 @@ sidebarLayout(
 			 	numericInput("size", "Sample size of simulated numbers", value = 100, min = 1),
 			 	tags$b("Histogram from random numbers"),
 			 	plotly::plotlyOutput("norm.plot2",  width = "80%"),	# click = "plot_click2",
-
 			 	sliderInput("bin", "The number of bins in histogram", min = 0, max = 100, value = 0),
 			 	p("When the number of bins is 0, plot will use the default number of bins"),
 				#verbatimTextOutput("info2"),
-
 				downloadButton("download1", "Download Random Numbers"),
-
 				p(tags$b("Sample descriptive statistics")),
 				tableOutput("sum")
 				#verbatimTextOutput("data")
