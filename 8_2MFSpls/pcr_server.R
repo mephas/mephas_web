@@ -105,7 +105,7 @@ output$pcr.s.plot  <- renderPlot({
 validate(need(input$nc>=2, "The number of components must be >= 2"))
 df <- as.data.frame(pcr()$scores[,1:input$nc])
 
-  ggplot(df, aes(x = df[,input$c1], y = df[,input$c2]))+
+ ggplot(df, aes(x = df[,input$c1], y = df[,input$c2]))+
   geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
   theme_minimal()+
   xlab(paste0("Score", input$c1))+ylab(paste0("Score", input$c2))

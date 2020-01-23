@@ -83,7 +83,7 @@ radioButtons("type", "The type of ellipse",
              "Euclid: the euclidean distance from the center" = "euclid"),
  selected = 'euclid',
  width="500px"),
-plotOutput("pca.ind", width = "80%"),
+plotly::plotlyOutput("pca.ind", width = "80%"),
 
 DT::DTOutput("comp")
   ),
@@ -126,7 +126,7 @@ plotOutput("pca.bp")
 ),
 
 tabPanel("Component and Loading 3D Plot" ,p(br()),
-      HTML("
+HTML("
   <b>Explanations</b>
 <ul>
 <li> This is the extension for 2D plot. This plot overlays the components and the loadings for 3 PCs (choose PCs and the length of lines in the left panel)

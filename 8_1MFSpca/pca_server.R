@@ -99,26 +99,34 @@ choices = type.fac4()
 )
 })
 
-output$pca.ind  <- renderPlot({ 
+output$pca.ind  <- plotly::renderPlotly({ 
+#output$pca.ind  <- renderPlot({ 
 validate(need(input$nc>=2, "Components are not enough to create the plot."))
 df <- as.data.frame(pca()$x)
-  if (input$frame == FALSE)
-  {
-  df$group <- rep(1, nrow(df))
-  ggplot(df,aes(x = df[,input$c1], y = df[,input$c2], color=group))+
-  geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
-  theme_minimal()+
-  xlab(paste0("PC", input$c1))+ylab(paste0("PC", input$c2))
-  }
-  else
-  {
-  df$group <- X()[,input$g]
-  ggplot(df, aes(x = df[,input$c1], y = df[,input$c2], color=group))+
-  geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
-  stat_ellipse(type = input$type)+ theme_minimal()+
-  xlab(paste0("PC", input$c1))+ylab(paste0("PC", input$c2))
-  }
-  })
+vx <- colnames(df)[input$c1]
+vy <- colnames(df)[input$c2]
+if (input$frame == FALSE) {
+df$group <- rep(1, nrow(df))
+p<-MFSscoreg(df, vx, vy)
+plotly::ggplotly(p)
+#ggplot(df,aes(x = df[,input$c1], y = df[,input$c2], color=group, label=rownames(df)))+
+#geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
+#theme_minimal()+
+#xlab(paste0("PC", input$c1))+ylab(paste0("PC", input$c2))#+
+#geom_text(aes(label=rownames(df)),hjust=0, vjust=0)
+}
+else {
+df$group <- X()[,input$g]
+p<-MFSscorec(df, vx, vy, input$type)
+plotly::ggplotly(p)
+#ggplot(df, aes(x = df[,input$c1], y = df[,input$c2], color=group,label=rownames(df)))+
+#geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
+#stat_ellipse(type = input$type)+ theme_minimal()+
+#xlab(paste0("PC", input$c1))+ylab(paste0("PC", input$c2))#+
+#eom_text(aes(label=rownames(df)),hjust=0, vjust=0)
+}
+#plotly::ggplotly(p)
+})
 
 output$pca.ind2  <- plotly::renderPlotly({ 
 #validate(need(input$nc>=1, "Components are not enough to create the plot."))

@@ -179,7 +179,7 @@ MFSline2 <- function(data2, var, grp1, grp2){
   ggplot(des, aes(x=group1, y=mean, colour=group2, group=group2)) +
   geom_line() +
   xlab("") +ylab("")+
-  geom_point(shape=19, size=1) +
+  geom_point(shape = 19, size=1) +
   scale_colour_brewer(palette="Set1")+
   theme_minimal() + theme(legend.title = element_blank())
 }
@@ -439,7 +439,7 @@ MFSdevres <- function(data){
   id <- data[,"id"]
   dev <- data[,"dev"]
   ggplot(data, aes(x=id, y=dev)) +
-  geom_point(shape = 20) +
+  geom_point(shape = 19, size=1) +
   geom_hline(yintercept = 0, color="red", linetype=2)+
   geom_smooth(method = "loess", linetype=2) +
   xlab("Observation Id") + ylab("Deviance residuals") + theme_minimal()
@@ -474,6 +474,71 @@ MFSload <- function(loads, a){
     theme_bw(base_size=10)
 }
 
+##' @title plot functions in MEPHAS
+##'
+##' @param scores input score data frame
+##' @param varx input x variable
+##' @param vary input y variable
+##'
+##' @export
+MFSscoreg <- function(scores, varx, vary){
+  x <- scores[,varx]
+  y <- scores[,vary]
+  group <- scores[,"group"]
+  name <- rownames(scores)
+
+  ggplot(scores,aes(x = x, y = y, color=group, label=name))+
+  geom_point() + geom_hline(yintercept=0, lty=2,size=0.3) +
+  geom_vline(xintercept=0, lty=2,size=0.3)+
+  xlab(varx)+ylab(vary)+
+  scale_fill_brewer(palette="Set1")+
+  theme_minimal()+theme(legend.title=element_blank())
+
+}
+
+##' @title plot functions in MEPHAS
+##'
+##' @param scores input score data frame
+##' @param varx input x variable
+##' @param vary input y variable
+##'
+##' @export
+MFSscorec <- function(scores, varx, vary, type){
+  x <- scores[,varx]
+  y <- scores[,vary]
+  group <- scores[,"group"]
+  name <- rownames(scores)
+
+  ggplot(scores,aes(x = x, y = y, color=group, label=name))+
+  geom_point() + geom_hline(yintercept=0, lty=2,size=0.3) +
+  geom_vline(xintercept=0, lty=2,size=0.3)+
+  stat_ellipse(type = type)+
+  xlab(varx)+ylab(vary)+
+  scale_fill_brewer(palette="Set1")+
+  theme_minimal()+theme(legend.title=element_blank())
+
+}
+
+##' @title plot functions in MEPHAS
+##'
+##' @param scores input score data frame
+##' @param varx input x variable
+##' @param vary input y variable
+##'
+##' @export
+MFSscore <- function(scores, varx, vary){
+  x <- scores[,varx]
+  y <- scores[,vary]
+  name <- rownames(scores)
+
+  ggplot(scores,aes(x = x, y = y, label=name))+
+  geom_point() + geom_hline(yintercept=0, lty=2,size=0.3) +
+  geom_vline(xintercept=0, lty=2,size=0.3)+
+  xlab(varx)+ylab(vary)+
+  scale_fill_brewer(palette="Set1")+
+  theme_minimal()+theme(legend.title=element_blank())
+  #xlab(paste0("PC", input$c1))+ylab(paste0("PC", input$c2))
+}
 
 ##' @title plot functions in MEPHAS
 ##'
