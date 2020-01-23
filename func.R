@@ -457,12 +457,12 @@ MFSload <- function(loads, a){
 
   ll <- loads
   ll$group <- rownames(ll)
-  loadings.m <- reshape::melt(ll, id="group",
+  loads.m <- reshape::melt(ll, id="group",
                               measure=colnames(ll)[1:a])
-  group <- loadings.m[,"group"]
-  value <- loadings.m[,"value"]
-  #variable <- loadings.m[,"variable"]
-  ggplot(loadings.m, aes(group, abs(value), fill=value)) +
+  group <- loads.m[,"group"]
+  value <- loads.m[,"value"]
+  #variable <- loads.m[,"variable"]
+  ggplot(loads.m, aes(group, abs(value), fill=value)) +
     facet_wrap(~ variable, nrow=1) + #place the factors in separate facets
     geom_bar(stat="identity") + #make the bars
     coord_flip() + #flip the axes so the test names can be horizontal
@@ -481,11 +481,13 @@ MFSload <- function(loads, a){
 ##' @param vary input y variable
 ##'
 ##' @export
-MFSscoreg <- function(scores, varx, vary){
-  x <- scores[,varx]
-  y <- scores[,vary]
+MFSscoreg <- function(scores, n1, n2){
+  x <- scores[,n1]
+  y <- scores[,n2]
   group <- scores[,"group"]
   name <- rownames(scores)
+  varx <- names(scores)[n1]
+  vary <- names(scores)[n2]
 
   ggplot(scores,aes(x = x, y = y, color=group, label=name))+
   geom_point() + geom_hline(yintercept=0, lty=2,size=0.3) +
@@ -503,11 +505,13 @@ MFSscoreg <- function(scores, varx, vary){
 ##' @param vary input y variable
 ##'
 ##' @export
-MFSscorec <- function(scores, varx, vary, type){
-  x <- scores[,varx]
-  y <- scores[,vary]
+MFSscorec <- function(scores, n1, n2, type){
+  x <- scores[,n1]
+  y <- scores[,n2]
   group <- scores[,"group"]
   name <- rownames(scores)
+  varx <- names(scores)[n1]
+  vary <- names(scores)[n2]
 
   ggplot(scores,aes(x = x, y = y, color=group, label=name))+
   geom_point() + geom_hline(yintercept=0, lty=2,size=0.3) +
@@ -526,10 +530,12 @@ MFSscorec <- function(scores, varx, vary, type){
 ##' @param vary input y variable
 ##'
 ##' @export
-MFSscore <- function(scores, varx, vary){
-  x <- scores[,varx]
-  y <- scores[,vary]
+MFSscore <- function(scores, n1, n2){
+  x <- scores[,n1]
+  y <- scores[,n2]
   name <- rownames(scores)
+  varx <- names(scores)[n1]
+  vary <- names(scores)[n2]
 
   ggplot(scores,aes(x = x, y = y, label=name))+
   geom_point() + geom_hline(yintercept=0, lty=2,size=0.3) +
@@ -538,6 +544,35 @@ MFSscore <- function(scores, varx, vary){
   scale_fill_brewer(palette="Set1")+
   theme_minimal()+theme(legend.title=element_blank())
   #xlab(paste0("PC", input$c1))+ylab(paste0("PC", input$c2))
+}
+
+##' @title plot functions in MEPHAS
+##'
+##' @param scores input score data frame
+##' @param loads input loading data frame
+##' @param n1 input nth component
+##' @param n2 input nth component
+##'
+##' @export
+MFSbiplot <- function(scores, loads, n1, n2){
+names <- rownames(loads)
+pname <- rownames(scores)
+loads[[n1]]<-scales::rescale(loads[[n1]], to = c(min(scores[[n1]]),max(scores[[n1]])))
+loads[[n2]]<-scales::rescale(loads[[n2]], to = c(min(scores[[n2]]),max(scores[[n2]])))
+
+x1 <- scores[,n1]
+y1 <- scores[,n2]
+x2 <- loads[,n1]
+y2 <- loads[,n2]
+varx <- names(scores)[n1]
+vary <- names(scores)[n2]
+ggplot()+
+geom_point(data=scores, aes(x=x1, y=y1, label=pname), colour ="cornflowerblue", alpha=0.5)+
+geom_segment(data=loads, aes(x=0, y=0, xend=x2, yend=y2), 
+             arrow=arrow(length=unit(0.3,"cm")), alpha=0.5, colour="red")+
+geom_text(data=loads, aes(x=x2, y=y2, label=names), alpha=0.5, size=3)+
+xlab(varx)+ylab(vary)+
+theme_minimal()+theme(legend.title=element_blank())
 }
 
 ##' @title plot functions in MEPHAS

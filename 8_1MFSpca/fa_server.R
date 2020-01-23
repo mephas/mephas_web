@@ -124,9 +124,13 @@ MFScorr(DF4.fa())
 
 })
 
-output$fa.bp   <- renderPlot({ 
+output$fa.bp   <- plotly::renderPlotly({ 
   validate(need(input$ncfa>=2, "Components are not enough to create the plot."))
-biplot(fa(),labels=rownames(DF4.fa()), choose=c(input$c1.fa,input$c2.fa), main="")
+#biplot(fa(),labels=rownames(DF4.fa()), choose=c(input$c1.fa,input$c2.fa), main="")
+score <- as.data.frame(fa()$scores)
+load <- as.data.frame(fa()$loadings[,1:input$ncfa])
+p<- MFSbiplot(score, load, input$c1.fa, input$c2.fa)
+plotly::ggplotly(p)
 
 })
 

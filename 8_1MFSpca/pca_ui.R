@@ -121,7 +121,7 @@ The results are corresponding to the loading plot
 </ul></i>
 
   "),
-plotOutput("pca.bp")
+plotly::plotlyOutput("pca.bp", width = "80%")
 
 ),
 

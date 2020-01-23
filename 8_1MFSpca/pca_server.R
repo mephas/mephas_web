@@ -103,11 +103,9 @@ output$pca.ind  <- plotly::renderPlotly({
 #output$pca.ind  <- renderPlot({ 
 validate(need(input$nc>=2, "Components are not enough to create the plot."))
 df <- as.data.frame(pca()$x)
-vx <- colnames(df)[input$c1]
-vy <- colnames(df)[input$c2]
 if (input$frame == FALSE) {
 df$group <- rep(1, nrow(df))
-p<-MFSscoreg(df, vx, vy)
+p<-MFSscore(df, input$c1, input$c2)
 plotly::ggplotly(p)
 #ggplot(df,aes(x = df[,input$c1], y = df[,input$c2], color=group, label=rownames(df)))+
 #geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
@@ -117,7 +115,7 @@ plotly::ggplotly(p)
 }
 else {
 df$group <- X()[,input$g]
-p<-MFSscorec(df, vx, vy, input$type)
+p<-MFSscorec(df, input$c1, input$c2, input$type)
 plotly::ggplotly(p)
 #ggplot(df, aes(x = df[,input$c1], y = df[,input$c2], color=group,label=rownames(df)))+
 #geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
@@ -160,9 +158,13 @@ x <- psych::fa.parallel((DF4()),fa="pc",fm="ml")
 cat(paste0("Parallel analysis suggests that the number of components: ", x$ncomp))
 })
 
-output$pca.bp   <- renderPlot({ 
+output$pca.bp   <- plotly::renderPlotly({ 
 validate(need(input$nc>=2, "Components are not enough to create the plot."))
-biplot(pca(), choice=c(input$c1,input$c2))
+score <- as.data.frame(pca()$x)
+load <- as.data.frame(pca()$rotation)
+p<- MFSbiplot(score, load, input$c1, input$c2)
+plotly::ggplotly(p)
+#biplot(pca(), choice=c(input$c1,input$c2))
 })
 
 # Plot of the explained variance

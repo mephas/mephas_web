@@ -104,7 +104,7 @@ tabPanel("Factors and Loading 2D Plot" ,p(br()),
 
 
   "),
-plotOutput("fa.bp", width = "80%")
+plotly::plotlyOutput("fa.bp", width = "80%")
 
 ),
 
