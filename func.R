@@ -233,6 +233,8 @@ MFShist1c <- function(data, varx, bw){
       theme_minimal() + theme(legend.title = element_blank())
   }
 }
+
+
 ##' @title plot functions in MEPHAS
 ##'
 ##' @param data2 input data frame
@@ -275,6 +277,7 @@ MFSdensity1 <- function(data, varx){
   theme_minimal() + theme(legend.title = element_blank())
 }
 
+
 ##' @title plot functions in MEPHAS
 ##'
 ##' @param data2 input data frame
@@ -306,6 +309,8 @@ MFSqq1 <- function(data, varx){
     xlab(varx) +
     theme_minimal() + theme(legend.title = element_blank())
 }
+
+
 ##' @title plot functions in MEPHAS
 ##'
 ##' @param data2 input data frame
@@ -322,6 +327,7 @@ MFSqq2 <- function(data2){
     scale_colour_brewer(palette="Set1")+
     theme_minimal() + theme(legend.title = element_blank())
 }
+
 
 ##' @title plot functions in MEPHAS
 ##'
@@ -340,17 +346,7 @@ MFSpie <- function(data){
 
 }
 
-MFSpiely <- function(data){
-  value <- data[,"value"]
-  groups <- data[,"group"]
-  colors <- c('rgb(211,94,96)', 'rgb(114,147,203)')
-  plotly::plot_ly(data, labels = ~group, values = ~value, type = 'pie',
-    textposition = 'inside',textinfo = 'label+percent',
-    marker = list(colors = colors, line = list(color = '#FFFFFF', width = 1))) %>%
-  layout(
-         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
-}
+
 
 ##' @title plot functions in MEPHAS
 ##'
@@ -368,6 +364,8 @@ MFSbar <- function(count){
     scale_fill_brewer(palette="Set1")+
     theme_minimal() +theme(legend.title=element_blank())
 }
+
+
 ##' @title plot functions in MEPHAS
 ##'
 ##' @param count input count data frame
@@ -384,6 +382,8 @@ MFSbar1 <- function(count){
     scale_fill_brewer(palette="Set1")+
     theme_minimal() +theme(legend.title=element_blank())
 }
+
+
 ##' @title plot functions in MEPHAS
 ##'
 ##' @param yhat predicted values
@@ -416,6 +416,7 @@ MFSroc <- function(yhat, y){
 
 }
 
+
 ##' @title plot functions in MEPHAS
 ##'
 ##' @param data input data frame
@@ -427,8 +428,10 @@ MFScoxstep <-function(data){
   ggplot() +
   geom_step(data = data, mapping = aes(x = time, y = hazard)) +
   geom_abline(intercept =0,slope = 1, color = "red") +
-  theme_minimal() + xlab("Cox-Snell residuals") + ylab("Estimated Cumulative Hazard Function")
+  theme_minimal() + 
+  xlab("Cox-Snell residuals") + ylab("Estimated Cumulative Hazard Function")
 }
+
 
 ##' @title plot functions in MEPHAS
 ##'
@@ -442,7 +445,8 @@ MFSdevres <- function(data){
   geom_point(shape = 19, size=1) +
   geom_hline(yintercept = 0, color="red", linetype=2)+
   geom_smooth(method = "loess", linetype=2) +
-  xlab("Observation Id") + ylab("Deviance residuals") + theme_minimal()
+  theme_minimal() +
+  xlab("Observation Id") + ylab("Deviance residuals") 
 }
 
 
@@ -545,7 +549,6 @@ MFSscore <- function(scores, n1, n2){
   xlab(varx)+ylab(vary)+
   scale_fill_brewer(palette="Set1")+
   theme_minimal()+theme(legend.title=element_blank())
-  #xlab(paste0("PC", input$c1))+ylab(paste0("PC", input$c2))
 }
 
 ##' @title plot functions in MEPHAS
@@ -609,7 +612,19 @@ MFScorr <- function(data){
 
 }
 
-###----------PCA and PLS
+###----------plotly plot
+
+MFSpiely <- function(data){
+  value <- data[,"value"]
+  groups <- data[,"group"]
+  colors <- c('rgb(211,94,96)', 'rgb(114,147,203)')
+  plotly::plot_ly(data, labels = ~group, values = ~value, type = 'pie',
+    textposition = 'inside',textinfo = 'label+percent',
+    marker = list(colors = colors, line = list(color = '#FFFFFF', width = 1))) %>%
+  layout(
+         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+}
 
 MFS3D <- function(scores, loads, nx,ny,nz, scale){
   
