@@ -488,7 +488,7 @@ MFSload <- function(loads, a){
 MFSscoreg <- function(scores, n1, n2){
   x <- scores[,n1]
   y <- scores[,n2]
-  group <- scores[,"group"]
+  group <- as.factor(scores[,"group"])
   name <- rownames(scores)
   varx <- names(scores)[n1]
   vary <- names(scores)[n2]
