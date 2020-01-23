@@ -59,14 +59,22 @@ output$pls_rmsep  <- renderPrint({
   RMSEP(pls(),estimate = "all")
   })
 
-output$pls.s <- DT::renderDT({as.data.frame(pls()$scores[,1:pls()$ncomp])}, 
+score.r <- reactive({
+  as.data.frame(pls()$scores[,1:pls()$ncomp])
+  })
+
+load.r <- reactive({
+  as.data.frame(pls()$loadings[,1:pls()$ncomp])
+  })
+
+output$pls.s <- DT::renderDT({score.r()}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pls.l <- DT::renderDT({as.data.frame(pls()$loadings[,1:pls()$ncomp])}, 
+output$pls.l <- DT::renderDT({load.r()}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -96,21 +104,22 @@ output$pls.resi <- DT::renderDT({as.data.frame(pls()$residuals[,,1:pls()$ncomp])
 
 
 
-output$pls.s.plot  <- renderPlot({ 
+output$pls.s.plot  <- plotly::renderPlotly({ 
 validate(need(input$nc.r>=2, "The number of components must be >= 2"))
-df <- as.data.frame(pls()$scores[,1:input$nc.r])
-
-  ggplot(df, aes(x = df[,input$c1], y = df[,input$c2]))+
-  geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
-  theme_minimal()+
-  xlab(paste0("Comp", input$c1))+ylab(paste0("Comp", input$c2))
+score <- score.r()
+p<-MFSscore(score, input$c1.r, input$c2.r)
+plotly::ggplotly(p)
+#  ggplot(df, aes(x = df[,input$c1], y = df[,input$c2]))+
+#  geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
+#  theme_minimal()+
+#  xlab(paste0("Comp", input$c1))+ylab(paste0("Comp", input$c2))
 
   })
 
-output$pls.l.plot  <- renderPlot({ 
+output$pls.l.plot  <- plotly::renderPlotly({ 
 load <- as.data.frame(pls()$loadings[,1:input$nc.r])
-MFSload(loads=load, a=input$nc.r)
-
+p<-MFSload(loads=load, a=input$nc.r)
+plotly::ggplotly(p)
 #ll$group <- rownames(ll)
 #loadings.m <- reshape::melt(ll, id="group",
 #                   measure=colnames(ll)[1:input$nc.r])
@@ -128,18 +137,22 @@ MFSload(loads=load, a=input$nc.r)
 
   })
 
-output$pls.bp   <- renderPlot({ 
+output$pls.bp   <- plotly::renderPlotly({ 
   validate(need(input$nc.r>=2, "The number of components must be >= 2"))
-plot(pls(), plottype = c("biplot"), comps=c(input$c1.r,input$c2.r),var.axes = TRUE)
+  score <- score.r()
+load <- load.r()
+p<-MFSbiplot(score, load, input$c1.r, input$c2.r)
+plotly::ggplotly(p)
+#plot(pls(), plottype = c("biplot"), comps=c(input$c1.r,input$c2.r),var.axes = TRUE)
 })
 
 # Plot of the explained variance
-#output$pca.plot <- renderPlot({ screeplot(pca(), npcs= input$nc.r, type="lines", main="") })
+#output$pca.plot <- plotly::renderPlotly({ screeplot(pca(), npcs= input$nc.r, type="lines", main="") })
 
 output$pls.tdplot <- plotly::renderPlotly({ 
 validate(need(input$nc.r>=3, "The number of components must be >= 3"))
-score <- as.data.frame(pls()$scores[,1:input$nc.r])
-load <- as.data.frame(pls()$loadings[,1:input$nc.r])
+score <- score.r()
+load <- load.r()
 
 MFS3D(scores=score, loads=load, nx=input$td1.r,ny=input$td2.r,nz=input$td3.r, scale=input$lines.r)
 

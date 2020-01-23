@@ -89,7 +89,7 @@ tabPanel("Components", p(br()),
 <li> If the data follow a normal distribution and no outliers are present, the points are randomly distributed around zero
 </ul>
   "),
-	plotOutput("spls.s.plot", width = "80%"),
+	plotly::plotlyOutput("spls.s.plot", width = "80%"),
   DT::DTOutput("spls.s")
   ),
 
@@ -105,17 +105,32 @@ tabPanel("Loading", p(br()),
 <li> If you want to perform other analyses on the data, you may want to have at least 90% of the variance explained by the factors.
 </ul>
   "),
-	plotOutput("spls.l.plot", width = "80%"),
+	plotly::plotlyOutput("spls.l.plot", width = "80%"),
   DT::DTOutput("spls.l")
+  ),
+
+tabPanel("Component and Loading 2D Plot", p(br()),
+  p("This is loadings derived based on the selected variables"),
+    HTML("
+<b>Explanations</b>
+<ul>
+<li> This plot (biplots) overlays the components and the loadings (choose PC in the left panel)
+<li> If the data follow a normal distribution and no outliers are present, the points are randomly distributed around zero
+<li> Loadings identify which variables have the largest effect on each component.
+<li> Loadings can range from -1 to 1. Loadings close to -1 or 1 indicate that the variable strongly influences the component. Loadings close to 0 indicate that the variable has a weak influence on the component.
+</ul>
+  "),
+  plotly::plotlyOutput("spls.biplot", width = "80%")
   ),
 
 tabPanel("Component and Loading 3D Plot" ,p(br()),
   HTML("
 <b>Explanations</b>
 <ul>
-<li> This plot overlays the components and the loadings (choose PC in the left panel)
+<li> This is the extension for 2D plot. This plot overlays the components and the loadings for 3 PCs (choose PCs and the length of lines in the left panel)
+<li> We can find the outliers in the plot. 
 <li> If the data follow a normal distribution and no outliers are present, the points are randomly distributed around zero
-<li> Loadings identify which variables have the largest effect on each component.
+<li> Loadings identify which variables have the largest effect on each component
 <li> Loadings can range from -1 to 1. Loadings close to -1 or 1 indicate that the variable strongly influences the component. Loadings close to 0 indicate that the variable has a weak influence on the component.
 </ul>
 

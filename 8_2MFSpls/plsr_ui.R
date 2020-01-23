@@ -106,7 +106,7 @@ tabPanel("Components", p(br()),
 <li> If the data follow a normal distribution and no outliers are present, the points are randomly distributed around zero
 </ul>
   "),
-  plotOutput("pls.s.plot", width = "80%"),
+  plotly::plotlyOutput("pls.s.plot", width = "80%"),
   DT::DTOutput("pls.s")
   ),
 
@@ -121,7 +121,7 @@ tabPanel("Loading", p(br()),
 <li> If you want to perform other analyses on the data, you may want to have at least 90% of the variance explained by the factors.
 </ul>
   "),
-  plotOutput("pls.l.plot", width = "80%"),
+  plotly::plotlyOutput("pls.l.plot", width = "80%"),
   DT::DTOutput("pls.l")
   ),
 
@@ -136,7 +136,7 @@ tabPanel("Component and Loading 2D Plot", p(br()),
 </ul>
 
   "),
-  plotOutput("pls.bp", width = "80%")
+  plotly::plotlyOutput("pls.bp", width = "80%")
   ),
 
 tabPanel("Component and Loading 3D Plot" ,p(br()),

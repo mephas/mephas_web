@@ -104,7 +104,7 @@ HTML("
 <li> In the plot of PC1 and PC2 (without group circle), we could find some outliers in the right. After soring PC1 in the table, we could see 70 is one of the outliers.
 </ul></i>
   "),
-  plotOutput("pcr.s.plot", width = "80%"),
+  plotly::plotlyOutput("pcr.s.plot", width = "80%"),
   DT::DTOutput("pcr.s")
   ),
 
@@ -119,7 +119,7 @@ HTML("
 <li> If you want to perform other analyses on the data, you may want to have at least 90% of the variance explained by the factors.
 </ul>
   "),
-  plotOutput("pcr.l.plot", width = "80%"),
+  plotly::plotlyOutput("pcr.l.plot", width = "80%"),
   DT::DTOutput("pcr.l")
   ),
 
@@ -134,7 +134,7 @@ HTML("
 </ul>
 
   "),
-  plotOutput("pcr.bp", width = "80%")
+  plotly::plotlyOutput("pcr.bp", width = "80%")
   ),
 
 tabPanel("Component and Loading 3D Plot" ,p(br()),

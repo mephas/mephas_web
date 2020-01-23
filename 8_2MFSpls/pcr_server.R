@@ -65,14 +65,22 @@ output$pcr_rmsep  <- renderPrint({
   RMSEP(pcr(),estimate = "all")
   })
 
-output$pcr.s <- DT::renderDT({as.data.frame(pcr()$scores[,1:input$nc])}, 
+score <- reactive({
+  as.data.frame(pcr()$scores[,1:input$nc])
+  })
+
+load <- reactive({
+  as.data.frame(pcr()$loadings[,1:input$nc])
+  })
+
+output$pcr.s <- DT::renderDT({score()}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pcr.l <- DT::renderDT({as.data.frame(pcr()$loadings[,1:input$nc])}, 
+output$pcr.l <- DT::renderDT({load()}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -101,20 +109,22 @@ output$pcr.resi <- DT::renderDT({as.data.frame(pcr()$residuals[,,1:input$nc])},
     scrollX = TRUE))
 
 
-output$pcr.s.plot  <- renderPlot({ 
+output$pcr.s.plot  <- plotly::renderPlotly({ 
 validate(need(input$nc>=2, "The number of components must be >= 2"))
-df <- as.data.frame(pcr()$scores[,1:input$nc])
-
- ggplot(df, aes(x = df[,input$c1], y = df[,input$c2]))+
-  geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
-  theme_minimal()+
-  xlab(paste0("Score", input$c1))+ylab(paste0("Score", input$c2))
+score <- score()
+p<-MFSscore(score, input$c1, input$c2)
+plotly::ggplotly(p)
+# ggplot(df, aes(x = df[,input$c1], y = df[,input$c2]))+
+#  geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
+#  theme_minimal()+
+#  xlab(paste0("Score", input$c1))+ylab(paste0("Score", input$c2))
 
   })
 
-output$pcr.l.plot  <- renderPlot({ 
-load <- as.data.frame(pcr()$loadings[,1:input$nc])
-MFSload(loads=load, a=input$nc)
+output$pcr.l.plot  <- plotly::renderPlotly({ 
+load <- load()
+p<-MFSload(loads=load, a=input$nc)
+plotly::ggplotly(p)
 #ll$group <- rownames(ll)
 #loadings.m <- reshape::melt(ll, id="group",
 #                   measure=colnames(ll)[1:input$nc])
@@ -132,9 +142,13 @@ MFSload(loads=load, a=input$nc)
 
   })
 
-output$pcr.bp   <- renderPlot({ 
+output$pcr.bp   <- plotly::renderPlotly({ 
 validate(need(input$nc>=2, "The number of components must be >= 2"))
-plot(pcr(), plottype = c("biplot"), comps=c(input$c1,input$c2),var.axes = TRUE, main="")
+score <- score()
+load <- load()
+p<-MFSbiplot(score, load, input$c1, input$c2)
+plotly::ggplotly(p)
+#plot(pcr(), plottype = c("biplot"), comps=c(input$c1,input$c2),var.axes = TRUE, main="")
 })
 
 # Plot of the explained variance
@@ -143,8 +157,8 @@ plot(pcr(), plottype = c("biplot"), comps=c(input$c1,input$c2),var.axes = TRUE, 
 output$tdplot <- plotly::renderPlotly({ 
 validate(need(input$nc>=3, "The number of components must be >= 3"))
 
-score <- as.data.frame(pcr()$scores[,1:input$nc])
-load <- as.data.frame(pcr()$loadings[,1:input$nc])
+score <- score()
+load <- load()
 
 MFS3D(scores=score, loads=load, nx=input$td1,ny=input$td2,nz=input$td3, scale=input$lines)
 

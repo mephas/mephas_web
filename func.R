@@ -489,11 +489,11 @@ MFSscoreg <- function(scores, n1, n2){
   varx <- names(scores)[n1]
   vary <- names(scores)[n2]
 
-  ggplot(scores,aes(x = x, y = y, color=group, label=name))+
+  ggplot(scores,aes(x = x, y = y, color=group, label=name, alpha=0.7))+
   geom_point() + geom_hline(yintercept=0, lty=2,size=0.3) +
   geom_vline(xintercept=0, lty=2,size=0.3)+
   xlab(varx)+ylab(vary)+
-  scale_fill_brewer(palette="Set1")+
+  scale_colour_brewer(palette="Set1")+
   theme_minimal()+theme(legend.title=element_blank())
 
 }
@@ -508,17 +508,18 @@ MFSscoreg <- function(scores, n1, n2){
 MFSscorec <- function(scores, n1, n2, type){
   x <- scores[,n1]
   y <- scores[,n2]
-  group <- scores[,"group"]
+  group <- as.factor(scores[,"group"])
   name <- rownames(scores)
   varx <- names(scores)[n1]
   vary <- names(scores)[n2]
 
-  ggplot(scores,aes(x = x, y = y, color=group, label=name))+
-  geom_point() + geom_hline(yintercept=0, lty=2,size=0.3) +
+  ggplot(scores,aes(x = x, y = y, label=name, color=group, alpha=0.7))+
+  geom_point() + 
+  geom_hline(yintercept=0, lty=2,size=0.3) +
   geom_vline(xintercept=0, lty=2,size=0.3)+
   stat_ellipse(type = type)+
   xlab(varx)+ylab(vary)+
-  scale_fill_brewer(palette="Set1")+
+  scale_colour_brewer(palette="Set1")+
   theme_minimal()+theme(legend.title=element_blank())
 
 }
@@ -538,7 +539,8 @@ MFSscore <- function(scores, n1, n2){
   vary <- names(scores)[n2]
 
   ggplot(scores,aes(x = x, y = y, label=name))+
-  geom_point() + geom_hline(yintercept=0, lty=2,size=0.3) +
+  geom_point(color="lightblue4", alpha=0.7) + 
+  geom_hline(yintercept=0, lty=2,size=0.3) +
   geom_vline(xintercept=0, lty=2,size=0.3)+
   xlab(varx)+ylab(vary)+
   scale_fill_brewer(palette="Set1")+

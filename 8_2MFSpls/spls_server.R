@@ -62,6 +62,13 @@ output$spls.bp   <- renderPlot({
 plot(spls())
 })
 
+score.s <- reactive({
+  data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))
+  }) 
+load.s <- reactive({
+  as.data.frame(spls()$projection)
+  })
+
 output$spls.coef <- DT::renderDT({
   x<-as.data.frame(spls()$betamat)
   colnames(x) <- paste0("At comp", 1:spls()$K)
@@ -73,14 +80,14 @@ output$spls.coef <- DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$spls.s <- DT::renderDT({data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))}, 
+output$spls.s <- DT::renderDT({score.s()}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$spls.l <- DT::renderDT({as.data.frame(spls()$projection)}, 
+output$spls.l <- DT::renderDT({load.s()}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -106,22 +113,25 @@ output$spls.sv <- DT::renderDT({as.data.frame(X()[spls()$A])},
 
 
 
-output$spls.s.plot  <- renderPlot({ 
+output$spls.s.plot  <- plotly::renderPlotly({ 
   validate(need(input$nc.s>=2, "The number of components must be >=2"))
 
-df <- data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))
+  score <- score.s()
+  p<-MFSscore(score, input$c1.s, input$c2.s)
+  plotly::ggplotly(p)
+#df <- data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))
 
-  ggplot(df, aes(x = df[,input$c1.s], y = df[,input$c2.s]))+
-  geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
-  theme_minimal()+
-  xlab(paste0("Comp", input$c1.s))+ylab(paste0("Comp", input$c2.s))
+  #ggplot(df, aes(x = df[,input$c1.s], y = df[,input$c2.s]))+
+  #geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
+  #theme_minimal()+
+  #xlab(paste0("Comp", input$c1.s))+ylab(paste0("Comp", input$c2.s))
 
   })
 
-output$spls.l.plot  <- renderPlot({ 
-load <- as.data.frame(spls()$projection)
-MFSload(loads=load, a=input$nc.s)
-
+output$spls.l.plot  <- plotly::renderPlotly({ 
+load <- load.s()
+p <- MFSload(loads=load, a=input$nc.s)
+plotly::ggplotly(p)
 # ll$group <- rownames(ll)
 # loadings.m <- reshape::melt(ll, id="group",
 #                    measure=colnames(ll)[1:spls()$K])
@@ -139,11 +149,19 @@ MFSload(loads=load, a=input$nc.s)
 
   })
 
+output$spls.biplot<- plotly::renderPlotly({ 
+validate(need(input$nc>=2, "The number of components must be >= 2"))
+score <- score.s()
+load <- load.s()
+p<-MFSbiplot(score, load, input$c1.s, input$c2.s)
+plotly::ggplotly(p)
+})
+
 output$tdplot.s <- plotly::renderPlotly({ 
   validate(need(input$nc.s>=3, "The number of components must be >=3"))
 
-score <- data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))
-load <- as.data.frame(spls()$projection)
+score <- score.s()
+load <- load.s()
 
 MFS3D(scores=score, loads=load, nx=input$td1.s,ny=input$td2.s,nz=input$td3.s, scale=input$lines.s)
 
