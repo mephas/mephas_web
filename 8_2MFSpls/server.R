@@ -9,7 +9,7 @@ shinyServer(
 
 function(input, output, session) {
 
-
+source("../func.R")
 ##########----------##########----------##########
 source("0data_server.R", local=TRUE, encoding="UTF-8")
 
