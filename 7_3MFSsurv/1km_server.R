@@ -59,12 +59,12 @@ ggsurvplot(fit, data=DF3(),
            pval = TRUE,
            risk.table = "abs_pct",
            #surv.median.line = "hv", 
-           palette = "Paired",
+           palette = "Set1",
            ggtheme = theme_minimal(),
            legend="bottom",
            risk.table.y.text.col = TRUE, # colour risk table text annotations.
            risk.table.y.text = FALSE,
-            surv.plot.height =0.7,        
+           surv.plot.height =0.7,        
            risk.table.height =0.3) 
   })
 

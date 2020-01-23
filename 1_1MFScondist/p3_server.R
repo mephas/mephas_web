@@ -39,7 +39,7 @@ output$download3 <- downloadHandler(
 output$g.plot2 = plotly::renderPlotly({
   df = G()
   x <- names(df)
-p<-MFShist1c(data=df, var=x, bw=input$g.bin)
+p<-MFShist1c(df, x, input$g.bin)
 p<-p+geom_vline(aes(xintercept=quantile(x, probs = input$g.pr, na.rm=TRUE)), color="red", size=0.3)
 plotly::ggplotly(p)
 # df = G()
@@ -93,7 +93,7 @@ Z <- reactive({
 output$makeplot.g1 <- plotly::renderPlotly({
     df = Z()
   x <- names(df)
-  p<-MFShist1(data=df, var=x, bw=input$bin.g)
+  p<-MFShist1(df, x, input$bin.g)
   p<-p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$g.pr, na.rm=TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
   # x = Z()
@@ -109,7 +109,7 @@ output$makeplot.g1 <- plotly::renderPlotly({
 output$makeplot.g2 <- plotly::renderPlotly({
     df = Z()
   x <- names(df)
-  p<-MFSdensity1(data=df, var=x)
+  p<-MFSdensity1(df, x)
   p<- p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$g.pr, na.rm = TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
   # x = Z()

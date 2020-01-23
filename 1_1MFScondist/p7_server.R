@@ -40,7 +40,7 @@ output$table4 = renderDataTable({head(F(), n = 100L)},  options = list(pageLengt
 output$f.plot2 = plotly::renderPlotly({
   df = F()
   x <- names(df)
-p<-MFShist1c(data=df, var=x, bw=input$f.bin)
+p<-MFShist1c(df, x, input$f.bin)
 p<-p+geom_vline(aes(xintercept=quantile(x, probs = input$f.pr, na.rm=TRUE)), color="red", size=0.3)
 plotly::ggplotly(p)
 
@@ -96,7 +96,7 @@ FF <- reactive({
 output$makeplot.f1 <- plotly::renderPlotly({
     df = FF()
   x <- names(df)
-  p<-MFShist1(data=df, var=x, bw=input$bin.f)
+  p<-MFShist1(df, x, input$bin.f)
   p<-p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$f.pr, na.rm=TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
   # x = as.data.frame(FF())
@@ -106,7 +106,7 @@ output$makeplot.f1 <- plotly::renderPlotly({
 output$makeplot.f2 <- plotly::renderPlotly({
     df = FF()
   x <- names(df)
-  p<-MFSdensity1(data=df, var=x)
+  p<-MFSdensity1(df, x)
   p<- p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$f.pr, na.rm = TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
  #  x = as.data.frame(FF())

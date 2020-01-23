@@ -130,13 +130,13 @@ The residuals can be found in Data Fitting tab.
 
 p(tags$b("1. Martingale residuals plot against continuous independent variable")), 
 uiOutput('var.mr2'),
-plotOutput("mrplot", width = "80%"),
+plotly::plotlyOutput("mrplot", width = "80%"),
 
 p(tags$b("2. Deviance residuals plot by observational id")),
-plotOutput("deplot", width = "80%"),
+plotly::plotlyOutput("deplot", width = "80%"),
 
 p(tags$b("3. Cox-Snell residuals plot")),
-plotOutput("csplot", width = "80%")
+plotly::plotlyOutput("csplot", width = "80%")
 
 )
 

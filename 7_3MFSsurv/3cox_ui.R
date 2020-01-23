@@ -176,7 +176,7 @@ plotOutput("diaplot1", width = "80%"),
  plotOutput("diaplot2", width = "80%"),
 
  p(tags$b("3. Cox-Snell residuals plot")),
- plotOutput("csplot.cx", width = "80%")
+ plotly::plotlyOutput("csplot.cx", width = "80%")
 )
 
 )

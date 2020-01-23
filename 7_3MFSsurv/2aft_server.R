@@ -91,23 +91,27 @@ res$mar <- res$c- res$csr
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$csplot = renderPlot({
+output$csplot = plotly::renderPlotly({
 
 fit = survfit(Surv(fit.aft()[,8], fit.aft()[,2]) ~ 1)
 Htilde=cumsum(fit$n.event/fit$n.risk)
 
 d = data.frame(time = fit$time, H = Htilde)
-ggplot() + geom_step(data = d, mapping = aes(x = d[,"time"], y = d[,"H"])) + 
-  geom_abline(intercept =0,slope = 1, color = "red") +
-  theme_minimal() + xlab("Cox-Snell residuals") + ylab("Estimated Cumulative Hazard Function")
+p<-MFScoxstep(d)
+plotly::ggplotly(p)
+#ggplot() + geom_step(data = d, mapping = aes(x = d[,"time"], y = d[,"H"])) + 
+#  geom_abline(intercept =0,slope = 1, color = "red") +
+#  theme_minimal() + xlab("Cox-Snell residuals") + ylab("Estimated Cumulative Hazard Function")
   })
 
-output$deplot = renderPlot({
+output$deplot = plotly::renderPlotly({
 
 df <- data.frame(id=seq_len(nrow(fit.aft())), dev=resid(aftfit(),  type="deviance"))
 
-ggplot(df, aes(x=id, y=dev)) + geom_point(shape = 20) + geom_hline(yintercept = 0, color="red", linetype=2)+
-geom_smooth(method = "loess", linetype=2) + xlab("Observation Id") + ylab("Deviance residuals") + theme_minimal()
+p<-MFSres(df, "id", "dev")+xlab("Observation Id") + ylab("Deviance residuals")+geom_point(shape = 19, size=1, color=(fit.aft()[,2]+1))
+plotly::ggplotly(p)
+#ggplot(df, aes(x=id, y=dev)) + geom_point(shape = 20) + geom_hline(yintercept = 0, color="red", linetype=2)+
+#geom_smooth(method = "loess", linetype=2) + xlab("Observation Id") + ylab("Deviance residuals") + theme_minimal()
   })
 
 output$var.mr2 = renderUI({
@@ -118,13 +122,17 @@ selected = type.num4()[1],
 choices = type.num4())
 })
 
-output$mrplot = renderPlot({
+output$mrplot = plotly::renderPlotly({
 
-df <- data.frame(id=DF3()[,input$var.mr2], dev=fit.aft()[,9])
+#df <- data.frame(id=DF3()[,input$var.mr2], dev=fit.aft()[,9])
+df <- data.frame(id=seq_len(nrow(fit.aft())), dev=fit.aft()[,9])
+
 validate(need(length(levels(as.factor(DF3()[,input$var.mr2])))>2, "Please choose a continuous variable"))
 
-ggplot(df, aes(x=id, y=dev)) + geom_point(shape = 20, color="red")+ ylim(-2,2)+
-geom_smooth(method = "loess", se = FALSE, linetype=1, color="black", size = 0.5) + xlab(input$var.mr) + ylab("Martingale residuals") + theme_minimal()
+p<-MFSres(df, "id", "dev")+xlab(input$var.mr2) + ylab("Martingale residuals")+geom_point(shape = 19, size=1, color=(fit.aft()[,2]+1))
+plotly::ggplotly(p)
+#ggplot(df, aes(x=id, y=dev)) + geom_point(shape = 20, color="red")+ ylim(-2,2)+
+#geom_smooth(method = "loess", se = FALSE, linetype=1, color="black", size = 0.5) + xlab(input$var.mr) + ylab("Martingale residuals") + theme_minimal()
   })
 
 

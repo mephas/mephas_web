@@ -37,12 +37,12 @@ output$download5 <- downloadHandler(
     }
   )
 
-output$table2 = renderDataTable({head(T(), n = 100L)},  options = list(pageLength = 10))
+#output$table2 = renderDataTable({head(T(), n = 100L)},  options = list(pageLength = 10))
 
 output$t.plot2 = plotly::renderPlotly({
   df = T()
   x <- names(df)
-p<-MFShist1c(data=df, var=x, bw=input$t.bin)
+p<-MFShist1c(df, x, input$t.bin)
 p<-p+geom_vline(aes(xintercept=quantile(x, probs = input$t.pr, na.rm=TRUE)), color="red", size=0.3)
 plotly::ggplotly(p)
 
@@ -97,7 +97,7 @@ TT <- reactive({
 output$makeplot.t1 <- plotly::renderPlotly({
   df = TT()
   x <- names(df)
-  p<-MFShist1(data=df, var=x, bw=input$bin.t)
+  p<-MFShist1(df, x, input$bin.t)
   p<-p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$t.pr, na.rm=TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
   #x = as.data.frame(TT())
@@ -106,7 +106,7 @@ output$makeplot.t1 <- plotly::renderPlotly({
 output$makeplot.t2 <- plotly::renderPlotly({
   df = TT()
   x <- names(df)
-  p<-MFSdensity1(data=df, var=x)
+  p<-MFSdensity1(df, x)
   p<- p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$t.pr, na.rm = TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
   #x = as.data.frame(TT())

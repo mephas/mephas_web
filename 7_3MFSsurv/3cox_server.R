@@ -61,8 +61,9 @@ return(res)
 output$zphplot = renderPlot({
 f<-cox.zph(coxfit())
 p <- ggcoxzph(f,
-  point.col = "red", point.size = 0.5, point.shape = 10,
-  point.alpha = 1, caption = NULL, ggtheme = theme_minimal(),
+  point.col = "red", point.size = 1, point.shape = 19,
+  point.alpha = 0.7, caption = NULL, 
+  ggtheme = theme_minimal(), palette = "Set1",
   font.x = 12,font.y = 12,font.main = 12)
 p[input$num]
   })
@@ -81,7 +82,7 @@ scrollX = TRUE))
 
 
 fit.cox <- reactive({
-if (input$t=="NUll") {y = DF3()[,input$t2]-DF3()[,input$t1]}
+if (input$time=="B") {y = DF3()[,input$t2]-DF3()[,input$t1]}
 else {y=DF3()[,input$t]}
  res <- data.frame(
   Y = y,
@@ -110,19 +111,21 @@ else {y=DF3()[,input$t]}
 
 output$splot = renderPlot({
 ggadjustedcurves(coxfit(), data=DF3(),
-  ggtheme = theme_minimal(), palette = "Paired",
+  ggtheme = theme_minimal(), palette = "Set1",
   font.x = 12,font.y = 12,font.main = 12)
   })
 
-output$csplot.cx = renderPlot({
+output$csplot.cx = plotly::renderPlotly({
 
 fit=survfit(Surv(fit.cox()[,9],fit.cox()[,2])~1)
 Htilde=cumsum(fit$n.event/fit$n.risk)
 
 d = data.frame(time = fit$time, H = Htilde)
-ggplot() + geom_step(data = d, mapping = aes(x = d[,"time"], y = d[,"H"])) + 
-  geom_abline(intercept =0,slope = 1, color = "red") +
-  theme_minimal() + xlab("Cox-Snell residuals") + ylab("Estimated Cumulative Hazard Function")
+p<-MFScoxstep(d)
+plotly::ggplotly(p)
+#ggplot() + geom_step(data = d, mapping = aes(x = d[,"time"], y = d[,"H"])) + 
+#  geom_abline(intercept =0,slope = 1, color = "red") +
+#  theme_minimal() + xlab("Cox-Snell residuals") + ylab("Estimated Cumulative Hazard Function")
   })
 
 type.num4 <- reactive({
@@ -147,8 +150,9 @@ f = paste0(surv(), '~', paste0(input$var.mr))
 
 fit<-coxph(as.formula(f), data = DF3(), ties=input$tie)
 ggcoxfunctional(fit, data = DF3(), ylim=c(-2,2),
-  point.size = 1, point.shape = 10,
-  ggtheme = theme_minimal(),font.x = 12,font.y = 12,font.main = 12)
+  point.size = 1, point.shape = 19,
+  ggtheme = theme_minimal(), palette = "Set1",
+  font.x = 12,font.y = 12,font.main = 12)
 
   })
 
@@ -160,7 +164,8 @@ ggcoxfunctional(fit, data = DF3(), ylim=c(-2,2),
 
 output$diaplot2 = renderPlot({
 ggcoxdiagnostics(coxfit(), ox.scale ="observation.id",
-  type = "deviance", hline.size = 0.5,point.size = 0.5, point.shape = 10,
-  ggtheme = theme_minimal(),font.x = 12,font.y = 12,font.main = 12)
+  type = "deviance", hline.size = 0.5,point.size = 1, point.shape = 19,
+  ggtheme = theme_minimal(), palette = "Set1",
+  font.x = 12,font.y = 12,font.main = 12) 
   })
 
