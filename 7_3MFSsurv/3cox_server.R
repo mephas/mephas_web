@@ -89,15 +89,15 @@ else {y=DF3()[,input$t]}
   E = DF3()[,input$c],
   lp = coxfit()$linear.predictors,
   risk=exp(coxfit()$linear.predictors),
-  expected=predict(coxfit(),type="expected"),
-  survival=predict(coxfit(),type="survival"),
+  #expected=predict(coxfit(),type="expected"),
+  #survival=predict(coxfit(),type="survival"),
   Residuals = resid(coxfit(), type="martingale"),
   Residuals2 = resid(coxfit(), type="deviance"),
   Residuals3 = DF3()[,input$c]-resid(coxfit(), type="martingale")
  )
 
  colnames(res) <- c("Time", "Censor", "Linear Part = bX", "Risk Score = exp(bX)", 
-  "Expected number of events", "survival Prob. = exp(-Expected number of events)",
+  #"Expected number of events", "survival Prob. = exp(-Expected number of events)",
   "Martingale Residuals", "Deviance Residuals", "Cox-Snell Residuals")
  return(res)
   })
@@ -117,7 +117,7 @@ ggadjustedcurves(coxfit(), data=DF3(),
 
 output$csplot.cx = plotly::renderPlotly({
 
-fit=survfit(Surv(fit.cox()[,9],fit.cox()[,2])~1)
+fit=survfit(Surv(fit.cox()[,7],fit.cox()[,2])~1)
 Htilde=cumsum(fit$n.event/fit$n.risk)
 
 d = data.frame(time = fit$time, H = Htilde)
@@ -142,11 +142,12 @@ choices = type.num4())
 
 output$diaplot1 = plotly::renderPlotly({
 
-df <- data.frame(id=DF3()[,input$var.mr], dev=fit.cox()[,7])
+df <- data.frame(id=DF3()[,input$var.mr], dev=fit.cox()[,5])
 
 validate(need(length(levels(as.factor(DF3()[,input$var.mr])))>2, "Please choose a continuous variable"))
 
-p<-MFSres(df, "id", "dev")+xlab(input$var.mr) + ylab("Martingale residuals")+geom_point(shape = 19, size=1, color=(fit.cox()[,2]+1))
+p<-MFSres(df, "id", "dev")+xlab(input$var.mr) + ylab("Martingale residuals")+
+geom_point(shape = 19, size=1, color=(fit.cox()[,2]+1))
 plotly::ggplotly(p)
 
 #ggcoxdiagnostics(coxfit(), ox.scale ="observation.id",
@@ -172,7 +173,7 @@ plotly::ggplotly(p)
 
 output$diaplot2 = plotly::renderPlotly({
 
-df <- data.frame(id=seq_len(nrow(fit.cox())), dev=fit.cox()[,8])
+df <- data.frame(id=seq_len(nrow(fit.cox())), dev=fit.cox()[,6])
 
 p<-MFSres(df, "id", "dev")+
 xlab("Observation Id") + ylab("Deviance residuals")+
