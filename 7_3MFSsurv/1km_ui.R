@@ -17,6 +17,8 @@ h4(tags$b("Choose group variable to build the model")),
 p(tags$b("1. Check Surv(time, event), survival object, in the Data Tab")), 
 
 uiOutput('g'),
+tags$i("In the example of Diabetes data, we chose 'laser' as categorical group variable. 
+  That is to explore if the survival curves in two laser groups were different. "),
 
 hr(),
 

@@ -37,18 +37,20 @@ radioButtons("intercept", "4. (Optional) Keep or remove intercept / constant ter
                  "Keep intercept / constant term" = ""),
      selected = ""),
 
-radioButtons("effect", "5. (Optional) Add random effect term",
+radioButtons("effect", "5. (Optional) Add random effect term (the effect of heterogeneity)",
      choices = c(
       "None" = "",
-      "Strata: identifies stratification variable" = "Strata",
-      "Cluster: identifies correlated groups of observations" = "Cluster",
-      "Gamma Frailty: allows one to add a simple gamma distributed random effects term" = "Gamma Frailty",
-      "Gaussian Frailty: allows one to add a simple Gaussian distributed random effects term" = "Gaussian Frailty"
+      "Strata: identifies stratification variable (categorical, such as disease subtype and enrolling institutes)" = "Strata",
+      "Cluster: identifies correlated groups of observations (such as multiple events per subject)" = "Cluster"
+      #"Gamma Frailty: allows one to add a simple gamma distributed random effects term" = "Gamma Frailty",
+      #"Gaussian Frailty: allows one to add a simple Gaussian distributed random effects term" = "Gaussian Frailty"
                  ),
      selected = ""),
 
 uiOutput('fx.c'),
-
+tags$i("In the example of Diabetes data: 'eye' could be used as random effect of strata;
+  'id' can be used as random effect variable of cluster. " ),
+  p(br()),
 
 p(tags$b("6. (Optional) Add interaction term between categorical variables")),
 

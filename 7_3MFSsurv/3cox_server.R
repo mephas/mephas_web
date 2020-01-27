@@ -59,6 +59,8 @@ return(res)
 })
 
 output$zphplot = renderPlot({
+  validate(need((input$effect.cx =="" ), "Models with random effect terms can not be used in this plot."))
+
 f<-cox.zph(coxfit())
 p <- ggcoxzph(f,
   point.col = "red", point.size = 1, point.shape = 19,
@@ -110,6 +112,7 @@ else {y=DF3()[,input$t]}
     scrollX = TRUE))
 
 output$splot = renderPlot({
+validate(need((input$effect.cx =="" || input$effect.cx=="Strata" ||input$effect.cx=="Cluster"), "Frailty models can not be used in this plot."))
 ggadjustedcurves(coxfit(), data=DF3(),
   ggtheme = theme_minimal(), palette = "Set1",
   font.x = 12,font.y = 12,font.main = 12)

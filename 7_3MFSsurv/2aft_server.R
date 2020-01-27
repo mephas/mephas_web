@@ -14,8 +14,8 @@ output$fx.c = renderUI({
 selectInput(
   'fx.c',
   tags$b('Choose one random effect variable'),
-selected = names(DF4())[2],
-choices = names(DF4())
+selected = names(DF4())[1],
+choices = names(DF4()),
 )
 })
 
@@ -31,8 +31,8 @@ validate(need(input$var, "Please choose some independent variable"))
 if (input$effect=="") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), input$conf,input$intercept)}
 if (input$effect=="Strata") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+strata(", input$fx.c, ")",input$conf,input$intercept)}
 if (input$effect=="Cluster") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+cluster(", input$fx.c, ")", input$conf,input$intercept)}
-if (input$effect=="Gamma Frailty") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+frailty(", input$fx.c, ")", input$conf,input$intercept)}
-if (input$effect=="Gaussian Frailty") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+frailty.gaussian(", input$fx.c, ")", input$conf,input$intercept)}
+#if (input$effect=="Gamma Frailty") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+frailty(", input$fx.c, ")", input$conf,input$intercept)}
+#if (input$effect=="Gaussian Frailty") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+frailty.gaussian(", input$fx.c, ")", input$conf,input$intercept)}
 
   #fit <- survreg(as.formula(f), data = DF3(), dist=input$dist)
  

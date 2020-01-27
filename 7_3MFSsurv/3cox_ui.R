@@ -30,17 +30,24 @@ radioButtons("tie", "3. (Optional) Choose Method for Ties Handling",selected="br
   choiceValues = list("efron","breslow","exact")
   ),
 
-radioButtons("effect.cx", "4. (Optional) Add random effect term",
+radioButtons("effect.cx", "4. (Optional) Add random effect term (the effect of heterogeneity)",
      choices = c(
       "None" = "",
-      "Strata: identifies stratification variable" = "Strata",
-      "Cluster: identifies correlated groups of observations" = "Cluster",
-      "Gamma Frailty: allows one to add a simple gamma distributed random effects term" = "Gamma Frailty",
+      "Strata: identifies stratification variable (categorical, such as disease subtype and enrolling institutes)" = "Strata",
+      "Cluster: identifies correlated groups of observations (such as multiple events per subject)" = "Cluster",
+      "Gamma Frailty: allows one to add a simple gamma distributed random effects term " = "Gamma Frailty",
       "Gaussian Frailty: allows one to add a simple Gaussian distributed random effects term" = "Gaussian Frailty"
                  ),
      selected = ""),
-
+p("Frailty: individuals have different frailties, and those who most frail will die earlier than others"),
+p("Cluster model is also called marginal model. It estimates the population averaged relative risk due to the independent variable.
+  Frailty model estimates the relative risk within the random effect variable"),
 uiOutput('fx.cx'),
+tags$i("In the example of Diabetes data: 'eye' could be used as random effect of strata;
+  'id' can be used as random effect variable of cluster. " ),
+p(br()),
+
+
 
 
 p(tags$b("5 (Optional). Add interaction term between categorical variables")),
