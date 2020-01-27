@@ -117,7 +117,7 @@ plotly::ggplotly(p)
   })
 
 output$pls.l.plot  <- plotly::renderPlotly({ 
-load <- as.data.frame(pls()$loadings[,1:input$nc.r])
+load <- load.r()
 p<-MFSload(loads=load, a=input$nc.r)
 plotly::ggplotly(p)
 #ll$group <- rownames(ll)

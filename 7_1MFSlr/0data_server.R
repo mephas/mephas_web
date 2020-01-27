@@ -182,7 +182,7 @@ output$tx = renderUI({
  
  ## scatter plot
  output$p1 = plotly::renderPlotly({
-   p<- MFSscat(data=DF3(), varx=input$tx, vary=input$ty)
+   p<- MFSscat(DF3(), input$tx, input$ty)
    plotly::ggplotly(p)
    })
  
@@ -196,12 +196,12 @@ output$tx = renderUI({
  })
  
 output$p2 = plotly::renderPlotly({
-   p<-MFShist1(data=DF3(), var=input$hx, bw=input$bin)
+   p<-MFShist1(DF3(), input$hx, input$bin)
    plotly::ggplotly(p)
    })
 
 output$p21 = plotly::renderPlotly({
-     p<-MFSdensity1(data=DF3(), var=input$hx)
+     p<-MFSdensity1(DF3(), input$hx)
      plotly::ggplotly(p)
    })
  

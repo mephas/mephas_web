@@ -10,7 +10,8 @@
 MFSscat <- function(data, varx, vary){
   x = data[, varx]
   y = data[, vary]
-  ggplot(data, aes(x=x,y=y)) +
+  name <- rownames(data)
+  ggplot(data, aes(x=x,y=y,label=name)) +
     geom_point(shape = 19, size=1) +
     geom_smooth(method = "lm", size=0.5) +
     xlab(varx) + ylab(vary) +
@@ -26,7 +27,8 @@ MFSscat <- function(data, varx, vary){
 MFSslgt <- function(data, varx, vary){
   x = data[, varx]
   y = as.numeric(as.factor(data[, vary]))-1
-  ggplot(data, aes(x=x, y=y)) +
+  name <- rownames(data)
+  ggplot(data, aes(x=x, y=y,label=name)) +
   geom_point(shape = 19,  size = 1) +
   stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE,  size = 0.5) +
   xlab(varx) + ylab(vary) +
@@ -42,7 +44,8 @@ MFSslgt <- function(data, varx, vary){
 MFSres <- function(data, varx, vary){
   x = data[, varx]
   y = data[, vary]
-  ggplot(data, aes(x=x, y=y))+
+  name <- rownames(data)
+  ggplot(data, aes(x=x, y=y,label=name))+
   geom_point(shape = 19, size=1) +
   stat_smooth(method="loess", size=0.5)+
   geom_hline(yintercept=0, col="red", linetype="dashed", size=0.3)+
@@ -304,6 +307,7 @@ MFSdensity2 <- function(data2){
 ##' @export
 MFSqq1 <- function(data, varx){
   variable = data[, varx]
+  names <- rownames(data)
   ggplot(data, aes(sample = variable)) +
     stat_qq() + stat_qq_line(size=0.3, colour="red")+
     xlab(varx) +
