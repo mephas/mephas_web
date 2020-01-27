@@ -105,14 +105,15 @@ Cox regression assumes that the effects of the predictor variables upon survival
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To build a Cox regression model
-<li> To get the estimates of linear regressions, such as estimate of coefficient, model information, AIC-based best model selection,ROC plot, sensitivity and specificity table, and model predictions 
-<li> To get fitted values which are predicted from the existed data
+<li> To get the estimates of the model, such as (1) estimate of coefficient, (2) predictions from the training data, (3)residuals, 
+(4) the adjusted survival curves, (5) proportional hazard test, and (6) diagnostic plot
 </ul>
 
-<h4><b> 2. About your data (test set) </b></h4>
+<h4><b> 2. About your data (training set) </b></h4>
 
 <ul>
 <li> Please prepare the data in the Data tab
+<li> Please prepare the survival object in the Data tab
 </ul> 
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
@@ -136,12 +137,13 @@ HTML(
 <ul>
 <li> To upload new data and get the prediction
 <li> To get the evaluation if new data contains new dependent variable
+<li> To get Brier Score and time-dependent AUC
 </ul>
 
 <h4><b> 2. About your data (test set)</b></h4>
 
 <ul>
-<li> New data cover all the independent variables used in the model.
+<li> New data cover all the independent variables used in the model
 <li> New data not used to build the model is called <b>test set</b>
 </ul> 
 
@@ -166,8 +168,8 @@ HTML(
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To build AFT model
-<li> To get the estimates of linear regressions, such as estimate of coefficient, model information, AIC-based best model selection,ROC plot, sensitivity and specificity table, and model predictions 
-<li> To get fitted values which are predicted from the existed data
+<li> To get the estimates of the model, such as coefficients of parameters, residuals, and diagnostic plot
+<li> To get fitted values which are predicted from the training data
 </ul>
 
 <h4><b> 2. About your data </b></h4>

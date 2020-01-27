@@ -67,7 +67,7 @@ else {y=DF3()[,input$t]}
   lp = aftfit()$linear.predictors,
   fit = predict(aftfit(), type="response"),
   Residuals = resid(aftfit(),  type="response"),
-  devres = resid(aftfit(),  type="deviance")
+  devres = -resid(aftfit(),  type="deviance")
  )
  res$std <- (log(res[,1])-res[,3])/aftfit()$scale
   
@@ -106,9 +106,11 @@ plotly::ggplotly(p)
 
 output$deplot = plotly::renderPlotly({
 
-df <- data.frame(id=seq_len(nrow(fit.aft())), dev=resid(aftfit(),  type="deviance"))
+df <- data.frame(id=seq_len(nrow(fit.aft())), dev=fit.aft()[,6])
 
-p<-MFSres(df, "id", "dev")+xlab("Observation Id") + ylab("Deviance residuals")+geom_point(shape = 19, size=1, color=(fit.aft()[,2]+1))
+p<-MFSres(df, "id", "dev")+
+xlab("Observation Id") + ylab("Deviance residuals")+
+geom_point(shape = 19, size=1, color=(fit.aft()[,2]+1))
 plotly::ggplotly(p)
 #ggplot(df, aes(x=id, y=dev)) + geom_point(shape = 20) + geom_hline(yintercept = 0, color="red", linetype=2)+
 #geom_smooth(method = "loess", linetype=2) + xlab("Observation Id") + ylab("Deviance residuals") + theme_minimal()
@@ -124,8 +126,8 @@ choices = type.num4())
 
 output$mrplot = plotly::renderPlotly({
 
-#df <- data.frame(id=DF3()[,input$var.mr2], dev=fit.aft()[,9])
-df <- data.frame(id=seq_len(nrow(fit.aft())), dev=fit.aft()[,9])
+df <- data.frame(id=DF3()[,input$var.mr2], dev=fit.aft()[,9])
+#df <- data.frame(id=seq_len(nrow(fit.aft())), dev=fit.aft()[,9])
 
 validate(need(length(levels(as.factor(DF3()[,input$var.mr2])))>2, "Please choose a continuous variable"))
 

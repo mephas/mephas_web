@@ -82,7 +82,7 @@ HTML(
 <li> The coefficients relate to hazard; a positive coefficient indicates a worse prognosis and a negative coefficient indicates a protective effect of the variable with which it is associated.
 <li> exp(coef) = hazard ratio (HR). HR = 1: No effect; HR < 1: Reduction in the hazard; HR > 1: Increase in Hazard
 <li> The output also gives upper and lower 95% confidence intervals for the hazard ratio (exp(coef)), 
-<li> The likelihood-ratio test, Wald test, and score logrank statistics give global statistical significance of the model. These three methods are asymptotically equivalent. For large enough N, they will give similar results. For small N, they may differ somewhat. The Likelihood ratio test has better behavior for small sample sizes, so it is generally preferred.
+<li> The likelihood-ratio test, Wald test, and score log-rank statistics give global statistical significance of the model. These three methods are asymptotically equivalent. For large enough N, they will give similar results. For small N, they may differ somewhat. The Likelihood ratio test has better behavior for small sample sizes, so it is generally preferred.
 </ul>
 "
 ),
@@ -160,20 +160,21 @@ Martingale residuals may present any value in the range (-INF, +1):
 <li> If the residuals act like a sample from a unit exponential distribution, they should lie along the 45-degree diagonal line.
 </ul>
 
-The residuals can be found in Data Fitting tab.
+<p>The residuals can be found in Data Fitting tab.<p>
+<p>Red points are those who 'died soon'; black points are whose who “lived long”<p>
 "
 ),
 
 p(tags$b("1. Martingale residuals plot against continuous independent variable")), 
 
 uiOutput('var.mr'),
-plotOutput("diaplot1", width = "80%"),
+plotly::plotlyOutput("diaplot1", width = "80%"),
 
 #p(tags$b("2. Martingale residuals plot against observation id")), 
 # plotOutput("diaplot1.2", width = "80%"),
 
  p(tags$b("2. Deviance residuals plot by observational id")),
- plotOutput("diaplot2", width = "80%"),
+ plotly::plotlyOutput("diaplot2", width = "80%"),
 
  p(tags$b("3. Cox-Snell residuals plot")),
  plotly::plotlyOutput("csplot.cx", width = "80%")

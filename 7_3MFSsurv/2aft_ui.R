@@ -84,7 +84,12 @@ HTML(
 "
 <b> Explanations  </b>
 <ul>
-<li>
+<li> For each variable, estimated coefficients (Value), statistic for the significance of single variable, and p value are given.
+<li> The column marked “z” gives the Wald statistic value. It corresponds to the ratio of each regression coefficient to its standard error (z = coef/se(coef)).The Wald statistic evaluates, whether the beta (β) coefficient of a given variable is statistically significantly different from 0.
+<li> The coefficients relate to hazard; a positive coefficient indicates a worse prognosis and a negative coefficient indicates a protective effect of the variable with which it is associated.
+<li> exp(Value) = hazard ratio (HR). HR = 1: No effect; HR < 1: Reduction in the hazard; HR > 1: Increase in Hazard
+<li> Scale and Log(scale) are the estimated parameters in the error term of AFT model
+<li> The log-likelihood is given in the model. When maximum likelihood estimation is used to generate the log-likelihoods, then the closer that the log-likelihood(LL) is to zero, the better is the model fit.
 </ul>
 "
 ),
@@ -124,7 +129,9 @@ Martingale residuals may present any value in the range (-INF, +1):
 <li> If the residuals act like a sample from a unit exponential distribution, they should lie along the 45-degree diagonal line.
 </ul>
 
-The residuals can be found in Data Fitting tab.
+<p>The residuals can be found in Data Fitting tab.<p>
+<p>Red points are those who 'died soon'; black points are whose who “lived long”<p>
+
 "
 ),
 
