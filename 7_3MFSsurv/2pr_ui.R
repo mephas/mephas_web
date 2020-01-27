@@ -51,11 +51,12 @@ DT::DTOutput("pred")
 ),
 
 tabPanel("Predicted Survival Plot",p(br()),
-p("This is the predicted survival probability of N'th observation."),
+p("The predicted survival probability of N'th observation"),
 
 numericInput("line", HTML("Choose N'th observation (N'th row of new data)"), value = 1, min = 1),
 
-plotOutput("p.s", width = "80%")
+plotly::plotlyOutput("p.s", width = "80%"),
+DT::DTOutput("pred.n")
 )
 )
 

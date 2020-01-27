@@ -73,9 +73,10 @@ dom = 'Bfrtip',
 buttons = c('copy', 'csv', 'excel'),
 scrollX = TRUE))
 
-output$bsplot = renderPlot({
-
-ggplot(BStab(), aes(x=Times, y=BrierScore)) + geom_line() +ylim(0,1) + theme_minimal()
+output$bsplot = plotly::renderPlotly({
+p<-MFSline1(BStab(), "Times", "BrierScore")
+plotly::ggplotly(p)
+#gplot(BStab(), aes(x=Times, y=BrierScore)) + geom_line() +ylim(0,1) + theme_minimal()
 
   })
 
@@ -115,7 +116,7 @@ dom = 'Bfrtip',
 buttons = c('copy', 'csv', 'excel'),
 scrollX = TRUE))
 
-output$aucplot = renderPlot({
-
-ggplot(AUCtab(), aes(x=Times, y=AUC)) + geom_line() +ylim(0,1) + theme_minimal()
+output$aucplot = plotly::renderPlotly({
+p<-MFSline1(AUCtab(), "Times", "AUC")
+plotly::ggplotly(p)
   })

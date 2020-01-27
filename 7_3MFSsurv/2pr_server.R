@@ -42,12 +42,32 @@ buttons = c('copy', 'csv', 'excel'),
 scrollX = TRUE))
 
 
-
- output$p.s = renderPlot({
+pred.n <- reactive({
   ptime <- predict(aftfit(), newdata=pred()[input$line,], type='quantile', p=c(1:98/100), se=TRUE)
-  matplot(cbind(ptime$fit, ptime$fit + 1.96*ptime$se.fit,
-                           ptime$fit - 1.96*ptime$se.fit), 1-c(1:98/100),
-        xlab="Time", ylab="Survival", type='l', lty=c(1,2,2), col=1)
+  df <- data.frame(estimate =ptime$fit, 
+                   up.band =ptime$fit + 2*ptime$se.fit,
+                   low.band=ptime$fit - 2*ptime$se.fit,
+                   ybreak=1-c(1:98/100))
+  colnames(df)=c("Estimated Times", "95% CI up band", "95% CI lower band", "Survival Probability")
+  return(df)
+})
+
+output$pred.n = DT::renderDT({
+pred.n()
+},
+extensions = 'Buttons', 
+options = list(
+dom = 'Bfrtip',
+buttons = c('copy', 'csv', 'excel'),
+scrollX = TRUE))
+ output$p.s = plotly::renderPlotly({
+  
+
+ #matplot(cbind(ptime$fit, ptime$fit + 1.96*ptime$se.fit,
+ #                          ptime$fit - 1.96*ptime$se.fit), 1-c(1:98/100),
+ #       xlab="Time", ylab="Survival", type='l', lty=c(1,2,2), col=1)
+  p<-MFSmat(pred.n(), "Survival Probability")+xlab("Estimated Times") +ylab("Survival Probability")
+  plotly::ggplotly(p)
   })
 
 
