@@ -4,16 +4,21 @@ sidebarLayout(
 
 sidebarPanel(
 
-h4(tags$b("Use example data (test set)")),
-h4("Click the Output"),
+h4(tags$b("Test Set Preparation")),
+p("Prepare model in the previous Model tab"),
 
-hr(),
+tabsetPanel(
 
-h4(tags$b("Use my own data (test set)")),
+tabPanel("Example data", p(br()),
+
+ h4(tags$b("Data: Birth Weight"))
+
+  ),
+
+tabPanel("Upload Data", p(br()),
+
 p("New data should include all the variables in the model"),
 p("We suggested putting the dependent variable (Y) (if existed) in the left side of all independent variables (X)"),
-
-h4(tags$b("Step 1. Upload New Data File")),      
 
 fileInput('newfile', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 #helpText("The columns of X are not suggested greater than 500"),
@@ -42,12 +47,23 @@ choices = c("None" = "",
 selected = '"'),
 
 p("Correct separator and quote ensure the successful data input")
+
+)
+),
+
+hr(),
+
+h4(tags$b("If the model and new data are ready, click the blue button to generate prediction results.")),
+
+actionButton("B2", h4(tags$b("Run Prediction")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
+
+
 ),
 
 
 mainPanel(
-
-actionButton("B2", h4(tags$b("Click 2: Output. Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
+h4(tags$b("Output. Prediction Results")),
+#actionButton("B2", h4(tags$b("Click 2: Output. Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 p(br()),
 tabsetPanel(
 tabPanel("Prediction",p(br()),

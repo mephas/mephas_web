@@ -8,8 +8,9 @@ tags$head(tags$style("#str {overflow-y:scroll; height: 350px; background: white}
 tags$head(tags$style("#fit {overflow-y:scroll; height: 400px; background: white};")),
 tags$head(tags$style("#step {overflow-y:scroll;height: 400px; background: white};")),
 
-
-h4("Example data is upload in Data tab"),      
+h4(tags$b("Prepare the Model")),
+p("Prepare the data in the previous tab"),
+hr(),      
 
 h4(tags$b("Step 1. Choose variables to build the model")),      
 
@@ -25,9 +26,15 @@ p(tags$b("4. (Optional) Add interaction term between categorical variables")),
 p('Please input: + var1:var2'), 
 tags$textarea(id='conf', " " ), 
 hr(),
-h4(tags$b("Step 2. Check the model")),
+h4(tags$b("Step 2. Check the model and generate results")),
 verbatimTextOutput("formula"),
-p("'-1' in the formula indicates that intercept / constant term has been removed")
+p("'-1' in the formula indicates that intercept / constant term has been removed"),
+hr(),
+
+h4(tags$b("Step 3. If data and model are ready, click the blue button to generate model results.")),
+actionButton("B1", h4(tags$b("Run model")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
+
+
 ),
 
 mainPanel(
@@ -35,7 +42,7 @@ mainPanel(
 h4(tags$b("Output 1. Data Preview")),
 tabsetPanel(
 tabPanel("Browse", br(),
-p("This only shows the first several lines, please check full data in the 1st tab"),
+p("This only shows the first several lines, please check full data in the Data tab"),
 DT::DTOutput("Xdata2")
 ),
 tabPanel("Variables information", br(),
@@ -45,9 +52,9 @@ verbatimTextOutput("str")
 ),
 hr(),
 
-#h4(tags$b("Output 2. Model Results")),
-actionButton("B1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
- p(br()),
+h4(tags$b("Output 2. Model Results")),
+#actionButton("B1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+
 tabsetPanel(
 
 tabPanel("Model Estimation",  br(),

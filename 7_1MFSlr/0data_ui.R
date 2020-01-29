@@ -8,15 +8,20 @@ sidebarPanel(
   tags$head(tags$style("#strfac {overflow-y:scroll; height: 100px; background: white};")),
   tags$head(tags$style("#fsum {overflow-y:scroll; height: 100px; background: white};")),
 
-selectInput("edata", h4(tags$b("Use example data (training set)")), 
+h4(tags$b("Training Set Preparation")),
+
+tabsetPanel(
+
+tabPanel("Example data", p(br()),
+
+  selectInput("edata", tags$b("Use example data"), 
         choices =  c("Birth weight"), 
-        selected = "Birth weight"),
-hr(),
+        selected = "Birth weight")
+  ),
 
-h4(tags$b("Use my own data (training set)")),
+tabPanel("Upload Data", p(br()),
+
 p("We suggested putting the dependent variable (Y) in the left side of all independent variables (X) "),
-
-h4(tags$b("Step 1. Upload Data File")), 
 
 fileInput('file', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
@@ -44,7 +49,9 @@ selected = '"'),
 
 p("Correct separator and quote ensure the successful data input"),
 
-a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets"),
+a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
+  )
+  ),
 
 hr(),
 
@@ -64,8 +71,10 @@ uiOutput("lvl"),
 
 p(tags$b("2. Input the referential level, each line for one variable")),
 
-tags$textarea(id='ref',"")
+tags$textarea(id='ref',""),
+hr(),
 
+h4(tags$b("Build Model in the Next Tab"))
 
 ),
 

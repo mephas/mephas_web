@@ -24,7 +24,7 @@ sidebarLayout(
 		),
 
 	tabPanel("Distribution of Your Data", p(br()),
-
+		tags$b("Check the results in the 'Distribution of Your Data' tab in the Output"),
 		h4(tags$b("1. Manual Input")),
 		p("Data point can be separated by , ; /Enter /Tab /Space"),
     tags$textarea(
@@ -37,7 +37,7 @@ sidebarLayout(
       hr(),
 
       h4(tags$b("Or, 2. Upload Data")),
-
+        p(tags$b("This only reads the 1st column of your data, and will cover the input data")),
       fileInput('f.file', "1. Choose CSV/TXT file",
                 accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 

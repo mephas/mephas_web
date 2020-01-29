@@ -3,7 +3,7 @@
 output$y = renderUI({
 selectInput(
 'y',
-tags$b('1. Choose one dependent variable (Y), real-valued numeric'),
+tags$b('1. Choose one dependent variable (Y), real-valued numeric type'),
 selected = type.num3()[1],
 choices = type.num3()
 )
@@ -17,7 +17,7 @@ return(df)
 output$x = renderUI({
 selectInput(
 'x',
-tags$b('2. Choose some independent variables (X)'),
+tags$b('2. Put the independent variables (X) in the box'),
 selected = names(DF4()),
 choices = names(DF4()),
 multiple = TRUE

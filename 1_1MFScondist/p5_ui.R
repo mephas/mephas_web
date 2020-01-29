@@ -24,7 +24,7 @@ sidebarLayout(
 		),
 
 	tabPanel("Distribution of Your Data", p(br()),
-
+		tags$b("Check the results in the 'Distribution of Your Data' tab in the Output"),
 		h4(tags$b("1. Manual Input")),
 		p("Data point can be separated by , ; /Enter /Tab /Space"),
     tags$textarea(
@@ -37,7 +37,7 @@ sidebarLayout(
       hr(),
 
       h4(tags$b("Or, 2. Upload Data")),
-
+        p(tags$b("This only reads the 1st column of your data, and will cover the input data")),
       ##-------csv file-------##
         fileInput('t.file', "1. Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
@@ -74,6 +74,7 @@ sidebarLayout(
 		tabsetPanel(
 			 tabPanel("Mathematical-based Plot", p(br()),
 			 	tags$b("T distribution plot"),
+			 	p("The blue curve is the standard normal distribution"),
 
 				plotOutput("t.plot", click = "plot_click3", width ="80%"),
 			 	verbatimTextOutput("t.info"),
