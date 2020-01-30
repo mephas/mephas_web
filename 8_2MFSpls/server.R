@@ -21,7 +21,7 @@ source("server_pls.R", local=TRUE, encoding="UTF-8")
 source("server_pls_pr.R", local=TRUE, encoding="UTF-8")
 
 source("server_spls.R", local=TRUE, encoding="UTF-8") 
-source("erver_spls_pr.R", local=TRUE, encoding="UTF-8")
+source("server_spls_pr.R", local=TRUE, encoding="UTF-8")
 
 
 ##########----------##########----------##########
