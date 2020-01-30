@@ -2,14 +2,22 @@
 
 sidebarLayout(
 
-	sidebarPanel(	
+	sidebarPanel(
 
-	tabsetPanel(
+	#Select Src
+	selectInput(
+	    "InputSrc_b", "Select Input Data Source:",
+	    c("Mathematical-based Distribution" = "MathDist",
+	      "Simulation-based Plot" = "SimuDist",
+	      "Data-based" = "DataDist")),
+	hr(),
+	#Select Src end	
 
-		tabPanel(
-			"Draw a Beta Distribution", p(br()),
-		  HTML("<h4><b>Step 1. Set Parameters for Beta(&#945, &#946)</h4></b>"), 
-		  numericInput("b.shape", HTML("&#945 > 0, Shape parameter"), value = 2, min = 0),
+	#condiPa 1
+	  conditionalPanel(
+	    condition = "input.InputSrc_b == 'MathDist'",
+	    HTML("<h4><b>Step 1. Set Parameters for Beta(&#945, &#946)</h4></b>"), 
+		numericInput("b.shape", HTML("&#945 > 0, Shape parameter"), value = 2, min = 0),
 		  numericInput("b.scale", HTML("&#946 > 0, Shape parameter"), value = 2, min = 0),
 
 		  hr(),
@@ -19,27 +27,40 @@ sidebarLayout(
 	 		p(tags$b("You can adjust x-axes range")), 
 		  numericInput("b.xlim", "Range of x-asis, > 0", value = 1, min = 1)
 		  #snumericInput("b.ylim", "Range of y-asis, > 0", value = 2.5, min = 0.1, max = 3),
-
-
-
-		),
-
-	tabPanel("Distribution of Your Data", p(br()),
-		tags$b("Check the results in the 'Distribution of Your Data' tab in the Output"),
-		h4(tags$b("1. Manual Input")),
+	  ),
+	 #condiPa 1 end
+	
+	  #condiPa 2
+	  conditionalPanel(
+	    condition = "input.InputSrc_b == 'SimuDist'",  
+	    numericInput("b.size", "Sample size of simulated numbers", value = 100, min = 1, step = 1),
+	    sliderInput("b.bin", "The number of bins in histogram", min = 0, max = 100, value = 0),
+		p("When the number of bins is 0, plot will use the default number of bins")
+	    
+	  ),
+	  #condiPa 2 end
+	  
+	  #condiPa 3
+	  conditionalPanel(
+	    condition = "input.InputSrc_b == 'DataDist'",  
+	    
+	    tabsetPanel(
+	      tabPanel(
+	        h4(tags$b("Manual Input")),
 		p("Data point can be separated by , ; /Enter /Tab /Space"),
-    tags$textarea(
+    	tags$textarea(
         id = "x.b", #p
         rows = 10,
 "0.11\n0.57\n0.59\n0.52\n0.13\n0.45\n0.63\n0.68\n0.44\n0.55\n0.48\n0.54\n0.29\n0.41\n0.64\n0.75\n0.33\n0.24\n0.45\n0.18"				        ),
-      p("Missing value is input as NA"),
+      	p("Missing value is input as NA")
+	     	 ), #tab1 end 
+	      tabPanel(
+	        h4(tags$b("Upload Data")),
+	        
+	        ##-------csv file-------##
+	        p(tags$b("This only reads the 1st column of your data, and will cover the input data")),
 
-      hr(),
-
-      h4(tags$b("Or, 2. Upload Data")),
-        p(tags$b("This only reads the 1st column of your data, and will cover the input data")),
-      ##-------csv file-------##
-        fileInput('b.file', "1. Choose CSV/TXT file",
+        	fileInput('b.file', "1. Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
         p(tags$b("2. Show 1st row as header?")),
@@ -62,37 +83,40 @@ sidebarLayout(
         p("Correct Separator ensures data input successfully"),
 
         a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
+	      ) #tab2 end 
+	    ),
+		sliderInput("bin.b","The number of bins in histogram", min = 0, max = 100, value = 0),
+        p("When the number of bins is 0, plot will use the default number of bins")
+	  )
+	  #condiPa 3 end
 
-        )
-      
-		)
-	),
+	), #sidePa end
 
-	mainPanel(
-		h4(tags$b("Output. Plots")),
+mainPanel(
+		h4(tags$b("Outputs")),
+		
+		conditionalPanel(
+		  condition = "input.InputSrc_b == 'MathDist'",
+		  p(br()), h4("Mathematical-based Plot"), p(br()),
+		tags$b("Beta distribution plot"),
+        plotOutput("b.plot", click = "plot_click13", width = "80%"),
+        verbatimTextOutput("b.info"),
+        p(tags$b("The position of Red-line, x0")),
+        tableOutput("b")
+		),
+		
+		conditionalPanel(
+		  condition = "input.InputSrc_b == 'SimuDist'",
+		  p(br()), h4("Simulation-based Plot"), p(br()),
+		  
+		tags$b("Histogram from random numbers"),
+        plotly::plotlyOutput("b.plot2", width = "80%"),# click = "plot_click14",
 
-		tabsetPanel(
-			 tabPanel("Mathematical-based Plot", p(br()),
-			 	tags$b("Beta distribution plot"),
-
-				plotOutput("b.plot", click = "plot_click13", width = "80%"),
-			 	verbatimTextOutput("b.info"),
-
-			 	p(tags$b("The position of Red-line, x0")),
-				tableOutput("b")
-				),
-			 tabPanel("Simulation-based Plot", p(br()),
-
-			 	numericInput("b.size", "Sample size of simulated numbers", value = 100, min = 1, step = 1),
-			 	tags$b("Histogram from random numbers"),
-				plotly::plotlyOutput("b.plot2", width = "80%"),# click = "plot_click14",
-			 	sliderInput("b.bin", "The number of bins in histogram", min = 0, max = 100, value = 0),
-			 	p("When the number of bins is 0, plot will use the default number of bins"),
-				#verbatimTextOutput("b.info2"),
-				downloadButton("download4", "Download Random Numbers"),				
-				p(tags$b("Sample descriptive statistics")),
-				tableOutput("b.sum"),
-				HTML(
+        #verbatimTextOutput("b.info2"),
+        downloadButton("download4", "Download Random Numbers"),       
+        p(tags$b("Sample descriptive statistics")),
+        tableOutput("b.sum"),
+        HTML(
     " 
     <b> Explanation </b>
    <ul>
@@ -101,21 +125,24 @@ sidebarLayout(
    </ul>
     "
     )
-			 	),
+		  
+		),
+		
+		conditionalPanel(
+		condition = "input.InputSrc_b == 'DataDist'",
+		p(br()), h4("Distribution of Your Data"), p(br()),
+        tags$b("Density from upload data"),
+        plotly::plotlyOutput("makeplot.b2", width = "80%"),
+        tags$b("Histogram from upload data"),
+        plotly::plotlyOutput("makeplot.b1", width = "80%"),
+        
+        p(tags$b("Sample descriptive statistics")),
+        tableOutput("b.sum2")
 
-			 tabPanel("Distribution of Your Data", p(br()),
-			 	tags$b("Density from upload data"),
-				plotly::plotlyOutput("makeplot.b2", width = "80%"),
-			 	tags$b("Histogram from upload data"),
-				plotly::plotlyOutput("makeplot.b1", width = "80%"),
-	      sliderInput("bin.b","The number of bins in histogram", min = 0, max = 100, value = 0),
-	      p("When the number of bins is 0, plot will use the default number of bins"),
-	      p(tags$b("Sample descriptive statistics")),
-				tableOutput("b.sum2")
+		)
+		
+	) #main pa end	
 
-			 	)
-
-			)
-	)
+	
 	)
 
