@@ -55,7 +55,7 @@ hr(),
 
 h4(tags$b("If the model and new data are ready, click the blue button to generate prediction results.")),
 
-actionButton("B2", h4(tags$b("Run Prediction >>")), class = "btn btn-primary")
+actionButton("B2", h4(tags$b("Show Prediction >>")), class = "btn btn-primary")
 
 
 ),

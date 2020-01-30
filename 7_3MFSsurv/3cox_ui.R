@@ -72,7 +72,7 @@ verbatimTextOutput("cox_form", placeholder = TRUE),
 hr(),
 
 h4(tags$b("Step 3. If data and model are ready, click the blue button to generate model results.")),
-actionButton("B2", h4(tags$b("Run model >>")), class = "btn btn-primary")
+actionButton("B2", h4(tags$b("Show Results >>")), class = "btn btn-primary")
 ),
 
 mainPanel(

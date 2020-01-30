@@ -36,7 +36,7 @@ p("'-1' in the formula indicates that intercept / constant term has been removed
 hr(),
 
 h4(tags$b("Step 3. If data and model are ready, click the blue button to generate model results.")),
-actionButton("B1", h4(tags$b("Run model >>")), class = "btn btn-primary")
+actionButton("B1", h4(tags$b("Show Results >>")), class = "btn btn-primary")
 ),
 
 mainPanel(
