@@ -3,7 +3,7 @@
 output$x.fa = renderUI({
 selectInput(
 'x.fa',
-tags$b('1. Put/Remove independent variables (X) in the box'),
+tags$b('1. Add / Remove independent variables (X)'),
 selected = type.num3(),
 choices = type.num3(),
 multiple = TRUE

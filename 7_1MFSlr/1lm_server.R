@@ -17,7 +17,7 @@ return(df)
 output$x = renderUI({
 selectInput(
 'x',
-tags$b('2. Put the independent variables (X) in the box'),
+tags$b('2. Add / Remove independent variables (X)'),
 selected = names(DF4()),
 choices = names(DF4()),
 multiple = TRUE

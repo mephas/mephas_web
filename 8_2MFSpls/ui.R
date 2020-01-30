@@ -40,18 +40,12 @@ HTML(
 <li> The data used to build model is called <b>training set</b>
 </ul> 
 
-<i><h4>Case Example 1: NKI data</h4>
+<i><h4>Case Example: NKI data</h4>
 
-Suppose we wanted to explore 100 lymph node positive breast cancer patients on metastasis-free survival. 
+Suppose in one study, we wanted to explore some lymph node positive breast cancer patients on metastasis-free survival. 
 Data contained the clinical risk factors: (1) Age: Patient age at diagnosis (years) and (2) the year until relapse; 
 and gene expression measurements of 70 genes found to be prognostic for metastasis-free survival in an earlier study.
-In this example, we wanted to create a model that could find the relations between risk factors and gene expression measurements. 
-
-</i>
-
-<i><h4>Case Example 2 Liver toxicity data</h4>
-
-This data set contains the expression measure of 3116 genes and 10 clinical measurements for 64 subjects (rats) that were exposed to non-toxic, moderately toxic or severely toxic doses of acetaminophen in a controlled experiment.
+In this example, we wanted to create a model that could find the relations between age, year until release, and gene expression measurements. 
 
 </i>
 
