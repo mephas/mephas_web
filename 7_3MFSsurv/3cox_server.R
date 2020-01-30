@@ -21,16 +21,8 @@ choices = names(DF4())
 })
 
 output$Xdata4 <- DT::renderDT(
-(DF3()),     
-extensions = list(
-      'Buttons'=NULL,
-      'Scroller'=NULL),
-    options = list(
-      dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
-      deferRender = TRUE,
-      scrollY = 200,
-      scroller = TRUE))
+head(DF3()),     
+options = list(scrollX = TRUE,dom = 't'))
 ### for summary
 output$str4 <- renderPrint({str(DF3())})
 

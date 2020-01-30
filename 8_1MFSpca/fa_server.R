@@ -3,14 +3,14 @@
 output$x.fa = renderUI({
 selectInput(
 'x.fa',
-tags$b('1. Choose independent variable matrix (X)'),
+tags$b('1. Put/Remove independent variables (X) in the box'),
 selected = type.num3(),
 choices = type.num3(),
 multiple = TRUE
 )
 })
 
-DF4.fa <- reactive({
+DF4.fa <- eventReactive(input$pca1.fa,{
   X()[,input$x.fa]
   })
 
@@ -31,13 +31,17 @@ output$fa  <- renderPrint({
   summary(fa())
   })
 
-output$fa.plot   <- renderPlot({ 
-psych::fa.parallel((DF4.fa()),fa="fa",fm="ml")
+fa1 <- eventReactive(input$pca1.fa,{
+  psych::fa.parallel((DF4.fa()),fa="fa",fm="ml")
+  })
+
+output$fa.plot   <- renderPlot({ fa1()
+#psych::fa.parallel((DF4.fa()),fa="fa",fm="ml")
 })
 
 output$fancomp   <- renderPrint({ 
-x <- psych::fa.parallel((DF4.fa()),fa="fa",fm="ml")
-cat(paste0("Parallel analysis suggests that the number of factors: ", x$nfact))
+#x <- psych::fa.parallel((DF4.fa()),fa="fa",fm="ml")
+cat(paste0("Parallel analysis suggests that the number of factors: ", fa1()$nfact))
 })
 
 
@@ -66,7 +70,7 @@ output$var.fa <- DT::renderDT({as.data.frame(fa()$Vaccounted)},
 
 
 output$pca.ind.fa  <- renderPlot({ 
-    validate(need(input$ncfa>=1, "Components are not enough to create the plot."))
+validate(need(input$ncfa>=1, "Components are not enough to create the plot."))
 psych::fa.diagram(fa(), cut = 0)
   })
 
@@ -92,6 +96,9 @@ plotly::ggplotly(p)
 
   })
 
+#fa.cor <- eventReactive(input$pca1.fa,{
+#  as.data.frame(cor(DF4.fa()))
+#  })
 output$cor.fa <- DT::renderDT({as.data.frame(cor(DF4.fa()))}, 
   extensions = 'Buttons', 
     options = list(

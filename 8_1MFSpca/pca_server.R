@@ -3,7 +3,7 @@
 output$x = renderUI({
 selectInput(
 'x',
-tags$b('1. Choose independent variable matrix (X)'),
+tags$b('1. Put/Remove independent variable matrix (X)'),
 selected = type.num3(),
 choices = type.num3(),
 multiple = TRUE
@@ -93,7 +93,7 @@ colnames(X()[unlist(lapply(X(), is.factor))])
 output$g = renderUI({
 selectInput(
 'g',
-tags$b('4. Choose one group variable, categorical (if add group circle)'),
+tags$b('Choose one group variable, categorical (if add group circle)'),
 selected = type.fac4()[1],
 choices = type.fac4()
 )
@@ -149,20 +149,23 @@ plotly::ggplotly(p)
 
   })
 
+pcafa <- eventReactive(input$pca1,{
+  psych::fa.parallel((DF4()),fa="pc",fm="ml")
+  })
 output$pc.plot   <- renderPlot({ 
-psych::fa.parallel((DF4()),fa="pc",fm="ml")
+pcafa()
 })
 
 output$pcncomp   <- renderPrint({ 
-x <- psych::fa.parallel((DF4()),fa="pc",fm="ml")
-cat(paste0("Parallel analysis suggests that the number of components: ", x$ncomp))
+#x <- psych::fa.parallel((DF4()),fa="pc",fm="ml")
+cat(paste0("Parallel analysis suggests that the number of components: ", pcafa()$ncomp))
 })
 
 output$pca.bp   <- plotly::renderPlotly({ 
 validate(need(input$nc>=2, "Components are not enough to create the plot."))
 score <- as.data.frame(pca()$x)
 load <- as.data.frame(pca()$rotation)
-p<- MFSbiplot(score, load, input$c1, input$c2)
+p<- MFSbiplot(score, load, input$c11, input$c22)
 plotly::ggplotly(p)
 #biplot(pca(), choice=c(input$c1,input$c2))
 })

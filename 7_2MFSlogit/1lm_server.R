@@ -23,7 +23,7 @@ return(df)
 output$x = renderUI({
 selectInput(
 'x',
-tags$b('2. Put the independent variables (X) in the box'),
+tags$b('2. Put/Remove the independent variables (X) in the box'),
 selected = names(DF4()),
 choices = names(DF4()),
 multiple = TRUE
@@ -31,16 +31,8 @@ multiple = TRUE
 })
 
 output$Xdata2 <- DT::renderDT(
-(DF3()),
-extensions = list(
-      'Buttons'=NULL,
-      'Scroller'=NULL),
-    options = list(
-      dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
-      deferRender = TRUE,
-      scrollY = 300,
-      scroller = TRUE))
+head(DF3()),
+options = list(scrollX = TRUE,dom = 't'))
 ### for summary
 output$str <- renderPrint({str(DF3())})
 

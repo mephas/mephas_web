@@ -5,7 +5,7 @@ sidebarLayout(
 sidebarPanel(
 
 #tags$head(tags$style("#x_fa {height: 150px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#fa {overflow-y:scroll; height: 300px; background: white};")),
+tags$head(tags$style("#fa {overflow-y:scroll; max-height: 300px; background: white};")),
 tags$head(tags$style("#tdtrace.fa {overflow-y:scroll; height: 150px; background: white};")),
 
 h4("Example data is upload in Data tab"),      
@@ -16,21 +16,13 @@ uiOutput('x.fa'),
 
 numericInput("ncfa", "2. How many factors (a)", 4, min = 1, max = NA),
 p(tags$i("According to the suggested results from parallel analysis, we chose to generate 4 factors from the data")),
-
 hr(),
-h4(tags$b("When factors >=2, choose 2 factors to show factors and loading 2D plot")),
-p(tags$i("The default is to show the first 2 factors for all the 2D plot")),
-numericInput("c1.fa", "1. Factor at x-axis", 1, min = 1, max = NA),
-numericInput("c2.fa", "2. Factor at y-axis", 2, min = 1, max = NA),
+h4(tags$b("Step 2. If data and model are ready, click the blue button to generate model results.")),
 
-hr(),
-h4(tags$b("When components >=2, choose 3 components to show factors and loading 3D plot")),
-p(tags$i("The default is to show the first 3 factors in the 3D plot")),
-numericInput("td1.fa", "1. Factor at x-axis", 1, min = 1, max = NA),
-numericInput("td2.fa", "2. Factor at y-axis", 2, min = 1, max = NA),
-numericInput("td3.fa", "3. Factor at z-axis", 3, min = 1, max = NA),
+actionButton("pca1.fa", h4(tags$b("Run model >>")), class = "btn btn-primary")
 
-numericInput("lines.fa", "4. (Optional) Change line scale (length)", 10, min = 1, max = NA)
+
+
 ),
 
 mainPanel(
@@ -39,10 +31,6 @@ h4(tags$b("Output 1. Data Explores")),
 
 tabsetPanel(
 
-tabPanel("Browse", p(br()),
-p("This only shows the first several lines, please check full data in the 1st tab"),
-DT::DTOutput("table.x.fa")
-),
 tabPanel("Parallel Analysis", p(br()),
 plotOutput("fa.plot", width = "80%"),
 verbatimTextOutput("fancomp")
@@ -50,11 +38,17 @@ verbatimTextOutput("fancomp")
 tabPanel("Correlation Matrix", p(br()),
 plotOutput("cor.fa.plot", width = "80%"),p(br()),
 DT::DTOutput("cor.fa")
+),
+tabPanel("Data", p(br()),
+p("Please edit data in Data tab"),
+DT::DTOutput("table.x.fa")
 )
-  ),
+),
 hr(),
-actionButton("pca1.fa", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
- p(br()),
+
+h4(tags$b("Output 2. Model Results")),
+#actionButton("pca1.fa", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+# p(br()),
 
 tabsetPanel(
 tabPanel("Factors Result",p(br()),
@@ -104,6 +98,11 @@ tabPanel("Factors and Loading 2D Plot" ,p(br()),
 
 
   "),
+    hr(),
+p(tags$b("When factors >=2, choose 2 factors to show factors and loading 2D plot")),
+p(tags$i("The default is to show the first 2 factors for all the 2D plot")),
+numericInput("c1.fa", "1. Factor at x-axis", 1, min = 1, max = NA),
+numericInput("c2.fa", "2. Factor at y-axis", 2, min = 1, max = NA),
 plotly::plotlyOutput("fa.bp", width = "80%")
 
 ),
@@ -120,7 +119,15 @@ HTML("
 </ul>
 
   "),
+hr(),
 p(tags$b("This plot needs some time to load for the first time")),
+p(tags$b("When components >=3, choose 3 components to show factors and loading 3D plot")),
+p(tags$i("The default is to show the first 3 factors in the 3D plot")),
+numericInput("td1.fa", "1. Factor at x-axis", 1, min = 1, max = NA),
+numericInput("td2.fa", "2. Factor at y-axis", 2, min = 1, max = NA),
+numericInput("td3.fa", "3. Factor at z-axis", 3, min = 1, max = NA),
+
+numericInput("lines.fa", "4. (Optional) Change line scale (length)", 10, min = 1, max = NA),
 plotly::plotlyOutput("tdplot.fa"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("tdtrace.fa")

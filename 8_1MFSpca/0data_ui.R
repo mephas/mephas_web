@@ -4,19 +4,21 @@ sidebarLayout(
 
 sidebarPanel(
 
-  tags$head(tags$style("#strnum {overflow-y:scroll; height: 200px; background: white};")),
-  tags$head(tags$style("#strfac {overflow-y:scroll; height: 100px; background: white};")),
-  tags$head(tags$style("#fsum {overflow-y:scroll; height: 100px; background: white};")),
+  tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
+  tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
+  tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 100px; background: white};")),
 
-selectInput("edata", h4(tags$b("Use example data (training set)")), 
-        choices =  c("Chemical"), 
+h4(tags$b("Training Set Preparation")),
+
+tabsetPanel(
+
+tabPanel("Example data", p(br()),
+  selectInput("edata", tags$b("Use example data"), 
+        choices =  c("Chemical","Mouse"), 
         selected = "Chemical"),
-hr(),
+  ),
 
-h4(tags$b("Use my own data (training set)")),
-p("We suggested putting the dependent variable (Y) in the left side of all independent variables (X) "),
-
-h4(tags$b("Step 1. Upload Data File")), 
+tabPanel("Upload Data", p(br()),
 
 fileInput('file', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
@@ -44,11 +46,17 @@ selected = '"'),
 
 p("Correct separator and quote ensure the successful data input"),
 
-a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets"),
+a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
+  )
+  ),
+hr(),
 
 h4(tags$b("(Optional) Change the types of some variable?")),
 uiOutput("factor1"),
-uiOutput("factor2")
+uiOutput("factor2"),
+hr(),
+
+h4(tags$b("Build Model in the Following tabs"))
 
 ),
 
@@ -56,7 +64,6 @@ uiOutput("factor2")
 mainPanel(
 h4(tags$b("Output 1. Data Information")),
 p(tags$b("Data Preview")), 
-p(br()),
 DT::DTOutput("Xdata"),
 
 p(tags$b("1. Numeric variable information list")),

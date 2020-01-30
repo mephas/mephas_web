@@ -5,9 +5,11 @@ sidebarLayout(
 sidebarPanel(
 
 #tags$head(tags$style("#x {height: 150px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#tdtrace {overflow-y:scroll; height: 150px; background: white};")),
+tags$head(tags$style("#tdtrace {overflow-y:scroll; max-height: 150px; background: white};")),
 
-h4("Example data is upload in Data tab"),      
+h4(tags$b("Prepare the Model")),
+p("Prepare the data in the previous tab"),
+hr(),       
 
 h4(tags$b("Step 1. Choose parameters to build the model")),    
 
@@ -18,31 +20,16 @@ p(tags$i("According to the suggested results from parallel analysis, we chose to
 
 hr(),
 
-h4(tags$b("When components >=2, choose 2 components to show component and loading 2D plot")),
-p(tags$i("The default is to show the first 2 PCs for all the 2D plot")),
-numericInput("c1", "1. Component at x-axis", 1, min = 1, max = NA),
-numericInput("c2", "2. Component at y-axis", 2, min = 1, max = NA),
+h4(tags$b("Step 2. If data and model are ready, click the blue button to generate model results.")),
+actionButton("pca1", h4(tags$b("Run model >>")), class = "btn btn-primary")
 
 
-hr(),
-h4(tags$b("When components >=3, choose 3 components to show component and loading 3D plot")),
-p(tags$i("The default is to show the first 3 PC in the 3D plot")),
-numericInput("td1", "1. Component at x-axis", 1, min = 1, max = NA),
-numericInput("td2", "2. Component at y-axis", 2, min = 1, max = NA),
-numericInput("td3", "3. Component at z-axis", 3, min = 1, max = NA),
-
-numericInput("lines", "4. (Optional) Change line scale (length)", 10, min = 1, max = NA)
 ),
 
 mainPanel(
 
 h4(tags$b("Output 1. Data Explores")),
-
 tabsetPanel(
-tabPanel("Browse", p(br()),
-p("This only shows the first several lines, please check full data in the 1st tab"),
-DT::DTOutput("table.x")
-),
 tabPanel("Parallel Analysis", p(br()),
 plotOutput("pc.plot", width = "80%"),
 verbatimTextOutput("pcncomp")
@@ -50,12 +37,19 @@ verbatimTextOutput("pcncomp")
 tabPanel("Correlation Matrix", p(br()),
 plotOutput("cor.plot", width = "80%"),p(br()),
 DT::DTOutput("cor")
+),
+
+tabPanel("Browse", p(br()),
+p("This only shows the first several lines, please check full data in the 1st tab"),
+DT::DTOutput("table.x")
 )
+
   ),
 
 hr(),
-actionButton("pca1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
- p(br()),
+h4(tags$b("Output 2. Model Results")),
+#actionButton("pca1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+ #p(br()),
 
 tabsetPanel(
 
@@ -75,7 +69,8 @@ tabPanel("Components", p(br()),
 
 </ul></i>
   "),
-checkboxInput("frame", tags$b("Add group circle in the component plot"), FALSE),
+  hr(),
+checkboxInput("frame", tags$b("1. Add group circle in the component plot"), FALSE),
 uiOutput('g'), 
 radioButtons("type", "The type of ellipse",
  choices = c("T: assumes a multivariate t-distribution" = 't',
@@ -83,6 +78,10 @@ radioButtons("type", "The type of ellipse",
              "Euclid: the euclidean distance from the center" = "euclid"),
  selected = 'euclid',
  width="500px"),
+p(tags$b("2. When components >=2, choose 2 components to show component and loading 2D plot")),
+p(tags$i("The default is to show the first 2 PCs for all the 2D plot")),
+numericInput("c1", "2.1. Component at x-axis", 1, min = 1, max = NA),
+numericInput("c2", "2.2. Component at y-axis", 2, min = 1, max = NA),
 plotly::plotlyOutput("pca.ind", width = "80%"),
 
 DT::DTOutput("comp")
@@ -121,6 +120,10 @@ The results are corresponding to the loading plot
 </ul></i>
 
   "),
+p(tags$b("When components >=2, choose 2 components to show component and loading 2D plot")),
+p(tags$i("The default is to show the first 2 PCs for all the 2D plot")),
+numericInput("c11", "2.1. Component at x-axis", 1, min = 1, max = NA),
+numericInput("c22", "2.2. Component at y-axis", 2, min = 1, max = NA),
 plotly::plotlyOutput("pca.bp", width = "80%")
 
 ),
@@ -137,7 +140,15 @@ HTML("
 </ul>
 
   "),
+hr(),
 p(tags$b("This plot needs some time to load for the first time")),
+p(tags$b("When components >=3, choose 3 components to show component and loading 3D plot")),
+p(tags$i("The default is to show the first 3 PC in the 3D plot")),
+numericInput("td1", "1. Component at x-axis", 1, min = 1, max = NA),
+numericInput("td2", "2. Component at y-axis", 2, min = 1, max = NA),
+numericInput("td3", "3. Component at z-axis", 3, min = 1, max = NA),
+
+numericInput("lines", "4. (Optional) Change line scale (length)", 10, min = 1, max = NA),
 plotly::plotlyOutput("tdplot"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("tdtrace")
