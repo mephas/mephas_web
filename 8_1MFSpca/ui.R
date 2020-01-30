@@ -31,10 +31,17 @@ HTML(
 <li> Your data need to be all numeric 
 </ul> 
 
-<i><h4>Case Example 1: Chemical data</h4>
+<i>
 
-SUppose in one study, people measured the 9 chemical attributes of 7 types of drugs. However, not all the attributes are important.
-We wanted to explore the important or principal components from the chemical attributes matrix.
+<h4>Case Example 1: Mouse gene expression data</h4>
+
+This data measured the gene expression of 20 mouses in a diet experiment. Some mouses showed same genotype and some gene variables were correlated. 
+We wanted to compute the principal components which were linearly uncorrelated from the gene expression data.
+
+<h4>Case Example 2: Chemical data</h4>
+
+Suppose in one study, people measured the 9 chemical attributes of 7 types of drugs. Some chemicals had latent association.
+We wanted to explore the latent relational structure among the set of chemical variables and narrow down to smaller number of variables.
 
 </i>
 

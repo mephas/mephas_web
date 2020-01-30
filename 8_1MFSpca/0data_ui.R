@@ -8,14 +8,14 @@ sidebarPanel(
   tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
   tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 100px; background: white};")),
 
-h4(tags$b("Training Set Preparation")),
+h4(tags$b("Data Preparation")),
 
 tabsetPanel(
 
 tabPanel("Example data", p(br()),
   selectInput("edata", tags$b("Use example data"), 
         choices =  c("Chemical","Mouse"), 
-        selected = "Chemical"),
+        selected = "Mouse"),
   ),
 
 tabPanel("Upload Data", p(br()),

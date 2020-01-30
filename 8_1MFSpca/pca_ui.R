@@ -8,7 +8,7 @@ sidebarPanel(
 tags$head(tags$style("#tdtrace {overflow-y:scroll; max-height: 150px; background: white};")),
 
 h4(tags$b("Prepare the Model")),
-p("Prepare the data in the previous tab"),
+p("Prepare the data in the Data tab"),
 hr(),       
 
 h4(tags$b("Step 1. Choose parameters to build the model")),    

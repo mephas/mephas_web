@@ -10,14 +10,18 @@ multiple = TRUE
 )
 })
 
-DF4 <- reactive({
+DF4 <- eventReactive(input$pca1,{
   X()[,input$x]
   })
 
 output$table.x <- DT::renderDT(
     head(X()), options = list(scrollX = TRUE,dom = 't'))
 
-output$cor <- DT::renderDT({as.data.frame(cor(DF4()))}, 
+output$cor <- DT::renderDT({
+  c <- as.data.frame(cor(DF4()))
+  c <- c[ , order(names(c))]
+  c <- c[order(rownames(c)),]
+  return(c)}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -51,6 +55,7 @@ MFScorr(DF4())
 #output$nc <- renderText({input$nc})
 # model
 pca <- eventReactive(input$pca1,{
+  validate(need(nrow(DF4())>ncol(DF4()), "Number of variables should be less than the number of rows"))
   X <- DF4()
   a <- input$nc
 validate(need(input$nc>=1, "Components must be >= 1."))
@@ -149,9 +154,11 @@ plotly::ggplotly(p)
 
   })
 
-pcafa <- eventReactive(input$pca1,{
+pcafa <- eventReactive(input$pca1, {
+  validate(need(nrow(DF4())>ncol(DF4()), "Number of variables should be less than the number of rows"))
   psych::fa.parallel((DF4()),fa="pc",fm="ml")
   })
+
 output$pc.plot   <- renderPlot({ 
 pcafa()
 })

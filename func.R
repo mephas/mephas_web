@@ -621,14 +621,15 @@ theme_minimal()+theme(legend.title=element_blank())
 ##' @export
 MFScorr <- function(data){
   c <- as.data.frame(cor(data))
+  c <- c[ , order(names(c))]
+  c <- c[order(rownames(c)),]
   c$group <- rownames(c)
-  corrs.m <- reshape::melt(c, id="group",
-                           measure=rownames(c))
-  group <- corrs.m[,"group"]
-  value <- corrs.m[,"value"]
-  variable <- corrs.m[,"variable"]
+  corrs.m <- reshape::melt(c, id="group", measure=rownames(c))
+  group <- corrs.m[,1]
+  value <- corrs.m[,3]
+  variable <- corrs.m[,2]
 
-  ggplot(corrs.m, aes(group, variable, fill=abs(value))) +
+  ggplot(corrs.m, aes(x=group, y=variable, fill=abs(value))) +
     geom_tile() + #rectangles for each correlation
     #add actual correlation value in the rectangle
     geom_text(aes(label = round(value, 2)), size=2.5) +

@@ -8,7 +8,9 @@ sidebarPanel(
 tags$head(tags$style("#fa {overflow-y:scroll; max-height: 300px; background: white};")),
 tags$head(tags$style("#tdtrace.fa {overflow-y:scroll; height: 150px; background: white};")),
 
-h4("Example data is upload in Data tab"),      
+h4(tags$b("Prepare the Model")),
+p("Prepare the data in the Data tab"),
+hr(),     
 
 h4(tags$b("Step 1. Choose parameters to build the model")),    
 
@@ -20,8 +22,6 @@ hr(),
 h4(tags$b("Step 2. If data and model are ready, click the blue button to generate model results.")),
 
 actionButton("pca1.fa", h4(tags$b("Run model >>")), class = "btn btn-primary")
-
-
 
 ),
 

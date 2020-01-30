@@ -26,7 +26,7 @@ multiple = TRUE
 
 output$Xdata2 <- DT::renderDT(
 head(DF3()), 
-, options = list(scrollX = TRUE,dom = 't'))
+options = list(scrollX = TRUE,dom = 't'))
 ### for summary
 output$str <- renderPrint({str(DF3())})
 

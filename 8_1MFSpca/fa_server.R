@@ -19,6 +19,8 @@ output$table.x.fa <- DT::renderDT(
     head(X()), options = list(scrollX = TRUE,dom = 't'))
 
 fa <- eventReactive(input$pca1.fa,{
+validate(need(nrow(DF4.fa())>ncol(DF4.fa()), "Number of variables should be less than the number of rows"))
+
   X <- DF4.fa()
   a <- input$ncfa
   validate(need(input$ncfa>=1, "Components must be >= 1."))
@@ -32,6 +34,7 @@ output$fa  <- renderPrint({
   })
 
 fa1 <- eventReactive(input$pca1.fa,{
+  validate(need(nrow(DF4.fa())>ncol(DF4.fa()), "Number of variables should be less than the number of rows"))
   psych::fa.parallel((DF4.fa()),fa="fa",fm="ml")
   })
 
