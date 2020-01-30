@@ -15,7 +15,7 @@ tabsetPanel(
 tabPanel("Example data", p(br()),
 selectInput("edata", h4(tags$b("Use example data (training set)")), 
         choices =  c("NKI"), 
-        selected = "NKI"),
+        selected = "NKI")
   ),
 
 tabPanel("Upload Data", p(br()),
