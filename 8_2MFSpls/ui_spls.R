@@ -6,12 +6,7 @@ sidebarPanel(
 tags$head(tags$style("#spls {overflow-y:scroll; max-height: 300px; background: white};")),
 tags$head(tags$style("#spls_cv {overflow-y:scroll; max-height: 300px; background: white};")),
 tags$head(tags$style("#tdtrace {overflow-y:scroll; max-height: 200px; background: white};")),
-tags$style(type='text/css',
-                   ".selectize-dropdown-content{
-                 height: 1000px;
-                 width: 1000px;
-                 background-color: #b0c4de;
-                }"),
+
 h4(tags$b("Prepare the Model")),
 p("Prepare the data in the Data tab"),
 hr(),      
@@ -50,8 +45,8 @@ numericInput("cv.eta", "Parameter for selection range (larger number chooses les
 p("This result chooses optimal parameters using 10-fold cross-validation which split data randomly, so the result will not be exactly the same every time."),
 verbatimTextOutput("spls_cv")
   ),
-tabPanel("Browse", p(br()),
-p("This only shows the first several lines, please check full data in the 1st tab"),
+tabPanel("First Part of Data", br(),
+ p("Please edit data in Data tab"),
 DT::DTOutput("spls.x")
 )
 ),

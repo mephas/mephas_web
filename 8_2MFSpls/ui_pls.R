@@ -42,8 +42,8 @@ actionButton("pls1", h4(tags$b("Show Results >>")), class = "btn btn-primary")
 mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
-p(tags$b("Browse")),
-p("This only shows the first several lines, please check full data in the 1st tab"),
+p(tags$b("First Part of Data"),
+ p("Please edit data in Data tab"),
 DT::DTOutput("pls.x"),
 
 hr(),

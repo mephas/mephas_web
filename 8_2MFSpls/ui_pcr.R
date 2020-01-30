@@ -36,8 +36,8 @@ mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
 p(br()),
-p(tags$b("Browse")),
-p("This only shows the first several lines, please check full data in the 1st tab"),
+p(tags$b("First Part of Data"),
+ p("Please edit data in Data tab"),
 DT::DTOutput("pcr.x"),
 
 hr(),
