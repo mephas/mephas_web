@@ -17,11 +17,11 @@ source("server_data.R", local=TRUE, encoding="UTF-8")
 source("server_pcr.R", local=TRUE, encoding="UTF-8")
 source("server_pcr_pr.R", local=TRUE, encoding="UTF-8")
 
-source("pserver_pls.R", local=TRUE, encoding="UTF-8") 
+source("server_pls.R", local=TRUE, encoding="UTF-8") 
 source("server_pls_pr.R", local=TRUE, encoding="UTF-8")
 
-source("sserver_spls.R", local=TRUE, encoding="UTF-8") 
-source("server_spls_pr.R", local=TRUE, encoding="UTF-8")
+source("server_spls.R", local=TRUE, encoding="UTF-8") 
+source("erver_spls_pr.R", local=TRUE, encoding="UTF-8")
 
 
 ##########----------##########----------##########
