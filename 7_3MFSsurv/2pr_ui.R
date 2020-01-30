@@ -56,6 +56,7 @@ actionButton("B1.1", h4(tags$b("Run Prediction >>")), class = "btn btn-primary")
 
 ),
 mainPanel(
+h4(tags$b("Output. Prediction Results")),
 
 #actionButton("B1.1", h4(tags$b("Click 2: Output. Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 p(br()),
