@@ -10,7 +10,7 @@ type.bi <- reactive({
 output$y = renderUI({
 selectInput(
 'y',
-tags$b('1. Choose a dependent variable / outcome / response (Y), binary'),
+tags$b('1. Choose one dependent variable (Y), binary type'),
 selected = type.bi()[1],
 choices = type.bi())
 })
@@ -23,7 +23,7 @@ return(df)
 output$x = renderUI({
 selectInput(
 'x',
-tags$b('2. Choose independent variables / factors / predictors (X)'),
+tags$b('2. Put the independent variables (X) in the box'),
 selected = names(DF4()),
 choices = names(DF4()),
 multiple = TRUE
