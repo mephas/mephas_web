@@ -39,8 +39,8 @@ tabPanel("Correlation Matrix", p(br()),
 plotOutput("cor.fa.plot", width = "80%"),p(br()),
 DT::DTOutput("cor.fa")
 ),
-tabPanel("Data", p(br()),
-p("Please edit data in Data tab"),
+tabPanel("First Part of Data", br(),
+ p("Please edit data in Data tab"),
 DT::DTOutput("table.x.fa")
 )
 ),

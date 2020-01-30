@@ -10,11 +10,11 @@ function(input, output, session) {
 
 source("../func.R")
 ##########----------##########----------##########
-source("0data_server.R", local=TRUE, encoding="UTF-8")
+source("server_data.R", local=TRUE, encoding="UTF-8")
 
-source("pca_server.R", local=TRUE, encoding="UTF-8")
+source("server_pca.R", local=TRUE, encoding="UTF-8")
 
-source("fa_server.R", local=TRUE, encoding="UTF-8") 
+source("server_fa.R", local=TRUE, encoding="UTF-8") 
 
 ##########----------##########----------##########
 

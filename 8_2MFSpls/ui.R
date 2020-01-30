@@ -54,7 +54,7 @@ In this example, we wanted to create a model that could find the relations betwe
 ),
 
 hr(),
-source("0data_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_data.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 ),
@@ -88,7 +88,7 @@ HTML(
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "),
 hr(),
-source("pcr_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_pcr.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 ), 
@@ -124,7 +124,7 @@ Suppose in the same study, we got more measurements and wanted to predict the ou
 "),
 
 hr(),
-source("pr1_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_pcr_pr.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 ),
@@ -158,7 +158,7 @@ HTML(
 "),
 
 hr(),
-source("plsr_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_pls.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
 
@@ -191,7 +191,7 @@ Suppose in the same study, we got more measurements and wanted to predict the ou
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "),
 hr(),
-source("pr2_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_pls_pr.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 ),
@@ -223,7 +223,7 @@ HTML(
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "),
 hr(),
-source("spls_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_spls.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
 
@@ -257,7 +257,7 @@ Suppose in the same study, we got more measurements and wanted to predict the ou
 
 
 hr(),
-source("pr3_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_spls_pr.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 ),

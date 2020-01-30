@@ -82,7 +82,6 @@ h4(tags$b("Build Model in the Next Tab"))
 mainPanel(
 h4(tags$b("Output 1. Data Information")),
 p(tags$b("Data Preview")), 
-p(br()),
 DT::DTOutput("Xdata"),
 
 p(tags$b("1. Numeric variable information list")),

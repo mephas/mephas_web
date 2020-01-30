@@ -3,10 +3,15 @@ sidebarLayout(
 
 sidebarPanel(
 
-tags$head(tags$style("#spls {overflow-y:scroll; height: 300px; background: white};")),
-tags$head(tags$style("#spls_cv {overflow-y:scroll; height: 300px; background: white};")),
-tags$head(tags$style("#tdtrace {overflow-y:scroll; height: 200px; background: white};")),
-
+tags$head(tags$style("#spls {overflow-y:scroll; max-height: 300px; background: white};")),
+tags$head(tags$style("#spls_cv {overflow-y:scroll; max-height: 300px; background: white};")),
+tags$head(tags$style("#tdtrace {overflow-y:scroll; max-height: 200px; background: white};")),
+tags$style(type='text/css',
+                   ".selectize-dropdown-content{
+                 height: 1000px;
+                 width: 1000px;
+                 background-color: #b0c4de;
+                }"),
 h4(tags$b("Prepare the Model")),
 p("Prepare the data in the Data tab"),
 hr(),      
@@ -53,11 +58,11 @@ DT::DTOutput("spls.x")
 
 hr(),
 #actionButton("spls1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-p(br()),
+h4(tags$b("Output 1. Model Results")),
 
 tabsetPanel(
-tabPanel("Result",p(br()),
-
+tabPanel("Selection",p(br()),
+p(tags$b("The selected variables")),
 verbatimTextOutput("spls"),
 plotOutput("spls.bp", width = "80%"),
 p(tags$b("Coefficient")),

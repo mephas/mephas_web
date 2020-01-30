@@ -77,8 +77,8 @@ h4(tags$b("Output 1. Data Preview")),
  verbatimTextOutput("str")
  
  ),
- tabPanel("Data",p(br()),
- p("Please edit data in Data tab"),
+tabPanel("First Part of Data", br(),
+p("Check full data in Data tab"),
  DT::DTOutput("Xdata2")
  )
 

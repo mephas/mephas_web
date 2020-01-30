@@ -39,8 +39,8 @@ plotOutput("cor.plot", width = "80%"),p(br()),
 DT::DTOutput("cor")
 ),
 
-tabPanel("Browse", p(br()),
-p("This only shows the first several lines, please check full data in the 1st tab"),
+tabPanel("First Part of Data", br(),
+ p("Please edit data in Data tab"),
 DT::DTOutput("table.x")
 )
 

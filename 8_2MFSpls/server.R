@@ -11,17 +11,17 @@ function(input, output, session) {
 
 source("../func.R")
 ##########----------##########----------##########
-source("0data_server.R", local=TRUE, encoding="UTF-8")
+source("server_data.R", local=TRUE, encoding="UTF-8")
 
 
-source("pcr_server.R", local=TRUE, encoding="UTF-8")
-source("pr1_server.R", local=TRUE, encoding="UTF-8")
+source("server_pcr.R", local=TRUE, encoding="UTF-8")
+source("server_pcr_pr.R", local=TRUE, encoding="UTF-8")
 
-source("plsr_server.R", local=TRUE, encoding="UTF-8") 
-source("pr2_server.R", local=TRUE, encoding="UTF-8")
+source("pserver_pls.R", local=TRUE, encoding="UTF-8") 
+source("server_pls_pr.R", local=TRUE, encoding="UTF-8")
 
-source("spls_server.R", local=TRUE, encoding="UTF-8") 
-source("pr3_server.R", local=TRUE, encoding="UTF-8")
+source("sserver_spls.R", local=TRUE, encoding="UTF-8") 
+source("server_spls_pr.R", local=TRUE, encoding="UTF-8")
 
 
 ##########----------##########----------##########

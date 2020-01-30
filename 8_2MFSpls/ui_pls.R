@@ -3,11 +3,11 @@ sidebarLayout(
 
 sidebarPanel(
 
-tags$head(tags$style("#pls {overflow-y:scroll; height: 300px; background: white};")),
-tags$head(tags$style("#pls_r {overflow-y:scroll; background: white};")),
-tags$head(tags$style("#pls_rmsep {overflow-y:scroll;background: white};")),
-tags$head(tags$style("#pls_msep {overflow-y:scroll; background: white};")),
-tags$head(tags$style("#pls_tdtrace {overflow-y:scroll; height: 200px; background: white};")),
+tags$head(tags$style("#pls {overflow-y:scroll; max-height: 300px; background: white};")),
+tags$head(tags$style("#pls_r {overflow-y:scroll; max-height: 300px; background: white};")),
+tags$head(tags$style("#pls_rmsep {overflow-y:scroll;max-height: 300px; background: white};")),
+tags$head(tags$style("#pls_msep {overflow-y:scroll; max-height: 300px; background: white};")),
+tags$head(tags$style("#pls_tdtrace {overflow-y:scroll; max-height: 200px; background: white};")),
 
 
 h4(tags$b("Prepare the Model")),

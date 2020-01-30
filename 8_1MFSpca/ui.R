@@ -49,7 +49,7 @@ We wanted to explore the latent relational structure among the set of chemical v
 "
 ),
 hr(),
-source("0data_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_data.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 ),
@@ -82,7 +82,7 @@ HTML(
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "),
 hr(),
-source("pca_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_pca.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 ), #penal tab end
@@ -114,7 +114,7 @@ HTML(
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "),
 hr(),
-source("fa_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_fa.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
 
