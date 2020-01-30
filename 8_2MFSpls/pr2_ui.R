@@ -4,16 +4,20 @@ sidebarLayout(
 
 sidebarPanel(
 
-h4(tags$b("Use example data (test set)")),
-h4("Click the Output"),
+h4(tags$b("Test Set Preparation")),
+p("Prepare model in the previous Model tab"),
 
-hr(),
+tabsetPanel(
 
-h4(tags$b("Use my own data (test set)")),
+tabPanel("Example data", p(br()),
+
+ h4(tags$b("Data: NKI"))
+
+  ),
+
+tabPanel("Upload Data", p(br()),
 p("New data should include all the variables in the model"),
 p("We suggested putting the dependent variable (Y) (if existed) in the left side of all independent variables (X)"),
-
-h4(tags$b("Step 1. Upload New Data File")),      
 
 fileInput('newfile.pls', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
@@ -39,16 +43,23 @@ choices = c("None" = "",
 selected = '"'),
 
 p("Correct separator and quote ensure the successful data input")
+)
+),
+
+hr(),
+
+h4(tags$b("If the model and new data are ready, click the blue button to generate prediction results.")),
+
+actionButton("B.pls", h4(tags$b("Show Prediction >>")), class = "btn btn-primary")
+
+
 ),
 
 
 mainPanel(
 
-h4(tags$b("Output. Data Preview")),
-DT::DTOutput("newX.pls"),
-hr(),
-actionButton("B.pls", h4(tags$b("Click 2: Output. Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
-p(br()),
+h4(tags$b("Output. Model Results")),
+
 tabsetPanel(
 tabPanel("Predicted dependent variables",p(br()),
 
@@ -57,6 +68,9 @@ DT::DTOutput("pred.lp.pls")
 
 tabPanel("Predicted Components",p(br()),
 DT::DTOutput("pred.comp.pls")
+),
+tabPanel("Test Data",p(br()),
+DT::DTOutput("newX.pls")
 )
 ) 
 ) 

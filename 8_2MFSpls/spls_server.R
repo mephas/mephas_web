@@ -153,7 +153,7 @@ output$spls.biplot<- plotly::renderPlotly({
 validate(need(input$nc>=2, "The number of components must be >= 2"))
 score <- score.s()
 load <- load.s()
-p<-MFSbiplot(score, load, input$c1.s, input$c2.s)
+p<-MFSbiplot(score, load, input$c11.s, input$c22.s)
 plotly::ggplotly(p)
 })
 

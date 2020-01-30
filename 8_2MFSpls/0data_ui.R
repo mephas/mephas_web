@@ -8,15 +8,18 @@ sidebarPanel(
   tags$head(tags$style("#strfac {overflow-y:scroll; height: 100px; background: white};")),
   tags$head(tags$style("#fsum {overflow-y:scroll; height: 100px; background: white};")),
 
+h4(tags$b("Training Set Preparation")),
+
+tabsetPanel(
+
+tabPanel("Example data", p(br()),
 selectInput("edata", h4(tags$b("Use example data (training set)")), 
         choices =  c("NKI"), 
         selected = "NKI"),
-hr(),
+  ),
 
-h4(tags$b("Use my own data (training set)")),
+tabPanel("Upload Data", p(br()),
 p("We suggested putting the dependent variable (Y) in the left side of all independent variables (X) "),
-
-h4(tags$b("Step 1. Upload Data File")), 
 
 fileInput('file', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
@@ -45,16 +48,16 @@ selected = '"'),
 p("Correct separator and quote ensure the successful data input"),
 
 a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets"),
-
+  )
+  ),
+hr(),
 h4(tags$b("(Optional) Change the types of some variable?")),
 
-#p(tags$b("Choice 1. Change Real-valued Variables into Categorical Variable")), 
-
 uiOutput("factor1"),
+uiOutput("factor2"),
+hr(),
 
-#p(tags$b("Choice 2. Change Categorical Variable (Numeric Factors) into Numeric Variables (Numbers)")),
-
-uiOutput("factor2")
+h4(tags$b("Build Model in the Following tabs"))
 
 ),
 

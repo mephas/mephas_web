@@ -9,7 +9,9 @@ tags$head(tags$style("#pcr_rmsep {overflow-y:scroll;background: white};")),
 tags$head(tags$style("#pcr_msep {overflow-y:scroll; background: white};")),
 tags$head(tags$style("#tdtrace {overflow-y:scroll; height: 200px; background: white};")),
 
-h4("Example data is upload in Data tab"),      
+h4(tags$b("Prepare the Model")),
+p("Prepare the data in the Data tab"),
+hr(),    
 
 h4(tags$b("Step 1. Choose parameters to build the model")),    
 
@@ -18,22 +20,16 @@ uiOutput('y'),
 
 numericInput("nc", "4. How many new components (a)", 4, min = 1, max = NA),
 #p("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
-
+radioButtons("val", "5. Whether to do cross-validation",
+choices = c("No" = 'none',
+           "10-fold cross-validation" = "CV",
+           "Leave-one-out cross-validation" = "LOO"),
+selected = 'none'),
 hr(),
-h4(tags$b("When #comp >=2, choose components to show factor and loading 2D plot")),
-numericInput("c1", "1. Component at x-axis", 1, min = 1, max = NA),
-numericInput("c2", "2. Component at y-axis", 2, min = 1, max = NA),
-p("x and y must be different"),
 
+h4(tags$b("Step 2. If data and model are ready, click the blue button to generate model results.")),
+actionButton("pcr1", h4(tags$b("Show Results >>")), class = "btn btn-primary")
 
-hr(),
-h4(tags$b("When #comp >=3, choose components to show factor and loading 3D plot")),
-numericInput("td1", "1. Component at x-axis", 1, min = 1, max = NA),
-numericInput("td2", "2. Component at y-axis", 2, min = 1, max = NA),
-numericInput("td3", "3. Component at z-axis", 3, min = 1, max = NA),
-p("x y z must be different"),
-
-numericInput("lines", "4. (Optional) Change line scale (length)", 20, min = 1, max = NA)
 ),
 
 mainPanel(
@@ -46,29 +42,14 @@ DT::DTOutput("pcr.x"),
 
 hr(),
 #p("Please make sure both X and Y have been prepared. If Error happened, please check your X and Y data."),
-actionButton("pcr1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
- p(br()),
+#sactionButton("pcr1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+h4(tags$b("Output 2. Model Results")),
 
 tabsetPanel(
 tabPanel("Result",p(br()),
-radioButtons("val", "Whether to do cross-validation",
-choices = c("No" = 'none',
-           "10-fold cross-validation" = "CV",
-           "Leave-one-out cross-validation" = "LOO"),
-selected = 'none'),
-p("10-fold cross-validation randomly split the data into 10 fold every time, so the results will not be exactly the same after refresh."),
-
-verbatimTextOutput("pcr"),
-p(tags$b("R^2")),
-verbatimTextOutput("pcr_r"),
-p(tags$b("Mean square error of prediction (MSEP)")),
-verbatimTextOutput("pcr_msep"),
-p(tags$b("Root mean square error of prediction (RMSEP)")),
-verbatimTextOutput("pcr_rmsep"),
-
 HTML(
 "
-Explanations
+<b>Explanations</b>
 
 <ul>
 <li> The results from 1 component, 2 component, ... n components are given
@@ -78,7 +59,17 @@ Explanations
 <li> The number of components are recommended with high R^2 and low MSEP / RSMEP
 </ul>
 "
-)
+),
+p("10-fold cross-validation randomly split the data into 10 fold every time, so the results will not be exactly the same after refresh."),
+
+verbatimTextOutput("pcr"),
+p(tags$b("R^2")),
+verbatimTextOutput("pcr_r"),
+p(tags$b("Mean square error of prediction (MSEP)")),
+verbatimTextOutput("pcr_msep"),
+p(tags$b("Root mean square error of prediction (RMSEP)")),
+verbatimTextOutput("pcr_rmsep")
+
 ),
 
 tabPanel("Data Fitting",p(br()),
@@ -104,6 +95,11 @@ HTML("
 <li> In the plot of PC1 and PC2 (without group circle), we could find some outliers in the right. After soring PC1 in the table, we could see 70 is one of the outliers.
 </ul></i>
   "),
+hr(),
+p(tags$b("When #comp >=2, choose components to show factor and loading 2D plot")),
+numericInput("c1", "1. Component at x-axis", 1, min = 1, max = NA),
+numericInput("c2", "2. Component at y-axis", 2, min = 1, max = NA),
+p("x and y must be different"),
   plotly::plotlyOutput("pcr.s.plot", width = "80%"),
   DT::DTOutput("pcr.s")
   ),
@@ -134,6 +130,11 @@ HTML("
 </ul>
 
   "),
+hr(),
+p(tags$b("When #comp >=2, choose components to show factor and loading 2D plot")),
+numericInput("c11", "1. Component at x-axis", 1, min = 1, max = NA),
+numericInput("c22", "2. Component at y-axis", 2, min = 1, max = NA),
+p("x and y must be different"),
   plotly::plotlyOutput("pcr.bp", width = "80%")
   ),
 
@@ -148,8 +149,16 @@ HTML("
 <li> Loadings can range from -1 to 1. Loadings close to -1 or 1 indicate that the variable strongly influences the component. Loadings close to 0 indicate that the variable has a weak influence on the component.
 </ul>
   "),
-p(tags$b("This plot needs some time to load for the first time")),
+hr(),
 
+p(tags$b("This plot needs some time to load for the first time")),
+p(tags$b("When #comp >=3, choose components to show factor and loading 3D plot")),
+numericInput("td1", "1. Component at x-axis", 1, min = 1, max = NA),
+numericInput("td2", "2. Component at y-axis", 2, min = 1, max = NA),
+numericInput("td3", "3. Component at z-axis", 3, min = 1, max = NA),
+p("x y z must be different"),
+
+numericInput("lines", "4. (Optional) Change line scale (length)", 20, min = 1, max = NA),
 plotly::plotlyOutput("tdplot"),
 p(tags$b("Trace legend")),
 verbatimTextOutput("tdtrace")

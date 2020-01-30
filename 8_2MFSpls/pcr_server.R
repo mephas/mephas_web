@@ -3,7 +3,7 @@
 output$x = renderUI({
 selectInput(
 'x',
-tags$b('1. Choose independent variable matrix (X)'),
+tags$b('1. Add / Remove independent variables (X)'),
 selected = type.num3()[-c(1:3)],
 choices = type.num3(),
 multiple = TRUE
@@ -65,12 +65,12 @@ output$pcr_rmsep  <- renderPrint({
   RMSEP(pcr(),estimate = "all")
   })
 
-score <- reactive({
-  as.data.frame(pcr()$scores[,1:input$nc])
+score <- eventReactive(input$pcr1,{
+  as.data.frame(pcr()$scores[,1:pcr()$ncomp])
   })
 
-load <- reactive({
-  as.data.frame(pcr()$loadings[,1:input$nc])
+load <- eventReactive(input$pcr1,{
+  as.data.frame(pcr()$loadings[,1:pcr()$ncomp])
   })
 
 output$pcr.s <- DT::renderDT({score()}, 
@@ -87,7 +87,7 @@ output$pcr.l <- DT::renderDT({load()},
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pcr.pres <- DT::renderDT({as.data.frame(pcr()$fitted.values[,,1:input$nc])}, 
+output$pcr.pres <- DT::renderDT({as.data.frame(pcr()$fitted.values[,,1:pcr()$ncomp])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -101,7 +101,7 @@ output$pcr.coef <- DT::renderDT({as.data.frame(pcr()$coefficients)},
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pcr.resi <- DT::renderDT({as.data.frame(pcr()$residuals[,,1:input$nc])}, 
+output$pcr.resi <- DT::renderDT({as.data.frame(pcr()$residuals[,,1:pcr()$ncomp])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -146,7 +146,7 @@ output$pcr.bp   <- plotly::renderPlotly({
 validate(need(input$nc>=2, "The number of components must be >= 2"))
 score <- score()
 load <- load()
-p<-MFSbiplot(score, load, input$c1, input$c2)
+p<-MFSbiplot(score, load, input$c11, input$c22)
 plotly::ggplotly(p)
 #plot(pcr(), plottype = c("biplot"), comps=c(input$c1,input$c2),var.axes = TRUE, main="")
 })
@@ -213,7 +213,7 @@ MFS3D(scores=score, loads=load, nx=input$td1,ny=input$td2,nz=input$td3, scale=in
 
 output$tdtrace <- renderPrint({
   validate(need(input$nc>=3, "The number of components must be >= 3"))
-  x <- rownames(as.data.frame(pcr()$loadings[,1:input$nc]))
+  x <- rownames(load())
   names(x) <- paste0("trace", 1:length(x)) 
   return(x)
   })

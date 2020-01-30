@@ -3,7 +3,7 @@
 output$x.r = renderUI({
 selectInput(
 'x.r',
-tags$b('1. Choose independent variable matrix (X)'),
+tags$b('1. Add / Remove independent variable matrix (X)'),
 selected = type.num3()[-c(1:3)],
 choices = type.num3(),
 multiple = TRUE
@@ -118,7 +118,7 @@ plotly::ggplotly(p)
 
 output$pls.l.plot  <- plotly::renderPlotly({ 
 load <- load.r()
-p<-MFSload(loads=load, a=input$nc.r)
+p<-MFSload(loads=load, a=pls()$ncomp)
 plotly::ggplotly(p)
 #ll$group <- rownames(ll)
 #loadings.m <- reshape::melt(ll, id="group",
@@ -141,7 +141,7 @@ output$pls.bp   <- plotly::renderPlotly({
   validate(need(input$nc.r>=2, "The number of components must be >= 2"))
   score <- score.r()
 load <- load.r()
-p<-MFSbiplot(score, load, input$c1.r, input$c2.r)
+p<-MFSbiplot(score, load, input$c11.r, input$c22.r)
 plotly::ggplotly(p)
 #plot(pls(), plottype = c("biplot"), comps=c(input$c1.r,input$c2.r),var.axes = TRUE)
 })
@@ -207,7 +207,7 @@ MFS3D(scores=score, loads=load, nx=input$td1.r,ny=input$td2.r,nz=input$td3.r, sc
 })
 
 output$pls_tdtrace <- renderPrint({
-  x <- rownames(as.data.frame(pls()$loadings[,1:input$nc.r]))
+  x <- rownames(as.data.frame(pls()$loadings[,1:pls()$ncomp]))
   names(x) <- paste0("trace", 1:length(x)) 
   return(x)
   })
