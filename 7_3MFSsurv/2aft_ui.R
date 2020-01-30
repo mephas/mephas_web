@@ -7,7 +7,7 @@ sidebarPanel(
 
 tags$head(tags$style("#aft_form {height: 100px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
 tags$head(tags$style("#str3 {overflow-y:scroll; max-height:: 350px; background: white};")),
-tags$head(tags$style("#fit {overflow-y:scroll; max-height:: 350px; background: white};")),
+tags$head(tags$style("#fit {overflow-y:scroll; max-height:: 400px; background: white};")),
 #tags$head(tags$style("#fit2 {overflow-y:scroll; height: 400px; background: white};")),
 #tags$head(tags$style("#step {overflow-y:scroll;height: 400px; background: white};")),
 

@@ -3,10 +3,10 @@ sidebarLayout(
 
 sidebarPanel(
 
-tags$head(tags$style("#formula {height: 100px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#str {overflow-y:scroll; height: 350px; background: white};")),
-tags$head(tags$style("#fit {overflow-y:scroll; height: 400px; background: white};")),
-tags$head(tags$style("#step {overflow-y:scroll;height: 400px; background: white};")),
+tags$head(tags$style("#formula {height: 50px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
+tags$head(tags$style("#str {overflow-y:scroll; max-height: 350px; background: white};")),
+tags$head(tags$style("#fit {overflow-y:scroll; max-height: 400px; background: white};")),
+tags$head(tags$style("#step {overflow-y:scroll;max-height: 400px; background: white};")),
 
 h4(tags$b("Prepare the Model")),
 p("Prepare the data in the previous tab"),
@@ -42,13 +42,12 @@ mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
 tabsetPanel(
-tabPanel("Browse", br(),
-p("This only shows the first several lines, please check full data in the Data tab"),
-DT::DTOutput("Xdata2")
-),
-tabPanel("Variables information", br(),
+  tabPanel("Variables information", br(),
 verbatimTextOutput("str")
-
+),
+tabPanel("Data", br(),
+ p("Please edit data in Data tab"),
+DT::DTOutput("Xdata2")
 )
 ),
 hr(),

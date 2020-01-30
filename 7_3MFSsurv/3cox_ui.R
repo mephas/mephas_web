@@ -6,8 +6,8 @@ sidebarPanel(
 
 tags$head(tags$style("#cox_form {height: 100px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
 tags$head(tags$style("#str4 {overflow-y:scroll; max-height:: 350px; background: white};")),
-tags$head(tags$style("#fitcx {overflow-y:scroll; max-height:: 350px; background: white};")),
-tags$head(tags$style("#fitcx2 {overflow-y:scroll; max-height:: 350px; background: white};")),
+tags$head(tags$style("#fitcx {overflow-y:scroll; max-height:: 400px; background: white};")),
+tags$head(tags$style("#fitcx2 {overflow-y:scroll; max-height:: 400px; background: white};")),
 tags$head(tags$style("#zph {overflow-y:scroll; max-height:: 150px; background: white};")),
 
 
