@@ -31,13 +31,13 @@ scrollX = TRUE))
 
 pred.lp.pls = eventReactive(input$B.pls,
 {
-x <- as.data.frame(predict(pls(),comps=1:pls()$ncomp, newdata = (newX.pls()), type="response"))
+x <- as.data.frame(predict(pls(), comps=pls()$ncomp, newdata = as.matrix(newX.pls())[,input$x.r], type="response"))
 colnames(x) <- input$y.r
 return(x)
 })
 
 pred.comp.pls = eventReactive(input$B.pls,
-{as.data.frame(predict(pls(), comps=1:pls()$ncomp, newdata = (newX.pls()), type="scores"))
+{as.data.frame(predict(pls(), comps=1:pls()$ncomp, newdata = as.matrix(newX.pls())[,input$x.r], type="scores"))
 })
 
 
