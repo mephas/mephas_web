@@ -1,39 +1,61 @@
 #****************************************************************************************************************************************************2. poisson
 sidebarLayout(
 
-	sidebarPanel(	
+	sidebarPanel(
+	#Select Src
+	selectInput(
+	    "InputSrc_p", "Select Input Data Source:",
+	    c("Mathematical-based Distribution" = "MathDist",
+	      "Simulation-based Plot" = "SimuDist",
+	      "Data-based" = "DataDist")),
+	hr(),
+	#Select Src end	
 
-	tabsetPanel(
-
-		tabPanel("Draw a Binomial Distribution", p(br()),
-
-		  h4(tags$b("Step 1. Set Parameters")), 
-		  numericInput("lad", "Rate, = mean = variance", value = 2.3, min = 0, max = 10000000000, step = 1),
-		  numericInput("k2", "The duration of occurrences > 0", value = 12, min = 0 , max = 1000000000),
-		  p(tags$i("From the example, the rate is 2.3 and the duration of the rate is 12 months")),
-
-		  hr(),
-
-		  h4(tags$b("Step 2. Change Observed Data")), 
-		  numericInput("x0", "The observed duration of occurrences (Red-Dot)", value = 5, min = 0 , max = 1000000000),
-		  p(tags$i("The observed is <= 5, and we wanted to know the cumulated probability after 5 months, which means 1 - cumulated probability of 0-5 months"))
-		  ),
-
-	tabPanel("Distribution of Your Data", p(br()),
-		tags$b("Check the results in the 'Distribution of Your Data' tab in the Output"),
-		h4(tags$b("1. Manual Input")),
-		p("Data point can be separated by , ; /Enter /Tab /Space"),
-    tags$textarea(
-        id = "x.p", #p
-        rows = 10,
-				"1\n3\n4\n3\n3\n3\n5\n3\n2\n1\n1\n3\n2\n4\n1\n2\n5\n4\n2\n3"
-				        ),
-      p("Missing value is input as NA"),
+	#condiPa 1
+	  conditionalPanel(
+	    condition = "input.InputSrc_p == 'MathDist'",
+	    HTML("<h4><b>Step 1. Set Parameters</b></h4>"), 
+		numericInput("lad", "Rate, = mean = variance", value = 2.3, min = 0, max = 10000000000, step = 1),
+      numericInput("k2", "The duration of occurrences > 0", value = 12, min = 0 , max = 1000000000),
+      p(tags$i("From the example, the rate is 2.3 and the duration of the rate is 12 months")),
 
       hr(),
 
-      h4(tags$b("Or, 2. Upload Data")),
-        p(tags$b("This only reads the 1st column of your data, and will cover the input data")),
+      h4(tags$b("Step 2. Change Observed Data")), 
+      numericInput("x0", "The observed duration of occurrences (Red-Dot)", value = 5, min = 0 , max = 1000000000),
+      p(tags$i("The observed is <= 5, and we wanted to know the cumulated probability after 5 months, which means 1 - cumulated probability of 0-5 months"))
+	  ),
+	 #condiPa 1 end
+	
+	  #condiPa 2
+	  conditionalPanel(
+	    condition = "input.InputSrc_p == 'SimuDist'",  
+		numericInput("size.p", "The sample size of random numbers", value = 100, min = 1, max = 1000000, step = 1),
+		sliderInput("bin.p", "The number of bins in histogram", min = 0, max = 100, value = 0),
+		p("When the number of bins is 0, plot will use the default number of bins")
+	    
+	  ),
+	  #condiPa 2 end
+	  #condiPa 3
+	  conditionalPanel(
+	    condition = "input.InputSrc_p == 'DataDist'",  
+	    tabsetPanel(
+	      tabPanel(
+	        h4(tags$b("Manual Input")),
+		p("Data point can be separated by , ; /Enter /Tab /Space"),
+    	tags$textarea(
+        id = "x.p", #p
+        rows = 10,
+        "1\n3\n4\n3\n3\n3\n5\n3\n2\n1\n1\n3\n2\n4\n1\n2\n5\n4\n2\n3"
+         ),
+      p("Missing value is input as NA")
+	     ), #tab1 end 
+		
+		tabPanel(
+	        h4(tags$b("Upload Data")),
+	        
+	        ##-------csv file-------##
+	     p(tags$b("This only reads the 1st column of your data, and will cover the input data")),
         fileInput('file.p', "1. Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
@@ -56,43 +78,55 @@ sidebarLayout(
         p("Correct Separator ensures data input successfully"),
 
         a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-        )
-      
-		)
-	),
-
-	mainPanel(
-		h4(tags$b("Output. Plots")),
-	tabsetPanel(
-		tabPanel("Model-based Plot", p(br()),
-			p(tags$b("Poisson probability plot")),
-		plotly::plotlyOutput("p.plot", width = "80%"),
-		p(tags$b("Probability at the observed number of occurrences (Red-Dot)")),
-		tableOutput("p.k"),
-		p(tags$i("Explanation: the probability distribution until 5 month was 0.97. Thus, the probability distribution after 6 months was about 0.03"))
-    ),
-    tabPanel("Simulation-based Plot", p(br()),
-			 	
-			 	numericInput("size.p", "The sample size of random numbers", value = 100, min = 1, max = 1000000, step = 1),
-			 	p(tags$b("Histogram from random numbers")),
-			 	plotly::plotlyOutput("p.plot2", width = "80%"),	
-
-			 	sliderInput("bin.p", "The number of bins in histogram", min = 0, max = 100, value = 0),
-			 	p("When the number of bins is 0, plot will use the default number of bins"),
-			 	downloadButton("download2", "Download Random Numbers"),
-				p(tags$b("Sample descriptive statistics")),
-				tableOutput("sum.p")
-			 	),    
-		tabPanel("Distribution of Your Data", p(br()),
-			p(tags$b("Histogram from upload data")),
-			plotly::plotlyOutput("makeplot.2", width = "80%"),
+	      ) #tab2 end 
+	    ),
       sliderInput("bin1.p","The number of bins in histogram", min = 0, max = 100, value = 0),
-			 	p("When the number of bins is 0, plot will use the default number of bins"),
-				p(tags$b("Sample descriptive statistics")),
-				tableOutput("sum2.p")
+       p("When the number of bins is 0, plot will use the default number of bins")
+	  )
+	  #condiPa 3 end
 
-			 	)
-			 			 )
-	)
-)
+	), #sidePa end
 	
+
+
+
+
+mainPanel(
+		h4(tags$b("Outputs")),
+		
+		conditionalPanel(
+		  condition = "input.InputSrc_p == 'MathDist'",
+		  p(br()), h4("Mathematical-based Plot"), p(br()),
+ 		p(tags$b("Poisson probability plot")),
+    	plotly::plotlyOutput("p.plot", width = "80%"),
+    	p(tags$b("Probability at the observed number of occurrences (Red-Dot)")),
+    	tableOutput("p.k"),
+    	p(tags$i("Explanation: the probability distribution until 5 month was 0.97. Thus, the probability distribution after 6 months was about 0.03"))
+		),
+		
+		conditionalPanel(
+		  condition = "input.InputSrc_p == 'SimuDist'",
+ 		p(tags$b("Histogram from random numbers")),
+        plotly::plotlyOutput("p.plot2", width = "80%"), 
+
+        downloadButton("download2", "Download Random Numbers"),
+        p(tags$b("Sample descriptive statistics")),
+        tableOutput("sum.p")
+		  
+		),
+		
+		conditionalPanel(
+		condition = "input.InputSrc_p == 'DataDist'",
+		p(br()), h4("Distribution of Your Data"), p(br()),
+ 		p(tags$b("Histogram from upload data")),
+        plotly::plotlyOutput("makeplot.2", width = "80%"),
+        p(tags$b("Sample descriptive statistics")),
+        tableOutput("sum2.p")
+
+
+		)
+		
+	) #main pa end	
+
+	
+)
