@@ -47,7 +47,7 @@ selected = '"'),
 
 p("Correct separator and quote ensure the successful data input"),
 
-a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets"),
+a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
   )
   ),
 hr(),
