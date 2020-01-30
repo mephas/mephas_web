@@ -20,7 +20,7 @@ title = "Dimensional Analysis 2",
 
 ##########----------##########----------##########
 
-tabPanel("Dataset",
+tabPanel("Data",
 
 titlePanel("Data Preparation"),
 
