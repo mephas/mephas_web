@@ -5,10 +5,17 @@ sidebarLayout(
 
 sidebarPanel(
 
-h4("Prediction is based on the accomplishment of model"),      
+h4(tags$b("Test Set Preparation")),
+p("Prepare model in the previous Model tab"),
 
-h4(tags$b("Step 1. Upload New Data File")),      
+tabsetPanel(
 
+tabPanel("Example data", p(br()),
+
+ h4(tags$b("Data: Diabetes / NKI70"))
+
+  ),    
+tabPanel("Upload Data", p(br()),
 p("New data should include all the variables in the model"),
 fileInput('newfile', "Choose CSV/TXT file",
           accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
@@ -38,12 +45,19 @@ choices = c("None" = "",
 selected = '"'),
 
 p("Correct separator and quote ensures data input successfully")
+)
 ),
+hr(),
+
+h4(tags$b("If the model and new data are ready, click the blue button to generate prediction results.")),
+
+actionButton("B1.1", h4(tags$b("Run Prediction >>")), class = "btn btn-primary")
 
 
+),
 mainPanel(
 
-actionButton("B1.1", h4(tags$b("Click 2: Output. Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
+#actionButton("B1.1", h4(tags$b("Click 2: Output. Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 p(br()),
 tabsetPanel(
 tabPanel("Prediction Table",p(br()),

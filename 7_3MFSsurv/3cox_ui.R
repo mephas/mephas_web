@@ -5,22 +5,34 @@ sidebarLayout(
 sidebarPanel(
 
 tags$head(tags$style("#cox_form {height: 100px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#str4 {overflow-y:scroll; height: 350px; background: white};")),
-tags$head(tags$style("#fitcx {overflow-y:scroll; height: 400px; background: white};")),
-tags$head(tags$style("#fitcx2 {overflow-y:scroll; height: 400px; background: white};")),
-tags$head(tags$style("#zph {overflow-y:scroll; height: 150px; background: white};")),
+tags$head(tags$style("#str4 {overflow-y:scroll; max-height:: 350px; background: white};")),
+tags$head(tags$style("#fitcx {overflow-y:scroll; max-height:: 350px; background: white};")),
+tags$head(tags$style("#fitcx2 {overflow-y:scroll; max-height:: 350px; background: white};")),
+tags$head(tags$style("#zph {overflow-y:scroll; max-height:: 150px; background: white};")),
 
 
-h4("Example data is upload in Data tab"),  
+h4(tags$b("Prepare the Model")),
+p("Prepare the data in the Data tab"),
+hr(),       
 
-
-h4(tags$b("Step 1. Choose some variables to build the model")),      
+h4(tags$b("Step 1. Choose variables to build the model")),      
 
 p(tags$b("1. Check Surv(time, event), survival object, in the Data Tab")), 
 
+tabsetPanel(
+tabPanel("Basic Model", p(br()),
 uiOutput('var.cx'),
-     
-radioButtons("tie", "3. (Optional) Choose Method for Ties Handling",selected="breslow",
+p(br()),
+p(tags$b("3 (Optional). Add interaction term between categorical variables")),
+
+p('Please input: + var1:var2'), 
+tags$textarea(id='conf.cx', " " ), 
+
+p(tags$b("If you want to consider the heterogeneity in the sample, continue with Extending Model tab"))
+  ),
+
+tabPanel("Extending Model", p(br()),
+radioButtons("tie", "4. (Optional) Choose Method for Ties Handling",selected="breslow",
   choiceNames = list(
     
     HTML("1. Efron method: more accurate if there are a large number of ties"),
@@ -30,7 +42,7 @@ radioButtons("tie", "3. (Optional) Choose Method for Ties Handling",selected="br
   choiceValues = list("efron","breslow","exact")
   ),
 
-radioButtons("effect.cx", "4. (Optional) Add random effect term (the effect of heterogeneity)",
+radioButtons("effect.cx", "5. (Optional) Add random effect term (the effect of heterogeneity)",
      choices = c(
       "None" = "",
       "Strata: identifies stratification variable (categorical, such as disease subtype and enrolling institutes)" = "Strata",
@@ -39,44 +51,48 @@ radioButtons("effect.cx", "4. (Optional) Add random effect term (the effect of h
       "Gaussian Frailty: allows one to add a simple Gaussian distributed random effects term" = "Gaussian Frailty"
                  ),
      selected = ""),
-p("Frailty: individuals have different frailties, and those who most frail will die earlier than others"),
-p("Cluster model is also called marginal model. It estimates the population averaged relative risk due to the independent variable.
-  Frailty model estimates the relative risk within the random effect variable"),
 uiOutput('fx.cx'),
+p("Frailty: individuals have different frailties, and those who most frail will die earlier than others. 
+  Frailty model estimates the relative risk within the random effect variable"),
+
+p("Cluster model is also called marginal model. It estimates the population averaged relative risk due to the independent variable."),
+
 tags$i("In the example of Diabetes data: 'eye' could be used as random effect of strata;
-  'id' can be used as random effect variable of cluster. " ),
-p(br()),
+  'id' can be used as random effect variable of cluster. " )
+  )
+  ),
 
-
-
-
-p(tags$b("5 (Optional). Add interaction term between categorical variables")),
-
-p('Please input: + var1:var2'), 
-tags$textarea(id='conf.cx', " " ), 
 hr(),
 
 h4(tags$b("Step 2. Check Cox Model")),
+p(tags$b("Valid model example: Surv(time, status) ~ X1 + X2")),
+p(tags$b("Or, Surv(time1, time2, status) ~ X1 + X2")),
+
 verbatimTextOutput("cox_form", placeholder = TRUE),
-p("'-1' in the formula indicates that intercept / constant term has been removed")
+hr(),
+
+h4(tags$b("Step 3. If data and model are ready, click the blue button to generate model results.")),
+actionButton("B2", h4(tags$b("Run model >>")), class = "btn btn-primary")
 ),
 
 mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
  tabsetPanel(
- tabPanel("Browse",p(br()),
- p("This only shows the first several lines, please check full data in the 1st tab"),
- DT::DTOutput("Xdata4")
- ),
  tabPanel("Variables information",p(br()),
  verbatimTextOutput("str4")
+ ),
+ tabPanel("Browse",p(br()),
+ p("Please edit data in Data tab"),
+ DT::DTOutput("Xdata4")
  )
+
  ),
  hr(),
  
-actionButton("B2", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-p(br()),
+#actionButton("B2", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+h4(tags$b("Output 2. Model Results")),
+
 tabsetPanel(
 
 tabPanel("Model Estimation", br(),

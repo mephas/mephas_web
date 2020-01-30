@@ -12,10 +12,10 @@ tags$head(tags$style("#kmlr {overflow-y:scroll; max-height: 350px; background: w
 
 h4(tags$b("Choose group variable to build the model")),
 
-p("Prepare the data in the previous tab"),
+p("Prepare the data in the Data tab"),
 hr(),          
 
-p(tags$b("1. Check Surv(time, event), survival object, in the Data Tab")), 
+p(tags$b("1. Check survival object, Surv(time, event), in the Data Tab")), 
 
 uiOutput('g'),
 tags$i("In the example of Diabetes data, we chose 'laser' as categorical group variable. 
@@ -73,14 +73,15 @@ mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
  tabsetPanel(
- tabPanel("Browse",p(br()),
- p("This only shows the first several lines, please check full data in the 1st tab"),
- DT::DTOutput("Xdata2")
- ),
- tabPanel("Variables information",p(br()),
+   tabPanel("Variables information",p(br()),
  verbatimTextOutput("str")
  
+ ),
+ tabPanel("Data",p(br()),
+ p("Please edit data in Data tab"),
+ DT::DTOutput("Xdata2")
  )
+
  ),
  hr(),
  

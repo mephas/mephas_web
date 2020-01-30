@@ -6,19 +6,22 @@ sidebarLayout(
 sidebarPanel(
 
 tags$head(tags$style("#aft_form {height: 100px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#str3 {overflow-y:scroll; height: 350px; background: white};")),
-tags$head(tags$style("#fit {overflow-y:scroll; height: 400px; background: white};")),
+tags$head(tags$style("#str3 {overflow-y:scroll; max-height:: 350px; background: white};")),
+tags$head(tags$style("#fit {overflow-y:scroll; max-height:: 350px; background: white};")),
 #tags$head(tags$style("#fit2 {overflow-y:scroll; height: 400px; background: white};")),
 #tags$head(tags$style("#step {overflow-y:scroll;height: 400px; background: white};")),
 
 
-h4("Example data is upload in Data tab"),      
+h4(tags$b("Prepare the Model")),
+p("Prepare the data in the previous tab"),
+hr(), 
 
+h4(tags$b("Step 1. Choose variables to build the model")),    
 
-h4(tags$b("Step 1. Choose independent variables to build the model")),    
+p(tags$b("1. Check survival object, Surv(time, event), in the Data Tab")), 
 
-p(tags$b("1. Check Surv(time, event), survival object, in the Data Tab")), 
-
+tabsetPanel(
+tabPanel("Basic Model", p(br()),
 uiOutput('var'),
 
 radioButtons("dist", "3. Choose AFT Model",
@@ -32,12 +35,23 @@ radioButtons("dist", "3. Choose AFT Model",
   choiceValues = list("lognormal","weibull", "exponential","loglogistic")
   ),
 
-radioButtons("intercept", "4. (Optional) Keep or remove intercept / constant term", ##> intercept or not
+p(tags$b("4. (Optional) Add interaction term between categorical variables")),
+
+p('Please input: + var1:var2'), 
+tags$textarea(id='conf', " " ), 
+
+radioButtons("intercept", "5. (Optional) Keep or remove intercept / constant term", ##> intercept or not
      choices = c("Remove intercept / constant" = "-1",
                  "Keep intercept / constant term" = ""),
      selected = ""),
 
-radioButtons("effect", "5. (Optional) Add random effect term (the effect of heterogeneity)",
+p(tags$b("If you want to consider the heterogeneity in the sample, continue with Extending Model tab"))
+
+),
+
+tabPanel("Extending Model", p(br()),
+
+radioButtons("effect", "6. (Optional) Add random effect term (the effect of heterogeneity)",
      choices = c(
       "None" = "",
       "Strata: identifies stratification variable (categorical, such as disease subtype and enrolling institutes)" = "Strata",
@@ -49,36 +63,39 @@ radioButtons("effect", "5. (Optional) Add random effect term (the effect of hete
 
 uiOutput('fx.c'),
 tags$i("In the example of Diabetes data: 'eye' could be used as random effect of strata;
-  'id' can be used as random effect variable of cluster. " ),
-  p(br()),
-
-p(tags$b("6. (Optional) Add interaction term between categorical variables")),
-
-p('Please input: + var1:var2'), 
-tags$textarea(id='conf', " " ), 
+  'id' can be used as random effect variable of cluster. " )
+)
+),
 hr(),
 
 h4(tags$b("Step 2. Check AFT Model")),
+p(tags$b("Valid model example: Surv(time, status) ~ X1 + X2")),
+p(tags$b("Or, Surv(time1, time2, status) ~ X1 + X2")),
 verbatimTextOutput("aft_form", placeholder = TRUE),
-p("'-1' in the formula indicates that intercept / constant term has been removed")
+p("'-1' in the formula indicates that intercept / constant term has been removed"),
+hr(),
+
+h4(tags$b("Step 3. If data and model are ready, click the blue button to generate model results.")),
+actionButton("B1", h4(tags$b("Run model >>")), class = "btn btn-primary")
 ),
 
 mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
  tabsetPanel(
- tabPanel("Browse",p(br()),
- p("This only shows the first several lines, please check full data in the 1st tab"),
- DT::DTOutput("Xdata3")
- ),
- tabPanel("Variables information",p(br()),
+   tabPanel("Variables information",p(br()),
  verbatimTextOutput("str3")
+ ),
+ tabPanel("Browse",p(br()),
+ p("Please edit data in Data tab"),
+ DT::DTOutput("Xdata3")
  )
+
  ),
  hr(),
  
-actionButton("B1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
-p(br()),
+#actionButton("B1", h4(tags$b("Click 1: Output 2. Show Model Results / Refresh")),  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
+h4(tags$b("Output 2. Model Results")),
 tabsetPanel(
 
 tabPanel("Model Estimation", br(),

@@ -81,7 +81,8 @@ tags$i("Diabetes data has right-censored time, while Nki70 data has left-truncat
 
 hr(),
 h4(tags$b("Step 3. Check the Survival Object")),      
-
+p(tags$b("Valid survival object example: Surv (time, status)")),
+p(tags$b("or, Surv (time1, time2, status)")),
 verbatimTextOutput("surv", placeholder = TRUE),
 
 
