@@ -10,9 +10,10 @@ tags$head(tags$style("#kmt {overflow-y:scroll; max-height: 350px; background: wh
 tags$head(tags$style("#kmt1 {overflow-y:scroll; max-height: 350px; background: white};")),
 tags$head(tags$style("#kmlr {overflow-y:scroll; max-height: 350px; background: white};")),
 
-h4("Example data is upload in Data tab"),      
+h4(tags$b("Choose group variable to build the model")),
 
-h4(tags$b("Choose group variable to build the model")),  
+p("Prepare the data in the previous tab"),
+hr(),          
 
 p(tags$b("1. Check Surv(time, event), survival object, in the Data Tab")), 
 

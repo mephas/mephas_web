@@ -34,7 +34,10 @@ output$str <- renderPrint({str(DF3())})
 
 kmfit = reactive({
   validate(need(input$g, "Please choose categorical variable"))
-  y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
+if (input$time=="A") {surv <- surv()}
+if (input$time=="B") {surv <- paste0("Surv(", input$t2, " - ", input$t1, ",", input$c, ")")}
+
+  y <- paste0(surv, "~", paste0(as.factor(input$g), collapse = "+"))
   fit <- surv_fit(as.formula(y), data = DF3())
   fit$call <- NULL
   return(fit)
@@ -49,8 +52,10 @@ kmfit = reactive({
 
 output$km.p= renderPlot({
   validate(need(input$g, "Please choose categorical variable"))
+if (input$time=="A") {surv <- surv()}
+if (input$time=="B") {surv <- paste0("Surv(", input$t2, " - ", input$t1, ",", input$c, ")")}
 
-  y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
+  y <- paste0(surv, "~", paste0(as.factor(input$g), collapse = "+"))
   fit <- surv_fit(as.formula(y), data = DF3())
 
 ggsurvplot(fit, data=DF3(),
@@ -79,7 +84,10 @@ summary(kmfit())
  LR = reactive({
   validate(need(input$g, "Please choose categorical variable"))
 
-   y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
+ if (input$time=="A") {surv <- surv()}
+if (input$time=="B") {surv <- paste0("Surv(", input$t2, " - ", input$t1, ",", input$c, ")")}
+
+  y <- paste0(surv, "~", paste0(as.factor(input$g), collapse = "+"))
   fit <- survdiff(as.formula(y), rho=input$rho, data = DF3())
   fit$call <- NULL
   return(fit)
@@ -91,7 +99,10 @@ LR()})
  PLR = reactive({
   validate(need(input$g, "Please choose categorical variable"))
 
-   y <- paste0(surv(), "~", paste0(as.factor(input$g), collapse = "+"))
+  if (input$time=="A") {surv <- surv()}
+if (input$time=="B") {surv <- paste0("Surv(", input$t2, " - ", input$t1, ",", input$c, ")")}
+
+  y <- paste0(surv, "~", paste0(as.factor(input$g), collapse = "+"))
 
   if (input$pm == "B"){
   res <- pairwise_survdiff(as.formula(y), rho=input$rho2, p.adjust.method = "bonf", data = DF3())$p.value

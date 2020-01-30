@@ -14,7 +14,7 @@ tabPanel("Example data", p(br()),
 
   selectInput("edata", tags$b("Use example data"), 
         choices =  c("Breast Cancer"), 
-        selected = "Breast Cancer"),
+        selected = "Breast Cancer")
   ),
 
 tabPanel("Upload Data", p(br()),

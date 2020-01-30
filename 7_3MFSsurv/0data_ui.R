@@ -10,19 +10,20 @@ sidebarPanel(
   tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 200px; background: white};")),
   tags$head(tags$style("#kmat1 {overflow-y:scroll; max-height: 200px; background: white};")),
 
-selectInput("edata", h4(tags$b("Use example data (training set)")), 
+h4(tags$b("Training Set Preparation")),
+
+tabsetPanel(
+
+tabPanel("Example data", p(br()),
+
+selectInput("edata", tags$b("Use example data"), 
         choices =  c("Diabetes","NKI70"), 
-        selected = "Diabetes"),
+        selected = "Diabetes")
+),
 
-hr(),
+tabPanel("Upload Data", p(br()),
 
-h4(tags$b("Use my own data (training set)")),
-p("We suggested putting the survival time variable and censoring variable in the left side of all independent variables (X) "),
-
-h4(tags$b("Step 1. Upload Data File")), 
-
-fileInput('file', "1. Choose CSV/TXT file",
-          accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
+fileInput('file', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
 p(tags$b("2. Show 1st row as column names?")),
 checkboxInput("header", "Yes", TRUE),
@@ -48,8 +49,9 @@ selected = '"'),
 
 p("Correct separator and quote ensures data input successfully"),
 
-a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets"),
-
+a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
+)),
+tags$i("Diabetes data has only time duration variable, while Nki70 data has start.time and end.time."),
 hr(),
 
 h4(tags$b("Step 2. Create a Survival Object")), 
@@ -75,6 +77,8 @@ tabsetPanel(
     uiOutput('t2')
     )
   ),
+tags$i("Diabetes data has right-censored time, while Nki70 data has left-truncated right-censored time."),
+
 hr(),
 h4(tags$b("Step 3. Check the Survival Object")),      
 
@@ -100,7 +104,11 @@ uiOutput("lvl"),
 
 p(tags$b("2. Input the referential level, each line for one variable")),
 
-tags$textarea(id='ref', column=40, "")
+tags$textarea(id='ref', column=40, ""),
+
+hr(),
+
+h4(tags$b("Build Models in the Following Tabs"))
 
 
 ),

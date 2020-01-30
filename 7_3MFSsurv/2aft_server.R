@@ -27,10 +27,12 @@ output$str3 <- renderPrint({str(DF3())})
 
 aft = reactive({
 validate(need(input$var, "Please choose some independent variable"))
+if (input$time=="A") {surv <- surv()}
+if (input$time=="B") {surv <- paste0("Surv(", input$t2, " - ", input$t1, ",", input$c, ")")}
 
-if (input$effect=="") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), input$conf,input$intercept)}
-if (input$effect=="Strata") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+strata(", input$fx.c, ")",input$conf,input$intercept)}
-if (input$effect=="Cluster") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+cluster(", input$fx.c, ")", input$conf,input$intercept)}
+if (input$effect=="") {f = paste0(surv, '~', paste0(input$var, collapse = "+"), input$conf,input$intercept)}
+if (input$effect=="Strata") {f = paste0(surv, '~', paste0(input$var, collapse = "+"), "+strata(", input$fx.c, ")",input$conf,input$intercept)}
+if (input$effect=="Cluster") {f = paste0(surv, '~', paste0(input$var, collapse = "+"), "+cluster(", input$fx.c, ")", input$conf,input$intercept)}
 #if (input$effect=="Gamma Frailty") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+frailty(", input$fx.c, ")", input$conf,input$intercept)}
 #if (input$effect=="Gaussian Frailty") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+frailty.gaussian(", input$fx.c, ")", input$conf,input$intercept)}
 

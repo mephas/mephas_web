@@ -32,7 +32,7 @@ HTML(
 <li> The data used to build model is called <b>training set</b>
 </ul> 
 
-<i><h4>Case Example 1: Diabetes data</h4>
+<i><h4>Case Example 1: Right-censored diabetes data</h4>
 Suppose in a study, we got some observations from a trial of laser coagulation for the treatment of diabetic retinopathy. 
 Each patient had one eye randomized to laser treatment and the other eye received no treatment. 
 For each eye, the event of interest was the time from initiation of treatment to the time when visual acuity dropped below 5/200 two visits in a row. 
@@ -41,13 +41,14 @@ Survival times in this dataset are therefore the actual time to blindness in mon
 Censor status of 0= censored; 1 = visual loss. Treatment: 0 = no treatment, 1= laser. Age is age at diagnosis.
 
 
-<h4>Case Example 2: Nki70 data</h4>
-Suppose we wanted to explore 100 lymph node positive breast cancer patients on metastasis-free survival. 
+<h4>Case Example 2: Left-truncated right-censored Nki70 data</h4>
+Suppose we wanted to explore 100 lymph node positive breast cancer patients on metastasis-free survival. But some patients enrolled in the study later than other people.
 Data contained 5 clinical risk factors: (1) Diam: diameter of the tumor; (2) N: number of affected lymph nodes; (3) ER: estrogen receptor status; (4) Grade: grade of the tumor; and (5) Age: Patient age at diagnosis (years); 
 and gene expression measurements of 70 genes found to be prognostic for metastasis-free survival in an earlier study. 
 Time variable is metastasis-free follow-up time (months). Censoring indicator variable: 1 = metastasis or death; 0 = censored. 
-
-</h4></i>
+<br></br>
+<p>We wanted to explore the association between survival time and the independent variables.<p>
+</i>
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
 "

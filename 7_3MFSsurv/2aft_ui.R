@@ -92,6 +92,7 @@ HTML(
 <li> exp(Value) = hazard ratio (HR). HR = 1: No effect; HR < 1: Reduction in the hazard; HR > 1: Increase in Hazard
 <li> Scale and Log(scale) are the estimated parameters in the error term of AFT model
 <li> The log-likelihood is given in the model. When maximum likelihood estimation is used to generate the log-likelihoods, then the closer that the log-likelihood(LL) is to zero, the better is the model fit.
+<li> For left-truncated data, the time here is the differences of end-time and start-time
 </ul>
 "
 ),
