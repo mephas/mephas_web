@@ -7,6 +7,7 @@
 ## DT: 2019-01-08
 ##
 ##----------#----------#----------#----------
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 shinyUI(
 tagList(
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
@@ -20,7 +21,8 @@ title = "Logistic Regression",
 tabPanel("Data",
 
 headerPanel("Data Preparation"),
-
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <b>Logistic regression</b> is used to model the probability of a certain class or event existing such as pass/fail, win/lose, alive/dead or healthy/sick. 
@@ -53,6 +55,7 @@ and (2) find the relations between binary dependent variable and the other varia
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
 "
+)
 ),
 
 hr(),
@@ -66,6 +69,8 @@ hr()
 tabPanel("Model",
 
 headerPanel("Logistic Regression"),
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 
@@ -84,6 +89,7 @@ HTML(
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
+)
 ),
 
 hr(),
@@ -96,6 +102,8 @@ hr()
 tabPanel("Prediction",
 
 headerPanel("Prediction from Model"),
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 
@@ -120,6 +128,7 @@ Suppose in the same study, we got the new data, and wanted to classify the patie
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
+)
 ),
 
 hr(),
@@ -130,7 +139,8 @@ hr()
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
+source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 
 )
 )

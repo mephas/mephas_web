@@ -7,6 +7,7 @@
 ## DT: 2019-04-07
 ##
 ##----------#----------#----------#----------
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 shinyUI(
 
 tagList(
@@ -21,7 +22,8 @@ title = "Analysis of Variance",
 tabPanel("One-way",
 
 headerPanel("One-way ANOVA (Overall F Test) to Compare Means from Multiple Factor Groups"),
-
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -47,6 +49,7 @@ We wanted to the know the FEF differences among the 6 groups.
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
+)
 ),
 
 hr(),
@@ -61,6 +64,8 @@ tabPanel("Pairwise1",
 
 headerPanel("Multiple Comparison Post-Hoc Correction for Specific Groups after One-way ANOVA"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -85,6 +90,7 @@ We wanted to the know in which pairs of the 6 groups, FEF were significantly dif
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
+)
 ),
 hr(),
 source("p3_ui.R", local=TRUE)$value,
@@ -97,6 +103,8 @@ tabPanel("Two-way",
 
 headerPanel("Two-way ANOVA to Compare Means from Multiple Groups"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -124,6 +132,7 @@ We wanted to know the effect of dietary group and sex on the SPB and whether the
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
+)
 ),
 
 hr(),
@@ -137,6 +146,8 @@ tabPanel("Pairwise2",
 
 headerPanel("Multiple Comparison Post-Hoc Correction for Specific Groups after Two-way ANOVA"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 
@@ -163,6 +174,7 @@ We wanted to know the pairwise effect of dietary group and sex on the SPB. For e
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
+)
 ),
 hr(),
 source("p4_ui.R", local=TRUE)$value,
@@ -174,6 +186,8 @@ tabPanel("One-way (Non-parametric)",
 
 headerPanel("Kruskal-Wallis Non-parametric Test to Compare Multiple Samples"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <b>This method compares ranks of the observed data, rather than mean and SD. An alternative to one-way ANOVA without assumption on the data distribution</b>
@@ -200,6 +214,7 @@ We wanted to the know the FEF differences among the 6 groups.
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
+)
 ),
 hr(),
 source("p5_ui.R", local=TRUE)$value,
@@ -211,6 +226,8 @@ tabPanel("Pairwise3",
 
 headerPanel("Multiple Comparison Post-Hoc Correction for Specific Groups after Kruskal-Wallis Non-parametric Test"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 
@@ -237,6 +254,7 @@ We wanted to know the pairwise effect of dietary group and sex on the SPB. For e
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
+)
 ),
 hr(),
 source("p6_ui.R", local=TRUE)$value,
@@ -246,7 +264,8 @@ hr()
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
+source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 
 
 )))

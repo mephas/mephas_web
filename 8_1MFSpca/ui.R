@@ -1,4 +1,4 @@
-
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 shinyUI(
 
 tagList(
@@ -15,6 +15,8 @@ tabPanel("Data",
 
 headerPanel("Data Preparation"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -47,6 +49,7 @@ We wanted to explore the latent relational structure among the set of chemical v
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
 "
+)
 ),
 hr(),
 source("ui_data.R", local=TRUE, encoding="UTF-8")$value,
@@ -60,6 +63,8 @@ tabPanel("PCA",
 
 headerPanel("Principal Component Analysis"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <b>Principal components analysis (PCA)</b> is a data reduction technique that transforms a larger number of correlated variables into a much smaller set of uncorrelated variables called principal components.
@@ -80,7 +85,8 @@ HTML(
 </ul> 
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"),
+")
+),
 hr(),
 source("ui_pca.R", local=TRUE, encoding="UTF-8")$value,
 hr()
@@ -91,7 +97,8 @@ hr()
 tabPanel("EFA",
 
 headerPanel("Exploratory Factor Analysis"),
-
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <b>Exploratory Factor analysis (EFA)</b> is a statistical method used to describe variability among observed, correlated variables in terms of a potentially lower number of unobserved variables called factors.
@@ -112,7 +119,8 @@ HTML(
 </ul> 
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"),
+")
+),
 hr(),
 source("ui_fa.R", local=TRUE, encoding="UTF-8")$value,
 hr()
@@ -123,7 +131,8 @@ hr()
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
+source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 
 ))
 )

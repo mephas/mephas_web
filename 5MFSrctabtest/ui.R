@@ -1,4 +1,4 @@
-
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 shinyUI(
 tagList(
 
@@ -15,6 +15,8 @@ tabPanel("2x2",
 
 titlePanel("Chi-square Test for 2 Categories of Factor in Case-Control Status"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML("
 
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -40,7 +42,9 @@ Among 5000 OC-users, 13 developed MI; among 10000 non-OC-users, 7 developed MI.
 We wanted to determine if OC use was significantly associated with higher MI incidence.
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
-"),
+"
+)
+),
 hr(),
 
 source("1_chi_ui.R", local=TRUE)$value,
@@ -53,6 +57,8 @@ tabPanel("2x2(Exact)",
 
 titlePanel("Fisher Exact Test for 2 Categories of Factor with Small Expected Counts in Case-Control Status "),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
@@ -79,7 +85,9 @@ Among 35 CVD patients, 5 had high-salt diet; among 25 non CVD patients, 2 had hi
 We wanted to determine if CVD was significantly associated with high salt diet.
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
-"),
+"
+)
+),
 hr(),
 
 source("2_fisher_ui.R", local=TRUE)$value,
@@ -91,6 +99,8 @@ tabPanel("2x2(Paired)",
 
 titlePanel("McNemar Test for 2 Categories of  of Factor with Matched Counts in Case-Control Status"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
@@ -127,7 +137,9 @@ Among 621 patients, 510 pairs were better in both treatment A and B; 90 pairs di
 In 16 pairs, only group after treatment A were better; in 5 pairs, only group after treatment B were better.
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
-"),
+"
+)
+),
 hr(),
 
 source("3_mcnemar_ui.R", local=TRUE)$value,
@@ -139,7 +151,8 @@ hr()
 tabPanel("2xC",
 
 titlePanel("Chi-square Test for >2 Categories of Factor in Case-Control Status"),
-
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
@@ -165,7 +178,9 @@ Then, we categorize women into different age groups.
 We wanted to know if the probability to have cancer were different among different age groups; or, if there age related to breast cancer.
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
-"),
+"
+)
+),
 hr(),
 
 source("4_2cchi_ui.R", local=TRUE)$value,
@@ -179,6 +194,8 @@ tabPanel("RxC",
 
 titlePanel("Chi-square Test for >2 Factor Categories of Factor in >2 Status"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
@@ -205,7 +222,9 @@ Among 100 Spectinomycin-high users, 15 got Smear+, 40 got Smear-Culture+ and 45 
 We wanted to know if the treatments had significant association with the response.
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
-"),
+"
+)
+),
 
 hr(),
 source("5_rcchi_ui.R", local=TRUE)$value,
@@ -218,8 +237,10 @@ hr()
 tabPanel("Kappa(2xK)",
 
 titlePanel("Kappa Statistic for Reproducibility / Agreement of Two Raters"),
-
-HTML("
+conditionalPanel(
+condition = "input.explain_on_off",
+HTML(
+"
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To quantify the agreement from two raters or two rankings
@@ -238,7 +259,9 @@ In one survey, the ranking scores were given from 1 to 9, while in the other, th
 We wanted to check if the two answers were reproducible or whether the two surveys had agreements.
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
-"),
+"
+)
+),
 
 hr(),
 source("6_2kappa_ui.R", local=TRUE)$value,
@@ -253,7 +276,10 @@ tabPanel("Kappa(KxK)",
 
 titlePanel("Kappa Statistic for Reproducibility of Repeated / Related Measurements"),
 
-HTML("
+conditionalPanel(
+condition = "input.explain_on_off",
+HTML(
+"
 <p> This method just uses a different type of data. It uses counts of concordant and dis-concordant shown in a K by K table.</p> 
 
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -279,7 +305,9 @@ We knew that the final results were 136 replied YES to both surveys and 240 pati
 We wanted to know whether the surveys were good in concordant response. 
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
-"),
+"
+)
+),
 
 hr(),
 source("7_kappa_ui.R", local=TRUE)$value,
@@ -293,7 +321,10 @@ tabPanel("(2x2)xK",
 
 titlePanel("Mantel-Haenszel Test for 2 Categories of Factor in Case-Control Status under K Confounding Strata"),
 
-HTML("
+conditionalPanel(
+condition = "input.explain_on_off",
+HTML(
+"
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine by controlling the stratum / confounding if there is association between the case-control status (rows) and factor status (columns)
@@ -317,7 +348,9 @@ We got two 2 x 2 table, one was from the active smoking group including 466 peop
 We wanted to know if passive smoking significantly related to cancer risk after controlling for active smoking; or, whether the odds ratios were significantly different.
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
-"),
+"
+)
+),
 
 hr(),
 source("8_mh_ui.R", local=TRUE)$value,
@@ -332,7 +365,10 @@ tabPanel("(RxC)xK",
 
 titlePanel("Cochran-Mantel-Haenszel for >2 Categories of Factor in >2 Status under K Strata"),
 
-HTML("
+conditionalPanel(
+condition = "input.explain_on_off",
+HTML(
+"
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine by controlling the stratum / confounding if there is association between the case-control status (rows) and factor status (columns)
@@ -355,7 +391,9 @@ Considering gender might be the confounding variable in this study, we created 3
 We wanted to know if ages significantly related to snoring after controlling gender.
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
-"),
+"
+)
+),
 
 hr(),
 source("9_cmh_ui.R", local=TRUE)$value,
@@ -368,7 +406,8 @@ hr()
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
+source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 
 
 ))

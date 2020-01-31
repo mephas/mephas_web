@@ -1,4 +1,4 @@
-
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 shinyUI(
 tagList(
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
@@ -12,7 +12,8 @@ title = "Survival Analysis",
 tabPanel("Data",
 
 headerPanel("Data Preparation"),
-
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -52,6 +53,7 @@ Time variable is metastasis-free follow-up time (months). Censoring indicator va
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
 "
+)
 ),
 
 hr(),
@@ -65,6 +67,8 @@ hr()
 tabPanel("Non-parametric Model",
 
 headerPanel("Kaplan-Meier Estimator and Log-rank Test"),
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <p> <b>Kaplan–Meier estimator</b>, also known as the product limit estimator, is a non-parametric statistic used to estimate the survival function from lifetime data. </p>
@@ -87,6 +91,7 @@ HTML(
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
+)
 ),
 
 hr(),
@@ -99,6 +104,8 @@ hr()
 tabPanel("Semi-Parametric Model",
 
 headerPanel("Cox Regression"),
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <p><b> Cox Regression</b>, also known as Cox proportional hazard regression assumes that if the proportional hazards assumption holds (or, is assumed to hold) then it is possible to estimate the effect parameter(s) without any consideration of the hazard function.
@@ -119,6 +126,7 @@ Cox regression assumes that the effects of the predictor variables upon survival
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
+)
 ),
 
 hr(),
@@ -131,6 +139,8 @@ hr()
 tabPanel("Prediction1",
 
 headerPanel("Prediction after Cox Regression"),
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 
@@ -155,6 +165,7 @@ HTML(
 hr(),
 source("3pr_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
+)
 ),
 
 ##########----------##########----------##########
@@ -162,6 +173,8 @@ hr()
 tabPanel("Parametric Model",
 
 headerPanel("Accelerated Failure Time (AFT) Model"),
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <p><b>Accelerated failure time (AFT) model</b> is a parametric model assumes that the effect of a covariate is to accelerate or decelerate the life course of a disease by some constant.</p>
@@ -181,6 +194,7 @@ HTML(
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
+)
 ),
 
 hr(),
@@ -193,6 +207,8 @@ hr()
 tabPanel("Prediction2",
 
 headerPanel("Prediction after Accelerated Failure Time (AFT) model"),
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 
@@ -211,6 +227,7 @@ HTML(
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
+)
 ),
 
 hr(),
@@ -222,7 +239,8 @@ hr()
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
+source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 
 )
 ##-----------------------over
