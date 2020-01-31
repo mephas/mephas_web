@@ -8,19 +8,19 @@ function(input, output) {
 ##########----------##########----------##########
 source("../func.R")
 
-source("p1_server.R", local=TRUE)$value
+source("server_N.R", local=TRUE)$value
 
-source("p2_server.R", local=TRUE)$value
+source("server_E.R", local=TRUE)$value
 
-source("p3_server.R", local=TRUE)$value
+source("server_G.R", local=TRUE)$value
 
-source("p4_server.R", local=TRUE)$value
+source("server_B.R", local=TRUE)$value
 
-source("p5_server.R", local=TRUE)$value
+source("server_T.R", local=TRUE)$value
 
-source("p6_server.R", local=TRUE)$value
+source("server_Chi.R", local=TRUE)$value
 
-source("p7_server.R", local=TRUE)$value
+source("server_F.R", local=TRUE)$value
 
 ##########----------##########----------##########
 
