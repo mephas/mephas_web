@@ -22,7 +22,7 @@ HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if there is association between the case-control status (rows) and factor categories (columns)
-<li> To determine if the proportions are the same in the 2 independent samples 
+<li> To determine if the proportions are the same in the 2 independent samples
 <li> To determine if the proportions are homogeneity
 <li> To get the percentage table and plot and expected value of each cell
 </ul>
@@ -41,7 +41,7 @@ In one study we investigated data of 5000 OC-users and 10000 non OC-user, and ca
 Among 5000 OC-users, 13 developed MI; among 10000 non-OC-users, 7 developed MI.
 We wanted to determine if OC use was significantly associated with higher MI incidence.
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
 ),
@@ -63,7 +63,7 @@ HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if there is association between the case-control status (rows) and factor status (columns)
-<li> To determine if the proportions are the same in the 2 dependent samples 
+<li> To determine if the proportions are the same in the 2 dependent samples
 <li> To determine if the proportions are homogeneity
 <li> To get the percentage table and plot and expected value of each cell
 
@@ -84,7 +84,7 @@ In one study we investigated data of 35 CVD patients and 25 non-CVD patients, an
 Among 35 CVD patients, 5 had high-salt diet; among 25 non CVD patients, 2 had high-salt diet.
 We wanted to determine if CVD was significantly associated with high salt diet.
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
 ),
@@ -124,19 +124,19 @@ HTML("
 <h4><b> 3. Paired counts in 2 by 2 contingency table</b></h4>
 
 <ul>
-<li> Two pairs of patients were paired with similar age and clinical conditions. One group underwent treatment A and the other group underwent treatment B, and we recorded how many people became better and how many people became worse. 
-<li> For <b>concordant pair</b>, a matched pair in which two members all became better or worse 
+<li> Two pairs of patients were paired with similar age and clinical conditions. One group underwent treatment A and the other group underwent treatment B, and we recorded how many people became better and how many people became worse.
+<li> For <b>concordant pair</b>, a matched pair in which two members all became better or worse
 <li> For <b>dis-concordant pair</b>, a matched pair in which only one member became better or worse
 </ul>
 
 
 <i><h4>Case Example</h4>
-Suppose we wanted to compare the effects of two treatment. We investigated two groups of patients, one group accepted treatment A and the other did treatment B. 
+Suppose we wanted to compare the effects of two treatment. We investigated two groups of patients, one group accepted treatment A and the other did treatment B.
 Tow groups of patients were made into pair, and we made 621 pairs. In each pair one wad under treatment A and the other was under treatment B.
 Among 621 patients, 510 pairs were better in both treatment A and B; 90 pairs did not change either in treatment A or treatment B.
 In 16 pairs, only group after treatment A were better; in 5 pairs, only group after treatment B were better.
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
 ),
@@ -157,7 +157,7 @@ HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if there is association between the case-control status (rows) and factor status (columns)
-<li> To determine if the population rate/proportion behind your multiple Groups data are significantly different 
+<li> To determine if the population rate/proportion behind your multiple Groups data are significantly different
 <li> To get the percentage table and plot and expected value of each cell
 
 </ul>
@@ -174,10 +174,10 @@ HTML("
 
 <i><h4>Case Example</h4>
 Suppose we wanted to study the relationship between age at first birth and development of breast cancer. Thus, we investigated 3220 breast cancer cases and 10254 no breast cancer cases.
-Then, we categorize women into different age groups. 
+Then, we categorize women into different age groups.
 We wanted to know if the probability to have cancer were different among different age groups; or, if there age related to breast cancer.
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
 ),
@@ -200,7 +200,7 @@ HTML("
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if there is association between the case-control status (rows) and factor status (columns)
-<li> To determine if the population rate/proportion behind your multiple Groups data are significantly different 
+<li> To determine if the population rate/proportion behind your multiple Groups data are significantly different
 <li> To get the percentage table and plot and expected value of each cell
 
 </ul>
@@ -221,7 +221,7 @@ Among 100 Spectinomycin-low users, 10 got Smear+, 20 got Smear-Culture+ and 70 w
 Among 100 Spectinomycin-high users, 15 got Smear+, 40 got Smear-Culture+ and 45 were Smear-Culture-.
 We wanted to know if the treatments had significant association with the response.
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
 ),
@@ -254,11 +254,11 @@ HTML(
 </ul>
 
 <i><h4>Case Example</h4>
-Suppose we wanted to check the agreement of answers from two surveys. 
+Suppose we wanted to check the agreement of answers from two surveys.
 In one survey, the ranking scores were given from 1 to 9, while in the other, the ranking scores were not.
 We wanted to check if the two answers were reproducible or whether the two surveys had agreements.
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
 ),
@@ -280,7 +280,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<p> This method just uses a different type of data. It uses counts of concordant and dis-concordant shown in a K by K table.</p> 
+<p> This method just uses a different type of data. It uses counts of concordant and dis-concordant shown in a K by K table.</p>
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
@@ -298,13 +298,13 @@ HTML(
 </ul>
 
 <i><h4>Case Example</h4>
-Suppose in one study, we made two surveys reflecting the same problems for a group of patients. 
-We wanted to know the percentage of concordant response in two surveys. 
+Suppose in one study, we made two surveys reflecting the same problems for a group of patients.
+We wanted to know the percentage of concordant response in two surveys.
 We knew that the final results were 136 replied YES to both surveys and 240 patients replied NO in both surveys.
 69 people replied NO in survey1 and YES in survey2, and 92 people replied YES in survey1 and NO in survey2.
-We wanted to know whether the surveys were good in concordant response. 
+We wanted to know whether the surveys were good in concordant response.
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
 ),
@@ -347,7 +347,7 @@ Thus, we controlled for personal active smoking before looking at the relationsh
 We got two 2 x 2 table, one was from the active smoking group including 466 people, and the other was from non-active smoking group with 532 people. As shown in the inputed data.
 We wanted to know if passive smoking significantly related to cancer risk after controlling for active smoking; or, whether the odds ratios were significantly different.
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
 ),
@@ -386,11 +386,11 @@ HTML(
 </ul>
 
 <i><h4>Case Example</h4>
-Suppose we wanted to know the relation between snoring and ages. A survey were did on 3513 individuals 30-60 years old, with 1843 women and 1670 men. 
+Suppose we wanted to know the relation between snoring and ages. A survey were did on 3513 individuals 30-60 years old, with 1843 women and 1670 men.
 Considering gender might be the confounding variable in this study, we created 3 x 2 table in women strata and men strata.
 We wanted to know if ages significantly related to snoring after controlling gender.
 </h4></i>
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
 ),
@@ -412,4 +412,3 @@ source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 
 ))
 )
-

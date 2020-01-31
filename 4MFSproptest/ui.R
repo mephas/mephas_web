@@ -1,3 +1,5 @@
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
+
 shinyUI(
 
 tagList(
