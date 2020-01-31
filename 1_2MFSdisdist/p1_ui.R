@@ -10,21 +10,28 @@ sidebarLayout(
 	      "Simulation data based" = "SimuDist",
 	      "Data-based" = "DataDist")),
 	hr(),
-	#Select Src end	
-		h4(tags$b("Step 2. Set parameters")),	
+
+
 
 	#condiPa 1
 	  conditionalPanel(
 	    condition = "input.InputSrc_b == 'MathDist'",
 	    HTML("<b> 1. Set Parameters</b>"), 
 		numericInput("m", "The number of trials / samples, n > 0", value = 10, min = 1 , max = 1000000000),
-		numericInput("p", "The probability of success / event, p > 0", value = 0.2, min = 0, max = 1, step = 0.1),
-		p(tags$i("From the example, we know n=10 (10 white blood cells), p=0.2 (the probability of any cell being a lymphocyte)")),
-
+		numericInput("p", "The probability of success / event, p > 0", value = 0.2, min = 0, max = 1, step = 0.1)
+		),
+	  conditionalPanel(
+	    condition = "input.InputSrc_b == 'MathDist' && input.explain_on_off",
+		p(tags$i("From the example, we know n=10 (10 white blood cells), p=0.2 (the probability of any cell being a lymphocyte)"))
+		),
+	  conditionalPanel(
+	    condition = "input.InputSrc_b == 'MathDist'",	  
 		hr(),
-
 		tags$b(" 2. Change Observed Data"), 
-		numericInput("k", "The observed number of success /event (Red-Dot)", value = 2, min =  0, max = 1000, step = 1),
+		numericInput("k", "The observed number of success /event (Red-Dot)", value = 2, min =  0, max = 1000, step = 1)
+		),
+	  conditionalPanel(
+	    condition = "input.InputSrc_b == 'MathDist' && input.explain_on_off",
 		p(tags$i("The observed number is 2 lymphocytes"))
 	  ),
 	 #condiPa 1 end
@@ -78,7 +85,7 @@ sidebarLayout(
 
         p("Correct Separator ensures data input successfully"),
 
-        a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
+        a(tags$i("Find some example data here"), href = "https://github.com/mephas/datasets")
 	      ) #tab2 end 
 	    ),
       sliderInput("bin1","The number of bins in histogram", min = 0, max = 100, value = 0),

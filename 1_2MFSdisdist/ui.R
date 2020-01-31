@@ -19,9 +19,13 @@ title = "Discrete Probability Distribution",
 collapsible = TRUE,
 
 ##########----------##########----------##########
+
 tabPanel("Binomial",
 
 titlePanel("Binomial Distribution"),
+
+
+
 #condiPa 1
 conditionalPanel(
 condition = "input.explain_on_off",
