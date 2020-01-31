@@ -14,8 +14,10 @@ sidebarPanel(
   tabsetPanel(
 
     tabPanel("Manual Input", p(br()),
-    
-    p(tags$i("Here was the AGE of 144 independent lymph node positive patients")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Here was the AGE of 144 independent lymph node positive patients"))
+    ),
 
     p(tags$b("Please follow the example to input your data")),
   p("Data point can be separated by , ; /Enter /Tab /Space"),
@@ -65,8 +67,10 @@ hr(),
   h4(tags$b("Step 2. Specify Parameter")),
 
   numericInput('mu', HTML("Mean (&#956&#8320) that you want to compare with your data"), 50), #p
-
-  p(tags$i("The specified parameter is the general age 50")),
+  conditionalPanel(
+    condition = "input.explain_on_off",
+  p(tags$i("The specified parameter is the general age 50"))
+  ),
 
 hr(),
 
@@ -84,8 +88,10 @@ hr(),
       HTML("&#956 > &#956&#8320: the population mean of your data is greater than &#956&#8320")
       ),
     choiceValues = list("two.sided", "less", "greater")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("We wanted to know whether the age was 50 or not, so we chose the first alternative hypothesis"))
-
+    )
 
     ),
 
@@ -164,8 +170,10 @@ HTML(
     <li> P Value >= 0.05, then the population of the data IS NOT significantly different from the specified mean. (Accept null hypothesis)
     </ul>"
   ),
-
+  conditionalPanel(
+  condition = "input.explain_on_off",
   p(tags$i("Because P <0.05 , we concluded that the age of lymph node positive population was significantly different from 50 years old. Thus the general age was not 50. If we reset the specified mean to 44, we could get P > 0.05"))
+  )
  )
 
 )

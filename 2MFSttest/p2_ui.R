@@ -14,8 +14,10 @@ sidebarPanel(
     tabsetPanel(
       ##-------input data-------##
       tabPanel("Manual Input", p(br()),
-
-    p(tags$i("Example here was the AGE of 27 lymph node positive patients with Estrogen receptor (ER) positive (Group.1-Age.positive); and 117 patients with ER negative (Group.2-Age.negative)")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Example here was the AGE of 27 lymph node positive patients with Estrogen receptor (ER) positive (Group.1-Age.positive); and 117 patients with ER negative (Group.2-Age.negative)"))
+    ),
 
     p(tags$b("Please follow the example to input your data")),
   p("Data point can be separated by , ; /Enter /Tab /Space"),
@@ -97,8 +99,10 @@ sidebarPanel(
         HTML("&#956&#8321 > &#956&#8322: the population means of Group 1 is greater than Group 2")
         ),
       choiceValues = list("two.sided", "less", "greater")),
-
+    conditionalPanel(
+    condition = "input.explain_on_off",
       p(tags$i("In this default settings, we wanted to know if the ages of patients with ER positive was significantly different from patients with ER negative"))
+    )
 
 
     ),
@@ -177,8 +181,10 @@ HTML(
     </ul>"
   ),
 
-
-    p(tags$i("In this example, P value of F test was about 0.11 (>0.05), we should refer to the results from 'Two-Sample t-test'")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("In this example, P value of F test was about 0.11 (>0.05), we should refer to the results from 'Two-Sample t-test'"))
+    ),
 
     hr(),
     h4(tags$b("Output 3. Test Result 2")),
@@ -195,8 +201,9 @@ HTML(
     <li> P Value >= 0.05, then there is NO significant differences between Group 1 and Group 2. (Accept null hypothesis) 
     </ul>"
   ),
-
+    conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("In this example, we concluded that the age of lymph node positive population with ER positive was not significantly different from ER negative (P=0.24, from 'Two-Sample t-test')"))
-    
+    )
     )
   )

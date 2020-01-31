@@ -108,7 +108,10 @@ mainPanel(
 		  p("The blue curve is the normal distribution with mean n*p and sd n*p*(1-p). It indicates the normal approximation of binomial distribution."),
 		  plotly::plotlyOutput("b.plot", width = "80%"),
 		  p(tags$b("Probability at the observed number of success /event (Red-Dot)")),
-		  tableOutput("b.k"),
+		  tableOutput("b.k")
+		),
+		conditionalPanel(
+		  condition = "input.InputSrc_b == 'MathDist' && input.explain_on_off",
 		  p(tags$i("Explanation: the probability of 2 lymphocytes was about 0.03"))
 		),
 		
