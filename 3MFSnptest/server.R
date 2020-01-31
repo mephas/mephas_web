@@ -5,6 +5,7 @@ if (!require("exactRankTests")) {install.packages("exactRankTests")}; library("e
 if (!require("psych")) {install.packages("psych")}; library("psych")
 if (!require("DT")) {install.packages("DT")}; library("DT")
 if (!require("plotly")) {install.packages("plotly")}; library("plotly")
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
 shinyServer(
 

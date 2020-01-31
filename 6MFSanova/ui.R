@@ -7,7 +7,6 @@
 ## DT: 2019-04-07
 ##
 ##----------#----------#----------#----------
-if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 shinyUI(
 
 tagList(

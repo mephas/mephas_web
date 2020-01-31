@@ -8,9 +8,6 @@
 ## Update: 2019-12-05
 ##
 ##----------#----------#----------#----------
-
-if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
-
 shinyUI(
 
 tagList(
