@@ -98,6 +98,7 @@ mainPanel(
 		  condition = "input.InputSrc_b == 'MathDist'",
 		  h4("Mathematical-based Plot"),
 		  p(tags$b("Binomial probability plot")),
+		  p("The blue curve is the normal distribution with mean n*p and sd n*p*(1-p). It indicates the normal approximation of binomial distribution."),
 		  plotly::plotlyOutput("b.plot", width = "80%"),
 		  p(tags$b("Probability at the observed number of success /event (Red-Dot)")),
 		  tableOutput("b.k"),

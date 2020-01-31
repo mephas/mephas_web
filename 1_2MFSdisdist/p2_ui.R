@@ -87,16 +87,13 @@ sidebarLayout(
 
 	), #sidePa end
 	
-
-
-
-
 mainPanel(
 		h4(tags$b("Outputs")),
 		
 		conditionalPanel(
 		  condition = "input.InputSrc_p == 'MathDist'",
 		  h4("Mathematical-based Plot"),
+		  p("The blue curve is the normal distribution with mean=rate and sd=rate. It indicates the normal approximation of binomial distribution."),
  		p(tags$b("Poisson probability plot")),
     	plotly::plotlyOutput("p.plot", width = "80%"),
     	p(tags$b("Probability at the observed number of occurrences (Red-Dot)")),
