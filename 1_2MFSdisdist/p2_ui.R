@@ -2,26 +2,28 @@
 sidebarLayout(
 
 	sidebarPanel(
-	#Select Src
+	h4(tags$b("Step 1. Selected the data source of distribution plot")),
+	p("Mathematical-based, simulated-data-based, or user data-based"),		#Select Src
 	selectInput(
-	    "InputSrc_p", "Select Input Data Source:",
-	    c("Mathematical-based Distribution" = "MathDist",
-	      "Simulation-based Plot" = "SimuDist",
+	    "InputSrc_p", "Select plot",
+	    c("Mathematical formula based" = "MathDist",
+	      "Simulation data based" = "SimuDist",
 	      "Data-based" = "DataDist")),
 	hr(),
 	#Select Src end	
+		h4(tags$b("Step 2. Set parameters")),	
 
 	#condiPa 1
 	  conditionalPanel(
 	    condition = "input.InputSrc_p == 'MathDist'",
-	    HTML("<h4><b>Step 1. Set Parameters</b></h4>"), 
+	    HTML("<b> 1. Set Parameters</b>"), 
 		numericInput("lad", "Rate, = mean = variance", value = 2.3, min = 0, max = 10000000000, step = 1),
       numericInput("k2", "The duration of occurrences > 0", value = 12, min = 0 , max = 1000000000),
       p(tags$i("From the example, the rate is 2.3 and the duration of the rate is 12 months")),
 
       hr(),
 
-      h4(tags$b("Step 2. Change Observed Data")), 
+      tags$b(" 2. Change Observed Data"), 
       numericInput("x0", "The observed duration of occurrences (Red-Dot)", value = 5, min = 0 , max = 1000000000),
       p(tags$i("The observed is <= 5, and we wanted to know the cumulated probability after 5 months, which means 1 - cumulated probability of 0-5 months"))
 	  ),
@@ -40,8 +42,7 @@ sidebarLayout(
 	  conditionalPanel(
 	    condition = "input.InputSrc_p == 'DataDist'",  
 	    tabsetPanel(
-	      tabPanel(
-	        h4(tags$b("Manual Input")),
+	      tabPanel("Manual Input",p(br()),
 		p("Data point can be separated by , ; /Enter /Tab /Space"),
     	tags$textarea(
         id = "x.p", #p
@@ -50,9 +51,8 @@ sidebarLayout(
          ),
       p("Missing value is input as NA")
 	     ), #tab1 end 
-		
-		tabPanel(
-	        h4(tags$b("Upload Data")),
+	      
+			tabPanel("Upload Data",p(br()),
 	        
 	        ##-------csv file-------##
 	     p(tags$b("This only reads the 1st column of your data, and will cover the input data")),
@@ -96,7 +96,7 @@ mainPanel(
 		
 		conditionalPanel(
 		  condition = "input.InputSrc_p == 'MathDist'",
-		  p(br()), h4("Mathematical-based Plot"), p(br()),
+		  h4("Mathematical-based Plot"),
  		p(tags$b("Poisson probability plot")),
     	plotly::plotlyOutput("p.plot", width = "80%"),
     	p(tags$b("Probability at the observed number of occurrences (Red-Dot)")),
@@ -117,7 +117,7 @@ mainPanel(
 		
 		conditionalPanel(
 		condition = "input.InputSrc_p == 'DataDist'",
-		p(br()), h4("Distribution of Your Data"), p(br()),
+		h4("Distribution of Your Data"), 
  		p(tags$b("Histogram from upload data")),
         plotly::plotlyOutput("makeplot.2", width = "80%"),
         p(tags$b("Sample descriptive statistics")),

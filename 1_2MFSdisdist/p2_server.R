@@ -69,7 +69,7 @@ output$download2 <- downloadHandler(
 NN.p <- reactive({
   inFile <- input$file.p
   if (is.null(inFile)) {
-    x <- as.numeric(unlist(strsplit(input$x, "[\n,\t; ]")))
+    x <- as.numeric(unlist(strsplit(input$x.p, "[\n,\t; ]")))
     validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
     x <- as.data.frame(x)
     }

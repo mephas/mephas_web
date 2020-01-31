@@ -2,26 +2,28 @@
 sidebarLayout(
 
 	sidebarPanel(	
-	#Select Src
+	h4(tags$b("Step 1. Selected the data source of distribution plot")),
+	p("Mathematical-based, simulated-data-based, or user data-based"),		#Select Src
 	selectInput(
-	    "InputSrc_b", "Select Input Data Source:",
-	    c("Mathematical-based Distribution" = "MathDist",
-	      "Simulation-based Plot" = "SimuDist",
+	    "InputSrc_b", "Select plot",
+	    c("Mathematical formula based" = "MathDist",
+	      "Simulation data based" = "SimuDist",
 	      "Data-based" = "DataDist")),
 	hr(),
 	#Select Src end	
+		h4(tags$b("Step 2. Set parameters")),	
 
 	#condiPa 1
 	  conditionalPanel(
 	    condition = "input.InputSrc_b == 'MathDist'",
-	    HTML("<h4><b>Step 1. Set Parameters</b></h4>"), 
+	    HTML("<b> 1. Set Parameters</b>"), 
 		numericInput("m", "The number of trials / samples, n > 0", value = 10, min = 1 , max = 1000000000),
 		numericInput("p", "The probability of success / event, p > 0", value = 0.2, min = 0, max = 1, step = 0.1),
 		p(tags$i("From the example, we know n=10 (10 white blood cells), p=0.2 (the probability of any cell being a lymphocyte)")),
 
 		hr(),
 
-		h4(tags$b("Step 2. Change Observed Data")), 
+		tags$b(" 2. Change Observed Data"), 
 		numericInput("k", "The observed number of success /event (Red-Dot)", value = 2, min =  0, max = 1000, step = 1),
 		p(tags$i("The observed number is 2 lymphocytes"))
 	  ),
@@ -40,8 +42,7 @@ sidebarLayout(
 	  conditionalPanel(
 	    condition = "input.InputSrc_b == 'DataDist'",  
 	    tabsetPanel(
-	      tabPanel(
-	        h4(tags$b("Manual Input")),
+	      tabPanel("Manual Input",p(br()),
 			p("Data point can be separated by , ; /Enter /Tab /Space"),
     		tags$textarea(
         	id = "x", #p
@@ -50,8 +51,7 @@ sidebarLayout(
       		p("Missing value is input as NA")
 	     ), #tab1 end 
 	      
-	      tabPanel(
-	        h4(tags$b("Upload Data")),
+	      tabPanel("Upload Data",p(br()),
 	        
 	        ##-------csv file-------##
 	        p(tags$b("This only reads the 1st column of your data, and will cover the input data")),
@@ -96,7 +96,7 @@ mainPanel(
 		
 		conditionalPanel(
 		  condition = "input.InputSrc_b == 'MathDist'",
-		  p(br()), h4("Mathematical-based Plot"), p(br()),
+		  h4("Mathematical-based Plot"),
 		  p(tags$b("Binomial probability plot")),
 		  plotly::plotlyOutput("b.plot", width = "80%"),
 		  p(tags$b("Probability at the observed number of success /event (Red-Dot)")),
@@ -106,7 +106,7 @@ mainPanel(
 		
 		conditionalPanel(
 		  condition = "input.InputSrc_b == 'SimuDist'",
-		  p(br()), h4("Simulation-based Plot"), p(br()),
+		  h4("Simulation-based Plot"),
 		  p(tags$b("Histogram from random numbers")),
 		  plotly::plotlyOutput("b.plot2", width = "80%"),	
 		  downloadButton("download1", "Download Random Numbers"),
@@ -117,7 +117,7 @@ mainPanel(
 		
 		conditionalPanel(
 		condition = "input.InputSrc_b == 'DataDist'",
-		p(br()), h4("Distribution of Your Data"), p(br()),
+		h4("Distribution of Your Data"), 
  		p(tags$b("Histogram from upload data")),
 		plotly::plotlyOutput("makeplot.1", width = "80%"),
 		p("When the number of bins is 0, plot will use the default number of bins"),
