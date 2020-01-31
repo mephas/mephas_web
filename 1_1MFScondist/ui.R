@@ -9,6 +9,7 @@ navbarPage(
 
 title = "Continuous Probability Distribution",
 collapsible = TRUE,
+id = "navibar",
 
 ##########----------##########----------##########
 tabPanel("Normal",

@@ -14,4 +14,6 @@ tabPanel(switchInput(
     size = "mini"
 ))
 
+#tabPanel("",icon = icon("fa-book"),value = "hint")
+
 
