@@ -9,6 +9,8 @@
 ##
 ##----------#----------#----------#----------
 
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
+
 shinyUI(
 
 tagList(
@@ -23,7 +25,9 @@ title = "Discrete Probability Distribution",
 tabPanel("Binomial",
 
 titlePanel("Binomial Distribution"),
-
+#condiPa 1
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 " 
 <h4><b>What you can do on this page  </b></h4>
@@ -37,6 +41,7 @@ Suppose we wanted to know the probability of 2 lymphocytes of 10 white blood cel
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 
 "
+)
 ), 
 hr(),
 source("p1_ui.R", local=TRUE)$value,
@@ -50,7 +55,9 @@ hr()
 tabPanel("Poisson",
 
 titlePanel("Poisson Distribution"),
-
+#condiPa 1
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 " 
 <h4><b>What you can do on this page  </b></h4>
@@ -65,6 +72,7 @@ What is the probability distribution of the number of deaths over a 6-month peri
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 
 "
+)
 ),
 hr(),
 source("p2_ui.R", local=TRUE)$value,
@@ -75,7 +83,8 @@ hr()
 ##########----------##########----------##########
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
+source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 
 
 ))

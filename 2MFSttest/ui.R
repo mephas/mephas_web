@@ -1,4 +1,4 @@
-
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 
 shinyUI(
 
@@ -19,6 +19,8 @@ tabPanel( "One Sample",
 
 headerPanel("One-Sample T-Test"), 
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 
@@ -43,6 +45,7 @@ Suppose we collected the age of 144 independent lymph node positive patients, an
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
+)
 ),
 
 hr(),
@@ -60,6 +63,8 @@ tabPanel("Two Samples",
 
 headerPanel("Independent Two-Sample T-Test"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -85,6 +90,7 @@ We wanted to know if the ages of patients with ER positive was significantly dif
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 
 "
+)
 ),
 
 hr(),
@@ -101,8 +107,10 @@ tabPanel("Paired Samples",
 
 headerPanel("Dependent T-Test for Paired Samples"),
 
-
-HTML("    
+conditionalPanel(
+condition = "input.explain_on_off",
+HTML(
+"    
 <b>In paired case, we compare the differences of 2 groups to zero. Thus, it becomes a one-sample test problem.</b>
 
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -137,6 +145,7 @@ This was a paired case. We wanted to know whether the sleeping hours before and 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 
 "
+)
 ),
 
 hr(),
@@ -149,8 +158,8 @@ hr()
 ##########----------##########----------##########
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
-
+source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 )
 )
 )

@@ -1,4 +1,4 @@
-
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 shinyUI(
 tagList(
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
@@ -14,6 +14,8 @@ tabPanel("Data",
 
 headerPanel("Data Preparation"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <b>Linear regression</b> is a linear approach to modeling the relationship between a dependent variable and one or more independent variables. 
@@ -47,6 +49,7 @@ and (2) find the relations between birth weight and the other variables, that is
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please build the model in the next tab.</h4>
 "
+)
 ),
 
 hr(),
@@ -61,6 +64,8 @@ tabPanel("Model",
 
 headerPanel("Linear Regression"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 
@@ -80,6 +85,7 @@ HTML(
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
+)
 ),
 
 hr(),
@@ -93,6 +99,8 @@ tabPanel("Prediction",
 
 headerPanel("Prediction from Model"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 
@@ -117,6 +125,7 @@ Suppose in the same study, the doctors got another 6 infants data, and wanted to
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
+)
 ),
 
 hr(),
@@ -127,7 +136,8 @@ hr()
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
+source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 
 )
 )

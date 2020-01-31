@@ -3,7 +3,6 @@ sidebarLayout(
 
 sidebarPanel(
 
-
   h4(tags$b("Step 1. Data Preparation")), 
 
   p(tags$b("1. Give a name to your data (Required)")),
@@ -15,9 +14,9 @@ sidebarPanel(
   tabsetPanel(
 
     tabPanel("Manual Input", p(br()),
-
-     p(tags$i("Here was the AGE of 144 independent lymph node positive patients")),
     
+    p(tags$i("Here was the AGE of 144 independent lymph node positive patients")),
+
     p(tags$b("Please follow the example to input your data")),
   p("Data point can be separated by , ; /Enter /Tab /Space"),
     tags$textarea(

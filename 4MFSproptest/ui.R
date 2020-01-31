@@ -1,4 +1,4 @@
-
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 shinyUI(
 
 tagList(
@@ -15,8 +15,10 @@ tabPanel("One Sample",
 
 titlePanel("Chi-square Test and Exact Binomial Method for One Proportion"),
 
-
-HTML("
+conditionalPanel(
+condition = "input.explain_on_off",
+HTML(
+"
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if the population rate/proportion behind your data is significantly different from the specified rate/proportion
@@ -37,7 +39,9 @@ Suppose that in the general population, 20% women who had infertility. Suppose a
 Among 40 women who got the treatment, 10 were still infertile. We wanted to know if there was a significant difference in the rate of infertility among treated women compared to 20% the general infertile rate. 
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
-" ),
+" 
+)
+),
 
 hr(),
 
@@ -50,8 +54,10 @@ hr()
 tabPanel("Two Samples",
 
 titlePanel("Chi-square Test for Two Independent Proportions"),
-
-HTML("
+conditionalPanel(
+condition = "input.explain_on_off",
+HTML(
+"
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if the population rate/proportion behind your 2 groups data are significantly different </ul>
@@ -70,7 +76,9 @@ Also we investigated 10245 no breast cancer women as control. Among them, 1498 h
 we wanted to know if the underlying probability of having first birth over 30 years old was different in breast cancer and non-breast cancer groups.
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
-"),
+"
+)
+),
 hr(),
 
 source("p2_ui.R", local=TRUE)$value,
@@ -83,8 +91,10 @@ hr()
 tabPanel(">2 Samples",
 
 titlePanel("Chi-square Test for More than Two Independent Proportions"),
-
-HTML("
+conditionalPanel(
+condition = "input.explain_on_off",
+HTML(
+"
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if the population rate/proportion behind your multiple groups data are significantly different </ul>
@@ -104,7 +114,9 @@ We wanted to know if the probability to have cancer were different among differe
 
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
-"),
+"
+)
+),
 hr(),
 
 source("p3_ui.R", local=TRUE)$value,
@@ -115,8 +127,10 @@ hr()
 tabPanel("Trend in >2 Samples ",
 
 titlePanel("Chi-square Test for Trend in Multiple Independent Samples"),
-
-HTML("
+conditionalPanel(
+condition = "input.explain_on_off",
+HTML(
+"
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To determine if the population rate/proportion behind your multiple groups data vary 
@@ -136,7 +150,9 @@ Then, we categorize women into different age groups.
 In this example, we wanted to know if the rate to have cancer had tendency from small to large ages.
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
-"),
+"
+)
+),
 hr(),
 
 source("p4_ui.R", local=TRUE)$value,
@@ -149,7 +165,8 @@ hr()
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
+source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 
 
 

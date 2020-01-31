@@ -7,7 +7,7 @@
 ## DT: 2019-01-08
 ##
 ##----------#----------#----------#----------
-
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 shinyUI(
 
 tagList(
@@ -24,6 +24,8 @@ tabPanel("Data",
 
 titlePanel("Data Preparation"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -51,6 +53,7 @@ In this example, we wanted to create a model that could find the relations betwe
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
 "
+)
 ),
 
 hr(),
@@ -64,6 +67,8 @@ hr()
 tabPanel("PCR",
 
 titlePanel("Principal Component Regression"),
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <b>Principal component regression (PCR)</b> is a regression analysis technique that is based on principal component analysis (PCA). It finds hyperplanes of maximum variance between the response and independent variables.
@@ -86,7 +91,8 @@ HTML(
 </ul> 
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"),
+")
+),
 hr(),
 source("ui_pcr.R", local=TRUE, encoding="UTF-8")$value,
 hr()
@@ -100,6 +106,8 @@ tabPanel("Prediction1",
 
 titlePanel("Prediction after Principal Component Regression"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -121,7 +129,8 @@ Suppose in the same study, we got more measurements and wanted to predict the ou
 </h4></i>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"),
+")
+),
 
 hr(),
 source("ui_pcr_pr.R", local=TRUE, encoding="UTF-8")$value,
@@ -133,6 +142,8 @@ hr()
 tabPanel("PLSR",
 
 titlePanel("Partial Least Squares Regression"),
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <b>Partial least squares regression (PLSR)</b> is a regression analysis technique that finds a linear regression model by projecting the predicted variables and the observable variables to a new space.
@@ -155,7 +166,8 @@ HTML(
 </ul> 
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"),
+")
+),
 
 hr(),
 source("ui_pls.R", local=TRUE, encoding="UTF-8")$value,
@@ -168,6 +180,8 @@ hr()
 tabPanel("Prediction2",
 
 titlePanel("Prediction after Partial Least Squares Regression"),
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -189,7 +203,8 @@ Suppose in the same study, we got more measurements and wanted to predict the ou
 </h4></i>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"),
+")
+),
 hr(),
 source("ui_pls_pr.R", local=TRUE, encoding="UTF-8")$value,
 hr()
@@ -200,6 +215,8 @@ hr()
 tabPanel("SPLSR",
 
 titlePanel("Sparse Partial Least Squares Regression"),
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <b>Sparse partial least squares regression (SPLSR)</b> is a regression analysis technique that aims simultaneously to achieve good predictive performance and variable selection by producing sparse linear combinations of the original predictors.
@@ -221,7 +238,8 @@ HTML(
 </ul> 
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"),
+")
+),
 hr(),
 source("ui_spls.R", local=TRUE, encoding="UTF-8")$value,
 hr()
@@ -232,6 +250,8 @@ hr()
 tabPanel("Prediction3",
 
 	titlePanel("Prediction after Partial Least Squares Regression"),
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
 "
 <h4><b> 1. What you can do on this page  </b></h4>
@@ -253,7 +273,8 @@ Suppose in the same study, we got more measurements and wanted to predict the ou
 </h4></i>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"),
+")
+),
 
 
 hr(),
@@ -265,7 +286,9 @@ hr()
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
+source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
+source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
+
 
 ))
 )

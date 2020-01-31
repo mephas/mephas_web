@@ -1,4 +1,4 @@
-
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 shinyUI(
 
 tagList( 
@@ -15,6 +15,8 @@ tabPanel("One Sample",
 
 headerPanel("Wilcoxon Signed-Rank Test for One Sample"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
     "    
 <p>This is an alternative to one-sample t-test, when the data cannot be assumed to be normally distributed.
@@ -44,7 +46,8 @@ We wanted to know if the DRS of patients was significantly greater than 1.
     
 
     "
-    ),
+)
+),
 
 hr(),
 source("p1_ui.R", local=TRUE)$value,
@@ -58,7 +61,10 @@ tabPanel("Two Samples",
 
 headerPanel("Wilcoxon Rank-Sum Test (Mann–Whitney U test) for Two Independent Samples"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
+
     "
 <p>This is an alternative to two-sample t-test, when the data cannot be assumed to be normally distributed</p>
 
@@ -88,7 +94,8 @@ We wanted to know if the DRS of patients was significantly different among diffe
 
 
     "
-    ),
+ )
+),
 
 hr(),
 source("p2_ui.R", local=TRUE)$value,
@@ -101,6 +108,8 @@ tabPanel("Paired Samples",
 
 headerPanel("Wilcoxon Signed-Rank Test for Two Paired Samples"),
 
+conditionalPanel(
+condition = "input.explain_on_off",
 HTML(
     "
 <b>In paired case, we compare the differences of 2 groups to zero. Thus, it becomes a one-sample test problem.</b>
@@ -136,7 +145,8 @@ We wanted to know if the DRS of patients before and after were significantly; or
 </h4></i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>    
 "
-    ),
+)
+),
 
 hr(),
 source("p3_ui.R", local=TRUE)$value,
@@ -147,8 +157,8 @@ hr()
 
 source("../0tabs/stop.R",local=TRUE,encoding = "UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE,encoding = "UTF-8")$value
-
+source("../0tabs/home.R",local=TRUE,encoding = "UTF-8")$value,
+source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
   
 ))
 )
