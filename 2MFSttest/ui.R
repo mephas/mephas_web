@@ -12,7 +12,7 @@ navbarPage(
 
 
 title = "Parametric T Test for Means",
-
+collapsible = TRUE,
 
 ##########----------##########----------##########
 tabPanel( "One Sample",

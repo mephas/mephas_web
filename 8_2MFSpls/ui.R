@@ -17,7 +17,7 @@ navbarPage(
 
 
 title = "Dimensional Analysis 2",
-
+collapsible = TRUE,
 ##########----------##########----------##########
 
 tabPanel("Data",

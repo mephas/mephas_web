@@ -9,7 +9,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 title = "Test for Contingency Table",
-
+collapsible = TRUE,
 ##########----------##########----------##########
 tabPanel("2x2",
 

@@ -19,7 +19,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 title = "Discrete Probability Distribution",
-
+collapsible = TRUE,
 
 ##########----------##########----------##########
 tabPanel("Binomial",
