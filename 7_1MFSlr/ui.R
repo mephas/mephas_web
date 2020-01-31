@@ -1,3 +1,4 @@
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 shinyUI(
 tagList(
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
@@ -5,7 +6,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 title = "Linear Regression",
-collapsible = TRUE,
+#collapsible = TRUE,
 ##########----------##########----------##########
 
 
