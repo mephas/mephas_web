@@ -7,6 +7,7 @@ navbarPage(
 
 title = "Survival Analysis",
 collapsible = TRUE,
+id = "navibar",
 ##########----------##########----------##########
 
 tabPanel("Data",
@@ -64,7 +65,7 @@ hr()
 ),
 
 ##########----------##########----------##########
-tabPanel("Non-parametric Model",
+tabPanel("Non-Parametric Model",
 
 headerPanel("Kaplan-Meier Estimator and Log-rank Test"),
 conditionalPanel(

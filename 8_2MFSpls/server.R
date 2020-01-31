@@ -30,6 +30,9 @@ observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
 
+observeEvent(input$"ModelPCR", showTab("navibar", target = "PCR", select = TRUE))
+observeEvent(input$"ModelPLSR", showTab("navibar", target = "PLSR", select = TRUE))
+observeEvent(input$"ModelSPLSR", showTab("navibar", target = "SPLSR", select = TRUE))
 
 }
 )

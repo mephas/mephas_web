@@ -23,8 +23,8 @@ source("2pr_server.R", local=TRUE)$value
 observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
-
 observeEvent(input$Model, showTab("navibar", target = "Model", select = TRUE))
+
 
 })
 

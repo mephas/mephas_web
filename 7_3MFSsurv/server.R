@@ -33,6 +33,10 @@ source("3pr_server.R", local=TRUE)$value
 observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
+observeEvent(input$"Non-Parametric Model", showTab("navibar", target = "Non-Parametric Model", select = TRUE))
+observeEvent(input$"Semi-Parametric Model", showTab("navibar", target = "Semi-Parametric Model", select = TRUE))
+observeEvent(input$"Parametric Model", showTab("navibar", target = "Parametric Model", select = TRUE))
+
 })
 
 

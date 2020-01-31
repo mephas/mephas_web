@@ -57,7 +57,10 @@ uiOutput("factor1"),
 uiOutput("factor2"),
 hr(),
 
-h4(tags$b("Build Model in the Following tabs"))
+h4(tags$b(actionLink("ModelPCR","Build PCR Model"))),
+h4(tags$b(actionLink("ModelPLSR","Build PLSR Model"))),
+h4(tags$b(actionLink("ModelSPLSR","Build SPLSR Model")))
+#h4(tags$b("Build Model in the Next Tab"))
 
 ),
 
