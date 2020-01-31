@@ -15,8 +15,10 @@ sidebarPanel(
 tabsetPanel(
       ##-------input data-------##
     tabPanel("Manual Input", p(br()),
-
-    p(tags$i("Example here was the FEF data from smokers and smoking groups. Detailed information can be found in the Output 1.")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Example here was the FEF data from smokers and smoking groups. Detailed information can be found in the Output 1."))
+    ),
 
     p(tags$b("Please follow the example to input your data")),
   p("Data point can be separated by , ; /Enter /Tab"),
@@ -70,7 +72,10 @@ hr(),
   p("The means from each group are equal"),
   p(tags$b("Alternative hypothesis")),
   p("At least two factor groups have significant different means"),
+      conditionalPanel(
+    condition = "input.explain_on_off",
   p(tags$i("In this example, we wanted to know if the FEF values were different among the 6 smoking groups"))
+  )
 
 ),
 
@@ -104,8 +109,10 @@ mainPanel(
   h4(tags$b("Output 2. Test Results")), p(br()),
 
   DT::DTOutput("kwtest"),p(br()),
-  
-    p(tags$i("In this example, smoking groups showed significant, so we could conclude that FEF were significantly different among the 6 groups from Kruskal-Wallis rank sum test. ")),
+      conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("In this example, smoking groups showed significant, so we could conclude that FEF were significantly different among the 6 groups from Kruskal-Wallis rank sum test. "))
+    ),
 
     hr(),
     HTML("<p><b>When P < 0.05,</b> if you want to find which pairwise factor groups are significantly different, please go to next page for <b>Multiple Comparison</b></p>")

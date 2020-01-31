@@ -12,14 +12,19 @@
 
       numericInput("x", "How many success / events, x", value = 10, min = 0, max = 100000, step = 1),
       numericInput("n", "How many trials / samples, n > x", value = 40, min = 1, max = 100000, step = 1),
-
-    p(tags$i("In the example, the number of event was 10 and total sample size was 40.")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("In the example, the number of event was 10 and total sample size was 40."))
+    ),
     hr(),
 
     h4(tags$b("Step 2. Specify Parameter")),
 
       numericInput('p', HTML("The specified rate / proportion / probability (0 < p<sub>0</sub> < 1) that you want to compare"), value = 0.2, min = 0, max = 1, step = 0.1),
-    p(tags$i("The infertility rate in general (20%) was what we wanted to compare.")),
+        conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("The infertility rate in general (20%) was what we wanted to compare."))
+      ),
 
       hr(),
 
@@ -36,8 +41,10 @@
         HTML("p > p<sub>0</sub>: the probability/proportion is greater than p<sub>0</sub>")),
       choiceValues = list("two.sided", "less", "greater")
       ),
-
+    conditionalPanel(
+    condition = "input.explain_on_off",
    p(tags$i("In this example, we wanted to test if there was a significant difference in the rate of infertility among treated women compared to 20% the general infertile rate, so we used the first alternative hypothesis"))
+   )
 
       ),
 
@@ -66,8 +73,10 @@
     <li> P Value >= 0.05, then the population proportion/rate IS NOT significantly different from the specified median. (Accept null hypothesis)
     </ul>"
   ),
-
+    conditionalPanel(
+    condition = "input.explain_on_off",
   HTML("<i> From the default settings, we concluded that there was no significant difference in the rate of infertility among homozygous women compared to the general interfile rate (P = 0.55). In this case, np<sub>0</sub>(1-p<sub>0</sub>)=40*0.2*0.8 > 5, so <b>Normal Theory Method</b> was preferable. </i>")
+  )
 
 
     )

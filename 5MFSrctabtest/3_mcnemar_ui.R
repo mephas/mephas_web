@@ -17,10 +17,12 @@ sidebarPanel(
   tags$textarea(id="x2", rows=4, 
     "510\n16\n5\n90"),
   p("Note: No Missing Value"),
-  
+  conditionalPanel(
+    condition = "input.explain_on_off",
   p(tags$i("Example here was 621 pairs of patients, one group underwent treatment A and the other underwent treatment B. Patients were paired with similar age and clinical conditions. ")),
   p(tags$i("Among 621 patients, 510 pairs were better in both treatment A and B; 90 pairs did not change either in treatment A or treatment B. (Concordant Pair) ")),
-  p(tags$i("In 16 pairs, only group after treatment A were better; in 5 pairs, only group after treatment B were better. (Dis-concordant Pair) ")),
+  p(tags$i("In 16 pairs, only group after treatment A were better; in 5 pairs, only group after treatment B were better. (Dis-concordant Pair) "))
+  ),
 
   hr(),
 
@@ -31,8 +33,10 @@ sidebarPanel(
     
    p(tags$b("Alternative hypothesis")), 
    p("The factors have significant differences on the paired samples "),
-
-   p(tags$i("In this example, we wanted to determine if whether the treatments had significant differences for the matched pair.")),
+   conditionalPanel(
+    condition = "input.explain_on_off",
+   p(tags$i("In this example, we wanted to determine if whether the treatments had significant differences for the matched pair."))
+   ),
       
   hr(),
 
@@ -92,9 +96,10 @@ sidebarPanel(
     <li> P Value >= 0.05, then the factors have no significant differences. (Accept null hypothesis)
     </ul>"
   ),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
      p(tags$i("In this default setting, we concluded that two treatments had significantly different effect on the paired patients. (P = 0.03)"))
-
+)
         )
       )
     

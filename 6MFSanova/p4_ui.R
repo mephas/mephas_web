@@ -15,8 +15,10 @@ sidebarPanel(
 tabsetPanel(
       ##-------input data-------##
     tabPanel("Manual Input", p(br()),
-
-    p(tags$i("Example here was the full metastasis-free follow-up time (months) of 100 lymph node positive patients with Grade of the tumor (three ordered levels).")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Example here was the full metastasis-free follow-up time (months) of 100 lymph node positive patients with Grade of the tumor (three ordered levels)."))
+    ),
 
     p(tags$b("Please follow the example to input your data")),
   p("Data point can be separated by , ; /Enter /Tab"),
@@ -73,7 +75,10 @@ hr(),
   p("The means from each group are equal"),
   p(tags$b("Alternative hypothesis")),
   p("At least two groups have significant different means"),
-  p(tags$i("In this example, we wanted to know if the metastasis-free follow-up time was different with grade of the tumor (three ordered levels)")),
+  conditionalPanel(
+    condition = "input.explain_on_off",
+  p(tags$i("In this example, we wanted to know if the metastasis-free follow-up time was different with grade of the tumor (three ordered levels)"))
+  ),
 hr(),
   h4(tags$b("Step 2. Choose Multiple Comparison Methods")),
   radioButtons("methodm2", 
@@ -161,8 +166,10 @@ mainPanel(
     <li> In the matrix, P >= 0.05 indicates no statistically significant differences in the pairs
   </ul>"
     ),
-
+    conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("In this example, all the pairs, normal vs LV, SV vs LV, SV vs normal, and male vs female had significant differences on SBP."))#,
+    )
 
 
  # downloadButton("download.m222", "Download Results")

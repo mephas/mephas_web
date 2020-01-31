@@ -21,8 +21,11 @@
     "1\n3\n1\n6\n1\n5\n5\n6\n7"),
 
     p("Note: No Missing Value, two groups have equal length"),
+    conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("Example here showed the Survey1 and Survey2.
       In this setting, we wanted to know the agreement in two rankings."))
+    )
    
 
     ),
@@ -65,9 +68,10 @@
 
   "
   ),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
      p(tags$i("In this default setting, we concluded that the response from Survey1 and Survey2 did not have such good reproducibility "))
-
+  )
         )
       )
     

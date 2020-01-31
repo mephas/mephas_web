@@ -15,7 +15,10 @@ sidebarPanel(
   tabsetPanel(
           ##-------input data-------##
     tabPanel("Manual Input", p(br()),
-        p(tags$i("Example here was the HOUR of sleep effected by a certain drug. Sleeping hours before and after taking the drug were recorded")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+        p(tags$i("Example here was the HOUR of sleep effected by a certain drug. Sleeping hours before and after taking the drug were recorded"))
+    ),
 
     p(tags$b("Please follow the example to input your data")),
   p("Data point can be separated by , ; /Enter /Tab /Space"),
@@ -76,8 +79,11 @@ sidebarPanel(
             ),
           choiceValues = list("two.sided", "less", "greater")
           ),
+      conditionalPanel(
+        condition = "input.explain_on_off",
        p(tags$i("In this default settings, we wanted to know if the drug has effect. 
         Or, if sleep HOUR changed after they take the drug. "))
+       )
 
         ),
 
@@ -151,7 +157,9 @@ sidebarPanel(
     <li> P Value >= 0.05, then there is NO significant difference between 2 groups. (Accept null hypothesis)
     </ul>"
   ),
-
+    conditionalPanel(
+    condition = "input.explain_on_off",
   p(tags$i("From the default settings, we concluded that the drug has no significant effect on the sleep hour. (P=0.2)"))
+  )
         )
       )

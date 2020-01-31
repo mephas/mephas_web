@@ -18,13 +18,21 @@ sidebarLayout(
 	    condition = "input.InputSrc_p == 'MathDist'",
 	    HTML("<b> 1. Set Parameters</b>"), 
 		numericInput("lad", "Rate, = mean = variance", value = 2.3, min = 0, max = 10000000000, step = 1),
-      numericInput("k2", "The duration of occurrences > 0", value = 12, min = 0 , max = 1000000000),
-      p(tags$i("From the example, the rate is 2.3 and the duration of the rate is 12 months")),
-
+      numericInput("k2", "The duration of occurrences > 0", value = 12, min = 0 , max = 1000000000)
+      ),
+	  conditionalPanel(
+	    condition = "input.InputSrc_p == 'MathDist' && input.explain_on_off",
+	    p(tags$i("From the example, the rate is 2.3 and the duration of the rate is 12 months"))
+	  ),
+	  conditionalPanel(
+	    condition = "input.InputSrc_p == 'MathDist'",
       hr(),
 
       tags$b(" 2. Change Observed Data"), 
-      numericInput("x0", "The observed duration of occurrences (Red-Dot)", value = 5, min = 0 , max = 1000000000),
+      numericInput("x0", "The observed duration of occurrences (Red-Dot)", value = 5, min = 0 , max = 1000000000)
+      ),
+      conditionalPanel(
+	    condition = "input.InputSrc_p == 'MathDist' && input.explain_on_off",
       p(tags$i("The observed is <= 5, and we wanted to know the cumulated probability after 5 months, which means 1 - cumulated probability of 0-5 months"))
 	  ),
 	 #condiPa 1 end
@@ -97,7 +105,10 @@ mainPanel(
  		p(tags$b("Poisson probability plot")),
     	plotly::plotlyOutput("p.plot", width = "80%"),
     	p(tags$b("Probability at the observed number of occurrences (Red-Dot)")),
-    	tableOutput("p.k"),
+    	tableOutput("p.k")
+    	),
+    	conditionalPanel(
+		  condition = "input.InputSrc_p == 'MathDist' && input.explain_on_off",
     	p(tags$i("Explanation: the probability distribution until 5 month was 0.97. Thus, the probability distribution after 6 months was about 0.03"))
 		),
 		

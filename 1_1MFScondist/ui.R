@@ -8,8 +8,10 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 title = "Continuous Probability Distribution",
+
 collapsible = TRUE,
 id = "navibar",
+
 
 ##########----------##########----------##########
 tabPanel("Normal",
@@ -17,7 +19,7 @@ tabPanel("Normal",
 headerPanel("Normal Distribution"),
 #switchInput(
 #   inputId = "explain_on_off",
-#   label = "Explainations", 
+#   label = "Explainations",
 #   labelWidth = "150px"#,
    #size = "mini"
 #),
@@ -33,10 +35,10 @@ headerPanel("Normal Distribution"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
-" 
+"
 <h4><b> What you can do on this page</b></h4>
 <ul>
-<li> Draw a Normal Distribution with N(&#956, &#963); &#956 is the location, and &#963 indicates the shape 
+<li> Draw a Normal Distribution with N(&#956, &#963); &#956 is the location, and &#963 indicates the shape
 <li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line and Pr(x1 less than X greater than x2) in the blue area
 <li> Get the probability distribution from simulation numbers in Simulation-based tab
 <li> Download the random number in Simulation-based tab
@@ -64,16 +66,16 @@ hr()
 ##########----------##########----------##########
 tabPanel("Exponential",
 
-headerPanel("Exponential Distribution"), 
+headerPanel("Exponential Distribution"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
-" 
+"
 <h4><b> What you can do on this page</b></h4>
 <ul>
 <li> Draw an Exponential Distribution with E(Rate); Rate indicates the rate of change
-<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line
 <li> Get the probability distribution from simulation numbers in Simulation-based tab
 <li> Download the random number in Simulation-based tab
 <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
@@ -100,20 +102,20 @@ hr()
 ##########----------##########----------##########
 tabPanel("Gamma",
 
-headerPanel("Gamma Distribution"), 
+headerPanel("Gamma Distribution"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
-" 
-<h4><b> What you can do on this page</b></h4>    
+"
+<h4><b> What you can do on this page</b></h4>
 <ul>
 <li> Draw a Gamma Distribution with Gamma(&#945, &#952); &#945 controls the shape, 1/&#952 controls the change of rate
-<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line
 <li> Get the probability distribution from simulation numbers in Simulation-based tab
 <li> Download the random number in Simulation-based tab
 <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
-<li> Get the probability distribution of your data which can be roughly compared to  Gamma(&#945, &#952)  
+<li> Get the probability distribution of your data which can be roughly compared to  Gamma(&#945, &#952)
 </ul>
 
 <i><h4>Case Example</h4>
@@ -135,20 +137,20 @@ hr()
 ##########----------##########----------##########
 tabPanel("Beta",
 
-headerPanel("Beta Distribution"), 
+headerPanel("Beta Distribution"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
-" 
-<h4><b> What you can do on this page</b></h4>    
+"
+<h4><b> What you can do on this page</b></h4>
 <ul>
 <li> Draw a Beta Distribution with Beta(&#945, &#946); &#945, &#946 controls the shape
-<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line
 <li> Get the probability distribution from simulation numbers in Simulation-based tab
 <li> Download the random number in Simulation-based tab
 <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
-<li> Get the probability distribution of your data which can be roughly compared to Beta(&#945, &#946)  
+<li> Get the probability distribution of your data which can be roughly compared to Beta(&#945, &#946)
 </ul>
 
 <i><h4>Case Example</h4>
@@ -170,16 +172,16 @@ hr()
 ##########----------##########----------##########
 tabPanel("T",
 
-headerPanel("Student's T Distribution"), 
+headerPanel("Student's T Distribution"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
-" 
-<h4><b> What you can do on this page</b></h4>    
+"
+<h4><b> What you can do on this page</b></h4>
 <ul>
-<li> Draw a T Distribution with T(v); v is the degree of freedom related to your sample size and control the shape 
-<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+<li> Draw a T Distribution with T(v); v is the degree of freedom related to your sample size and control the shape
+<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line
 <li> Get the probability distribution from simulation numbers in Simulation-based tab
 <li> Download the random number in Simulation-based tab
 <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
@@ -204,16 +206,16 @@ hr()
 ##########----------##########----------##########
 tabPanel("Chi",
 
-headerPanel("Chi-Squared Distribution"), 
+headerPanel("Chi-Squared Distribution"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
-" 
-<h4><b> What you can do on this page</b></h4>    
+"
+<h4><b> What you can do on this page</b></h4>
 <ul>
-<li> Draw a Chi-Squared Distribution with Chi(v); v is the degree of freedom related to your sample size and control the shape 
-<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+<li> Draw a Chi-Squared Distribution with Chi(v); v is the degree of freedom related to your sample size and control the shape
+<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line
 <li> Get the probability distribution from simulation numbers in Simulation-based tab
 <li> Download the random number in Simulation-based tab
 <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
@@ -237,16 +239,16 @@ hr()
 ##########----------##########----------##########
 tabPanel("F",
 
-headerPanel("F Distribution"), 
+headerPanel("F Distribution"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
-" 
-<h4><b> What you can do on this page</b></h4>    
+"
+<h4><b> What you can do on this page</b></h4>
 <ul>
-<li> Draw a F Distribution with F(df1, df2) ; df1 and df2 are the degree of freedom related to your sample size and control the shape 
-<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line 
+<li> Draw a F Distribution with F(df1, df2) ; df1 and df2 are the degree of freedom related to your sample size and control the shape
+<li> Get the probability distribution of x0 that Pr(X less than x0) = left to the red-line
 <li> Get the probability distribution from simulation numbers in Simulation-based tab
 <li> Download the random number in Simulation-based tab
 <li> Get the mean, SD, and Pr(X less than x0) of simulated numbers
@@ -277,6 +279,3 @@ source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 
 ))
 )
-
-
-

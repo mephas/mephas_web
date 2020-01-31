@@ -27,8 +27,10 @@
         ),
 
     p("Note: No Missing Value"),
-
-    p(tags$i("In this example, we had 5 age groups of people as shown in n, and we record the number of people who had cancer in x.")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("In this example, we had 5 age groups of people as shown in n, and we record the number of people who had cancer in x."))
+    ),
 
         hr(),
 
@@ -40,8 +42,10 @@
       
       p(tags$b("Alternative hypothesis")), 
        p("The probability/proportions are not equal"),          
-
+    conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("In this example,  we wanted to know if the probability to have cancer were different among different age groups."))
+    )
    
 
     ),
@@ -78,8 +82,10 @@
     <li> P Value >= 0.05, then the population proportion/rate are NOT significantly different. (Accept null hypothesis)
     </ul>"
   ),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
      p(tags$i("In this default setting, we concluded that the probability to have cancer were significantly different in different age groups. (P < 0.001)"))
+     )
 
         )
       )

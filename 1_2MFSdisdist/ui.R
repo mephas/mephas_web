@@ -1,5 +1,14 @@
+##----------#----------#----------#----------
+##
+## 1MFSdistribution UI
+##
+## Language: EN
+##
+## DT: 2019-01-08
+## Update: 2019-12-05
+##
+##----------#----------#----------#----------
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
-
 shinyUI(
 
 tagList(
@@ -23,7 +32,7 @@ titlePanel("Binomial Distribution"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
-" 
+"
 <h4><b>What you can do on this page  </b></h4>
 <ul>
 <li> Get a plot of Binomial Distribution B(n,p); n is the total sample size, p is the probability of success / event from the total sample; np=mean, np(1-p)=variance
@@ -36,7 +45,7 @@ Suppose we wanted to know the probability of 2 lymphocytes of 10 white blood cel
 
 "
 )
-), 
+),
 hr(),
 source("p1_ui.R", local=TRUE)$value,
 hr()
@@ -53,7 +62,7 @@ titlePanel("Poisson Distribution"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
-" 
+"
 <h4><b>What you can do on this page  </b></h4>
 <ul>
 <li> Draw a plot of Poisson Distribution P(Rate); Rate indicates the expected number of occurrences; Rate = mean =variance
@@ -83,6 +92,3 @@ source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
 
 ))
 )
-
-
-

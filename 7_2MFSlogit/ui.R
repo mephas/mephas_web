@@ -1,5 +1,13 @@
+##----------#----------#----------#----------
+##
+## 7MFSreg UI
+##
+## Language: EN
+##
+## DT: 2019-01-08
+##
+##----------#----------#----------#----------
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
-
 shinyUI(
 tagList(
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
@@ -17,14 +25,14 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<b>Logistic regression</b> is used to model the probability of a certain class or event existing such as pass/fail, win/lose, alive/dead or healthy/sick. 
+<b>Logistic regression</b> is used to model the probability of a certain class or event existing such as pass/fail, win/lose, alive/dead or healthy/sick.
 Logistic regression uses a logistic function to model a binary dependent variable.
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To upload data file, preview data set, and check the correctness of data input 
+<li> To upload data file, preview data set, and check the correctness of data input
 <li> To pre-process some variables (when necessary) for building the model
-<li> To get the basic descriptive statistics and plots of the variables 
+<li> To get the basic descriptive statistics and plots of the variables
 </ul>
 
 <h4><b> 2. About your data (training set) </b></h4>
@@ -32,14 +40,14 @@ Logistic regression uses a logistic function to model a binary dependent variabl
 <ul>
 <li> Your data need to include <b>one binary dependent variable (denoted as Y)</b> and <b> at least one independent variables (denoted as X)</b>
 <li> Your data need to have more rows than columns
-<li> Do not mix character and numbers in the same column 
+<li> Do not mix character and numbers in the same column
 <li> The data used to build model is called <b>training set</b>
-</ul> 
+</ul>
 
 <i><h4>Case Example</h4>
 
-Suppose we wanted to explore the Breast Cancer dataset and develop a model to try classifying suspected cells to Benign (B) or Malignant (M). 
-The dependent variable is binary outcome (B/M). We were interested (1) to build a model which calculates the probability of benign or malignant and then help us to determine whether the patient is benign or malignant, 
+Suppose we wanted to explore the Breast Cancer dataset and develop a model to try classifying suspected cells to Benign (B) or Malignant (M).
+The dependent variable is binary outcome (B/M). We were interested (1) to build a model which calculates the probability of benign or malignant and then help us to determine whether the patient is benign or malignant,
 and (2) find the relations between binary dependent variable and the other variables, that is find out which variable contributes greatly to the dependent variable.
 
 
@@ -69,7 +77,7 @@ HTML(
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To build simple or multiple logistic regression model
-<li> To get the estimates of regressions, including (1) estimate of coefficients with t test, p value, and 95% CI, (2) R<sup>2</sup> and adjusted R<sup>2</sup>, and (3) F-Test for overall significance in Regression 
+<li> To get the estimates of regressions, including (1) estimate of coefficients with t test, p value, and 95% CI, (2) R<sup>2</sup> and adjusted R<sup>2</sup>, and (3) F-Test for overall significance in Regression
 <li> To get additional information: (1) predicted dependent variable and residuals, (2) AIC-based variable selection, (3) ROC plot, and (4) sensitivity and specificity table for ROC plot
 </ul>
 
@@ -77,7 +85,7 @@ HTML(
 
 <ul>
 <li> The dependent variable is binary
-<li> Please prepare the training set data in the previous <b>Data</b> tab</ul> 
+<li> Please prepare the training set data in the previous <b>Data</b> tab</ul>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
@@ -110,7 +118,7 @@ HTML(
 <ul>
 <li> New data cover all the independent variables used in the model.
 <li> New data not used to build the model is called <b>test set</b>
-</ul> 
+</ul>
 
 <i><h4>Case Example</h4>
 
@@ -137,5 +145,3 @@ source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 )
 )
 )
-
-

@@ -15,7 +15,10 @@ sidebarPanel(
   tabsetPanel(
 
   tabPanel("Manual Input", p(br()),
-    p(tags$i("Example here was the Depression Rating Scale factor measurements of 9 patients Before and After treatment. ")),
+        conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Example here was the Depression Rating Scale factor measurements of 9 patients Before and After treatment. "))
+      ),
 
     p(tags$b("Please follow the example to input your data")),
   p("Data point can be separated by , ; /Enter /Tab /Space"),
@@ -79,7 +82,10 @@ sidebarPanel(
       HTML("m < 0: the population median of Y is greater"),
       HTML("m > 0: the population median of X is greater")),
     choiceValues = list("two.sided", "less", "greater")),
-      p(tags$i("In this example, we wanted to know if there was significant difference on the scale after the treatment. ")),
+      conditionalPanel(
+    condition = "input.explain_on_off",
+      p(tags$i("In this example, we wanted to know if there was significant difference on the scale after the treatment. "))
+        ),
 hr(),
 
 h4(tags$b("Step 3. Decide P Value method")),
@@ -91,7 +97,10 @@ radioButtons("alt.md3",
       HTML("Exact P value: sample size is small (< 50)")
       ), 
     choiceValues = list("a", "b", "c")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("In this example, we had only 9 people. So we chose exact P value"))
+    )
 
   ),
 
@@ -158,7 +167,10 @@ mainPanel(
     <li> P Value >= 0.05, then the Before and After are NOT significantly different. (Accept null hypothesis)
     </ul>"
   ),
-  p(tags$i("From the default settings, we concluded no significant difference is found after the treatment. (P=0.46)"))
+      conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("From the default settings, we concluded no significant difference is found after the treatment. (P=0.46)"))
+    )
 
 
 )

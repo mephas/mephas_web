@@ -24,8 +24,10 @@
       tags$textarea(id="x8", rows=10, 
       "120\n111\n80\n115\n161\n117\n130\n124"),
       p("Note: No Missing Value"),
-
-    p(tags$i("Example here was 2 sets of 2 by 2 table. One is the case-control table for active smoker; the other is case-control table for non-active smoker.")),
+conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Example here was 2 sets of 2 by 2 table. One is the case-control table for active smoker; the other is case-control table for non-active smoker."))
+    ),
 
         hr(),
 
@@ -53,8 +55,10 @@
       HTML("Exact P value: sample size is small (< 15)")
       ), 
     choiceValues = list("a", "b", "c")),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("In this setting,  we wanted to know if the odds ratio for lung cancer (case) in passive smoker are different with non-passive-smoker, controlling for personal active smoking."))
+    )
    
     ),
 
@@ -81,8 +85,10 @@
     <li> P Value >= 0.05, to control for personal smoking, passive smoking and cancer risk has no significant relation. (Accept null hypothesis)
     </ul>"
   ),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
      p(tags$i("In this default setting, we conclude that there was significant relationship between cancer risk and passive smoking, by controlling the personal actively smoking. (P < 0.001)"))
+      )
         )
       )
     

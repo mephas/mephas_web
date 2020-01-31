@@ -15,7 +15,10 @@ sidebarPanel(
   tabsetPanel(
   ##-------input data-------## 
   tabPanel("Manual input", p(br()),
-    p(tags$i("Example here was the Depression Rating Scale factor measurements of 19 patients from a two group of patients.")),
+        conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Example here was the Depression Rating Scale factor measurements of 19 patients from a two group of patients."))
+      ),
 
     p(tags$b("Please follow the example to input your data")),
   p("Data point can be separated by , ; /Enter /Tab /Space"),
@@ -81,7 +84,10 @@ radioButtons("alt.wsr2", label = "Alternative hypothesis",
     HTML("m&#8321 < m&#8322: the population median of Group 2 is greater"),
     HTML("m&#8321 > m&#8322: the population median of Group 1 is greater")),
   choiceValues = list("two.sided", "less", "greater")),
-    p(tags$i("In this default settings, we wanted to know if Depression Rating Scale from two group of patients were different.")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("In this default settings, we wanted to know if Depression Rating Scale from two group of patients were different."))
+      ),
     hr(),
 
 
@@ -94,7 +100,10 @@ radioButtons("alt.wsr2", label = "Alternative hypothesis",
       HTML("Exact P value: sample size is small (< 50)")
       ), 
     choiceValues = list("a", "b", "c")),
+      conditionalPanel(
+    condition = "input.explain_on_off",
       p(tags$i("The sample sizes in each group were 9 and 10, so we used exact p value."))
+      )
 
   ),
 
@@ -161,8 +170,10 @@ mainPanel(
     <li> P Value >= 0.05, no significant differences between the medians of 2 groups. (Accept null hypothesis)
     </ul>"
   ),
-
-    p(tags$i("From the default settings, we concluded that there was no significant differences in 2 groups Rating scale (P=0.44)."))#,
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("From the default settings, we concluded that there was no significant differences in 2 groups Rating scale (P=0.44)."))
+    )#,
 
 
  # downloadButton("download2.1", "Download Results")

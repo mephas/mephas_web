@@ -1,5 +1,4 @@
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
-
 shinyUI(
 
 tagList(
@@ -22,7 +21,7 @@ HTML(
 "
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To upload data file, preview data set, and check the correctness of data input 
+<li> To upload data file, preview data set, and check the correctness of data input
 <li> To pre-process some variables (when necessary) for building the model
 <li> To get the basic descriptive statistics and plots of the variables
 </ul>
@@ -31,14 +30,14 @@ HTML(
 
 <ul>
 <li> Your data need to have more rows than columns
-<li> Your data need to be all numeric 
-</ul> 
+<li> Your data need to be all numeric
+</ul>
 
 <i>
 
 <h4>Case Example 1: Mouse gene expression data</h4>
 
-This data measured the gene expression of 20 mouses in a diet experiment. Some mouses showed same genotype and some gene variables were correlated. 
+This data measured the gene expression of 20 mouses in a diet experiment. Some mouses showed same genotype and some gene variables were correlated.
 We wanted to compute the principal components which were linearly uncorrelated from the gene expression data.
 
 <h4>Case Example 2: Chemical data</h4>
@@ -74,7 +73,7 @@ HTML(
 <ul>
 <li> From <parallel analysis> to estimate the number of components
 <li> To get correlation matrix and plot
-<li> To get the principal components and loadings result tables and 
+<li> To get the principal components and loadings result tables and
 <li> To get the principal components and loadings distribution plots in 2D and 3D
 </ul>
 
@@ -83,7 +82,7 @@ HTML(
 <ul>
 <li> All the data for analysis are numeric
 <li> More samples size than the number of independent variables, that is, he number of rows is greater than the number of columns
-</ul> 
+</ul>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 ")
@@ -108,7 +107,7 @@ HTML(
 <ul>
 <li> From <parallel analysis> to estimate the number of components
 <li> To get correlation matrix and plot
-<li> To get the factors and loadings result tables and 
+<li> To get the factors and loadings result tables and
 <li> To get the factors and loadings distribution plots in 2D and 3D
 </ul>
 
@@ -117,7 +116,7 @@ HTML(
 <ul>
 <li> All the data for analysis are numeric
 <li> More samples size than the number of independent variables, that is, he number of rows is greater than the number of columns
-</ul> 
+</ul>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 ")
@@ -137,6 +136,3 @@ source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 
 ))
 )
-
-
-

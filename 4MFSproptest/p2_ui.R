@@ -20,12 +20,18 @@ sidebarLayout(
     p(tags$b("Group 1 (Case)")),
       numericInput("x1", "How many success / events (in case), x1", value =683, min = 0, max = 10000000, step = 1),
       numericInput("n1", "How many trials / samples, n1 > x1", value = 3220, min = 1, max = 10000000, step = 1),
-    p(tags$i("Example in Group 1 were 3220 breast cancer women. Among them, 683 had at least one birth after 30 years old. ")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Example in Group 1 were 3220 breast cancer women. Among them, 683 had at least one birth after 30 years old. "))
+    ),
     
     p(tags$b("Group 2 (Control)")),  
       numericInput("x2", "How many success / events (in control), x2", value = 1498, min = 0, max = 10000000, step = 1),
       numericInput("n2", "How many trials / samples (Total), n2 > x2", value = 10245, min = 1, max = 10000000, step = 1),
-    p(tags$i("Example in Group 2 were 10245 no breast cancer women. Among them, 1498 had at least one birth after 30 years old. ")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Example in Group 2 were 10245 no breast cancer women. Among them, 1498 had at least one birth after 30 years old. "))
+    ),
 
       hr(),
 
@@ -43,7 +49,10 @@ sidebarLayout(
           ),
         choiceValues = list("two.sided", "less", "greater")
         ),
-    p(tags$i("In this example, we wanted to know if the underlying probability of having first birth over 30 years old was different in 2 groups.")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("In this example, we wanted to know if the underlying probability of having first birth over 30 years old was different in 2 groups."))
+    ),
     hr(),
      
     h4(tags$b("Step 3. Whether to do Yates-correction")),
@@ -83,8 +92,10 @@ sidebarLayout(
     <li> P Value >= 0.05, then the population proportion/rate are NOT significantly different in two groups. (Accept null hypothesis)
     </ul>"
   ),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
   HTML("<i> From the default settings, we conclude that women with breast cancer are significantly more likely to have their first child after 30 years old compared to women without breast cancer. (P<0.001) </i>")
+  )
           ) 
 
     )

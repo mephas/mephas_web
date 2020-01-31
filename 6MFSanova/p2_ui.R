@@ -15,8 +15,10 @@ sidebarPanel(
 tabsetPanel(
       ##-------input data-------##
     tabPanel("Manual Input", p(br()),
-
-    p(tags$i("Example here was the full metastasis-free follow-up time (months) of 100 lymph node positive patients under 3 grades of the tumor and 2 levels of ER.")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Example here was the full metastasis-free follow-up time (months) of 100 lymph node positive patients under 3 grades of the tumor and 2 levels of ER."))
+    ),
 
     p(tags$b("Please follow the example to input your data")),
   p("Data point can be separated by , ; /Enter /Tab"),
@@ -77,8 +79,10 @@ hr(),
   p("1. The first factor effects."),
   p("2. The second factor effects"),
   p("3. There is interaction between the two factors"),
-
+  conditionalPanel(
+    condition = "input.explain_on_off",
   p(tags$i("In this example, we wanted to know if the metastasis-free follow-up time was different with grade of the tumor under the controlling for ER"))
+  )
 ),
 
 mainPanel(
@@ -139,8 +143,10 @@ mainPanel(
   </ul>"
     ),
 
+    conditionalPanel(
+    condition = "input.explain_on_off",
   p(tags$i("In this example, dietary types and sex both have effects on the SBP (P<0.001), and dietary types also significantly related with sex (P<0.001). "))#,
-
+  )
 
   #downloadButton("download2", "Download Results")
   )

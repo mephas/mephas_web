@@ -1,5 +1,4 @@
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
-
 shinyUI(
 tagList(
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
@@ -19,7 +18,7 @@ HTML(
 "
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To upload data file, preview data set, and check the correctness of data input 
+<li> To upload data file, preview data set, and check the correctness of data input
 <li> To pre-process some variables (when necessary) for building the model
 <li> To get the basic descriptive statistics and plots of the variables
 <li> To prepare the survival object as 'dependent variable' for building model
@@ -30,24 +29,24 @@ HTML(
 <ul>
 <li> Your data need to include <b>one survival time variable and one 1/0 censoring variable</b> and <b> at least one independent variables (denoted as X)</b>
 <li> Your data need to have more rows than columns
-<li> Do not mix character and numbers in the same column 
+<li> Do not mix character and numbers in the same column
 <li> The data used to build model is called <b>training set</b>
-</ul> 
+</ul>
 
 <i><h4>Case Example 1: Right-censored diabetes data</h4>
-Suppose in a study, we got some observations from a trial of laser coagulation for the treatment of diabetic retinopathy. 
-Each patient had one eye randomized to laser treatment and the other eye received no treatment. 
-For each eye, the event of interest was the time from initiation of treatment to the time when visual acuity dropped below 5/200 two visits in a row. 
-Thus there is a built-in lag time of approximately 6 months (visits were every 3 months). 
-Survival times in this dataset are therefore the actual time to blindness in months, minus the minimum possible time to event (6.5 months). 
+Suppose in a study, we got some observations from a trial of laser coagulation for the treatment of diabetic retinopathy.
+Each patient had one eye randomized to laser treatment and the other eye received no treatment.
+For each eye, the event of interest was the time from initiation of treatment to the time when visual acuity dropped below 5/200 two visits in a row.
+Thus there is a built-in lag time of approximately 6 months (visits were every 3 months).
+Survival times in this dataset are therefore the actual time to blindness in months, minus the minimum possible time to event (6.5 months).
 Censor status of 0= censored; 1 = visual loss. Treatment: 0 = no treatment, 1= laser. Age is age at diagnosis.
 
 
 <h4>Case Example 2: Left-truncated right-censored Nki70 data</h4>
 Suppose we wanted to explore 100 lymph node positive breast cancer patients on metastasis-free survival. But some patients enrolled in the study later than other people.
-Data contained 5 clinical risk factors: (1) Diam: diameter of the tumor; (2) N: number of affected lymph nodes; (3) ER: estrogen receptor status; (4) Grade: grade of the tumor; and (5) Age: Patient age at diagnosis (years); 
-and gene expression measurements of 70 genes found to be prognostic for metastasis-free survival in an earlier study. 
-Time variable is metastasis-free follow-up time (months). Censoring indicator variable: 1 = metastasis or death; 0 = censored. 
+Data contained 5 clinical risk factors: (1) Diam: diameter of the tumor; (2) N: number of affected lymph nodes; (3) ER: estrogen receptor status; (4) Grade: grade of the tumor; and (5) Age: Patient age at diagnosis (years);
+and gene expression measurements of 70 genes found to be prognostic for metastasis-free survival in an earlier study.
+Time variable is metastasis-free follow-up time (months). Censoring indicator variable: 1 = metastasis or death; 0 = censored.
 <br></br>
 <p>We wanted to explore the association between survival time and the independent variables.<p>
 </i>
@@ -88,7 +87,7 @@ HTML(
 <ul>
 <li> The independent variable is categorical
 <li> Please prepare the survival object in the Data tab
-</ul> 
+</ul>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
@@ -114,7 +113,7 @@ Cox regression assumes that the effects of the predictor variables upon survival
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
 <li> To build a Cox regression model
-<li> To get the estimates of the model, such as (1) estimate of coefficient, (2) predictions from the training data, (3)residuals, 
+<li> To get the estimates of the model, such as (1) estimate of coefficient, (2) predictions from the training data, (3)residuals,
 (4) the adjusted survival curves, (5) proportional hazard test, and (6) diagnostic plot
 </ul>
 
@@ -123,7 +122,7 @@ Cox regression assumes that the effects of the predictor variables upon survival
 <ul>
 <li> Please prepare the data in the Data tab
 <li> Please prepare the survival object in the Data tab
-</ul> 
+</ul>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
@@ -157,7 +156,7 @@ HTML(
 <ul>
 <li> New data cover all the independent variables used in the model
 <li> New data not used to build the model is called <b>test set</b>
-</ul> 
+</ul>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
@@ -191,7 +190,7 @@ HTML(
 
 <ul>
 <li> Please prepare the data in the Data tab
-</ul> 
+</ul>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
@@ -224,7 +223,7 @@ HTML(
 <ul>
 <li> New data cover all the independent variables used in the model.
 <li> New data not used to build the model is called <b>test set</b>
-</ul> 
+</ul>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
@@ -247,5 +246,3 @@ source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
 ##-----------------------over
 )
 )
-
-

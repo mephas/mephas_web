@@ -15,8 +15,10 @@ sidebarPanel(
 tabsetPanel(
       ##-------input data-------##
     tabPanel("Manual Input", p(br()),
-
-    p(tags$i("Example here was the FEF data from smokers and smoking groups. Detailed information can be found in the Output 1.")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Example here was the FEF data from smokers and smoking groups. Detailed information can be found in the Output 1."))
+    ),
 
     p(tags$b("Please follow the example to input your data")),
   p("Data point can be separated by , ; /Enter /Tab"),
@@ -70,7 +72,10 @@ hr(),
   p("In one pair of factors, the means from each pair are equal"),
   p(tags$b("Alternative hypothesis")),
   p("In one pair of factors, the means from each pair are significantly different"),
-  p(tags$i("In this example, we wanted to know if the FEF values were different in which pairs of the 6 smoking groups")),
+  conditionalPanel(
+    condition = "input.explain_on_off",
+  p(tags$i("In this example, we wanted to know if the FEF values were different in which pairs of the 6 smoking groups"))
+  ),
 hr(),
   h4(tags$b("Step 2. Choose Multiple Comparison Methods")),
   radioButtons("method", 
@@ -159,13 +164,14 @@ mainPanel(
     <li> In the matrix, P >= 0.05 indicates no statistically significant differences in the pairs
   </ul>"
     ),
-
+    conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("In this example, we used Bonferroni-Holm method to explore the possible pairs with P < 0.05. 
       HS was significant different from the other groups; 
       LS was significantly different from MS and NS;
       MS was significantly different from NI and PS;
       NI was significantly different from NS."))#,
-
+    )
 
   #downloadButton("download.m1", "Download Results")
   )
