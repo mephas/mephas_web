@@ -15,8 +15,10 @@ sidebarPanel(
 tabsetPanel(
       ##-------input data-------##
     tabPanel("Manual Input", p(br()),
-
-    p(tags$i("Example here was the FEF data from smokers and smoking groups. Detailed information can be found in the Output 1.")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Example here was the FEF data from smokers and smoking groups. Detailed information can be found in the Output 1."))
+    ),
 
     p(tags$b("Please follow the example to input your data")),
   p("Data point can be separated by , ; /Enter /Tab"),
@@ -69,7 +71,10 @@ hr(),
   p("The means from each group are equal"),
   p(tags$b("Alternative hypothesis")),
   p("At least two factor groups have significant different means"),
-  p(tags$i("In this example, we wanted to know if the FEF values were different among the 6 smoking groups")),
+  conditionalPanel(
+    condition = "input.explain_on_off",
+  p(tags$i("In this example, we wanted to know if the FEF values were different among the 6 smoking groups"))
+  ),
   hr(),
   h4(tags$b("Step 2. Choose Multiple Comparison Methods")),
   radioButtons("methodnp2", 
@@ -132,8 +137,11 @@ mainPanel(
   p(tags$b("Reject Null Hypothesis if p <= 0.025")),
 
   DT::DTOutput("dunntest.t"),p(br()),
+      conditionalPanel(
+    condition = "input.explain_on_off",
   
     p(tags$i("In this example, smoking groups showed significant, so we could conclude that FEF were not significantly different in LS-NI, LS-PS, and NI-PS groups. For other groups, P <0.025. "))#,
+    )
 
   #downloadButton("downloadnp2.2", "Download Results")
 
