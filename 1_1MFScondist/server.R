@@ -25,28 +25,9 @@ source("server_F.R", local=TRUE)$value
 
 ##########----------##########----------##########
 
-
-observeEvent(input$navibar,{
-
-if(input$navibar == "stop"){
-      #if (input$close > 0) 
-      stopApp()
-}  
-
-#if(input$navibar == "hint"){
-#  switchInput(
-#  inputId = "explain_on_off"
-#  )
-#}
-
-#if(input$navibar == "help"){
-#  browseURL("https://mephas.github.io/helppage/")
-#}
-
-#if(input$navibar == "home"){
-#  browseURL("https://alain003.phs.osaka-u.ac.jp/mephas/index.html")
-#}
-})
+observe({
+      if (input$close > 0) stopApp()                             # stop shiny
+    })
 
 
 
