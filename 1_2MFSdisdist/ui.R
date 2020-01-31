@@ -8,9 +8,6 @@
 ## Update: 2019-12-05
 ##
 ##----------#----------#----------#----------
-
-if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
-
 shinyUI(
 
 tagList(
@@ -19,7 +16,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 title = "Discrete Probability Distribution",
-
+collapsible = TRUE,
 
 ##########----------##########----------##########
 

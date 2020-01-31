@@ -4,6 +4,7 @@ if (!require("plotly")) {install.packages("plotly")}; library("plotly")
 if (!require("psych")) {install.packages("psych")}; library("psych")
 if (!require("stargazer")) {install.packages("stargazer")}; library("stargazer")
 if (!require("ROCR")) {install.packages("ROCR")}; library("ROCR")
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
 shinyServer(
 

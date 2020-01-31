@@ -1,4 +1,3 @@
-if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 shinyUI(
 
 tagList( 
@@ -9,6 +8,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 title = "Non-parametric Test for Medians",  
+collapsible = TRUE,
 ##########----------##########----------##########
 
 tabPanel("One Sample",

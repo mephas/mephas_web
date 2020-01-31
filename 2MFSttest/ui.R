@@ -1,4 +1,3 @@
-if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 
 shinyUI(
 
@@ -12,7 +11,7 @@ navbarPage(
 
 
 title = "Parametric T Test for Means",
-
+collapsible = TRUE,
 
 ##########----------##########----------##########
 tabPanel( "One Sample",

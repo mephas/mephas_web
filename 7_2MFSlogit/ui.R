@@ -7,7 +7,6 @@
 ## DT: 2019-01-08
 ##
 ##----------#----------#----------#----------
-if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 shinyUI(
 tagList(
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
@@ -15,7 +14,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 title = "Logistic Regression",
-
+collapsible = TRUE,
 ##########----------##########----------##########
 
 tabPanel("Data",

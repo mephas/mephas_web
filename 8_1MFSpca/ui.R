@@ -1,4 +1,3 @@
-if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
 shinyUI(
 
 tagList(
@@ -8,7 +7,7 @@ navbarPage(
 
 
 title = "Dimensional Analysis 1",
-
+collapsible = TRUE,
 ##########----------##########----------##########
 
 tabPanel("Data",
