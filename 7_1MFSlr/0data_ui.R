@@ -74,7 +74,8 @@ p(tags$b("2. Input the referential level, each line for one variable")),
 tags$textarea(id='ref',""),
 hr(),
 
-h4(tags$b("Build Model in the Next Tab"))
+h4(tags$b(actionLink("Model","Build Model")))
+#h4(tags$b("Build Model in the Next Tab"))
 
 ),
 

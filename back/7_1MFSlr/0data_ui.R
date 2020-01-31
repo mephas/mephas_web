@@ -1,7 +1,9 @@
 #****************************************************************************************************************************************************
+
 sidebarLayout(
 
 sidebarPanel(
+
   tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
   tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
   tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 100px; background: white};")),
@@ -13,8 +15,8 @@ tabsetPanel(
 tabPanel("Example data", p(br()),
 
   selectInput("edata", tags$b("Use example data"), 
-        choices =  c("Breast Cancer"), 
-        selected = "Breast Cancer")
+        choices =  c("Birth weight"), 
+        selected = "Birth weight")
   ),
 
 tabPanel("Upload Data", p(br()),
@@ -54,7 +56,13 @@ a(tags$i("Find some example data here"),href = "https://github.com/mephas/datase
 hr(),
 
 h4(tags$b("(Optional) Change the types of some variable?")),
+
+#p(tags$b("Choice 1. Change Real-valued Variables into Categorical Variable")), 
+
 uiOutput("factor1"),
+
+#p(tags$b("Choice 2. Change Categorical Variable (Numeric Factors) into Numeric Variables (Numbers)")),
+
 uiOutput("factor2"),
 
 h4(tags$b("(Optional) Change the referential level for categorical variable?")), 
@@ -66,9 +74,7 @@ p(tags$b("2. Input the referential level, each line for one variable")),
 tags$textarea(id='ref',""),
 hr(),
 
-h4(tags$b(actionLink("Model","Build Model")))
-#h4(tags$b("Build Model in the Next Tab"))
-
+h4(tags$b("Build Model in the Next Tab"))
 
 ),
 
@@ -84,13 +90,12 @@ verbatimTextOutput("strnum"),
 p(tags$b("2. Categorical variable information list")),
 verbatimTextOutput("strfac"),
 
-
 hr(),   
 h4(tags$b("Output 2. Basic Descriptives")),
 
 tabsetPanel(
 
-tabPanel("Basic Descriptives", br(),
+tabPanel("Basic Descriptives", p(br()),
 
 p(tags$b("1. For numeric variable")),
 
@@ -99,10 +104,13 @@ DT::DTOutput("sum"),
 p(tags$b("2. For categorical variable")),
 verbatimTextOutput("fsum"),
 
-downloadButton("download2", "Download Results (Categorical variables)")
+downloadButton("download2", "Download Results (Categorical variable)")
+
 ),
 
-tabPanel("Logit Plot",br(),
+tabPanel("Linear fitting plot",p(br()),
+
+HTML("<p><b>Linear fitting plot</b>: to roughly show the linear relation between any two numeric variable. Grey area is 95% confidence interval.</p>"),
 
 uiOutput('tx'),
 uiOutput('ty'),
@@ -110,7 +118,7 @@ uiOutput('ty'),
 plotly::plotlyOutput("p1", width = "80%")
 ),
 
-tabPanel("Histogram", br(),
+tabPanel("Histogram", p(br()),
 
 HTML("<p><b>Histogram</b>: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values.</p>"),
 uiOutput('hx'),

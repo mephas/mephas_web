@@ -1,12 +1,3 @@
-##----------#----------#----------#----------
-##
-## 7MFSreg UI
-##
-## Language: EN
-##
-## DT: 2019-01-08
-##
-##----------#----------#----------#----------
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 shinyUI(
 tagList(
@@ -14,20 +5,22 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 
 navbarPage(
 
-title = "Logistic Regression",
-collapsible = TRUE,
-id = "navibar",
+title = "Linear Regression",
+#collapsible = TRUE,
 ##########----------##########----------##########
+
 
 tabPanel("Data",
 
 headerPanel("Data Preparation"),
+
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<b>Logistic regression</b> is used to model the probability of a certain class or event existing such as pass/fail, win/lose, alive/dead or healthy/sick.
-Logistic regression uses a logistic function to model a binary dependent variable.
+<b>Linear regression</b> is a linear approach to modeling the relationship between a dependent variable and one or more independent variables.
+The case of one explanatory variable is called simple <b>linear regression</b>.
+For more than one explanatory variable, the process is called <b>multiple linear regression</b>.
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
@@ -36,10 +29,10 @@ Logistic regression uses a logistic function to model a binary dependent variabl
 <li> To get the basic descriptive statistics and plots of the variables
 </ul>
 
-<h4><b> 2. About your data (training set) </b></h4>
+<h4><b> 2. About your data (training set)</b></h4>
 
 <ul>
-<li> Your data need to include <b>one binary dependent variable (denoted as Y)</b> and <b> at least one independent variables (denoted as X)</b>
+<li> Your data need to include <b>one dependent variable (denoted as Y)</b> and <b> at least one independent variables (denoted as X)</b>
 <li> Your data need to have more rows than columns
 <li> Do not mix character and numbers in the same column
 <li> The data used to build model is called <b>training set</b>
@@ -47,14 +40,14 @@ Logistic regression uses a logistic function to model a binary dependent variabl
 
 <i><h4>Case Example</h4>
 
-Suppose we wanted to explore the Breast Cancer dataset and develop a model to try classifying suspected cells to Benign (B) or Malignant (M).
-The dependent variable is binary outcome (B/M). We were interested (1) to build a model which calculates the probability of benign or malignant and then help us to determine whether the patient is benign or malignant,
-and (2) find the relations between binary dependent variable and the other variables, that is find out which variable contributes greatly to the dependent variable.
-
+Suppose in one study, the doctors recorded the birth weight of 10 infants, together with age (month), age group (a: age < 4 month, b; other wise), and SBP.
+We were interested (1) to predict the birth weight of a infants,
+and (2) find the relations between birth weight and the other variables, that is, to find out which variable contributes greatly to the dependent variable.
 
 </h4></i>
 
-<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
+
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please build the model in the next tab.</h4>
 "
 )
 ),
@@ -69,7 +62,8 @@ hr()
 ##########----------##########----------##########
 tabPanel("Model",
 
-headerPanel("Logistic Regression"),
+headerPanel("Linear Regression"),
+
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
@@ -77,16 +71,17 @@ HTML(
 
 <h4><b> 1. What you can do on this page  </b></h4>
 <ul>
-<li> To build simple or multiple logistic regression model
+<li> To build a simple or multiple linear regression model
 <li> To get the estimates of regressions, including (1) estimate of coefficients with t test, p value, and 95% CI, (2) R<sup>2</sup> and adjusted R<sup>2</sup>, and (3) F-Test for overall significance in Regression
-<li> To get additional information: (1) predicted dependent variable and residuals, (2) AIC-based variable selection, (3) ROC plot, and (4) sensitivity and specificity table for ROC plot
+<li> To get additional information: (1) predicted dependent variable and residuals, (2) ANOVA table of model, (3) AIC-based variable selection, and (4) diagnostic plot based from the residuals and predicted dependent variable
 </ul>
 
-<h4><b> 2. About your data </b></h4>
+<h4><b> 2. About your data (training set)</b></h4>
 
 <ul>
-<li> The dependent variable is binary
-<li> Please prepare the training set data in the previous <b>Data</b> tab</ul>
+<li> The dependent variable is real-valued and continuous with underlying normal distribution.
+<li> Please prepare the training set data in the previous <b>Data</b> tab
+</ul>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
@@ -103,6 +98,7 @@ hr()
 tabPanel("Prediction",
 
 headerPanel("Prediction from Model"),
+
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
@@ -123,7 +119,7 @@ HTML(
 
 <i><h4>Case Example</h4>
 
-Suppose in the same study, we got the new data, and wanted to classify the patients based on the model we build.
+Suppose in the same study, the doctors got another 6 infants data, and wanted to predict their birth weights based on the model we build.
 
 </h4></i>
 

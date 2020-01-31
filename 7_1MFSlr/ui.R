@@ -6,7 +6,8 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 navbarPage(
 
 title = "Linear Regression",
-#collapsible = TRUE,
+collapsible = TRUE,
+id = "navibar",
 ##########----------##########----------##########
 
 

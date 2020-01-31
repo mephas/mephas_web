@@ -9,6 +9,7 @@ navbarPage(
 
 title = "Dimensional Analysis 1",
 collapsible = TRUE,
+id = "navibar",
 ##########----------##########----------##########
 
 tabPanel("Data",
