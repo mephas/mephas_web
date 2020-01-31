@@ -1,6 +1,4 @@
 
-if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; ("shinyWidgets")
-
 shinyUI(
 
 tagList(
@@ -14,23 +12,7 @@ title = "Continuous Probability Distribution",
 tabPanel("Normal",
 
 headerPanel("Normal Distribution"),
-#switchInput(
-#   inputId = "explain_on_off",
-#   label = "Explainations", 
-#   labelWidth = "150px"#,
-   #size = "mini"
-#),
 
-#switchInput(
-#   inputId = "explain_on_off",
-#   label = "<i class=\"fa fa-book\"></i>"
-#),
-
-
-
-#condiPa 1
-conditionalPanel(
-condition = "input.explain_on_off",
 HTML(
 " 
 <h4><b> What you can do on this page</b></h4>
@@ -49,9 +31,7 @@ Suppose we wanted to see the shape of N(0, 1), and wanted to know 1. at which po
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
-)
-	),
-
+),
 
 hr(),
 
@@ -65,8 +45,6 @@ tabPanel("Exponential",
 
 headerPanel("Exponential Distribution"), 
 
-conditionalPanel(
-condition = "input.explain_on_off",
 HTML(
 " 
 <h4><b> What you can do on this page</b></h4>
@@ -85,7 +63,6 @@ Suppose we wanted to see the shape of E(2), and wanted to know at which point x0
 
 "
 
-)
 ),
 
 hr(),
@@ -101,8 +78,6 @@ tabPanel("Gamma",
 
 headerPanel("Gamma Distribution"), 
 
-conditionalPanel(
-condition = "input.explain_on_off",
 HTML(
 " 
 <h4><b> What you can do on this page</b></h4>    
@@ -120,7 +95,6 @@ Suppose we wanted to see the shape of Gamma(9,0.5), and wanted to know at which 
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
-)
 ),
 
 hr(),
@@ -136,8 +110,6 @@ tabPanel("Beta",
 
 headerPanel("Beta Distribution"), 
 
-conditionalPanel(
-condition = "input.explain_on_off",
 HTML(
 " 
 <h4><b> What you can do on this page</b></h4>    
@@ -155,7 +127,6 @@ Suppose we wanted to see the shape of Beta(2, 2), and wanted to know at which po
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
-)
 ),
 
 hr(),
@@ -171,8 +142,6 @@ tabPanel("T",
 
 headerPanel("Student's T Distribution"), 
 
-conditionalPanel(
-condition = "input.explain_on_off",
 HTML(
 " 
 <h4><b> What you can do on this page</b></h4>    
@@ -189,7 +158,6 @@ Suppose we wanted to see the shape of T(4) and wanted to know at which point x0 
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
-)
 ),
 
 hr(),
@@ -205,8 +173,6 @@ tabPanel("Chi",
 
 headerPanel("Chi-Squared Distribution"), 
 
-conditionalPanel(
-condition = "input.explain_on_off",
 HTML(
 " 
 <h4><b> What you can do on this page</b></h4>    
@@ -223,7 +189,6 @@ Suppose we wanted to see the shape of Chi(4), and wanted to know at which point 
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
-)
 ),
 
 hr(),
@@ -238,8 +203,6 @@ tabPanel("F",
 
 headerPanel("F Distribution"), 
 
-conditionalPanel(
-condition = "input.explain_on_off",
 HTML(
 " 
 <h4><b> What you can do on this page</b></h4>    
@@ -256,7 +219,6 @@ Suppose we wanted to see the shape of F(100, 10), and wanted to know at which po
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
-)
 ),
 
 hr(),
@@ -270,8 +232,7 @@ hr()
 
 source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
+source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
 
 
 ))
