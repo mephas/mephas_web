@@ -1,13 +1,5 @@
-##----------#----------#----------#----------
-##
-## 1MFSdistribution UI
-##
-## Language: EN
-## 
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
+
 shinyUI(
 
 tagList(
