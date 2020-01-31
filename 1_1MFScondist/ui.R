@@ -13,6 +13,8 @@ collapsible = TRUE,
 id = "navibar",
 
 
+
+
 ##########----------##########----------##########
 tabPanel("Normal",
 
