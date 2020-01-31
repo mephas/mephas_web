@@ -20,11 +20,13 @@
       tags$textarea(id="x5", rows=10, 
       "40\n30\n130\n10\n20\n70\n15\n40\n45"),
       p("Note: No Missing Value"),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("Row were different drug treatment and columns were different response")),
   p(tags$i("Among 200 Penicillin users, 40 got Smear+, 30 got Smear-Culture+ and others were Smear-Culture-.")),
   p(tags$i("Among 100 Spectinomycin-low users, 10 got Smear+, 20 got Smear-Culture+ and others were Smear-Culture-.")),
-  p(tags$i("Among 100 Spectinomycin-high users, 15 got Smear+, 40 got Smear-Culture+ and others were Smear-Culture-.")),
+  p(tags$i("Among 100 Spectinomycin-high users, 15 got Smear+, 40 got Smear-Culture+ and others were Smear-Culture-."))
+  ),
 
         hr(),
 
@@ -35,8 +37,10 @@
     
    p(tags$b("Alternative hypothesis")), 
    p("Case-Control (Row) has no significant association with Grouped Factors (Column)"),     
-
+conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("In this setting,  we wanted to know if there was relationship between drug treatment and response."))
+    )
    
 
     ),
@@ -88,8 +92,10 @@
     <li> P Value >= 0.05, then Case-Control (Row) are not associated with Grouped Factors (Column). (Accept null hypothesis)
     </ul>"
   ),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
      p(tags$i("In this default setting, we conclude that there was significant relationship between drug treatment and response. (P < 0.001)"))
+     )
 
         )
       )

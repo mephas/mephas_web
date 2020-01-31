@@ -25,8 +25,10 @@
       tags$textarea(id="x7", rows=10, 
       "196\n603\n223\n486\n103\n232\n118\n348\n313\n383\n232\n206"),
       p("Note: No Missing Value"),
-
-    p(tags$i("Example here was the prevalence of habitual snoring by age and sex group.")),
+conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Example here was the prevalence of habitual snoring by age and sex group."))
+    ),
 
         hr(),
 
@@ -37,8 +39,10 @@
     
    p(tags$b("Alternative hypothesis")), 
    p("Case-Control (Row) has significant association with Grouped Factors (Column); odds ratio is significant different in each stratum"),     
-
+conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("In this setting,  we wanted to know if the prevalence of habitual snoring has relation with age, controlling for gender."))
+    )
    
 
     ),
@@ -66,8 +70,10 @@
     <li> P Value >= 0.05, to control for personal smoking, passive smoking and cancer risk has no significant relation. (Accept null hypothesis)
     </ul>"
   ),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
      p(tags$i("In this default setting, we conclude that there was significant relationship between the prevalence of habitual snoring and age, by controlling the gender. (P < 0.001)"))
         )
       )
+    )
     

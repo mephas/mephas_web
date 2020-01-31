@@ -16,9 +16,11 @@ sidebarPanel(
     "5\n30\n2\n23"),
 
   p("Note: No Missing Value"),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
   p(tags$i("The case-control was CVD patients or not and factor categories were high salt diet or not.")),
-  p(tags$i("Of 35 people who died form CVD, 5 were on a high-salt diet before they dies; of 25 people who died from other causes, 2 were on a high-salt diet.")),
+  p(tags$i("Of 35 people who died form CVD, 5 were on a high-salt diet before they dies; of 25 people who died from other causes, 2 were on a high-salt diet."))
+  ),
 
   hr(),
 
@@ -35,7 +37,10 @@ sidebarPanel(
           ),
         choiceValues = list("two.sided", "greater", "less")
         ),
+    conditionalPanel(
+    condition = "input.explain_on_off",
       p(tags$i("In this example, we wanted to determine if there was association between cause of death and high-salt diet."))
+      )
 
     ),
 
@@ -87,9 +92,10 @@ sidebarPanel(
     <li> P Value >= 0.05, then Case-Control (Row) are not associated with Grouped Factors (Column). (Accept null hypothesis)
     </ul>"
   ),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
      p(tags$i("In this default setting, two expected values < 5, so we used Fisher exact test. From the test result, we concluded that no significant association was found between the cause of death and high salt diet" ))
-
+)
         )
       )
     

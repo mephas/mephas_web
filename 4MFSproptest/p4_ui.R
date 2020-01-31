@@ -29,8 +29,11 @@
     ),
 
     p("Note: No Missing Value"),
+    conditionalPanel(
+    condition = "input.explain_on_off",
 
-    p(tags$i("In this example, we had 5 age groups of people as shown in n, and we recorded the number of people who had cancer in x.")),
+    p(tags$i("In this example, we had 5 age groups of people as shown in n, and we recorded the number of people who had cancer in x."))
+    ),
 
         hr(),
 
@@ -40,7 +43,10 @@
     tags$textarea(id = "xs", rows = 5,
         "1\n2\n3\n4\n5"        
     ),
-    p(tags$i("In this case, age groups were in increasing order")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("In this case, age groups were in increasing order"))
+    ),
 
     hr(),
 
@@ -88,8 +94,10 @@
     <li> P Value >= 0.05, then Case-Control (Row) are not associated with grouped Factors (Column). (Accept null hypothesis)
     </ul>"
   ),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
      p(tags$i("In this default setting, we concluded that the proportion of cancer varied among different ages. (P = 0.01)"))
+     )
 
         )
       )

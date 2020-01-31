@@ -16,9 +16,11 @@ sidebarPanel(
     "13\n4987\n7\n9993"),
 
   p("Note: No Missing Value"),
-
+  conditionalPanel(
+    condition = "input.explain_on_off",
   p(tags$i("The case-control was OC user and non-OC user and factor categories were developed MI or not.")),
-  p(tags$i("Among 5000 OC-users, 13 developed MI; among 10000 non-OC-users, 7 developed MI.")),
+  p(tags$i("Among 5000 OC-users, 13 developed MI; among 10000 non-OC-users, 7 developed MI."))
+  ),
 
   hr(),
 
@@ -29,8 +31,10 @@ sidebarPanel(
     
    p(tags$b("Alternative hypothesis")), 
    p("Case-Control (Row) is significant association with Grouped Factors (Column)"),
-
-  p(tags$i("In this example, we wanted to determine if OC use was significantly associated with higher MI incidence.")),
+conditionalPanel(
+    condition = "input.explain_on_off",
+  p(tags$i("In this example, we wanted to determine if OC use was significantly associated with higher MI incidence."))
+  ),
 
 hr(),
 
@@ -92,9 +96,10 @@ hr(),
     <li> P Value >= 0.05, then Case-Control (Row) are not associated with Grouped Factors (Column). (Accept null hypothesis)
     </ul>"
   ),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
      p(tags$i("In this default setting, we concluded that using OC and MI development had significant association. (P = 0.01) Because the minimum expected value was 6.67, Yates-correction on P Value was done." ))
-
+)
         )
       )
     

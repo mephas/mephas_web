@@ -17,7 +17,10 @@
   tags$textarea(id="x6", rows=4, 
     "136\n92\n69\n240"),
       p("Note: No Missing Value"),
-    p(tags$i("Example here was the response from Survey 1 and Survey 2.")),
+      conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Example here was the response from Survey 1 and Survey 2."))
+    ),
         hr(),
 
     h4(tags$b("Hypothesis")),
@@ -27,8 +30,10 @@
     
    p(tags$b("Alternative hypothesis")), 
    p("Case-Control (Row) has significant association with Grouped Factors (Column)"),     
-
+conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("In this setting,  we wanted to know the reproducibility of the surveys."))
+    )
    
 
     ),
@@ -72,9 +77,10 @@
 
   "
   ),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
      p(tags$i("In this default setting, we concluded that the response from Survey1 and Survey2 didn't have so good reproducibility, just marginally reproducible. "))
-
+)
         )
       )
     

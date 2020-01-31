@@ -15,8 +15,10 @@ sidebarPanel(
   tabsetPanel(
   ##-------input data-------## 
   tabPanel("Manual Input", p(br()),
-
-    p(tags$i("Data here was the Depression Rating Scale factor measurements of 9 patients from a certain group of patients. ")),
+    conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("Data here was the Depression Rating Scale factor measurements of 9 patients from a certain group of patients. "))
+    ),
     
     p(tags$b("Please follow the example to input your data")),
   p("Data point can be separated by , ; /Enter /Tab /Space"),
@@ -62,7 +64,10 @@ sidebarPanel(
   hr(),
   h4(tags$b("Step 2. Specify Parameter")),
   numericInput("med", HTML("Specify the median (m&#8320) that you want to compare with your data"), 1),
-  p(tags$i("In this default settings, we wanted to know if the group of patients were suffering from depression (Scale > 1).")),
+  conditionalPanel(
+    condition = "input.explain_on_off",
+  p(tags$i("In this default settings, we wanted to know if the group of patients were suffering from depression (Scale > 1)."))
+    ),
   hr(),
 
   h4(tags$b("Step 3. Choose Hypothesis")),
@@ -80,7 +85,10 @@ sidebarPanel(
     ),
   choiceValues = list("two.sided", "greater", "less")),
   hr(),
-    p(tags$i("In this default settings, we wanted to know if the group of patients were suffering from depression (Scale > 1).")),
+  conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("In this default settings, we wanted to know if the group of patients were suffering from depression (Scale > 1)."))
+    ),
 
   h4(tags$b("Step 4. Decide P Value method")),
   radioButtons("alt.md", 
@@ -91,7 +99,10 @@ sidebarPanel(
       HTML("Exact P value: sample size is small (< 50)")
       ), 
     choiceValues = list("a", "b", "c")),
+      conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("In this example, we had only 9 people. So we chose exact P value"))
+    )
 
   ),
 
@@ -156,7 +167,9 @@ h4(tags$b("Output 2. Test Results")),
     <li> P Value >= 0.05, then the population median is NOT significantly different from the specified median. (Accept null hypothesis)
     </ul>"
   ),
-
-  p(tags$i("From the default settings, we concluded that the scales was significantly greater than 1 (P=0.006), which indicated the patients were suffering from depression."))#,
+    conditionalPanel(
+    condition = "input.explain_on_off",
+  p(tags$i("From the default settings, we concluded that the scales was significantly greater than 1 (P=0.006), which indicated the patients were suffering from depression."))
+  )#,
   )
 )

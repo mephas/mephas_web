@@ -28,8 +28,10 @@
         ),
 
     p("Note: No Missing Value"),
-
-    p(tags$i("In this example, we had 5 age groups of people as shown in different ages, and we record the number of people who had cancer and who did not have cancer.")),
+conditionalPanel(
+    condition = "input.explain_on_off",
+    p(tags$i("In this example, we had 5 age groups of people as shown in different ages, and we record the number of people who had cancer and who did not have cancer."))
+    ),
 
         hr(),
 
@@ -40,8 +42,10 @@
     
    p(tags$b("Alternative hypothesis")), 
    p("Case-Control (Row) has significant association with Grouped Factors (Column)"),     
-
+   conditionalPanel(
+    condition = "input.explain_on_off",
     p(tags$i("In this setting,  we wanted to know if there was any relation between cancer and ages."))
+    )
    
 
     ),
@@ -91,8 +95,10 @@
     <li> P Value >= 0.05, then Case-Control (Row) are not associated with Grouped Factors (Column). (Accept null hypothesis)
     </ul>"
   ),
-
+conditionalPanel(
+    condition = "input.explain_on_off",
      p(tags$i("In this default setting, we conclude that there was significant relation between cancer and ages. (P < 0.001)"))
+     )
 
         )
       )
