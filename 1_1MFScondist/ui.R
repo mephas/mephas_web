@@ -35,7 +35,7 @@ Suppose we wanted to see the shape of N(0, 1), and wanted to know 1. at which po
 
 hr(),
 
-source("p1_ui.R", local=TRUE)$value,
+source("ui_N.R", local=TRUE)$value,
 
 hr()
 ),
@@ -67,7 +67,7 @@ Suppose we wanted to see the shape of E(2), and wanted to know at which point x0
 
 hr(),
 
-source("p2_ui.R", local=TRUE)$value,
+source("ui_E.R", local=TRUE)$value,
 
 hr()
 ),
@@ -99,7 +99,7 @@ Suppose we wanted to see the shape of Gamma(9,0.5), and wanted to know at which 
 
 hr(),
 
-source("p3_ui.R", local=TRUE)$value,
+source("ui_G.R", local=TRUE)$value,
 
 hr()
 ),
@@ -131,7 +131,7 @@ Suppose we wanted to see the shape of Beta(2, 2), and wanted to know at which po
 
 hr(),
 
-source("p4_ui.R", local=TRUE)$value,
+source("ui_B.R", local=TRUE)$value,
 
 hr()
 ),
@@ -162,7 +162,7 @@ Suppose we wanted to see the shape of T(4) and wanted to know at which point x0 
 
 hr(),
 
-source("p5_ui.R", local=TRUE)$value,
+source("ui_T.R", local=TRUE)$value,
 
 hr()
 ),
@@ -193,7 +193,7 @@ Suppose we wanted to see the shape of Chi(4), and wanted to know at which point 
 
 hr(),
 
-source("p6_ui.R", local=TRUE)$value,
+source("ui_Chi.R", local=TRUE)$value,
 
 hr()
 ),
@@ -223,7 +223,7 @@ Suppose we wanted to see the shape of F(100, 10), and wanted to know at which po
 
 hr(),
 
-source("p7_ui.R", local=TRUE)$value,
+source("ui_F.R", local=TRUE)$value,
 
 hr()
 ),
