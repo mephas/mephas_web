@@ -3,12 +3,14 @@ sidebarLayout(
 
 	sidebarPanel(
 
+	h4(tags$b("Step 1. Selected the data source of distribution plot")),
+	p("Mathematical-based, simulated-data-based, or user data-based"),	
 	#Select Src
 	selectInput(
-	    "InputSrc_g", "Select Input Data Source:",
-	    c("Mathematical-based Distribution" = "MathDist",
-	      "Simulation-based Plot" = "SimuDist",
-	      "Data-based" = "DataDist")),
+	    "InputSrc_g", "Select plot",
+      c("Mathematical formula based" = "MathDist",
+        "Simulation data based" = "SimuDist",
+        "Data-based" = "DataDist")),
 	hr(),
 	#Select Src end	
 
@@ -16,11 +18,11 @@ sidebarLayout(
 	  conditionalPanel(
 	    condition = "input.InputSrc_g == 'MathDist'",
 	    #h3("Draw a Gamma Distribution", p(br())),
-	    HTML("<h4><b>Step 1. Set Parameters for Gamma(&#945, &#952)</h4></b>"), 
+	    HTML("<b>1. Set Parameters for Gamma(&#945, &#952)</b>"), 
 	    numericInput("g.shape", HTML("&#945 > 0, Shape parameter"), value = 9, min = 0),
 		numericInput("g.scale", HTML("&#952 > 0, Scale parameter"), value = 0.5, min = 0),
 		hr(),
-		h4(tags$b("Step 2. Show Probability")),   
+		tags$b(" 2. Show Probability"),   
 	 	numericInput("g.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
  		hr(),
 	 	p(tags$b("You can adjust x-axes range")), 
@@ -42,10 +44,9 @@ sidebarLayout(
 	  #condiPa 3
 	  conditionalPanel(
 	    condition = "input.InputSrc_g == 'DataDist'",  
-	    
 	    tabsetPanel(
-	      tabPanel(
-	        h4(tags$b("Manual Input")),
+	    	
+	      tabPanel("Manual Input",p(br()),
 	        p("Data point can be separated by , ; /Enter /Tab /Space"),
 			tags$textarea(
         	id = "x.g", #p
@@ -53,8 +54,7 @@ sidebarLayout(
 				        ),
       		p("Missing value is input as NA")
 	     	 ), #tab1 end 
-	      tabPanel(
-	        h4(tags$b("Upload Data")),
+	      tabPanel("Upload Data",p(br()),
 	        
 	        ##-------csv file-------##
 	        p(tags$b("This only reads the 1st column of your data, and will cover the input data")),
@@ -95,7 +95,7 @@ mainPanel(
 		
 		conditionalPanel(
 		  condition = "input.InputSrc_g == 'MathDist'",
-		  p(br()), h4("Mathematical-based Plot"), p(br()),
+		  h4("Mathematical-based Plot"),
 		  tags$b("Gamma distribution plot"),
 		  plotOutput("g.plot", click = "plot_click11", width = "80%"),
          verbatimTextOutput("g.info"), 
@@ -105,7 +105,7 @@ mainPanel(
 		
 		conditionalPanel(
 		  condition = "input.InputSrc_g == 'SimuDist'",
-		  p(br()), h4("Simulation-based Plot"), p(br()),
+		 h4("Simulation-based Plot"), 
 		  
 		tags$b("Histogram from random numbers"),
         plotly::plotlyOutput("g.plot2",  width = "80%"),#click = "plot_click12",
@@ -128,7 +128,7 @@ mainPanel(
 		
 		conditionalPanel(
 		condition = "input.InputSrc_g == 'DataDist'",
-		p(br()), h4("Distribution of Your Data"), p(br()),
+		h4("Distribution of Your Data"),
 		tags$b("Density from upload data"),
         plotly::plotlyOutput("makeplot.g2", width = "80%"),
         tags$b("Histogram from upload data"),

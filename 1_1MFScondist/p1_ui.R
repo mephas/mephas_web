@@ -3,25 +3,29 @@ sidebarLayout(
 
 	sidebarPanel(	
 
+	h4(tags$b("Step 1. Selected the data source of distribution plot")),
+	p("Mathematical-based, simulated-data-based, or user data-based"),	
 	#Select Src
 	selectInput(
-	    "InputSrc", "Select Input Data Source:",
-	    c("Mathematical-based Distribution" = "MathDist",
-	      "Simulation-based Plot" = "SimuDist",
+	    "InputSrc", "Select plot",
+	    c("Mathematical formula based" = "MathDist",
+	      "Simulation data based" = "SimuDist",
 	      "Data-based" = "DataDist")),
 	hr(),
 	#Select Src end
+		h4(tags$b("Step 2. Set parameters")),	
 
 	  #condiPa 1
 	  conditionalPanel(
 	    condition = "input.InputSrc == 'MathDist'",
 	    #h3("Draw a Normal Distribution"), p(br()),
-	    HTML("<h4><b>Step 1. Set Parameters for N(&#956, &#963)</b></h4>"), 
+
+	    HTML("<b>1. Set Parameters for N(&#956, &#963)</b>"), 
 	    numericInput("mu", HTML("Mean (&#956), the dashed line, indicates the location  "), value = 0, min = -10000000, max = 10000000),
 	    numericInput("sigma", HTML("Standard Deviation (&#963), indicates the shape"), value = 1, min = 0, max = 10000000),
 	    hr(),
 	    
-	    h4(tags$b("Step 2. Show Probability")),   
+	    (tags$b("2. Show Probability")),   
 	    numericInput("n", HTML("Blue Area = Pr(Mean-n*SD < X < Mean+n*SD)"), value = 1, min = 0, max = 10),
 	    numericInput("pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 is the position of Red-line"), value = 0.025, min = 0, max = 1, step = 0.05),
 	    
@@ -47,8 +51,7 @@ sidebarLayout(
 	    condition = "input.InputSrc == 'DataDist'",  
 	    
 	    tabsetPanel(
-	      tabPanel(
-	        h4(tags$b("Manual Input")),
+	      tabPanel("Manual Input",p(br()),
 	        p("Data point can be separated by , ; /Enter /Tab /Space"),
 	        tags$textarea(
 	          id = "x", #p
@@ -57,8 +60,7 @@ sidebarLayout(
 	        ),
 	        p("Missing value is input as NA")
 	      ), 
-	      tabPanel(
-	        h4(tags$b("Upload Data")),
+	      tabPanel("Upload Data",p(br()),
 	        
 	        ##-------csv file-------##
 	        p(tags$b("This only reads the 1st column of your data")),
@@ -100,8 +102,8 @@ sidebarLayout(
 		
 		conditionalPanel(
 		  condition = "input.InputSrc == 'MathDist'",
-		  p(br()), h4("Mathematical-based Plot"), p(br()),
-		  tags$b("Normal distribution plot"),
+		  h4("Mathematical-based Plot"), 
+		  #tags$b("Normal distribution plot"),
 		  #plotOutput("norm.plot", click = "plot_click", width = "600px", height = "400px"), #click = "plot_click", 
 		  plotOutput("norm.plot", click = "plot_click", width = "80%"), #click = "plot_click", 
 		  
@@ -113,9 +115,7 @@ sidebarLayout(
 		
 		conditionalPanel(
 		  condition = "input.InputSrc == 'SimuDist'",
-		  p(br()), h4("Simulation-based Plot"), p(br()),
-		  
-		  
+		  h4("Simulation-based Plot"), 
 		  tags$b("Histogram from random numbers"),
 		  plotly::plotlyOutput("norm.plot2",  width = "80%"),	# click = "plot_click2",
 
@@ -129,7 +129,7 @@ sidebarLayout(
 		
 		conditionalPanel(
 		  condition = "input.InputSrc == 'DataDist'",
-		  p(br()), h4("Distribution of Your Data"), p(br()),
+		  h4("Distribution of Your Data"),
 		  
 		  tags$b("Density from upload data"),
 		  plotly::plotlyOutput("makeplot.2", width = "80%"),

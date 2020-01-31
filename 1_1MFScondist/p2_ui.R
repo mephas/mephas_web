@@ -3,28 +3,29 @@ sidebarLayout(
 
 	sidebarPanel(	
 	  
+  h4(tags$b("Step 1. Selected the data source of distribution plot")),
+  p("Mathematical-based, simulated-data-based, or user data-based"),  
 	  #Select Src
 	  selectInput(
-	    "InputSrc_e", "Select Input Data Source:",
-	    c("Mathematical-based Distribution" = "MathDist",
-	      "Simulation-based Distribution" = "SimuDist",
-	      "Data-based Distribution" = "DataDist")),
+	    "InputSrc_e", "Select plot",
+      c("Mathematical formula based" = "MathDist",
+        "Simulation data based" = "SimuDist",
+        "Data-based" = "DataDist")),
 	  hr(),
 	  #Select Src end
-	  
+	 h4(tags$b("Step 2. Set parameters")), 
 	  #condiPa 1
 	  conditionalPanel(
 	    condition = "input.InputSrc_e == 'MathDist'",
-	    "Draw an Exponential Distribution", p(br()),
-      HTML("<h4><b>Step 1. Set Parameters for E(Rate)</b></h4>"), 
+	    #"Draw an Exponential Distribution", p(br()),
+      HTML("<b>1. Set Parameters for E(Rate)</b></h4>"), 
 	    numericInput("r", HTML("Rate (> 0) indicates the rate of change"), value = 2, min = 0),
 	    hr(),
 	    
-	    h4(tags$b("Step 2. Show Probability")),   
+	    h4(tags$b("2. Show Probability")),   
 	    numericInput("e.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
 	    
-	    #numericInput("e.ylim", "Range of y-asis > 0", value = 2.5, min = 0.1, max = 3),
-	    hr(),
+      hr(),
 	    p(tags$b("You can adjust x-axes range")), 
 	    numericInput("e.xlim", "Range of x-asis > 0", value = 5, min = 1)
 	    
@@ -43,8 +44,7 @@ sidebarLayout(
 	    condition = "input.InputSrc_e == 'DataDist'",  
 
 	    tabsetPanel(
-      	      tabPanel(
-      	        h4(tags$b("Manual Input")), 
+      	      tabPanel("Manual Input",p(br()), 
       	        p("Data point can be separated by , ; /Enter /Tab /Space"),
       	        tags$textarea(
       	          id = "x.e", #p
@@ -53,8 +53,7 @@ sidebarLayout(
       	        ),
       	        p("Missing value is input as NA")
       	        ),
-      	      tabPanel( 
-      	        h4(tags$b("Upload Data")),
+      	      tabPanel("Upload Data",p(br()), 
       	        ##-------csv file-------##
       	        p(tags$b("This only reads the 1st column of your data, and will cover the input data")),
       	        fileInput('e.file', "1. Choose CSV/TXT file",
@@ -90,7 +89,7 @@ sidebarLayout(
   		
   		conditionalPanel(
   		  condition = "input.InputSrc_e == 'MathDist'",
-  		  p(br()), h4("Mathematical-based Plot"), p(br()),
+  		  h4("Mathematical-based Plot"),
   		  tags$b("Exponential distribution plot"),
   		  plotOutput("e.plot", click = "plot_click9", width = "80%"),#
   		  verbatimTextOutput("e.info"),
@@ -99,7 +98,7 @@ sidebarLayout(
   		),
   		conditionalPanel(
   		  condition = "input.InputSrc_e == 'SimuDist'",
-  		  p(br()), h4("Simulation-based Plot"), p(br()),
+  		 h4("Simulation-based Plot"), 
   		  tags$b("Histogram from random numbers"),
   		  plotly::plotlyOutput("e.plot2",  width = "80%"),#click = "plot_click10",
   		  #verbatimTextOutput("e.info2"),
@@ -120,7 +119,7 @@ sidebarLayout(
   		
   		conditionalPanel(
   		  condition = "input.InputSrc_e == 'DataDist'",
-  		  p(br()), h4("Distribution of Your Data"), p(br()),	
+  		  h4("Distribution of Your Data"), 
   		  tags$b("Density from upload data"),
   		  plotly::plotlyOutput("makeplot.e2", width = "80%"),
   		  tags$b("Histogram from upload data"),

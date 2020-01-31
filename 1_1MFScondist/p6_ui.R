@@ -1,12 +1,15 @@
 #****************************************************************************************************************************************************1.6. chi
 sidebarLayout(
 
+
 	sidebarPanel(	
+	h4(tags$b("Step 1. Selected the data source of distribution plot")),
+	p("Mathematical-based, simulated-data-based, or user data-based"),	
 	#Select Src
 	selectInput(
-	    "InputSrc_x", "Select Input Data Source:",
-	    c("Mathematical-based Distribution" = "MathDist",
-	      "Simulation-based Plot" = "SimuDist",
+	    "InputSrc_x", "Select plot",
+	    c("Mathematical formula based" = "MathDist",
+	      "Simulation data based" = "SimuDist",
 	      "Data-based" = "DataDist")),
 	hr(),
 	#Select Src end	
@@ -38,8 +41,7 @@ sidebarLayout(
 	  conditionalPanel(
 	    condition = "input.InputSrc_x == 'DataDist'",  
 	    tabsetPanel(
-	      tabPanel(
-	        h4(tags$b("Manual Input")),
+	       tabPanel("Manual Input",p(br()),
 			p("Data point can be separated by , ; /Enter /Tab /Space"),
     		tags$textarea(
         	id = "x.x", #p
@@ -48,8 +50,7 @@ sidebarLayout(
       		p("Missing value is input as NA")
 	     ), #tab1 end 
 	      
-	      tabPanel(
-	        h4(tags$b("Upload Data")),
+	      tabPanel("Upload Data",p(br()),
 	        
 	        ##-------csv file-------##
 	        p(tags$b("This only reads the 1st column of your data, and will cover the input data")),
@@ -91,7 +92,7 @@ sidebarLayout(
 		
 		conditionalPanel(
 		  condition = "input.InputSrc_x == 'MathDist'",
-		  p(br()), h4("Mathematical-based Plot"), p(br()),
+		  h4("Mathematical-based Plot"), 
 		tags$b("Chi-square distribution plot"),
 
         plotOutput("x.plot", click = "plot_click5", width = "80%"),
@@ -103,7 +104,7 @@ sidebarLayout(
 		
 		conditionalPanel(
 		  condition = "input.InputSrc_x == 'SimuDist'",
-		  p(br()), h4("Simulation-based Plot"), p(br()),
+		 h4("Simulation-based Plot"),
 		  
 		 tags$b("Histogram from random numbers"),
         plotly::plotlyOutput("x.plot2", width = "80%"),#click = "plot_click6", 
@@ -127,7 +128,7 @@ sidebarLayout(
 		
 		conditionalPanel(
 		condition = "input.InputSrc_x == 'DataDist'",
-		p(br()), h4("Distribution of Your Data"), p(br()),
+		 h4("Distribution of Your Data"), 
  		tags$b("Density from upload data"),
         plotly::plotlyOutput("makeplot.x2", width = "80%"),
         tags$b("Histogram from upload data"),
