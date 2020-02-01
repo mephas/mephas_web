@@ -28,7 +28,7 @@ selected = 'simpls'),
 hr(),
 
 h4(tags$b("Step 2. If data and model are ready, click the blue button to generate model results.")),
-actionButton("spls1", h4(tags$b("Show Results >>")), class = "btn btn-primary")
+actionButton("spls1", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
 
 ),
 

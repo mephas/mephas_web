@@ -1,32 +1,27 @@
-##----------#----------#----------#----------
-##
-## 1MFSdistribution UI
-##
-## Language: EN
-##
-## DT: 2019-01-08
-## Update: 2019-12-05
-##
-##----------#----------#----------#----------
+
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 shinyUI(
 
 tagList(
+
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
+tags$head(includeScript("../0tabs/navtitle.js")),
+tags$style(type="text/css", "body {padding-top: 70px;}"),
+source("../0tabs/onoff.R", local=TRUE)$value,
 
 navbarPage(
-
-title = "Discrete Probability Distribution",
+theme = shinythemes::shinytheme("cerulean"),
+title = a("Discrete Probability Distribution", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
 collapsible = TRUE,
+#id="navbar", 
+position="fixed-top",
 
 
 ##########----------##########----------##########
 
-tabPanel("Binomial",
+tabPanel("Binomial",p(br()),
 
 titlePanel("Binomial Distribution"),
-
-
 
 #condiPa 1
 conditionalPanel(
@@ -84,11 +79,21 @@ hr()
 ),
 
 ##########----------##########----------##########
-#source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value
+#source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
 #source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value
-#source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
+#source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
+#source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value,
+
+tabPanel(tags$button(
+				    id = 'close',
+				    type = "button",
+				    class = "btn action-button",
+				    icon("power-off"),
+				    style = "background:rgba(255, 255, 255, 0); display: inline-block; padding: 0px 0px;",
+				    onclick = "setTimeout(function(){window.close();},500);")),
+navbarMenu("",icon=icon("link"))
 
 
 ))
+
 )

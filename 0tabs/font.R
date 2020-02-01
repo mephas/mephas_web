@@ -8,4 +8,4 @@
 ##
 ##----------#----------#----------#----------
 
-tags$style(HTML("*{font-family: Arial, Helvetica, sans-serif;}"))
+tags$style(HTML("*{font-family: Arial, sans-serif;}"))#Helvetica, 

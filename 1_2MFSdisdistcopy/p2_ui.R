@@ -2,7 +2,7 @@
 sidebarLayout(
 
 	sidebarPanel(
-	h4(tags$b("Step 1. Select the data source")),
+	h4(tags$b("Step 1. Selected the data source of distribution plot")),
 	p("Mathematical-based, simulated-data-based, or user data-based"),		#Select Src
 	selectInput(
 	    "InputSrc_p", "Select plot",

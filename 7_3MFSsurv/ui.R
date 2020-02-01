@@ -1,13 +1,18 @@
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 shinyUI(
 tagList(
+
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
+tags$head(includeScript("../0tabs/navtitle.js")),
+tags$style(type="text/css", "body {padding-top: 70px;}"),
+source("../0tabs/onoff.R", local=TRUE)$value,
 
 navbarPage(
-
-title = "Survival Analysis",
+theme = shinythemes::shinytheme("cerulean"),
+title = a("Survival Analysis", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
 collapsible = TRUE,
-id = "navibar",
+id="navibar", 
+position="fixed-top",
 ##########----------##########----------##########
 
 tabPanel("Data",
@@ -161,12 +166,12 @@ HTML(
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
+)
 ),
 
 hr(),
 source("3pr_ui.R", local=TRUE, encoding="UTF-8")$value,
 hr()
-)
 ),
 
 ##########----------##########----------##########
@@ -238,10 +243,14 @@ hr()
 
 ##########----------##########----------##########
 
-source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
+tabPanel(tags$button(
+				    id = 'close',
+				    type = "button",
+				    class = "btn action-button",
+				    icon("power-off"),
+				    style = "background:rgba(255, 255, 255, 0); display: inline-block; padding: 0px 0px;",
+				    onclick = "setTimeout(function(){window.close();},500);")),
+navbarMenu("",icon=icon("link"))
 
 )
 ##-----------------------over

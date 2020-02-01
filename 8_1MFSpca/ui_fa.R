@@ -21,7 +21,7 @@ p(tags$i("According to the suggested results from parallel analysis, we chose to
 hr(),
 h4(tags$b("Step 2. If data and model are ready, click the blue button to generate model results.")),
 
-actionButton("pca1.fa", h4(tags$b("Show Results >>")), class = "btn btn-primary")
+actionButton("pca1.fa", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
 
 ),
 

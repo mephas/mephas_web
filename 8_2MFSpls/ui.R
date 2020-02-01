@@ -11,14 +11,18 @@ if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shiny
 shinyUI(
 
 tagList(
+
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
+tags$head(includeScript("../0tabs/navtitle.js")),
+tags$style(type="text/css", "body {padding-top: 70px;}"),
+source("../0tabs/onoff.R", local=TRUE)$value,
 
 navbarPage(
-
-
-title = "Dimensional Analysis 2",
+theme = shinythemes::shinytheme("cerulean"),
+title = a("Dimensional Analysis 2", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
 collapsible = TRUE,
-id = "navibar",
+id="navibar", 
+position="fixed-top",
 ##########----------##########----------##########
 
 tabPanel("Data",
@@ -285,10 +289,14 @@ hr()
 ),
 ##########----------##########----------##########
 
-source("../0tabs/stop.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/help.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/home.R",local=TRUE, encoding="UTF-8")$value,
-source("../0tabs/onoff.R",local=TRUE, encoding="UTF-8")$value
+tabPanel(tags$button(
+				    id = 'close',
+				    type = "button",
+				    class = "btn action-button",
+				    icon("power-off"),
+				    style = "background:rgba(255, 255, 255, 0); display: inline-block; padding: 0px 0px;",
+				    onclick = "setTimeout(function(){window.close();},500);")),
+navbarMenu("",icon=icon("link"))
 
 
 ))

@@ -20,6 +20,7 @@ source("p2_server.R", local=TRUE)$value
 observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
+
 }
 )
 

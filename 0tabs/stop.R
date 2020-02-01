@@ -13,8 +13,10 @@ tabPanel(
     id = 'close',
     type = "button",
     class = "btn action-button",
-    style = "margin-top:-8px; color:Tomato; background-color: #F8F8F8  ",
-    onclick = "setTimeout(function(){window.close();},500);"))
+    icon("power-off"),
+    style = "background:rgba(255, 255, 255, 0); display: inline-block; padding: 0px 0px;",
+    onclick = "setTimeout(function(){window.close();},500);")
+  )
 #tabPanel("Close",icon = icon("power-off"),value = "stop")
 #setTimeout(function(){window.close();},500)
 	#)
