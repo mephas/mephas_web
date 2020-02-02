@@ -10,6 +10,7 @@ function(input, output) {
 
 ##########----------##########----------##########
 source("../func.R")
+source("../tab.R")
 
 source("server_N.R", local=TRUE)$value
 
