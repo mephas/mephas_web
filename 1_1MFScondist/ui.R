@@ -1,6 +1,6 @@
 #if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
-shinyUI(
+#shinyUI(
 
 tagList(
 
@@ -277,4 +277,4 @@ tabPanel(tags$button(
 navbarMenu("",icon=icon("link"))
 
 ))
-)
+#)

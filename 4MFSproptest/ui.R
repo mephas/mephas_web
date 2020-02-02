@@ -1,6 +1,6 @@
-if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
+#if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
-shinyUI(
+#shinyUI(
 
 tagList(
 
@@ -181,6 +181,7 @@ navbarMenu("",icon=icon("link"))
 
 
 
-)))
+))
+#)
 
 

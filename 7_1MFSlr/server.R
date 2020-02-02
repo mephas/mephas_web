@@ -5,7 +5,7 @@ if (!require("plotly")) {install.packages("plotly")}; library("plotly")
 if (!require("psych")) {install.packages("psych")}; library("psych")
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
-shinyServer(
+#shinyServer(
 
 function(input, output, session) {
 
@@ -26,7 +26,9 @@ observe({
 
 observeEvent(input$Model, showTab("navibar", target = "Model", select = TRUE))
 
-})
+}
+
+#)
 
 
 

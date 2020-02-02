@@ -7,9 +7,9 @@ if (!require("DT")) {install.packages("DT")}; library("DT")
 if (!require("plotly")) {install.packages("plotly")}; library("plotly")
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
-shinyServer(
+#shinyServer(
 
- function(input, output) {
+function(input, output) {
 
 source("../func.R")
 ##########----------##########----------##########
@@ -26,6 +26,7 @@ observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
   
-})
+}
+#)
 
 

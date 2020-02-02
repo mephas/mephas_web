@@ -4,7 +4,7 @@ if (!require("plotly")) {install.packages("plotly")}
 library("plotly")
 
 
-shinyServer(
+#shinyServer(
 
 function(input, output) {
 
@@ -36,5 +36,5 @@ observe({
 
 
 }
-)
+#)
 

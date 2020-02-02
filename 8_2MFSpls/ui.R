@@ -1,14 +1,6 @@
-##----------#----------#----------#----------
-##
-## 8MFSpcapls UI
-##
-## Language: EN
-##
-## DT: 2019-01-08
-##
-##----------#----------#----------#----------
-if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
-shinyUI(
+
+#if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
+#shinyUI(
 
 tagList(
 
@@ -300,4 +292,4 @@ navbarMenu("",icon=icon("link"))
 
 
 ))
-)
+#)

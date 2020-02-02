@@ -6,7 +6,7 @@ if (!require("spls")) {install.packages("spls")}; library("spls")
 if (!require("plotly")) {install.packages("plotly")}; library("plotly")
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
-shinyServer(
+#shinyServer(
 
 function(input, output, session) {
 
@@ -35,7 +35,7 @@ observeEvent(input$"ModelPLSR", showTab("navibar", target = "PLSR", select = TRU
 observeEvent(input$"ModelSPLSR", showTab("navibar", target = "SPLSR", select = TRUE))
 
 }
-)
+#)
 
 
 

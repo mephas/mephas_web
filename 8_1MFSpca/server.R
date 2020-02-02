@@ -5,7 +5,7 @@ if (!require("psych")) {install.packages("psych")}; library("psych")
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
 
-shinyServer(
+#shinyServer(
 
 function(input, output, session) {
 
@@ -26,7 +26,7 @@ observeEvent(input$ModelPCA, showTab("navibar", target = "PCA", select = TRUE))
 observeEvent(input$ModelEFA, showTab("navibar", target = "EFA", select = TRUE))
 
 }
-)
+#)
 
 
 

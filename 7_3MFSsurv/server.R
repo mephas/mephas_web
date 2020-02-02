@@ -8,7 +8,7 @@ if (!require("reshape2")) {install.packages("reshape2")}; library("reshape2")
 if (!require("survAUC")) {install.packages("survAUC")}; library("survAUC")
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
  
-shinyServer(
+#shinyServer(
 
 function(input, output, session) {
 
@@ -38,7 +38,8 @@ observeEvent(input$"Non-Parametric Model", showTab("navibar", target = "Non-Para
 observeEvent(input$"Semi-Parametric Model", showTab("navibar", target = "Semi-Parametric Model", select = TRUE))
 observeEvent(input$"Parametric Model", showTab("navibar", target = "Parametric Model", select = TRUE))
 
-})
+}
+#)
 
 
 

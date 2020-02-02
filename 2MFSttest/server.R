@@ -7,7 +7,7 @@ if (!require("plotly")) {install.packages("plotly")}; library("plotly")
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
 
-shinyServer(
+#shinyServer(
 
 function(input, output) {
 	
@@ -24,7 +24,7 @@ observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
 }
-)
+#)
 
 
 
