@@ -80,8 +80,8 @@ sidebarPanel(
       label = "Alternative hypothesis",
       choiceNames = list(
         HTML("v1 &#8800 v2: the population variances of Group 1 and Group 2 are not equal"),
-        HTML("v1 < v2: the population　variances of Group 1 is less than Group 2"),
-        HTML("v1 > v2: the population　variances of Group 1 is greater than Group 2")
+        HTML("v1 < v2: the population variances of Group 1 is less than Group 2"),
+        HTML("v1 > v2: the population variances of Group 1 is greater than Group 2")
         ),
       choiceValues = list("two.sided", "less", "greater")),
     hr(),

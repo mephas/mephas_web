@@ -28,7 +28,7 @@ h4(tags$b("Log-rank Test")),
 p(tags$b("Null hypothesis")),
 p("Two groups have identical hazard functions"),
 
-radioButtons("rho", "Choose Log-rank Test Method", select=1,
+radioButtons("rho", "Choose Log-rank Test Method", selected=1,
   choiceNames = list(
     HTML("1. Log-rank test"),
     HTML("2. Peto & Peto modification of the Gehan-Wilcoxon test")
@@ -43,7 +43,7 @@ h4(tags$b("Pairwise Log-rank Test")),
 p(tags$b("Null hypothesis")),
 p("Two groups have identical hazard functions"),
 
-radioButtons("rho2", "1. Choose Log-rank Test Method)", select=1,
+radioButtons("rho2", "1. Choose Log-rank Test Method)", selected=1,
   choiceNames = list(
     HTML("1. Log-rank test"),
     HTML("2. Peto & Peto modification of the Gehan-Wilcoxon test")

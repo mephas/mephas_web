@@ -1,26 +1,27 @@
 ##'
-##' MFSnptest includes Non-parametric test of
-##' (1) one sample,
-##' (2) two independent samples,
-##' and (3) two paried samples.
+##' MFSpls includes
+##' (1) principal component regression
+##' (2) partial least squares regression
+##' and (3) sparse partial least squares regression
 ##'
-##' @title MEPHAS: Non-parametric Test (Hypothesis Testing)
+##' @title MEPHAS: Dimensional analysis 2 (Advanced Method)
 ##'
-##' @return shiny interface
+##' @return The web-based GUI and interactive interfaces
 ##'
-##' @importFrom stats wilcox.test
+##'
+##' @importFrom pls mvr R2 MSEP RMSEP
+##' @importFrom spls cv.spls spls
 ##'
 ##' @examples
 ##' # library(mephas)
-##' # MFSnptest()
+##' # MFSpls()
 ##' # or,
-##' # mephas::MFSnptest()
+##' # mephas::MFSpls()
 ##' # or,
-##' # mephasOpen("nptest")
-
+##' # mephasOpen("pls")
 
 ##' @export
-MFSnptest <- function(){
+MFSpls <- function(){
 
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
 ui <- 

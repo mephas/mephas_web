@@ -201,12 +201,12 @@ plotly::ggplotly(p)
  })
  
 output$p2 = plotly::renderPlotly({
-   p<-plot_hist1(data=DF3(), var=input$hx, bw=input$bin)
+   p<-plot_hist1(DF3(), input$hx, input$bin)
    plotly::ggplotly(p)
    })
 
 output$p21 = plotly::renderPlotly({
-     p<-plot_density1(data=DF3(), var=input$hx)
+     p<-plot_density1(DF3(), input$hx)
      plotly::ggplotly(p)
    })
  

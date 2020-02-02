@@ -1,51 +1,35 @@
 ##'
-##' MFScondist includes probability distribution of
-##' (1) normal distribution
-##' (2) exponential distribution
-##' (3) gamma distribution
-##' (4) beta distribution
-##' (5) t distribution
-##' (6) chi-square distribution
-##' and (7) F distribution.
+##' MFSproptest includes test for binomial proportion of
+##' (1) one single proportion,
+##' (2) two proportions from independent groups,
+##' (3) more than two groups,
+##' and (4) trend in more than two groups.
 ##'
-##' MFScondist also generates random numbers draw the distribution of user data
-##'
-##' @title MEPHAS: Continuous Probability Distribution (Probability)
+##' @title MEPHAS: Test for Binomial Proportion (Hypothesis Testing)
 ##'
 ##' @return shiny interface
 ##'
-##' @importFrom stats dchisq dnorm dt pbinom pnorm ppois qchisq qexp qf qgamma qnorm qt quantile rchisq rexp rf rgamma rnorm rt sd var qbeta rbeta
-##' @importFrom utils head
+##' @importFrom stats binom.test chisq.test fisher.test mcnemar.test prop.test reshape prop.trend.test
 ##'
 ##' @examples
 ##' # library(mephas)
-##' # MFScondist()
+##' # MFSproptest()
 ##' # or,
-##' # mephas::MFScondist()
+##' # mephas::MFSproptest()
 ##' # or,
-##' # mephasOpen("condist")
-##' # Use 'Stop and Quit' Button in the top to quit the interface
+##' # mephasOpen("proptest")
 
 ##' @export
-MFScondist <- function(){
+MFSproptest <- function(){
+
 
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
-ui <- tagList(
-
-
-
-))
-
+ui <- 
 
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
 
-server <- function(input, output) {
-
-
-
-
-}
+server <- 
 
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
 ##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########----------##########
@@ -55,4 +39,3 @@ app <- shinyApp(ui = ui, server = server)
 runApp(app, quiet = TRUE)
 
 }
-

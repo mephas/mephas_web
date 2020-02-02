@@ -1,7 +1,3 @@
-#if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
-
-#shinyUI(
-
 tagList(
 
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
@@ -277,4 +273,4 @@ tabPanel(tags$button(
 navbarMenu("",icon=icon("link"))
 
 ))
-#)
+

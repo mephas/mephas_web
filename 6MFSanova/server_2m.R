@@ -9,7 +9,7 @@ level21m <- reactive({
   F1 <-as.factor(unlist(strsplit(input$fm1, "[,;\n\t ]")))
   x <- matrix(levels(F1), nrow=1)
   colnames(x) <- c(1:length(x))
-  rownames(x) <- names2()[2]
+  rownames(x) <- namesm2()[2]
   return(x)
   })
 output$level.t21m <- DT::renderDT({level21m()}, options = list(dom = 't'))
@@ -18,7 +18,7 @@ level22m <- reactive({
   F1 <-as.factor(unlist(strsplit(input$fm2, "[,;\n\t ]")))
   x <- matrix(levels(F1), nrow=1)
   colnames(x) <- c(1:length(x))
-  rownames(x) <- names2()[3]
+  rownames(x) <- namesm2()[3]
   return(x)
   })
 output$level.t22m <- DT::renderDT({level22m()}, options = list(dom = 't'))
@@ -32,7 +32,7 @@ Ym2 <- reactive({
     F2 <- as.factor(unlist(strsplit(input$fm2, "[,;\n\t ]")))
     validate( need(length(X)==length(F1)&length(X)==length(F2), "Please make sure two groups have equal length") )    
     x <- data.frame(X = X, F1 = F1, F2 = F2)
-    colnames(x) = names2()
+    colnames(x) = namesm2()
     }
   else {
 if(!input$colm2){

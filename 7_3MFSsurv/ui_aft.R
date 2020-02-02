@@ -105,7 +105,7 @@ HTML(
 <b> Explanations  </b>
 <ul>
 <li> For each variable, estimated coefficients (Value), statistic for the significance of single variable, and p value are given.
-<li> The column marked “z” gives the Wald statistic value. It corresponds to the ratio of each regression coefficient to its standard error (z = coef/se(coef)).The Wald statistic evaluates, whether the beta (β) coefficient of a given variable is statistically significantly different from 0.
+<li> The column marked 'z' gives the Wald statistic value. It corresponds to the ratio of each regression coefficient to its standard error (z = coef/se(coef)).The Wald statistic evaluates, whether the beta coefficient of a given variable is statistically significantly different from 0.
 <li> The coefficients relate to hazard; a positive coefficient indicates a worse prognosis and a negative coefficient indicates a protective effect of the variable with which it is associated.
 <li> exp(Value) = hazard ratio (HR). HR = 1: No effect; HR < 1: Reduction in the hazard; HR > 1: Increase in Hazard
 <li> Scale and Log(scale) are the estimated parameters in the error term of AFT model
@@ -132,14 +132,14 @@ HTML(
 <b>Martingale residuals</b> against continuous independent variable is a common approach used to detect nonlinearity. For a given continuous covariate, patterns in the plot may suggest that the variable is not properly fit.
 Martingale residuals may present any value in the range (-INF, +1):
 <ul>
-<li>A value of martingale residuals near 1 represents individuals that “died too soon”,
-<li>Large negative values correspond to individuals that “lived too long”.
+<li>A value of martingale residuals near 1 represents individuals that 'died too soon',
+<li>Large negative values correspond to individuals that 'lived too long'.
 </ul>
 
 <b>Deviance residual</b> is a normalized transform of the martingale residual. These residuals should be roughly symmetrically distributed about zero with a standard deviation of 1.
 <ul>
-<li>Positive values correspond to individuals that “died too soon” compared to expected survival times.
-<li>Negative values correspond to individual that “lived too long”.
+<li>Positive values correspond to individuals that 'died too soon' compared to expected survival times.
+<li>Negative values correspond to individual that 'lived too long'.
 <li>Very large or small values are outliers, which are poorly predicted by the model.
 </ul>
 
@@ -151,7 +151,7 @@ Martingale residuals may present any value in the range (-INF, +1):
 </ul>
 
 <p>The residuals can be found in Data Fitting tab.<p>
-<p>Red points are those who 'died soon'; black points are whose who “lived long”<p>
+<p>Red points are those who 'died soon'; black points are whose who 'lived long'<p>
 
 "
 ),

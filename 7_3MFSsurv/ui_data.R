@@ -60,7 +60,7 @@ h4(tags$b("Step 2. Create a Survival Object")),
 
 uiOutput('c'),
 
-radioButtons("time", "2. Set Survival Time", select="A",
+radioButtons("time", "2. Set Survival Time", selected="A",
   choiceNames = list(
     HTML("Choice 1. <b>Right-censored time</b>: needs time duration / follow-up"),
     HTML("Choice 2. <b>Left-truncated right-censored time</b>: needs start and end time points")

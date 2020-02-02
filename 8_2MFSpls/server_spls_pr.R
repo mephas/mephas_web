@@ -3,8 +3,9 @@
 newX.spls = reactive({
   inFile = input$newfile.spls
   if (is.null(inFile)){
-    if (input$edata=="NKI") {x <- nki2.test}
-    else {x<- liver.test}
+    input$edata=="NKI"
+    #if (input$edata=="NKI") {x <- nki2.test}
+    #else {x<- liver.test}
     }
   else{
 if(!input$newcol.spls){
