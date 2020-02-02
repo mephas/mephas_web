@@ -51,7 +51,7 @@ Suppose we collected the age of 144 independent lymph node positive patients, an
 
 hr(),
 
-source("p1_ui.R", local=TRUE)$value,
+source("ui_1.R", local=TRUE)$value,
 
 hr()
 
@@ -96,7 +96,7 @@ We wanted to know if the ages of patients with ER positive was significantly dif
 
 hr(),
 
-source("p2_ui.R", local=TRUE)$value,
+source("ui_2.R", local=TRUE)$value,
 
 hr()
 
@@ -151,7 +151,7 @@ This was a paired case. We wanted to know whether the sleeping hours before and 
 
 hr(),
 
-source("p3_ui.R", local=TRUE)$value,
+source("ui_p.R", local=TRUE)$value,
 hr()
 
 ),

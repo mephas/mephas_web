@@ -63,7 +63,7 @@ Time variable is metastasis-free follow-up time (months). Censoring indicator va
 ),
 
 hr(),
-source("0data_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_data.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 
@@ -101,7 +101,7 @@ HTML(
 ),
 
 hr(),
-source("1km_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_km.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
 
@@ -136,7 +136,7 @@ Cox regression assumes that the effects of the predictor variables upon survival
 ),
 
 hr(),
-source("3cox_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_cox.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
 
@@ -170,7 +170,7 @@ HTML(
 ),
 
 hr(),
-source("3pr_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_cox_pr.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
 
@@ -204,7 +204,7 @@ HTML(
 ),
 
 hr(),
-source("2aft_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_aft.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
 
@@ -237,7 +237,7 @@ HTML(
 ),
 
 hr(),
-source("2pr_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_aft_pr.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
 

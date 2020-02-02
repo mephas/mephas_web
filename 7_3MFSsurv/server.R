@@ -15,17 +15,17 @@ function(input, output, session) {
 source("../func.R")
 ##########----------##########----------##########
 
-source("0data_server.R", local=TRUE)$value
+source("server_data.R", local=TRUE)$value
 
-source("1km_server.R", local=TRUE)$value
+source("server_km.R", local=TRUE)$value
 
-source("2aft_server.R", local=TRUE)$value
+source("server_cox.R", local=TRUE)$value
 
-source("2pr_server.R", local=TRUE)$value
+source("server_cox_pr.R", local=TRUE)$value
 
-source("3cox_server.R", local=TRUE)$value
+source("server_cox_pr.R", local=TRUE)$value
 
-source("3pr_server.R", local=TRUE)$value
+source("server_cox_pr.R", local=TRUE)$value
 
 
 ##########----------##########----------##########
@@ -33,6 +33,7 @@ source("3pr_server.R", local=TRUE)$value
 observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
+
 observeEvent(input$"Non-Parametric Model", showTab("navibar", target = "Non-Parametric Model", select = TRUE))
 observeEvent(input$"Semi-Parametric Model", showTab("navibar", target = "Semi-Parametric Model", select = TRUE))
 observeEvent(input$"Parametric Model", showTab("navibar", target = "Parametric Model", select = TRUE))

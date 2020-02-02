@@ -39,7 +39,7 @@ plotOutput("cor.plot", width = "80%"),p(br()),
 DT::DTOutput("cor")
 ),
 
-tabPanel("First Part of Data", br(),
+tabPanel("Part of Data", br(),
  p("Please edit data in Data tab"),
 DT::DTOutput("table.x")
 )

@@ -65,7 +65,7 @@ and (2) find the relations between binary dependent variable and the other varia
 ),
 
 hr(),
-source("0data_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_data.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 
@@ -99,7 +99,7 @@ HTML(
 ),
 
 hr(),
-source("1lm_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_model.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
 
@@ -138,7 +138,7 @@ Suppose in the same study, we got the new data, and wanted to classify the patie
 ),
 
 hr(),
-source("2pr_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_pr.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
 ##########----------##########----------##########

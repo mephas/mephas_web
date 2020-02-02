@@ -42,7 +42,7 @@ output$download5 <- downloadHandler(
 output$t.plot2 = plotly::renderPlotly({
   df = T()
   x <- names(df)
-p<-MFShist1c(df, x, input$t.bin)
+p<-plot_hist1c(df, x, input$t.bin)
 p<-p+geom_vline(aes(xintercept=quantile(x, probs = input$t.pr, na.rm=TRUE)), color="red", size=0.3)
 plotly::ggplotly(p)
 
@@ -97,7 +97,7 @@ TT <- reactive({
 output$makeplot.t1 <- plotly::renderPlotly({
   df = TT()
   x <- names(df)
-  p<-MFShist1(df, x, input$bin.t)
+  p<-plot_hist1(df, x, input$bin.t)
   p<-p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$t.pr, na.rm=TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
   #x = as.data.frame(TT())
@@ -106,7 +106,7 @@ output$makeplot.t1 <- plotly::renderPlotly({
 output$makeplot.t2 <- plotly::renderPlotly({
   df = TT()
   x <- names(df)
-  p<-MFSdensity1(df, x)
+  p<-plot_density1(df, x)
   p<- p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$t.pr, na.rm = TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
   #x = as.data.frame(TT())

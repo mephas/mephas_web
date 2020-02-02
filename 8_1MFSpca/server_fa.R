@@ -1,14 +1,25 @@
 #****************************************************************************************************************************************************fa
 
+#output$x.fa = renderUI({
+#selectInput(
+#'x.fa',
+#tags$b('1. Add / Remove independent variables (X)'),
+#selected = type.num3(),
+#choices = type.num3(),
+#multiple = TRUE
+#)
+#})
+
 output$x.fa = renderUI({
-selectInput(
-'x.fa',
-tags$b('1. Add / Remove independent variables (X)'),
-selected = type.num3(),
-choices = type.num3(),
-multiple = TRUE
+  pickerInput(
+    inputId = "x.fa",
+    label = "1. Add / Remove independent variables (X)",
+    choices = type.num3(),
+    options = list(
+      `actions-box` = TRUE), 
+    multiple = TRUE
 )
-})
+  })
 
 DF4.fa <- eventReactive(input$pca1.fa,{
   X()[,input$x.fa]
@@ -80,7 +91,7 @@ psych::fa.diagram(fa(), cut = 0)
 output$pca.ind.fa2  <- plotly::renderPlotly({ 
 #validate(need(input$ncfa>=1, "Components are not enough to create the plot."))
 load <- as.data.frame(fa()$loadings[,1:input$ncfa])
-p<-MFSload(loads=load, a=input$ncfa)
+p<-plot_load(loads=load, a=input$ncfa)
 plotly::ggplotly(p)
 #ll$group <- rownames(ll)
 #loadings.m <- reshape::melt(ll, id="group",
@@ -110,7 +121,7 @@ output$cor.fa <- DT::renderDT({as.data.frame(cor(DF4.fa()))},
     scrollX = TRUE))
 
 output$cor.fa.plot   <- renderPlot({ 
-MFScorr(DF4.fa())
+plot_corr(DF4.fa())
 #c <- as.data.frame(cor(DF4.fa()))
 #c$group <- rownames(c)
 #corrs.m <- reshape::melt(c, id="group",
@@ -139,7 +150,7 @@ output$fa.bp   <- plotly::renderPlotly({
 #biplot(fa(),labels=rownames(DF4.fa()), choose=c(input$c1.fa,input$c2.fa), main="")
 score <- as.data.frame(fa()$scores)
 load <- as.data.frame(fa()$loadings[,1:input$ncfa])
-p<- MFSbiplot(score, load, input$c1.fa, input$c2.fa)
+p<- plot_biplot(score, load, input$c1.fa, input$c2.fa)
 plotly::ggplotly(p)
 
 })
@@ -151,7 +162,7 @@ validate(need(input$ncfa>=3, "Components are not enough to create the plot."))
 score <- as.data.frame(fa()$scores)
 load <- as.data.frame(fa()$loadings[,1:input$ncfa])
 
-MFS3D(scores=score, loads=load, nx=input$td1.fa,ny=input$td2.fa,nz=input$td3.fa, scale=input$lines.fa)
+plot_3D(scores=score, loads=load, nx=input$td1.fa,ny=input$td2.fa,nz=input$td3.fa, scale=input$lines.fa)
 #x <- scores[,input$td1.fa]
 #y <- scores[,input$td2.fa]
 #z <- scores[,input$td3.fa]

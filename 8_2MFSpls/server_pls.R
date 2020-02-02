@@ -107,7 +107,7 @@ output$pls.resi <- DT::renderDT({as.data.frame(pls()$residuals[,,1:pls()$ncomp])
 output$pls.s.plot  <- plotly::renderPlotly({ 
 validate(need(input$nc.r>=2, "The number of components must be >= 2"))
 score <- score.r()
-p<-MFSscore(score, input$c1.r, input$c2.r)
+p<-plot_score(score, input$c1.r, input$c2.r)
 plotly::ggplotly(p)
 #  ggplot(df, aes(x = df[,input$c1], y = df[,input$c2]))+
 #  geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
@@ -118,7 +118,7 @@ plotly::ggplotly(p)
 
 output$pls.l.plot  <- plotly::renderPlotly({ 
 load <- load.r()
-p<-MFSload(loads=load, a=pls()$ncomp)
+p<-plot_load(loads=load, a=pls()$ncomp)
 plotly::ggplotly(p)
 #ll$group <- rownames(ll)
 #loadings.m <- reshape::melt(ll, id="group",
@@ -141,7 +141,7 @@ output$pls.bp   <- plotly::renderPlotly({
   validate(need(input$nc.r>=2, "The number of components must be >= 2"))
   score <- score.r()
 load <- load.r()
-p<-MFSbiplot(score, load, input$c11.r, input$c22.r)
+p<-plot_biplot(score, load, input$c11.r, input$c22.r)
 plotly::ggplotly(p)
 #plot(pls(), plottype = c("biplot"), comps=c(input$c1.r,input$c2.r),var.axes = TRUE)
 })
@@ -154,7 +154,7 @@ validate(need(input$nc.r>=3, "The number of components must be >= 3"))
 score <- score.r()
 load <- load.r()
 
-MFS3D(scores=score, loads=load, nx=input$td1.r,ny=input$td2.r,nz=input$td3.r, scale=input$lines.r)
+plot_3D(scores=score, loads=load, nx=input$td1.r,ny=input$td2.r,nz=input$td3.r, scale=input$lines.r)
 
 
 # x <- scores[,input$td1.r]

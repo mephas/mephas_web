@@ -12,11 +12,11 @@ function(input, output, session) {
 	
 source("../func.R")
 ##########----------##########----------##########
-source("0data_server.R", local=TRUE)$value
+source("server_data.R", local=TRUE)$value
 
-source("1lm_server.R", local=TRUE)$value
+source("server_model.R", local=TRUE)$value
 
-source("2pr_server.R", local=TRUE)$value
+source("server_pr.R", local=TRUE)$value
 
 ##########----------##########----------##########
 

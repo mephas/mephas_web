@@ -10,15 +10,15 @@ function(input, output) {
   
 source("../func.R")
 ##########----------##########----------##########
-source("p1_server.R", local=TRUE)$value
-source("p2_server.R", local=TRUE)$value
-source("p4_server.R", local=TRUE)$value
-source("p3_server.R", local=TRUE)$value
-source("p5_server.R", local=TRUE)$value
-source("p6_server.R", local=TRUE)$value
-source("p7_server.R", local=TRUE)$value
-source("p8_server.R", local=TRUE)$value
-source("p9_server.R", local=TRUE)$value
+source("server_1_chi.R", local=TRUE)$value
+source("server_2_fisher.R", local=TRUE)$value
+source("server_3_mcnemar.R", local=TRUE)$value
+source("server_4_2cchi.R", local=TRUE)$value
+source("server_5_rcchi.R", local=TRUE)$value
+source("server_6_2kappa.R", local=TRUE)$value
+source("server_7_kappa.R", local=TRUE)$value
+source("server_8_mh.R", local=TRUE)$value
+source("server_9_cmh.R", local=TRUE)$value
 
 ##########----------##########----------##########
 

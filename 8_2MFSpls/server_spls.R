@@ -117,7 +117,7 @@ output$spls.s.plot  <- plotly::renderPlotly({
   validate(need(input$nc.s>=2, "The number of components must be >=2"))
 
   score <- score.s()
-  p<-MFSscore(score, input$c1.s, input$c2.s)
+  p<-plot_score(score, input$c1.s, input$c2.s)
   plotly::ggplotly(p)
 #df <- data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))
 
@@ -130,7 +130,7 @@ output$spls.s.plot  <- plotly::renderPlotly({
 
 output$spls.l.plot  <- plotly::renderPlotly({ 
 load <- load.s()
-p <- MFSload(loads=load, a=input$nc.s)
+p <- plot_load(loads=load, a=input$nc.s)
 plotly::ggplotly(p)
 # ll$group <- rownames(ll)
 # loadings.m <- reshape::melt(ll, id="group",
@@ -153,7 +153,7 @@ output$spls.biplot<- plotly::renderPlotly({
 validate(need(input$nc>=2, "The number of components must be >= 2"))
 score <- score.s()
 load <- load.s()
-p<-MFSbiplot(score, load, input$c11.s, input$c22.s)
+p<-plot_biplot(score, load, input$c11.s, input$c22.s)
 plotly::ggplotly(p)
 })
 
@@ -163,7 +163,7 @@ output$tdplot.s <- plotly::renderPlotly({
 score <- score.s()
 load <- load.s()
 
-MFS3D(scores=score, loads=load, nx=input$td1.s,ny=input$td2.s,nz=input$td3.s, scale=input$lines.s)
+plot_3D(scores=score, loads=load, nx=input$td1.s,ny=input$td2.s,nz=input$td3.s, scale=input$lines.s)
 
 # 
 # x <- scores[,input$td1.s]

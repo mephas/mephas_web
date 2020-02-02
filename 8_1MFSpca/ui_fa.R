@@ -16,6 +16,7 @@ h4(tags$b("Step 1. Choose parameters to build the model")),
 
 uiOutput('x.fa'), 
 
+
 numericInput("ncfa", "2. How many factors (a)", 4, min = 1, max = NA),
 p(tags$i("According to the suggested results from parallel analysis, we chose to generate 4 factors from the data")),
 hr(),
@@ -39,7 +40,7 @@ tabPanel("Correlation Matrix", p(br()),
 plotOutput("cor.fa.plot", width = "80%"),p(br()),
 DT::DTOutput("cor.fa")
 ),
-tabPanel("First Part of Data", br(),
+tabPanel("Part of Data", br(),
  p("Please edit data in Data tab"),
 DT::DTOutput("table.x.fa")
 )

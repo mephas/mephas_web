@@ -59,7 +59,7 @@ and (2) find the relations between birth weight and the other variables, that is
 ),
 
 hr(),
-source("0data_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_data.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 
 
@@ -95,7 +95,7 @@ HTML(
 ),
 
 hr(),
-source("1lm_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_model.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
 
@@ -135,7 +135,7 @@ Suppose in the same study, the doctors got another 6 infants data, and wanted to
 ),
 
 hr(),
-source("2pr_ui.R", local=TRUE, encoding="UTF-8")$value,
+source("ui_pr.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ),
 ##########----------##########----------##########

@@ -36,7 +36,7 @@ mainPanel(
 
 h4(tags$b("Output 1. Data Preview")),
 p(br()),
-p(tags$b("First Part of Data")),
+p(tags$b("Part of Data")),
  p("Please edit data in Data tab"),
 DT::DTOutput("pcr.x"),
 

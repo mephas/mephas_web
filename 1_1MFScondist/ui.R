@@ -1,4 +1,4 @@
-if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
+#if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
 shinyUI(
 
@@ -8,6 +8,7 @@ source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 tags$head(includeScript("../0tabs/navtitle.js")),
 tags$style(type="text/css", "body {padding-top: 70px;}"),
 source("../0tabs/onoff.R", local=TRUE)$value,
+#tabof(),
 
 navbarPage(
 theme = shinythemes::shinytheme("cerulean"),

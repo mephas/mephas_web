@@ -50,7 +50,7 @@ We wanted to determine if OC use was significantly associated with higher MI inc
 ),
 hr(),
 
-source("1_chi_ui.R", local=TRUE)$value,
+source("ui_1_chi.R", local=TRUE)$value,
 
 hr()
 ),
@@ -93,7 +93,7 @@ We wanted to determine if CVD was significantly associated with high salt diet.
 ),
 hr(),
 
-source("2_fisher_ui.R", local=TRUE)$value,
+source("ui_2_fisher.R", local=TRUE)$value,
 hr()
 ),
 
@@ -145,7 +145,7 @@ In 16 pairs, only group after treatment A were better; in 5 pairs, only group af
 ),
 hr(),
 
-source("3_mcnemar_ui.R", local=TRUE)$value,
+source("ui_3_mcnemar.R", local=TRUE)$value,
 
 hr()
 ),
@@ -186,7 +186,7 @@ We wanted to know if the probability to have cancer were different among differe
 ),
 hr(),
 
-source("4_2cchi_ui.R", local=TRUE)$value,
+source("ui_4_2cchi.R", local=TRUE)$value,
 
 hr()
 ),
@@ -230,7 +230,7 @@ We wanted to know if the treatments had significant association with the respons
 ),
 
 hr(),
-source("5_rcchi_ui.R", local=TRUE)$value,
+source("ui_5_rcchi.R", local=TRUE)$value,
 hr()
 ),
 
@@ -267,7 +267,7 @@ We wanted to check if the two answers were reproducible or whether the two surve
 ),
 
 hr(),
-source("6_2kappa_ui.R", local=TRUE)$value,
+source("ui_6_2kappa.R", local=TRUE)$value,
 
 hr()
 
@@ -313,7 +313,7 @@ We wanted to know whether the surveys were good in concordant response.
 ),
 
 hr(),
-source("7_kappa_ui.R", local=TRUE)$value,
+source("ui_7_kappa.R", local=TRUE)$value,
 
 hr()
 
@@ -356,7 +356,7 @@ We wanted to know if passive smoking significantly related to cancer risk after 
 ),
 
 hr(),
-source("8_mh_ui.R", local=TRUE)$value,
+source("ui_8_mh.R", local=TRUE)$value,
 
 hr()
 
@@ -399,7 +399,7 @@ We wanted to know if ages significantly related to snoring after controlling gen
 ),
 
 hr(),
-source("9_cmh_ui.R", local=TRUE)$value,
+source("ui_9_cmh.R", local=TRUE)$value,
 
 hr()
 

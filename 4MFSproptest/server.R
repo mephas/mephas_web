@@ -11,13 +11,13 @@ function(input, output) {
 source("../func.R")
 ##########----------##########----------##########
 
-source("p1_server.R", local=TRUE)$value
+source("server_1.R", local=TRUE)$value
   
-source("p2_server.R", local=TRUE)$value
+source("server_2.R", local=TRUE)$value
 
-source("p3_server.R", local=TRUE)$value
+source("server_3.R", local=TRUE)$value
 
-source("p4_server.R", local=TRUE)$value
+source("server_t.R", local=TRUE)$value
 
 ##########----------##########----------##########
 

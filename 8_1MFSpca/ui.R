@@ -1,6 +1,7 @@
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 shinyUI(
 
+##########----------##########----------####################----------##########----------####################----------##########----------##########
 tagList(
 
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
@@ -10,10 +11,16 @@ source("../0tabs/onoff.R", local=TRUE)$value,
 
 navbarPage(
 theme = shinythemes::shinytheme("cerulean"),
+
+
 title = a("Dimensional Analysis 1", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
+
+
 collapsible = TRUE,
 id="navibar", 
 position="fixed-top",
+
+
 ##########----------##########----------##########
 
 tabPanel("Data",
@@ -144,4 +151,6 @@ tabPanel(tags$button(
 navbarMenu("",icon=icon("link"))
 
 ))
+
+##########----------##########----------####################----------##########----------####################----------##########----------##########
 )

@@ -10,9 +10,9 @@ function(input, output) {
 ##########----------##########----------##########
 source("../func.R")
 
-source("p1_server.R", local=TRUE)$value
+source("server_bio.R", local=TRUE)$value
 
-source("p2_server.R", local=TRUE)$value
+source("server_poi.R", local=TRUE)$value
 
 
 ##########----------##########----------##########

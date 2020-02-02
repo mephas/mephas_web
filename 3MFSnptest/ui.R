@@ -57,7 +57,7 @@ We wanted to know if the DRS of patients was significantly greater than 1.
 ),
 
 hr(),
-source("p1_ui.R", local=TRUE)$value,
+source("ui_1.R", local=TRUE)$value,
 hr()
 
 ),
@@ -105,7 +105,7 @@ We wanted to know if the DRS of patients was significantly different among diffe
 ),
 
 hr(),
-source("p2_ui.R", local=TRUE)$value,
+source("ui_2.R", local=TRUE)$value,
 hr()
 
 ),
@@ -156,7 +156,7 @@ We wanted to know if the DRS of patients before and after were significantly; or
 ),
 
 hr(),
-source("p3_ui.R", local=TRUE)$value,
+source("ui_p.R", local=TRUE)$value,
 hr()
 
 ),

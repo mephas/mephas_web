@@ -23,8 +23,8 @@
 
 fluidPage(
 
-	switchInput(
-			   inputId = "explain_on_off",
+	switchInput(#
+			   inputId = "explain_on_off",#
 			   label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
 			    inline = TRUE,
 			    onLabel = "Show",
@@ -32,3 +32,20 @@ fluidPage(
 			    size = "mini"
 			    )
 	)
+
+##' @title tab functions in MEPHAS
+##'
+##' @export
+#tabof <- function(){
+#  fluidPage(
+    
+#  shinyWidgets::switchInput(
+#         inputId = "explain_on_off",
+#         label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
+#          inline = TRUE,
+#          onLabel = "Show",
+#          offLabel = "Hide",
+#          size = "mini"
+##          )
+#  )
+#}

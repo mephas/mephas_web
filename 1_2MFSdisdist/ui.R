@@ -42,7 +42,7 @@ Suppose we wanted to know the probability of 2 lymphocytes of 10 white blood cel
 )
 ),
 hr(),
-source("p1_ui.R", local=TRUE)$value,
+source("ui_bio.R", local=TRUE)$value,
 hr()
 
 ),
@@ -73,7 +73,7 @@ What is the probability distribution of the number of deaths over a 6-month peri
 )
 ),
 hr(),
-source("p2_ui.R", local=TRUE)$value,
+source("ui_poi.R", local=TRUE)$value,
 hr()
 
 ),

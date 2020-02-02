@@ -52,7 +52,7 @@ We wanted to the know the FEF differences among the 6 groups.
 
 hr(),
 
-source("p1_ui.R", local=TRUE)$value,
+source("ui_1.R", local=TRUE)$value,
 
 hr()
 ),
@@ -91,7 +91,7 @@ We wanted to the know in which pairs of the 6 groups, FEF were significantly dif
 )
 ),
 hr(),
-source("p3_ui.R", local=TRUE)$value,
+source("ui_1m.R", local=TRUE)$value,
 hr()
 ),
 
@@ -135,7 +135,7 @@ We wanted to know the effect of dietary group and sex on the SPB and whether the
 
 hr(),
 
-source("p2_ui.R", local=TRUE)$value,
+source("ui_2.R", local=TRUE)$value,
 hr()
 ),
 #
@@ -175,7 +175,7 @@ We wanted to know the pairwise effect of dietary group and sex on the SPB. For e
 )
 ),
 hr(),
-source("p4_ui.R", local=TRUE)$value,
+source("ui_2m.R", local=TRUE)$value,
 hr()
 ),
 
@@ -215,7 +215,7 @@ We wanted to the know the FEF differences among the 6 groups.
 )
 ),
 hr(),
-source("p5_ui.R", local=TRUE)$value,
+source("ui_np1.R", local=TRUE)$value,
 hr()
 ),
 
@@ -255,7 +255,7 @@ We wanted to know the pairwise effect of dietary group and sex on the SPB. For e
 )
 ),
 hr(),
-source("p6_ui.R", local=TRUE)$value,
+source("ui_np1m.R", local=TRUE)$value,
 hr()
 ),
 ##########----------##########----------##########

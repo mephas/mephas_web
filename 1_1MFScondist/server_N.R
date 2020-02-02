@@ -43,7 +43,7 @@ output$norm.plot2 = plotly::renderPlotly({
 
   df = N()
   x <- names(df)
-p<-MFShist1c(df, x, input$bin)
+p<-plot_hist1c(df, x, input$bin)
 p<-p+geom_vline(aes(xintercept=quantile(x, probs = input$pr, na.rm=TRUE)), color="red", size=0.3)
 plotly::ggplotly(p)
 # df = N()
@@ -105,7 +105,7 @@ output$makeplot.1 <- plotly::renderPlotly({
 
   df = NN()
   x <- names(df)
-  p<-MFShist1(df, x, input$bin1)
+  p<-plot_hist1(df, x, input$bin1)
   p<-p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$pr, na.rm=TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
 
@@ -122,7 +122,7 @@ output$makeplot.2 <- plotly::renderPlotly({
   
   df = NN()
   x <- names(df)
-  p<-MFSdensity1(df, x)
+  p<-plot_density1(df, x)
   p<-p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$pr, na.rm=TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
 

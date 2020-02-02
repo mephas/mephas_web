@@ -45,7 +45,7 @@ numericInput("cv.eta", "Parameter for selection range (larger number chooses les
 p("This result chooses optimal parameters using 10-fold cross-validation which split data randomly, so the result will not be exactly the same every time."),
 verbatimTextOutput("spls_cv")
   ),
-tabPanel("First Part of Data", br(),
+tabPanel("Part of Data", br(),
  p("Please edit data in Data tab"),
 DT::DTOutput("spls.x")
 )

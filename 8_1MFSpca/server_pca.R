@@ -29,7 +29,7 @@ output$cor <- DT::renderDT({
     scrollX = TRUE))
 
 output$cor.plot   <- renderPlot({ 
-MFScorr(DF4())
+plot_corr(DF4())
 #c <- as.data.frame(cor(DF4()))
 #c$group <- rownames(c)
 #corrs.m <- reshape::melt(c, id="group",
@@ -110,7 +110,7 @@ validate(need(input$nc>=2, "Components are not enough to create the plot."))
 df <- as.data.frame(pca()$x)
 if (input$frame == FALSE) {
 df$group <- rep(1, nrow(df))
-p<-MFSscore(df, input$c1, input$c2)
+p<-plot_score(df, input$c1, input$c2)
 plotly::ggplotly(p)
 #ggplot(df,aes(x = df[,input$c1], y = df[,input$c2], color=group, label=rownames(df)))+
 #geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
@@ -120,7 +120,7 @@ plotly::ggplotly(p)
 }
 else {
 df$group <- X()[,input$g]
-p<-MFSscorec(df, input$c1, input$c2, input$type)
+p<-plot_scorec(df, input$c1, input$c2, input$type)
 plotly::ggplotly(p)
 #ggplot(df, aes(x = df[,input$c1], y = df[,input$c2], color=group,label=rownames(df)))+
 #geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
@@ -134,7 +134,7 @@ plotly::ggplotly(p)
 output$pca.ind2  <- plotly::renderPlotly({ 
 #validate(need(input$nc>=1, "Components are not enough to create the plot."))
 load <- as.data.frame(pca()$rotation)
-p<-MFSload(loads=load, a=input$nc)
+p<-plot_load(loads=load, a=input$nc)
 plotly::ggplotly(p)
 
 #ll$group <- rownames(ll)
@@ -172,7 +172,7 @@ output$pca.bp   <- plotly::renderPlotly({
 validate(need(input$nc>=2, "Components are not enough to create the plot."))
 score <- as.data.frame(pca()$x)
 load <- as.data.frame(pca()$rotation)
-p<- MFSbiplot(score, load, input$c11, input$c22)
+p<- plot_biplot(score, load, input$c11, input$c22)
 plotly::ggplotly(p)
 #biplot(pca(), choice=c(input$c1,input$c2))
 })
@@ -186,7 +186,7 @@ validate(need(input$nc>=3, "Components are not enough to create the plot."))
 score <- as.data.frame(pca()$x)
 load <- as.data.frame(pca()$rotation)
 
-MFS3D(scores=score, loads=load, nx=input$td1,ny=input$td2,nz=input$td3, scale=input$lines)
+plot_3D(scores=score, loads=load, nx=input$td1,ny=input$td2,nz=input$td3, scale=input$lines)
 
 # Scale factor for loadings
 #scale.loads <- input$lines
