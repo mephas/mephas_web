@@ -7,7 +7,7 @@ if (!require("psych")) {install.packages("psych")}; library("psych")
 if (!require("reshape2")) {install.packages("reshape2")}; library("reshape2")
 if (!require("survAUC")) {install.packages("survAUC")}; library("survAUC")
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
- 
+
 #shinyServer(
 
 function(input, output, session) {

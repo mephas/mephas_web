@@ -1,50 +1,60 @@
-##----------#----------#----------#----------
-##
-## ONOFF tab
-##
-## Language: EN
-## 
-## DT: 2019-01-09
-##
-##----------#----------#----------#----------
+tabstop <- function(){
+        navbarMenu("", icon = icon("power-off"),
+           tabPanel(
+                   actionLink(
+                           "close", "Stop", 
+                           icon = icon("power-off"),
+                           onclick = "setTimeout(function(){window.close();}, 100);"
+                   )
+           ),
+           tabPanel(
+                   tags$a("",
+                          #target = "_blank",
+                          #style = "margin-top:-30px; color:DodgerBlue",
+                          href = paste0("javascript:history.go(0)"),#,
+                          list(icon("redo"), "Restart"))
+           )
+)
+}
 
-#tabPanel(switchInput(
-#   inputId = "explain_on_off",
-#   label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
-#    #labelWidth = "250px",
-#    inline = TRUE,
-##handleWidth = "100px",
-#    size = "mini"
-#)
-#)
+tablink <- function(){
+        navbarMenu("", icon = icon("link"),
+                   tabPanel(
+                           tags$a("",
+                                  target = "_blank",
+                                  #style = "margin-top:-30px; color:DodgerBlue",
+                                  href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas/","index.html"),#,
+                                  list(icon("home"), "Home Page"))
+                   ),
+                   
+                   tabPanel(
+                           tags$a("",
+                                  target = "_blank",
+                                  #style = "margin-top:-30px; color:DodgerBlue",
+                                  href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas/","index.html"),#,
+                                  list(icon("question-circle"), "Tutorial"))
+                    ),
+                   tabPanel(
 
-#tabPanel("",icon = icon("fa-book"),value = "hint")
+                          tags$a("",
+                                target = "_blank",
+                                #style = "margin-top:-30px; color:DodgerBlue",
+                                href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas/","index.html"),#,
+                                list(icon("video"), "Video"))
+                   )
+              )       
+}
 
 
-#fluidPage(#
-#	shinyWidgets::switchInput(#
-#			   inputId = "explain_on_off",#
-#			   label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
-#			    inline = TRUE,
-#			    onLabel = "Show",
-#			    offLabel = "Hide",
-#			    size = "mini"
-#			    )
-#	)
-
-##' @title tab functions in MEPHAS
-##'
-##' @export
-tabof <- function(){
- fluidPage(
-
- shinyWidgets::switchInput(
-        inputId = "explain_on_off",
-        label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
-         inline = TRUE,
-         onLabel = "Show",
-         offLabel = "Hide",
-         size = "mini"
-          )
- )
+tabOF <- function(){
+fluidPage(#
+shinyWidgets::switchInput(#
+       inputId = "explain_on_off",#
+       label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
+        inline = TRUE,
+        onLabel = "Show",
+        offLabel = "Hide",
+        size = "mini"
+        )
+)
 }

@@ -1,14 +1,24 @@
 #****************************************************************************************************************************************************aft
 
-output$var = renderUI({
-selectInput(
+#output$var = renderUI({
+#selectInput(
+#'var',
+#tags$b('2. Choose some independent variables (X)'),
+#selected = names(DF4())[1],
+#choices = names(DF4()),
+#multiple=TRUE)
+#})
+output$x = renderUI({
+shinyWidgets::pickerInput(
 'var',
-tags$b('2. Choose some independent variables (X)'),
-selected = names(DF4())[1],
+tags$b('2. Add / Remove independent variables (X)'),
+selected = names(DF4()),
 choices = names(DF4()),
-multiple=TRUE)
+multiple = TRUE,
+options = list(
+      `actions-box` = TRUE)
+)
 })
-
 
 output$fx.c = renderUI({
 selectInput(

@@ -5,7 +5,7 @@ sidebarLayout(
 sidebarPanel(
 
 h4(tags$b("Test Set Preparation")),
-p("Prepare model in the previous Model tab"),
+p("Prepare model first"),
 
 tabsetPanel(
 

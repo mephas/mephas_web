@@ -2,7 +2,7 @@
 
 namesm2 <- reactive({
   x <- unlist(strsplit(input$cnm2, "[\n]"))
-  return(x[1:2])
+  return(x[1:3])
   }) 
 
 level21m <- reactive({
