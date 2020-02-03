@@ -47,8 +47,8 @@ tabPanel("Upload Data", p(br()),
     fileInput('filem2', "1. Choose CSV/TXT file",
               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
     #helpText("The columns of X are not suggested greater than 500"),
-    p(tags$b("2. Show 1st row as header?")),
-    checkboxInput("headerm2", "Show Data Header?", TRUE),
+    p(tags$b("2. Use 1st row as column names?")),
+    checkboxInput("headerm2", "Yes", TRUE),
     p(tags$b("3. Use 1st column as row names? (No duplicates)")),
     checkboxInput("colm2", "Yes", TRUE),
 
@@ -99,8 +99,8 @@ hr(),
       HTML(
   "<b> Explanations </b>
 
-    <li> <b>Scheffe</b> procedure controls for the search over any possible contrast
-    <li> <b>Tukey Honest Significant Difference</b> is preferred if there are unequal group sizes among the experimental and control groups
+    <li> <b>Scheffe</b> procedure controls for the search over any possible contrast</li>
+    <li> <b>Tukey Honest Significant Difference</b> is preferred if there are unequal group sizes among the experimental and control groups</li>
   "
     )
 
@@ -162,8 +162,8 @@ mainPanel(
         HTML(
   "<b> Explanations </b>
   <ul> 
-    <li> In the matrix, P < 0.05 indicates the statistical significant in the pairs
-    <li> In the matrix, P >= 0.05 indicates no statistically significant differences in the pairs
+    <li> In the matrix, P < 0.05 indicates the statistical significant in the pairs</li>
+    <li> In the matrix, P >= 0.05 indicates no statistically significant differences in the pairs</li>
   </ul>"
     ),
     conditionalPanel(

@@ -92,8 +92,8 @@ sidebarPanel(
      HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then the factors have significant differences on the paired samples. (Accept alternative hypothesis)
-    <li> P Value >= 0.05, then the factors have no significant differences. (Accept null hypothesis)
+    <li> P Value < 0.05, then the factors have significant differences on the paired samples. (Accept alternative hypothesis)</li>
+    <li> P Value >= 0.05, then the factors have no significant differences. (Accept null hypothesis)</li>
     </ul>"
   ),
 conditionalPanel(

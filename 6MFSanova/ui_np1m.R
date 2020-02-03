@@ -44,8 +44,8 @@ tabPanel("Upload Data", p(br()),
     fileInput('filenp2', "1. Choose CSV/TXT file",
               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
     #helpText("The columns of X are not suggested greater than 500"),
-    p(tags$b("2. Show 1st row as header?")),
-    checkboxInput("headernp2", "Show Data Header?", TRUE),
+    p(tags$b("2. Use 1st row as column names?")),
+    checkboxInput("headernp2", "Yes", TRUE),
     p(tags$b("3. Use 1st column as row names? (No duplicates)")),
     checkboxInput("colnp2", "Yes", TRUE),
 
@@ -93,13 +93,13 @@ hr(),
   HTML(
   "<b> Explanations </b>
 
-    <li> <b>Bonferroni</b> adjusted p-values = max(1, pm); m= k(k-1)/2 multiple pairwise comparisons
-    <li> <b>Sidak</b> adjusted p-values = max(1, 1 - (1 - p)^m)
-    <li> <b>Holm's</b>  adjusted p-values = max[1, p(m+1-i)]; i is ordering index
-    <li> <b>Holm-Sidak</b> adjusted p-values = max[1, 1 - (1 - p)^(m+1-i)]
-    <li> <b>Hochberg's</b> adjusted p-values = max[1, p*i]
-    <li> <b>Benjamini-Hochberg</b> adjusted p-values = max[1, pm/(m+1-i)]
-    <li> <b>Benjamini-Yekutieli</b> adjusted p-values = max[1, pmC/(m+1-i)]; C = 1 + 1/2 + ... + 1/m
+    <li> <b>Bonferroni</b> adjusted p-values = max(1, pm); m= k(k-1)/2 multiple pairwise comparisons</li>
+    <li> <b>Sidak</b> adjusted p-values = max(1, 1 - (1 - p)^m)</li>
+    <li> <b>Holm's</b>  adjusted p-values = max[1, p(m+1-i)]; i is ordering index</li>
+    <li> <b>Holm-Sidak</b> adjusted p-values = max[1, 1 - (1 - p)^(m+1-i)]</li>
+    <li> <b>Hochberg's</b> adjusted p-values = max[1, p*i]</li>
+    <li> <b>Benjamini-Hochberg</b> adjusted p-values = max[1, pm/(m+1-i)]</li>
+    <li> <b>Benjamini-Yekutieli</b> adjusted p-values = max[1, pmC/(m+1-i)]; C = 1 + 1/2 + ... + 1/m</li>
 
   "
     )

@@ -67,8 +67,8 @@ sidebarLayout(
         fileInput('file.p', "1. Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
-        p(tags$b("2. Show 1st row as header?")),
-        checkboxInput("header.p", "Show Data Header?", TRUE),
+        p(tags$b("2. Use 1st row as cloumn names?")),
+        checkboxInput("header.p", "Yes", TRUE),
 
         p(tags$b("3. Use 1st column as row names? (No duplicates)")),
         checkboxInput("col.p", "Yes", TRUE),

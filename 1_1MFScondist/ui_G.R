@@ -23,10 +23,10 @@ sidebarLayout(
 		numericInput("g.scale", HTML("&#952 > 0, Scale parameter"), value = 0.5, min = 0),
 		hr(),
 		tags$b(" 2. Show Probability"),   
-	 	numericInput("g.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
+	 	numericInput("g.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
  		hr(),
 	 	p(tags$b("You can adjust x-axes range")), 
-		numericInput("g.xlim", "Range of x-asis, > 0", value = 20, min = 1)
+		numericInput("g.xlim", "Range of x-axis, > 0", value = 20, min = 1)
 		#numericInput("g.ylim", "Range of y-asis, > 0", value = 0.5, min = 0.1, max = 3),
 	  ),
 	  #condiPa 1 end
@@ -62,8 +62,8 @@ sidebarLayout(
         	fileInput('g.file', "1. Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
-        p(tags$b("2. Show 1st row as header?")),
-        checkboxInput("g.header", "Show Data Header?", TRUE),
+        p(tags$b("2. Use 1st row as cloumn names?")),
+        checkboxInput("g.header", "Yes", TRUE),
         p(tags$b("3. Use 1st column as row names? (No duplicates)")),
         checkboxInput("g.col", "Yes", TRUE),
 
@@ -99,7 +99,7 @@ mainPanel(
 		  tags$b("Gamma distribution plot"),
 		  plotOutput("g.plot", click = "plot_click11", width = "80%"),
          verbatimTextOutput("g.info"), 
-		 p(tags$b("The position of Red-line, x0")),
+		 p(tags$b("The position of Red-line, x<sub>0</sub>")),
          tableOutput("g")
 		),
 		
@@ -118,8 +118,8 @@ mainPanel(
     " 
     <b> Explanation </b>
    <ul>
-    <li>  Rate = &#946=1/&#952
-    <li>  Mean = &#945*&#952
+    <li>  Rate = &#946=1/&#952 </li>
+    <li>  Mean = &#945*&#952 </li>
    </ul>
     "
     )

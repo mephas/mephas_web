@@ -21,18 +21,18 @@ sidebarLayout(
 	    #h3("Draw a Normal Distribution"), p(br()),
 
 	    HTML("<b>1. Set Parameters for N(&#956, &#963)</b>"), 
-	    numericInput("mu", HTML("Mean (&#956), the dashed line, indicates the location  "), value = 0, min = -10000000, max = 10000000),
-	    numericInput("sigma", HTML("Standard Deviation (&#963), indicates the shape"), value = 1, min = 0, max = 10000000),
+	    numericInput("mu", HTML("Mean(&#956), the dashed line, indicates the location  "), value = 0, min = -10000000, max = 10000000),
+	    numericInput("sigma", HTML("Standard Deviation(&#963), indicates the shape"), value = 1, min = 0, max = 10000000),
 	    hr(),
 	    
 	    (tags$b("2. Show Probability")),   
 	    numericInput("n", HTML("Blue Area = Pr(Mean-n*SD < X < Mean+n*SD)"), value = 1, min = 0, max = 10),
-	    numericInput("pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 is the position of Red-line"), value = 0.025, min = 0, max = 1, step = 0.05),
+	    numericInput("pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.025, min = 0, max = 1, step = 0.05),
 	    
 	    hr(),
 	    p(tags$b("You can adjust x-axes range")), 
-	    numericInput("xlim", "Range of x-asis, symmetric to 0", value = 5, min = 1, max = 10000000)
-	    #numericInput("ylim", "Range of y-asis > 0", value = 0.5, min = 0.1, max = 1),
+	    numericInput("xlim", "Range of x-axis, symmetric to 0", value = 5, min = 1, max = 10000000)
+	    #numericInput("ylim", "Range of y-axis > 0", value = 0.5, min = 0.1, max = 1),
 	  ),
 	  #condiPa 1 end
 	
@@ -67,8 +67,8 @@ sidebarLayout(
 	        fileInput('file', "1. Choose CSV/TXT file",
 	                  accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 	        
-	        p(tags$b("2. Show 1st row as header?")),
-	        checkboxInput("header", "Show Data Header?", TRUE),
+	        p(tags$b("2. Use the 1st row as column names?")),
+	        checkboxInput("header", "Yes", TRUE),
 	        
 	        p(tags$b("3. Use 1st column as row names? (No duplicates)")),
 	        checkboxInput("col", "Yes", TRUE),

@@ -67,14 +67,14 @@ HTML(
 "
 <b> Explanations  </b>
 <ul>
-<li> For each variable, estimated coefficients (95% confidence interval), T statistic (t = ) for the significance of single variable, and P value (p = ) are given
-<li> T test of each variable and P < 0.05 indicates this variable is statistical significant to the model
-<li> Observations means the number of samples
+<li> For each variable, estimated coefficients (95% confidence interval), T statistic (t = ) for the significance of single variable, and P value (p = ) are given</li>
+<li> T test of each variable and P < 0.05 indicates this variable is statistical significant to the model</li>
+<li> Observations means the number of samples</li>
 <li> R2 (R<sup>2</sup>) is a goodness-of-fit measure for linear regression models, and indicates the percentage of the variance in the dependent variable that the independent variables explain collectively.
-Suppose R2 = 0.49. This implies that 49% of the variability of the dependent variable has been accounted for, and the remaining 51% of the variability is still unaccounted for.
-<li> Adjusted R2 (adjusted R<sup>2</sup>) is used to compare the goodness-of-fit for regression models that contain differing numbers of independent variables.
+Suppose R2 = 0.49. This implies that 49% of the variability of the dependent variable has been accounted for, and the remaining 51% of the variability is still unaccounted for.</li>
+<li> Adjusted R2 (adjusted R<sup>2</sup>) is used to compare the goodness-of-fit for regression models that contain differing numbers of independent variables.</li>
 <li> F statistic (F-Test for overall significance in regression) judges on multiple coefficients taken together at the same time. 
-     F=(R^2/(k-1))/(1-R^2)/(n-k); n is sample size; k is number of variable + constant term
+     F=(R^2/(k-1))/(1-R^2)/(n-k); n is sample size; k is number of variable + constant term</li>
 </ul>
 "
 ),
@@ -92,11 +92,11 @@ tabPanel("ANOVA",  br(),
 HTML(
 "<b> Explanations </b>
 <ul> 
-<li> DF<sub>variable</sub> = 1
-<li> DF<sub>residual</sub> = [number of sample values] - [number of variables] -1
-<li> MS = SS/DF
-<li> F = MS<sub>variable</sub> / MS<sub>residual</sub> 
-<li> P Value < 0.05:  the variable is significant to the model.
+<li> DF<sub>variable</sub> = 1</li>
+<li> DF<sub>residual</sub> = [number of sample values] - [number of variables] -1</li>
+<li> MS = SS/DF</li>
+<li> F = MS<sub>variable</sub> / MS<sub>residual</sub> </li>
+<li> P Value < 0.05:  the variable is significant to the model.</li>
 </ul>"
     ),
     p(tags$b("ANOVA Table")),  
@@ -106,9 +106,9 @@ tabPanel("AIC-based Selection",  br(),
     HTML(
     "<b> Explanations </b>
   <ul> 
-    <li> The Akaike Information Criterion (AIC) is a way of selecting a model from a set of models. 
-    <li> Model fits are ranked according to their AIC values, and the model with the lowest AIC value is sometime considered the ‘best’. 
-    <li> This selection is just for your reference.
+    <li> The Akaike Information Criterion (AIC) is a way of selecting a model from a set of models. </li>
+    <li> Model fits are ranked according to their AIC values, and the model with the lowest AIC value is sometime considered the ‘best’. </li>
+    <li> This selection is just for your reference.</li>
   </ul>"
     ),
 
@@ -121,8 +121,8 @@ tabPanel("Diagnostics Plot",   br(),
 HTML(
 "<b> Explanations </b>
 <ul> 
-<li> Q-Q normal plot of residuals checks the normality of residuals. The linearity of the points suggests that the data are normally distributed.
-<li> Residuals vs fitting plot finds the outliers
+<li> Q-Q normal plot of residuals checks the normality of residuals. The linearity of the points suggests that the data are normally distributed.</li>
+<li> Residuals vs fitting plot finds the outliers</li>
 </ul>"
 ),
 p(tags$b("1. Q-Q normal plot of residuals")),

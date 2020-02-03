@@ -17,14 +17,14 @@ sidebarLayout(
 	  conditionalPanel(
 	    condition = "input.InputSrc_f == 'MathDist'",
 	    HTML("<h4><b>Step 1. Set Parameters</b></h4>"), 
-		numericInput("df11", HTML("df1 > 0, Degree of Freedom 1"), value = 100, min = 0),
-		numericInput("df21", HTML("df2 > 0, Degree of Freedom 2"), value = 100, min = 0),
+		numericInput("df11", HTML("df<sub>1</sub> > 0, Degree of Freedom 1"), value = 100, min = 0),
+		numericInput("df21", HTML("df<sub>2</sub> > 0, Degree of Freedom 2"), value = 100, min = 0),
 		hr(),
 		h4(tags$b("Step 2. Show Probability")),   
-	 	numericInput("f.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
+	 	numericInput("f.pr", HTML("Area Proportion Left to Red-line = Pr(X < x0), x0 is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
 		hr(),
 	 	p(tags$b("You can adjust x-axes range")), 
-		numericInput("f.xlim", "Range of x-asis, > 0", value = 5, min = 1)
+		numericInput("f.xlim", "Range of x-axis, > 0", value = 5, min = 1)
 	  ),
 	 #condiPa 1 end
 	
@@ -57,8 +57,8 @@ sidebarLayout(
       		fileInput('f.file', "1. Choose CSV/TXT file",
                 accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
-     		p(tags$b("2. Show 1st row as header?")),
-     		checkboxInput("f.header", "Show Data Header?", TRUE),
+     		p(tags$b("2. Use 1st row as column names?")),
+     		checkboxInput("f.header", "Yes", TRUE),
 
      		p(tags$b("3. Use 1st column as row names? (No duplicates)")),
       		checkboxInput("f.col", "Yes", TRUE),

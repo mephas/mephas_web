@@ -48,8 +48,8 @@ tabPanel("Upload Data", p(br()),
     fileInput('file', "1. Choose CSV/TXT file",
               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
     #helpText("The columns of X are not suggested greater than 500"),
-    p(tags$b("2. Show 1st row as header?")),
-    checkboxInput("header", "Show Data Header?", TRUE),
+    p(tags$b("2. Use 1st row as column names?")),
+    checkboxInput("header", "Yes", TRUE),
     p(tags$b("3. Use 1st column as row names? (No duplicates)")),
     checkboxInput("col", "Yes", TRUE),
 
@@ -133,13 +133,13 @@ mainPanel(
   HTML(
   "<b> Explanations </b>
   <ul> 
-    <li> DF<sub>Factor</sub> = [number of factor group categories] -1
-    <li> DF<sub>Interaction</sub> = DF<sub>Factor1</sub> x DF<sub>Factor2</sub>  
-    <li> DF<sub>Residuals</sub> = [number of sample values] - [number of factor1 group categories] x [number of factor2 group categories]
-    <li> MS = SS/DF
-    <li> F = MS<sub>Factor</sub> / MS<sub>Residuals</sub>
-    <li> P Value < 0.05, then the population means are significantly different among factor groups. (Accept alternative hypothesis)
-    <li> P Value >= 0.05, then there is NO significant differences in the factor groups. (Accept null hypothesis) 
+    <li> DF<sub>Factor</sub> = [number of factor group categories] -1</li>
+    <li> DF<sub>Interaction</sub> = DF<sub>Factor1</sub> x DF<sub>Factor2</sub></li>  
+    <li> DF<sub>Residuals</sub> = [number of sample values] - [number of factor1 group categories] x [number of factor2 group categories]</li>
+    <li> MS = SS/DF</li>
+    <li> F = MS<sub>Factor</sub> / MS<sub>Residuals</sub></li>
+    <li> P Value < 0.05, then the population means are significantly different among factor groups. (Accept alternative hypothesis)</li>
+    <li> P Value >= 0.05, then there is NO significant differences in the factor groups. (Accept null hypothesis) </li>
   </ul>"
     ),
 

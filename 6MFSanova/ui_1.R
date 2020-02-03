@@ -45,8 +45,8 @@ tabPanel("Upload Data", p(br()),
     fileInput('file1', "1. Choose CSV/TXT file",
               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
     #helpText("The columns of X are not suggested greater than 500"),
-    p(tags$b("2. Show 1st row as header?")),
-    checkboxInput("header1", "Show Data Header?", TRUE),
+    p(tags$b("2. Use 1st row as column names?")),
+    checkboxInput("header1", "Yes", TRUE),
     p(tags$b("3. Use 1st column as row names? (No duplicates)")),
     checkboxInput("col1", "Yes", TRUE),
 
@@ -103,9 +103,9 @@ mainPanel(
     HTML(
     "<b> Explanations </b>
     <ul>
-      <li> The band inside the box is the median
-      <li> The box measures the difference between 75th and 25th percentiles
-      <li> Outliers will be in red, if existing
+      <li> The band inside the box is the median</li>
+      <li> The box measures the difference between 75th and 25th percentiles</li>
+      <li> Outliers will be in red, if existing</li>
     </ul>"
       
     )
@@ -125,12 +125,12 @@ mainPanel(
   HTML(
   "<b> Explanations </b>
   <ul> 
-    <li> DF<sub>Factor</sub> = [number of factor group categories] -1
-    <li> DF<sub>Residuals</sub> = [number of sample values] - [number of factor group categories]
-    <li> MS = SS/DF
-    <li> F = MS<sub>Factor</sub> / MS<sub>Residuals</sub> 
-    <li> P Value < 0.05, then the population means are significantly different among factor groups. (Accept alternative hypothesis)
-    <li> P Value >= 0.05, then there is NO significant differences in the factor groups. (Accept null hypothesis) 
+    <li> DF<sub>Factor</sub> = [number of factor group categories] -1</li>
+    <li> DF<sub>Residuals</sub> = [number of sample values] - [number of factor group categories]</li>
+    <li> MS = SS/DF</li>
+    <li> F = MS<sub>Factor</sub> / MS<sub>Residuals</sub> </li>
+    <li> P Value < 0.05, then the population means are significantly different among factor groups. (Accept alternative hypothesis)</li>
+    <li> P Value >= 0.05, then there is NO significant differences in the factor groups. (Accept null hypothesis) </li>
   </ul>"
     ),
     conditionalPanel(

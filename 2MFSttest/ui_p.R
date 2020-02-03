@@ -40,8 +40,8 @@ sidebarPanel(
     fileInput('file.p', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
-        p(tags$b("2. Show 1st row as header?")),
-        checkboxInput("header.p", "Show Data Header?", TRUE),
+        p(tags$b("2. Use 1st row as column names?")),
+        checkboxInput("header.p", "Yes", TRUE),
         p(tags$b("3. Use 1st column as row names? (No duplicates)")),
         checkboxInput("col.p", "Yes", TRUE),
              # Input: Select separator ----
@@ -113,9 +113,9 @@ sidebarPanel(
           HTML(
           "<b> Explanations </b>
           <ul>
-            <li> The band inside the box is the median
-            <li> The box measures the difference between 75th and 25th percentiles
-            <li> Outliers will be in red, if existing
+            <li> The band inside the box is the median</li>
+            <li> The box measures the difference between 75th and 25th percentiles</li>
+            <li> Outliers will be in red, if existing</li>
           </ul>"
             )        
          ),
@@ -129,9 +129,9 @@ sidebarPanel(
             HTML(
           "<b> Explanations </b>
           <ul> 
-            <li> Normal Q–Q Plot: to compare randomly generated, independent standard normal data on the vertical axis to a standard normal population on the horizontal axis. The linearity of the points suggests that the data are normally distributed.
-            <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
-            <li> Density Plot: to estimate the probability density function of the difference
+            <li> Normal Q–Q Plot: to compare randomly generated, independent standard normal data on the vertical axis to a standard normal population on the horizontal axis. The linearity of the points suggests that the data are normally distributed.</li>
+            <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values</li>
+            <li> Density Plot: to estimate the probability density function of the difference</li>
           </ul>"
             ),
             p(tags$b("Normal Q-Q plot")),
@@ -153,8 +153,8 @@ sidebarPanel(
             HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then Group 1 (Before) and Group 2 (After) have significantly unequal effect. (Accept alternative hypothesis)
-    <li> P Value >= 0.05, then there is NO significant difference between 2 groups. (Accept null hypothesis)
+    <li> P Value < 0.05, then Group 1 (Before) and Group 2 (After) have significantly unequal effect. (Accept alternative hypothesis)</li>
+    <li> P Value >= 0.05, then there is NO significant difference between 2 groups. (Accept null hypothesis)</li>
     </ul>"
   ),
     conditionalPanel(
