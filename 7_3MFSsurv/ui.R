@@ -77,9 +77,9 @@ hr()
 ),
 
 ##########----------##########----------##########
-tabPanel("Non-Parametric Model",
+tabPanel("KM Model",
 
-headerPanel("Kaplan-Meier Estimator and Log-rank Test"),
+headerPanel("Non-Parametric Kaplan-Meier Estimator and Log-rank Test"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
@@ -96,12 +96,10 @@ HTML(
 </ul>
 
 <h4><b> 2. About your data </b></h4>
-
 <ul>
-<li> The independent variable is categorical
-<li> Please prepare the survival object in the Data tab
+<li> Prepare the survival object in the Data tab
+<li> Categorical variable is required in this model
 </ul>
-
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
 )
@@ -114,9 +112,9 @@ hr()
 
 ##########----------##########----------##########
 
-tabPanel("Semi-Parametric Model",
+tabPanel("Cox Model and Prediction",
 
-headerPanel("Cox Regression"),
+headerPanel("Semi-Parametric Cox Regression"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
@@ -124,19 +122,29 @@ HTML(
 <p><b> Cox Regression</b>, also known as Cox proportional hazard regression assumes that if the proportional hazards assumption holds (or, is assumed to hold) then it is possible to estimate the effect parameter(s) without any consideration of the hazard function.
 Cox regression assumes that the effects of the predictor variables upon survival are constant over time and are additive in one scale.</p>
 <h4><b> 1. What you can do on this page  </b></h4>
+<b><li> Build the model  </b>
 <ul>
 <li> To build a Cox regression model
 <li> To get the estimates of the model, such as (1) estimate of coefficient, (2) predictions from the training data, (3)residuals,
 (4) the adjusted survival curves, (5) proportional hazard test, and (6) diagnostic plot
 </ul>
-
-<h4><b> 2. About your data (training set) </b></h4>
-
+<b><li> Prediction </b>
 <ul>
-<li> Please prepare the data in the Data tab
-<li> Please prepare the survival object in the Data tab
+<li> To upload new data and get the prediction
+<li> To get the evaluation if new data contains new dependent variable
+<li> To get Brier Score and time-dependent AUC
 </ul>
 
+<h4><b> 2. About your data</b></h4>
+<b><li> Training set for building the model   </b>
+<ul>
+<li> Prepare the data in the Data tab
+<li> Prepare the survival object, Surv(time, event), in the Data tab
+</ul>
+<b><li> Test set for prediction   </b>
+<ul>
+<li> New data (test set) should cover all the independent variables used in the model.
+</ul>
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
 )
@@ -144,48 +152,16 @@ Cox regression assumes that the effects of the predictor variables upon survival
 
 hr(),
 source("ui_cox.R", local=TRUE, encoding="UTF-8")$value,
+hr(),
+source("ui_cox_pr.R", local=TRUE, encoding="UTF-8")$value,
 hr()
 ), ## tabPanel
 
 ##########----------##########----------##########
 
-tabPanel("Prediction1",
+tabPanel("AFT Model and Prediction",
 
-headerPanel("Prediction after Cox Regression"),
-conditionalPanel(
-condition = "input.explain_on_off",
-HTML(
-"
-
-<h4><b> 1. What you can do on this page  </b></h4>
-<ul>
-<li> To upload new data and get the prediction
-<li> To get the evaluation if new data contains new dependent variable
-<li> To get Brier Score and time-dependent AUC
-</ul>
-
-<h4><b> 2. About your data (test set)</b></h4>
-
-<ul>
-<li> New data cover all the independent variables used in the model
-<li> New data not used to build the model is called <b>test set</b>
-</ul>
-
-<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"
-)
-),
-
-hr(),
-source("ui_cox_pr.R", local=TRUE, encoding="UTF-8")$value,
-hr()
-),
-
-##########----------##########----------##########
-
-tabPanel("Parametric Model",
-
-headerPanel("Accelerated Failure Time (AFT) Model"),
+headerPanel("Parametric Accelerated Failure Time (AFT) Model"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
@@ -193,16 +169,27 @@ HTML(
 <p><b>Accelerated failure time (AFT) model</b> is a parametric model assumes that the effect of a covariate is to accelerate or decelerate the life course of a disease by some constant.</p>
 
 <h4><b> 1. What you can do on this page  </b></h4>
+<b><li> Build the model  </b>
 <ul>
 <li> To build AFT model
 <li> To get the estimates of the model, such as coefficients of parameters, residuals, and diagnostic plot
 <li> To get fitted values which are predicted from the training data
 </ul>
-
-<h4><b> 2. About your data </b></h4>
-
+<b><li> Prediction </b>
 <ul>
-<li> Please prepare the data in the Data tab
+<li> To upload new data and get the prediction
+<li> To get the evaluation if new data contains new dependent variable
+</ul>
+
+<h4><b> 2. About your data</b></h4>
+<b><li> Training set for building the model   </b>
+<ul>
+<li> Prepare the data in the Data tab
+<li> Prepare the survival object, Surv(time, event), in the Data tab
+</ul>
+<b><li> Test set for prediction   </b>
+<ul>
+<li> New data (test set) should cover all the independent variables used in the model.
 </ul>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
@@ -212,41 +199,10 @@ HTML(
 
 hr(),
 source("ui_aft.R", local=TRUE, encoding="UTF-8")$value,
-hr()
-), ## tabPanel
-
-##########----------##########----------##########
-
-tabPanel("Prediction2",
-
-headerPanel("Prediction after Accelerated Failure Time (AFT) model"),
-conditionalPanel(
-condition = "input.explain_on_off",
-HTML(
-"
-
-<h4><b> 1. What you can do on this page  </b></h4>
-<ul>
-<li> To upload new data and get the prediction
-<li> To get the evaluation if new data contains new dependent variable
-</ul>
-
-<h4><b> 2. About your data (test set)</b></h4>
-
-<ul>
-<li> New data cover all the independent variables used in the model.
-<li> New data not used to build the model is called <b>test set</b>
-</ul>
-
-<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"
-)
-),
-
 hr(),
 source("ui_aft_pr.R", local=TRUE, encoding="UTF-8")$value,
 hr()
-),
+), ## tabPanel
 
 ##########----------##########----------##########
 

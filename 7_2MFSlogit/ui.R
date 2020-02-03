@@ -64,13 +64,12 @@ and (2) find the relations between binary dependent variable and the other varia
 
 hr(),
 source("ui_data.R", local=TRUE, encoding="UTF-8")$value,
-hr()
-
+hr(),
 
 ),
 
 ##########----------##########----------##########
-tabPanel("Model",
+tabPanel("Model and Prediction",
 
 headerPanel("Logistic Regression"),
 conditionalPanel(
@@ -79,18 +78,28 @@ HTML(
 "
 
 <h4><b> 1. What you can do on this page  </b></h4>
+<li><b> Build the Model  </b>
 <ul>
 <li> To build simple or multiple logistic regression model
 <li> To get the estimates of regressions, including (1) estimate of coefficients with t test, p value, and 95% CI, (2) R<sup>2</sup> and adjusted R<sup>2</sup>, and (3) F-Test for overall significance in Regression
 <li> To get additional information: (1) predicted dependent variable and residuals, (2) AIC-based variable selection, (3) ROC plot, and (4) sensitivity and specificity table for ROC plot
 </ul>
+<b><li> Prediction </b>
+<ul>
+<li> To upload new data and get the prediction
+<li> To get the evaluation if new data contains new dependent variable
+</ul>
 
 <h4><b> 2. About your data </b></h4>
-
+<b><li> Training set for building the model   </b>
 <ul>
 <li> The dependent variable is binary
-<li> Please prepare the training set data in the previous <b>Data</b> tab</ul>
-
+<li> Please prepare the training set data in the previous <b>Data</b> tab
+</ul>
+<b><li> Test set for prediction   </b>
+<ul>
+<li> New data (test set) should cover all the independent variables used in the model.
+</ul>
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
 )
@@ -98,47 +107,11 @@ HTML(
 
 hr(),
 source("ui_model.R", local=TRUE, encoding="UTF-8")$value,
-hr()
-), ## tabPanel
-
-##########----------##########----------##########
-
-tabPanel("Prediction",
-
-headerPanel("Prediction from Model"),
-conditionalPanel(
-condition = "input.explain_on_off",
-HTML(
-"
-
-<h4><b> 1. What you can do on this page  </b></h4>
-<ul>
-<li> To upload new data and get the prediction
-<li> To get the evaluation if new data contains new dependent variable
-</ul>
-
-<h4><b> 2. About your data (test set)</b></h4>
-
-<ul>
-<li> New data cover all the independent variables used in the model.
-<li> New data not used to build the model is called <b>test set</b>
-</ul>
-
-<i><h4>Case Example</h4>
-
-Suppose in the same study, we got the new data, and wanted to classify the patients based on the model we build.
-
-</h4></i>
-
-<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"
-)
-),
-
 hr(),
 source("ui_pr.R", local=TRUE, encoding="UTF-8")$value,
 hr()
-),
+), ## tabPanel
+
 ##########----------##########----------##########
 
 tabstop(),

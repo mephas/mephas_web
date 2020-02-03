@@ -11,7 +11,7 @@ tags$head(tags$style("#fitcx2 {overflow-y:scroll; max-height:: 400px; background
 tags$head(tags$style("#zph {overflow-y:scroll; max-height:: 150px; background: white};")),
 
 
-h4(tags$b("Prepare the Model")),
+h4(tags$b("Build the Model")),
 p("Prepare the data in the Data tab"),
 hr(),       
 
@@ -21,12 +21,15 @@ p(tags$b("1. Check Surv(time, event), survival object, in the Data Tab")),
 
 tabsetPanel(
 tabPanel("Basic Model", p(br()),
-uiOutput('var.cx'),
-p(br()),
-p(tags$b("3 (Optional). Add interaction term between categorical variables")),
 
-p('Please input: + var1:var2'), 
-tags$textarea(id='conf.cx', " " ), 
+uiOutput('var.cx'),
+
+p(br()),
+#p(tags$b("3 (Optional). Add interaction term between categorical variables")),
+
+#p('Please input: + var1:var2'), 
+#tags$textarea(id='conf.cx', " " ), 
+uiOutput('conf.cx'),
 
 p(tags$b("If you want to consider the heterogeneity in the sample, continue with Extending Model tab"))
   ),
@@ -72,7 +75,11 @@ verbatimTextOutput("cox_form", placeholder = TRUE),
 hr(),
 
 h4(tags$b("Step 3. If data and model are ready, click the blue button to generate model results.")),
-actionButton("B2", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
+p(br()),
+actionButton("B2", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
+p(br()),
+p(br()),
+hr()
 ),
 
 mainPanel(

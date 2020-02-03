@@ -1,22 +1,49 @@
 #****************************************************************************************************************************************************cox
 
 
+#output$var.cx = renderUI({
+#selectInput(
+#'var.cx',
+#tags$b('2. Choose some independent variables (X)'),
+#selected = names(DF4())[1],
+#choices = names(DF4()),
+#multiple=TRUE)
+#})
 output$var.cx = renderUI({
-selectInput(
+shinyWidgets::pickerInput(
 'var.cx',
-tags$b('2. Choose some independent variables (X)'),
+tags$b('2. Add / Remove independent variables (X)'),
 selected = names(DF4())[1],
 choices = names(DF4()),
-multiple=TRUE)
+multiple = TRUE,
+options = pickerOptions(
+      actionsBox=TRUE)
+)
 })
+
+output$conf.cx = renderUI({
+shinyWidgets::pickerInput(
+'conf.cx',
+tags$b('3 (Optional). Add interaction term between 2 categorical variables'),
+choices = type.fac4(),
+multiple = TRUE,
+options = pickerOptions(
+      maxOptions=2,
+      actionsBox=TRUE)
+)
+})
+
+DF5 <- reactive(
+  DF4()[ ,-which(names(DF4()) %in% c(input$conf.cx,input$var.cx))]
+  )
 
 
 output$fx.cx = renderUI({
 selectInput(
   'fx.cx',
   tags$b('Choose one random effect variable'),
-selected = names(DF4())[2],
-choices = names(DF4())
+selected = names(DF5())[1],
+choices = names(DF5())
 )
 })
 
@@ -31,15 +58,19 @@ cox = reactive({
 
 validate(need(input$var.cx, "Please choose some independent variable"))
 
-if (input$effect.cx=="") {f = paste0(surv(), '~', paste0(input$var.cx, collapse = "+"), input$conf.cx)}
-if (input$effect.cx=="Strata") {f = paste0(surv(), '~', paste0(input$var.cx, collapse = "+"), "+strata(", input$fx.cx, ")",input$conf.cx)}
-if (input$effect.cx=="Cluster") {f = paste0(surv(), '~', paste0(input$var.cx, collapse = "+"), "+cluster(", input$fx.cx, ")", input$conf.cx)}
-if (input$effect.cx=="Gamma Frailty") {f = paste0(surv(), '~', paste0(input$var.cx, collapse = "+"), "+frailty(", input$fx.cx, ")", input$conf.cx)}
-if (input$effect.cx=="Gaussian Frailty") {f = paste0(surv(), '~', paste0(input$var.cx, collapse = "+"), "+frailty.gaussian(", input$fx.cx, ")", input$conf.cx)}
+f = paste0(surv(), '~', paste0(input$var.cx, collapse = "+"))
+
+if(length(input$conf.cx)==2) {f = paste0(f, paste0("+",input$conf.cx, collapse = ":"))}
+
+if (input$effect.cx=="") {f = f}
+if (input$effect.cx=="Strata") {f = paste0(f, "+strata(", input$fx.cx, ")")}
+if (input$effect.cx=="Cluster") {f = paste0(f, "+cluster(", input$fx.cx, ")")}
+if (input$effect.cx=="Gamma Frailty") {f = paste0(f, "+frailty(", input$fx.cx, ")")}
+if (input$effect.cx=="Gaussian Frailty") {f = paste0(f, "+frailty.gaussian(", input$fx.cx, ")")}
 
   #fit <- survreg(as.formula(f), data = DF3(), dist=input$dist)
  
-  return(f)
+return(f)
 })
 
 output$cox_form = renderPrint({cat(cox()) })

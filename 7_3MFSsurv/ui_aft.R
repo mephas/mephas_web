@@ -5,24 +5,25 @@ sidebarLayout(
 
 sidebarPanel(
 
-tags$head(tags$style("#aft_form {height: 100px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#str3 {overflow-y:scroll; max-height:: 350px; background: white};")),
+tags$head(tags$style("#aft_form {height: 50px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
+tags$head(tags$style("#str3 {overflow-y:scroll; max-height:: 200px; background: white};")),
 tags$head(tags$style("#fit {overflow-y:scroll; max-height:: 400px; background: white};")),
-#tags$head(tags$style("#fit2 {overflow-y:scroll; height: 400px; background: white};")),
-#tags$head(tags$style("#step {overflow-y:scroll;height: 400px; background: white};")),
 
-
-h4(tags$b("Prepare the Model")),
-p("Prepare the data in the previous tab"),
+h4(tags$b("Build the Model")),
+p("Prepare the data in the Data tab"),
 hr(), 
 
 h4(tags$b("Step 1. Choose variables to build the model")),    
 
 p(tags$b("1. Check survival object, Surv(time, event), in the Data Tab")), 
 
+
+
 tabsetPanel(
+
 tabPanel("Basic Model", p(br()),
-uiOutput('var'),
+
+uiOutput('var.x'),
 
 radioButtons("dist", "3. Choose AFT Model",
   choiceNames = list(
@@ -35,10 +36,11 @@ radioButtons("dist", "3. Choose AFT Model",
   choiceValues = list("lognormal","weibull", "exponential","loglogistic")
   ),
 
-p(tags$b("4. (Optional) Add interaction term between categorical variables")),
+#p(tags$b("4. (Optional) Add interaction term between categorical variables")),
 
-p('Please input: + var1:var2'), 
-tags$textarea(id='conf', " " ), 
+#p('Please input: + var1:var2'), 
+#tags$textarea(id='conf', " " ), 
+uiOutput('conf'),
 
 radioButtons("intercept", "5. (Optional) Keep or remove intercept / constant term", ##> intercept or not
      choices = c("Remove intercept / constant" = "-1",
@@ -76,7 +78,11 @@ p("'-1' in the formula indicates that intercept / constant term has been removed
 hr(),
 
 h4(tags$b("Step 3. If data and model are ready, click the blue button to generate model results.")),
-actionButton("B1", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
+p(br()),
+actionButton("B1", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
+p(br()),
+p(br()),
+hr()
 ),
 
 mainPanel(

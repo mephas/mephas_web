@@ -23,9 +23,9 @@ source("server_cox.R", local=TRUE)$value
 
 source("server_cox_pr.R", local=TRUE)$value
 
-source("server_cox_pr.R", local=TRUE)$value
+source("server_aft.R", local=TRUE)$value
 
-source("server_cox_pr.R", local=TRUE)$value
+source("server_aft_pr.R", local=TRUE)$value
 
 
 ##########----------##########----------##########

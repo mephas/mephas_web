@@ -4,7 +4,7 @@ sidebarLayout(
 sidebarPanel(
 
 tags$head(tags$style("#formula {height: 50px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#str {overflow-y:scroll; max-height: 350px; background: white};")),
+tags$head(tags$style("#str {overflow-y:scroll; max-height: 200px; background: white};")),
 tags$head(tags$style("#fit {overflow-y:scroll; max-height: 400px; background: white};")),
 tags$head(tags$style("#step {overflow-y:scroll;max-height: 400px; background: white};")),
 

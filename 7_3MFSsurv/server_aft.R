@@ -1,31 +1,47 @@
 #****************************************************************************************************************************************************aft
 
-#output$var = renderUI({
+#output$var.x = renderUI({
 #selectInput(
-#'var',
+#'var.x',
 #tags$b('2. Choose some independent variables (X)'),
-#selected = names(DF4())[1],
+#selected = names(DF4()),
 #choices = names(DF4()),
 #multiple=TRUE)
 #})
-output$x = renderUI({
+output$var.x = renderUI({
 shinyWidgets::pickerInput(
-'var',
+'var.x',
 tags$b('2. Add / Remove independent variables (X)'),
-selected = names(DF4()),
+selected = names(DF4())[1],
 choices = names(DF4()),
 multiple = TRUE,
-options = list(
-      `actions-box` = TRUE)
+options = pickerOptions(
+      actionsBox=TRUE)
 )
 })
+
+output$conf = renderUI({
+shinyWidgets::pickerInput(
+'conf',
+tags$b('4 (Optional). Add interaction term between 2 categorical variables'),
+choices = type.fac4(),
+multiple = TRUE,
+options = pickerOptions(
+      maxOptions=2,
+      actionsBox=TRUE)
+)
+})
+
+DF6 <- reactive(
+  DF4()[ ,-which(names(DF4()) %in% c(input$conf,input$var.x))]
+  )
 
 output$fx.c = renderUI({
 selectInput(
   'fx.c',
   tags$b('Choose one random effect variable'),
-selected = names(DF4())[1],
-choices = names(DF4()),
+selected = names(DF6())[1],
+choices = names(DF6()),
 )
 })
 
@@ -37,13 +53,16 @@ output$str3 <- renderPrint({str(DF3())})
 
 
 aft = reactive({
-validate(need(input$var, "Please choose some independent variable"))
+validate(need(input$var.x, "Please choose some independent variable"))
 if (input$time=="A") {surv <- surv()}
 if (input$time=="B") {surv <- paste0("Surv(", input$t2, " - ", input$t1, ",", input$c, ")")}
 
-if (input$effect=="") {f = paste0(surv, '~', paste0(input$var, collapse = "+"), input$conf,input$intercept)}
-if (input$effect=="Strata") {f = paste0(surv, '~', paste0(input$var, collapse = "+"), "+strata(", input$fx.c, ")",input$conf,input$intercept)}
-if (input$effect=="Cluster") {f = paste0(surv, '~', paste0(input$var, collapse = "+"), "+cluster(", input$fx.c, ")", input$conf,input$intercept)}
+f = paste0(surv, '~', paste0(input$var.x, collapse = "+"))
+if(length(input$conf)==2) {f = paste0(f, paste0("+",input$conf, collapse = ":"))}
+
+if (input$effect=="") {f = paste0(f, input$intercept)}
+if (input$effect=="Strata") {f = paste0(f, "+strata(", input$fx.c, ")",input$intercept)}
+if (input$effect=="Cluster") {f = paste0(f, "+cluster(", input$fx.c, ")",input$intercept)}
 #if (input$effect=="Gamma Frailty") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+frailty(", input$fx.c, ")", input$conf,input$intercept)}
 #if (input$effect=="Gaussian Frailty") {f = paste0(surv(), '~', paste0(input$var, collapse = "+"), "+frailty.gaussian(", input$fx.c, ")", input$conf,input$intercept)}
 
