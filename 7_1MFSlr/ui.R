@@ -92,6 +92,8 @@ HTML(
 <li> To build a simple or multiple linear regression model </li>
 <li> To get the estimates of regressions, including (1) estimate of coefficients with t test, p value, and 95% CI, (2) R<sup>2</sup> and adjusted R<sup>2</sup>, and (3) F-Test for overall significance in Regression</li>
 <li> To get additional information: (1) predicted dependent variable and residuals, (2) ANOVA table of model, (3) AIC-based variable selection, and (4) diagnostic plot based from the residuals and predicted dependent variable</li>
+<li> To upload new data and get the prediction</li>
+<li> To get the evaluation if new data contains new dependent variable</li>
 </ul>
 
 <h4><b> 2. About your data (training set)</b></h4>
@@ -99,46 +101,10 @@ HTML(
 <ul>
 <li> The dependent variable is real-valued and continuous with underlying normal distribution.</li>
 <li> Please prepare the training set data in the previous <b>Data</b> tab</li>
-</ul>
-
-<h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
-"
-)
-),
-
-hr(),
-source("ui_model.R", local=TRUE, encoding="UTF-8")$value,
-hr()
-), ## tabPanel
-
-##########----------##########----------##########
-
-tabPanel("Prediction",
-
-headerPanel("Prediction from Model"),
-
-conditionalPanel(
-condition = "input.explain_on_off",
-HTML(
-"
-
-<h4><b> 1. Functionalities</b></h4>
-<li><b> Prediction </b></li>
-<ul>
-<li> To upload new data and get the prediction</li>
-<li> To get the evaluation if new data contains new dependent variable</li>
-</ul>
-
-<h4><b> 2. About your data</b></h4>
-<li><b> Training set for building the model</b></li>
-<ul>
-<li> The dependent variable is real-valued and continuous with underlying normal distribution.</li>
-<li> Please prepare the training set data in the previous <b>Data</b> tab</li>
-</ul>
-<li><b> Test set for prediction</b></li>
-<ul>
 <li> New data (test set) should cover all the independent variables used in the model.</li>
+
 </ul>
+
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 "
 )

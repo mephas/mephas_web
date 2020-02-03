@@ -36,6 +36,22 @@ options = list(
 )
 })
 
+type.fac4 <- reactive({
+colnames(DF4()[unlist(lapply(DF4(), is.factor))])
+})
+
+output$conf = renderUI({
+shinyWidgets::pickerInput(
+'conf',
+tags$b('4 (Optional). Add interaction term between 2 categorical variables'),
+choices = type.fac4(),
+multiple = TRUE,
+options = pickerOptions(
+      maxOptions=2,
+      actionsBox=TRUE)
+)
+})
+
 output$Xdata2 <- DT::renderDT(
 head(DF3()), 
 options = list(scrollX = TRUE,dom = 't'))
@@ -45,25 +61,26 @@ output$str <- renderPrint({str(DF3())})
 ##3. regression formula
 formula = reactive({
 validate(need(input$x, "Please choose some independent variable"))
-as.formula(paste0(input$y,' ~ ',paste0(input$x, collapse = "+"), 
-	input$conf, 
-  input$intercept)
-)
 
+f <- paste0(input$y,' ~ ',paste0(input$x, collapse = "+"), input$intercept)
+
+if(length(input$conf)==2) {f <- paste0(f, paste0("+",input$conf, collapse = ":"))}
+
+return(f)
 })
 
 output$formula = renderPrint({
 validate(need(input$x, "Please choose some independent variable"))
-cat(paste0(input$y,' ~ ',paste0(input$x, collapse = " + "), 
-  input$conf, 
-  input$intercept))
+cat(formula())
   })
+
+ 
 
 ## 4. output results
 ### 4.2. model
 fit = eventReactive(input$B1, {
 #validate(need(input$x, "Please choose some independent variable"))
-lm(formula(), data = DF3())
+lm(as.formula(formula()), data = DF3())
 })
 
  output$fit = renderPrint({

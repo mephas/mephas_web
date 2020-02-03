@@ -64,7 +64,7 @@ and (2) find the relations between binary dependent variable and the other varia
 
 hr(),
 source("ui_data.R", local=TRUE, encoding="UTF-8")$value,
-hr(),
+hr()
 
 ),
 
