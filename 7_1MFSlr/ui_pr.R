@@ -3,9 +3,11 @@
 sidebarLayout(
 
 sidebarPanel(
-
-h4(tags$b("Test Set Preparation")),
+h4(tags$b("Prediction")),
 p("Prepare model in the previous Model tab"),
+hr(),
+
+h4(tags$b("Step 4. Test Set Preparation")),
 
 tabsetPanel(
 
@@ -53,16 +55,18 @@ p("Correct separator and quote ensure the successful data input")
 
 hr(),
 
-h4(tags$b("If the model and new data are ready, click the blue button to generate prediction results.")),
-
-actionButton("B2", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
-
+h4(tags$b("Step 5. If the model and new data are ready, click the blue button to generate prediction results.")),
+p(br()),
+actionButton("B2", (tags$b("Show Prediction >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
+p(br()),
+p(br()),
+hr()
 
 ),
 
 
 mainPanel(
-h4(tags$b("Output. Prediction Results")),
+h4(tags$b("Output 3. Prediction Results")),
 #actionButton("B2", h4(tags$b("Click 2: Output. Prediction Results / Refresh, given model and new data are ready. ")), style="color: #fff; background-color: #337ab7; border-color: #2e6da4"), 
 p(br()),
 tabsetPanel(

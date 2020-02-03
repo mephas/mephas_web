@@ -23,6 +23,11 @@ source("server_pr.R", local=TRUE)$value
 observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
+
+  observeEvent(input$refresh, {
+    session$reload()
+  })
+
 observeEvent(input$Model, showTab("navibar", target = "Model", select = TRUE))
 
 

@@ -8,7 +8,7 @@ sidebarPanel(
 
   p(tags$b("1. Give names to your Values and 2 Factors Group variables ")),
 
-  tags$textarea(id = "cnm2", rows = 2, "SBP\nDiet\nSex"),p(br()),
+  tags$textarea(id = "cnm2", rows = 3, "SBP\nDiet\nSex"),p(br()),
 
   p(tags$b("2. Input data")),
 

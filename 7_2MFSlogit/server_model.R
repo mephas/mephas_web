@@ -20,13 +20,25 @@ DF4 <- reactive({
 return(df)
   })
 
+#output$x = renderUI({
+#selectInput(
+#'x',
+#tags$b('2. Add / Remove the independent variables (X)'),
+#selected = names(DF4()),
+#choices = names(DF4()),
+#multiple = TRUE
+#)
+#})
+
 output$x = renderUI({
-selectInput(
+shinyWidgets::pickerInput(
 'x',
-tags$b('2. Add / Remove the independent variables (X)'),
+tags$b('2. Add / Remove independent variables (X)'),
 selected = names(DF4()),
 choices = names(DF4()),
-multiple = TRUE
+multiple = TRUE,
+options = list(
+      `actions-box` = TRUE)
 )
 })
 

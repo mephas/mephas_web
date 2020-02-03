@@ -62,7 +62,7 @@ plot_res <- function(data, varx, vary){
 plot_box1 <- function(data, varx){
   value = data[,varx]
   ggplot(data, aes(x = varx, y = value)) +
-  geom_boxplot(outlier.colour = "red", fill="cornflowerblue", size=0.3) +
+  geom_boxplot(outlier.colour = "red", fill="cornflowerblue", size=0.3, alpha=0.7) +
   xlab("")+ylab("")+
   theme_minimal() + theme(legend.title = element_blank())
 }
@@ -78,7 +78,7 @@ plot_box2 <- function(data2){
   value = data$value
   variable = data$variable
   ggplot(data, aes(x = variable, y = value, fill = variable)) +
-  geom_boxplot(outlier.colour = "red",size=0.3) +
+  geom_boxplot(outlier.colour = "red",size=0.3, alpha=0.7) +
   scale_fill_brewer(palette="Set1")+
   theme_minimal() + theme(legend.title = element_blank())
 
@@ -93,7 +93,7 @@ plot_boxm <- function(datam){
   value = datam[,1]
   variable = datam[,2]
   ggplot(datam, aes(x = variable, y = value, fill = variable)) +
-  geom_boxplot(outlier.colour = "red",size=0.3) +
+  geom_boxplot(outlier.colour = "red",size=0.3, alpha=0.7) +
   scale_fill_brewer(palette="Set1")+
   theme_minimal() + theme(legend.title = element_blank())
 
@@ -116,7 +116,7 @@ plot_msd1 <- function(data, varx){
   #ylab(expression(Mean %+-% SD)) +
   ylab("Mean with standard deviation bar") +
   xlab("")+
-  geom_bar(position = position_dodge(), stat = "identity", width = 0.3, fill="cornflowerblue") +
+  geom_bar(position = position_dodge(), stat = "identity", width = 0.3, fill="cornflowerblue", alpha=0.7) +
   geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - sd, ymax = mean + sd), data = des) +
   theme_minimal() + theme(legend.title = element_blank())
 }
@@ -136,7 +136,7 @@ plot_msd2 <- function(data){
   #ylab(expression(Mean %+-% SD)) +
   ylab("Mean with standard deviation bar") +
   xlab("")+
-  geom_bar(position = position_dodge(), stat = "identity", width = 0.3) +
+  geom_bar(position = position_dodge(), stat = "identity", width = 0.3, alpha=0.7) +
   geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - sd, ymax = mean + sd), data = des) +
   scale_fill_brewer(palette="Set1")+
   theme_minimal() + theme(legend.title = element_blank())
@@ -159,7 +159,7 @@ plot_msdm <- function(datam, var, grp){
   #ylab(expression(Mean %+-% SD)) +
   ylab("Mean with standard deviation bar") +
   xlab("")+
-  geom_bar(position = position_dodge(), stat = "identity", width = 0.3) +
+  geom_bar(position = position_dodge(), stat = "identity", width = 0.3, alpha=0.7) +
   geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - sd, ymax = mean + sd), data = des) +
   scale_fill_brewer(palette="Set1")+
   theme_minimal() + theme(legend.title = element_blank())
