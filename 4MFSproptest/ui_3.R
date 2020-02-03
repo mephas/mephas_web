@@ -9,19 +9,19 @@
         "~20\n20-24\n25-29\n30-34\n34~"
       ),
 
-      p(tags$b("You can change success / events names")),
+      p(tags$b("You can change success/events names")),
         tags$textarea(id = "ln3",
           rows = 2,
         "Cancer\nNo-Cancer"
       ),
         p(br()), 
 
-        p(tags$b("How many success / events in every group, x")),
+        p(tags$b("How many success/events in every group, x")),
         tags$textarea(id = "xx", rows = 5,
         "320\n1206\n1011\n463\n220"        
         ),
 
-        p(tags$b("How many trials / samples in every group, n > x")),     
+        p(tags$b("How many trials/samples in every group, n > x")),     
         tags$textarea(id = "nn", rows = 5,
         "1742\n5638\n3904\n1555\n626"
         ),
@@ -29,7 +29,7 @@
     p("Note: No Missing Value"),
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this example, we had 5 age groups of people as shown in n, and we record the number of people who had cancer in x."))
+    p(tags$i("In this example, we had 5 age groups of people, as shown in n, and we record the number of people who had cancer in x."))
     ),
 
         hr(),
@@ -38,13 +38,13 @@
 
      p(tags$b("Null hypothesis")), 
 
-      p("The probability/proportion are equal over the groups"),
+      p("The probability/proportion is equal over the groups"),
       
       p(tags$b("Alternative hypothesis")), 
        p("The probability/proportions are not equal"),          
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this example,  we wanted to know if the probability to have cancer were different among different age groups."))
+    p(tags$i("In this example,  we wanted to know if the probability of having cancer was different among different age groups."))
     )
    
 
@@ -78,13 +78,13 @@
      HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then the population proportion/rate are significantly different. (Accept alternative hypothesis)</li>
-    <li> P Value >= 0.05, then the population proportion/rate are NOT significantly different. (Accept null hypothesis)</li>
+    <li> P Value < 0.05, then the population proportion/rate are significantly different. (Accept the alternative hypothesis)</li>
+    <li> P Value >= 0.05, then the population proportion/rate are NOT significantly different. (Accept the null hypothesis)</li>
     </ul>"
   ),
 conditionalPanel(
     condition = "input.explain_on_off",
-     p(tags$i("In this default setting, we concluded that the probability to have cancer were significantly different in different age groups. (P < 0.001)"))
+     p(tags$i("In this default setting, we concluded that the probability of have cancer was significantly different in different age groups. (P < 0.001)"))
      )
 
         )

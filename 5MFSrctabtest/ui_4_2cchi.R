@@ -4,7 +4,7 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("2. Give names to each categories of factor shown as column names")),
+  p(tags$b("2. Give names to each category of factor shown as column names")),
         tags$textarea(id = "cn3",rows = 5,
         "~20\n20-24\n25-29\n30-34\n34~"
       ),
@@ -16,7 +16,7 @@
         p(br()), 
 
         p(tags$b("3. How many Cases in every Group")),
-        p("Data point can be separated by , ; /Enter /Tab"),
+        p("Data points can be separated by , ; /Enter /Tab"),
         tags$textarea(id = "x3", rows = 5,
         "320\n1206\n1011\n463\n220"        
         ),
@@ -30,7 +30,7 @@
     p("Note: No Missing Value"),
 conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this example, we had 5 age groups of people as shown in different ages, and we record the number of people who had cancer and who did not have cancer."))
+    p(tags$i("In this example, we had 5 age groups of people, as shown in different ages, and we record the number of people who had cancer and who did not have cancer."))
     ),
 
         hr(),
@@ -41,7 +41,7 @@ conditionalPanel(
    p("Case-Control (Row) do not significantly associate with Grouped Factors (Column)"),
     
    p(tags$b("Alternative hypothesis")), 
-   p("Case-Control (Row) has significant association with Grouped Factors (Column)"),     
+   p("Case-Control (Row) has a significant association with Grouped Factors (Column)"),     
    conditionalPanel(
     condition = "input.explain_on_off",
     p(tags$i("In this setting,  we wanted to know if there was any relation between cancer and ages."))
@@ -91,13 +91,13 @@ conditionalPanel(
      HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then Case-Control (Row) is significantly associated with Grouped Factors (Column) (Accept alternative hypothesis)</li>
-    <li> P Value >= 0.05, then Case-Control (Row) are not associated with Grouped Factors (Column). (Accept null hypothesis)</li>
+    <li> P Value < 0.05, then Case-Control (Row) is significantly associated with Grouped Factors (Column) (Accept the alternative hypothesis)</li>
+    <li> P Value >= 0.05, then Case-Control (Row) is not associated with Grouped Factors (Column). (Accept the null hypothesis)</li>
     </ul>"
   ),
 conditionalPanel(
     condition = "input.explain_on_off",
-     p(tags$i("In this default setting, we conclude that there was significant relation between cancer and ages. (P < 0.001)"))
+     p(tags$i("In this default setting, we conclude that there was a significant relation between cancer and ages. (P < 0.001)"))
      )
 
         )

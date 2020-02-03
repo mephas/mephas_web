@@ -17,11 +17,11 @@ sidebarPanel(
   tabPanel("Manual Input", p(br()),
         conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("Example here was the Depression Rating Scale factor measurements of 9 patients Before and After treatment. "))
+    p(tags$i("The example shown here was the Depression Rating Scale factor measurements of 9 patients Before and After treatment. "))
       ),
 
     p(tags$b("Please follow the example to input your data")),
-  p("Data point can be separated by , ; /Enter /Tab /Space"),
+  p("Data points can be separated by , ; /Enter /Tab /Space"),
     p(tags$b("Before")),
     tags$textarea(id="y1", 
       rows=10, 
@@ -34,7 +34,7 @@ sidebarPanel(
       "0.88\n0.65\n0.59\n2.05\n1.06\n1.29\n1.06\n3.14\n1.29"
       ),
 
-    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error")
+    p("Missing values are input as NAs to ensure 2 sets have equal length; otherwise, there will be error")
 
 ),
 
@@ -84,7 +84,7 @@ sidebarPanel(
     choiceValues = list("two.sided", "less", "greater")),
       conditionalPanel(
     condition = "input.explain_on_off",
-      p(tags$i("In this example, we wanted to know if there was significant difference on the scale after the treatment. "))
+      p(tags$i("In this example, we wanted to know if there was a significant difference on the scale after the treatment. "))
         ),
 hr(),
 
@@ -99,7 +99,7 @@ radioButtons("alt.md3",
     choiceValues = list("a", "b", "c")),
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this example, we had only 9 people. So we chose exact P value"))
+    p(tags$i("In this example, we had only 9 people. So we chose the exact P value"))
     )
 
   ),
@@ -163,13 +163,13 @@ mainPanel(
       HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then the Before and After are significantly different. (Accept alternative hypothesis)</li>
-    <li> P Value >= 0.05, then the Before and After are NOT significantly different. (Accept null hypothesis)</li>
+    <li> P Value < 0.05, then the Before and After are significantly different. (Accept the alternative hypothesis)</li>
+    <li> P Value >= 0.05, then the Before and After are NOT significantly different. (Accept the null hypothesis)</li>
     </ul>"
   ),
       conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("From the default settings, we concluded no significant difference is found after the treatment. (P=0.46)"))
+    p(tags$i("From the default settings, we concluded that there was no significant difference after the treatment. (P=0.46)"))
     )
 
 
