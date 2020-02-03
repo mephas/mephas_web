@@ -1,7 +1,8 @@
+source("../tab.R")
 tagList(
 
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
-tags$head(includeScript("../0tabs/navtitle.js")),
+#tags$head(includeScript("../0tabs/navtitle.js")),
 tags$head(
   tags$link(rel = "shortcut icon", href = "../www/favicon.ico"),
   tags$link(rel = "icon", type = "image/png", sizes = "96x96", href = "../www/favicon-96x96.ico"),
@@ -9,7 +10,8 @@ tags$head(
   tags$link(rel = "icon", type = "image/png", sizes = "16x16", href = "../www/favicon-16x16.png")
 ),
 tags$style(type="text/css", "body {padding-top: 70px;}"),
-source("../0tabs/onoff.R", local=TRUE)$value,
+#source("../0tabs/onoff.R", local=TRUE)$value,
+tabOF(),
 
 navbarPage(
 theme = shinythemes::shinytheme("cerulean"),
@@ -248,14 +250,8 @@ hr()
 
 ##########----------##########----------##########
 
-tabPanel(tags$button(
-				    id = 'close',
-				    type = "button",
-				    class = "btn action-button",
-				    icon("power-off"),
-				    style = "background:rgba(255, 255, 255, 0); display: inline-block; padding: 0px 0px;",
-				    onclick = "setTimeout(function(){window.close();},500);")),
-navbarMenu("",icon=icon("link"))
+tabstop(),
+tablink()
 
 )
 ##-----------------------over

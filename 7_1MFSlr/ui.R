@@ -121,49 +121,8 @@ hr()
 ), ## tabPanel
 
 ##########----------##########----------##########
-#tabPanel(tags$button(
-#				    id = 'close',
-#				    type = "button",
-#				    class = "btn action-button",
-#				    icon("power-off"),
-#				    style = "background:rgba(255, 255, 255, 0); display: inline-block; padding: 0px 0px;",
-#				    onclick = "setTimeout(function(){window.close();},500);")),
-# navbarMenu("", icon = icon("power-off"),
-#         tabPanel(
-#           actionLink(
-#             "close", "Stop", icon = icon("stop"),
-#             onclick = "setTimeout(function(){window.close();}, 100);"
-#           )
-#         ),
-#         tabPanel(
-#         		tags$a("",
-#             #target = "_blank",
-#             #style = "margin-top:-30px; color:DodgerBlue",
-#             href = paste0("javascript:history.go(0)"),#,
-# 		 			 list(icon("refresh"), "Restart"))
-# 	        )
-# 				),
+
 tabstop(),
 tablink()
-# navbarMenu("", icon = icon("link"),
-# 	        tabPanel(
-#         		tags$a("",
-#             target = "_blank",
-#             #style = "margin-top:-30px; color:DodgerBlue",
-#             href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas/","index.html"),#,
-# 		 			 list(icon("home"), "Home Page"))
-# 	        ),
-# 
-# 	        tabPanel(
-#         		tags$a("",
-#             target = "_blank",
-#             #style = "margin-top:-30px; color:DodgerBlue",
-#             href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas/","index.html"),#,
-# 		 			 list(icon("question-circle"), "Tutorial"))
-# 	        )
-# 	        )
-
-#navbarMenu("",icon=icon("link"))
-
 )
 )
