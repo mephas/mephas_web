@@ -37,7 +37,7 @@ p(br()),
 actionButton("B1", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
 p(br()),
 p(br()),
-hr(),
+hr()
 
 
 ),
