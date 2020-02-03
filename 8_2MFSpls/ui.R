@@ -28,7 +28,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To upload data file, preview data set, and check the correctness of data input
 <li> To pre-process some variables (when necessary) for building the model
@@ -73,7 +73,7 @@ HTML(
 "
 <b>Principal component regression (PCR)</b> is a regression analysis technique that is based on principal component analysis (PCA). It finds hyperplanes of maximum variance between the response and independent variables.
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To get correlation matrix and plot
 <li> To get the results from model
@@ -110,7 +110,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To upload new data and get the prediction
 </ul>
@@ -148,7 +148,7 @@ HTML(
 "
 <b>Partial least squares regression (PLSR)</b> is a regression analysis technique that finds a linear regression model by projecting the predicted variables and the observable variables to a new space.
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To get correlation matrix and plot
 <li> To get the results from model
@@ -184,7 +184,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To upload new data and get the prediction
 </ul>
@@ -221,7 +221,7 @@ HTML(
 "
 <b>Sparse partial least squares regression (SPLSR)</b> is a regression analysis technique that aims simultaneously to achieve good predictive performance and variable selection by producing sparse linear combinations of the original predictors.
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To get correlation matrix and plot
 <li> To get the results from model
@@ -254,7 +254,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To upload new data and get the prediction
 </ul>

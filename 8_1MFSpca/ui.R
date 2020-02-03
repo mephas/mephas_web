@@ -37,7 +37,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To upload data file, preview data set, and check the correctness of data input
 <li> To pre-process some variables (when necessary) for building the model
@@ -87,7 +87,7 @@ HTML(
 "
 <b>Principal components analysis (PCA)</b> is a data reduction technique that transforms a larger number of correlated variables into a much smaller set of uncorrelated variables called principal components.
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> From <parallel analysis> to estimate the number of components
 <li> To get correlation matrix and plot
@@ -121,7 +121,7 @@ HTML(
 "
 <b>Exploratory Factor analysis (EFA)</b> is a statistical method used to describe variability among observed, correlated variables in terms of a potentially lower number of unobserved variables called factors.
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> From <parallel analysis> to estimate the number of components
 <li> To get correlation matrix and plot

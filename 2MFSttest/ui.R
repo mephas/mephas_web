@@ -29,7 +29,7 @@ condition = "input.explain_on_off",
 HTML(
 "
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if your data is statistically significantly different from the specified mean from T test results
 <li> To know the basic descriptive statistics about your data
@@ -72,7 +72,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if the means of two sets of your data are significantly different from each other from T test results
 <li> To know the basic descriptive statistics about your data
@@ -118,7 +118,7 @@ HTML(
 "
 <b>In paired case, we compare the differences of 2 groups to zero. Thus, it becomes a one-sample test problem.</b>
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if the difference of the paired 2 samples are equal to 0
 <li> To know the basic descriptive statistics about your data

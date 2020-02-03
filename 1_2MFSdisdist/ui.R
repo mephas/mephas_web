@@ -32,7 +32,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b>What you can do on this page  </b></h4>
+<h4><b>Functionalities</b></h4>
 <ul>
 <li> Get a plot of Binomial Distribution B(n,p); n is the total sample size, p is the probability of success / event from the total sample; np=mean, np(1-p)=variance
 <li> Get the probability of a certain position (at the red point)
@@ -62,7 +62,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b>What you can do on this page  </b></h4>
+<h4><b>Functionalities  </b></h4>
 <ul>
 <li> Draw a plot of Poisson Distribution P(Rate); Rate indicates the expected number of occurrences; Rate = mean =variance
 <li> Get the probability of a certain position (at the red point)

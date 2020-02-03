@@ -27,7 +27,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To upload data file, preview data set, and check the correctness of data input
 <li> To pre-process some variables (when necessary) for building the model
@@ -85,7 +85,7 @@ HTML(
 <p> <b>Kaplan–Meier estimator</b>, also known as the product limit estimator, is a non-parametric statistic used to estimate the survival function from lifetime data. </p>
 <p> <b>Log-rank test</b> is a hypothesis test to compare the survival distributions of two samples. It compares estimates of the hazard functions of the two groups at each observed event time.
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To get Kaplan-Meier survival probability estimate
 <li> To get Kaplan-Meier survival curves, cumulative events distribution curves, and cumulative hazard curves by group variable
@@ -121,7 +121,7 @@ HTML(
 "
 <p><b> Cox Regression</b>, also known as Cox proportional hazard regression assumes that if the proportional hazards assumption holds (or, is assumed to hold) then it is possible to estimate the effect parameter(s) without any consideration of the hazard function.
 Cox regression assumes that the effects of the predictor variables upon survival are constant over time and are additive in one scale.</p>
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To build a Cox regression model
 <li> To get the estimates of the model, such as (1) estimate of coefficient, (2) predictions from the training data, (3)residuals,
@@ -155,7 +155,7 @@ condition = "input.explain_on_off",
 HTML(
 "
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To upload new data and get the prediction
 <li> To get the evaluation if new data contains new dependent variable
@@ -190,7 +190,7 @@ HTML(
 "
 <p><b>Accelerated failure time (AFT) model</b> is a parametric model assumes that the effect of a covariate is to accelerate or decelerate the life course of a disease by some constant.</p>
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To build AFT model
 <li> To get the estimates of the model, such as coefficients of parameters, residuals, and diagnostic plot
@@ -223,7 +223,7 @@ condition = "input.explain_on_off",
 HTML(
 "
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To upload new data and get the prediction
 <li> To get the evaluation if new data contains new dependent variable

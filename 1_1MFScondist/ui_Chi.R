@@ -21,10 +21,10 @@ sidebarLayout(
  		numericInput("x.df", HTML("v > 0, Degree of Freedom related the the shape"), value = 4, min = 0),
 		hr(),
 		h4(tags$b("Step 2. Show Probability")),
-		numericInput("x.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
+		numericInput("x.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
 		hr(),
 		p(tags$b("You can adjust x-axes range")), 
-		numericInput("x.xlim", "Range of x-asis, > 0", value = 8, min = 1)
+		numericInput("x.xlim", "Range of x-axis, > 0", value = 8, min = 1)
 	  ),
 	 #condiPa 1 end
 	
@@ -57,8 +57,8 @@ sidebarLayout(
         	fileInput('x.file', "1. Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
-        	p(tags$b("2. Show 1st row as header?")),
-        	checkboxInput("x.header", "Show Data Header?", TRUE),
+        	p(tags$b("2. Use 1st row as cloumn names?")),
+        	checkboxInput("x.header", "Yes", TRUE),
 
         	p(tags$b("3. Use 1st column as row names? (No duplicates)")),
         	checkboxInput("x.col", "Yes", TRUE),
@@ -98,7 +98,7 @@ sidebarLayout(
         plotOutput("x.plot", click = "plot_click5", width = "80%"),
         verbatimTextOutput("x.info"),
 
-        p(tags$b("The position of Red-line, x0")),
+        p(tags$b("The position of Red-line, x<sub>0</sub>")),
         tableOutput("x")
 		),
 		

@@ -30,7 +30,7 @@ HTML(
 <b>Logistic regression</b> is used to model the probability of a certain class or event existing such as pass/fail, win/lose, alive/dead or healthy/sick.
 Logistic regression uses a logistic function to model a binary dependent variable.
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To upload data file, preview data set, and check the correctness of data input
 <li> To pre-process some variables (when necessary) for building the model
@@ -76,7 +76,7 @@ condition = "input.explain_on_off",
 HTML(
 "
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To build simple or multiple logistic regression model
 <li> To get the estimates of regressions, including (1) estimate of coefficients with t test, p value, and 95% CI, (2) R<sup>2</sup> and adjusted R<sup>2</sup>, and (3) F-Test for overall significance in Regression
@@ -109,7 +109,7 @@ condition = "input.explain_on_off",
 HTML(
 "
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To upload new data and get the prediction
 <li> To get the evaluation if new data contains new dependent variable

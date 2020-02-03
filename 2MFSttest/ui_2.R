@@ -44,8 +44,8 @@ sidebarPanel(
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
         # Input: Checkbox if file has header ----
-        p(tags$b("2. Show 1st row as header?")),
-        checkboxInput("header2", "Show Data Header?", TRUE),
+        p(tags$b("2. Use 1st row as column names?")),
+        checkboxInput("header2", "Yes", TRUE),
         p(tags$b("3. Use 1st column as row names?")),
         checkboxInput("col2", "Yes", TRUE),
 

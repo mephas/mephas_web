@@ -29,7 +29,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities</b></h4>
 <ul>
 <li> To determine if the population rate/proportion behind your data is significantly different from the specified rate/proportion
 <li> To determine how compatible the sample rate/proportion with a population rate/proportion
@@ -68,7 +68,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if the population rate/proportion behind your 2 groups data are significantly different </ul>
 
@@ -105,7 +105,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if the population rate/proportion behind your multiple groups data are significantly different </ul>
 
@@ -141,7 +141,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if the population rate/proportion behind your multiple groups data vary 
 </ul>

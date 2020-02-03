@@ -27,7 +27,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML("
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if there is association between the case-control status (rows) and factor categories (columns)
 <li> To determine if the proportions are the same in the 2 independent samples
@@ -68,7 +68,7 @@ titlePanel("Fisher Exact Test for 2 Categories of Factor with Small Expected Cou
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML("
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if there is association between the case-control status (rows) and factor status (columns)
 <li> To determine if the proportions are the same in the 2 dependent samples
@@ -110,7 +110,7 @@ titlePanel("McNemar Test for 2 Categories of  of Factor with Matched Counts in C
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML("
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if the two factors on the matched samples were significantly different.
 <li> To get the percentage table and plot and expected value of each cell
@@ -162,7 +162,7 @@ titlePanel("Chi-square Test for >2 Categories of Factor in Case-Control Status")
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML("
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if there is association between the case-control status (rows) and factor status (columns)
 <li> To determine if the population rate/proportion behind your multiple Groups data are significantly different
@@ -205,7 +205,7 @@ titlePanel("Chi-square Test for >2 Factor Categories of Factor in >2 Status"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML("
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if there is association between the case-control status (rows) and factor status (columns)
 <li> To determine if the population rate/proportion behind your multiple Groups data are significantly different
@@ -249,7 +249,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To quantify the agreement from two raters or two rankings
 <li> To get the percentage table and expected value of each cell
@@ -290,7 +290,7 @@ HTML(
 "
 <p> This method just uses a different type of data. It uses counts of concordant and dis-concordant shown in a K by K table.</p>
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To quantify the reproducibility of the same variables measured more than once
 <li> To quantify the association between 2 measurements with same outcomes
@@ -333,7 +333,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine by controlling the stratum / confounding if there is association between the case-control status (rows) and factor status (columns)
 <li> Two nominal variables are conditionally independent in K strata
@@ -377,7 +377,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine by controlling the stratum / confounding if there is association between the case-control status (rows) and factor status (columns)
 <li> Two nominal variables are conditionally independent in K strata

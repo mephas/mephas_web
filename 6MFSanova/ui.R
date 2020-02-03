@@ -27,7 +27,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if the means differ significantly among the factor groups
 </ul>
@@ -69,7 +69,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if the means differ significantly among pairs, given that one-way ANOVA finds significant differences among factor groups.
 </ul>
@@ -108,7 +108,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
 "
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if the means differ significantly among the Factor1 after controlling for Factor2
 <li> To determine if the means differ significantly among the Factor2 after controlling for Factor1
@@ -152,7 +152,7 @@ condition = "input.explain_on_off",
 HTML(
 "
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if the means differ significantly among which pairs, given that two-way ANOVA finds significant differences among groups.
 </ul>
@@ -193,7 +193,7 @@ HTML(
 "
 <b>This method compares ranks of the observed data, rather than mean and SD. An alternative to one-way ANOVA without assumption on the data distribution</b>
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if the means differ significantly among the factor groups
 </ul>
@@ -232,7 +232,7 @@ condition = "input.explain_on_off",
 HTML(
 "
 
-<h4><b> 1. What you can do on this page  </b></h4>
+<h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> To determine if the means differ significantly among pairs, given that one-way ANOVA finds significant differences among groups.
 </ul>

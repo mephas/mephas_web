@@ -40,8 +40,8 @@ sidebarPanel(
     fileInput('file.p', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
-        p(tags$b("2. Show 1st row as header?")),
-        checkboxInput("header.p", "Show Data Header?", TRUE),
+        p(tags$b("2. Use 1st row as column names?")),
+        checkboxInput("header.p", "Yes", TRUE),
         p(tags$b("3. Use 1st column as row names? (No duplicates)")),
         checkboxInput("col.p", "Yes", TRUE),
              # Input: Select separator ----

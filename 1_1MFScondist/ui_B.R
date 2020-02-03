@@ -24,10 +24,10 @@ sidebarLayout(
 
 		  hr(),
 		  h4(tags$b("Step 2. Show Probability")),   
-	 		numericInput("b.pr", HTML("Area Proportion Left to Red-line = Pr.(X < x0), x0 is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
+	 		numericInput("b.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
 		  hr(),
 	 		p(tags$b("You can adjust x-axes range")), 
-		  numericInput("b.xlim", "Range of x-asis, > 0", value = 1, min = 1)
+		  numericInput("b.xlim", "Range of x-axis, > 0", value = 1, min = 1)
 		  #snumericInput("b.ylim", "Range of y-asis, > 0", value = 2.5, min = 0.1, max = 3),
 	  ),
 	 #condiPa 1 end
@@ -101,7 +101,7 @@ mainPanel(
 		tags$b("Beta distribution plot"),
         plotOutput("b.plot", click = "plot_click13", width = "80%"),
         verbatimTextOutput("b.info"),
-        p(tags$b("The position of Red-line, x0")),
+        p(tags$b("The position of Red-line, x<sub>0</sub>")),
         tableOutput("b")
 		),
 		
