@@ -1,14 +1,26 @@
 #****************************************************************************************************************************************************pca
 
+#output$x = renderUI({
+#selectInput(
+#'x',
+#tags$b('1. Add / Remove independent variable matrix (X)'),
+#selected = type.num3(),
+#choices = type.num3(),
+#multiple = TRUE
+#)
+#})
+
 output$x = renderUI({
-selectInput(
-'x',
-tags$b('1. Add / Remove independent variable matrix (X)'),
-selected = type.num3(),
-choices = type.num3(),
-multiple = TRUE
+  pickerInput(
+    inputId = "x",
+    label = "1. Add / Remove independent variables (X)",
+    selected =type.num3(),
+    choices = type.num3(),
+    multiple = TRUE,
+    options = pickerOptions(
+      actionsBox=TRUE)
 )
-})
+  })
 
 DF4 <- eventReactive(input$pca1,{
   X()[,input$x]

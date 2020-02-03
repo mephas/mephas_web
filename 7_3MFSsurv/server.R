@@ -34,9 +34,9 @@ observe({
       if (input$close > 0) stopApp()                             # stop shiny
     })
 
-observeEvent(input$"Non-Parametric Model", showTab("navibar", target = "Non-Parametric Model", select = TRUE))
-observeEvent(input$"Semi-Parametric Model", showTab("navibar", target = "Semi-Parametric Model", select = TRUE))
-observeEvent(input$"Parametric Model", showTab("navibar", target = "Parametric Model", select = TRUE))
+observeEvent(input$"Non-Parametric Model", showTab("navibar", target = "KM Model", select = TRUE))
+observeEvent(input$"Semi-Parametric Model", showTab("navibar", target = "Cox Model and Prediction", select = TRUE))
+observeEvent(input$"Parametric Model", showTab("navibar", target = "AFT Model and Prediction", select = TRUE))
 
 }
 #)

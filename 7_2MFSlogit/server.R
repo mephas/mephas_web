@@ -28,7 +28,7 @@ observe({
     session$reload()
   })
 
-observeEvent(input$Model, showTab("navibar", target = "Model", select = TRUE))
+observeEvent(input$Model, showTab("navibar", target = "Model and Prediction", select = TRUE))
 
 
 }

@@ -14,10 +14,11 @@ output$x.fa = renderUI({
   pickerInput(
     inputId = "x.fa",
     label = "1. Add / Remove independent variables (X)",
+    selected =type.num3(),
     choices = type.num3(),
-    options = list(
-      `actions-box` = TRUE), 
-    multiple = TRUE
+    multiple = TRUE,
+    options = pickerOptions(
+      actionsBox=TRUE)
 )
   })
 

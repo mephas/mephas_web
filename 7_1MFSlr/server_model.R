@@ -31,8 +31,8 @@ tags$b('2. Add / Remove independent variables (X)'),
 selected = names(DF4()),
 choices = names(DF4()),
 multiple = TRUE,
-options = list(
-      `actions-box` = TRUE)
+options = pickerOptions(
+      actionsBox=TRUE)
 )
 })
 

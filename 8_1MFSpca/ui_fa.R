@@ -8,7 +8,7 @@ sidebarPanel(
 tags$head(tags$style("#fa {overflow-y:scroll; max-height: 300px; background: white};")),
 tags$head(tags$style("#tdtrace.fa {overflow-y:scroll; height: 150px; background: white};")),
 
-h4(tags$b("Prepare the Model")),
+h4(tags$b("Build the Model")),
 p("Prepare the data in the Data tab"),
 hr(),     
 
@@ -22,8 +22,12 @@ p(tags$i("According to the suggested results from parallel analysis, we chose to
 hr(),
 h4(tags$b("Step 2. If data and model are ready, click the blue button to generate model results.")),
 
-actionButton("pca1.fa", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
-
+#actionButton("pca1.fa", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
+p(br()),
+actionButton("pca1.fa", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
+p(br()),
+p(br()),
+hr()
 ),
 
 mainPanel(
