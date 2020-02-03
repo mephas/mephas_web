@@ -20,7 +20,7 @@ sidebarPanel(
     ),
 
     p(tags$b("Please follow the example to input your data")),
-  p("Missing values can be separated by , ; /Enter /Tab /Space"),
+  p("Data points can be separated by , ; /Enter /Tab /Space"),
     tags$textarea(
         id = "x", #p
         rows = 10,
