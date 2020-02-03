@@ -105,7 +105,7 @@ p(tags$b("When #comp >=2, choose components to show factor and loading 2D plot")
 numericInput("c1", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c2", "2. Component at y-axis", 2, min = 1, max = NA),
 p("x and y must be different"),
-  plotly::plotlyOutput("pcr.s.plot", width = "80%"),
+  plotly::plotlyOutput("pcr.s.plot"),
   DT::DTOutput("pcr.s")
   ),
 
@@ -120,7 +120,7 @@ HTML("
 <li> If you want to perform other analyses on the data, you may want to have at least 90% of the variance explained by the factors.</li>
 </ul>
   "),
-  plotly::plotlyOutput("pcr.l.plot", width = "80%"),
+  plotly::plotlyOutput("pcr.l.plot"),
   DT::DTOutput("pcr.l")
   ),
 
@@ -140,7 +140,7 @@ p(tags$b("When #comp >=2, choose components to show factor and loading 2D plot")
 numericInput("c11", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c22", "2. Component at y-axis", 2, min = 1, max = NA),
 p("x and y must be different"),
-  plotly::plotlyOutput("pcr.bp", width = "80%")
+  plotly::plotlyOutput("pcr.bp")
   ),
 
 tabPanel("Component and Loading 3D Plot" ,p(br()),

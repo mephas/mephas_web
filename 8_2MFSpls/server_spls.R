@@ -85,7 +85,7 @@ output$spls  <- renderPrint({
   })
 
 output$spls.bp   <- renderPlot({ 
-plot(spls())
+plot(spls(), yvar=input$spls.y)
 })
 
 score.s <- reactive({
@@ -96,8 +96,11 @@ load.s <- reactive({
   })
 
 output$spls.coef <- DT::renderDT({
+  cletters <- rep(input$y.s, times=spls()$K)
+  cindexes <- rep(1:spls()$K,   each=length(input$y.s))
+  cnames   <- paste(cletters, cindexes, sep="")
   x<-as.data.frame(spls()$betamat)
-  colnames(x) <- paste0("At comp", 1:spls()$K)
+  colnames(x) <- cnames#paste0(input$y.s, "at comp", 1:spls()$K)
   rownames(x) <- input$x.s
   return(x)}, 
   extensions = 'Buttons', 

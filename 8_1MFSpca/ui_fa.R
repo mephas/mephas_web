@@ -37,11 +37,11 @@ h4(tags$b("Output 1. Data Explores")),
 tabsetPanel(
 
 tabPanel("Parallel Analysis", p(br()),
-plotOutput("fa.plot", width = "80%"),
+plotOutput("fa.plot"),
 verbatimTextOutput("fancomp")
 ),
 tabPanel("Correlation Matrix", p(br()),
-plotOutput("cor.fa.plot", width = "80%"),p(br()),
+plotOutput("cor.fa.plot"),p(br()),
 DT::DTOutput("cor.fa")
 ),
 tabPanel("Part of Data", br(),
@@ -65,7 +65,7 @@ tabPanel("Factors Result",p(br()),
 </ul>
 
   "),
-  plotOutput("pca.ind.fa", width = "80%"),
+  plotOutput("pca.ind.fa"),
   verbatimTextOutput("fa")),
 
 tabPanel("Factors", p(br()),
@@ -85,7 +85,7 @@ tabPanel("Loading", p(br()),
 </ul>
 
   "),
-	plotly::plotlyOutput("pca.ind.fa2", width = "80%"),
+	plotly::plotlyOutput("pca.ind.fa2"),
 	p(tags$b("Loadings")),
   DT::DTOutput("load.fa"),
   p(tags$b("Variance table")),
@@ -108,7 +108,7 @@ p(tags$b("When factors >=2, choose 2 factors to show factors and loading 2D plot
 p(tags$i("The default is to show the first 2 factors for all the 2D plot")),
 numericInput("c1.fa", "1. Factor at x-axis", 1, min = 1, max = NA),
 numericInput("c2.fa", "2. Factor at y-axis", 2, min = 1, max = NA),
-plotly::plotlyOutput("fa.bp", width = "80%")
+plotly::plotlyOutput("fa.bp")
 
 ),
 

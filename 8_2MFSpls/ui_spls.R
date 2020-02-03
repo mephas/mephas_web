@@ -17,7 +17,7 @@ uiOutput('y.s'),
 uiOutput('x.s'), 
 
 
-numericInput("nc.s", "4. How many new components", 4, min = 1, max = NA),
+numericInput("nc.s", "4. How many new components", 3, min = 1, max = NA),
 numericInput("nc.eta", "5. Parameter for selection range (larger number chooses less variables)", 0.3, min = 0, max = 1, step=0.1),
 
 radioButtons("method.s", "Which PLS algorithm",
@@ -64,7 +64,8 @@ tabsetPanel(
 tabPanel("Selection",p(br()),
 p(tags$b("The selected variables")),
 verbatimTextOutput("spls"),
-plotOutput("spls.bp", width = "80%"),
+numericInput("spls.y", "Which response (N'th dependent variable) to plot", 1, min = 1, step=1),
+plotOutput("spls.bp"),
 p(tags$b("Coefficient")),
 DT::DTOutput("spls.coef")
 ),
@@ -86,11 +87,11 @@ tabPanel("Components", p(br()),
 </ul>
   "),
     hr(),
-h4(tags$b("When #comp >=2, choose components to show factor and loading 2D plot")),
+p(tags$b("When #comp >=2, choose components to show factor and loading 2D plot")),
 numericInput("c1.s", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c2.s", "2. Component at y-axis", 2, min = 1, max = NA),
 p("x and y must be different"),
-	plotly::plotlyOutput("spls.s.plot", width = "80%"),
+	plotly::plotlyOutput("spls.s.plot"),
   DT::DTOutput("spls.s")
   ),
 
@@ -106,7 +107,7 @@ tabPanel("Loading", p(br()),
 <li> If you want to perform other analyses on the data, you may want to have at least 90% of the variance explained by the factors.</li>
 </ul>
   "),
-	plotly::plotlyOutput("spls.l.plot", width = "80%"),
+	plotly::plotlyOutput("spls.l.plot"),
   DT::DTOutput("spls.l")
   ),
 
@@ -122,11 +123,11 @@ tabPanel("Component and Loading 2D Plot", p(br()),
 </ul>
   "),
     hr(),
-h4(tags$b("When #comp >=2, choose components to show factor and loading 2D plot")),
+p(tags$b("When #comp >=2, choose components to show factor and loading 2D plot")),
 numericInput("c11.s", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c22.s", "2. Component at y-axis", 2, min = 1, max = NA),
 p("x and y must be different"),
-  plotly::plotlyOutput("spls.biplot", width = "80%")
+  plotly::plotlyOutput("spls.biplot")
   ),
 
 tabPanel("Component and Loading 3D Plot" ,p(br()),

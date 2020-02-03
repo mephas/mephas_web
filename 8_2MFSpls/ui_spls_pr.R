@@ -56,7 +56,7 @@ h4(tags$b("Step 4. If the model and new data are ready, click the blue button to
 
 #actionButton("B.pcr", (tags$b("Show Prediction >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
 p(br()),
-actionButton("B.pcr", (tags$b("Show Prediction >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
+actionButton("B.spls", (tags$b("Show Prediction >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
 p(br()),
 p(br()),
 hr()

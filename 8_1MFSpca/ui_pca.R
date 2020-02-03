@@ -35,11 +35,11 @@ mainPanel(
 h4(tags$b("Output 1. Data Explores")),
 tabsetPanel(
 tabPanel("Parallel Analysis", p(br()),
-plotOutput("pc.plot", width = "80%"),
+plotOutput("pc.plot", ),
 verbatimTextOutput("pcncomp")
 ),
 tabPanel("Correlation Matrix", p(br()),
-plotOutput("cor.plot", width = "80%"),p(br()),
+plotOutput("cor.plot", ),p(br()),
 DT::DTOutput("cor")
 ),
 
@@ -86,7 +86,7 @@ p(tags$b("2. When components >=2, choose 2 components to show component and load
 p(tags$i("The default is to show the first 2 PCs for all the 2D plot")),
 numericInput("c1", "2.1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c2", "2.2. Component at y-axis", 2, min = 1, max = NA),
-plotly::plotlyOutput("pca.ind", width = "80%"),
+plotly::plotlyOutput("pca.ind", ),
 
 DT::DTOutput("comp")
   ),
@@ -102,7 +102,7 @@ tabPanel("Loading", p(br()),
 <li> If you want to perform other analyses on the data, you may want to have at least 90% of the variance explained by the factors.</li>
 </ul>
   "),
-  plotly::plotlyOutput("pca.ind2", width = "80%"),
+  plotly::plotlyOutput("pca.ind2", ),
   p(tags$b("Loadings")),
   DT::DTOutput("load"),
   p(tags$b("Variance table")),
@@ -128,7 +128,7 @@ p(tags$b("When components >=2, choose 2 components to show component and loading
 p(tags$i("The default is to show the first 2 PCs for all the 2D plot")),
 numericInput("c11", "2.1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c22", "2.2. Component at y-axis", 2, min = 1, max = NA),
-plotly::plotlyOutput("pca.bp", width = "80%")
+plotly::plotlyOutput("pca.bp", )
 
 ),
 
