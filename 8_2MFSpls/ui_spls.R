@@ -7,14 +7,15 @@ tags$head(tags$style("#spls {overflow-y:scroll; max-height: 300px; background: w
 tags$head(tags$style("#spls_cv {overflow-y:scroll; max-height: 300px; background: white};")),
 tags$head(tags$style("#tdtrace {overflow-y:scroll; max-height: 200px; background: white};")),
 
-h4(tags$b("Prepare the Model")),
+h4(tags$b("Build the Model")),
 p("Prepare the data in the Data tab"),
 hr(),      
 
 h4(tags$b("Step 1. Choose parameters to build the model")),    
 
-uiOutput('x.s'), 
 uiOutput('y.s'), 
+uiOutput('x.s'), 
+
 
 numericInput("nc.s", "4. How many new components", 4, min = 1, max = NA),
 numericInput("nc.eta", "5. Parameter for selection range (larger number chooses less variables)", 0.3, min = 0, max = 1, step=0.1),
@@ -28,8 +29,12 @@ selected = 'simpls'),
 hr(),
 
 h4(tags$b("Step 2. If data and model are ready, click the blue button to generate model results.")),
-actionButton("spls1", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
-
+#actionButton("spls1", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
+p(br()),
+actionButton("spls1", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
+p(br()),
+p(br()),
+hr()
 ),
 
 mainPanel(

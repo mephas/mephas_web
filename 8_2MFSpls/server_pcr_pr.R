@@ -3,7 +3,7 @@
 newX = reactive({
   inFile = input$newfile
   if (is.null(inFile)){
-    input$edata=="NKI"
+    x <- nki2.test
     #if (input$edata=="NKI") {x <- nki2.test}
     #else {x<- liver.test}
     }

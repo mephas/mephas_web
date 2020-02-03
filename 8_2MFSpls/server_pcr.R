@@ -1,27 +1,39 @@
 #****************************************************************************************************************************************************pcr
 
-output$x = renderUI({
+output$y = renderUI({
 selectInput(
-'x',
-tags$b('1. Add / Remove independent variables (X)'),
-selected = type.num3()[-c(1:3)],
+'y',
+tags$b('1. Choose one dependent variable (Y)'),
+selected = type.num3()[1],
 choices = type.num3(),
-multiple = TRUE
+multiple = FALSE
 )
 })
 
 DF4 <- reactive({
-  df <-X()[ ,-which(names(X()) %in% c(input$x))]
+  df <-X()[ ,-which(names(X()) %in% c(input$y))]
 return(df)
   })
 
-output$y = renderUI({
-selectInput(
-'y',
-tags$b('2. Choose one dependent variable (Y)'),
-selected = names(DF4())[1],
+#output$x = renderUI({
+#selectInput(
+#'x',
+#tags$b('1. Add / Remove independent variables (X)'),
+#selected = type.num3()[-c(1:3)],
+#choices = type.num3(),
+#multiple = TRUE
+#)
+#})
+
+output$x = renderUI({
+shinyWidgets::pickerInput(
+'x',
+tags$b('2. Add / Remove independent variables (X)'),
+selected = names(DF4()),
 choices = names(DF4()),
-multiple = FALSE
+multiple = TRUE,
+options = pickerOptions(
+      actionsBox=TRUE)
 )
 })
 

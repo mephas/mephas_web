@@ -9,14 +9,14 @@ tags$head(tags$style("#pcr_rmsep {overflow-y:scroll;background: white};")),
 tags$head(tags$style("#pcr_msep {overflow-y:scroll; background: white};")),
 tags$head(tags$style("#tdtrace {overflow-y:scroll; height: 200px; background: white};")),
 
-h4(tags$b("Prepare the Model")),
+h4(tags$b("Build the Model")),
 p("Prepare the data in the Data tab"),
 hr(),    
 
 h4(tags$b("Step 1. Choose parameters to build the model")),    
 
-uiOutput('x'), 
 uiOutput('y'), 
+uiOutput('x'), 
 
 numericInput("nc", "4. How many new components (a)", 4, min = 1, max = NA),
 #p("If data are complete, 'pca' uses Singular Value Decomposition; if there are some missing values, it uses the NIPALS algorithm."),
@@ -28,8 +28,12 @@ selected = 'none'),
 hr(),
 
 h4(tags$b("Step 2. If data and model are ready, click the blue button to generate model results.")),
-actionButton("pcr1", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
-
+#actionButton("pcr1", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
+p(br()),
+actionButton("pcr1", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
+p(br()),
+p(br()),
+hr()
 ),
 
 mainPanel(

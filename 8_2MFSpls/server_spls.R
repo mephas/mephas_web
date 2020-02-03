@@ -1,27 +1,53 @@
 #****************************************************************************************************************************************************spls
 
-output$x.s = renderUI({
-selectInput(
-'x.s',
-tags$b('1. Choose independent variable matrix (X)'),
-selected = type.num3()[-c(1:3)],
+#output$x.s = renderUI({
+#selectInput(
+#'x.s',
+#tags$b('1. Choose independent variable matrix (X)'),
+#selected = type.num3()[-c(1:3)],
+#choices = type.num3(),
+#multiple = TRUE
+#)
+#})
+
+output$y.s = renderUI({
+shinyWidgets::pickerInput(
+'y.s',
+tags$b('1. Choose one or more dependent variables (Y)'),
+selected = type.num3()[1:3],
 choices = type.num3(),
-multiple = TRUE
+multiple = TRUE,
+options = pickerOptions(
+      actionsBox=TRUE,
+      size=5)
 )
 })
 
 DF4.s <- reactive({
-  df <-X()[ ,-which(names(X()) %in% c(input$x.s))]
+  df <-X()[ ,-which(names(X()) %in% c(input$y.s))]
 return(df)
   })
 
-output$y.s = renderUI({
-selectInput(
-'y.s',
-tags$b('2. Choose one or more dependent variable (Y)'),
-selected = names(DF4.s())[1],
+#output$y.s = renderUI({
+#selectInput(
+#'y.s',
+#tags$b('2. Choose one or more dependent variable (Y)'),
+#selected = names(DF4.s())[1],
+#choices = names(DF4.s()),
+#multiple = TRUE
+#)
+#})
+
+output$x.s = renderUI({
+shinyWidgets::pickerInput(
+'x.s',
+tags$b('2. Add / Remove independent variables (X)'),
+selected = names(DF4.s()),
 choices = names(DF4.s()),
-multiple = TRUE
+multiple = TRUE,
+options = pickerOptions(
+      actionsBox=TRUE,
+      size=5)
 )
 })
 
