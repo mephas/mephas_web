@@ -118,8 +118,8 @@ mainPanel(
     " 
     <b> Explanation </b>
    <ul>
-    <li>  Rate = &#946=1/&#952
-    <li>  Mean = &#945*&#952
+    <li>  Rate = &#946=1/&#952 </li>
+    <li>  Mean = &#945*&#952 </li>
    </ul>
     "
     )

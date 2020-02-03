@@ -84,16 +84,16 @@ HTML(
 "
 <h4><b> Functionalities</b></h4>
 <ul>
-<li> Draw an Exponential Distribution with E(Rate); Rate indicates the rate of change
-<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line
-<li> Get the probability distribution from simulation numbers in Simulation-based tab
-<li> Download the random number in Simulation-based tab
-<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers
-<li> Get the probability distribution of your data which can be roughly compared to E(Rate)
+<li> Draw an Exponential Distribution with E(Rate); Rate indicates the rate of change</li>
+<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line</li>
+<li> Get the probability distribution from simulation numbers in Simulation-based tab</li>
+<li> Download the random number in Simulation-based tab</li>
+<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers</li>
+<li> Get the probability distribution of your data which can be roughly compared to E(Rate)</li>
 </ul>
 
-<i><h4>Case Example</h4>
-Suppose we wanted to see the shape of E(2), and wanted to know at which point x<sub>0</sub> when Pr(X < x<sub>0</sub>)= 0.05 </i>
+<h4><i>Case Example</i></h4>
+<i>Suppose we wanted to see the shape of E(2), and wanted to know at which point x<sub>0</sub> when Pr(X < x<sub>0</sub>)= 0.05 </i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 
 "
@@ -120,12 +120,12 @@ HTML(
 "
 <h4><b> Functionalities</b></h4>
 <ul>
-<li> Draw a Gamma Distribution with Gamma(&#945, &#952); &#945 controls the shape, 1/&#952 controls the change of rate
-<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line
-<li> Get the probability distribution from simulation numbers in Simulation-based tab
-<li> Download the random number in Simulation-based tab
-<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers
-<li> Get the probability distribution of your data which can be roughly compared to  Gamma(&#945, &#952)
+<li> Draw a Gamma Distribution with Gamma(&#945, &#952); &#945 controls the shape, 1/&#952 controls the change of rate</li>
+<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line</li>
+<li> Get the probability distribution from simulation numbers in Simulation-based tab</li>
+<li> Download the random number in Simulation-based tab</li>
+<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers</li>
+<li> Get the probability distribution of your data which can be roughly compared to  Gamma(&#945, &#952)</li>
 </ul>
 
 <i><h4>Case Example</h4>
@@ -156,15 +156,15 @@ HTML(
 <h4><b> Functionalities</b></h4>
 <ul>
 <li> Draw a Beta Distribution with Beta(&#945, &#946); &#945, &#946 controls the shape
-<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line
-<li> Get the probability distribution from simulation numbers in Simulation-based tab
-<li> Download the random number in Simulation-based tab
-<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers
-<li> Get the probability distribution of your data which can be roughly compared to Beta(&#945, &#946)
+<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line</li>
+<li> Get the probability distribution from simulation numbers in Simulation-based tab</li>
+<li> Download the random number in Simulation-based tab</li>
+<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers</li>
+<li> Get the probability distribution of your data which can be roughly compared to Beta(&#945, &#946)</li>
 </ul>
 
-<i><h4>Case Example</h4>
-Suppose we wanted to see the shape of Beta(2, 2), and wanted to know at which point x<sub>0</sub> when Pr(X < x<sub>0</sub>)= 0.05 </i>
+<h4><i>Case Example</i></h4>
+<i>Suppose we wanted to see the shape of Beta(2, 2), and wanted to know at which point x<sub>0</sub> when Pr(X < x<sub>0</sub>)= 0.05 </i>
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
@@ -190,15 +190,16 @@ HTML(
 "
 <h4><b> Functionalities</b></h4>
 <ul>
-<li> Draw a T Distribution with T(v); v is the degree of freedom related to your sample size and control the shape
-<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line
-<li> Get the probability distribution from simulation numbers in Simulation-based tab
-<li> Download the random number in Simulation-based tab
-<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers
-<li> Get the probability distribution of your data which can be roughly compared to T(v)  </ul>
+<li> Draw a T Distribution with T(v); v is the degree of freedom related to your sample size and control the shape</li>
+<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line</li>
+<li> Get the probability distribution from simulation numbers in Simulation-based tab</li>
+<li> Download the random number in Simulation-based tab</li>
+<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers</li>
+<li> Get the probability distribution of your data which can be roughly compared to T(v)</li>
+</ul>
 
-<i><h4>Case Example</h4>
-Suppose we wanted to see the shape of T(4) and wanted to know at which point x<sub>0</sub> when Pr(X < x<sub>0</sub>)= 0.025 </i>
+<h4><i>Case Example</i></h4>
+<i>Suppose we wanted to see the shape of T(4) and wanted to know at which point x<sub>0</sub> when Pr(X < x<sub>0</sub>)= 0.025 </i>
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
@@ -224,15 +225,16 @@ HTML(
 "
 <h4><b> Functionalities</b></h4>
 <ul>
-<li> Draw a Chi-Squared Distribution with Chi(v); v is the degree of freedom related to your sample size and control the shape
-<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line
-<li> Get the probability distribution from simulation numbers in Simulation-based tab
-<li> Download the random number in Simulation-based tab
-<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers
-<li> Get the probability distribution of your data which can be roughly compared to Chi(v)</ul>
+<li> Draw a Chi-Squared Distribution with Chi(v); v is the degree of freedom related to your sample size and control the shape</li>
+<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line</li>
+<li> Get the probability distribution from simulation numbers in Simulation-based tab</li>
+<li> Download the random number in Simulation-based tab</li>
+<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers</li>
+<li> Get the probability distribution of your data which can be roughly compared to Chi(v)</li>
+</ul>
 
-<i><h4>Case Example</h4>
-Suppose we wanted to see the shape of Chi(4), and wanted to know at which point x<sub>0</sub> when Pr(X < x<sub>0</sub>)= 0.05 </i>
+<h4><i>Case Example</i></h4>
+<i>Suppose we wanted to see the shape of Chi(4), and wanted to know at which point x<sub>0</sub> when Pr(X < x<sub>0</sub>)= 0.05 </i>
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
@@ -257,15 +259,16 @@ HTML(
 "
 <h4><b> Functionalities</b></h4>
 <ul>
-<li> Draw a F Distribution with F(df<sub>1</sub>, df<sub>2</sub>) ; df<sub>1</sub> and df<sub>2</sub> are the degree of freedom related to your sample size and control the shape
-<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line
-<li> Get the probability distribution from simulation numbers in Simulation-based tab
-<li> Download the random number in Simulation-based tab
-<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers
-<li> Get the probability distribution of your data which can be roughly compared to F(df<sub>1</sub>, df<sub>2</sub>)  </ul>
+<li> Draw a F Distribution with F(df<sub>1</sub>, df<sub>2</sub>) ; df<sub>1</sub> and df<sub>2</sub> are the degree of freedom related to your sample size and control the shape<i>
+<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line<i>
+<li> Get the probability distribution from simulation numbers in Simulation-based tab<i>
+<li> Download the random number in Simulation-based tab<i>
+<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers<i>
+<li> Get the probability distribution of your data which can be roughly compared to F(df<sub>1</sub>, df<sub>2</sub>)<i>
+</ul>
 
-<i><h4>Case Example</h4>
-Suppose we wanted to see the shape of F(100, 10), and wanted to know at which point x<sub>0</sub> when Pr(X < x<sub>0</sub>)= 0.05 </i>
+<h4><i>Case Example</i></h4>
+<i>Suppose we wanted to see the shape of F(100, 10), and wanted to know at which point x<sub>0</sub> when Pr(X < x<sub>0</sub>)= 0.05 </i>
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "

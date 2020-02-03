@@ -65,11 +65,11 @@ HTML(
 "
 <b> Explanations  </b>
 <ul>
-<li> Output in the left shows estimated coefficients (95% confidence interval), T statistic (t = ) for the significance of single variable, and P value (p = ) are given
-<li> Output in the right shows odds ratio = exp(b) and standard error of the original coefficients
-<li> T test of each variable and P < 0.05 indicates this variable is statistical significant to the model
-<li> Observations means the number of samples
-<li> Akaike Inf. Crit. = AIC = -2 (log likelihood) + 2k; k is the number of variables + constant
+<li> Output in the left shows estimated coefficients (95% confidence interval), T statistic (t = ) for the significance of single variable, and P value (p = ) are given</li>
+<li> Output in the right shows odds ratio = exp(b) and standard error of the original coefficients</li>
+<li> T test of each variable and P < 0.05 indicates this variable is statistical significant to the model</li>
+<li> Observations means the number of samples</li>
+<li> Akaike Inf. Crit. = AIC = -2 (log likelihood) + 2k; k is the number of variables + constant</li>
 </ul>
 "
 ),
@@ -91,9 +91,9 @@ tabPanel("AIC-based Selection",  br(),
 HTML(
 "<b> Explanations </b>
 <ul> 
-<li> The Akaike Information Criterion (AIC) is a way of selecting a model from a set of models. 
-<li> Model fits are ranked according to their AIC values, and the model with the lowest AIC value is sometime considered the ‘best’. 
-<li> This selection is just for your reference.
+<li> The Akaike Information Criterion (AIC) is a way of selecting a model from a set of models. </li>
+<li> Model fits are ranked according to their AIC values, and the model with the lowest AIC value is sometime considered the ‘best’. </li>
+<li> This selection is just for your reference.</li>
 </ul>"
 ),
     p(tags$b("Model selection suggested by AIC")),
@@ -107,10 +107,10 @@ tabPanel("ROC Plot",   br(),
 HTML(
 "<b> Explanations </b>
 <ul> 
-<li> ROC curve: receiver operating characteristic curve, is a graphical plot that illustrates the diagnostic ability of a binary classifier system as its discrimination threshold is varied
-<li> ROC curve is created by plotting the true positive rate (TPR) against the false positive rate (FPR) at various threshold settings
-<li> Sensitivity (also called the true positive rate) measures the proportion of actual positives that are correctly identified as such
-<li> Specificity (also called the true negative rate) measures the proportion of actual negatives that are correctly identified as such
+<li> ROC curve: receiver operating characteristic curve, is a graphical plot that illustrates the diagnostic ability of a binary classifier system as its discrimination threshold is varied</li>
+<li> ROC curve is created by plotting the true positive rate (TPR) against the false positive rate (FPR) at various threshold settings</li>
+<li> Sensitivity (also called the true positive rate) measures the proportion of actual positives that are correctly identified as such</li>
+<li> Specificity (also called the true negative rate) measures the proportion of actual negatives that are correctly identified as such</li>
 
 </ul>"
 ),

@@ -118,8 +118,8 @@ sidebarLayout(
     " 
     <b> Explanation </b>
    <ul>
-    <li>  Mean = v
-    <li>  SD = sqrt(2v)
+    <li>  Mean = v </li>
+    <li>  SD = sqrt(2v) </li>
    </ul>
     "
     )

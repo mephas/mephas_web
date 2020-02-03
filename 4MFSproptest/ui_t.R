@@ -90,8 +90,8 @@
      HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then Case-Control (Row) is significantly associated with grouped Factors (Column) (Accept alternative hypothesis)
-    <li> P Value >= 0.05, then Case-Control (Row) are not associated with grouped Factors (Column). (Accept null hypothesis)
+    <li> P Value < 0.05, then Case-Control (Row) is significantly associated with grouped Factors (Column) (Accept alternative hypothesis)</li>
+    <li> P Value >= 0.05, then Case-Control (Row) are not associated with grouped Factors (Column). (Accept null hypothesis)</li>
     </ul>"
   ),
 conditionalPanel(

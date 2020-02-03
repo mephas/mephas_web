@@ -99,8 +99,8 @@ hr(),
       HTML(
   "<b> Explanations </b>
 
-    <li> <b>Scheffe</b> procedure controls for the search over any possible contrast
-    <li> <b>Tukey Honest Significant Difference</b> is preferred if there are unequal group sizes among the experimental and control groups
+    <li> <b>Scheffe</b> procedure controls for the search over any possible contrast</li>
+    <li> <b>Tukey Honest Significant Difference</b> is preferred if there are unequal group sizes among the experimental and control groups</li>
   "
     )
 
@@ -162,8 +162,8 @@ mainPanel(
         HTML(
   "<b> Explanations </b>
   <ul> 
-    <li> In the matrix, P < 0.05 indicates the statistical significant in the pairs
-    <li> In the matrix, P >= 0.05 indicates no statistically significant differences in the pairs
+    <li> In the matrix, P < 0.05 indicates the statistical significant in the pairs</li>
+    <li> In the matrix, P >= 0.05 indicates no statistically significant differences in the pairs</li>
   </ul>"
     ),
     conditionalPanel(

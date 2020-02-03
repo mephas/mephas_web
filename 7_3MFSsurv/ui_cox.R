@@ -100,12 +100,12 @@ HTML(
 "
 <b> Explanations  </b>
 <ul>
-<li> For each variable, estimated coefficients (coef), statistic for the significance of single variable, and P value are given.
-<li> The column marked 'z' gives the Wald statistic value. It corresponds to the ratio of each regression coefficient to its standard error (z = coef/se(coef)).The Wald statistic evaluates, whether the beta coefficient of a given variable is statistically significantly different from 0.
-<li> The coefficients relate to hazard; a positive coefficient indicates a worse prognosis and a negative coefficient indicates a protective effect of the variable with which it is associated.
-<li> exp(coef) = hazard ratio (HR). HR = 1: No effect; HR < 1: Reduction in the hazard; HR > 1: Increase in Hazard
-<li> The output also gives upper and lower 95% confidence intervals for the hazard ratio (exp(coef)), 
-<li> The likelihood-ratio test, Wald test, and score log-rank statistics give global statistical significance of the model. These three methods are asymptotically equivalent. For large enough N, they will give similar results. For small N, they may differ somewhat. The Likelihood ratio test has better behavior for small sample sizes, so it is generally preferred.
+<li> For each variable, estimated coefficients (coef), statistic for the significance of single variable, and P value are given.</li>
+<li> The column marked 'z' gives the Wald statistic value. It corresponds to the ratio of each regression coefficient to its standard error (z = coef/se(coef)).The Wald statistic evaluates, whether the beta coefficient of a given variable is statistically significantly different from 0.</li>
+<li> The coefficients relate to hazard; a positive coefficient indicates a worse prognosis and a negative coefficient indicates a protective effect of the variable with which it is associated.</li>
+<li> exp(coef) = hazard ratio (HR). HR = 1: No effect; HR < 1: Reduction in the hazard; HR > 1: Increase in Hazard</li>
+<li> The output also gives upper and lower 95% confidence intervals for the hazard ratio (exp(coef)), </li>
+<li> The likelihood-ratio test, Wald test, and score log-rank statistics give global statistical significance of the model. These three methods are asymptotically equivalent. For large enough N, they will give similar results. For small N, they may differ somewhat. The Likelihood ratio test has better behavior for small sample sizes, so it is generally preferred.</li>
 </ul>
 "
 ),
@@ -123,8 +123,8 @@ tabPanel("Survival Curve", p(br()),
      "
 <b> Explanations  </b>
 <ul>
-<li> this plot is to present expected survival curves calculated based on Cox model separately for subpopulations / strata
-<li> If there is no strata() component then only a single curve will be plotted - average for the whole population
+<li> this plot is to present expected survival curves calculated based on Cox model separately for subpopulations / strata</li>
+<li> If there is no strata() component then only a single curve will be plotted - average for the whole population</li>
 </ul>
 "
 ),
@@ -139,9 +139,9 @@ HTML(
 "
 <b> Explanations  </b>
 <ul>
-<li> Schoenfeld residuals are used to check the proportional hazards assumption
-<li> Schoenfeld residuals are independent of time. A plot that shows a non-random pattern against time is evidence of violation of the PH assumption
-<li> If the test is not statistically significant (p>0.05) for each of the independent variable, we can assume the proportional hazards
+<li> Schoenfeld residuals are used to check the proportional hazards assumption</li>
+<li> Schoenfeld residuals are independent of time. A plot that shows a non-random pattern against time is evidence of violation of the PH assumption</li>
+<li> If the test is not statistically significant (p>0.05) for each of the independent variable, we can assume the proportional hazards</li>
 </ul>
 "
 ),
@@ -165,22 +165,22 @@ HTML(
 <b>Martingale residuals</b> against continuous independent variable is a common approach used to detect nonlinearity. For a given continuous covariate, patterns in the plot may suggest that the variable is not properly fit.
 Martingale residuals may present any value in the range (-INF, +1):
 <ul>
-<li>A value of martingale residuals near 1 represents individuals that 'died too soon',
-<li>Large negative values correspond to individuals that 'lived too long'.
+<li>A value of martingale residuals near 1 represents individuals that 'died too soon',</li>
+<li>Large negative values correspond to individuals that 'lived too long'.</li>
 </ul>
 
 <b>Deviance residual</b> is a normalized transform of the martingale residual. These residuals should be roughly symmetrically distributed about zero with a standard deviation of 1.
 <ul>
-<li>Positive values correspond to individuals that 'died too soon' compared to expected survival times.
-<li>Negative values correspond to individual that 'lived too long'.
-<li>Very large or small values are outliers, which are poorly predicted by the model.
+<li>Positive values correspond to individuals that 'died too soon' compared to expected survival times.</li>
+<li>Negative values correspond to individual that 'lived too long'.</li>
+<li>Very large or small values are outliers, which are poorly predicted by the model.</li>
 </ul>
 
 <b>Cox-Snell residuals</b> are used to check for overall goodness of fit in survival models.
 <ul>
-<li> Cox-Snell residuals are equal to the -log(survival probability) for each observation
-<li> If the model fits the data well, Cox-Snell residuals should behave like a sample from an exponential distribution with a mean of 1
-<li> If the residuals act like a sample from a unit exponential distribution, they should lie along the 45-degree diagonal line.
+<li> Cox-Snell residuals are equal to the -log(survival probability) for each observation</li>
+<li> If the model fits the data well, Cox-Snell residuals should behave like a sample from an exponential distribution with a mean of 1</li>
+<li> If the residuals act like a sample from a unit exponential distribution, they should lie along the 45-degree diagonal line.</li>
 </ul>
 
 <p>The residuals can be found in Data Fitting tab.<p>

@@ -133,13 +133,13 @@ mainPanel(
   HTML(
   "<b> Explanations </b>
   <ul> 
-    <li> DF<sub>Factor</sub> = [number of factor group categories] -1
-    <li> DF<sub>Interaction</sub> = DF<sub>Factor1</sub> x DF<sub>Factor2</sub>  
-    <li> DF<sub>Residuals</sub> = [number of sample values] - [number of factor1 group categories] x [number of factor2 group categories]
-    <li> MS = SS/DF
-    <li> F = MS<sub>Factor</sub> / MS<sub>Residuals</sub>
-    <li> P Value < 0.05, then the population means are significantly different among factor groups. (Accept alternative hypothesis)
-    <li> P Value >= 0.05, then there is NO significant differences in the factor groups. (Accept null hypothesis) 
+    <li> DF<sub>Factor</sub> = [number of factor group categories] -1</li>
+    <li> DF<sub>Interaction</sub> = DF<sub>Factor1</sub> x DF<sub>Factor2</sub></li>  
+    <li> DF<sub>Residuals</sub> = [number of sample values] - [number of factor1 group categories] x [number of factor2 group categories]</li>
+    <li> MS = SS/DF</li>
+    <li> F = MS<sub>Factor</sub> / MS<sub>Residuals</sub></li>
+    <li> P Value < 0.05, then the population means are significantly different among factor groups. (Accept alternative hypothesis)</li>
+    <li> P Value >= 0.05, then there is NO significant differences in the factor groups. (Accept null hypothesis) </li>
   </ul>"
     ),
 

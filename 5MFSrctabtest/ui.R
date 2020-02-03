@@ -31,26 +31,26 @@ HTML("
 
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To determine if there is association between the case-control status (rows) and factor categories (columns)
-<li> To determine if the proportions are the same in the 2 independent samples
-<li> To determine if the proportions are homogeneity
-<li> To get the percentage table and plot and expected value of each cell
+<li> To determine if there is association between the case-control status (rows) and factor categories (columns)</li>
+<li> To determine if the proportions are the same in the 2 independent samples</li>
+<li> To determine if the proportions are homogeneity</li>
+<li> To get the percentage table and plot and expected value of each cell</li>
 </ul>
 
 <h4><b> 2. About your count data, 4-cell 2 by 2 contingency table </b></h4>
 
 <ul>
-<li> You have 2 categories for case-control status (shown as row names)
-<li> You have 2 categories for factor status (shown as column names)
-<li> Every cells are independent with moderately large counts
+<li> You have 2 categories for case-control status (shown as row names)</li>
+<li> You have 2 categories for factor status (shown as column names)</li>
+<li> Every cells are independent with moderately large counts</li>
 </ul>
 
-<i><h4>Case Example</h4>
-Suppose we wanted to know the relation between OC user and MI.
+<h4><i>Case Example</i></h4>
+<i>Suppose we wanted to know the relation between OC user and MI.
 In one study we investigated data of 5000 OC-users and 10000 non OC-user, and categorized them into myocardial infarction (MI) and non-MI patients groups.
 Among 5000 OC-users, 13 developed MI; among 10000 non-OC-users, 7 developed MI.
 We wanted to determine if OC use was significantly associated with higher MI incidence.
-</h4></i>
+</i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
@@ -72,28 +72,28 @@ condition = "input.explain_on_off",
 HTML("
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To determine if there is association between the case-control status (rows) and factor status (columns)
-<li> To determine if the proportions are the same in the 2 dependent samples
-<li> To determine if the proportions are homogeneity
-<li> To get the percentage table and plot and expected value of each cell
+<li> To determine if there is association between the case-control status (rows) and factor status (columns)</li>
+<li> To determine if the proportions are the same in the 2 dependent samples</li>
+<li> To determine if the proportions are homogeneity</li>
+<li> To get the percentage table and plot and expected value of each cell</li>
 
 </ul>
 
 <h4><b> 2. About your count data, 2 by 2 contingency table </b></h4>
 
 <ul>
-<li> You have 2 categories for case-control status (shown as row names)
-<li> You have 2 categories for factor status (shown as column names)
-<li> Every cells are independent
-<li> Expected value from your data are small
+<li> You have 2 categories for case-control status (shown as row names)</li>
+<li> You have 2 categories for factor status (shown as column names)</li>
+<li> Every cells are independent</li>
+<li> Expected value from your data are small</li>
 </ul>
 
-<i><h4>Case Example</h4>
-Suppose we wanted to know the relation between CVD and high salt diet.
+<h4><i>Case Example</i></h4>
+<i>Suppose we wanted to know the relation between CVD and high salt diet.
 In one study we investigated data of 35 CVD patients and 25 non-CVD patients, and categorized them into high salt diet and low salt diet.
 Among 35 CVD patients, 5 had high-salt diet; among 25 non CVD patients, 2 had high-salt diet.
 We wanted to determine if CVD was significantly associated with high salt diet.
-</h4></i>
+</i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
@@ -114,9 +114,9 @@ condition = "input.explain_on_off",
 HTML("
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To determine if the two factors on the matched samples were significantly different.
-<li> To get the percentage table and plot and expected value of each cell
-<li> To get the percentage table and plot and expected value of each cell
+<li> To determine if the two factors on the matched samples were significantly different.</li>
+<li> To get the percentage table and plot and expected value of each cell</li>
+<li> To get the percentage table and plot and expected value of each cell</li>
 
 
 </ul>
@@ -124,19 +124,19 @@ HTML("
 <h4><b> 2. About your count data, 2 by 2 contingency table with paired counts </b></h4>
 
 <ul>
-<li> You have 2 categories for case-control outcome (shown in row and column names)
-<li> You have 2 categories for factor status (shown in row and column names)
-<li> Samples from your data are matched / paired data
-<li> You know the <b>concordant pair</b>, a matched pair in which the outcome is the same for each member of the pair
-<li> You know the <b>dis-concordant pair</b>, a matched pair in which the outcome differ for each member of the pair
+<li> You have 2 categories for case-control outcome (shown in row and column names)</li>
+<li> You have 2 categories for factor status (shown in row and column names)</li>
+<li> Samples from your data are matched / paired data</li>
+<li> You know the <b>concordant pair</b>, a matched pair in which the outcome is the same for each member of the pair</li>
+<li> You know the <b>dis-concordant pair</b>, a matched pair in which the outcome differ for each member of the pair</li>
 </ul>
 
 <h4><b> 3. Paired counts in 2 by 2 contingency table</b></h4>
 
 <ul>
-<li> Two pairs of patients were paired with similar age and clinical conditions. One group underwent treatment A and the other group underwent treatment B, and we recorded how many people became better and how many people became worse.
-<li> For <b>concordant pair</b>, a matched pair in which two members all became better or worse
-<li> For <b>dis-concordant pair</b>, a matched pair in which only one member became better or worse
+<li> Two pairs of patients were paired with similar age and clinical conditions. One group underwent treatment A and the other group underwent treatment B, and we recorded how many people became better and how many people became worse.</li>
+<li> For <b>concordant pair</b>, a matched pair in which two members all became better or worse</li>
+<li> For <b>dis-concordant pair</b>, a matched pair in which only one member became better or worse</li>
 </ul>
 
 
@@ -166,20 +166,20 @@ condition = "input.explain_on_off",
 HTML("
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To determine if there is association between the case-control status (rows) and factor status (columns)
-<li> To determine if the population rate/proportion behind your multiple Groups data are significantly different
-<li> To get the percentage table and plot and expected value of each cell
+<li> To determine if there is association between the case-control status (rows) and factor status (columns)</li>
+<li> To determine if the population rate/proportion behind your multiple Groups data are significantly different</li>
+<li> To get the percentage table and plot and expected value of each cell</li>
 
 </ul>
 
 <h4><b> 2. About your count data, 2 by C contingency table </b></h4>
 
 <ul>
-<li> You have 2 categories for case-control outcome (shown in row and column names)
-<li> You have >2 categories for factor status (shown in row and column names)
-<li> Your Groups data come from binomial distribution (the proportion of success)
-<li> You know the whole sample and the number of specified events (the proportion of sub-group) from each Groups
-<li> The multiple Groups are independent observations
+<li> You have 2 categories for case-control outcome (shown in row and column names)</li>
+<li> You have >2 categories for factor status (shown in row and column names)</li>
+<li> Your Groups data come from binomial distribution (the proportion of success)</li>
+<li> You know the whole sample and the number of specified events (the proportion of sub-group) from each Groups</li>
+<li> The multiple Groups are independent observations</li>
 </ul>
 
 <i><h4>Case Example</h4>
@@ -209,18 +209,18 @@ condition = "input.explain_on_off",
 HTML("
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To determine if there is association between the case-control status (rows) and factor status (columns)
-<li> To determine if the population rate/proportion behind your multiple Groups data are significantly different
-<li> To get the percentage table and plot and expected value of each cell
+<li> To determine if there is association between the case-control status (rows) and factor status (columns)</li>
+<li> To determine if the population rate/proportion behind your multiple Groups data are significantly different</li>
+<li> To get the percentage table and plot and expected value of each cell</li>
 
 </ul>
 
 <h4><b> 2. About your count data, R by C contingency table </b></h4>
 
 <ul>
-<li> Your Groups data come from binomial distribution (the proportion of success)
-<li> You know the whole sample and the number of specified events (the proportion of sub-group) from each Groups
-<li> The multiple Groups are independent observations
+<li> Your Groups data come from binomial distribution (the proportion of success)</li>
+<li> You know the whole sample and the number of specified events (the proportion of sub-group) from each Groups</li>
+<li> The multiple Groups are independent observations</li>
 </ul>
 
 <i><h4>Case Example</h4>
@@ -253,21 +253,21 @@ HTML(
 "
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To quantify the agreement from two raters or two rankings
-<li> To get the percentage table and expected value of each cell
+<li> To quantify the agreement from two raters or two rankings</li>
+<li> To get the percentage table and expected value of each cell</li>
 </ul>
 
 <h4><b> 2. About your count data, 2 by K contingency table </b></h4>
 
 <ul>
-<li> the outcomes (e.g., Y/N answers, rankings, categories) from two raters or two measurements
+<li> the outcomes (e.g., Y/N answers, rankings, categories) from two raters or two measurements</li>
 </ul>
 
-<i><h4>Case Example</h4>
-Suppose we wanted to check the agreement of answers from two surveys.
+<h4><i>Case Example</i></h4>
+<i>Suppose we wanted to check the agreement of answers from two surveys.
 In one survey, the ranking scores were given from 1 to 9, while in the other, the ranking scores were not.
 We wanted to check if the two answers were reproducible or whether the two surveys had agreements.
-</h4></i>
+</i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
@@ -294,26 +294,26 @@ HTML(
 
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To quantify the reproducibility of the same variables measured more than once
-<li> To quantify the association between 2 measurements with same outcomes
-<li> To get the percentage table and expected value of each cell
+<li> To quantify the reproducibility of the same variables measured more than once</li>
+<li> To quantify the association between 2 measurements with same outcomes</li>
+<li> To get the percentage table and expected value of each cell</li>
 
 </ul>
 
 <h4><b> 2. About your count data, K by K contingency table </b></h4>
 
 <ul>
-<li> You know the <b>concordant response</b>, repeated-measured responses in which the outcome are the same for every measurements
-<li> You know the <b>dis-concordant response</b>, repeated-measured responses in which the outcome differ for every measurements
+<li> You know the <b>concordant response</b>, repeated-measured responses in which the outcome are the same for every measurements</li>
+<li> You know the <b>dis-concordant response</b>, repeated-measured responses in which the outcome differ for every measurements</li>
 </ul>
 
-<i><h4>Case Example</h4>
-Suppose in one study, we made two surveys reflecting the same problems for a group of patients.
+<h4><i>Case Example</i></h4>
+<i>Suppose in one study, we made two surveys reflecting the same problems for a group of patients.
 We wanted to know the percentage of concordant response in two surveys.
 We knew that the final results were 136 replied YES to both surveys and 240 patients replied NO in both surveys.
 69 people replied NO in survey1 and YES in survey2, and 92 people replied YES in survey1 and NO in survey2.
 We wanted to know whether the surveys were good in concordant response.
-</h4></i>
+</i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
@@ -337,26 +337,26 @@ HTML(
 "
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To determine by controlling the stratum / confounding if there is association between the case-control status (rows) and factor status (columns)
-<li> Two nominal variables are conditionally independent in K strata
-<li> To get the percentage table and plot and expected value of each cell
+<li> To determine by controlling the stratum / confounding if there is association between the case-control status (rows) and factor status (columns)</li>
+<li> Two nominal variables are conditionally independent in K strata</li>
+<li> To get the percentage table and plot and expected value of each cell</li>
 
 </ul>
 
 <h4><b> 2. About your count data, 2 x 2 contingency table under K strata </b></h4>
 
 <ul>
-<li> You have counts for several 2 x 2 contingency table
-<li> Each  2 x 2 contingency table was under one factor stratum
+<li> You have counts for several 2 x 2 contingency table</li>
+<li> Each  2 x 2 contingency table was under one factor stratum</li>
 </ul>
 
-<i><h4>Case Example</h4>
-Suppose we wanted to see the effect of passive smoking on cancer risk. One potential confounding was smoking by the participants themselves.
+<h4><i>Case Example</i></h4>
+<i>Suppose we wanted to see the effect of passive smoking on cancer risk. One potential confounding was smoking by the participants themselves.
 Because personal smoking is also related to both cancer risk and spouse smoking.
 Thus, we controlled for personal active smoking before looking at the relationship between passive smoking and cancer risk.
 We got two 2 x 2 table, one was from the active smoking group including 466 people, and the other was from non-active smoking group with 532 people. As shown in the inputed data.
 We wanted to know if passive smoking significantly related to cancer risk after controlling for active smoking; or, whether the odds ratios were significantly different.
-</h4></i>
+</i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )
@@ -381,25 +381,25 @@ HTML(
 "
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To determine by controlling the stratum / confounding if there is association between the case-control status (rows) and factor status (columns)
-<li> Two nominal variables are conditionally independent in K strata
-<li> To get the percentage table and plot and expected value of each cell
+<li> To determine by controlling the stratum / confounding if there is association between the case-control status (rows) and factor status (columns)</li>
+<li> Two nominal variables are conditionally independent in K strata</li>
+<li> To get the percentage table and plot and expected value of each cell</li>
 
 </ul>
 
 <h4><b> 2. About your count data, R x C contingency table under K strata</b></h4>
 
 <ul>
-<li> You have counts for several R by C table
-<li> Each  R x C contingency table was under one factor stratum
+<li> You have counts for several R by C table</li>
+<li> Each  R x C contingency table was under one factor stratum</li>
 
 </ul>
 
-<i><h4>Case Example</h4>
-Suppose we wanted to know the relation between snoring and ages. A survey were did on 3513 individuals 30-60 years old, with 1843 women and 1670 men.
+<h4><i>Case Example</i></h4>
+<i>Suppose we wanted to know the relation between snoring and ages. A survey were did on 3513 individuals 30-60 years old, with 1843 women and 1670 men.
 Considering gender might be the confounding variable in this study, we created 3 x 2 table in women strata and men strata.
 We wanted to know if ages significantly related to snoring after controlling gender.
-</h4></i>
+</i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "
 )

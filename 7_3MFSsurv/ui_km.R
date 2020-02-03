@@ -111,10 +111,10 @@ tabPanel("Log-Rank Test",  p(br()),
 <b> Explanations </b>
 <p>This implements the G-rho family of Harrington and Fleming (1982), with weights on each death of S(t)<sup>rho</sup>, where S is the Kaplan-Meier estimate of survival.</p>
 <ul>
-<li>rho = 0: log-rank or Mantel-Haenszel test
-<li>rho = 1: Peto & Peto modification of the Gehan-Wilcoxon test.
-<li> p < 0.05 indicates the curves are significantly different in the survival probabilities
-<li> p >= 0.05 indicates the curves are NOT significantly different in the survival probabilities
+<li>rho = 0: log-rank or Mantel-Haenszel test</li>
+<li>rho = 1: Peto & Peto modification of the Gehan-Wilcoxon test.</li>
+<li> p < 0.05 indicates the curves are significantly different in the survival probabilities</li>
+<li> p >= 0.05 indicates the curves are NOT significantly different in the survival probabilities</li>
 
 </ul>"),
 
@@ -130,14 +130,14 @@ tabPanel("Pairwise Log-Rank Test",  p(br()),
   "<b> Explanations </b>
   <p>This implements the G-rho family of Harrington and Fleming (1982), with weights on each death of S(t)<sup>rho</sup>, where S is the Kaplan-Meier estimate of survival.</p>
   <ul> 
-    <li><b>rho = 0:</b> log-rank or Mantel-Haenszel test
-    <li><b>rho = 1:</b> Peto & Peto modification of the Gehan-Wilcoxon test.
-    <li> <b>Bonferroni</b> correction is a generic but very conservative approach
-    <li> <b>Bonferroni-Holm</b> is less conservative and uniformly more powerful than Bonferroni
-    <li> <b>False Discovery Rate-BH</b> is more powerful than the others, developed by Benjamini and Hochberg
-    <li> <b>False Discovery Rate-BY</b> is more powerful than the others, developed by Benjamini and Yekutieli
-    <li> p < 0.05 indicates the curves are significantly different in the survival probabilities
-    <li> p >= 0.05 indicates the curves are NOT significantly different in the survival probabilities
+    <li><b>rho = 0:</b> log-rank or Mantel-Haenszel test</li>
+    <li><b>rho = 1:</b> Peto & Peto modification of the Gehan-Wilcoxon test.</li>
+    <li> <b>Bonferroni</b> correction is a generic but very conservative approach</li>
+    <li> <b>Bonferroni-Holm</b> is less conservative and uniformly more powerful than Bonferroni</li>
+    <li> <b>False Discovery Rate-BH</b> is more powerful than the others, developed by Benjamini and Hochberg</li>
+    <li> <b>False Discovery Rate-BY</b> is more powerful than the others, developed by Benjamini and Yekutieli</li>
+    <li> p < 0.05 indicates the curves are significantly different in the survival probabilities</li>
+    <li> p >= 0.05 indicates the curves are NOT significantly different in the survival probabilities</li>
   </ul>"
     ),
      p(tags$b("Pairwise Log-rank Test P Value Table")),

@@ -110,8 +110,8 @@ sidebarLayout(
   		    " 
 			    <b> Explanation </b>
 			   <ul>
-			    <li>  Mean = 1/Rate
-			    <li>  SD = 1/Rate
+			    <li>  Mean = 1/Rate </li>
+			    <li>  SD = 1/Rate </li>
 			   </ul>
 			    "
   		  )

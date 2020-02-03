@@ -134,9 +134,9 @@ mainPanel(
           HTML(
           "Notes:
           <ul>
-            <li> The band inside the box is the median
-            <li> The box measures the difference between 75th and 25th percentiles
-            <li> Outliers will be in red, if existing
+            <li> The band inside the box is the median</li>
+            <li> The box measures the difference between 75th and 25th percentiles</li>
+            <li> Outliers will be in red, if existing</li>
           </ul>"
             )        
          ),
@@ -145,8 +145,8 @@ mainPanel(
       HTML(
           "Notes:
           <ul> 
-            <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
-            <li> Density Plot: to estimate the probability density function of the data
+            <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values</li>
+            <li> Density Plot: to estimate the probability density function of the data</li>
           </ul>"),
       p(tags$b("Histogram")),
       plotly::plotlyOutput("makeplot2", width = "80%"),
@@ -166,8 +166,8 @@ mainPanel(
   HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then the population medians of 2 groups are significantly different. (Accept alternative hypothesis)
-    <li> P Value >= 0.05, no significant differences between the medians of 2 groups. (Accept null hypothesis)
+    <li> P Value < 0.05, then the population medians of 2 groups are significantly different. (Accept alternative hypothesis)</li>
+    <li> P Value >= 0.05, no significant differences between the medians of 2 groups. (Accept null hypothesis)</li>
     </ul>"
   ),
     conditionalPanel(

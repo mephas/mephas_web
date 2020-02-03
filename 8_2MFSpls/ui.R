@@ -31,16 +31,16 @@ HTML(
 "
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To upload data file, preview data set, and check the correctness of data input
-<li> To pre-process some variables (when necessary) for building the model
-<li> To get the basic descriptive statistics and plots of the variables
+<li> To upload data file, preview data set, and check the correctness of data input</li>
+<li> To pre-process some variables (when necessary) for building the model</li>
+<li> To get the basic descriptive statistics and plots of the variables</li>
 </ul>
 
 <h4><b> 2. About your data (training set)</b></h4>
 
 <ul>
-<li> The data need to be all numeric
-<li> The data used to build model is called <b>training set</b>
+<li> The data need to be all numeric</li>
+<li> The data used to build model is called <b>training set</b></li>
 </ul>
 
 <i><h4>Case Example: NKI data</h4>
@@ -76,18 +76,18 @@ HTML(
 
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To get correlation matrix and plot
-<li> To get the results from model
-<li> To get the factors and loadings result tables and
-<li> To get the factors and loadings distribution plots in 2D and 3D
-<li> To get the predicted dependent variables
+<li> To get correlation matrix and plot</li>
+<li> To get the results from model</li>
+<li> To get the factors and loadings result tables and</li>
+<li> To get the factors and loadings distribution plots in 2D and 3D</li>
+<li> To get the predicted dependent variables</li>
 </ul>
 
 <h4><b> 2. About your data (training set) </b></h4>
 
 <ul>
-<li> All the data for analysis are numeric
-<li> Data used to build the model is called <b>training set</b>
+<li> All the data for analysis are numeric</li>
+<li> Data used to build the model is called <b>training set</b></li>
 
 </ul>
 
@@ -113,21 +113,22 @@ HTML(
 "
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To upload new data and get the prediction
+<li> To upload new data and get the prediction</li>
 </ul>
 
 <h4><b> 2. About your data (test set)</b></h4>
 
 <ul>
-<li> New data cover all the independent variables used in the model.
-<li> New data not used to build the model is called <b>test set</b>
+<li> New data cover all the independent variables used in the model.</li>
+<li> New data not used to build the model is called <b>test set</b></li>
 </ul>
 
-<i><h4>Case Example</h4>
+<h4><i>Case Example</i></h4>
 
+<i>
 Suppose in the same study, we got more measurements and wanted to predict the outcome.
 
-</h4></i>
+</i>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 ")
@@ -151,18 +152,18 @@ HTML(
 
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To get correlation matrix and plot
-<li> To get the results from model
-<li> To get the factors and loadings result tables and
-<li> To get the factors and loadings distribution plots in 2D and 3D
-<li> To get the predicted dependent variables
+<li> To get correlation matrix and plot</li>
+<li> To get the results from model</li>
+<li> To get the factors and loadings result tables and</li>
+<li> To get the factors and loadings distribution plots in 2D and 3D</li>
+<li> To get the predicted dependent variables</li>
 </ul>
 
 <h4><b> 2. About your data (training set) </b></h4>
 
 <ul>
-<li> All the data for analysis are numeric
-<li> Data used to build the model is called <b>training set</b>
+<li> All the data for analysis are numeric</li>
+<li> Data used to build the model is called <b>training set</b></li>
 
 </ul>
 
@@ -187,21 +188,21 @@ HTML(
 "
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To upload new data and get the prediction
+<li> To upload new data and get the prediction</li>
 </ul>
 
 <h4><b> 2. About your data (test set)</b></h4>
 
 <ul>
-<li> New data cover all the independent variables used in the model.
-<li> New data not used to build the model is called <b>test set</b>
+<li> New data cover all the independent variables used in the model.</li>
+<li> New data not used to build the model is called <b>test set</b></li>
 </ul>
 
-<i><h4>Case Example</h4>
+<h4><i>Case Example</i></h4>
 
-Suppose in the same study, we got more measurements and wanted to predict the outcome.
+<i>Suppose in the same study, we got more measurements and wanted to predict the outcome.
 
-</h4></i>
+</i>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 ")
@@ -224,18 +225,18 @@ HTML(
 
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To get correlation matrix and plot
-<li> To get the results from model
-<li> To get the factors and loadings result tables and
-<li> To get the factors and loadings distribution plots in 2D and 3D
-<li> To get the predicted dependent variables
+<li> To get correlation matrix and plot</li>
+<li> To get the results from model</li>
+<li> To get the factors and loadings result tables and</li>
+<li> To get the factors and loadings distribution plots in 2D and 3D</li>
+<li> To get the predicted dependent variables</li>
 </ul>
 
 <h4><b> 2. About your data (training set) </b></h4>
 
 <ul>
-<li> All the data for analysis are numeric
-<li> Data used to build the model is called <b>training set</b>
+<li> All the data for analysis are numeric</li>
+<li> Data used to build the model is called <b>training set</b></li>
 </ul>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
@@ -257,21 +258,21 @@ HTML(
 "
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To upload new data and get the prediction
+<li> To upload new data and get the prediction</li>
 </ul>
 
 <h4><b> 2. About your data (test set)</b></h4>
 
 <ul>
-<li> New data cover all the independent variables used in the model.
-<li> New data not used to build the model is called <b>test set</b>
+<li> New data cover all the independent variables used in the model.</li>
+<li> New data not used to build the model is called <b>test set</b></li>
 </ul>
 
-<i><h4>Case Example</h4>
+<h4><i>Case Example</i></h4>
 
-Suppose in the same study, we got more measurements and wanted to predict the outcome.
+<i>Suppose in the same study, we got more measurements and wanted to predict the outcome.
 
-</h4></i>
+</i>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
 ")

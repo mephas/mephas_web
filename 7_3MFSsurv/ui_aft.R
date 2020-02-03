@@ -104,13 +104,13 @@ HTML(
 "
 <b> Explanations  </b>
 <ul>
-<li> For each variable, estimated coefficients (Value), statistic for the significance of single variable, and p value are given.
-<li> The column marked 'z' gives the Wald statistic value. It corresponds to the ratio of each regression coefficient to its standard error (z = coef/se(coef)).The Wald statistic evaluates, whether the beta coefficient of a given variable is statistically significantly different from 0.
-<li> The coefficients relate to hazard; a positive coefficient indicates a worse prognosis and a negative coefficient indicates a protective effect of the variable with which it is associated.
-<li> exp(Value) = hazard ratio (HR). HR = 1: No effect; HR < 1: Reduction in the hazard; HR > 1: Increase in Hazard
-<li> Scale and Log(scale) are the estimated parameters in the error term of AFT model
-<li> The log-likelihood is given in the model. When maximum likelihood estimation is used to generate the log-likelihoods, then the closer that the log-likelihood(LL) is to zero, the better is the model fit.
-<li> For left-truncated data, the time here is the differences of end-time and start-time
+<li> For each variable, estimated coefficients (Value), statistic for the significance of single variable, and p value are given.</li>
+<li> The column marked 'z' gives the Wald statistic value. It corresponds to the ratio of each regression coefficient to its standard error (z = coef/se(coef)).The Wald statistic evaluates, whether the beta coefficient of a given variable is statistically significantly different from 0.</li>
+<li> The coefficients relate to hazard; a positive coefficient indicates a worse prognosis and a negative coefficient indicates a protective effect of the variable with which it is associated.</li>
+<li> exp(Value) = hazard ratio (HR). HR = 1: No effect; HR < 1: Reduction in the hazard; HR > 1: Increase in Hazard</li>
+<li> Scale and Log(scale) are the estimated parameters in the error term of AFT model</li>
+<li> The log-likelihood is given in the model. When maximum likelihood estimation is used to generate the log-likelihoods, then the closer that the log-likelihood(LL) is to zero, the better is the model fit.</li>
+<li> For left-truncated data, the time here is the differences of end-time and start-time</li>
 </ul>
 "
 ),
@@ -132,22 +132,22 @@ HTML(
 <b>Martingale residuals</b> against continuous independent variable is a common approach used to detect nonlinearity. For a given continuous covariate, patterns in the plot may suggest that the variable is not properly fit.
 Martingale residuals may present any value in the range (-INF, +1):
 <ul>
-<li>A value of martingale residuals near 1 represents individuals that 'died too soon',
-<li>Large negative values correspond to individuals that 'lived too long'.
+<li>A value of martingale residuals near 1 represents individuals that 'died too soon',</li>
+<li>Large negative values correspond to individuals that 'lived too long'.</li>
 </ul>
 
 <b>Deviance residual</b> is a normalized transform of the martingale residual. These residuals should be roughly symmetrically distributed about zero with a standard deviation of 1.
 <ul>
-<li>Positive values correspond to individuals that 'died too soon' compared to expected survival times.
-<li>Negative values correspond to individual that 'lived too long'.
-<li>Very large or small values are outliers, which are poorly predicted by the model.
+<li>Positive values correspond to individuals that 'died too soon' compared to expected survival times.</li>
+<li>Negative values correspond to individual that 'lived too long'.</li>
+<li>Very large or small values are outliers, which are poorly predicted by the model.</li>
 </ul>
 
 <b>Cox-Snell residuals</b> are used to check for overall goodness of fit in survival models.
 <ul>
-<li> Cox-Snell residuals are equal to the -log(survival probability) for each observation
-<li> If the model fits the data well, Cox-Snell residuals should behave like a sample from an exponential distribution with a mean of 1
-<li> If the residuals act like a sample from a unit exponential distribution, they should lie along the 45-degree diagonal line.
+<li> Cox-Snell residuals are equal to the -log(survival probability) for each observation</li>
+<li> If the model fits the data well, Cox-Snell residuals should behave like a sample from an exponential distribution with a mean of 1</li>
+<li> If the residuals act like a sample from a unit exponential distribution, they should lie along the 45-degree diagonal line.</li>
 </ul>
 
 <p>The residuals can be found in Data Fitting tab.<p>

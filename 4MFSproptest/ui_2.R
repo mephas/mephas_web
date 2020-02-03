@@ -88,8 +88,8 @@ sidebarLayout(
      HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then the population proportion/rate are significantly different in two groups. (Accept alternative hypothesis)
-    <li> P Value >= 0.05, then the population proportion/rate are NOT significantly different in two groups. (Accept null hypothesis)
+    <li> P Value < 0.05, then the population proportion/rate are significantly different in two groups. (Accept alternative hypothesis)</li>
+    <li> P Value >= 0.05, then the population proportion/rate are NOT significantly different in two groups. (Accept null hypothesis)</li>
     </ul>"
   ),
 conditionalPanel(

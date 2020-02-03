@@ -37,18 +37,18 @@ This method is based on the ranks of observations rather than on their true valu
 
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To determine if the median / location of the population from which your data is drawn statistically significantly different from the specified median
-<li> To know the basic descriptive statistics about your data
-<li> To know the descriptive statistics plot such as box-plot, distribution histogram, and density distribution plot about your data
+<li> To determine if the median / location of the population from which your data is drawn statistically significantly different from the specified median</li>
+<li> To know the basic descriptive statistics about your data</li>
+<li> To know the descriptive statistics plot such as box-plot, distribution histogram, and density distribution plot about your data</li>
 </ul>
 
 <h4><b> 2. About your data </b></h4>
 
 <ul>
-<li> Your data contain only 1 group of values (or 1 numeric vector)
-<li> Your data are meaningful to measure the distance from the specified median
-<li> The values are independent observations
-<li> No assumption on the distributional shape of your data, which means your data may be not normally distributed
+<li> Your data contain only 1 group of values (or 1 numeric vector)</li>
+<li> Your data are meaningful to measure the distance from the specified median</li>
+<li> The values are independent observations</li>
+<li> No assumption on the distributional shape of your data, which means your data may be not normally distributed</li>
 </ul>
 
 <i><h4>Case Example</h4>
@@ -83,20 +83,20 @@ HTML(
 
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To determine if the medians of two population from which your 2 groups data drawn are statistically significantly different from each other
-<li> To determine if the distributions of 2 groups of data differ in locations
-<li> To know the basic descriptive statistics about your data
-<li> To know the descriptive statistics plot such as box-plot, distribution histogram, and density distribution plot about your data
+<li> To determine if the medians of two population from which your 2 groups data drawn are statistically significantly different from each other</li>
+<li> To determine if the distributions of 2 groups of data differ in locations</li>
+<li> To know the basic descriptive statistics about your data</li>
+<li> To know the descriptive statistics plot such as box-plot, distribution histogram, and density distribution plot about your data</li>
 </ul>
 
 <h4><b> 2. About your data </b></h4>
 
 <ul>
-<li> Your data contain only 2 group of values (or 2 numeric vectors)
-<li> Your data are meaningful to measure the distance between 2 groups values
-<li> The values are independent observations
-<li> No assumption on the distributional shape of your data
-<li> Your data may be not normally distributed
+<li> Your data contain only 2 group of values (or 2 numeric vectors)</li>
+<li> Your data are meaningful to measure the distance between 2 groups values</li>
+<li> The values are independent observations</li>
+<li> No assumption on the distributional shape of your data</li>
+<li> Your data may be not normally distributed</li>
 </ul>
 
 <i><h4>Case Example</h4>
@@ -130,25 +130,25 @@ HTML(
 
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To determine if the difference of paired data is statistically significantly different from 0
-<li> To know the basic descriptive statistics about your data
-<li> To know the descriptive statistics plot such as box-plot, distribution histogram, and density distribution plot about your data
+<li> To determine if the difference of paired data is statistically significantly different from 0</li>
+<li> To know the basic descriptive statistics about your data</li>
+<li> To know the descriptive statistics plot such as box-plot, distribution histogram, and density distribution plot about your data</li>
 </ul>
 
 <h4><b> 2. About your data </b></h4>
 
 <ul>
-<li> Your data contain 2 group of values (or 2 numeric vectors)
-<li> Your data are meaningful to measure the distance from the specified median
-<li> The values are paired or matched observations
-<li> No assumption on the distributional shape of your data
-<li> Your data may be not normally distributed
+<li> Your data contain 2 group of values (or 2 numeric vectors)</li>
+<li> Your data are meaningful to measure the distance from the specified median</li>
+<li> The values are paired or matched observations</li>
+<li> No assumption on the distributional shape of your data</li>
+<li> Your data may be not normally distributed</li>
 </ul>
 
 <h4><b> 3. Examples for Matched or Paired Data </b></h4>
 <ul>
-<li>  One person's pre-test and post-test scores
-<li>  When there are two samples that have been matched or paired
+<li>  One person's pre-test and post-test scores</li>
+<li>  When there are two samples that have been matched or paired</li>
 </ul>
 
 

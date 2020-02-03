@@ -132,9 +132,9 @@ sidebarPanel(
           HTML(
           "<b> Explanations </b>
           <ul>
-            <li> The band inside the box is the median
-            <li> The box measures the difference between 75th and 25th percentiles
-            <li> Outliers will be in red, if existing
+            <li> The band inside the box is the median</li>
+            <li> The box measures the difference between 75th and 25th percentiles</li>
+            <li> Outliers will be in red, if existing</li>
           </ul>"
             )        
          ),
@@ -147,9 +147,9 @@ sidebarPanel(
 HTML(
 "<b> Explanations </b>
 <ul> 
-<li> Normal Q–Q Plot: to compare randomly generated, independent standard normal data on the vertical axis to a standard normal population on the horizontal axis. The linearity of the points suggests that the data are normally distributed.
-<li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values
-<li> Density Plot: to estimate the probability density function of the data
+<li> Normal Q–Q Plot: to compare randomly generated, independent standard normal data on the vertical axis to a standard normal population on the horizontal axis. The linearity of the points suggests that the data are normally distributed.</li>
+<li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values</li>
+<li> Density Plot: to estimate the probability density function of the data</li>
 </ul>"
 ),
         p(tags$b("Normal Q-Q plot")),
@@ -176,8 +176,8 @@ HTML(
     HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P value < 0.05, then refer to the <b>Welch Two-Sample t-test</b>
-    <li> P Value >= 0.05, then refer to <b>Two-Sample t-test</b>
+    <li> P value < 0.05, then refer to the <b>Welch Two-Sample t-test</b></li>
+    <li> P Value >= 0.05, then refer to <b>Two-Sample t-test</b></li>
     </ul>"
   ),
 
@@ -197,8 +197,8 @@ HTML(
       HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then the population means of the Group 1 IS significantly different from Group 2. (Accept alternative hypothesis)
-    <li> P Value >= 0.05, then there is NO significant differences between Group 1 and Group 2. (Accept null hypothesis) 
+    <li> P Value < 0.05, then the population means of the Group 1 IS significantly different from Group 2. (Accept alternative hypothesis)</li>
+    <li> P Value >= 0.05, then there is NO significant differences between Group 1 and Group 2. (Accept null hypothesis)</li>
     </ul>"
   ),
     conditionalPanel(
