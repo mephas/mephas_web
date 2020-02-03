@@ -2,13 +2,20 @@ tagList(
 
 source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
 tags$head(includeScript("../0tabs/navtitle.js")),
+tags$head(
+  tags$link(rel = "shortcut icon", href = "../www/favicon.ico"),
+  tags$link(rel = "icon", type = "image/png", sizes = "96x96", href = "../www/favicon-96x96.ico"),
+  tags$link(rel = "icon", type = "image/png", sizes = "32x32", href = "../www/favicon-32x32.png"),
+  tags$link(rel = "icon", type = "image/png", sizes = "16x16", href = "../www/favicon-16x16.png")
+),
 tags$style(type="text/css", "body {padding-top: 70px;}"),
 source("../0tabs/onoff.R", local=TRUE)$value,
 #tabof(),
 
 navbarPage(
 theme = shinythemes::shinytheme("cerulean"),
-title = a("Continuous Probability Distribution", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
+#title = a("Continuous Probability Distribution", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
+title = "Continuous Probability Distribution", 
 collapsible = TRUE,
 #id="navbar", 
 position="fixed-top",
