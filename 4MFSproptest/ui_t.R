@@ -4,7 +4,7 @@
       sidebarPanel(
 
     h4(tags$b("Step 1. Data Preparation")),
-    p(tags$b("3. Please follow the example to input your data")),
+    p(tags$b("Please follow the example to input your data")),
 
       p(tags$b("1. Give names to group samples ")), 
         tags$textarea(id = "cn4",rows = 5,
