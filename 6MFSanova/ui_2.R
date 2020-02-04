@@ -116,12 +116,24 @@ mainPanel(
       ),
 
       tabPanel("Means plot",p(br()),
-      checkboxInput('tick', 'Tick to change the factor group', FALSE), #p
+      #checkboxInput('tick', 'Tick to change the factor group', FALSE), #p
+  shinyWidgets::prettySwitch(
+   inputId = "tick",
+   label = "Change the factor groups", 
+   status = "info",
+   fill = TRUE
+),
       plotly::plotlyOutput("meanp.a")
     ),
 
       tabPanel("Marginal means plot",p(br()),
-      checkboxInput('tick2', 'Tick to change the factor group', FALSE), #p
+      #checkboxInput('tick2', 'Tick to change the factor group', FALSE), #p
+  shinyWidgets::prettySwitch(
+   inputId = "tick2",
+   label = "Change the factor groups", 
+   status = "info",
+   fill = TRUE
+),
       plotly::plotlyOutput("mmean.a")
       )
     ),
@@ -130,7 +142,14 @@ mainPanel(
 
   h4(tags$b("Output 2. ANOVA Table")), p(br()),
 
-  checkboxInput('inter', 'Interaction', TRUE),
+  #checkboxInput('inter', 'Interaction', TRUE),
+  shinyWidgets::prettySwitch(
+   inputId = "inter",
+   label = "Add interaction", 
+   value = TRUE,
+   status = "info",
+   fill = TRUE
+),
   DT::DTOutput("anova"),p(br()),
   HTML(
   "<b> Explanations </b>
