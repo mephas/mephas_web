@@ -99,7 +99,7 @@ verbatimTextOutput("strfac"),
 
 
 hr(),
-h4(tags$b("Output 2. Basic Descriptives")),
+h4(tags$b("Output 2. Descriptive Results")),
 
 tabsetPanel(
 

@@ -91,7 +91,7 @@ p(tags$b("2. Categorical variable information list")),
 verbatimTextOutput("strfac"),
 
 hr(),
-h4(tags$b("Output 2. Basic Descriptives")),
+h4(tags$b("Output 2. Descriptive Results")),
 
 tabsetPanel(
 
