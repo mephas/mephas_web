@@ -29,10 +29,10 @@ Y1 <- reactive({
     }
   else {
 if(!input$col1){
-    csv <- read.csv(inFile$datapath, header = input$header1, sep = input$sep1, stringsAsFactors=TRUE)
+    csv <- read.csv(inFile$datapath, header = input$header1, sep = input$sep1, quote=input$quote1, stringsAsFactors=TRUE)
     }
     else{
-    csv <- read.csv(inFile$datapath, header = input$header1, sep = input$sep1, row.names=1, stringsAsFactors=TRUE)  
+    csv <- read.csv(inFile$datapath, header = input$header1, sep = input$sep1, row.names=1, quote=input$quote1, stringsAsFactors=TRUE)  
     }
     validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
     validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )

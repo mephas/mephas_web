@@ -1,5 +1,4 @@
 source("../tab/tab.R")
-source("../tab/panel.R")
 tagList(
 
 source("../tab/font.R",local=TRUE, encoding="UTF-8")$value,

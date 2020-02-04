@@ -4,7 +4,7 @@ sidebarLayout(
 
 sidebarPanel(
 
-  h4(tags$b("Step 1. Data Preparation")), 
+  h4(tags$b("Step 1. Data Preparation")),
 
   p(tags$b("1. Give names to your Values and 2 Factors Group variables ")),
 
@@ -39,35 +39,37 @@ tabsetPanel(
     p("Missing value is input as NA to ensure 3 sets have equal length; otherwise, there will be error")
 
         ),
+tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote = "quote")
+
       ##-------csv file-------##
-tabPanel("Upload Data", p(br()),
-
-    p(tags$b("This only reads the first 3-column of your data")),
-    p(tags$b("1st column is numeric values")),
-    p(tags$b("2nd and 3rd columns are factors / group variables" )),
-    fileInput('file', "1. Choose CSV/TXT file",
-              accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-    #helpText("The columns of X are not suggested greater than 500"),
-    p(tags$b("2. Use 1st row as column names?")),
-    checkboxInput("header", "Yes", TRUE),
-    p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-    checkboxInput("col", "Yes", TRUE),
-
-    radioButtons("sep", 
-      "4. Which Separator for Data?",
-      choiceNames = list(
-        HTML("Comma (,): CSV often use this"),
-        HTML("One Tab (->|): TXT often use this"),
-        HTML("Semicolon (;)"),
-        HTML("One Space (_)")
-        ),
-          choiceValues = list(",", "\t", ";", " ")
-      ),
-
-    p("Correct Separator ensures data input successfully"),
-
-    a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-    )
+# tabPanel("Upload Data", p(br()),
+#
+#     p(tags$b("This only reads the first 3-column of your data")),
+#     p(tags$b("1st column is numeric values")),
+#     p(tags$b("2nd and 3rd columns are factors / group variables" )),
+#     fileInput('file', "1. Choose CSV/TXT file",
+#               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
+#     #helpText("The columns of X are not suggested greater than 500"),
+#     p(tags$b("2. Use 1st row as column names?")),
+#     checkboxInput("header", "Yes", TRUE),
+#     p(tags$b("3. Use 1st column as row names? (No duplicates)")),
+#     checkboxInput("col", "Yes", TRUE),
+#
+#     radioButtons("sep",
+#       "4. Which Separator for Data?",
+#       choiceNames = list(
+#         HTML("Comma (,): CSV often use this"),
+#         HTML("One Tab (->|): TXT often use this"),
+#         HTML("Semicolon (;)"),
+#         HTML("One Space (_)")
+#         ),
+#           choiceValues = list(",", "\t", ";", " ")
+#       ),
+#
+#     p("Correct Separator ensures data input successfully"),
+#
+#     a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
+#     )
 ),
 hr(),
   h4(tags$b("Hypothesis")),
@@ -100,7 +102,7 @@ mainPanel(
         ),
 
     tabPanel("Descriptive Statistics", p(br()),
-      radioButtons("bas.choice", 
+      radioButtons("bas.choice",
       "Descriptive statistics by:",
       choiceNames = list(
         HTML("1. Factor1"),
@@ -132,9 +134,9 @@ mainPanel(
   DT::DTOutput("anova"),p(br()),
   HTML(
   "<b> Explanations </b>
-  <ul> 
+  <ul>
     <li> DF<sub>Factor</sub> = [number of factor group categories] -1</li>
-    <li> DF<sub>Interaction</sub> = DF<sub>Factor1</sub> x DF<sub>Factor2</sub></li>  
+    <li> DF<sub>Interaction</sub> = DF<sub>Factor1</sub> x DF<sub>Factor2</sub></li>
     <li> DF<sub>Residuals</sub> = [number of sample values] - [number of factor1 group categories] x [number of factor2 group categories]</li>
     <li> MS = SS/DF</li>
     <li> F = MS<sub>Factor</sub> / MS<sub>Residuals</sub></li>

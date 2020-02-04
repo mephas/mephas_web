@@ -4,7 +4,7 @@ sidebarLayout(
 
 sidebarPanel(
 
-  h4(tags$b("Step 1. Data Preparation")), 
+  h4(tags$b("Step 1. Data Preparation")),
 
   p(tags$b("1. Give names to your Values and Factor Group ")),
 
@@ -36,35 +36,37 @@ tabsetPanel(
     p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error")
 
         ),
+tabPanel.upload(file ="filenp1", header="headernp1", col="colnp1", sep="sepnp1", quote = "quotenp1")
+
       ##-------csv file-------##
-tabPanel("Upload Data", p(br()),
-
-    p(tags$b("This only reads 2 columns from your data file")),
-    p(tags$b("1st column is numeric values")),
-    p(tags$b("2nd and 3rd columns are factors" )),
-    fileInput('filenp1', "Choose CSV/TXT file",
-              accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-    #helpText("The columns of X are not suggested greater than 500"),
-    p(tags$b("2. Use 1st row as column names?")),
-    checkboxInput("headernp1", "Yes", TRUE),
-    p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-    checkboxInput("colnp1", "Yes", TRUE),
-
-    radioButtons("sepnp1", 
-      "Which Separator for Data?",
-      choiceNames = list(
-        HTML("Comma (,): CSV often use this"),
-        HTML("One Tab (->|): TXT often use this"),
-        HTML("Semicolon (;)"),
-        HTML("One Space (_)")
-        ),
-          choiceValues = list(",", "\t", ";", " ")
-      ),
-
-    p("Correct Separator ensures data input successfully"),
-
-    a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-    )
+# tabPanel("Upload Data", p(br()),
+#
+#     p(tags$b("This only reads 2 columns from your data file")),
+#     p(tags$b("1st column is numeric values")),
+#     p(tags$b("2nd and 3rd columns are factors" )),
+#     fileInput('filenp1', "Choose CSV/TXT file",
+#               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
+#     #helpText("The columns of X are not suggested greater than 500"),
+#     p(tags$b("2. Use 1st row as column names?")),
+#     checkboxInput("headernp1", "Yes", TRUE),
+#     p(tags$b("3. Use 1st column as row names? (No duplicates)")),
+#     checkboxInput("colnp1", "Yes", TRUE),
+#
+#     radioButtons("sepnp1",
+#       "Which Separator for Data?",
+#       choiceNames = list(
+#         HTML("Comma (,): CSV often use this"),
+#         HTML("One Tab (->|): TXT often use this"),
+#         HTML("Semicolon (;)"),
+#         HTML("One Space (_)")
+#         ),
+#           choiceValues = list(",", "\t", ";", " ")
+#       ),
+#
+#     p("Correct Separator ensures data input successfully"),
+#
+#     a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
+#     )
 ),
 hr(),
   h4(tags$b("Hypothesis")),
@@ -94,7 +96,7 @@ mainPanel(
     tabPanel("Descriptive Statistics", p(br()),
       p(tags$b("Descriptive statistics by group")),
       DT::DTOutput("basnp1.t")#,
-         #p(br()), 
+         #p(br()),
         #downloadButton("downloadnp1.1", "Download Results")
       ),
 

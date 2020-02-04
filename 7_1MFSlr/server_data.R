@@ -15,10 +15,10 @@ DF0 = reactive({
     }
   else{
 if(!input$col){
-    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote)
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote,stringsAsFactors=TRUE)
     }
     else{
-    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote, row.names=1)
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote, row.names=1,stringsAsFactors=TRUE)
     }
     validate( need(ncol(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
     validate( need(nrow(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
