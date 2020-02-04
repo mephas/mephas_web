@@ -97,7 +97,7 @@ sidebarLayout(
 		  h4("Mathematical-based Plot"),
 		tags$b("Chi-square distribution plot"),
 
-        plotOutput("x.plot", click = "plot_click5", width = "80%"),
+        plotOutput("x.plot", click = "plot_click5"),
         verbatimTextOutput("x.info"),
 
         p(tags$b("The position of Red-line, x<sub>0</sub>")),
@@ -109,7 +109,7 @@ sidebarLayout(
 		 h4("Simulation-based Plot"),
 
 		 tags$b("Histogram from random numbers"),
-        plotly::plotlyOutput("x.plot2", width = "80%"),#click = "plot_click6",
+        plotly::plotlyOutput("x.plot2"),#click = "plot_click6",
 
         p("When the number of bins is 0, plot will use the default number of bins"),
         #verbatimTextOutput("x.info2"),
@@ -134,9 +134,9 @@ sidebarLayout(
 		DT::DTOutput("XX"),
 		 h4("Distribution of Your Data"),
  		tags$b("Density from upload data"),
-        plotly::plotlyOutput("makeplot.x2", width = "80%"),
+        plotly::plotlyOutput("makeplot.x2"),
         tags$b("Histogram from upload data"),
-        plotly::plotlyOutput("makeplot.x1", width = "80%"),
+        plotly::plotlyOutput("makeplot.x1"),
 
         p("When the number of bins is 0, plot will use the default number of bins"),
         p(tags$b("Sample descriptive statistics")),

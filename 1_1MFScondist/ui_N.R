@@ -107,7 +107,7 @@ sidebarLayout(
 		  h4("Mathematical-based Plot"),
 		  #tags$b("Normal distribution plot"),
 		  #plotOutput("norm.plot", click = "plot_click", width = "600px", height = "400px"), #click = "plot_click",
-		  plotOutput("norm.plot", click = "plot_click", width = "80%"), #click = "plot_click",
+		  plotOutput("norm.plot", click = "plot_click"), #click = "plot_click",
 
 		  verbatimTextOutput("info"),
 
@@ -119,7 +119,7 @@ sidebarLayout(
 		  condition = "input.InputSrc == 'SimuDist'",
 		  h4("Simulation-based Plot"),
 		  tags$b("Histogram from random numbers"),
-		  plotly::plotlyOutput("norm.plot2",  width = "80%"),	# click = "plot_click2",
+		  plotly::plotlyOutput("norm.plot2"),	# click = "plot_click2",
 
 		  #verbatimTextOutput("info2"),
 		  downloadButton("download1", "Download Random Numbers"),
@@ -136,9 +136,9 @@ sidebarLayout(
 		  h4("Distribution of Your Data"),
 
 		  tags$b("Density from upload data"),
-		  plotly::plotlyOutput("makeplot.2", width = "80%"),
+		  plotly::plotlyOutput("makeplot.2"),
 		  tags$b("Histogram from upload data"),
-		  plotly::plotlyOutput("makeplot.1", width = "80%"),
+		  plotly::plotlyOutput("makeplot.1"),
 
 		  p(tags$b("Sample descriptive statistics")),
 		  tableOutput("sum2")

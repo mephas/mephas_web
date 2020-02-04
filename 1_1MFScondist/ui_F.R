@@ -95,7 +95,7 @@ mainPanel(
 		  h4("Mathematical-based Plot"),
 		tags$b("F distribution plot"),
 
-        plotOutput("f.plot", click = "plot_click7", width = "80%"),
+        plotOutput("f.plot", click = "plot_click7"),
         verbatimTextOutput("f.info"),
 
         p(tags$b("The position of Red-line, x0")),
@@ -107,7 +107,7 @@ mainPanel(
 		   h4("Simulation-based Plot"),
 
 		tags$b("Histogram from random numbers"),
-        plotly::plotlyOutput("f.plot2", width = "80%"),#click = "plot_click8",
+        plotly::plotlyOutput("f.plot2"),#click = "plot_click8",
 
         #verbatimTextOutput("f.info2"),
         downloadButton("download7", "Download Random Numbers"),
@@ -122,9 +122,9 @@ mainPanel(
 		DT::DTOutput("FF"),
 	 h4("Distribution of Your Data"),
  		tags$b("Density from upload data"),
-        plotly::plotlyOutput("makeplot.f2", width = "80%"),
+        plotly::plotlyOutput("makeplot.f2"),
         tags$b("Histogram from upload data"),
-        plotly::plotlyOutput("makeplot.f1", width = "80%"),
+        plotly::plotlyOutput("makeplot.f1"),
 
         p(tags$b("Sample descriptive statistics")),
         tableOutput("f.sum2")

@@ -99,7 +99,7 @@ mainPanel(
 		  condition = "input.InputSrc_g == 'MathDist'",
 		  h4("Mathematical-based Plot"),
 		  tags$b("Gamma distribution plot"),
-		  plotOutput("g.plot", click = "plot_click11", width = "80%"),
+		  plotOutput("g.plot", click = "plot_click11"),
          verbatimTextOutput("g.info"),
 		 p(tags$b("The position of Red-line, x<sub>0</sub>")),
          tableOutput("g")
@@ -110,7 +110,7 @@ mainPanel(
 		 h4("Simulation-based Plot"),
 
 		tags$b("Histogram from random numbers"),
-        plotly::plotlyOutput("g.plot2",  width = "80%"),#click = "plot_click12",
+        plotly::plotlyOutput("g.plot2"),#click = "plot_click12",
 
         #verbatimTextOutput("g.info2"),
         downloadButton("download3", "Download Random Numbers"),
@@ -134,9 +134,9 @@ mainPanel(
 		DT::DTOutput("Z"),
 		h4("Distribution of Your Data"),
 		tags$b("Density from upload data"),
-        plotly::plotlyOutput("makeplot.g2", width = "80%"),
+        plotly::plotlyOutput("makeplot.g2"),
         tags$b("Histogram from upload data"),
-        plotly::plotlyOutput("makeplot.g1", width = "80%"),
+        plotly::plotlyOutput("makeplot.g1"),
         p(tags$b("Sample descriptive statistics")),
         tableOutput("g.sum2")
 		)

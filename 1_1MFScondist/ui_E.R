@@ -93,7 +93,7 @@ sidebarLayout(
   		  condition = "input.InputSrc_e == 'MathDist'",
   		  h4("Mathematical-based Plot"),
   		  tags$b("Exponential distribution plot"),
-  		  plotOutput("e.plot", click = "plot_click9", width = "80%"),#
+  		  plotOutput("e.plot", click = "plot_click9"),#
   		  verbatimTextOutput("e.info"),
   		  p(tags$b("The position of Red-line, x<sub>0</sub>")),
   		  tableOutput("e")
@@ -102,7 +102,7 @@ sidebarLayout(
   		  condition = "input.InputSrc_e == 'SimuDist'",
   		 h4("Simulation-based Plot"),
   		  tags$b("Histogram from random numbers"),
-  		  plotly::plotlyOutput("e.plot2",  width = "80%"),#click = "plot_click10",
+  		  plotly::plotlyOutput("e.plot2"),#click = "plot_click10",
   		  #verbatimTextOutput("e.info2"),
   		  downloadButton("download2", "Download Random Numbers"),
 
@@ -125,9 +125,9 @@ sidebarLayout(
         DT::DTOutput("Y"),
   		  h4("Distribution of Your Data"),
   		  tags$b("Density from upload data"),
-  		  plotly::plotlyOutput("makeplot.e2", width = "80%"),
+  		  plotly::plotlyOutput("makeplot.e2"),
   		  tags$b("Histogram from upload data"),
-  		  plotly::plotlyOutput("makeplot.e1", width = "80%"),
+  		  plotly::plotlyOutput("makeplot.e1"),
   		  p(tags$b("Sample descriptive statistics")),
   		  tableOutput("e.sum2")
 

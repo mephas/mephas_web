@@ -102,7 +102,7 @@ tabPanel.upload.num(file ="t.file", header="t.header", col="t.col", sep="t.sep")
 		tags$b("T distribution plot"),
         p("The blue curve is the standard normal distribution"),
 
-        plotOutput("t.plot", click = "plot_click3", width ="80%"),
+        plotOutput("t.plot", click = "plot_click3"),
         verbatimTextOutput("t.info"),
 
         p(tags$b("The position of Red-line, x<sub>0</sub>")),
@@ -114,7 +114,7 @@ tabPanel.upload.num(file ="t.file", header="t.header", col="t.col", sep="t.sep")
 		   h4("Simulation-based Plot"),
 
 		tags$b("Histogram from random numbers"),
-        plotly::plotlyOutput("t.plot2",  width ="80%"),#click = "plot_click4",
+        plotly::plotlyOutput("t.plot2"),#click = "plot_click4",
 
 
         #verbatimTextOutput("t.info2"),
@@ -130,9 +130,9 @@ tabPanel.upload.num(file ="t.file", header="t.header", col="t.col", sep="t.sep")
 		DT::DTOutput("TT"),
 		 h4("Distribution of Your Data"),
         tags$b("Density from upload data"),
-        plotly::plotlyOutput("makeplot.t2", width = "80%"),
+        plotly::plotlyOutput("makeplot.t2"),
         tags$b("Histogram from upload data"),
-        plotly::plotlyOutput("makeplot.t1", width = "80%"),
+        plotly::plotlyOutput("makeplot.t1"),
 
       p(tags$b("Sample descriptive statistics")),
       tableOutput("t.sum2")
