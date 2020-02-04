@@ -47,7 +47,10 @@ tabPanel("Cross-validated SPLS", p(br()),
 p("Choose optimal parameters from the following settings"),
 numericInput("cv.s", "Maximum new components", 10, min = 1, max = NA),
 numericInput("cv.eta", "Parameter for selection range (larger number chooses less variables)", 0.9, min = 0, max = 1, step=0.1),
-p("This result chooses optimal parameters using 10-fold cross-validation which split data randomly, so the result will not be exactly the same every time."),
+#p("This result chooses optimal parameters using 10-fold cross-validation which split data randomly, so the result will not be exactly the same every time."),
+p("Cross-validation will choose the parameters according to the minimum error, but it may not be always proper."),
+actionButton("splscv", (tags$b("Show CV Results >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
+
 verbatimTextOutput("spls_cv")
   ),
 tabPanel("Part of Data", br(),

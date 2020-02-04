@@ -25,7 +25,7 @@ options = pickerOptions(
 
 type.num4.s <- reactive({
   df <-X()[ ,-which(names(X()) %in% c(input$y.s))]
-  df <- colnames(X()[unlist(lapply(X(), is.numeric))])
+  df <- colnames(df[unlist(lapply(df, is.numeric))])
 return(df)
   })
 
@@ -59,7 +59,7 @@ output$spls.x <- DT::renderDT({
 
     head(X()[,1:lim])}, options = list(scrollX = TRUE,dom = 't'))
 
-output$spls_cv  <- renderPrint({
+spls_cv <- eventReactive(input$splscv,{
   Y <- as.matrix(X()[,input$y.s])
   X <- as.matrix(X()[,input$x.s])
   validate(need(input$y.s, "Please choose dependent variable"))
@@ -67,8 +67,14 @@ output$spls_cv  <- renderPrint({
   validate(need(min(ncol(X), nrow(X))>input$cv.s, "Please choose enough independent variables"))
   validate(need(input$cv.s>=1, "Please input correct number of components"))
   validate(need(input$cv.eta>0 && input$nc.eta<1, "Please input correct parameters"))
+  set.seed(1)
   spls::cv.spls(X,Y, eta = seq(0.1,input$cv.eta,0.1), K = c(1:input$cv.s),
     select="pls2", fit = input$method.s, plot.it = FALSE)
+  })
+
+output$spls_cv  <- renderPrint({
+
+  spls_cv()
   
   })
 
@@ -79,7 +85,7 @@ spls <- eventReactive(input$spls1,{
   validate(need(min(ncol(X), nrow(X))>input$nc.s, "Please input enough independent variables"))
   validate(need(input$nc.s>=1, "Please input correct number of components"))
   validate(need(input$nc.eta>0 && input$nc.eta<1, "Please correct parameters"))
-  spls::spls(X, Y, K=input$nc.s, eta=input$nc.eta, kappa=0.5, select="pls2", fit=input$method.s)
+  spls::spls(X, Y, K=input$nc.s, eta=input$nc.eta, kappa=0.5, select="pls2", fit=input$method.s,scale.x=FALSE, scale.y=FALSE)
   })
 
 

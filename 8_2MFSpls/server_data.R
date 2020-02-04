@@ -9,7 +9,7 @@ data <- reactive({
                #"Independent variable matrix (Gene sample2)" = genesample2)
         })
 
-DF00 <- reactive({
+DF0 <- reactive({
   # req(input$file)
   inFile <- input$file
   if (is.null(inFile)){
@@ -27,14 +27,15 @@ if(!input$col){
 
   x <- as.data.frame(csv)
 }
+
+  if(input$transform) {x <- as.data.frame(t(x))}
+   
+  if(input$scale) {x <- scale(x)}
+
 return(as.data.frame(x))
 })
 
-DF0 <- reactive({
-  if(input$transform) {df <- as.data.frame(t(DF00()))}
-  else {df <- DF00()}
-  return(df)
-  })
+
 
 type.num0 <- reactive({
 colnames(DF0()[unlist(lapply(DF0(), is.numeric))])

@@ -25,7 +25,7 @@ options = pickerOptions(
 
 type.num4.r <- reactive({
   df <-X()[ ,-which(names(X()) %in% c(input$y.r))]
-  df <- colnames(X()[unlist(lapply(X(), is.numeric))])
+  df <- colnames(df[unlist(lapply(df, is.numeric))])
 return(df)
   })
 
@@ -51,7 +51,6 @@ options = pickerOptions(
 #)
 #})
 
-
 output$pls.x <- DT::renderDT({
     if (ncol(X())>50) {lim <- 50}
     else {lim <-ncol(X())}
@@ -68,7 +67,7 @@ pls <- eventReactive(input$pls1,{
   validate(need(input$y.r, "Please choose dependent variable"))
   validate(need(min(ncol(X), nrow(X))>input$nc.r, "Please choose enough independent variables"))
   validate(need(input$nc.r>=1, "Please input correct number of components"))
-  mvr(Y~X, ncomp=input$nc.r, validation=input$val.r, model=FALSE, method = input$method.r,scale = TRUE, center = TRUE)
+  mvr(Y~X, ncomp=input$nc.r, validation=input$val.r, model=FALSE, method = input$method.r,scale = FALSE, center = FALSE)
   })
 
 output$pls  <- renderPrint({

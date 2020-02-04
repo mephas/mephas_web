@@ -12,7 +12,7 @@ multiple = FALSE
 
 type.num4 <- reactive({
   df <-X()[ ,-which(names(X()) %in% c(input$y))]
-  df <- colnames(X()[unlist(lapply(X(), is.numeric))])
+  df <- colnames(df[unlist(lapply(df, is.numeric))])
 return(df)
   })
 
@@ -54,7 +54,7 @@ pcr <- eventReactive(input$pcr1,{
 
   validate(need(min(ncol(X), nrow(X))>input$nc, "Please input enough independent variables"))
   validate(need(input$nc>=1, "Please input correct number of components"))
-  mvr(Y~X, ncomp=input$nc, validation=input$val, model=FALSE, method = "svdpc",scale = TRUE, center = TRUE)
+  mvr(Y~X, ncomp=input$nc, validation=input$val, model=FALSE, method = "svdpc",scale = FALSE, center = FALSE)
   })
 
 
