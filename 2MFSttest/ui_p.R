@@ -3,11 +3,11 @@
 sidebarLayout(
 
 sidebarPanel(
-        
+
   h4(tags$b("Step 1. Data Preparation")),
 
   p(tags$b("1. Give names to your groups (Required)")),
-    
+
     tags$textarea(id = "cn.p", rows = 3, "Before\nAfter\nAfter-Before"), p(br()),
 
     p(tags$b("2. Input data")),
@@ -33,33 +33,34 @@ sidebarPanel(
     p("Missing values are input as NAs to ensure 2 sets have equal length; otherwise, there will be error")
 
 ),
+tabPanel.upload.num(file ="file.p", header="header.p", col="col.p", sep="sep.p")
 
           ##-------csv file-------##
-    tabPanel("Upload Data", p(br()),
-    p(tags$b("Here only reads the 2 columns from the data file uploaded")),
-    fileInput('file.p', "Choose CSV/TXT file",
-                  accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-
-        p(tags$b("2. Use 1st row as column names?")),
-        checkboxInput("header.p", "Yes", TRUE),
-        p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-        checkboxInput("col.p", "Yes", TRUE),
-             # Input: Select separator ----
-        radioButtons("sep.p", 
-          "Which Separator for Data?",
-          choiceNames = list(
-            HTML("Comma (,): CSV often use this"),
-            HTML("One Tab (->|): TXT often use this"),
-            HTML("Semicolon (;)"),
-            HTML("One Space (_)")
-            ),
-          choiceValues = list(",", "\t", ";", " ")
-          ),
-
-        p("Correct Separator ensures data input successfully"),
-
-        a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-        )
+    # tabPanel("Upload Data", p(br()),
+    # p(tags$b("Here only reads the 2 columns from the data file uploaded")),
+    # fileInput('file.p', "Choose CSV/TXT file",
+    #               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
+    #
+    #     p(tags$b("2. Use 1st row as column names?")),
+    #     checkboxInput("header.p", "Yes", TRUE),
+    #     p(tags$b("3. Use 1st column as row names? (No duplicates)")),
+    #     checkboxInput("col.p", "Yes", TRUE),
+    #          # Input: Select separator ----
+    #     radioButtons("sep.p",
+    #       "Which Separator for Data?",
+    #       choiceNames = list(
+    #         HTML("Comma (,): CSV often use this"),
+    #         HTML("One Tab (->|): TXT often use this"),
+    #         HTML("Semicolon (;)"),
+    #         HTML("One Space (_)")
+    #         ),
+    #       choiceValues = list(",", "\t", ";", " ")
+    #       ),
+    #
+    #     p("Correct Separator ensures data input successfully"),
+    #
+    #     a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
+    #     )
         ),
 
         hr(),
@@ -68,7 +69,7 @@ sidebarPanel(
 
         tags$b("Null hypothesis"),
         HTML("<p> &#916 = 0: Group 1 (Before) and Group 2 (After) have equal effect </p>"),
-        
+
         radioButtons(
           "alt.pt",
           label = "Alternative hypothesis",
@@ -81,7 +82,7 @@ sidebarPanel(
           ),
       conditionalPanel(
         condition = "input.explain_on_off",
-       p(tags$i("In this default settings, we wanted to know if the drug has effect. 
+       p(tags$i("In this default settings, we wanted to know if the drug has effect.
         Or, if sleep HOUR changed after they take the drug. "))
        )
 
@@ -100,16 +101,16 @@ sidebarPanel(
     tabPanel("Basic Descriptives", p(br()),
 
       tags$b("Basic Descriptives of the Difference"),
-            
+
               DT::DTOutput("bas.p")
             ),
 
-      tabPanel("Boxplot of the difference", p(br()), 
-        
+      tabPanel("Boxplot of the difference", p(br()),
+
        plotly::plotlyOutput("bp.p",width = "80%"),#,click = "plot_click3"
-          
+
        #verbatimTextOutput("info3"), hr(),
-            
+
           HTML(
           "<b> Explanations </b>
           <ul>
@@ -117,10 +118,10 @@ sidebarPanel(
             <li> The box measures the difference between 75th and 25th percentiles</li>
             <li> Outliers will be in red, if existing</li>
           </ul>"
-            )        
+            )
          ),
 
-          tabPanel("Mean and SD Plot", p(br()), 
+          tabPanel("Mean and SD Plot", p(br()),
 
             plotly::plotlyOutput("meanp.p", width = "80%")),
 
@@ -128,7 +129,7 @@ sidebarPanel(
 
             HTML(
           "<b> Explanations </b>
-          <ul> 
+          <ul>
             <li> Normal Q–Q Plot: to compare randomly generated, independent standard normal data on the vertical axis to a standard normal population on the horizontal axis. The linearity of the points suggests that the data are normally distributed.</li>
             <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values</li>
             <li> Density Plot: to estimate the probability density function of the difference</li>
@@ -142,17 +143,17 @@ sidebarPanel(
             p("When the number of bins is 0, plot will use the default number of bins"),
             p(tags$b("Density plot")),
             plotly::plotlyOutput("makeplot.p3", width = "80%")
-            
+
             )
           ),
 
           hr(),
-    h4(tags$b("Output 2. Test Results")),p(br()), 
-          DT::DTOutput("t.test.p"),p(br()), 
+    h4(tags$b("Output 2. Test Results")),p(br()),
+          DT::DTOutput("t.test.p"),p(br()),
 
             HTML(
-    "<b> Explanations </b> 
-    <ul> 
+    "<b> Explanations </b>
+    <ul>
     <li> P Value < 0.05, then Group 1 (Before) and Group 2 (After) have a significantly unequal effect. (Accept the alternative hypothesis)</li>
     <li> P Value >= 0.05, then there is NO significant difference between 2 groups. (Accept the null hypothesis)</li>
     </ul>"
