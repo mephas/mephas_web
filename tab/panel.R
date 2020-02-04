@@ -3,7 +3,7 @@ tabPanel.upload <- function(file ="file", header="header", col="col", sep="sep",
 tabPanel("Upload Data", p(br()),
 
 p(tags$b("Upload data will cover the example data")),
-p("We suggested putting the dependent variable (Y) in the left side of all independent variables (X) "),
+#p("We suggested putting the dependent variable (Y) in the left side of all independent variables (X) "),
 
 fileInput(file, "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
