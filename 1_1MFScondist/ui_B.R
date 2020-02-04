@@ -142,7 +142,7 @@ mainPanel(
         plotly::plotlyOutput("makeplot.b1"),
 
         p(tags$b("Sample descriptive statistics")),
-        tableOutput("b.sum2"),
+        tableOutput("b.sum2")
 
 
 
