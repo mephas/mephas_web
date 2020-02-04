@@ -18,7 +18,7 @@ tabPanel("Example data", p(br()),
   #      choices =  c("Birth weight"),
   #      selected = "Birth weight")
 
-  radioGroupButtons(
+  shinyWidgets::radioGroupButtons(
    inputId = "edata",
    label = tags$b("Use example data"),
    choices =  c("Birth weight"),

@@ -21,7 +21,7 @@ tabPanel("Example data", p(br()),
 #        selected = "Diabetes")
 #),
 
-radioGroupButtons(
+shinyWidgets::radioGroupButtons(
    inputId = "edata",
    label = tags$b("Use example data"),
    choices = c("Diabetes","NKI70"),
