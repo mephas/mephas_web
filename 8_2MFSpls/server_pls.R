@@ -88,7 +88,9 @@ output$pls_rmsep  <- renderPrint({
   })
 
 score.r <- reactive({
-  as.data.frame(pls()$scores[,1:pls()$ncomp])
+  s <- as.data.frame(pls()$scores[,1:pls()$ncomp])
+  rownames(s) <- rownames(DF0())
+  return(s)
   })
 
 load.r <- reactive({
