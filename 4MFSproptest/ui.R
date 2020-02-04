@@ -1,7 +1,7 @@
-source("../tab.R")
+source("../tab/tab.R")
 tagList(
 
-source("../0tabs/font.R",local=TRUE, encoding="UTF-8")$value,
+source("../tab/font.R",local=TRUE, encoding="UTF-8")$value,
 #tags$head(includeScript("../0tabs/navtitle.js")),
 tags$head(
   tags$link(rel = "shortcut icon", href = "../www/favicon.ico"),

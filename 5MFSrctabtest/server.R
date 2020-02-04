@@ -8,7 +8,7 @@ if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shiny
 #shinyServer(
 function(input, output) {
   
-source("../func.R")
+source("../tab/func.R")
 ##########----------##########----------##########
 source("server_1_chi.R", local=TRUE)$value
 source("server_2_fisher.R", local=TRUE)$value
