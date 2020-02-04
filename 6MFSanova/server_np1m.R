@@ -17,12 +17,3 @@ output$dunntest.t <- DT::renderDT({dunntest()
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
-
-#output$downloadnp2.2 <- downloadHandler(
-#    filename = function() {
-#      "des.csv"
-#    },
-#    content = function(file) {
-#      write.csv(dunntest(), file, row.names = TRUE)
-#    }
-#  )

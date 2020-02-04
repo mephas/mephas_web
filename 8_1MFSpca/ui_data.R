@@ -13,41 +13,42 @@ h4(tags$b("Data Preparation")),
 tabsetPanel(
 
 tabPanel("Example data", p(br()),
-  selectInput("edata", tags$b("Use example data"), 
-        choices =  c("Mouse","Chemical"), 
+  selectInput("edata", tags$b("Use example data"),
+        choices =  c("Mouse","Chemical"),
         selected = "Mouse")
   ),
+tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")
 
-tabPanel("Upload Data", p(br()),
-
-fileInput('file', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-
-p(tags$b("2. Show 1st row as column names?")), 
-checkboxInput("header", "Yes", TRUE),
-
-p(tags$b("3. Use 1st column as row names? (No duplicates)")), 
-checkboxInput("col", "Yes", TRUE),
-
-radioButtons("sep", "4. Which separator for data?",
-  choiceNames = list(
-    HTML("Comma (,): CSV often uses this"),
-    HTML("One Tab (->|): TXT often uses this"),
-    HTML("Semicolon (;)"),
-    HTML("One Space (_)")
-    ),
-  choiceValues = list(",", "\t", ";", " ")
-  ),
-
-radioButtons("quote", "5. Which quote for characters?",
-choices = c("None" = "",
-           "Double Quote" = '"',
-           "Single Quote" = "'"),
-selected = '"'),
-
-p("Correct separator and quote ensure the successful data input"),
-
-a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-  )
+# tabPanel("Upload Data", p(br()),
+#
+# fileInput('file', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
+#
+# p(tags$b("2. Show 1st row as column names?")),
+# checkboxInput("header", "Yes", TRUE),
+#
+# p(tags$b("3. Use 1st column as row names? (No duplicates)")),
+# checkboxInput("col", "Yes", TRUE),
+#
+# radioButtons("sep", "4. Which separator for data?",
+#   choiceNames = list(
+#     HTML("Comma (,): CSV often uses this"),
+#     HTML("One Tab (->|): TXT often uses this"),
+#     HTML("Semicolon (;)"),
+#     HTML("One Space (_)")
+#     ),
+#   choiceValues = list(",", "\t", ";", " ")
+#   ),
+#
+# radioButtons("quote", "5. Which quote for characters?",
+# choices = c("None" = "",
+#            "Double Quote" = '"',
+#            "Single Quote" = "'"),
+# selected = '"'),
+#
+# p("Correct separator and quote ensure the successful data input"),
+#
+# a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
+#   )
   ),
 hr(),
 
@@ -65,7 +66,7 @@ h4(tags$b(actionLink("ModelEFA","Build EFA Model")))
 
 mainPanel(
 h4(tags$b("Output 1. Data Information")),
-p(tags$b("Data Preview")), 
+p(tags$b("Data Preview")),
 DT::DTOutput("Xdata"),
 
 p(tags$b("1. Numeric variable information list")),
@@ -74,7 +75,7 @@ verbatimTextOutput("strnum"),
 p(tags$b("2. Categorical variable information list")),
 verbatimTextOutput("strfac"),
 
-hr(),   
+hr(),
 h4(tags$b("Output 2. Basic Descriptives")),
 
 tabsetPanel(

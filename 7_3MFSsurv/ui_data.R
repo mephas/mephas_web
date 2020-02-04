@@ -16,47 +16,49 @@ tabsetPanel(
 
 tabPanel("Example data", p(br()),
 
-selectInput("edata", tags$b("Use example data"), 
-        choices =  c("Diabetes","NKI70"), 
+selectInput("edata", tags$b("Use example data"),
+        choices =  c("Diabetes","NKI70"),
         selected = "Diabetes")
 ),
+tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")
 
-tabPanel("Upload Data", p(br()),
-
-fileInput('file', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-
-p(tags$b("2. Show 1st row as column names?")),
-checkboxInput("header", "Yes", TRUE),
-
-p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-checkboxInput("col", "Yes", TRUE),
-
-radioButtons("sep", "4. Which separator for data?",
-  choiceNames = list(
-    HTML("Comma (,): CSV often use this"),
-    HTML("One Tab (->|): TXT often use this"),
-    HTML("Semicolon (;)"),
-    HTML("One Space (_)")
-    ),
-  choiceValues = list(",", "\t", ";", " ")
-  ),
-
-radioButtons("quote", "5. Which quote for characters?",
-choices = c("None" = "",
-           "Double Quote" = '"',
-           "Single Quote" = "'"),
-selected = '"'),
-
-p("Correct separator and quote ensures data input successfully"),
-
-a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-)),
+# tabPanel("Upload Data", p(br()),
+#
+# fileInput('file', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
+#
+# p(tags$b("2. Show 1st row as column names?")),
+# checkboxInput("header", "Yes", TRUE),
+#
+# p(tags$b("3. Use 1st column as row names? (No duplicates)")),
+# checkboxInput("col", "Yes", TRUE),
+#
+# radioButtons("sep", "4. Which separator for data?",
+#   choiceNames = list(
+#     HTML("Comma (,): CSV often use this"),
+#     HTML("One Tab (->|): TXT often use this"),
+#     HTML("Semicolon (;)"),
+#     HTML("One Space (_)")
+#     ),
+#   choiceValues = list(",", "\t", ";", " ")
+#   ),
+#
+# radioButtons("quote", "5. Which quote for characters?",
+# choices = c("None" = "",
+#            "Double Quote" = '"',
+#            "Single Quote" = "'"),
+# selected = '"'),
+#
+# p("Correct separator and quote ensures data input successfully"),
+#
+# a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
+# )
+),
 tags$i("Diabetes data has only one time duration variable, while Nki70 data has start.time and end.time."),
 hr(),
 
-h4(tags$b("Step 2. Create a Survival Object")), 
+h4(tags$b("Step 2. Create a Survival Object")),
 
-#p(tags$b("1. Choose a Time Variable")),   
+#p(tags$b("1. Choose a Time Variable")),
 
 uiOutput('c'),
 
@@ -80,7 +82,7 @@ tabsetPanel(
 tags$i("Diabetes data has right-censored time, while Nki70 data has left-truncated right-censored time."),
 
 hr(),
-h4(tags$b("Step 3. Check the Survival Object")),      
+h4(tags$b("Step 3. Check the Survival Object")),
 p(tags$b("Valid survival object example: Surv (time, status)")),
 p(tags$b("or, Surv (time1, time2, status)")),
 verbatimTextOutput("surv", placeholder = TRUE),
@@ -91,7 +93,7 @@ hr(),
 
 h4(tags$b("(Optional) Change the types of some variable?")),
 
-#p(tags$b("Choice 1. Change Numeric Variables (Numbers) into Categorical Variable (Factors)")), 
+#p(tags$b("Choice 1. Change Numeric Variables (Numbers) into Categorical Variable (Factors)")),
 
 uiOutput("factor1"),
 
@@ -99,7 +101,7 @@ uiOutput("factor1"),
 
 uiOutput("factor2"),
 
-h4(tags$b("(Optional) Change the referential level for categorical variable?")), 
+h4(tags$b("(Optional) Change the referential level for categorical variable?")),
 
 uiOutput("lvl"),
 
@@ -121,7 +123,7 @@ h4(tags$b(actionLink("Parametric Model","Build Parametric Model")))
 
 mainPanel(
 h4(tags$b("Output 1. Data Information")),
-p(tags$b("Data Preview")), 
+p(tags$b("Data Preview")),
 p(br()),
 DT::DTOutput("Xdata"),
 
@@ -133,7 +135,7 @@ p(tags$b("2. Categorical variable information list")),
 verbatimTextOutput("strfac"),
 
 
-hr(),   
+hr(),
 h4(tags$b("Output 2. Basic Descriptives")),
 
 tabsetPanel(
@@ -154,7 +156,7 @@ downloadButton("download2", "Download Results (Categorical variables)")
 ),
 
 tabPanel("Survival Curves",  p(br()),
-  radioButtons("fun1", "Choose one plot", 
+  radioButtons("fun1", "Choose one plot",
   choiceNames = list(
     HTML("1. Survival Probability"),
     HTML("2. Cumulative Events"),
