@@ -27,11 +27,18 @@ tabPanel("Example data", p(br()),
    no = tags$i(class = "fa fa-square-o", 
   style = "color: steelblue"))
 )
-  ),
-
+),
+  
 tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")
+),
 
+  shinyWidgets::prettySwitch(
+   inputId = "transform",
+   label = "Do you need to transform the data?", 
+   status = "info",
+   fill = TRUE
   ),
+
 hr(),
 h4(tags$b("(Optional) Change the types of some variable?")),
 
