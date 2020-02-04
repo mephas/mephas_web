@@ -4,22 +4,22 @@ sidebarPanel(
 
   h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give 2 names to each categories of factor shown as column names")),
+  p(tags$b("1. Give 2 names to each category of factor shown as column names")),
   tags$textarea(id="cn4", rows=2, "High salt\nLow salt"),
 
     p(tags$b("2. Give 2 names to case-control shown as row names")), 
   tags$textarea(id="rn4", rows=2, "CVD\nNon CVD"), p(br()),
 
   p(tags$b("3. Input 4 values in row-order")),
-  p("Data point can be separated by , ; /Enter /Tab"),
+  p("Data points can be separated by , ; /Enter /Tab"),
   tags$textarea(id="x4", rows=4, 
     "5\n30\n2\n23"),
 
   p("Note: No Missing Value"),
 conditionalPanel(
     condition = "input.explain_on_off",
-  p(tags$i("The case-control was CVD patients or not and factor categories were high salt diet or not.")),
-  p(tags$i("Of 35 people who died form CVD, 5 were on a high-salt diet before they dies; of 25 people who died from other causes, 2 were on a high-salt diet."))
+  p(tags$i("The case-control was CVD patients or not. Factor categories were a high salt diet or not.")),
+  p(tags$i("Of 35 people who died from CVD, 5 were on a high-salt diet before they die; of 25 people who died from other causes, 2 were on a high-salt diet."))
   ),
 
   hr(),
@@ -31,15 +31,15 @@ conditionalPanel(
 
     radioButtons("yt4", label = "Alternative hypothesis", 
         choiceNames = list(
-          HTML("Case-Control (Row) has significant association with Grouped Factors (Column); odds ratio of Group 1 is significant different from Group 2"),
-          HTML("Odds ratio of Group 1 is higher than Group 2"),
-          HTML("Odds ratio of Group 2 is higher than Group 1")
+          HTML("Case-Control (Row) has a significant association with Grouped Factors (Column); odds ratio of Group 1 is significantly different from Group 2"),
+          HTML("The odds ratio of Group 1 is higher than Group 2"),
+          HTML("The odds ratio of Group 2 is higher than Group 1")
           ),
         choiceValues = list("two.sided", "greater", "less")
         ),
     conditionalPanel(
     condition = "input.explain_on_off",
-      p(tags$i("In this example, we wanted to determine if there was association between cause of death and high-salt diet."))
+      p(tags$i("In this example, we wanted to determine if there was an association between the cause of death and a high-salt diet."))
       )
 
     ),
@@ -88,13 +88,13 @@ conditionalPanel(
      HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then Case-Control (Row) is significantly associated with Grouped Factors (Column) (Accept alternative hypothesis)</li>
-    <li> P Value >= 0.05, then Case-Control (Row) are not associated with Grouped Factors (Column). (Accept null hypothesis)</li>
+    <li> P Value < 0.05, then Case-Control (Row) is significantly associated with Grouped Factors (Column) (Accept the alternative hypothesis)</li>
+    <li> P Value >= 0.05, then Case-Control (Row) is not associated with Grouped Factors (Column). (Accept the null hypothesis)</li>
     </ul>"
   ),
 conditionalPanel(
     condition = "input.explain_on_off",
-     p(tags$i("In this default setting, two expected values < 5, so we used Fisher exact test. From the test result, we concluded that no significant association was found between the cause of death and high salt diet" ))
+     p(tags$i("In this default setting, two expected values < 5, so we used the Fisher exact test. From the test result, we concluded that no significant association was found between the cause of death and high salt diet" ))
 )
         )
       )

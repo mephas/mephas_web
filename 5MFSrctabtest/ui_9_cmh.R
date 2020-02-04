@@ -6,7 +6,7 @@
     h4(tags$b("Step 1. Data Preparation")),
 
 
-  p(tags$b("1. Give 2 names to each categories of factor shown as column names")),
+  p(tags$b("1. Give 2 names to each category of factor shown as column names")),
         tags$textarea(id = "cn7",rows = 4,
         "Snoring\nNon-Snoring"
       ),
@@ -14,7 +14,7 @@
         tags$textarea(id = "rn7",rows = 4,
         "30-39\n40-49\n50-60"
       ),
-    p(tags$b("3. Give names to each categories of factor shown as row names")), 
+    p(tags$b("3. Give names to each category of factor shown as row names")), 
         tags$textarea(id = "kn7",rows = 4,
         "Women\nMen"
       ),
@@ -27,7 +27,7 @@
       p("Note: No Missing Value"),
 conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("Example here was the prevalence of habitual snoring by age and sex group."))
+    p(tags$i("The example shown here was the prevalence of habitual snoring by age and sex group."))
     ),
 
         hr(),
@@ -35,13 +35,13 @@ conditionalPanel(
     h4(tags$b("Hypothesis")),
 
    p(tags$b("Null hypothesis")), 
-   p("Case-Control (Row) has no significant association with Grouped Factors (Column) in each stratum / confounding group"),
+   p("Case-Control (Row) has no significant association with Grouped Factors (Column) in each stratum/confounding group"),
     
    p(tags$b("Alternative hypothesis")), 
-   p("Case-Control (Row) has significant association with Grouped Factors (Column); odds ratio is significant different in each stratum"),     
+   p("Case-Control (Row) has a significant association with Grouped Factors (Column); the odds ratio is significantly different in each stratum"),     
 conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this setting,  we wanted to know if the prevalence of habitual snoring has relation with age, controlling for gender."))
+    p(tags$i("In this setting,  we wanted to know if the prevalence of habitual snoring has a relation with age, controlling for gender."))
     )
    
 
@@ -53,7 +53,7 @@ conditionalPanel(
     h4(tags$b("Output 1. Contingency Table")), p(br()), 
 
     p(tags$b("K layers R x C Contingency Table")),
-    p("The first R rows indicated R x C contingency table in the first stratum, and followed by R x C table from the second stratum. "),
+    p("The first R rows indicated an R x C contingency table in the first stratum and followed by an R x C table from the second stratum. "),
 
     DT::DTOutput("dt7"),
 
@@ -66,13 +66,13 @@ conditionalPanel(
      HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, to control for personal smoking, passive smoking and cancer risk has no significant relation, the odds ratios are significantly different. (Accept alternative hypothesis)</li>
-    <li> P Value >= 0.05, to control for personal smoking, passive smoking and cancer risk has no significant relation. (Accept null hypothesis)</li>
+    <li> P Value < 0.05, to control for personal smoking, passive smoking and cancer risk have no significant relation, the odds ratios are significantly different. (Accept the alternative hypothesis)</li>
+    <li> P Value >= 0.05, to control for personal smoking, passive smoking and cancer risk have no significant relation. (Accept the null hypothesis)</li>
     </ul>"
   ),
 conditionalPanel(
     condition = "input.explain_on_off",
-     p(tags$i("In this default setting, we conclude that there was significant relationship between the prevalence of habitual snoring and age, by controlling the gender. (P < 0.001)"))
+     p(tags$i("In this default setting, we conclude that there was a significant relationship between the prevalence of habitual snoring and ages, by controlling the gender. (P < 0.001)"))
         )
       )
     )

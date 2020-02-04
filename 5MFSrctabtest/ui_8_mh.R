@@ -5,7 +5,7 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-  p(tags$b("1. Give 2 names to each categories of factor shown as column names")),
+  p(tags$b("1. Give 2 names to each category of factor shown as column names")),
         tags$textarea(id = "cn8",rows = 2,
         "Passive Smoker\nNon-Passive-Smoker"
       ),
@@ -13,7 +13,7 @@
         tags$textarea(id = "rn8",rows = 2,
         "Cancer (Case)\nNo Cancer (Control)"
       ),
-  p(tags$b("3. Give names to each categories confounding shown as row names")),
+  p(tags$b("3. Give names to each category confounding shown as row names")),
         tags$textarea(id = "kn8",rows = 4,
         "No-Active Smoker\nActive Smoker"
       ),
@@ -26,7 +26,7 @@
       p("Note: No Missing Value"),
 conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("Example here was 2 sets of 2 by 2 table. One is the case-control table for active smoker; the other is case-control table for non-active smoker."))
+    p(tags$i("Example here was 2 sets of 2 by 2 table. One is the case-control table for active smokers; the other is the case-control table for non-active smokers."))
     ),
 
         hr(),
@@ -38,26 +38,26 @@ conditionalPanel(
     
    radioButtons("alt8", label = "Alternative hypothesis", 
         choiceNames = list(
-          HTML("Case-Control (Row) has significant association with Grouped Factors (Column); odds ratio is significant different in each stratum"),
-          HTML("Odds ratio of Stratum 1 is higher than Stratum 2"),
-          HTML("Odds ratio of Stratum 2 is higher than Stratum 1")
+          HTML("Case-Control (Row) has a significant association with Grouped Factors (Column); the odds ratio is significantly different in each stratum"),
+          HTML("The odds ratio of Stratum 1 is higher than Stratum 2"),
+          HTML("The odds ratio of Stratum 2 is higher than Stratum 1")
           ),
         choiceValues = list("two.sided", "greater", "less")
         ),
    hr(),
 
-  h4(tags$b("Step 3. Decide P Value method")),
+  h4(tags$b("Step 3. Decide the P Value method")),
   radioButtons("md8", 
     label = "What is the data like", 
     choiceNames = list(
       HTML("Asymptotic normal P value: sample size is not large (>= 15)"),
-      HTML("Approximate to normal distribution: sample size is quite large (maybe > 40)"),
+      HTML("Approximate to the normal distribution: sample size is quite large (maybe > 40)"),
       HTML("Exact P value: sample size is small (< 15)")
       ), 
     choiceValues = list("a", "b", "c")),
 conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this setting,  we wanted to know if the odds ratio for lung cancer (case) in passive smoker are different with non-passive-smoker, controlling for personal active smoking."))
+    p(tags$i("In this setting,  we wanted to know if the odds ratio for lung cancer (case) in passive smoker are different from non-passive-smoker, controlling for personal active smoking."))
     )
    
     ),
@@ -68,7 +68,7 @@ conditionalPanel(
     h4(tags$b("Output 1. Contingency Table")), p(br()), 
 
     p(tags$b("K layers 2 x 2 Contingency Table")),
-    p("The first 2 rows indicated 2 x 2 contingency table in the first stratum, and followed by 2 x 2 table from the second stratum. "),
+    p("The first 2 rows indicated 2 x 2 contingency table in the first stratum and followed by a 2 x 2 table from the second stratum. "),
 
     DT::DTOutput("dt8"),
 

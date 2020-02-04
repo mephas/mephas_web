@@ -17,11 +17,11 @@ sidebarPanel(
   tabPanel("Manual input", p(br()),
         conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("Example here was the Depression Rating Scale factor measurements of 19 patients from a two group of patients."))
+    p(tags$i("The example shown here was the Depression Rating Scale factor measurements of 19 patients from two groups of patients."))
       ),
 
     p(tags$b("Please follow the example to input your data")),
-  p("Data point can be separated by , ; /Enter /Tab /Space"),
+  p("Data points can be separated by , ; /Enter /Tab /Space"),
     p(tags$b("Group 1")),
     tags$textarea(id="x1", 
     rows=10, 
@@ -34,7 +34,7 @@ sidebarPanel(
       "0.80\n0.83\n1.89\n1.04\n1.45\n1.38\n1.91\n1.64\n0.73\n1.46"
       ),
     
-    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error")
+    p("Missing values are input as NAs to ensure 2 sets have equal length; otherwise, there will be error")
     ),
 
 
@@ -86,7 +86,7 @@ radioButtons("alt.wsr2", label = "Alternative hypothesis",
   choiceValues = list("two.sided", "less", "greater")),
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this default settings, we wanted to know if Depression Rating Scale from two group of patients were different."))
+    p(tags$i("In this default setting, we wanted to know if the Depression Rating Scale from two groups of patients were different."))
       ),
     hr(),
 
@@ -102,7 +102,7 @@ radioButtons("alt.wsr2", label = "Alternative hypothesis",
     choiceValues = list("a", "b", "c")),
       conditionalPanel(
     condition = "input.explain_on_off",
-      p(tags$i("The sample sizes in each group were 9 and 10, so we used exact p value."))
+      p(tags$i("The sample sizes in each group were 9 and 10, so we used the exact p value."))
       )
 
   ),

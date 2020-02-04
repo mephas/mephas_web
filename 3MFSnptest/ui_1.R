@@ -21,13 +21,13 @@ sidebarPanel(
     ),
     
     p(tags$b("Please follow the example to input your data")),
-  p("Data point can be separated by , ; /Enter /Tab /Space"),
+  p("Data points can be separated by , ; /Enter /Tab /Space"),
     tags$textarea(id="a", 
       rows=5, 
       "1.83\n0.50\n1.62\n2.48\n1.68\n1.88\n1.55\n3.06\n1.30"
       ),
     
-    p("Missing value is input as NA")
+    p("Missing values are input as NAs")
 
     ),
 
@@ -66,7 +66,7 @@ sidebarPanel(
   numericInput("med", HTML("Specify the median (m&#8320) that you want to compare with your data"), 1),
   conditionalPanel(
     condition = "input.explain_on_off",
-  p(tags$i("In this default settings, we wanted to know if the group of patients were suffering from depression (Scale > 1)."))
+  p(tags$i("In this default setting, we wanted to know if the group of patients was suffering from Depression (Scale > 1)."))
     ),
   hr(),
 
@@ -87,10 +87,10 @@ sidebarPanel(
   hr(),
   conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this default settings, we wanted to know if the group of patients were suffering from depression (Scale > 1)."))
+    p(tags$i("In this default setting, we wanted to know if the group of patients was suffering from Depression (Scale > 1)."))
     ),
 
-  h4(tags$b("Step 4. Decide P Value method")),
+  h4(tags$b("Step 4. Decide the P Value method")),
   radioButtons("alt.md", 
     label = "What is the data like", selected = "c",
     choiceNames = list(
@@ -101,7 +101,7 @@ sidebarPanel(
     choiceValues = list("a", "b", "c")),
       conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this example, we had only 9 people. So we chose exact P value"))
+    p(tags$i("In this example, we had only 9 people. So we chose the exact P value"))
     )
 
   ),
@@ -157,19 +157,19 @@ mainPanel(
     ),
 hr(),
 h4(tags$b("Output 2. Test Results")),
-    p(tags$b('Results of Wilcoxon Signed-Rank Test')), p(br()), 
+    p(tags$b('Results of the Wilcoxon Signed-Rank Test')), p(br()), 
     DT::DTOutput("ws.test.t"),
 
     HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then the population median is significantly different from the specified median. (Accept alternative hypothesis)</li>
-    <li> P Value >= 0.05, then the population median is NOT significantly different from the specified median. (Accept null hypothesis)</li>
+    <li> P Value < 0.05, then the population median is significantly different from the specified median. (Accept the alternative hypothesis)</li>
+    <li> P Value >= 0.05, then the population median is NOT significantly different from the specified median. (Accept the null hypothesis)</li>
     </ul>"
   ),
     conditionalPanel(
     condition = "input.explain_on_off",
-  p(tags$i("From the default settings, we concluded that the scales was significantly greater than 1 (P=0.006), which indicated the patients were suffering from depression."))
+  p(tags$i("From the default settings, we concluded that the scales were significantly greater than 1 (P = 0.006), which indicated the patients were suffering from Depression."))
   )#,
   )
 )

@@ -21,7 +21,7 @@ sidebarPanel(
     ),
 
     p(tags$b("Please follow the example to input your data")),
-  p("Data point can be separated by , ; /Enter /Tab /Space"),
+  p("Missing values can be separated by , ; /Enter /Tab /Space"),
           p(tags$b("Before")),
             tags$textarea(id = "x1.p",rows = 10,
               "0.6\n3\n4.7\n5.5\n6.2\n3.2\n2.5\n2.8\n1.1\n2.9"
@@ -30,13 +30,13 @@ sidebarPanel(
             tags$textarea(id = "x2.p",rows = 10,
               "1.3\n1.4\n4.5\n4.3\n6.1\n6.6\n6.2\n3.6\n1.1\n4.9"
               ),
-    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error")
+    p("Missing values are input as NAs to ensure 2 sets have equal length; otherwise, there will be error")
 
 ),
 
           ##-------csv file-------##
     tabPanel("Upload Data", p(br()),
-    p(tags$b("This only reads the 2 columns from your data file")),
+    p(tags$b("Here only reads the 2 columns from the data file uploaded")),
     fileInput('file.p', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
@@ -73,7 +73,7 @@ sidebarPanel(
           "alt.pt",
           label = "Alternative hypothesis",
           choiceNames = list(
-            HTML("&#916 &#8800 0: Group 1 (Before) and Group 2 (After) have unequal effect"),
+            HTML("&#916 &#8800 0: Group 1 (Before) and Group 2 (After) have an unequal effect"),
             HTML("&#916 < 0: Group 2 (After) is worse than Group 1 (Before)"),
             HTML("&#916 > 0: Group 2 (After) is better than Group 1 (Before)")
             ),
@@ -153,8 +153,8 @@ sidebarPanel(
             HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then Group 1 (Before) and Group 2 (After) have significantly unequal effect. (Accept alternative hypothesis)</li>
-    <li> P Value >= 0.05, then there is NO significant difference between 2 groups. (Accept null hypothesis)</li>
+    <li> P Value < 0.05, then Group 1 (Before) and Group 2 (After) have a significantly unequal effect. (Accept the alternative hypothesis)</li>
+    <li> P Value >= 0.05, then there is NO significant difference between 2 groups. (Accept the null hypothesis)</li>
     </ul>"
   ),
     conditionalPanel(

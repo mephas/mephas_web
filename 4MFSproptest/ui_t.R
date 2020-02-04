@@ -11,19 +11,19 @@
         "~20\n20-24\n25-29\n30-34\n34~"
       ),
 
-    p(tags$b("2. Give names to success / event")), 
+    p(tags$b("2. Give names to success/event")), 
         tags$textarea(id = "rn4",rows = 2,
         "Cancer\nNo-Cancer"
       ),
     p(br()),
 
-    p("Data point can be separated by , ; /Enter /Tab"),
-    p(tags$b("3. How many success / event in every group (x)")),
+    p("Data pointscan be separated by , ; /Enter /Tab"),
+    p(tags$b("3. How many success/event in every group (x)")),
     tags$textarea(id = "x4", rows = 5,
     "320\n1206\n1011\n463\n220"        
     ),
 
-    p(tags$b("4. How many trials / samples totally in every group (n > x)")),     
+    p(tags$b("4. How many trials/samples totally in every group (n > x)")),     
     tags$textarea(id = "x44", rows = 5,
     "1742\n5638\n3904\n1555\n626"
     ),
@@ -32,7 +32,7 @@
     conditionalPanel(
     condition = "input.explain_on_off",
 
-    p(tags$i("In this example, we had 5 age groups of people as shown in n, and we recorded the number of people who had cancer in x."))
+    p(tags$i("In this example, we had 5 age groups of people, as shown in n, and we recorded the number of people who had cancer in x."))
     ),
 
         hr(),
@@ -56,7 +56,7 @@
    p("There is no variation in for the sample proportion"),
     
    p(tags$b("Alternative hypothesis")), 
-   p("The proportion / rate / probabilities vary with score")   
+   p("The proportion/rate/probabilities vary with score")   
 
     ),
 
@@ -90,8 +90,8 @@
      HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then Case-Control (Row) is significantly associated with grouped Factors (Column) (Accept alternative hypothesis)</li>
-    <li> P Value >= 0.05, then Case-Control (Row) are not associated with grouped Factors (Column). (Accept null hypothesis)</li>
+    <li> P Value < 0.05, then Case-Control (Row) is significantly associated with grouped Factors (Column) (Accept the alternative hypothesis)</li>
+    <li> P Value >= 0.05, then Case-Control (Row) is not associated with grouped Factors (Column). (Accept the null hypothesis)</li>
     </ul>"
   ),
 conditionalPanel(

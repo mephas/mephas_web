@@ -20,7 +20,7 @@ sidebarPanel(
     ),
 
     p(tags$b("Please follow the example to input your data")),
-  p("Data point can be separated by , ; /Enter /Tab /Space"),
+  p("Missing values can be separated by , ; /Enter /Tab /Space"),
 
         p(tags$b("Group 1")),
         tags$textarea(id = "x1",rows = 10,
@@ -31,7 +31,7 @@ sidebarPanel(
 "50\n42\n50\n43\n47\n38\n41\n48\n47\n36\n42\n42\n45\n44\n32\n46\n50\n38\n43\n40\n42\n46\n41\n46\n48\n36\n43\n40\n41\n48\n41\n45\n47\n43\n43\n49\n45\n41\n50\n49\n38\n42\n44\n48\n50\n44\n49\n43\n42\n50\n39\n42\n49\n43\n50\n49\n37\n48\n48\n48\n49\n45\n44\n35\n49\n39\n46\n49\n37\n50\n35\n47\n43\n41\n43\n42\n39\n40\n37\n44\n39\n45\n42\n49\n41\n36\n29\n43\n45\n47\n49\n41\n41\n36\n38\n49\n49\n42\n46\n42\n51\n51\n52\n52\n52\n52\n52\n53\n52\n51\n51\n51\n51\n51\n47\n39\n51"
         ),
 
-    p("Missing value is input as NA to ensure 2 sets have equal length; otherwise, there will be error")
+    p("Missing values are input as NAs to ensure 2 sets have equal length; otherwise, there will be error")
 
         ),
 
@@ -39,7 +39,7 @@ sidebarPanel(
     tabPanel("Upload Data", p(br()),
 
         ##-------csv file-------##
-        p(tags$b("This only reads 2 columns form your data file")),
+        p(tags$b("Here only reads 2 columns form the data file uploaded")),
         fileInput('file2', "Choose CSV/TXT file",
                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
         #helpText("The columns of X are not suggested greater than 500"),
@@ -72,7 +72,7 @@ sidebarPanel(
   h4(tags$b("Choose Hypothesis")),
 
   h4(tags$b("Step 2. Equivalence of Variance")),
-  p("Before doing T test, we need to check the equivalence of variance and then decide which T test to use"),
+  p("Before doing the T test, we need to check the equivalence of variance and then decide which T test to use"),
   p(tags$b("Null hypothesis")),
   HTML("<p> v1 = v2: Group 1 and Group 2 have equal population variances </p>"),
     
@@ -89,7 +89,7 @@ sidebarPanel(
   h4(tags$b("Step 3. T Test")),
 
   p(tags$b("Null hypothesis")),
-  HTML("<p> &#956&#8321 = &#956&#8322: Group 1 and Group 2 have equal population mean </p>"),
+  HTML("<p> &#956&#8321 = &#956&#8322: Group 1 and Group 2 have equal population means </p>"),
     
     radioButtons("alt.t2", #p
       label = "Alternative hypothesis",
@@ -197,8 +197,8 @@ HTML(
       HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then the population means of the Group 1 IS significantly different from Group 2. (Accept alternative hypothesis)</li>
-    <li> P Value >= 0.05, then there is NO significant differences between Group 1 and Group 2. (Accept null hypothesis)</li>
+    <li> P Value < 0.05, then the population means of the Group 1 IS significantly different from Group 2. (Accept the alternative hypothesis)</li>
+    <li> P Value >= 0.05, then there are NO significant differences between Group 1 and Group 2. (Accept the null hypothesis)</li>
     </ul>"
   ),
     conditionalPanel(

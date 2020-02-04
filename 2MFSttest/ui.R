@@ -33,9 +33,9 @@ HTML(
 
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To determine if your data is statistically significantly different from the specified mean from T test results</li>
-<li> To know the basic descriptive statistics about your data</li>
-<li> To know the descriptive statistics plot such as box-plot, mean-sd plot, QQ-plot, distribution histogram, and density distribution plot about your data to determine if your data is close to normal distribution</li>
+<li> To determine if your data is statistically significantly different from the specified mean from T-test results</li>
+<li> To understand the basic descriptive statistics about your data</li>
+<li> To understand the descriptive statistics plot such as box-plot, mean-sd plot, QQ-plot, distribution histogram, and density distribution plot about your data to determine if your data is close to a normal distribution</li>
 </ul>
 
 <h4><b> 2. About your data </b></h4>
@@ -46,7 +46,7 @@ HTML(
 </ul>
 
 <i><h4>Case Example</h4>
-Suppose we collected the age of 144 independent lymph node positive patients, and wanted to know whether the general age of lymph node positive patients was 50 years old
+Suppose we collected the age of 144 independent lymph node-positive patients and wanted to know whether the general age of lymph node-positive patients was 50 years old
 </h4></i>
 
 
@@ -90,7 +90,7 @@ HTML(
 </ul>
 
 <i><h4>Case Example</h4>
-Suppose we collected the age of 144 independent lymph node positive patients. Among them, 27 had Estrogen receptor (ER) positive, 114 had ER negative.
+Suppose we collected the age of 144 independent lymph node-positive patients. Among them, 27 had Estrogen receptor (ER) positive, 114 had ER negative.
 We wanted to know if the ages of patients with ER positive was significantly different from patients with ER negative in general. Or, whether ER is related to age.
 </h4></i>
 

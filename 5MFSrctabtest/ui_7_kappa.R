@@ -5,10 +5,10 @@
 
     h4(tags$b("Step 1. Data Preparation")),
 
-    p(tags$b("1. Give K rator / measurement names shown in the column names and row names")), 
+    p(tags$b("1. Give K rater/measurement names shown in the column names and row names")), 
     tags$textarea(id="cn6", rows=2, "Yes\nNo"), 
 
-    p(tags$b("2. Give 2 related experiment / repeated measurement names shown in the column names and row names")), 
+    p(tags$b("2. Give 2 related experiment/repeated measurement names shown in the column names and row names")), 
     tags$textarea(id="rn6", rows=2, "Survey1\nSurvey2"),p(br()),
 
   
@@ -19,7 +19,7 @@
       p("Note: No Missing Value"),
       conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("Example here was the response from Survey 1 and Survey 2."))
+    p(tags$i("The example shown here was the response from Survey 1 and Survey 2."))
     ),
         hr(),
 
@@ -29,7 +29,7 @@
    p("Case-Control (Row) do not significantly associate with Grouped Factors (Column)"),
     
    p(tags$b("Alternative hypothesis")), 
-   p("Case-Control (Row) has significant association with Grouped Factors (Column)"),     
+   p("Case-Control (Row) has a significant association with Grouped Factors (Column)"),     
 conditionalPanel(
     condition = "input.explain_on_off",
     p(tags$i("In this setting,  we wanted to know the reproducibility of the surveys."))
@@ -71,7 +71,7 @@ conditionalPanel(
       <li> <b>0.4 <= Cohen's Kappa Statistic <= 0.75</b>: <b>good</b> reproducibility</li>
       <li> <b>0 <= Cohen's Kappa Statistic < 0.4</b>: <b>marginal</b> reproducibility </li>
       <li> Cohen’s kappa takes into account disagreement between the two raters, but not the degree of disagreement.</li>
-      <li> The weighted kappa is calculated using a predefined table of weights which measure the degree of disagreement between the two raters, the higher the disagreement the higher the weight.</li>
+      <li> The weighted kappa is calculated using a predefined table of weights that measure the degree of disagreement between the two raters. The higher the disagreement, the higher the weight.</li>
 
     </ul>
 
@@ -79,7 +79,7 @@ conditionalPanel(
   ),
 conditionalPanel(
     condition = "input.explain_on_off",
-     p(tags$i("In this default setting, we concluded that the response from Survey1 and Survey2 didn't have so good reproducibility, just marginally reproducible. "))
+     p(tags$i("In this default setting, we concluded that the response from Survey1 and Survey2 did not have good reproducibility, just marginally reproducible. "))
 )
         )
       )
