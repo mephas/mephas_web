@@ -19,6 +19,11 @@ if(!input$newcol){
 
   x <- as.data.frame(csv)
 }
+
+if(input$transform) {x <- as.data.frame(t(x))}
+   
+if(input$scale) {x <- scale(x)}
+
 return(as.data.frame(x))
 })
 #prediction plot
