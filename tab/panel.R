@@ -11,7 +11,7 @@ fileInput(file, "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-sepa
 p(tags$b("2. Show 1st row as column names?")), 
 #checkboxInput("header", "Yes", TRUE),
 shinyWidgets::prettyToggle(
-   inputId = "header",
+   inputId = header,
    label_on = "Yes", 
     icon_on = icon("check"),
    status_on = "info",
@@ -24,7 +24,7 @@ shinyWidgets::prettyToggle(
 p(tags$b("3. Use 1st column as row names? (No duplicates)")), 
 #checkboxInput("col", "Yes", TRUE),
 shinyWidgets::prettyToggle(
-   inputId = "col",
+   inputId = col,
    label_on = "Yes", 
     icon_on = icon("check"),
    status_on = "info",
@@ -35,7 +35,7 @@ shinyWidgets::prettyToggle(
 ),
 
 shinyWidgets::prettyRadioButtons(
-   inputId = "sep",
+   inputId = sep,
    label = "4. Which separator for data?", 
    status = "info",
    fill = TRUE,
@@ -50,7 +50,7 @@ shinyWidgets::prettyRadioButtons(
   ),
 
 shinyWidgets::prettyRadioButtons(
-   inputId = "quote",
+   inputId = quote,
    label = "5. Which quote for characters?", 
    status = "info",
    fill = TRUE,
@@ -78,7 +78,7 @@ fileInput(file, "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-sepa
 p(tags$b("2. Show 1st row as column names?")), 
 #checkboxInput("header", "Yes", TRUE),
 shinyWidgets::prettyToggle(
-   inputId = "header",
+   inputId = header,
    label_on = "Yes", 
     icon_on = icon("check"),
    status_on = "info",
@@ -91,7 +91,7 @@ shinyWidgets::prettyToggle(
 p(tags$b("3. Use 1st column as row names? (No duplicates)")), 
 #checkboxInput("col", "Yes", TRUE),
 shinyWidgets::prettyToggle(
-   inputId = "col",
+   inputId = col,
    label_on = "Yes", 
     icon_on = icon("check"),
    status_on = "info",
@@ -102,7 +102,7 @@ shinyWidgets::prettyToggle(
 ),
 
 shinyWidgets::prettyRadioButtons(
-   inputId = "sep",
+   inputId = sep,
    label = "4. Which separator for data?", 
    status = "info",
    fill = TRUE,
@@ -135,7 +135,7 @@ fileInput(file, "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-sepa
 p(tags$b("2. Show 1st row as column names?")), 
 #checkboxInput("header", "Yes", TRUE),
 shinyWidgets::prettyToggle(
-   inputId = "header",
+   inputId = header,
    label_on = "Yes", 
     icon_on = icon("check"),
    status_on = "info",
@@ -148,7 +148,7 @@ shinyWidgets::prettyToggle(
 p(tags$b("3. Use 1st column as row names? (No duplicates)")), 
 #checkboxInput("col", "Yes", TRUE),
 shinyWidgets::prettyToggle(
-   inputId = "col",
+   inputId = col,
    label_on = "Yes", 
     icon_on = icon("check"),
    status_on = "info",
@@ -159,7 +159,7 @@ shinyWidgets::prettyToggle(
 ),
 
 shinyWidgets::prettyRadioButtons(
-   inputId = "sep",
+   inputId = sep,
    label = "4. Which separator for data?", 
    status = "info",
    fill = TRUE,
@@ -174,7 +174,7 @@ shinyWidgets::prettyRadioButtons(
   ),
 
 shinyWidgets::prettyRadioButtons(
-   inputId = "quote",
+   inputId = quote,
    label = "5. Which quote for characters?", 
    status = "info",
    fill = TRUE,

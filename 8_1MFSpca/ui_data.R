@@ -32,7 +32,12 @@ tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quot
 
 
   ),
-
+  shinyWidgets::prettySwitch(
+   inputId = "transform",
+   label = "Transform the data?", 
+   status = "info",
+   fill = TRUE
+  ),
 
 hr(),
 

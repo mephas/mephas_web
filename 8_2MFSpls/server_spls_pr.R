@@ -6,6 +6,8 @@ newX.spls = reactive({
     x <- nki2.test
     #if (input$edata=="NKI") {x <- nki2.test}
     #else {x<- liver.test}
+    if(input$transform) {x <- t(nki2.train)}
+
     }
   else{
 if(!input$newcol.spls){
@@ -19,10 +21,9 @@ if(!input$newcol.spls){
 
   x <- as.data.frame(csv)
 }
-  if(input$transform) {x <- as.data.frame(t(x))}
    
   if(input$scale) {x <- scale(x)}
-  
+
 return(as.data.frame(x))
 })
 

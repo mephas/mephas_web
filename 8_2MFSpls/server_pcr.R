@@ -75,7 +75,9 @@ output$pcr_rmsep  <- renderPrint({
   })
 
 score <- eventReactive(input$pcr1,{
-  as.data.frame(pcr()$scores[,1:pcr()$ncomp])
+  s <- as.data.frame(predict(pcr(), type="scores"))
+  rownames(s) <- rownames(X())
+  return(s)
   })
 
 load <- eventReactive(input$pcr1,{
@@ -96,7 +98,11 @@ output$pcr.l <- DT::renderDT({load()},
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pcr.pres <- DT::renderDT({as.data.frame(pcr()$fitted.values[,,1:pcr()$ncomp])}, 
+output$pcr.pres <- DT::renderDT({
+  y <- as.data.frame(predict(pcr(), comps=pcr()$ncomp, type="response"))
+  rownames(y) <- rownames(X())
+  return(y)
+  }, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

@@ -6,13 +6,14 @@ newX = reactive({
     x <- nki2.test
     #if (input$edata=="NKI") {x <- nki2.test}
     #else {x<- liver.test}
+    if(input$transform) {x <- t(nki2.train)}
     }
   else{
-if(!input$newcol){
-    csv <- read.csv(inFile$datapath, header = input$newheader, sep = input$newsep, quote=input$newquote)
+if(input$newcol){
+    csv <- read.csv(inFile$datapath, header = input$newheader, sep = input$newsep, quote=input$newquote, row.names=1)
     }
     else{
-    csv <- read.csv(inFile$datapath, header = input$newheader, sep = input$newsep, quote=input$newquote, row.names=1)
+    csv <- read.csv(inFile$datapath, header = input$newheader, sep = input$newsep, quote=input$newquote)
     }
     validate( need(ncol(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
     validate( need(nrow(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
@@ -20,9 +21,8 @@ if(!input$newcol){
   x <- as.data.frame(csv)
 }
 
-if(input$transform) {x <- as.data.frame(t(x))}
-   
 if(input$scale) {x <- scale(x)}
+
 
 return(as.data.frame(x))
 })
@@ -36,7 +36,8 @@ buttons = c('copy', 'csv', 'excel'),
 scrollX = TRUE))
 
 pred.lp = eventReactive(input$B.pcr,
-{ as.data.frame(predict(pcr(), newdata = as.matrix(newX())[,input$x], type="response")[,,1:pcr()$ncomp])
+{ 
+  as.data.frame(predict(pcr(), newdata = as.matrix(newX())[,input$x], type="response")[,,1:pcr()$ncomp])
 })
 
 pred.comp = eventReactive(input$B.pcr,

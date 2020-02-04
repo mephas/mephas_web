@@ -28,13 +28,15 @@ if(!input$col){
   x <- as.data.frame(csv)
 }
 
-  if(input$transform) {x <- as.data.frame(t(x))}
+  if(input$transform) {x <- t(x)}
    
   if(input$scale) {x <- scale(x)}
 
 return(as.data.frame(x))
 })
 
+#rownames <- reactive({rownames(DF0())})
+#colnames <- reactive({colnames(DF0())})
 
 
 type.num0 <- reactive({
@@ -75,7 +77,7 @@ selectInput(
 X <- reactive({
   df <-DF1() 
 df[input$factor2] <- as.data.frame(lapply(df[input$factor2], as.numeric))
-return(as.data.frame(df))
+return(as.data.frame(na.omit(df)))
   })
 
 type.fac2 <- reactive({
