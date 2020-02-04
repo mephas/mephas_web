@@ -138,31 +138,41 @@ output$t = renderUI({
 selectInput(
 't',
 tags$b('Choose time-duration variable, numeric'),
-selected = type.time3()[1],
-choices = c("NULL",type.time3()))
+#selected = type.time3()[1],
+choices = type.time3())
 })
 
 output$t1 = renderUI({
 selectInput(
 't1',
 ('Start-time variable, numeric'),
-selected = "NULL",
-choices = c("NULL",type.time3()))
+#selected = "NULL",
+choices = type.time3())
 })
+
+type.time2 <- reactive({
+  if (input$time=="B") {df <-DF3()[ ,-which(names(DF3()) %in% c(input$c,input$t1))]
+  names <- apply(df,2,function(x) { length(levels(as.factor(x)))>2 })
+  df <- df[,names]
+  x <- colnames(df[unlist(lapply(df, is.numeric))])
+  return(x)
+  }
+return(df)
+  })
 
 output$t2 = renderUI({
 selectInput(
 't2',
 ('End-time variable, numeric'),
-selected = "NULL",
-choices = c("NULL",type.time3()))
+#selected = "NULL",
+choices = type.time2())
 })
 
 output$c = renderUI({
 selectInput(
 'c',
 ('1. Choose 1/0 censoring information variable (1= event, 0=censor)'),
-selected = type.bi3()[1],
+#selected = type.bi3()[1],
 choices = type.bi3())
 })
 
@@ -180,8 +190,8 @@ if (input$time == "B"){
 #validate(need(!("FALSE" %in% (input$t2>=input$t1)), "End time should be grater than the start time"))
 validate(need(!("FALSE" %in% (DF0()[,input$t2] - DF0()[,input$t1]>=0)), "End time should be grater than the start time"))
 validate(need(!("FALSE" %in% (DF0()[,input$t1]>=0)), "Time should be >= 0"))
-validate(need(input$t1, "Please choose a start time"))
-validate(need(input$t2, "Please choose a end time"))
+#validate(need(!(input$t1=="NULL"), "Please choose a start time"))
+#validate(need(!(input$t2=="NULL"), "Please choose a end time"))
 #validate(need(!("FALSE" %in% (DF0()[,input$t2]>=0)), "Time should be >= 0"))
 
 y <- paste0("Surv(", input$t1, ",", input$t2, ",", input$c, ")")

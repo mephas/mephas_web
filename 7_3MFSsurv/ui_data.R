@@ -16,9 +16,22 @@ tabsetPanel(
 
 tabPanel("Example data", p(br()),
 
-selectInput("edata", tags$b("Use example data"),
-        choices =  c("Diabetes","NKI70"),
-        selected = "Diabetes")
+#selectInput("edata", tags$b("Use example data"),
+#        choices =  c("Diabetes","NKI70"),
+#        selected = "Diabetes")
+#),
+
+radioGroupButtons(
+   inputId = "edata",
+   label = tags$b("Use example data"),
+   choices = c("Diabetes","NKI70"),
+   selected = "Diabetes",
+   checkIcon = list(
+    yes = tags$i(class = "fa fa-check-square", 
+    style = "color: steelblue"),
+   no = tags$i(class = "fa fa-square-o", 
+  style = "color: steelblue"))
+)
 ),
 
 tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")
@@ -63,23 +76,40 @@ h4(tags$b("Step 2. Create a Survival Object")),
 
 uiOutput('c'),
 
-radioButtons("time", "2. Set Survival Time", selected="A",
-  choiceNames = list(
-    HTML("Choice 1. <b>Right-censored time</b>: needs time duration / follow-up"),
-    HTML("Choice 2. <b>Left-truncated right-censored time</b>: needs start and end time points")
-    ),
-  choiceValues = list("A", "B" )
+#radioButtons("time", "2. Set Survival Time", selected="A",
+#  choiceNames = list(
+#    HTML("Choice 1. <b>Right-censored time</b>: needs time duration / follow-up"),
+#    HTML("Choice 2. <b>Left-truncated right-censored time</b>: needs start and end time points")
+#    ),
+#  choiceValues = list("A", "B" )
+#  ),
+  selectInput(
+      "time", "Select survival time type",
+      c("Right-censored time" = "A",
+        "Left-truncated right-censored time" = "B"
+        )),
+  p("Right-censored time needs only 1 time duration / follow-up variable"),
+  p("Left-truncated right-censored time needs start time and end time variables"),
+#tabsetPanel(
+#  tabPanel("Right-censored", br(),
+#    uiOutput('t')
+#    ),
+#  tabPanel("Left-truncated Right-censored", br(),
+#    uiOutput('t1'),
+#    uiOutput('t2')
+#    )
+#  ),
+
+conditionalPanel(
+  condition = "input.time == 'A'",
+  uiOutput('t')
+  ),
+conditionalPanel(
+  condition = "input.time == 'B'",
+  uiOutput('t1'),
+  uiOutput('t2')
   ),
 
-tabsetPanel(
-  tabPanel("Right-censored", br(),
-    uiOutput('t')
-    ),
-  tabPanel("Left-truncated Right-censored", br(),
-    uiOutput('t1'),
-    uiOutput('t2')
-    )
-  ),
 tags$i("Diabetes data has right-censored time, while Nki70 data has left-truncated right-censored time."),
 
 hr(),

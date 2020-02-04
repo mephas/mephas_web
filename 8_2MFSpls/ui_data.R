@@ -13,9 +13,20 @@ h4(tags$b("Training Set Preparation")),
 tabsetPanel(
 
 tabPanel("Example data", p(br()),
-selectInput("edata", h4(tags$b("Use example data (training set)")),
-        choices =  c("NKI"),
-        selected = "NKI")
+#selectInput("edata", h4(tags$b("Use example data (training set)")),
+#        choices =  c("NKI"),
+#        selected = "NKI")
+    radioGroupButtons(
+   inputId = "edata",
+   label = tags$b("Use example data"),
+   choices =  c("NKI"),
+   selected = "NKI",
+   checkIcon = list(
+    yes = tags$i(class = "fa fa-check-square", 
+    style = "color: steelblue"),
+   no = tags$i(class = "fa fa-square-o", 
+  style = "color: steelblue"))
+)
   ),
 
 tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")

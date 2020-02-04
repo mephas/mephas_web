@@ -14,9 +14,21 @@ tabsetPanel(
 
 tabPanel("Example data", p(br()),
 
-  selectInput("edata", tags$b("Use example data"),
-        choices =  c("Birth weight"),
-        selected = "Birth weight")
+  #selectInput("edata", tags$b("Use example data"),
+  #      choices =  c("Birth weight"),
+  #      selected = "Birth weight")
+
+  radioGroupButtons(
+   inputId = "edata",
+   label = tags$b("Use example data"),
+   choices =  c("Birth weight"),
+   selected = "Birth weight",
+   checkIcon = list(
+    yes = tags$i(class = "fa fa-check-square", 
+    style = "color: steelblue"),
+   no = tags$i(class = "fa fa-square-o", 
+  style = "color: steelblue"))
+)
   ),
 
 tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")

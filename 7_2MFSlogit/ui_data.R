@@ -12,9 +12,21 @@ tabsetPanel(
 
 tabPanel("Example data", p(br()),
 
-  selectInput("edata", tags$b("Use example data"),
-        choices =  c("Breast Cancer"),
-        selected = "Breast Cancer")
+  #selectInput("edata", tags$b("Use example data"),
+  #      choices =  c("Breast Cancer"),
+  #      selected = "Breast Cancer")
+
+    radioGroupButtons(
+   inputId = "edata",
+   label = tags$b("Use example data"),
+   choices =  c("Breast Cancer"),
+   selected = "Breast Cancer",
+   checkIcon = list(
+    yes = tags$i(class = "fa fa-check-square", 
+    style = "color: steelblue"),
+   no = tags$i(class = "fa fa-square-o", 
+  style = "color: steelblue"))
+)
   ),
 
 tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")
