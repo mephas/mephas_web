@@ -74,7 +74,7 @@ h4(tags$b("Step 2. Check AFT Model")),
 p(tags$b("Valid model example: Surv(time, status) ~ X1 + X2")),
 p(tags$b("Or, Surv(time1, time2, status) ~ X1 + X2")),
 verbatimTextOutput("aft_form", placeholder = TRUE),
-p("'-1' in the formula indicates that intercept / constant term has been removed"),
+p("'-1' in the formula indicates that the intercept/constant term has been removed"),
 hr(),
 
 h4(tags$b("Step 3. If data and model are ready, click the blue button to generate model results.")),

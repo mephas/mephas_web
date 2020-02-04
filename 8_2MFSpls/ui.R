@@ -31,7 +31,7 @@ HTML(
 "
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To upload data file, preview data set, and check the correctness of data input</li>
+<li> To upload data files, preview data set, and check the correctness of data input</li>
 <li> To pre-process some variables (when necessary) for building the model</li>
 <li> To get the basic descriptive statistics and plots of the variables</li>
 </ul>
@@ -40,12 +40,12 @@ HTML(
 
 <ul>
 <li> The data need to be all numeric</li>
-<li> The data used to build model is called <b>training set</b></li>
+<li> The data used to build a model is called a <b>training set</b></li>
 </ul>
 
 <i><h4>Case Example: NKI data</h4>
 
-Suppose in one study, we wanted to explore some lymph node positive breast cancer patients on metastasis-free survival.
+Suppose in one study, we wanted to explore some lymph node-positive breast cancer patients on metastasis-free survival.
 Data contained the clinical risk factors: (1) Age: Patient age at diagnosis (years) and (2) the year until relapse;
 and gene expression measurements of 70 genes found to be prognostic for metastasis-free survival in an earlier study.
 In this example, we wanted to create a model that could find the relations between age, year until release, and gene expression measurements.
@@ -76,12 +76,12 @@ HTML(
 
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To get correlation matrix and plot</li>
-<li> To get the results from model</li>
-<li> To get the factors and loadings result tables and</li>
-<li> To get the factors and loadings distribution plots in 2D and 3D</li>
-<li> To get the predicted dependent variables</li>
-<li> To upload new data and get the prediction</li>
+<li> To achieve a correlation matrix and plots</li>
+<li> To achieve the results from a model</li>
+<li> To achieve the factors and loadings result tables and</li>
+<li> To achieve the factors and loadings distribution plots in 2D and 3D</li>
+<li> To achieve the predicted dependent variables</li>
+<li> To upload new data and conduct the prediction</li>
 
 </ul>
 
@@ -115,12 +115,12 @@ HTML(
 
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To get correlation matrix and plot</li>
-<li> To get the results from model</li>
-<li> To get the factors and loadings result tables and</li>
-<li> To get the factors and loadings distribution plots in 2D and 3D</li>
-<li> To get the predicted dependent variables</li>
-<li> To upload new data and get the prediction</li>
+<li> To achieve a correlation matrix and plots</li>
+<li> To achieve the results from a model</li>
+<li> To achieve the factors and loadings result tables</li>
+<li> To achieve the factors and loadings distribution plots in 2D and 3D</li>
+<li> To achieve the predicted dependent variables</li>
+<li> To upload new data and conduct the prediction</li>
 
 </ul>
 
@@ -155,12 +155,12 @@ HTML(
 
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To get correlation matrix and plot</li>
-<li> To get the results from model</li>
-<li> To get the factors and loadings result tables and</li>
-<li> To get the factors and loadings distribution plots in 2D and 3D</li>
-<li> To get the predicted dependent variables</li>
-<li> To upload new data and get the prediction</li>
+<li> To achieve a correlation matrix and plot</li>
+<li> To achieve the results from a model</li>
+<li> To achieve the factors and loadings result tables</li>
+<li> To achieve the factors and loadings distribution plots in 2D and 3D</li>
+<li> To achieve the predicted dependent variables</li>
+<li> To upload new data and conduct the prediction</li>
 </ul>
 
 <h4><b> 2. About your data (training set) </b></h4>

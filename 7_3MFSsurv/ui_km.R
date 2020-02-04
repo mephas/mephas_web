@@ -18,7 +18,7 @@ hr(),
 p(tags$b("1. Check survival object, Surv(time, event), in the Data Tab")), 
 
 uiOutput('g'),
-tags$i("In the example of Diabetes data, we chose 'laser' as categorical group variable. 
+tags$i("In the example of Diabetes data, we chose 'laser' as a categorical group variable. 
   That is to explore if the survival curves in two laser groups were different. "),
 
 hr(),
@@ -35,7 +35,7 @@ radioButtons("rho", "Choose Log-rank Test Method", selected=1,
     ),
   choiceValues = list(1, 2)
   ),
-p("See methods explanations in the Output 2. Log-rank Test tab."),
+p("See method explanations in Output 2. Log-rank Test tab."),
 hr(),
 
 h4(tags$b("Pairwise Log-rank Test")),      
@@ -51,7 +51,7 @@ radioButtons("rho2", "1. Choose Log-rank Test Method)", selected=1,
   choiceValues = list(1, 2)
   ),
 radioButtons("pm", 
-  "2. Choose method to adjust P value", selected="BH",
+  "2. Choose a method to adjust P value", selected="BH",
   choiceNames = list(
     HTML("Bonferroni"),
     HTML("Bonferroni-Holm: often used"),
@@ -62,7 +62,7 @@ radioButtons("pm",
     ),
   choiceValues = list("B", "BH", "FDR", "BY")
   ),
-p("See methods explanations in the Output 2. Pairwise Log-rank Test tab.")
+p("See method explanations in Output 2. Pairwise Log-rank Test tab.")
 
 #tags$style(type='text/css', '#km {background-color: rgba(0,0,255,0.10); color: blue;}'),
 #verbatimTextOutput("km", placeholder = TRUE),

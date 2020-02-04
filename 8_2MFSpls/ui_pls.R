@@ -63,15 +63,15 @@ HTML(
 <b>Explanations</b>
 
 <ul>
-<li> The results from 1 component, 2 component, ... n components are given</li>
+<li> The results from 1 component, 2 component, ..., n components are given</li>
 <li> 'CV' is the cross-validation estimate</li>
 <li> 'adjCV' (for RMSEP and MSEP) is the bias-corrected cross-validation estimate</li>
 <li> R^2 is equivalent to the squared correlation between the fitted values and the response</li>
-<li> The number of components are recommended with high R^2 and low MSEP / RSMEP</li>
+<li> The number of components is recommended with high R^2 and low MSEP / RSMEP</li>
 </ul>
 "
 ),
-p("10-fold cross-validation randomly split the data into 10 fold every time, so the results will not be exactly the same after refresh."),
+p("10-fold cross-validation randomly split the data into 10 fold every time, so the results will not be exactly the same after a refresh."),
 
 verbatimTextOutput("pls"),
 p(tags$b("R^2")),

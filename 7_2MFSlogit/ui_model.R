@@ -72,8 +72,8 @@ HTML(
 <ul>
 <li> Output in the left shows estimated coefficients (95% confidence interval), T statistic (t = ) for the significance of single variable, and P value (p = ) are given</li>
 <li> Output in the right shows odds ratio = exp(b) and standard error of the original coefficients</li>
-<li> T test of each variable and P < 0.05 indicates this variable is statistical significant to the model</li>
-<li> Observations means the number of samples</li>
+<li> T test of each variable and P < 0.05 indicates this variable is statistically significant to the model</li>
+<li> Observations mean the number of samples</li>
 <li> Akaike Inf. Crit. = AIC = -2 (log likelihood) + 2k; k is the number of variables + constant</li>
 </ul>
 "
