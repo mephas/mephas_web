@@ -12,15 +12,17 @@ sidebarLayout(
 	      "Data-based" = "DataDist")),
 	hr(),
 	#Select Src end
-
+	h4(tags$b("Step 2. Set parameters")),
 	#condiPa 1
 	  conditionalPanel(
 	    condition = "input.InputSrc_t == 'MathDist'",
-	    HTML("<h4><b>Step 1. Set Parameters for T(v)</h4></b>"),
+	    HTML("<b>1. Set Parameters for T(v)</b>"),
+	    #HTML("<h4><b>Step 1. Set Parameters for T(v)</h4></b>"),
  		numericInput("t.df", HTML("v > 0, Degree of Freedom, related to the shape"), value = 4, min = 0),
 
 		  hr(),
-		  h4(tags$b("Step 2. Show Probability")),
+		  HTML("<b>2. Show Probability</b>"),
+		  #h4(tags$b("Step 2. Show Probability")),
 	 		numericInput("t.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.025, min = 0, max = 1, step = 0.05),
 
 		  hr(),
