@@ -87,9 +87,7 @@ output$pls_rmsep  <- renderPrint({
   })
 
 score.r <- reactive({
-  s <- as.data.frame(pls()$scores[,1:pls()$ncomp])
-  rownames(s) <- rownames(X())
-  return(s)
+  as.data.frame(pls()$scores[,1:pls()$ncomp])
   })
 
 load.r <- reactive({
@@ -111,9 +109,8 @@ output$pls.l <- DT::renderDT({load.r()},
     scrollX = TRUE))
 
 output$pls.pres <- DT::renderDT({
-  pd <- as.data.frame(pls()$fitted.values[,,1:pls()$ncomp])
-  rownames(pd) <- rownames(X())
-  return(pd)}, 
+  as.data.frame(pls()$fitted.values[,,1:pls()$ncomp])
+  }, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
