@@ -168,15 +168,20 @@ choices = type.bi3())
 
 ##3. Survival Object
 surv = reactive({
+
+validate(need(input$c, "Please choose a censoring information variable"))
+
 if (input$time == "A"){
 validate(need(!("FALSE" %in% (DF0()[,input$t]>=0)), "Time should be >= 0"))
-
+validate(need(input$t, "Please choose a time variable"))
 y <- paste0("Surv(", input$t, ",", input$c, ")")
 }
 if (input$time == "B"){
 #validate(need(!("FALSE" %in% (input$t2>=input$t1)), "End time should be grater than the start time"))
 validate(need(!("FALSE" %in% (DF0()[,input$t2] - DF0()[,input$t1]>=0)), "End time should be grater than the start time"))
 validate(need(!("FALSE" %in% (DF0()[,input$t1]>=0)), "Time should be >= 0"))
+validate(need(input$t1, "Please choose a start time"))
+validate(need(input$t2, "Please choose a end time"))
 #validate(need(!("FALSE" %in% (DF0()[,input$t2]>=0)), "Time should be >= 0"))
 
 y <- paste0("Surv(", input$t1, ",", input$t2, ",", input$c, ")")
