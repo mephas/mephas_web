@@ -1,4 +1,5 @@
 source("../tab/tab.R")
+source("../tab/panel.R")
 tagList(
 
 source("../tab/font.R",local=TRUE, encoding="UTF-8")$value,
@@ -16,9 +17,9 @@ tabOF(),
 navbarPage(
 theme = shinythemes::shinytheme("cerulean"),
 #title = a("Continuous Probability Distribution", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
-title = "Continuous Probability Distribution", 
+title = "Continuous Probability Distribution",
 collapsible = TRUE,
-#id="navbar", 
+#id="navbar",
 position="fixed-top",
 
 ##########----------##########----------##########
@@ -35,9 +36,9 @@ HTML(
 <p><b>Draw a Mathematical-based Normal Distribution</b></p>
 <ul>
 <li>Draw a Normal Distribution with N(&#956, &#963); &#956 indicates the mean (location), and &#963 indicates its standard deviation (shape).</li>
-<li>Calculate the position x<sub>0</sub> of a user-defined probability Pr(X ≤ x<sub>0</sub>) that is the possibility of a variable X being in an interval (−∞, x<sub>0</sub>] from the probability distribution. 
+<li>Calculate the position x<sub>0</sub> of a user-defined probability Pr(X ≤ x<sub>0</sub>) that is the possibility of a variable X being in an interval (−∞, x<sub>0</sub>] from the probability distribution.
 <br>In the curve, the left area to the red-line indicates this possibility value, and the intersection of the red line and horizontal axis (X-axis) is the x<sub>0</sub>.</li>
-<li>Calculate the probability Pr(μ – n × σ < X ≤ μ + n × σ) that is the possibility of a variable X being in an interval (μ – n × σ, μ + n × σ], 
+<li>Calculate the probability Pr(μ – n × σ < X ≤ μ + n × σ) that is the possibility of a variable X being in an interval (μ – n × σ, μ + n × σ],
 <br>where μ indicates the mean and σ indicates the Standard Deviation.
 <br>In the curve, the blue area indicates this possibility value, and the user can define n by setting the parameter.</li>
 </ul>
@@ -258,12 +259,12 @@ HTML(
 "
 <h4><b> Functionalities</b></h4>
 <ul>
-<li> Draw a F Distribution with F(df<sub>1</sub>, df<sub>2</sub>) ; df<sub>1</sub> and df<sub>2</sub> are the degree of freedom related to your sample size and control the shape<i>
-<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line<i>
-<li> Get the probability distribution from simulation numbers in Simulation-based tab<i>
-<li> Download the random number in Simulation-based tab<i>
-<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers<i>
-<li> Get the probability distribution of your data which can be roughly compared to F(df<sub>1</sub>, df<sub>2</sub>)<i>
+<li> Draw a F Distribution with F(df<sub>1</sub>, df<sub>2</sub>) ; df<sub>1</sub> and df<sub>2</sub> are the degree of freedom related to your sample size and control the shape
+<li> Get the probability distribution of x<sub>0</sub> that Pr(X less than x<sub>0</sub>) = left to the red-line
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
+<li> Get the mean, SD, and Pr(X less than x<sub>0</sub>) of simulated numbers
+<li> Get the probability distribution of your data which can be roughly compared to F(df<sub>1</sub>, df<sub>2</sub>)
 </ul>
 
 <h4><i>Case Example</i></h4>

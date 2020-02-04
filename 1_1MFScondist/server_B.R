@@ -21,6 +21,7 @@ output$b = renderTable({
   return(x)
   }, digits = 6, colnames=FALSE, rownames=TRUE, width = "80%")
 
+##########--------------------##########--------------------##########--------------------##########--------------------##########--------------------##########
 B = reactive({ # prepare dataset
   #set.seed(1)
   df = data.frame(x = rbeta(input$b.size, shape1 = input$b.shape, shape2=input$b.scale))
@@ -41,24 +42,7 @@ output$b.plot2 = plotly::renderPlotly({
 p<-plot_hist1c(df, x, input$b.bin)
 p<-p+geom_vline(aes(xintercept=quantile(x, probs = input$b.pr, na.rm=TRUE)), color="red", size=0.3)
 plotly::ggplotly(p)
-
-#   df = B()
-# ggplot(df, aes(x = x)) + 
-# theme_minimal() + 
-# ggtitle("")+
-# ylab("Frequency")+ 
-# geom_histogram(binwidth = input$b.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
-# xlim(-0.1, input$b.xlim) + 
-# geom_vline(aes(xintercept=quantile(x, probs = input$b.pr, na.rm = FALSE)), color="red", size=0.5)
 })
-
-# output$b.info2 = renderText({
-#     xy_str = function(e) {
-#       if(is.null(e)) return("NULL\n")
-#       paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
-#     }
-# 
-#     paste0("Click Position: ", "\n", xy_str(input$plot_click12))})
 
 output$b.sum = renderTable({
   x = B()
@@ -66,6 +50,9 @@ output$b.sum = renderTable({
   rownames(x) <- c("Mean", "Standard Deviation","Red-line Position (x0)")
   return(x)
   }, digits = 6, colnames=FALSE, rownames=TRUE, width = "80%")
+
+
+##########--------------------##########--------------------##########--------------------##########--------------------##########--------------------##########
 
 ZZ <- reactive({
   inFile <- input$b.file
@@ -88,6 +75,17 @@ ZZ <- reactive({
     colnames(x) = c("X")
     return(as.data.frame(x))
   })
+
+output$ZZ <- DT::renderDT({ZZ()}, 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
+    options = list(
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 200,
+      scroller = TRUE))
 
 output$makeplot.b1 <- plotly::renderPlotly({
   df = ZZ()
