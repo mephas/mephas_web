@@ -11,7 +11,8 @@ sidebarLayout(
 	      "Data-based" = "DataDist")),
 	hr(),
 
-
+	#Select Src end
+		h4(tags$b("Step 2. Set parameters")),
 
 	#condiPa 1
 	  conditionalPanel(

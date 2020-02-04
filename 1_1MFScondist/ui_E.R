@@ -22,7 +22,8 @@ sidebarLayout(
 	    numericInput("r", HTML("Rate (> 0) indicates the rate of change"), value = 2, min = 0),
 	    hr(),
 
-	    h4(tags$b("2. Show Probability")),
+	    HTML("<b>2. Show Probability</b>"),
+      #h4(tags$b("2. Show Probability")),
 	    numericInput("e.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
 
       hr(),

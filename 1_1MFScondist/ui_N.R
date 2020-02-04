@@ -25,7 +25,8 @@ sidebarLayout(
 	    numericInput("sigma", HTML("Standard Deviation(&#963), indicates the shape"), value = 1, min = 0, max = 10000000),
 	    hr(),
 
-	    (tags$b("2. Show Probability")),
+	    HTML("<b>2. Show Probability</b>"),
+	    #(tags$b("2. Show Probability")),
 	    numericInput("n", HTML("Blue Area = Pr(Mean-n*SD < X < Mean+n*SD)"), value = 1, min = 0, max = 10),
 	    numericInput("pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.025, min = 0, max = 1, step = 0.05),
 
