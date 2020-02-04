@@ -82,8 +82,8 @@ colnames(X()[unlist(lapply(X(), is.factor))])
 })
 
  output$Xdata <- DT::renderDT({
-  if (ncol(DF00())>1000 || nrow(DF00())>1000) {DF00()[,1:1000]}
-  else { DF00()}
+  if (ncol(DF0())>1000 || nrow(DF0())>1000) {DF0()[,1:1000]}
+  else { DF0()}
   }, 
     extensions = list(
       'Buttons'=NULL,
