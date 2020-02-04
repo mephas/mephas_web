@@ -47,8 +47,6 @@ scrollX = TRUE))
   vy <- names(x)[1] 
   p<-plot_scat(x, vx, vy)
   plotly::ggplotly(p)
-  #ggplot(pred.lm(), aes(x = pred.lm()[, input$y], y = pred.lm()[, 1])) + geom_point(shape = 1) + 
-  #   geom_smooth(method = "lm") + xlab(input$y) + ylab("Prediction") + xlim(min, max)+ ylim(min, max)+ theme_minimal()
    })
 
 

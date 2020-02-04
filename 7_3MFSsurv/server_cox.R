@@ -185,26 +185,8 @@ p<-plot_res(df, "id", "dev")+xlab(input$var.mr) + ylab("Martingale residuals")+
 geom_point(shape = 19, size=1, color=(fit.cox()[,2]+1))
 plotly::ggplotly(p)
 
-#ggcoxdiagnostics(coxfit(), ox.scale ="observation.id",
-#  type = "martingale", hline.size = 0.5,point.size = 0.5, point.shape = 10,
-#  ggtheme = theme_minimal(),font.x = 12,font.y = 12,font.main = 12)
-#validate(need(length(levels(as.factor(DF3()[,input$var.mr])))>2, "Please choose a continuous variable"))
-
-#f = paste0(surv(), '~', paste0(input$var.mr))
-
-#fit<-coxph(as.formula(f), data = DF3(), ties=input$tie)
-#ggcoxfunctional(fit, data = DF3(), ylim=c(-2,2),
-#  point.size = 1, point.shape = 19,
-#  ggtheme = theme_minimal(), palette = "Set1",
-#  font.x = 12,font.y = 12,font.main = 12)
-
   })
 
-#output$diaplot1.2 = renderPlot({
-#ggcoxdiagnostics(coxfit(), ox.scale ="observation.id",
-#  type = "martingale", hline.size = 0.5,point.size = 0.5, point.shape = 10,
-#  ggtheme = theme_minimal(),font.x = 12,font.y = 12,font.main = 12)
-#  })
 
 output$diaplot2 = plotly::renderPlotly({
 
@@ -214,9 +196,6 @@ p<-plot_res(df, "id", "dev")+
 xlab("Observation Id") + ylab("Deviance residuals")+
 geom_point(shape = 19, size=1, color=(fit.cox()[,2]+1))
 plotly::ggplotly(p)
-#ggcoxdiagnostics(coxfit(), ox.scale ="observation.id",
-#  type = "deviance", hline.size = 0.5,point.size = 1, point.shape = 19,
-#  ggtheme = theme_minimal(), palette = "Set1",
-#  font.x = 12,font.y = 12,font.main = 12) 
+
   })
 

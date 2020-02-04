@@ -48,21 +48,6 @@ output$pred = DT::renderDT(pred.lm(),
   p<-plot_roc(yhat, y)
   plotly::ggplotly(p)
 
-  #p <- ROCR::prediction(pred.lm()[,2], pred.lm()[,input$y])
-  #ps <- ROCR::performance(p, "tpr", "fpr")
-  #pf <- ROCR::performance(p, "auc")
-  
-  #df <- data.frame(tpr=unlist(ps@y.values), 
-  #  fpr=unlist(ps@x.values))
-
-#ggplot(df, aes(fpr,tpr)) + 
-#  geom_step() +
-#  coord_cartesian(xlim=c(0,1), ylim=c(0,1)) +
-#  theme_minimal()+ ggtitle("ROC plot") +
-#  xlab("False positive rate (1-specificity)")+
-#  ylab("True positive rate (sensitivity)")+
-#  annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
-
   })
 
 sst.s <- reactive({

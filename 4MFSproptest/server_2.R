@@ -30,9 +30,6 @@ output$makeplot2 <- plotly::renderPlotly({  #shinysession
     )
   plot_piely(x1)
     
-  #ggplot(x1, aes(x="", y=x1[,"value"], fill=x1[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab(rownames(T())[1])+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
-  #p2 = ggplot(x2, aes(x="", y=x2[,"value"], fill=x2[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab(rownames(T())[2])+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
-  
   })
 output$makeplot2.1 <- plotly::renderPlotly({  #shinysession 
   #validate(need(input$n1>=input$x1, "Please check your data whether x <= n"))
@@ -42,9 +39,6 @@ output$makeplot2.1 <- plotly::renderPlotly({  #shinysession
     value = c(input$x2, input$n2-input$x2)
     )
   plot_piely(x2)
-  #p1 = ggplot(x1, aes(x="", y=x1[,"value"], fill=x1[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab(rownames(T())[1])+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
-  #ggplot(x2, aes(x="", y=x2[,"value"], fill=x2[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab(rownames(T())[2])+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
-  
   })
 
 output$p.test = DT::renderDT({

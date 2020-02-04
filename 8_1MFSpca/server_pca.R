@@ -42,30 +42,9 @@ output$cor <- DT::renderDT({
 
 output$cor.plot   <- renderPlot({ 
 plot_corr(DF4())
-#c <- as.data.frame(cor(DF4()))
-#c$group <- rownames(c)
-#corrs.m <- reshape::melt(c, id="group",
-#                            measure=rownames(c))
 
-#ggplot(corrs.m, aes(group, variable, fill=abs(value))) + 
-#  geom_tile() + #rectangles for each correlation
-#  #add actual correlation value in the rectangle
-#  geom_text(aes(label = round(value, 2)), size=2.5) + 
-#  theme_bw(base_size=10) + #black and white theme with set font size
-  #rotate x-axis labels so they don't overlap, 
-  #get rid of unnecessary axis titles
-  #adjust plot margins
-#  theme(axis.text.x = element_text(angle = 90), 
-#        axis.title.x=element_blank(), 
-#        axis.title.y=element_blank(), 
-#        plot.margin = unit(c(3, 1, 0, 0), "mm")) +
-  #set correlation fill gradient
-#  scale_fill_gradient(low="white", high="red") + 
-#  guides(fill=F) #omit unnecessary gradient legend
 })
 
-#output$nc <- renderText({input$nc})
-# model
 pca <- eventReactive(input$pca1,{
 
   X <- DF4()
@@ -127,24 +106,14 @@ df <- as.data.frame(pca()$x)
 if (input$frame == FALSE) {
 df$group <- rep(1, nrow(df))
 p<-plot_score(df, input$c1, input$c2)
-plotly::ggplotly(p)
-#ggplot(df,aes(x = df[,input$c1], y = df[,input$c2], color=group, label=rownames(df)))+
-#geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
-#theme_minimal()+
-#xlab(paste0("PC", input$c1))+ylab(paste0("PC", input$c2))#+
-#geom_text(aes(label=rownames(df)),hjust=0, vjust=0)
+
 }
 else {
 df$group <- X()[,input$g]
 p<-plot_scorec(df, input$c1, input$c2, input$type)
-plotly::ggplotly(p)
-#ggplot(df, aes(x = df[,input$c1], y = df[,input$c2], color=group,label=rownames(df)))+
-#geom_point() + geom_hline(yintercept=0, lty=2) +geom_vline(xintercept=0, lty=2)+
-#stat_ellipse(type = input$type)+ theme_minimal()+
-#xlab(paste0("PC", input$c1))+ylab(paste0("PC", input$c2))#+
-#eom_text(aes(label=rownames(df)),hjust=0, vjust=0)
+
 }
-#plotly::ggplotly(p)
+plotly::ggplotly(p)
 })
 
 output$pca.ind2  <- plotly::renderPlotly({ 
@@ -153,20 +122,6 @@ load <- as.data.frame(pca()$rotation)
 p<-plot_load(load, input$nc)
 plotly::ggplotly(p)
 
-#ll$group <- rownames(ll)
-#loadings.m <- reshape::melt(ll, id="group",
-#                   measure=colnames(ll)[1:input$nc])
-
-#ggplot(loadings.m, aes(group, abs(value), fill=value)) + 
-#  facet_wrap(~ variable, nrow=1) + #place the factors in separate facets
-#  geom_bar(stat="identity") + #make the bars
-#  coord_flip() + #flip the axes so the test names can be horizontal  
-#  #define the fill color gradient: blue=positive, red=negative
-#  scale_fill_gradient2(name = "Loading", 
-#                       high = "blue", mid = "white", low = "red", 
-#                       midpoint=0, guide=F) +
-#  ylab("Loading Strength") + #improve y-axis label
-#  theme_bw(base_size=10)
 
   })
 
@@ -204,49 +159,6 @@ load <- as.data.frame(pca()$rotation)
 
 plot_3D(scores=score, loads=load, nx=input$td1,ny=input$td2,nz=input$td3, scale=input$lines)
 
-# Scale factor for loadings
-#scale.loads <- input$lines
-
-#layout <- list(
-#  scene = list(
-#    xaxis = list(
-#      title = paste0("PC", input$td1), 
-#      showline = TRUE
-#    ), 
-#    yaxis = list(
-#      title = paste0("PC", input$td2), 
-#      showline = TRUE
-#    ), 
-#    zaxis = list(
-#      title = paste0("PC", input$td3), 
-#      showline = TRUE
-#    )
-#  ), 
-#  title = "PCA (3D)"
-#)
-
-#rnn <- rownames(as.data.frame(scores))
-
-#p <- plot_ly() %>%
-#  add_trace(x=x, y=y, z=z, 
-#            type="scatter3d", mode = "text+markers", 
-#            name = "original", 
-#            linetypes = NULL, 
-#            opacity = 0.5,
-#            marker = list(size=2),
-#            text = rnn) %>%
-#  layout(p, scene=layout$scene, title=layout$title)
-
-#for (k in 1:nrow(loads)) {
-#  x <- c(0, loads[k,1])*scale.loads
-#  y <- c(0, loads[k,2])*scale.loads
-#  z <- c(0, loads[k,3])*scale.loads
-#  p <- p %>% add_trace(x=x, y=y, z=z,
-#                       type="scatter3d", mode="lines",
-#                       line = list(width=4),
-#                       opacity = 1) 
-#}
-#p
 
 })
 

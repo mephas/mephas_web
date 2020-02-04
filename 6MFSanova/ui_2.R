@@ -41,35 +41,6 @@ tabsetPanel(
         ),
 tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote = "quote")
 
-      ##-------csv file-------##
-# tabPanel("Upload Data", p(br()),
-#
-#     p(tags$b("This only reads the first 3-column of your data")),
-#     p(tags$b("1st column is numeric values")),
-#     p(tags$b("2nd and 3rd columns are factors / group variables" )),
-#     fileInput('file', "1. Choose CSV/TXT file",
-#               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-#     #helpText("The columns of X are not suggested greater than 500"),
-#     p(tags$b("2. Use 1st row as column names?")),
-#     checkboxInput("header", "Yes", TRUE),
-#     p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-#     checkboxInput("col", "Yes", TRUE),
-#
-#     radioButtons("sep",
-#       "4. Which Separator for Data?",
-#       choiceNames = list(
-#         HTML("Comma (,): CSV often use this"),
-#         HTML("One Tab (->|): TXT often use this"),
-#         HTML("Semicolon (;)"),
-#         HTML("One Space (_)")
-#         ),
-#           choiceValues = list(",", "\t", ";", " ")
-#       ),
-#
-#     p("Correct Separator ensures data input successfully"),
-#
-#     a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-#     )
 ),
 hr(),
   h4(tags$b("Hypothesis")),

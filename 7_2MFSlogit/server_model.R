@@ -89,10 +89,6 @@ glm(as.formula(formula()),family = binomial(link = "logit"), data = DF3())
 })
 
 
-#gfit = eventReactive(input$B1, {
-#  glm(formula(), data = DF3())
-#})
-# 
 output$fit = renderPrint({ 
 stargazer::stargazer(
 fit(),
@@ -138,20 +134,7 @@ output$step = renderPrint({step(fit())})
   yhat <- predict(fit())
   y <- DF3()[,input$y]
   p<-plot_roc(yhat, y)
-  #p <- ROCR::prediction(predict(fit()), DF3()[,input$y])
-  #ps <- ROCR::performance(p, "tpr", "fpr")
-  #pf <- ROCR::performance(p, "auc")
 
-  #df <- data.frame(tpr=unlist(ps@y.values), 
-  #  fpr=unlist(ps@x.values))
-
-#p<- ggplot(df, aes(fpr,tpr)) + 
-#  geom_step() +
-#  coord_cartesian(xlim=c(0,1), ylim=c(0,1)) +
-#  theme_minimal()+ ggtitle("") +
-#  xlab("False positive rate (1-specificity)")+
-#  ylab("True positive rate (sensitivity)")+
-#  annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
   plotly::ggplotly(p)
 	})
 # 

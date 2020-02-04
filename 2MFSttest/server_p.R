@@ -68,69 +68,39 @@ output$bas.p <- DT::renderDT({
     scrollX = TRUE))
 
 
-
-#output$download5 <- downloadHandler(
-#    filename = function() {
-#      "basic_desc.csv"
-#    },
-#    content = function(file) {
-#      write.csv(basic_desc3(), file, row.names = TRUE)
-#    }
-#  )
-
 output$bp.p = plotly::renderPlotly({
 
   x = Z()
   var <- names(Z())[3]
   p<-plot_box1(x, var)
   plotly::ggplotly(p)
-  #ggplot(x, aes(x = 0, y = x[, 3])) + geom_boxplot(width = 0.2, outlier.colour = "red") + xlim(-1,1) +
-  #ylab("") + xlab("") + ggtitle("") + theme_minimal()
-  })
+ })
 
 output$meanp.p = plotly::renderPlotly({
   x = Z()
   var <- names(Z())[3]
   p<-plot_msd1(x, var)
-  plotly::ggplotly(p)
-  #des = data.frame(psych::describe(x))
-  #rownames(des) = names(x)
-  #ggplot(des, aes(x = rownames(des), y = mean, fill = rownames(des))) + 
-  #  xlab("") + ylab(expression(Mean %+-% SD)) + geom_bar(position = position_dodge(), stat = "identity", width = 0.2, alpha = .3) + 
-  #  geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - des$sd, ymax = mean + des$sd), data = des) + 
-  #  theme_minimal() + theme(legend.title = element_blank())
-  
+  plotly::ggplotly(p)  
   })
 
-# output$info3 <- renderText({
-#   xy_str = function(e) {
-#     if (is.null(e))
-#     return("NULL\n")
-#     paste0("Click to get value: ", round(e$y, 4))
-#   }
-#   paste0("Y-axis position ", "\n", xy_str(input$plot_click3))
-#   })
 
 output$makeplot.p <- plotly::renderPlotly({
   x <- Z()
   var <- colnames(x)[3]
   p <- plot_qq1(x, var)
   plotly::ggplotly(p)
-  #ggplot(x, aes(sample = x[, 3])) + stat_qq() + ggtitle("Normal Q-Q Plot of the Mean Differences") + xlab("") + theme_minimal()  ## add line,
   })
 output$makeplot.p2 <- plotly::renderPlotly({
   x <- Z()
   var <- colnames(x)[3]
   p <- plot_hist1(x, var, input$bin.p)
   plotly::ggplotly(p)
-  #ggplot(x, aes(x = x[, 3])) + geom_histogram(colour = "black",fill = "grey", binwidth = input$bin.p, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
   })
 output$makeplot.p3 <- plotly::renderPlotly({
   x <- Z()
   var <- names(x)[3]
   p <- plot_density1(x, var)
   plotly::ggplotly(p)
-  #ggplot(x, aes(x = x[, 3])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title = element_blank())
   })
 
 t.test.p0 <- reactive({
@@ -164,12 +134,3 @@ output$t.test.p <- DT::renderDT({
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
-
-#output$download6 <- downloadHandler(
-#    filename = function() {
-#      "tp_test.csv"
-#    },
-#    content = function(file) {
-#      write.csv(t.test.p0(), file, row.names = TRUE)
-#    }
-#  )

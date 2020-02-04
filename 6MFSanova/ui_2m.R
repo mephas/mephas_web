@@ -50,12 +50,6 @@ mainPanel(
 
   h4(tags$b("Output 2. Test Results")), p(br()),
 
- # p(tags$b("The categories/levels in the Group status")),p(br()),
- # DT::DTOutput("level.t2"),
- # numericInput("control", HTML("For Dunnett Methods, you can change the control/base level"), 
- #   value = 1, min = 1, max = 20, step=1),
-
-
   p(tags$b("Pairwise P Value Table under Each Factor")),
   DT::DTOutput("multiple.t2"),p(br()),
 

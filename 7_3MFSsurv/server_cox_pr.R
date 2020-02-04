@@ -76,7 +76,6 @@ scrollX = TRUE))
 output$bsplot = plotly::renderPlotly({
 p<-plot_line1(BStab(), "Times", "BrierScore")
 plotly::ggplotly(p)
-#gplot(BStab(), aes(x=Times, y=BrierScore)) + geom_line() +ylim(0,1) + theme_minimal()
 
   })
 

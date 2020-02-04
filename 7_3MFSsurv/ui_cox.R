@@ -25,10 +25,7 @@ tabPanel("Basic Model", p(br()),
 uiOutput('var.cx'),
 
 p(br()),
-#p(tags$b("3 (Optional). Add interaction term between categorical variables")),
 
-#p('Please input: + var1:var2'), 
-#tags$textarea(id='conf.cx', " " ), 
 uiOutput('conf.cx'),
 
 p(tags$b("If you want to consider the heterogeneity in the sample, continue with Extending Model tab"))

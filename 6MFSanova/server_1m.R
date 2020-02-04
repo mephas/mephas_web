@@ -55,14 +55,6 @@ output$multiple.t <- DT::renderDT({multiple()},
     scrollX = TRUE))
 
 
- #output$download.m2 <- downloadHandler(
- #   filename = function() {
- #     "multiple.csv"
- #   },
- #   content = function(file) {
- #     write.csv(multiple(), file, row.names = TRUE)
- ##   }
- # )
 
 
 

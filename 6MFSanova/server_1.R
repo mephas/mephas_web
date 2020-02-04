@@ -45,13 +45,6 @@ if(!input$col1){
     return(as.data.frame(x))
 })
 
-#output$label1 <- DT::renderDT({
-#  x <-matrix(levels(as.factor(unlist(strsplit(input$f11, "[\n]")))),
-#    ncol=1)
-#  rownames(x) <- c(1:length(levels(as.factor(unlist(strsplit(input$f11, "[\n]"))))))
-#  return(x)
-#  }, 
-#  width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
 
 output$table1 <- DT::renderDT(Y1(),
     extensions = list(
@@ -74,21 +67,13 @@ bas1 <- reactive({
 
 output$bas1.t <- DT::renderDT({
   bas1()}, 
-  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-#output$download1.1 <- downloadHandler(
-#    filename = function() {
-#      "des.csv"
-#    },
-#    content = function(file) {
-#      write.csv(bas1(), file, row.names = TRUE)
-#    }
-#  )
+
 output$mbp1 = plotly::renderPlotly({
   x = Y1()
   p<-plot_boxm(x)
@@ -99,14 +84,6 @@ output$mmean1 = plotly::renderPlotly({
   x = Y1()
   p<- plot_msdm(x, names(x)[1], names(x)[2])
   plotly::ggplotly(p)
-  #b = Rmisc::summarySE(x,names(x)[1], names(x)[2])
-
-  #ggplot(b, aes(x=b[,1], y=b[,3], fill=b[,1])) + 
-  #  geom_bar(stat="identity", position = "dodge")+ xlab("") +ylab("")+
-  #  geom_errorbar(aes(ymin=b[,3]-b[,5], ymax=b[,3]+b[,5]),
-  #                width=.2,                    # Width of the error bars
-  #                position=position_dodge(.9))+
-  #  scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })
 
 anova10 <- reactive({
@@ -120,18 +97,10 @@ anova10 <- reactive({
 
 output$anova1 <- DT::renderDT({
   anova10()}, 
-  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-#output$download1 <- downloadHandler(
-#    filename = function() {
-#      "anv1.csv"
-#    },
-#    content = function(file) {
-#      write.csv(anova10(), file, row.names = TRUE)
-#    }
-#  )
+

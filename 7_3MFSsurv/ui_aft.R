@@ -36,10 +36,7 @@ radioButtons("dist", "3. Choose AFT Model",
   choiceValues = list("lognormal","weibull", "exponential","loglogistic")
   ),
 
-#p(tags$b("4. (Optional) Add interaction term between categorical variables")),
 
-#p('Please input: + var1:var2'), 
-#tags$textarea(id='conf', " " ), 
 uiOutput('conf'),
 
 radioButtons("intercept", "5. (Optional) Keep or remove intercept / constant term", ##> intercept or not

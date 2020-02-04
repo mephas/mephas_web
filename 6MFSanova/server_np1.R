@@ -42,13 +42,6 @@ if(!input$colnp1){
     return(as.data.frame(x))
 })
 
-#output$label1 <- DT::renderDT({
-#  x <-matrix(levels(as.factor(unlist(strsplit(input$f11, "[\n]")))),
-#    ncol=1)
-#  rownames(x) <- c(1:length(levels(as.factor(unlist(strsplit(input$f11, "[\n]"))))))
-#  return(x)
-#  }, 
-#  width = "500px", rownames = TRUE, colnames=FALSE, digits = 4)
 
 output$tablenp1 <- DT::renderDT(Ynp1(),
     extensions = list(
@@ -71,28 +64,17 @@ basnp1 <- reactive({
 
 output$basnp1.t <- DT::renderDT({
   basnp1()}, 
-  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-#output$downloadnp1.1 <- downloadHandler(
-#    filename = function() {
-#      "des.csv"
-#    },
-#    content = function(file) {
-#      write.csv(basnp1(), file, row.names = TRUE)
-#    }
-#  )
 
 output$mmeannp1 = plotly::renderPlotly({
   x = Ynp1()
   p<-plot_boxm(x)
   plotly::ggplotly(p)
-  #ggplot(x, aes(y=x[,1], x=x[,2], fill=x[,2])) + geom_boxplot()+ xlab("") +ylab("")+
-  #  scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })
 
 output$kwtest <- DT::renderDT({
@@ -105,7 +87,6 @@ output$kwtest <- DT::renderDT({
   rownames(res.table) <- c("Kruskal-Wallis chi-squared", "P Value","Degree of Freedom")
   return(res.table)
     },
-    #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

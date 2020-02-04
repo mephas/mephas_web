@@ -93,8 +93,6 @@ output$makeplot.b1 <- plotly::renderPlotly({
   p<-plot_hist1(df, x, input$bin.b)
   p<-p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$b.pr, na.rm=TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
-  #x = as.data.frame(ZZ())
-  #ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.b, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank())
    })
 
 output$makeplot.b2 <- plotly::renderPlotly({
@@ -103,8 +101,6 @@ output$makeplot.b2 <- plotly::renderPlotly({
   p<-plot_density1(df, x)
   p<- p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$b.pr, na.rm = TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
-  #x = as.data.frame(ZZ())
-  #ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title =element_blank()) + geom_vline(aes(xintercept=quantile(x[,1], probs = input$b.pr, na.rm = FALSE)), color="red", size=0.5)
    })
 
 output$b.sum2 = renderTable({

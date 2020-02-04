@@ -11,7 +11,6 @@ dunntest <- eventReactive(input$M3,{
 
 output$dunntest.t <- DT::renderDT({dunntest()
     },
-    #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

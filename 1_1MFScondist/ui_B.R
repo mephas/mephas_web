@@ -54,40 +54,13 @@ sidebarLayout(
     	tags$textarea(
         id = "x.b", #p
         rows = 10,
-"0.11\n0.57\n0.59\n0.52\n0.13\n0.45\n0.63\n0.68\n0.44\n0.55\n0.48\n0.54\n0.29\n0.41\n0.64\n0.75\n0.33\n0.24\n0.45\n0.18"				        ),
+"0.11\n0.57\n0.59\n0.52\n0.13\n0.45\n0.63\n0.68\n0.44\n0.55\n0.48\n0.54\n0.29\n0.41\n0.64\n0.75\n0.33\n0.24\n0.45\n0.18"
+),
       	p("Missing value is input as NA")
 	     	 ), #tab1 end
 
 tabPanel.upload.num(file ="b.file", header="b.header", col="b.col", sep="b.sep")
-# 	        tabPanel("Upload Data",p(br()),
-#
-# 	        ##-------csv file-------##
-# 	        p(tags$b("This only reads the 1st column of your data, and will cover the input data")),
-#
-#         	fileInput('b.file', "1. Choose CSV/TXT file",
-#                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-#
-#         p(tags$b("2. Show 1st row as header?")),
-#         checkboxInput("b.header", "Show Data Header?", TRUE),
-#
-#         p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-#         checkboxInput("b.col", "Yes", TRUE),
-#
-#         radioButtons("b.sep",
-#           "3. Which Separator for Data?",
-#           choiceNames = list(
-#             HTML("Comma (,): CSV often use this"),
-#             HTML("One Tab (->|): TXT often use this"),
-#             HTML("Semicolon (;)"),
-#             HTML("One Space (_)")
-#             ),
-#           choiceValues = list(",", "\t", ";", " ")
-#           ),
-#
-#         p("Correct Separator ensures data input successfully"),
-#
-#         a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-# 	      ) #tab2 end
+
 	    ),
 		sliderInput("bin.b","The number of bins in histogram", min = 0, max = 100, value = 0),
         p("When the number of bins is 0, plot will use the default number of bins")

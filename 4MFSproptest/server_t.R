@@ -37,10 +37,6 @@ output$makeplot4 <- plotly::renderPlotly({  #shinysession
   x <- as.data.frame(T4())
   p<-plot_bar(x)
   plotly::ggplotly(p)
-  #mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
-  #ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
-  #plot2 = ggplot(mx, aes(x = mx[,"id"], y = mx[,2], fill = mx[,"time"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
-# grid.arrange(plot1, plot2, ncol=2)
  }) 
 
 output$c.test4 = DT::renderDT({

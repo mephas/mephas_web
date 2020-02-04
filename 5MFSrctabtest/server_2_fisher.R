@@ -18,7 +18,6 @@ output$dt4 = DT::renderDT({
   addmargins(T4(), 
     margin = seq_along(dim(T4())), 
     FUN = list(Total=sum), quiet = TRUE)},  
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -29,7 +28,6 @@ output$dt4.0 = DT::renderDT({
   res = chisq.test(T4())
   exp = res$expected
   return(exp)}, 
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -37,7 +35,6 @@ output$dt4.0 = DT::renderDT({
     scrollX = TRUE))
 
 output$dt4.1 = DT::renderDT({prop.table(T4(), 1)}, 
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -63,15 +60,11 @@ output$makeplot4 <- plotly::renderPlotly({  #shinysession
   x <- as.data.frame(T4())
   p<-plot_bar(x)
   plotly::ggplotly(p)
-  #mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
-  #ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
   })
 output$makeplot4.1 <- plotly::renderPlotly({  #shinysession 
   x <- as.data.frame(t(T4()))
   p<-plot_bar(x)
   plotly::ggplotly(p)
-  #mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
-  #ggplot(mx, aes(x = mx[,"id"], y = mx[,2], fill = mx[,"time"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
  })
 
 output$c.test4 = DT::renderDT({

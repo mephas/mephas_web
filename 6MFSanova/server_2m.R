@@ -23,7 +23,6 @@ multiple2 <- eventReactive(input$M2,{
 })
 
 output$multiple.t2 <- DT::renderDT({multiple2()},
-  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

@@ -123,23 +123,12 @@ output$p.lm1 = plotly::renderPlotly({
 x <-data.frame(res=fit()$residuals)
 p <- plot_qq1(data=x, varx="res")
 plotly::ggplotly(p)
-#ggplot(x, aes(sample = res)) + 
-#stat_qq() + stat_qq_line()+
-#ggtitle("") + 
-#xlab("") + 
-#theme_minimal()  ## add line,
 	})
 
 output$p.lm2 = plotly::renderPlotly({
 x <- data.frame(fit=fit()$fitted.values, res=fit()$residuals)
 p <- plot_res(x, "fit", "res")
 plotly::ggplotly(p)
-#ggplot(x, aes(fit, res))+
-#geom_point()+
-#stat_smooth(method="loess")+
-#geom_hline(yintercept=0, col="red", linetype="dashed")+
-#xlab("Fitted values")+ylab("Residuals")+
-#ggtitle("")+theme_minimal()
   })
 # 
  fit.lm <- reactive({

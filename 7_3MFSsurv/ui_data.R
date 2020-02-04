@@ -36,36 +36,6 @@ shinyWidgets::radioGroupButtons(
 
 tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")
 
-# tabPanel("Upload Data", p(br()),
-#
-# fileInput('file', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-#
-# p(tags$b("2. Show 1st row as column names?")),
-# checkboxInput("header", "Yes", TRUE),
-#
-# p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-# checkboxInput("col", "Yes", TRUE),
-#
-# radioButtons("sep", "4. Which separator for data?",
-#   choiceNames = list(
-#     HTML("Comma (,): CSV often use this"),
-#     HTML("One Tab (->|): TXT often use this"),
-#     HTML("Semicolon (;)"),
-#     HTML("One Space (_)")
-#     ),
-#   choiceValues = list(",", "\t", ";", " ")
-#   ),
-#
-# radioButtons("quote", "5. Which quote for characters?",
-# choices = c("None" = "",
-#            "Double Quote" = '"',
-#            "Single Quote" = "'"),
-# selected = '"'),
-#
-# p("Correct separator and quote ensures data input successfully"),
-#
-# a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-# )
 ),
 tags$i("Diabetes data has only one time duration variable, while Nki70 data has start.time and end.time."),
 hr(),
@@ -76,13 +46,6 @@ h4(tags$b("Step 2. Create a Survival Object")),
 
 uiOutput('c'),
 
-#radioButtons("time", "2. Set Survival Time", selected="A",
-#  choiceNames = list(
-#    HTML("Choice 1. <b>Right-censored time</b>: needs time duration / follow-up"),
-#    HTML("Choice 2. <b>Left-truncated right-censored time</b>: needs start and end time points")
-#    ),
-#  choiceValues = list("A", "B" )
-#  ),
   selectInput(
       "time", "Select survival time type",
       c("Right-censored time" = "A",
@@ -90,15 +53,7 @@ uiOutput('c'),
         )),
   p("Right-censored time needs only 1 time duration / follow-up variable"),
   p("Left-truncated right-censored time needs start time and end time variables"),
-#tabsetPanel(
-#  tabPanel("Right-censored", br(),
-#    uiOutput('t')
-#    ),
-#  tabPanel("Left-truncated Right-censored", br(),
-#    uiOutput('t1'),
-#    uiOutput('t2')
-#    )
-#  ),
+
 
 conditionalPanel(
   condition = "input.time == 'A'",

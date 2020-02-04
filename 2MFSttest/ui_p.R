@@ -35,32 +35,6 @@ sidebarPanel(
 ),
 tabPanel.upload.num(file ="file.p", header="header.p", col="col.p", sep="sep.p")
 
-          ##-------csv file-------##
-    # tabPanel("Upload Data", p(br()),
-    # p(tags$b("Here only reads the 2 columns from the data file uploaded")),
-    # fileInput('file.p', "Choose CSV/TXT file",
-    #               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-    #
-    #     p(tags$b("2. Use 1st row as column names?")),
-    #     checkboxInput("header.p", "Yes", TRUE),
-    #     p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-    #     checkboxInput("col.p", "Yes", TRUE),
-    #          # Input: Select separator ----
-    #     radioButtons("sep.p",
-    #       "Which Separator for Data?",
-    #       choiceNames = list(
-    #         HTML("Comma (,): CSV often use this"),
-    #         HTML("One Tab (->|): TXT often use this"),
-    #         HTML("Semicolon (;)"),
-    #         HTML("One Space (_)")
-    #         ),
-    #       choiceValues = list(",", "\t", ";", " ")
-    #       ),
-    #
-    #     p("Correct Separator ensures data input successfully"),
-    #
-    #     a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-    #     )
         ),
 
         hr(),

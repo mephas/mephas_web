@@ -66,7 +66,6 @@ output$bas <- DT::renderDT({basic_desc()},
 output$bp = plotly::renderPlotly({
   x = X()
   var <- names(x)[1]
-  #ggplot(x, aes(x = 0, y = x[,1])) + geom_boxplot(width = 0.2, outlier.colour = "red") + xlim(-1,1) + ylab("") + xlab(names(x)) + ggtitle("") + theme_minimal()
   p<-plot_box1(x, var)
   plotly::ggplotly(p)
   })

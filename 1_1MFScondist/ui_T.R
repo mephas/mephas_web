@@ -57,35 +57,6 @@ sidebarLayout(
 	     	 ), #tab1 end
 tabPanel.upload.num(file ="t.file", header="t.header", col="t.col", sep="t.sep")
 
-# 	      tabPanel("Upload Data",p(br()),
-#
-# 	        ##-------csv file-------##
-# 	        p(tags$b("This only reads the 1st column of your data, and will cover the input data")),
-#
-#         	fileInput('t.file', "1. Choose CSV/TXT file",
-#                   accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-#
-#         p(tags$b("2. Use 1st row as cloumn names?")),
-#         checkboxInput("t.header", "Yes", TRUE),
-#
-#         p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-#         checkboxInput("t.col", "Yes", TRUE),
-#
-#         radioButtons("t.sep",
-#           "4. Which Separator for Data?",
-#           choiceNames = list(
-#             HTML("Comma (,): CSV often use this"),
-#             HTML("One Tab (->|): TXT often use this"),
-#             HTML("Semicolon (;)"),
-#             HTML("One Space (_)")
-#             ),
-#           choiceValues = list(",", "\t", ";", " ")
-#           ),
-#
-#         p("Correct Separator ensures data input successfully"),
-#
-#         a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-# 	      ) #tab2 end
 	    ),
       sliderInput("bin.t","The number of bins in histogram", min = 0, max = 100, value = 0),
         p("When the number of bins is 0, plot will use the default number of bins")

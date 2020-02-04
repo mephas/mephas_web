@@ -52,5 +52,4 @@ output$makeplot <- plotly::renderPlotly({  #shinysession
     value = c(input$x, input$n-input$x)
     )
   plot_piely(x)
-  #ggplot(x, aes(x=" ", y=x[,"value"], fill=x[,"group"]))+ geom_bar(width = 1, stat = "identity") + coord_polar("y", start=0) + xlab("")+ ylab("") + scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   })

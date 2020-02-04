@@ -40,7 +40,6 @@ selectInput(
   'factor1',
   HTML('1. Convert real-valued numeric variable into categorical variable'),
   selected = NULL,
-  #choices = names(DF()),
   choices = type.num0(),
   multiple = TRUE
 )
@@ -61,7 +60,6 @@ selectInput(
   'factor2',
   HTML('2. Convert categorical variable into real-valued numeric variable'),
   selected = NULL,
-  #choices = names(DF()),
   choices = type.fac1(),
   multiple = TRUE
 )
@@ -199,17 +197,7 @@ y <- paste0("Surv(", input$t1, ",", input$t2, ",", input$c, ")")
 return(y)
 })
 
-#surv2 <- reactive({
 
-#validate(need(!("FALSE" %in% (input$t2-input$t1>=0)), "End time should be grater than the start time"))
-#validate(need(!("FALSE" %in% (input$t1>=0)), "Time should be >= 0"))
-#validate(need(!("FALSE" %in% (input$t2>=0)), "Time should be >= 0"))
-
-#if (input$time == "B"){
-#y <- paste0("Surv(", input$t2, " - ", input$t1, ",", input$c, ")")
-#}
-#return(y)
-#})
 
 output$surv = renderPrint({
 validate(need(length(levels(as.factor(DF3()[, input$c])))==2, "Please choose a binary variable as censoring information")) 

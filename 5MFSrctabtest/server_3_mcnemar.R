@@ -19,7 +19,6 @@ output$dt2 = DT::renderDT({
   addmargins(T2(), 
     margin = seq_along(dim(T2())), 
     FUN = list(Total=sum), quiet = TRUE)},  
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -30,7 +29,6 @@ output$dt2.0 = DT::renderDT({
   res = chisq.test(T2())
   exp = res$expected
   return(exp)}, 
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -38,7 +36,6 @@ output$dt2.0 = DT::renderDT({
     scrollX = TRUE))
 
 output$dt2.1 = DT::renderDT({prop.table(T2(), 1)}, 
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -46,7 +43,6 @@ output$dt2.1 = DT::renderDT({prop.table(T2(), 1)},
     scrollX = TRUE))
 
 output$dt2.2 = DT::renderDT({prop.table(T2(), 2)}, 
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -54,7 +50,6 @@ output$dt2.2 = DT::renderDT({prop.table(T2(), 2)},
     scrollX = TRUE))
 
 output$dt2.3 = DT::renderDT({prop.table(T2())}, 
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -66,8 +61,6 @@ output$makeplot2 <- plotly::renderPlotly({  #shinysession
   x <- as.data.frame(T2())
   p<-plot_bar(x)
   plotly::ggplotly(p)
-  #mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
-  #ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
   })
 
 output$c.test2 = DT::renderDT({
@@ -88,7 +81,6 @@ output$c.test2 = DT::renderDT({
     rownames(res.table) <- c("McNemar Chi-Square", "Degree of freedom", "P Value")
     return(res.table)
     }, 
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',

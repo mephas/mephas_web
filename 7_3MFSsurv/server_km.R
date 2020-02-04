@@ -52,12 +52,6 @@ if (input$time=="B") {surv <- paste0("Surv(", input$t2, " - ", input$t1, ",", in
   return(fit)
 })
 
-# 
-# # residual plot
-# output$km.p= renderPlot({
-#autoplot(kmfit(), conf.int = FALSE)+ theme_minimal() + ggtitle("") 
-#+annotate("text", x = .75, y = .25, label = paste("P value ="))
-#	})
 
 output$km.p= renderPlot({
   validate(need(input$g, "Please choose categorical variable"))

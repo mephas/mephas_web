@@ -19,37 +19,6 @@ tabPanel("Example data", p(br()),
 
 tabPanel.upload.pr(file ="newfile", header="newheader", col="newcol", sep="newsep", quote="newquote")
 
-# tabPanel("Upload Data", p(br()),
-# p("New data should include all the variables in the model"),
-# p("We suggested putting the dependent variable (Y) (if existed) in the left side of all independent variables (X)"),
-#
-# fileInput('newfile', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-#
-# p(tags$b("2. Show 1st row as column names?")),
-# checkboxInput("newheader", "Yes", TRUE),
-#
-# p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-# checkboxInput("newcol", "Yes", TRUE),
-#
-# radioButtons("newsep", "4. Which separator for data?",
-#   choiceNames = list(
-#     HTML("Comma (,): CSV often use this"),
-#     HTML("One Tab (->|): TXT often use this"),
-#     HTML("Semicolon (;)"),
-#     HTML("One Space (_)")
-#     ),
-#   choiceValues = list(",", "\t", ";", " ")
-#   ),
-#
-# radioButtons("newquote", "5. Which quote for characters?",
-# choices = c("None" = "",
-#            "Double Quote" = '"',
-#            "Single Quote" = "'"),
-# selected = '"'),
-#
-# p("Correct separator and quote ensure the successful data input")
-#
-# )
 ),
 
 hr(),

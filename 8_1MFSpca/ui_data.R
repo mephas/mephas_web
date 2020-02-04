@@ -30,36 +30,7 @@ tabPanel("Example data", p(br()),
   ),
 tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")
 
-# tabPanel("Upload Data", p(br()),
-#
-# fileInput('file', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-#
-# p(tags$b("2. Show 1st row as column names?")),
-# checkboxInput("header", "Yes", TRUE),
-#
-# p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-# checkboxInput("col", "Yes", TRUE),
-#
-# radioButtons("sep", "4. Which separator for data?",
-#   choiceNames = list(
-#     HTML("Comma (,): CSV often uses this"),
-#     HTML("One Tab (->|): TXT often uses this"),
-#     HTML("Semicolon (;)"),
-#     HTML("One Space (_)")
-#     ),
-#   choiceValues = list(",", "\t", ";", " ")
-#   ),
-#
-# radioButtons("quote", "5. Which quote for characters?",
-# choices = c("None" = "",
-#            "Double Quote" = '"',
-#            "Single Quote" = "'"),
-# selected = '"'),
-#
-# p("Correct separator and quote ensure the successful data input"),
-#
-# a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-#   )
+
   ),
 hr(),
 

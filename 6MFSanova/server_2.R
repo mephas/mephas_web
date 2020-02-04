@@ -89,61 +89,29 @@ output$bas.t <- DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-#output$download2.1 <- downloadHandler(
-#    filename = function() {
-#      "des.csv"
-#    },
-#    content = function(file) {
-#      write.csv(bas(), file, row.names = TRUE)
-#    }
-#  )
-
 
 output$meanp.a = plotly::renderPlotly({
   x = Y()
-  #b = Rmisc::summarySE(x,colnames(x)[1], c(colnames(x)[2], colnames(x)[3]))
 
   if (input$tick == "TRUE"){
   p<-plot_line2(x, names(x)[1], names(x)[2], names(x)[3])
-  #plotly::ggplotly(p)
-  #ggplot(b, aes(x=b[,1], y=b[,4], colour=b[,2], group=b[,2])) + 
-  #    geom_line() + xlab("") +ylab("")+
-  #    geom_point(shape=21, size=3, fill="white") +
-  #    theme_minimal() + theme(legend.title = element_blank())
     }
 
   else {
   p<-plot_line2(x, names(x)[1], names(x)[3], names(x)[2])
-  #ggplot(b, aes(x=b[,2], y=b[,4], colour=b[,1], group=b[,1])) + 
-  #    geom_line() + xlab("") +ylab("")+
-  #    geom_point(shape=21, size=3, fill="white") +
-  #    theme_minimal() + theme(legend.title = element_blank())
   }
   plotly::ggplotly(p)
   })
 
 output$mmean.a = plotly::renderPlotly({
   x = Y()  
-  #b = Rmisc::summarySE(x,colnames(x)[1], c(colnames(x)[2], colnames(x)[3]))
 
   if (input$tick2 == "TRUE"){
   p<-plot_msdm(x, names(x)[1], names(x)[2])
-  #ggplot(b, aes(x=b[,1], y=b[,4], fill=b[,2])) + 
-  #  geom_bar(stat="identity", position = "dodge")+ xlab("") +ylab("")+
-  #  geom_errorbar(aes(ymin=b[,4]-b[,6], ymax=b[,4]+b[,6]),
-  #                width=.2,                    # Width of the error bars
-  #                position=position_dodge(.9))+
-  #  scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
     }
 
   else {
   p<-plot_msdm(x, names(x)[1], names(x)[3])
-  #ggplot(b, aes(x=b[,2], y=b[,4], fill=b[,1])) + 
-  #  geom_bar(stat="identity", position = "dodge")+ xlab("") +ylab("")+
-  #      geom_errorbar(aes(ymin=b[,4]-b[,6], ymax=b[,4]+b[,6]),
-  #                width=.2,                    # Width of the error bars
-  #                position=position_dodge(.9))+
-  #  scale_fill_brewer(palette="Paired")+theme_minimal()+theme(legend.title=element_blank())
   }
 plotly::ggplotly(p)
   })
@@ -171,18 +139,9 @@ anova0 <- reactive({
 output$anova <- DT::renderDT({
   anova0()
   }, 
-  #class="row-border", 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
- #output$download2 <- downloadHandler(
- #   filename = function() {
- #     "anv2.csv"
- #   },
- #   content = function(file) {
- #     write.csv(anova0(), file, row.names = TRUE)
- #   }
- # )

@@ -21,7 +21,6 @@ output$dt5 = DT::renderDT({
   addmargins(T5(), 
     margin = seq_along(dim(T5())), 
     FUN = list(Total=sum), quiet = TRUE)},  
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -32,7 +31,6 @@ output$dt5.0 = DT::renderDT({
   res = chisq.test(T5())
   exp = res$expected
   return(exp)}, 
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -40,7 +38,6 @@ output$dt5.0 = DT::renderDT({
     scrollX = TRUE))
 
 output$dt5.1 = DT::renderDT({prop.table(T5(), 1)}, 
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -48,7 +45,6 @@ output$dt5.1 = DT::renderDT({prop.table(T5(), 1)},
     scrollX = TRUE))
 
 output$dt5.2 = DT::renderDT({prop.table(T5(), 2)}, 
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -56,7 +52,6 @@ output$dt5.2 = DT::renderDT({prop.table(T5(), 2)},
     scrollX = TRUE))
 
 output$dt5.3 = DT::renderDT({prop.table(T5())}, 
-  #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -68,9 +63,6 @@ output$makeplot5 <- plotly::renderPlotly({  #shinysession
   x <- as.data.frame(T5())
   p<-plot_bar(x)
   plotly::ggplotly(p)
-  #mx <- reshape(x, varying = list(names(x)), times = names(x), ids = row.names(x), direction = "long")
-  #ggplot(mx, aes(x = mx[,"time"], y = mx[,2], fill = mx[,"id"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
-  #plot2 = ggplot(mx, aes(x = mx[,"id"], y = mx[,2], fill = mx[,"time"]))+geom_bar(stat = "identity", position = position_dodge()) + ylab("Counts") + xlab("") + labs(fill = "") + theme_minimal() + scale_fill_brewer(palette = "Paired")
  })
 
 output$c.test5 = DT::renderDT({
@@ -84,7 +76,6 @@ output$c.test5 = DT::renderDT({
     rownames(res.table) <- c("Chi-Square", "Degree of freedom", "P Value")
     return(res.table)
     }, 
-    #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
