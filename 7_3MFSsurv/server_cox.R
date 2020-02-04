@@ -60,7 +60,7 @@ validate(need(input$var.cx, "Please choose some independent variable"))
 
 f = paste0(surv(), '~', paste0(input$var.cx, collapse = "+"))
 
-if(length(input$conf.cx)==2) {f = paste0(f, paste0("+",input$conf.cx, collapse = ":"))}
+if(length(input$conf.cx)==2) {f = paste0(f, "+",paste0(input$conf.cx, collapse = ":"))}
 
 if (input$effect.cx=="") {f = f}
 if (input$effect.cx=="Strata") {f = paste0(f, "+strata(", input$fx.cx, ")")}
