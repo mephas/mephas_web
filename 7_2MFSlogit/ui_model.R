@@ -119,7 +119,7 @@ HTML(
 
 </ul>"
 ),
-plotly::plotlyOutput("p.lm", width = "80%"),
+plotly::plotlyOutput("p.lm"),
 DT::DTOutput("sst")
     )
 

@@ -75,7 +75,7 @@ conditionalPanel(
 
     tabPanel("Percentage Plot", p(br()),
 
-      plotly::plotlyOutput("makeplot5", width = "80%")
+      plotly::plotlyOutput("makeplot5")
       )
     ),
 

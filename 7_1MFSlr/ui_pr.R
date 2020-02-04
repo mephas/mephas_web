@@ -79,7 +79,7 @@ tabPanel("Evaluation Plot",p(br()),
 p(tags$b("Prediction vs True Dependent Variable Plot")),
 p("This plot is shown when new dependent variable is provided in the test data."),
 p("This plot shows the relation between predicted dependent variable and new dependent variable, using linear smooth. Grey area is confidence interval."),
-plotly::plotlyOutput("p.s", width = "80%")
+plotly::plotlyOutput("p.s")
 )
 ) 
 ) 

@@ -75,9 +75,9 @@ sidebarLayout(
 
     p(tags$b("Percentage Plot of")),
     p(tags$b("1. Case")),
-    plotly::plotlyOutput("makeplot2", width = "80%"),
+    plotly::plotlyOutput("makeplot2"),
     p(tags$b("2. Control")),
-    plotly::plotlyOutput("makeplot2.1", width = "80%"),
+    plotly::plotlyOutput("makeplot2.1"),
 
     hr(),
 

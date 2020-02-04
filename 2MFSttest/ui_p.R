@@ -123,7 +123,7 @@ tabPanel.upload.num(file ="file.p", header="header.p", col="col.p", sep="sep.p")
 
           tabPanel("Mean and SD Plot", p(br()),
 
-            plotly::plotlyOutput("meanp.p", width = "80%")),
+            plotly::plotlyOutput("meanp.p")),
 
     tabPanel("Distribution Plots", p(br()),
 
@@ -136,13 +136,13 @@ tabPanel.upload.num(file ="file.p", header="header.p", col="col.p", sep="sep.p")
           </ul>"
             ),
             p(tags$b("Normal Q-Q plot")),
-            plotly::plotlyOutput("makeplot.p", width = "80%"),
+            plotly::plotlyOutput("makeplot.p"),
             p(tags$b("Histogram")),
-            plotly::plotlyOutput("makeplot.p2", width = "80%"),
+            plotly::plotlyOutput("makeplot.p2"),
             sliderInput("bin.p","The number of bins in histogram",min = 0,max = 100,value = 0),
             p("When the number of bins is 0, plot will use the default number of bins"),
             p(tags$b("Density plot")),
-            plotly::plotlyOutput("makeplot.p3", width = "80%")
+            plotly::plotlyOutput("makeplot.p3")
 
             )
           ),

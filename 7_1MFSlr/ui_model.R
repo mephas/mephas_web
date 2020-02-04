@@ -127,9 +127,9 @@ HTML(
 </ul>"
 ),
 p(tags$b("1. Q-Q normal plot of residuals")),
-plotly::plotlyOutput("p.lm1", width = "80%"),
+plotly::plotlyOutput("p.lm1"),
 p(tags$b("2. Residuals vs Fitting plot")),
-plotly::plotlyOutput("p.lm2", width = "80%")
+plotly::plotlyOutput("p.lm2")
 
     )
 

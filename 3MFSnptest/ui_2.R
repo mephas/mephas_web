@@ -127,7 +127,7 @@ mainPanel(
       ),
 
     tabPanel("Box-Plot", p(br()),
-        plotly::plotlyOutput("bp2", width = "80%"),#, click = "plot_click2"
+        plotly::plotlyOutput("bp2"),#, click = "plot_click2"
 
         #verbatimTextOutput("info2"),
         hr(),
@@ -149,11 +149,11 @@ mainPanel(
             <li> Density Plot: to estimate the probability density function of the data</li>
           </ul>"),
       p(tags$b("Histogram")),
-      plotly::plotlyOutput("makeplot2", width = "80%"),
+      plotly::plotlyOutput("makeplot2"),
       sliderInput("bin2", "The number of bins in histogram",min = 0,max = 100,value = 0),
       p("When the number of bins is 0, plot will use the default number of bins"),
       p(tags$b("Density plot")),
-      plotly::plotlyOutput("makeplot2.1", width = "80%")
+      plotly::plotlyOutput("makeplot2.1")
       )
     ),
   hr(),

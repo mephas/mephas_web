@@ -136,7 +136,7 @@ tabPanel("Survival Curve", p(br()),
 "
 ),
 p(tags$b("The adjusted survival curves from Cox regression")),
- plotOutput("splot", width = "80%")
+ plotOutput("splot")
 
 ),
 
@@ -154,7 +154,7 @@ HTML(
 ),
 numericInput("num", HTML("Choose N'th variable"), value = 1, min = 1, step=1),
 
-plotOutput("zphplot", width = "80%"),
+plotOutput("zphplot"),
 
 DT::DTOutput("zph")
 
@@ -198,16 +198,16 @@ Martingale residuals may present any value in the range (-INF, +1):
 p(tags$b("1. Martingale residuals plot against continuous independent variable")), 
 
 uiOutput('var.mr'),
-plotly::plotlyOutput("diaplot1", width = "80%"),
+plotly::plotlyOutput("diaplot1"),
 
 #p(tags$b("2. Martingale residuals plot against observation id")), 
-# plotOutput("diaplot1.2", width = "80%"),
+# plotOutput("diaplot1.2"),
 
  p(tags$b("2. Deviance residuals plot by observational id")),
- plotly::plotlyOutput("diaplot2", width = "80%"),
+ plotly::plotlyOutput("diaplot2"),
 
  p(tags$b("3. Cox-Snell residuals plot")),
- plotly::plotlyOutput("csplot.cx", width = "80%")
+ plotly::plotlyOutput("csplot.cx")
 )
 
 )

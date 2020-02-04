@@ -116,7 +116,7 @@ mainPanel(
 
     tabPanel("Box-Plot", p(br()),
 
-        plotly::plotlyOutput("bp", width = "80%"),#, click = "plot_click1"
+        plotly::plotlyOutput("bp"),#, click = "plot_click1"
 
         #verbatimTextOutput("info1"),
           HTML(
@@ -132,7 +132,7 @@ mainPanel(
       ),
 
     tabPanel("Mean and SD Plot", p(br()),
-plotly::plotlyOutput("meanp", width = "80%")),
+plotly::plotlyOutput("meanp")),
 
 
     tabPanel("Distribution Plots", p(br()),
@@ -146,13 +146,13 @@ HTML(
 ),
 
       p(tags$b("Normal Q–Q plot")),
-      plotly::plotlyOutput("makeplot1", width = "80%"),
+      plotly::plotlyOutput("makeplot1"),
       p(tags$b("Histogram")),
-      plotly::plotlyOutput("makeplot1.2", width = "80%"),
+      plotly::plotlyOutput("makeplot1.2"),
       sliderInput("bin","The number of bins in histogram",min = 0,max = 100,value = 0),
       p("When the number of bins is 0, plot will use the default number of bins"),
       p(tags$b("Density plot")),
-      plotly::plotlyOutput("makeplot1.3", width = "80%")
+      plotly::plotlyOutput("makeplot1.3")
 
 )
 ),

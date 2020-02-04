@@ -79,7 +79,7 @@ DT::DTOutput("pred")
 tabPanel("ROC Evaluation",p(br()),
 p("This plot is shown when new dependent variable is provided in the test data."),
 p("This plot shows the ROC plot between predicted values and true values, based on the new data not used in the model."),
-plotly::plotlyOutput("p.s", width = "80%"),
+plotly::plotlyOutput("p.s"),
 p(tags$b("Sensitivity and specificity table")),
 DT::DTOutput("sst.s")
 )

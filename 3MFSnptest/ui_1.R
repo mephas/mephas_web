@@ -123,7 +123,7 @@ mainPanel(
 
     tabPanel("Box-Plot", p(br()),
 
-        plotly::plotlyOutput("bp", width = "80%"), #, click = "plot_click"
+        plotly::plotlyOutput("bp"), #, click = "plot_click"
 
         #verbatimTextOutput("info"), hr(),
 
@@ -147,11 +147,11 @@ mainPanel(
           </ul>"
             ),
       p(tags$b("Histogram")),
-      plotly::plotlyOutput("makeplot", width = "80%"),
+      plotly::plotlyOutput("makeplot"),
       sliderInput("bin","The number of bins in histogram",min = 0,max = 100,value = 0),
       p("When the number of bins is 0, plot will use the default number of bins"),
       p(tags$b("Density plot")),
-      plotly::plotlyOutput("makeplot.1", width = "80%")
+      plotly::plotlyOutput("makeplot.1")
 
       )
     ),

@@ -73,9 +73,9 @@ conditionalPanel(
 
     tabPanel("Percentage Plot", p(br()),
       p(tags$b("Percentages in the rows")),
-      plotly::plotlyOutput("makeplot4", width = "80%"),
+      plotly::plotlyOutput("makeplot4"),
       p(tags$b("Percentages in the columns")),
-      plotly::plotlyOutput("makeplot4.1", width = "80%")
+      plotly::plotlyOutput("makeplot4.1")
       )
     ),
 

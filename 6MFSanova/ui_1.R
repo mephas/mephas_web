@@ -101,7 +101,7 @@ mainPanel(
       ),
     tabPanel("Box Plot",p(br()),
 
-      plotly::plotlyOutput("mbp1", width = "80%"),
+      plotly::plotlyOutput("mbp1"),
     HTML(
     "<b> Explanations </b>
     <ul>
@@ -115,7 +115,7 @@ mainPanel(
 
     tabPanel("Mean and SD Plot",p(br()),
 
-      plotly::plotlyOutput("mmean1", width = "80%")
+      plotly::plotlyOutput("mmean1")
       )
     ),
 

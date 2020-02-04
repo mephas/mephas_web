@@ -117,12 +117,12 @@ mainPanel(
 
       tabPanel("Means plot",p(br()),
       checkboxInput('tick', 'Tick to change the factor group', FALSE), #p
-      plotly::plotlyOutput("meanp.a", width = "80%")
+      plotly::plotlyOutput("meanp.a")
     ),
 
       tabPanel("Marginal means plot",p(br()),
       checkboxInput('tick2', 'Tick to change the factor group', FALSE), #p
-      plotly::plotlyOutput("mmean.a", width = "80%")
+      plotly::plotlyOutput("mmean.a")
       )
     ),
 

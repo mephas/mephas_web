@@ -123,7 +123,7 @@ mainPanel(
 
     tabPanel("Box-Plot of the Difference", p(br()),
 
-        plotly::plotlyOutput("bp3", width = "80%"),#click = "plot_click3"
+        plotly::plotlyOutput("bp3"),#click = "plot_click3"
 
         verbatimTextOutput("info3"), hr(),
 
@@ -147,11 +147,11 @@ mainPanel(
           </ul>"
             ),
       p(tags$b("Histogram")),
-      plotly::plotlyOutput("makeplot3", width = "80%"),
+      plotly::plotlyOutput("makeplot3"),
       sliderInput("bin3", "The number of bins in histogram",min = 0,max = 100,value = 0),
       p("When the number of bins is 0, plot will use the default number of bins"),
       p(tags$b("Density plot")),
-      plotly::plotlyOutput("makeplot3.1", width = "80%")
+      plotly::plotlyOutput("makeplot3.1")
 
       )
     ),

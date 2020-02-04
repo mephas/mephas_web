@@ -74,7 +74,7 @@ p("The predicted survival probability of N'th observation"),
 
 numericInput("line", HTML("Choose N'th observation (N'th row of new data)"), value = 1, min = 1),
 
-plotly::plotlyOutput("p.s", width = "80%"),
+plotly::plotlyOutput("p.s"),
 DT::DTOutput("pred.n")
 )
 )

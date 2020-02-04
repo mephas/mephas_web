@@ -77,9 +77,9 @@ hr(),
 
     tabPanel("Percentage Plot", p(br()),
       p(tags$b("Percentages in the rows")),
-      plotly::plotlyOutput("makeplot1", width = "80%"),
+      plotly::plotlyOutput("makeplot1"),
       p(tags$b("Percentages in the columns")),
-      plotly::plotlyOutput("makeplot1.1", width = "80%")
+      plotly::plotlyOutput("makeplot1.1")
       )
     ),
 
