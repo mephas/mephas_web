@@ -47,7 +47,7 @@ HTML(
 </ul>
 
 <i><h4>Case Example</h4>
-Suppose we collected the age of 144 independent lymph node-positive patients and wanted to know whether the general age of lymph node-positive patients was 50 years old
+Suppose we collected the age of 50 independent lymph node-positive patients and wanted to know whether the general age of lymph node-positive patients was 50 years old
 </h4></i>
 
 

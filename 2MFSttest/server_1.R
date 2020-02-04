@@ -27,7 +27,6 @@ X <- reactive({
 
     x <- as.data.frame(csv[,1])
     colnames(x) <- names(csv)[1]
-    #validate( need(sum(!is.na(csv))>1, "Please input enough valid numeric data") )
     if(input$header!=TRUE){
       names(x) <- names1()
       }
@@ -62,14 +61,6 @@ output$bas <- DT::renderDT({basic_desc()},
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-#output$download0 <- downloadHandler(
-#    filename = function() {
-#      "basic_desc.csv"
-#    },
-#    content = function(file) {
-#      write.csv(basic_desc(), file, row.names = TRUE)
-#    }
-#  )
 
 # box plot
 output$bp = plotly::renderPlotly({
@@ -80,27 +71,14 @@ output$bp = plotly::renderPlotly({
   plotly::ggplotly(p)
   })
 
-# output$info1 <- renderText({
-#   xy_str = function(e) {
-#     if (is.null(e))
-#     return("NULL\n")
-#     paste0("Click to get value: ", round(e$y, 4))
-#   }
-#   paste0("Y-axis position", "\n", xy_str(input$plot_click1))
-# })
+
 
 output$meanp = plotly::renderPlotly({
   x = X()
   var <- names(x)[1]
   p<-plot_msd1(x, var)
   plotly::ggplotly(p)
-  #des = data.frame(psych::describe(x))
-  ##rownames(des) = names(x)
-  #ggplot(des, aes(x = rownames(des), y = mean)) + 
-  #geom_bar(position = position_dodge(),stat = "identity",width = 0.2, alpha = .3) +
-  #geom_errorbar(width = .1,position = position_dodge(.9),aes(ymin = mean - des$sd, ymax = mean + des$sd),data = des) + 
-  #xlab("") + ylab(expression(Mean %+-% SD)) + 
-  #theme_minimal() + theme(legend.title = element_blank())
+
   })
 
 output$makeplot1 <- plotly::renderPlotly({
@@ -108,25 +86,23 @@ output$makeplot1 <- plotly::renderPlotly({
   var <- names(x)[1]
   p <- plot_qq1(x, var)
   plotly::ggplotly(p)
-  #ggplot(x, aes(sample = x[,1])) + stat_qq() + ggtitle("") + xlab("") + theme_minimal()  ## add line, 
   })
 output$makeplot1.2 <- plotly::renderPlotly({
   x = X()
   var <- names(x)[1]
   p <- plot_hist1(x, var, input$bin)
   plotly::ggplotly(p)
-  #ggplot(x, aes(x = x[,1])) + geom_histogram(colour = "black", fill = "grey", binwidth = input$bin, position = "identity") + xlab("") + ggtitle("") + theme_minimal() + theme(legend.title =element_blank()) 
   })
 output$makeplot1.3 <- plotly::renderPlotly({
   x = X()
   var <- names(x)[1]
   p <- plot_density1(x, var)
   plotly::ggplotly(p)
-  #ggplot(x, aes(x = x[,1])) + geom_density() + ggtitle("") + xlab("") + theme_minimal() + theme(legend.title =element_blank())
   })
 
 t.test0 <- reactive({
   x <- X()
+  validate(need(input$mu, "Waiting for the parameter Mean"))
   res <-t.test(
     x[,1],
     mu = input$mu,
