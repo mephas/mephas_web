@@ -92,6 +92,7 @@ colnames(X()[unlist(lapply(X(), is.factor))])
       dom = 'Bfrtip',
       buttons = c('copy', 'csv', 'excel'),
       deferRender = TRUE,
+      scrollX=TRUE,
       scrollY = 300,
       scroller = TRUE))
 
