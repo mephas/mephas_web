@@ -107,7 +107,7 @@ mainPanel(
 		  h4("Mathematical-based Plot"),
 		  p(tags$b("Binomial probability plot")),
 		  p("The blue curve is the normal distribution with mean n*p and sd n*p*(1-p). It indicates the normal approximation of binomial distribution."),
-		  plotly::plotlyOutput("b.plot", width = "80%"),
+		  plotly::plotlyOutput("b.plot"),
 		  p(tags$b("Probability at the observed number of success /event (Red-Dot)")),
 		  tableOutput("b.k")
 		),
@@ -120,7 +120,7 @@ mainPanel(
 		  condition = "input.InputSrc_b == 'SimuDist'",
 		  h4("Simulation-based Plot"),
 		  p(tags$b("Histogram from random numbers")),
-		  plotly::plotlyOutput("b.plot2", width = "80%"),
+		  plotly::plotlyOutput("b.plot2"),
 		  downloadButton("download1", "Download Random Numbers"),
 		  p(tags$b("Sample descriptive statistics")),
 		  tableOutput("sum")
@@ -131,7 +131,7 @@ mainPanel(
 		condition = "input.InputSrc_b == 'DataDist'",
 		h4("Distribution of Your Data"),
  		p(tags$b("Histogram from upload data")),
-		plotly::plotlyOutput("makeplot.1", width = "80%"),
+		plotly::plotlyOutput("makeplot.1"),
 		p("When the number of bins is 0, plot will use the default number of bins"),
 		p(tags$b("Sample descriptive statistics")),
 		tableOutput("sum2")

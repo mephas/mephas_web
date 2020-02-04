@@ -85,7 +85,6 @@ output$makeplot.2 <- plotly::renderPlotly({
   x <- names(df)
   p<-plot_hist1(df, x, input$bin1.p)
   plotly::ggplotly(p)
-
   })
 
 output$sum2.p = renderTable({

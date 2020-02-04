@@ -59,7 +59,7 @@ sidebarLayout(
          ),
       p("Missing value is input as NA")
 	     ), #tab1 end
-		tabPanel.upload.num(file ="file.p", header="header.p", col="col.p", sep="b.sep.p")
+		tabPanel.upload.num(file ="file.p", header="header.p", col="col.p", sep="sep.p")
 
 # 			tabPanel("Upload Data",p(br()),
 #
@@ -104,7 +104,7 @@ mainPanel(
 		  h4("Mathematical-based Plot"),
 		  p("The blue curve is the normal distribution with mean=rate and sd=rate. It indicates the normal approximation of binomial distribution."),
  		p(tags$b("Poisson probability plot")),
-    	plotly::plotlyOutput("p.plot", width = "80%"),
+    	plotly::plotlyOutput("p.plot"),
     	p(tags$b("Probability at the observed number of occurrences (Red-Dot)")),
     	tableOutput("p.k")
     	),
@@ -116,7 +116,7 @@ mainPanel(
 		conditionalPanel(
 		  condition = "input.InputSrc_p == 'SimuDist'",
  		p(tags$b("Histogram from random numbers")),
-        plotly::plotlyOutput("p.plot2", width = "80%"),
+        plotly::plotlyOutput("p.plot2"),
 
         downloadButton("download2", "Download Random Numbers"),
         p(tags$b("Sample descriptive statistics")),
@@ -128,7 +128,7 @@ mainPanel(
 		condition = "input.InputSrc_p == 'DataDist'",
 		h4("Distribution of Your Data"),
  		p(tags$b("Histogram from upload data")),
-        plotly::plotlyOutput("makeplot.2", width = "80%"),
+        plotly::plotlyOutput("makeplot.2"),
         p(tags$b("Sample descriptive statistics")),
         tableOutput("sum2.p")
 
