@@ -10,8 +10,9 @@ multiple = FALSE
 )
 })
 
-DF4 <- reactive({
+type.num4 <- reactive({
   df <-X()[ ,-which(names(X()) %in% c(input$y))]
+  df <- colnames(X()[unlist(lapply(X(), is.numeric))])
 return(df)
   })
 
@@ -29,11 +30,12 @@ output$x = renderUI({
 shinyWidgets::pickerInput(
 'x',
 tags$b('2. Add / Remove independent variables (X)'),
-selected = names(DF4()),
-choices = names(DF4()),
+selected = type.num4(),
+choices = type.num4(),
 multiple = TRUE,
 options = pickerOptions(
-      actionsBox=TRUE)
+      actionsBox=TRUE,
+      size=5)
 )
 })
 
@@ -50,6 +52,7 @@ pcr <- eventReactive(input$pcr1,{
 
   Y <- as.matrix(X()[,input$y])
   X <- as.matrix(X()[,input$x])
+
   validate(need(min(ncol(X), nrow(X))>input$nc, "Please input enough independent variables"))
   validate(need(input$nc>=1, "Please input correct number of components"))
   mvr(Y~X, ncomp=input$nc, validation=input$val, model=FALSE, method = "svdpc",scale = TRUE, center = TRUE)

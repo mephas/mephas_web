@@ -23,8 +23,9 @@ options = pickerOptions(
 )
 })
 
-DF4.s <- reactive({
-  df <-X()[ ,-which(names(X()) %in% c(input$y.s))]
+type.num4.s <- reactive({
+  df <-X()[ ,-which(names(X()) %in% c(input$y))]
+  df <- colnames(X()[unlist(lapply(X(), is.numeric))])
 return(df)
   })
 
@@ -42,8 +43,8 @@ output$x.s = renderUI({
 shinyWidgets::pickerInput(
 'x.s',
 tags$b('2. Add / Remove independent variables (X)'),
-selected = names(DF4.s()),
-choices = names(DF4.s()),
+selected = type.num4.s(),
+choices = type.num4.s(),
 multiple = TRUE,
 options = pickerOptions(
       actionsBox=TRUE,
@@ -61,9 +62,11 @@ output$spls.x <- DT::renderDT({
 output$spls_cv  <- renderPrint({
   Y <- as.matrix(X()[,input$y.s])
   X <- as.matrix(X()[,input$x.s])
-  validate(need(min(ncol(X), nrow(X))>input$cv.s, "Please input enough independent variables"))
+  validate(need(input$y.s, "Please choose dependent variable"))
+
+  validate(need(min(ncol(X), nrow(X))>input$cv.s, "Please choose enough independent variables"))
   validate(need(input$cv.s>=1, "Please input correct number of components"))
-  validate(need(input$cv.eta>0 && input$nc.eta<1, "Please correct parameters"))
+  validate(need(input$cv.eta>0 && input$nc.eta<1, "Please input correct parameters"))
   spls::cv.spls(X,Y, eta = seq(0.1,input$cv.eta,0.1), K = c(1:input$cv.s),
     select="pls2", fit = input$method.s, plot.it = FALSE)
   

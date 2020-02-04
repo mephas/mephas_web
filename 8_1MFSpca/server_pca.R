@@ -67,10 +67,14 @@ plot_corr(DF4())
 #output$nc <- renderText({input$nc})
 # model
 pca <- eventReactive(input$pca1,{
-  validate(need(nrow(DF4())>ncol(DF4()), "Number of variables should be less than the number of rows"))
+
   X <- DF4()
   a <- input$nc
+
+validate(need(nrow(DF4())>ncol(DF4()), "Number of variables should be less than the number of rows"))
+validate(need(input$nc<=min(dim(X)), "Components must be <= the number of rows and the number of columns"))
 validate(need(input$nc>=1, "Components must be >= 1."))
+
   prcomp(X, rank.=a, scale.=TRUE)
   })
 
@@ -146,7 +150,7 @@ plotly::ggplotly(p)
 output$pca.ind2  <- plotly::renderPlotly({ 
 #validate(need(input$nc>=1, "Components are not enough to create the plot."))
 load <- as.data.frame(pca()$rotation)
-p<-plot_load(loads=load, a=input$nc)
+p<-plot_load(load, input$nc)
 plotly::ggplotly(p)
 
 #ll$group <- rownames(ll)

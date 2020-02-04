@@ -28,14 +28,17 @@ DF4.fa <- eventReactive(input$pca1.fa,{
 
 
 output$table.x.fa <- DT::renderDT(
-    head(X()), options = list(scrollX = TRUE,dom = 't'))
+head(X()), options = list(scrollX = TRUE,dom = 't'))
 
 fa <- eventReactive(input$pca1.fa,{
-validate(need(nrow(DF4.fa())>ncol(DF4.fa()), "Number of variables should be less than the number of rows"))
 
   X <- DF4.fa()
   a <- input$ncfa
-  validate(need(input$ncfa>=1, "Components must be >= 1."))
+
+validate(need(nrow(DF4.fa())>ncol(DF4.fa()), "Number of variables should be less than the number of rows"))
+validate(need(input$ncfa>=1, "Components must be >= 1."))
+validate(need(input$ncfa<=min(dim(X)), "Components must be <= the number of rows and the number of columns"))
+
   psych::fa(X, nfactors=a, rotate="varimax", fm="ml")
   #factanal(DF4.fa(), factors = input$ncfa, scores= "regression")
   })

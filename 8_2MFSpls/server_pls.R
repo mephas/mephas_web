@@ -23,8 +23,9 @@ options = pickerOptions(
 )
 })
 
-DF4.r <- reactive({
-  df <-X()[ ,-which(names(X()) %in% c(input$y.r))]
+type.num4.r <- reactive({
+  df <-X()[ ,-which(names(X()) %in% c(input$y))]
+  df <- colnames(X()[unlist(lapply(X(), is.numeric))])
 return(df)
   })
 
@@ -32,8 +33,8 @@ output$x.r = renderUI({
 shinyWidgets::pickerInput(
 'x.r',
 tags$b('2. Add / Remove independent variables (X)'),
-selected = names(DF4.r()),
-choices = names(DF4.r()),
+selected = type.num4.r(),
+choices = type.num4.r(),
 multiple = TRUE,
 options = pickerOptions(
       actionsBox=TRUE,
@@ -63,7 +64,9 @@ pls <- eventReactive(input$pls1,{
 
   Y <- as.matrix(X()[,input$y.r])
   X <- as.matrix(X()[,input$x.r])
-  validate(need(min(ncol(X), nrow(X))>input$nc.r, "Please input enough independent variables"))
+
+  validate(need(input$y.s, "Please choose dependent variable"))
+  validate(need(min(ncol(X), nrow(X))>input$nc.r, "Please choose enough independent variables"))
   validate(need(input$nc.r>=1, "Please input correct number of components"))
   mvr(Y~X, ncomp=input$nc.r, validation=input$val.r, model=FALSE, method = input$method.r,scale = TRUE, center = TRUE)
   })

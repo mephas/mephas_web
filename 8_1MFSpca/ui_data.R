@@ -14,7 +14,7 @@ tabsetPanel(
 
 tabPanel("Example data", p(br()),
   selectInput("edata", tags$b("Use example data"), 
-        choices =  c("Chemical","Mouse"), 
+        choices =  c("Mouse","Chemical"), 
         selected = "Mouse")
   ),
 
