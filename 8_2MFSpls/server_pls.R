@@ -111,7 +111,10 @@ output$pls.l <- DT::renderDT({load.r()},
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pls.pres <- DT::renderDT({as.data.frame(pls()$fitted.values[,,1:pls()$ncomp])}, 
+output$pls.pres <- DT::renderDT({
+  pd <- as.data.frame(pls()$fitted.values[,,1:pls()$ncomp])
+  rownames(pd) <- rownames(X())
+  return(pd)}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
