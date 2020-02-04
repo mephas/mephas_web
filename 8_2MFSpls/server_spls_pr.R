@@ -19,6 +19,10 @@ if(!input$newcol.spls){
 
   x <- as.data.frame(csv)
 }
+  if(input$transform) {x <- as.data.frame(t(x))}
+   
+  if(input$scale) {x <- scale(x)}
+  
 return(as.data.frame(x))
 })
 

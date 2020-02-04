@@ -75,7 +75,7 @@ selectInput(
 X <- reactive({
   df <-DF1() 
 df[input$factor2] <- as.data.frame(lapply(df[input$factor2], as.numeric))
-return(df)
+return(as.data.frame(df))
   })
 
 type.fac2 <- reactive({

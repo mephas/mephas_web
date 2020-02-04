@@ -75,7 +75,8 @@ output$pcr_rmsep  <- renderPrint({
   })
 
 score <- eventReactive(input$pcr1,{
-  as.data.frame(pcr()$scores[,1:pcr()$ncomp])
+  s <- as.data.frame(pcr()$scores[,1:pcr()$ncomp])
+  rownames(s) <- rownames(X())
   })
 
 load <- eventReactive(input$pcr1,{

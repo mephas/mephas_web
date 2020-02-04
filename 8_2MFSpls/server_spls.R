@@ -60,15 +60,15 @@ output$spls.x <- DT::renderDT({
     head(X()[,1:lim])}, options = list(scrollX = TRUE,dom = 't'))
 
 spls_cv <- eventReactive(input$splscv,{
-  Y <- as.matrix(X()[,input$y.s])
-  X <- as.matrix(X()[,input$x.s])
+  x <- as.data.frame(na.omit(X()))
+  Y <- as.matrix(x[,input$y.s])
+  X <- as.matrix(x[,input$x.s])
   validate(need(input$y.s, "Please choose dependent variable"))
 
   validate(need(min(ncol(X), nrow(X))>input$cv.s, "Please choose enough independent variables"))
   validate(need(input$cv.s>=1, "Please input correct number of components"))
   validate(need(input$cv.eta>0 && input$nc.eta<1, "Please input correct parameters"))
-  validate(need(sum(!complete.cases(X))==0, "Please remove the missing values"))
-  validate(need(sum(!complete.cases(Y))==0, "Please remove the missing values"))
+  #validate(need(sum(!complete.cases(Y))<=0, "Please remove the missing values"))
 
   set.seed(1)
   spls::cv.spls(X,Y, eta = seq(0.1,input$cv.eta,0.1), K = c(1:input$cv.s),
@@ -76,15 +76,14 @@ spls_cv <- eventReactive(input$splscv,{
   })
 
 output$spls_cv  <- renderPrint({
-
   spls_cv()
   
   })
 
 spls <- eventReactive(input$spls1,{
-
-  Y <- as.matrix(X()[,input$y.s])
-  X <- as.matrix(X()[,input$x.s])
+  x <- as.data.frame(na.omit(X()))
+  Y <- as.matrix(x[,input$y.s])
+  X <- as.matrix(x[,input$x.s])
   validate(need(min(ncol(X), nrow(X))>input$nc.s, "Please input enough independent variables"))
   validate(need(input$nc.s>=1, "Please input correct number of components"))
   validate(need(input$nc.eta>0 && input$nc.eta<1, "Please correct parameters"))
