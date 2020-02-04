@@ -183,7 +183,7 @@ HTML(
 
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this example, P value of F test was about 0.11 (>0.05), we should refer to the results from 'Two-Sample t-test'"))
+    p(tags$i("In this example, P value of F test was about 0.15 (>0.05), indicating the equal variance in the data. Thus, we should refer to the results from 'Two-Sample t-test'"))
     ),
 
     hr(),
@@ -203,7 +203,7 @@ HTML(
   ),
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this example, we concluded that the age of lymph node positive population with ER positive was not significantly different from ER negative (P=0.24, from 'Two-Sample t-test')"))
+    p(tags$i("In this example, we concluded that the age of lymph node positive population with ER positive was not significantly different from ER negative (P=0.55, from 'Two-Sample t-test')"))
     )
     )
   )

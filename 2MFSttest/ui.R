@@ -91,7 +91,7 @@ HTML(
 </ul>
 
 <i><h4>Case Example</h4>
-Suppose we collected the age of 144 independent lymph node-positive patients. Among them, 27 had Estrogen receptor (ER) positive, 114 had ER negative.
+Suppose we collected the age of 50 independent lymph node-positive patients. Among them, 25 had Estrogen receptor (ER) positive, 25 had ER negative.
 We wanted to know if the ages of patients with ER positive was significantly different from patients with ER negative in general. Or, whether ER is related to age.
 </h4></i>
 
