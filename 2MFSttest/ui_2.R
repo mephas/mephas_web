@@ -2,9 +2,9 @@
 sidebarLayout(
 
 sidebarPanel(
-  
+
   h4(tags$b("Step 1. Data Preparation")),
-    
+
   p(tags$b("1. Give names to your groups (Required)")),
 
   tags$textarea(id = "cn2", rows = 2, "Age.positive\nAge.negative"), p(br()),
@@ -24,47 +24,47 @@ sidebarPanel(
 
         p(tags$b("Group 1")),
         tags$textarea(id = "x1",rows = 10,
-"47\n45\n31\n38\n44\n49\n48\n44\n47\n45\n37\n43\n49\n32\n41\n38\n37\n44\n45\n46\n26\n49\n48\n45\n46\n52\n51\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA"        
+"47\n45\n31\n38\n44\n49\n48\n44\n47\n45\n37\n43\n49\n32\n41\n38\n37\n44\n45\n46\n26\n49\n48\n45\n46"
 ),
         p(tags$b("Group 2")),
         tags$textarea(id = "x2",rows = 10,
-"50\n42\n50\n43\n47\n38\n41\n48\n47\n36\n42\n42\n45\n44\n32\n46\n50\n38\n43\n40\n42\n46\n41\n46\n48\n36\n43\n40\n41\n48\n41\n45\n47\n43\n43\n49\n45\n41\n50\n49\n38\n42\n44\n48\n50\n44\n49\n43\n42\n50\n39\n42\n49\n43\n50\n49\n37\n48\n48\n48\n49\n45\n44\n35\n49\n39\n46\n49\n37\n50\n35\n47\n43\n41\n43\n42\n39\n40\n37\n44\n39\n45\n42\n49\n41\n36\n29\n43\n45\n47\n49\n41\n41\n36\n38\n49\n49\n42\n46\n42\n51\n51\n52\n52\n52\n52\n52\n53\n52\n51\n51\n51\n51\n51\n47\n39\n51"
-        ),
+"50\n42\n50\n43\n47\n38\n41\n48\n47\n36\n42\n42\n45\n44\n32\n46\n50\n38\n43\n40\n42\n46\n41\n46\n48"
+), 
 
     p("Missing values are input as NAs to ensure 2 sets have equal length; otherwise, there will be error")
 
         ),
-
+tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
       ##-------csv file-------##
-    tabPanel("Upload Data", p(br()),
-
-        ##-------csv file-------##
-        p(tags$b("Here only reads 2 columns form the data file uploaded")),
-        fileInput('file2', "Choose CSV/TXT file",
-                  accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-        #helpText("The columns of X are not suggested greater than 500"),
-        # Input: Checkbox if file has header ----
-        p(tags$b("2. Use 1st row as column names?")),
-        checkboxInput("header2", "Yes", TRUE),
-        p(tags$b("3. Use 1st column as row names?")),
-        checkboxInput("col2", "Yes", TRUE),
-
-             # Input: Select separator ----
-        radioButtons("sep2", 
-          "4. Which Separator for Data?",
-          choiceNames = list(
-            HTML("Comma (,): CSV often use this"),
-            HTML("One Tab (->|): TXT often use this"),
-            HTML("Semicolon (;)"),
-            HTML("One Space (_)")
-            ),
-          choiceValues = list(",", "\t", ";", " ")
-          ),
-
-        p("Correct Separator ensures data input successfully"),
-
-        a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-        )
+    # tabPanel("Upload Data", p(br()),
+    #
+    #     ##-------csv file-------##
+    #     p(tags$b("Here only reads 2 columns form the data file uploaded")),
+    #     fileInput('file2', "Choose CSV/TXT file",
+    #               accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
+    #     #helpText("The columns of X are not suggested greater than 500"),
+    #     # Input: Checkbox if file has header ----
+    #     p(tags$b("2. Use 1st row as column names?")),
+    #     checkboxInput("header2", "Yes", TRUE),
+    #     p(tags$b("3. Use 1st column as row names?")),
+    #     checkboxInput("col2", "Yes", TRUE),
+    #
+    #          # Input: Select separator ----
+    #     radioButtons("sep2",
+    #       "4. Which Separator for Data?",
+    #       choiceNames = list(
+    #         HTML("Comma (,): CSV often use this"),
+    #         HTML("One Tab (->|): TXT often use this"),
+    #         HTML("Semicolon (;)"),
+    #         HTML("One Space (_)")
+    #         ),
+    #       choiceValues = list(",", "\t", ";", " ")
+    #       ),
+    #
+    #     p("Correct Separator ensures data input successfully"),
+    #
+    #     a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
+    #     )
         ),
 
     hr(),
@@ -75,7 +75,7 @@ sidebarPanel(
   p("Before doing the T test, we need to check the equivalence of variance and then decide which T test to use"),
   p(tags$b("Null hypothesis")),
   HTML("<p> v1 = v2: Group 1 and Group 2 have equal population variances </p>"),
-    
+
     radioButtons("alt.t22", #p
       label = "Alternative hypothesis",
       choiceNames = list(
@@ -90,7 +90,7 @@ sidebarPanel(
 
   p(tags$b("Null hypothesis")),
   HTML("<p> &#956&#8321 = &#956&#8322: Group 1 and Group 2 have equal population means </p>"),
-    
+
     radioButtons("alt.t2", #p
       label = "Alternative hypothesis",
       choiceNames = list(
@@ -118,17 +118,17 @@ sidebarPanel(
       DT::DTOutput("table2")),
 
     tabPanel("Basic Descriptives", p(br()),
-          
+
           DT::DTOutput("bas2")
       ),
 
-      tabPanel("Box-Plot",p(br()),     
-        
+      tabPanel("Box-Plot",p(br()),
+
       plotly::plotlyOutput("bp2",width = "80%"), #,click = "plot_click2"
-           
-        #verbatimTextOutput("info2"), 
+
+        #verbatimTextOutput("info2"),
         hr(),
-        
+
           HTML(
           "<b> Explanations </b>
           <ul>
@@ -136,17 +136,17 @@ sidebarPanel(
             <li> The box measures the difference between 75th and 25th percentiles</li>
             <li> Outliers will be in red, if existing</li>
           </ul>"
-            )        
+            )
          ),
 
-      tabPanel("Mean and SD Plot", p(br()), 
+      tabPanel("Mean and SD Plot", p(br()),
 
         plotly::plotlyOutput("meanp2", width = "80%")),
 
     tabPanel("Distribution Plots", p(br()),
 HTML(
 "<b> Explanations </b>
-<ul> 
+<ul>
 <li> Normal Q–Q Plot: to compare randomly generated, independent standard normal data on the vertical axis to a standard normal population on the horizontal axis. The linearity of the points suggests that the data are normally distributed.</li>
 <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values</li>
 <li> Density Plot: to estimate the probability density function of the data</li>
@@ -174,8 +174,8 @@ HTML(
     DT::DTOutput("var.test"),
 
     HTML(
-    "<b> Explanations </b> 
-    <ul> 
+    "<b> Explanations </b>
+    <ul>
     <li> P value < 0.05, then refer to the <b>Welch Two-Sample t-test</b></li>
     <li> P Value >= 0.05, then refer to <b>Two-Sample t-test</b></li>
     </ul>"
@@ -183,7 +183,7 @@ HTML(
 
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this example, P value of F test was about 0.11 (>0.05), we should refer to the results from 'Two-Sample t-test'"))
+    p(tags$i("In this example, P value of F test was about 0.15 (>0.05), indicating the equal variance in the data. Thus, we should refer to the results from 'Two-Sample t-test'"))
     ),
 
     hr(),
@@ -192,18 +192,18 @@ HTML(
     tags$b("Decide the T Test"),
 
     DT::DTOutput("t.test2"),
-    p(br()), 
+    p(br()),
 
       HTML(
-    "<b> Explanations </b> 
-    <ul> 
+    "<b> Explanations </b>
+    <ul>
     <li> P Value < 0.05, then the population means of the Group 1 IS significantly different from Group 2. (Accept the alternative hypothesis)</li>
     <li> P Value >= 0.05, then there are NO significant differences between Group 1 and Group 2. (Accept the null hypothesis)</li>
     </ul>"
   ),
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this example, we concluded that the age of lymph node positive population with ER positive was not significantly different from ER negative (P=0.24, from 'Two-Sample t-test')"))
+    p(tags$i("In this example, we concluded that the age of lymph node positive population with ER positive was not significantly different from ER negative (P=0.55, from 'Two-Sample t-test')"))
     )
     )
   )

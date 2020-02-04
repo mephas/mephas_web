@@ -58,7 +58,7 @@ sidebarLayout(
 			),
       		p("Missing value is input as NA")
 	     ), #tab1 end
-			tabPanel.upload.num(file ="file", header="header", col="col", sep="b.sep")
+			tabPanel.upload.num(file ="file", header="header", col="col", sep="sep")
 
 # 	      tabPanel("Upload Data",p(br()),
 #
