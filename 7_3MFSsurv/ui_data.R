@@ -51,7 +51,7 @@ p("Correct separator and quote ensures data input successfully"),
 
 a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
 )),
-tags$i("Diabetes data has only time duration variable, while Nki70 data has start.time and end.time."),
+tags$i("Diabetes data has only one time duration variable, while Nki70 data has start.time and end.time."),
 hr(),
 
 h4(tags$b("Step 2. Create a Survival Object")), 

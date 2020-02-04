@@ -107,12 +107,12 @@ HTML(
 "
 <b> Explanations  </b>
 <ul>
-<li> For each variable, estimated coefficients (coef), statistic for the significance of single variable, and P value are given.</li>
-<li> The column marked 'z' gives the Wald statistic value. It corresponds to the ratio of each regression coefficient to its standard error (z = coef/se(coef)).The Wald statistic evaluates, whether the beta coefficient of a given variable is statistically significantly different from 0.</li>
-<li> The coefficients relate to hazard; a positive coefficient indicates a worse prognosis and a negative coefficient indicates a protective effect of the variable with which it is associated.</li>
+<li> For each variable, estimated coefficients (coef), the statistic for the significance of a single variable, and P value are given.</li>
+<li> The column marked 'z' gives the Wald statistic value. It corresponds to the ratio of each regression coefficient to its standard error (z = coef/se(coef)). The Wald statistic evaluates whether the beta coefficient of a given variable is statistically significantly different from 0.</li>
+<li> The coefficients relate to hazard; a positive coefficient indicates a worse prognosis, and a negative coefficient indicates a protective effect of the variable with which it is associated.</li>
 <li> exp(coef) = hazard ratio (HR). HR = 1: No effect; HR < 1: Reduction in the hazard; HR > 1: Increase in Hazard</li>
 <li> The output also gives upper and lower 95% confidence intervals for the hazard ratio (exp(coef)), </li>
-<li> The likelihood-ratio test, Wald test, and score log-rank statistics give global statistical significance of the model. These three methods are asymptotically equivalent. For large enough N, they will give similar results. For small N, they may differ somewhat. The Likelihood ratio test has better behavior for small sample sizes, so it is generally preferred.</li>
+<li> The likelihood-ratio test, Wald test, and score log-rank statistics give the global statistical significance of the model. These three methods are asymptotically equivalent. For large enough N, they will give similar results. For small N, they may differ somewhat. The Likelihood ratio test has better behavior for small sample sizes, so it is generally preferred.</li>
 </ul>
 "
 ),

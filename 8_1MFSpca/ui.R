@@ -36,9 +36,9 @@ HTML(
 "
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> To upload data file, preview data set, and check the correctness of data input</li>
+<li> To upload data files, preview data set, and check the correctness of data input</li>
 <li> To pre-process some variables (when necessary) for building the model</li>
-<li> To get the basic descriptive statistics and plots of the variables</li>
+<li> To achieve the basic descriptive statistics and plots of the variables</li>
 </ul>
 
 <h4><b> 2. About your data</b></h4>
@@ -51,14 +51,14 @@ HTML(
 
 <h4><i>Case Example 1: Mouse gene expression data</i></h4>
 
-<i>This data measured the gene expression of 20 mouses in a diet experiment. Some mouses showed same genotype and some gene variables were correlated.
-We wanted to compute the principal components which were linearly uncorrelated from the gene expression data.</i>
+<i>This data measured the gene expression of 20 mouses in a diet experiment. Some mouses showed the same genotype, and some gene variables were correlated.
+We wanted to compute the principal components that were linearly uncorrelated from the gene expression data.</i>
 
 <h4><i>Case Example 2: Chemical data</i></h4>
 
 <i>
-Suppose in one study, people measured the 9 chemical attributes of 7 types of drugs. Some chemicals had latent association.
-We wanted to explore the latent relational structure among the set of chemical variables and narrow down to smaller number of variables.
+Suppose in one study, people measured the 9 chemical attributes of 7 types of drugs. Some chemicals had a latent association.
+We wanted to explore the latent relational structure among the set of chemical variables and narrow down to a smaller number of variables.
 </i>
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>
@@ -86,16 +86,16 @@ HTML(
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
 <li> From <parallel analysis> to estimate the number of components</li>
-<li> To get correlation matrix and plot</li>
-<li> To get the principal components and loadings result tables and</li>
-<li> To get the principal components and loadings distribution plots in 2D and 3D</li>
+<li> To achieve a correlation matrix and draw plots</li>
+<li> To achieve the principal components and loadings result tables</li>
+<li> To gachieve the principal components and loadings distribution plots in 2D and 3D</li>
 </ul>
 
 <h4><b> 2. About your data </b></h4>
 
 <ul>
 <li> All the data for analysis are numeric
-<li> More samples size than the number of independent variables, that is, he number of rows is greater than the number of columns</li>
+<li> More samples size than the number of independent variables, that is, the number of rows is greater than the number of columns</li>
 </ul>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>
@@ -119,17 +119,17 @@ HTML(
 
 <h4><b> 1. Functionalities  </b></h4>
 <ul>
-<li> From <parallel analysis> to estimate the number of components</li>
-<li> To get correlation matrix and plot</li>
-<li> To get the factors and loadings result tables and</li>
-<li> To get the factors and loadings distribution plots in 2D and 3D</li>
+<li> From <b>parallel analysis</b> to estimate the number of components</li>
+<li> To achieve a correlation matrix and plots</li>
+<li> To achieve the factors and loadings result tables and</li>
+<li> To achieve the factors and loadings distribution plots in 2D and 3D</li>
 </ul>
 
 <h4><b> 2. About your data </b></h4>
 
 <ul>
 <li> All the data for analysis are numeric</li>
-<li> More samples size than the number of independent variables, that is, he number of rows is greater than the number of columns</li>
+<li> More samples size than the number of independent variables, that is, the number of rows is greater than the number of columns</li>
 </ul>
 
 <h4> Please follow the <b>Steps</b> to build the model, and click <b>Outputs</b> to get analytical results.</h4>

@@ -18,7 +18,7 @@ uiOutput('x.fa'),
 
 
 numericInput("ncfa", "2. How many factors (a)", 4, min = 1, max = NA),
-p(tags$i("According to the suggested results from parallel analysis, we chose to generate 4 factors from the data")),
+p(tags$i("According to the suggested results from the parallel analysis, we chose to generate 4 factors from the data")),
 hr(),
 h4(tags$b("Step 2. If data and model are ready, click the blue button to generate model results.")),
 
@@ -61,7 +61,7 @@ tabPanel("Factors Result",p(br()),
 <b>Explanations</b>
 <ul>
 <li> This plot graphs the factor relations to the variables</li>
-<li> Results in the window shows the statistical test for the sufficiency of factors.</li>
+<li> Results in the window show the statistical test for the sufficiency of factors.</li>
 </ul>
 
   "),
