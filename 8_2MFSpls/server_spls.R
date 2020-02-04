@@ -24,7 +24,7 @@ options = pickerOptions(
 })
 
 type.num4.s <- reactive({
-  df <-X()[ ,-which(names(X()) %in% c(input$y))]
+  df <-X()[ ,-which(names(X()) %in% c(input$y.s))]
   df <- colnames(X()[unlist(lapply(X(), is.numeric))])
 return(df)
   })

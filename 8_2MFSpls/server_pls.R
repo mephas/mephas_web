@@ -24,7 +24,7 @@ options = pickerOptions(
 })
 
 type.num4.r <- reactive({
-  df <-X()[ ,-which(names(X()) %in% c(input$y))]
+  df <-X()[ ,-which(names(X()) %in% c(input$y.r))]
   df <- colnames(X()[unlist(lapply(X(), is.numeric))])
 return(df)
   })
@@ -65,7 +65,7 @@ pls <- eventReactive(input$pls1,{
   Y <- as.matrix(X()[,input$y.r])
   X <- as.matrix(X()[,input$x.r])
 
-  validate(need(input$y.s, "Please choose dependent variable"))
+  validate(need(input$y.r, "Please choose dependent variable"))
   validate(need(min(ncol(X), nrow(X))>input$nc.r, "Please choose enough independent variables"))
   validate(need(input$nc.r>=1, "Please input correct number of components"))
   mvr(Y~X, ncomp=input$nc.r, validation=input$val.r, model=FALSE, method = input$method.r,scale = TRUE, center = TRUE)
