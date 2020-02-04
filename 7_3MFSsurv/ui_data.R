@@ -20,6 +20,7 @@ selectInput("edata", tags$b("Use example data"),
         choices =  c("Diabetes","NKI70"),
         selected = "Diabetes")
 ),
+
 tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")
 
 # tabPanel("Upload Data", p(br()),

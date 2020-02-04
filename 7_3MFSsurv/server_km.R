@@ -26,7 +26,7 @@ shinyWidgets::pickerInput(
 tags$b('2. Choose categorical variable'),
 selected = type.fac4()[1],
 choices = type.fac4(),
-multiple = TRUE
+multiple = TRUE)
 })
 
 
