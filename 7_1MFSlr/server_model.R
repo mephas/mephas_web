@@ -64,7 +64,7 @@ validate(need(input$x, "Please choose some independent variable"))
 
 f <- paste0(input$y,' ~ ',paste0(input$x, collapse = "+"), input$intercept)
 
-if(length(input$conf)==2) {f <- paste0(f, paste0("+",input$conf, collapse = ":"))}
+if(length(input$conf)==2) {f <- paste0(f, "+",paste0(input$conf, collapse = ":"))}
 
 return(f)
 })

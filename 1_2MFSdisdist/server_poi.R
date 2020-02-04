@@ -37,15 +37,6 @@ output$p.plot2 <- plotly::renderPlotly({
   x <- names(df)
 p<-plot_hist1c(df, x, input$bin.p)
 plotly::ggplotly(p)
-
-# df = N.p()
-# ggplot(df, aes(x = x)) + 
-# theme_minimal() + 
-# ggtitle("")+
-# ylab("Frequency")+ 
-# geom_histogram(binwidth = input$bin.p, colour = "white", fill = "cornflowerblue", size = 1)
-# #geom_vline(aes(xintercept=quantile(x, probs = input$pr, na.rm = FALSE)), color="red", size=0.5)
-
 })
 
 output$sum.p = renderTable({
@@ -94,14 +85,6 @@ output$makeplot.2 <- plotly::renderPlotly({
   x <- names(df)
   p<-plot_hist1(df, x, input$bin1.p)
   plotly::ggplotly(p)
-  
-  # x = NN.p()
-  # ggplot(x, aes(x = x[,1])) + 
-  # geom_histogram(colour = "black", fill = "grey", binwidth = input$bin1.p, position = "identity") + 
-  # xlab("") + 
-  # ggtitle("") + 
-  # theme_minimal() + 
-  # theme(legend.title =element_blank())
   })
 
 output$sum2.p = renderTable({

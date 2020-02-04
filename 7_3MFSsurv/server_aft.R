@@ -58,7 +58,7 @@ if (input$time=="A") {surv <- surv()}
 if (input$time=="B") {surv <- paste0("Surv(", input$t2, " - ", input$t1, ",", input$c, ")")}
 
 f = paste0(surv, '~', paste0(input$var.x, collapse = "+"))
-if(length(input$conf)==2) {f = paste0(f, paste0("+",input$conf, collapse = ":"))}
+if(length(input$conf)==2) {f = paste0(f, "+",paste0(input$conf, collapse = ":"))}
 
 if (input$effect=="") {f = paste0(f, input$intercept)}
 if (input$effect=="Strata") {f = paste0(f, "+strata(", input$fx.c, ")",input$intercept)}

@@ -11,13 +11,22 @@ type.fac4 <- reactive({
 colnames(DF4()[unlist(lapply(DF4(), is.factor))])
 })
 
+#output$g = renderUI({
+#selectInput(
+#'g',
+#tags$b('2. Choose categorical variable'),
+#selected = type.fac4()[1],
+#choices = type.fac4(),
+#multiple=TRUE)
+#})
+
 output$g = renderUI({
-selectInput(
+shinyWidgets::pickerInput(
 'g',
 tags$b('2. Choose categorical variable'),
 selected = type.fac4()[1],
 choices = type.fac4(),
-multiple=TRUE)
+multiple = TRUE
 })
 
 

@@ -152,6 +152,9 @@ output$tx = renderUI({
  })
 
  output$p1 = plotly::renderPlotly({
+    validate(need(input$tx, "Loading variable"))
+  validate(need(input$ty, "Loading variable"))
+
    p<- plot_scat(X(), input$tx, input$ty)
    plotly::ggplotly(p)
    })
@@ -167,11 +170,15 @@ output$hx = renderUI({
 })
 
 output$p2 = plotly::renderPlotly({
+    validate(need(input$hx, "Loading variable"))
+
    p<-plot_hist1(X(), input$hx, input$bin)
    plotly::ggplotly(p)
    })
 
 output$p21 = plotly::renderPlotly({
+    validate(need(input$hx, "Loading variable"))
+
      p<-plot_density1(X(), input$hx)
      plotly::ggplotly(p)
    })

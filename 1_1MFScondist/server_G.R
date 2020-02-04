@@ -42,24 +42,7 @@ output$g.plot2 = plotly::renderPlotly({
 p<-plot_hist1c(df, x, input$g.bin)
 p<-p+geom_vline(aes(xintercept=quantile(x, probs = input$g.pr, na.rm=TRUE)), color="red", size=0.3)
 plotly::ggplotly(p)
-# df = G()
-# ggplot(df, aes(x = x)) + 
-# ylab("Frequency")+ 
-# theme_minimal() + 
-# ggtitle("")+
-# geom_histogram(binwidth = input$g.bin, colour = "white", fill = "cornflowerblue", size = 0.1) + 
-# xlim(-0.1, input$g.xlim) + 
-# geom_vline(aes(xintercept=quantile(x, probs = input$g.pr, na.rm = FALSE)), color="red", size=0.5)
-
 })
-
-# output$g.info2 = renderText({
-#     xy_str = function(e) {
-#       if(is.null(e)) return("NULL\n")
-#       paste0(" x = ", round(e$x, 6), "\n", " y = ", round(e$y, 6))
-#     }
-# 
-#     paste0("Click Position: ", "\n", xy_str(input$plot_click12))})
 
 output$g.sum = renderTable({
   x = G()
@@ -90,20 +73,23 @@ Z <- reactive({
     return(as.data.frame(x))
   })
 
+output$Z <- DT::renderDT({Z()}, 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
+    options = list(
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollY = 200,
+      scroller = TRUE))
+
 output$makeplot.g1 <- plotly::renderPlotly({
     df = Z()
   x <- names(df)
   p<-plot_hist1(df, x, input$bin.g)
   p<-p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$g.pr, na.rm=TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
-  # x = Z()
-  # ggplot(x, aes(x = x[,1])) + 
-  # geom_histogram(colour = "black", fill = "grey", binwidth = input$bin.g, position = "identity") + 
-  # xlab("") + 
-  # ggtitle("") + 
-  # theme_minimal() + 
-  # theme(legend.title =element_blank())
-  # 
   })
 
 output$makeplot.g2 <- plotly::renderPlotly({
@@ -112,15 +98,6 @@ output$makeplot.g2 <- plotly::renderPlotly({
   p<-plot_density1(df, x)
   p<- p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$g.pr, na.rm = TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
-  # x = Z()
-  # ggplot(x, aes(x = x[,1])) + 
-  # geom_density() + 
-  # ggtitle("") + 
-  # xlab("") + 
-  # theme_minimal() + 
-  # theme(legend.title =element_blank())+ 
-  # geom_vline(aes(xintercept=quantile(x[,1], probs = input$g.pr, na.rm = FALSE)), color="red", size=0.5)
-  # 
   })
 
 output$g.sum2 = renderTable({

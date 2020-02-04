@@ -182,6 +182,9 @@ choices = type.bi())
  
  ## scatter plot
 output$p1 = plotly::renderPlotly({
+  validate(need(input$tx, "Loading variable"))
+  validate(need(input$ty, "Loading variable"))
+
 x<-DF3()
 p<-plot_slgt(x, input$tx, input$ty)
 plotly::ggplotly(p)
@@ -201,11 +204,13 @@ plotly::ggplotly(p)
  })
  
 output$p2 = plotly::renderPlotly({
+    validate(need(input$hx, "Loading variable"))
    p<-plot_hist1(DF3(), input$hx, input$bin)
    plotly::ggplotly(p)
    })
 
 output$p21 = plotly::renderPlotly({
+    validate(need(input$hx, "Loading variable"))
      p<-plot_density1(DF3(), input$hx)
      plotly::ggplotly(p)
    })

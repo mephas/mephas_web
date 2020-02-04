@@ -316,11 +316,13 @@ scrollX = TRUE)
  })
  
 output$p2 = plotly::renderPlotly({
+    validate(need(input$hx, "Loading variable"))
    p<-plot_hist1(DF3(), input$hx, input$bin)
    plotly::ggplotly(p)
    })
 
 output$p21 = plotly::renderPlotly({
+    validate(need(input$hx, "Loading variable"))
      p<-plot_density1(DF3(), input$hx)
      plotly::ggplotly(p)
    })
