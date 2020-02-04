@@ -47,7 +47,7 @@ plot_corr(DF4())
 
 pca <- eventReactive(input$pca1,{
 
-  X <- DF4()
+  X <- as.data.frame(na.omit(DF4()))
   a <- input$nc
 
 validate(need(nrow(DF4())>ncol(DF4()), "Number of variables should be less than the number of rows"))
