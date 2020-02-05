@@ -32,6 +32,7 @@ tabPanel("Example data", p(br()),
 tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")
 ),
 
+hr(),
   shinyWidgets::prettySwitch(
    inputId = "transform",
    label = "Transform the data?", 

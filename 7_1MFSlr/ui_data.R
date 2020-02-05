@@ -36,6 +36,14 @@ tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quot
   ),
 
 hr(),
+  shinyWidgets::prettySwitch(
+   inputId = "transform",
+   label = "Transform the data?", 
+   status = "info",
+   fill = TRUE
+  ),
+  
+hr(),
 
 h4(tags$b("(Optional) Change the types of some variable?")),
 

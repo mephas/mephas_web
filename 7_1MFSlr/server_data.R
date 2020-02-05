@@ -25,6 +25,9 @@ if(!input$col){
 
   x <- as.data.frame(csv)
 }
+
+  if(input$transform) {x <- as.data.frame(t(x))}
+
 return(as.data.frame(x))
 })
 
