@@ -10,7 +10,7 @@ sidebarLayout(
 	    "InputSrc", "Select plot",
 	    c("Mathematical formula based" = "MathDist",
 	      "Simulation data based" = "SimuDist",
-	      "Data-based" = "DataDist")),
+	      "Upload data based" = "DataDist")),
 	hr(),
 	#Select Src end
 		h4(tags$b("Step 2. Set parameters")),
@@ -24,15 +24,10 @@ sidebarLayout(
 	    numericInput("mu", HTML("Mean(&#956), the dashed line, indicates the location  "), value = 0, min = -10000000, max = 10000000),
 	    numericInput("sigma", HTML("Standard Deviation(&#963), indicates the shape"), value = 1, min = 0, max = 10000000),
 	    hr(),
-
-	    HTML("<b>2. Show Probability</b>"),
-	    #(tags$b("2. Show Probability")),
-	    numericInput("n", HTML("Blue Area = Pr(Mean-n*SD < X < Mean+n*SD)"), value = 1, min = 0, max = 10),
-	    numericInput("pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.025, min = 0, max = 1, step = 0.05),
-
+	   	numericInput("n", HTML("Blue Area = Pr(Mean-n*SD < X < Mean+n*SD)"), value = 1, min = 0, max = 10),
 	    hr(),
 	    p(tags$b("You can adjust x-axes range")),
-	    numericInput("xlim", "Range of x-axis, symmetric to 0", value = 5, min = 1, max = 10000000)
+	    numericInput("xlim", "Range of x-axis, symmetric to 0", value = 5)
 	    #numericInput("ylim", "Range of y-axis > 0", value = 0.5, min = 0.1, max = 1),
 	  ),
 	  #condiPa 1 end
@@ -66,9 +61,13 @@ sidebarLayout(
 	    ),
 	    sliderInput("bin1","The number of bins in histogram", min = 0, max = 100, value = 0),
 	    p("When the number of bins is 0, plot will use the default number of bins")
-	  )
+	  ),
 	  #condiPa 3 end
+	  	hr(),
+	    h4(tags$b("Step 3. Show Probability")),
+	    numericInput("pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.025, min = 0, max = 1, step = 0.05),
 
+	    hr()
 	), #sidePa end
 
 	mainPanel(

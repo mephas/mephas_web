@@ -9,7 +9,7 @@ sidebarLayout(
 	    "InputSrc_f", "Select plot",
 	    c("Mathematical formula based" = "MathDist",
 	      "Simulation data based" = "SimuDist",
-	      "Data-based" = "DataDist")),
+	      "Upload data based" = "DataDist")),
 	hr(),
 	#Select Src end
 	h4(tags$b("Step 2. Set parameters")),
@@ -21,10 +21,7 @@ sidebarLayout(
 		numericInput("df11", HTML("df<sub>1</sub> > 0, Degree of Freedom 1"), value = 100, min = 0),
 		numericInput("df21", HTML("df<sub>2</sub> > 0, Degree of Freedom 2"), value = 100, min = 0),
 		hr(),
-		HTML("<b>2. Show Probability</b>"),
-		#h4(tags$b("Step 2. Show Probability")),
-	 	numericInput("f.pr", HTML("Area Proportion Left to Red-line = Pr(X < x0), x0 is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
-		hr(),
+
 	 	p(tags$b("You can adjust x-axes range")),
 		numericInput("f.xlim", "Range of x-axis, > 0", value = 5, min = 1)
 	  ),
@@ -56,9 +53,12 @@ sidebarLayout(
 	    ),
         sliderInput("bin.f","The number of bins in histogram", min = 0, max = 100, value = 0),
         p("When the number of bins is 0, plot will use the default number of bins")
-	  )
+	  ),
 	  #condiPa 3 end
-
+	  hr(),
+		h4(tags$b("Step 3. Show Probability")),
+	 	numericInput("f.pr", HTML("Area Proportion Left to Red-line = Pr(X < x0), x0 is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
+		hr()
 	), #sidePa end
 
 

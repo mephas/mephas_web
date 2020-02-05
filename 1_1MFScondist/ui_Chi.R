@@ -10,7 +10,7 @@ sidebarLayout(
 	    "InputSrc_x", "Select plot",
 	    c("Mathematical formula based" = "MathDist",
 	      "Simulation data based" = "SimuDist",
-	      "Data-based" = "DataDist")),
+	      "Upload data based" = "DataDist")),
 	hr(),
 	#Select Src end
 	h4(tags$b("Step 2. Set parameters")),
@@ -22,12 +22,8 @@ sidebarLayout(
 	    #HTML("<h4><b>Step 1. Set Parameters for Chi(v)</b></h4>"),
  		numericInput("x.df", HTML("v > 0, Degree of Freedom related the the shape"), value = 4, min = 0),
 		hr(),
-		HTML("<b>2. Show Probability</b>"),
-		#h4(tags$b("Step 2. Show Probability")),
-		numericInput("x.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
-		hr(),
-		p(tags$b("You can adjust x-axes range")),
-		numericInput("x.xlim", "Range of x-axis, > 0", value = 8, min = 1)
+
+		numericInput("x.xlim", "Change the range of x-axis, > 0", value = 8, min = 1)
 	  ),
 	 #condiPa 1 end
 
@@ -58,9 +54,12 @@ sidebarLayout(
 	    ),
         sliderInput("bin.x","The number of bins in histogram", min = 0, max = 100, value = 0),
         p("When the number of bins is 0, plot will use the default number of bins")
-	  )
+	  ),
 	  #condiPa 3 end
-
+	  hr(),
+		h4(tags$b("Step 2. Show Probability")),
+		numericInput("x.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
+		hr()
 	), #sidePa end
 
 
