@@ -129,9 +129,21 @@ plotly::plotlyOutput("p.lm1"),
 p(tags$b("2. Residuals vs Fitting plot")),
 plotly::plotlyOutput("p.lm2")
 
-    )
+    ),
+tabPanel("3D Scatter Plot", p(br()),
+HTML(
+"<b> Explanations </b>
+<ul> 
+<li> 3D scatter plot shows the relation between dependent variable (Y), and 2 independent variable (X1, X2)
+<li> Group variable split the points into groups
+</ul>"
+),
 
-
+uiOutput("vx1"),
+uiOutput("vx2"),
+uiOutput("vgroup"),
+plotly::plotlyOutput("p.3dl")
+)
 
 )
 )

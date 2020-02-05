@@ -687,24 +687,66 @@ plot_3D <- function(scores, loads, nx,ny,nz, scale){
   
   rnn <- rownames(as.data.frame(scores))
   
-  p <- plot_ly() %>%
-    add_trace(x=x, y=y, z=z, 
+  p <- plotly::plot_ly() %>%
+    plotly::add_trace(x=x, y=y, z=z, 
               type="scatter3d", mode = "text+markers", 
               name = "original", 
               linetypes = NULL, 
               opacity = 0.5,
               marker = list(size=2),
               text = rnn) %>%
-    layout(p, scene=layout$scene, title=layout$title)
+    plotly::layout(p, scene=layout$scene, title=layout$title)
   
   for (k in 1:nrow(loads)) {
     x <- c(0, loads[k,1])*scale.loads
     y <- c(0, loads[k,2])*scale.loads
     z <- c(0, loads[k,3])*scale.loads
-    p <- p %>% add_trace(x=x, y=y, z=z,
+    p <- p %>% plotly::add_trace(x=x, y=y, z=z,
                          type="scatter3d", mode="lines",
                          line = list(width=4),
                          opacity = 1) 
   }
   p
+}
+
+plot_linely.grp <- function(data, vary, vx1, vx2, vgrp){
+  y <- data[,vary]
+  x1 <- data[,vx1]
+  x2 <- data[,vx2]
+  group <- as.factor(data[, vgrp])
+
+  rnn <- rownames(as.data.frame(data))
+
+ plotly::plot_ly() %>%
+  plotly::add_trace(x=x1, y=x2, z=y, color=group,
+              type="scatter3d", mode = "text+markers", 
+              name = "original", 
+              linetypes = NULL, 
+              opacity = 1,
+              marker = list(size=3),
+              text = rnn) %>%
+  plotly::layout(scene = list(xaxis = list(title = vx1),
+                     yaxis = list(title = vx2),
+                     zaxis = list(title = vary)))
+
+}
+
+plot_linely <- function(data, vary, vx1, vx2){
+  y <- data[,vary]
+  x1 <- data[,vx1]
+  x2 <- data[,vx2]
+  rnn <- rownames(as.data.frame(data))
+
+ plotly::plot_ly() %>%
+  plotly::add_trace(x=x1, y=x2, z=y,
+              type="scatter3d", mode = "text+markers", 
+              name = "original", 
+              linetypes = NULL, 
+              opacity = 1,
+              marker = list(size=3),
+              text = rnn) %>%
+  plotly::layout(scene = list(xaxis = list(title = vx1),
+                     yaxis = list(title = vx2),
+                     zaxis = list(title = vary)))
+
 }
