@@ -138,6 +138,7 @@ output$Xdata <- DT::renderDT(DF3(),
       dom = 'Bfrtip',
       buttons = c('copy', 'csv', 'excel'),
       deferRender = TRUE,
+      scrollX = TRUE,
       scrollY = 300,
       scroller = TRUE))
 
