@@ -4,7 +4,7 @@ sidebarLayout(
 
 sidebarPanel(
 
-h4(tags$b("COne-way ANOVA")),
+h4(tags$b("One-way ANOVA")),
 
   h4(tags$b("Step 1. Data Preparation")),
 
