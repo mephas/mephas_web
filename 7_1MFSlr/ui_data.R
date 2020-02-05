@@ -42,7 +42,7 @@ hr(),
    status = "info",
    fill = TRUE
   ),
-  
+
 hr(),
 
 h4(tags$b("(Optional) Change the types of some variable?")),
@@ -102,6 +102,9 @@ downloadButton("download2", "Download Results (Categorical variable)")
 tabPanel("Linear fitting plot",p(br()),
 
 HTML("<p><b>Linear fitting plot</b>: to roughly show the linear relation between any two numeric variable. Grey area is 95% confidence interval.</p>"),
+p(tags$b("Change the labels of plot")),
+tags$textarea(id = "xlab", rows = 1, "Y"),
+tags$textarea(id = "ylab", rows = 1, "X"),
 
 uiOutput('tx'),
 uiOutput('ty'),

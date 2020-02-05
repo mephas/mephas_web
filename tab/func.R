@@ -7,14 +7,14 @@
 ##' @param vary input y variable name
 ##'
 ##' @export
-plot_scat <- function(data, varx, vary){
+plot_scat <- function(data, varx, vary, xlab, ylab){
   x = data[, varx]
   y = data[, vary]
   name <- rownames(data)
   ggplot(data, aes(x=x,y=y,label=name)) +
     geom_point(shape = 19, size=1) +
     geom_smooth(method = "lm", size=0.5) +
-    xlab(varx) + ylab(vary) +
+    xlab(xlab) + ylab(ylab) +
     theme_minimal() + theme(legend.title = element_blank())
 }
 ##' @title plot functions in MEPHAS

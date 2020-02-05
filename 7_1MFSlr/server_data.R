@@ -188,7 +188,7 @@ output$tx = renderUI({
   validate(need(input$tx, "Loading variable"))
   validate(need(input$ty, "Loading variable"))
 
-   p<- plot_scat(DF3(), input$tx, input$ty)
+   p<- plot_scat(DF3(), input$tx, input$ty, input$xlab, input$ylab)
    plotly::ggplotly(p)
    })
  
