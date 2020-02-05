@@ -88,7 +88,7 @@ condition = "input.explain_on_off",
 p(tags$i("From the results we could see that, with the increase of A, results in training got better results (higher R^2, lower in MSEP and RMSEP)")),
 p(tags$i("However, the results in CV were different. Extremely good in training with extremely bad in CV may cause overfitting, indicating a poor ability in prediction.")),
 p(tags$i("In this example, we decided to choose 3 components (A=3), according to the MSEP and RMSEP."))
-),
+)
 
 ),
 

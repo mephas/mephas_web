@@ -94,7 +94,7 @@ conditionalPanel(
 condition = "input.explain_on_off",
 p(tags$i("Because we chose more than one dependent variables (Y), the results were showed by each Y.")),
 p(tags$i("PLSR generate new variables from both Y and X, so R^2 is better than PCR. Variance explained (%) in Y is also higher than PCR."))
-),
+)
 
 ),
 
