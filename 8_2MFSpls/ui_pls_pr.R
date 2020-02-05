@@ -40,6 +40,10 @@ mainPanel(
 h4(tags$b("Output. Model Results")),
 
 tabsetPanel(
+
+tabPanel("Test Data",p(br()),
+DT::DTOutput("newX.pls")
+),
 tabPanel("Predicted dependent variables",p(br()),
 
 DT::DTOutput("pred.lp.pls")
@@ -47,9 +51,6 @@ DT::DTOutput("pred.lp.pls")
 
 tabPanel("Predicted Components",p(br()),
 DT::DTOutput("pred.comp.pls")
-),
-tabPanel("Test Data",p(br()),
-DT::DTOutput("newX.pls")
 )
 )
 )

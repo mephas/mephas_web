@@ -18,6 +18,7 @@ if(!input$newcol.spls){
     }
     validate( need(ncol(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
     validate( need(nrow(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
+    validate(need(match(input$x.s, colnames(csv)), "New data do not cover all the independent variables"))
 
   x <- as.data.frame(csv)
 }
@@ -36,7 +37,7 @@ buttons = c('copy', 'csv', 'excel'),
 scrollX = TRUE))
 
 pred.lp.spls = eventReactive(input$B.spls,
-{x <- as.data.frame(predict(spls(), newdata = as.matrix(newX.spls())[,input$x], type="fit"))
+{x <- as.data.frame(predict(spls(), newdata = as.matrix(newX.spls())[,input$x.s], type="fit"))
 colnames(x) <- input$y.s
 return(x)
 })

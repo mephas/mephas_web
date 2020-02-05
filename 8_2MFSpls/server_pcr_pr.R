@@ -17,8 +17,10 @@ if(input$newcol){
     }
     validate( need(ncol(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
     validate( need(nrow(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
+    validate(need(match(input$x, colnames(csv)), "New data do not cover all the independent variables"))
 
   x <- as.data.frame(csv)
+
 }
 
 if(input$scale) {x <- scale(x)}
@@ -37,6 +39,7 @@ scrollX = TRUE))
 
 pred.lp = eventReactive(input$B.pcr,
 { 
+
   as.data.frame(predict(pcr(), newdata = as.matrix(newX())[,input$x], type="response")[,,1:pcr()$ncomp])
 })
 

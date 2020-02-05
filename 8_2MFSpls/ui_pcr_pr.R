@@ -42,6 +42,9 @@ h4(tags$b("Output. Model Results")),
 
 #p(br()),
 tabsetPanel(
+tabPanel("Test Data",p(br()),
+DT::DTOutput("newX")
+),
 tabPanel("Predicted Dependent Variable",p(br()),
 p("The first column (1 comps) is predicted value using the 1st component, the second column (2 comps) is predicted using the first 2 components, and so forth."),
 DT::DTOutput("pred.lp")
@@ -49,10 +52,8 @@ DT::DTOutput("pred.lp")
 
 tabPanel("Predicted Components",p(br()),
 DT::DTOutput("pred.comp")
-),
-tabPanel("Test Data",p(br()),
-DT::DTOutput("newX")
 )
+
 )
 )
 )

@@ -18,6 +18,7 @@ if(!input$newcol.pls){
     }
     validate( need(ncol(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
     validate( need(nrow(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
+    validate(need(match(input$x.r, colnames(csv)), "New data do not cover all the independent variables"))
 
   x <- as.data.frame(csv)
 }
