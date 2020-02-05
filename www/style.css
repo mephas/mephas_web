@@ -26,3 +26,11 @@ body {
 	font-weight: bold;
 }
  
+.selectize-control.single .selectize-dropdown{ 
+	color: grey;
+	font-weight: bold;
+}
+
+.selectize-input { 
+	font-weight: bold;
+}
