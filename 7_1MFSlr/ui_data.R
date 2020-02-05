@@ -43,8 +43,6 @@ hr(),
    fill = TRUE
   ),
 
-uiOutput("rmrow"),
-
 hr(),
 
 h4(tags$b("(Optional) Change the types of some variable?")),
@@ -64,6 +62,10 @@ uiOutput("lvl"),
 p(tags$b("2. Input the referential level, each line for one variable")),
 
 tags$textarea(id='ref',""),
+hr(),
+
+uiOutput("rmrow"),
+
 hr(),
 
 h4(tags$b(actionLink("Model","Build Model")))

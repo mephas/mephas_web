@@ -87,14 +87,36 @@ multiple = TRUE
 )
 })
 
+output$rmrow = renderUI({
+shinyWidgets::pickerInput(
+'rmrow',
+tags$b('Remove some samples, may be outliers'),
+selected = NULL,
+choices = rownames(DF2()),
+multiple = TRUE,
+options = pickerOptions(
+      actionsBox=TRUE,
+      size=5)
+)
+})
+
+DF2.1 <- reactive({
+  if(length(input$rmrow)==0) {df <- DF2()}
+
+  else{
+  df <- DF2()[-which(rownames(DF2()) %in% c(input$rmrow)),]
+  }
+  return(df)
+  })
+
 DF3 <- reactive({
    
   if (length(input$lvl)==0 || length(unlist(strsplit(input$ref, "[\n]")))==0 ||length(input$lvl)!=length(unlist(strsplit(input$ref, "[\n]")))){
-  df <- DF2()
+  df <- DF2.1()
 }
 
 else{
-  df <- DF2()
+  df <- DF2.1()
   x <- input$lvl
   y <- unlist(strsplit(input$ref, "[\n]"))
   for (i in 1:length(x)){
@@ -214,6 +236,7 @@ DF3(),
       dom = 'Bfrtip',
       buttons = c('copy', 'csv', 'excel'),
       deferRender = TRUE,
+      scrollX=TRUE,
       scrollY = 300,
       scroller = TRUE))
 

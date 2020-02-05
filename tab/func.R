@@ -24,14 +24,14 @@ plot_scat <- function(data, varx, vary, xlab, ylab){
 ##' @param vary input y variable name
 ##'
 ##' @export
-plot_slgt <- function(data, varx, vary){
+plot_slgt <- function(data, varx, vary, xlab, ylab){
   x = data[, varx]
   y = as.numeric(as.factor(data[, vary]))-1
   name <- rownames(data)
   ggplot(data, aes(x=x, y=y,label=name)) +
   geom_point(shape = 19,  size = 1) +
   stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE,  size = 0.5) +
-  xlab(varx) + ylab(vary) +
+  xlab(xlab) + ylab(ylab) +
   theme_minimal() + theme(legend.title = element_blank())
 }
 ##' @title plot functions in MEPHAS

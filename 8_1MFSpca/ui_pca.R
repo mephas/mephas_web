@@ -14,6 +14,7 @@ hr(),
 h4(tags$b("Step 1. Choose parameters to build the model")),    
 
 uiOutput('x'), 
+p("The number of X should be < the number of samples (rows)"),
 
 numericInput("nc", "2. How many components (a)", 4, min = 1, max = NA),
 p(tags$i("According to the suggested results from parallel analysis, we chose to generate 4 components from the data")),

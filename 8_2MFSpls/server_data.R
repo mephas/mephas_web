@@ -74,19 +74,42 @@ selectInput(
 )
 })
 
-X <- reactive({
+X.1 <- reactive({
   df <-DF1() 
 df[input$factor2] <- as.data.frame(lapply(df[input$factor2], as.numeric))
 return(as.data.frame(na.omit(df)))
   })
 
 type.fac2 <- reactive({
-colnames(X()[unlist(lapply(X(), is.factor))])
+colnames(X.1()[unlist(lapply(X.1(), is.factor))])
 })
 
+output$rmrow = renderUI({
+shinyWidgets::pickerInput(
+'rmrow',
+tags$b('Remove some samples, may be outliers'),
+selected = NULL,
+choices = rownames(X.1()),
+multiple = TRUE,
+options = pickerOptions(
+      actionsBox=TRUE,
+      size=5)
+)
+})
+
+X <- reactive({
+  if(length(input$rmrow)==0) {df <- X.1()}
+
+  else{
+  df <- X.1()[-which(rownames(X.1()) %in% c(input$rmrow)),]
+  }
+  return(df)
+  })
+
+
  output$Xdata <- DT::renderDT({
-  if (ncol(DF0())>1000 || nrow(DF0())>1000) {DF0()[,1:1000]}
-  else { DF0()}
+  if (ncol(X())>1000 || nrow(X())>1000) {X()[,1:1000]}
+  else { X()}
   }, 
     extensions = list(
       'Buttons'=NULL,
@@ -165,7 +188,7 @@ output$tx = renderUI({
     validate(need(input$tx, "Loading variable"))
   validate(need(input$ty, "Loading variable"))
 
-   p<- plot_scat(X(), input$tx, input$ty)
+   p<- plot_scat(X(), input$tx, input$ty, input$xlab, input$ylab)
    plotly::ggplotly(p)
    })
 

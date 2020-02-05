@@ -53,6 +53,11 @@ h4(tags$b("(Optional) Change the types of some variable?")),
 
 uiOutput("factor1"),
 uiOutput("factor2"),
+
+hr(),
+
+uiOutput("rmrow"),
+
 hr(),
 
 h4(tags$b(actionLink("ModelPCR","Build PCR Model"))),
@@ -99,6 +104,9 @@ HTML("<p><b>Linear fitting plot</b>: to roughly show the linear relation between
 
 uiOutput('tx'),
 uiOutput('ty'),
+p(tags$b("3. Change the labels of X and Y axes")),
+tags$textarea(id = "xlab", rows = 1, "X"),
+tags$textarea(id = "ylab", rows = 1, "Y"),
 
 plotly::plotlyOutput("p1", width = "80%")
 ),

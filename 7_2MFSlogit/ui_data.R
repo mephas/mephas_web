@@ -30,38 +30,6 @@ tabPanel("Example data", p(br()),
   ),
 
 tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")
-# tabPanel("Upload Data", p(br()),
-#
-# p("We suggested putting the dependent variable (Y) in the left side of all independent variables (X) "),
-#
-# fileInput('file', "1. Choose CSV/TXT file", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
-#
-# p(tags$b("2. Show 1st row as column names?")),
-# checkboxInput("header", "Yes", TRUE),
-#
-# p(tags$b("3. Use 1st column as row names? (No duplicates)")),
-# checkboxInput("col", "Yes", TRUE),
-#
-# radioButtons("sep", "4. Which separator for data?",
-#   choiceNames = list(
-#     HTML("Comma (,): CSV often uses this"),
-#     HTML("One Tab (->|): TXT often uses this"),
-#     HTML("Semicolon (;)"),
-#     HTML("One Space (_)")
-#     ),
-#   choiceValues = list(",", "\t", ";", " ")
-#   ),
-#
-# radioButtons("quote", "5. Which quote for characters?",
-# choices = c("None" = "",
-#            "Double Quote" = '"',
-#            "Single Quote" = "'"),
-# selected = '"'),
-#
-# p("Correct separator and quote ensure the successful data input"),
-#
-# a(tags$i("Find some example data here"),href = "https://github.com/mephas/datasets")
-#   )
   ),
 
 hr(),
@@ -77,6 +45,10 @@ uiOutput("lvl"),
 p(tags$b("2. Input the referential level, each line for one variable")),
 
 tags$textarea(id='ref',""),
+hr(),
+
+uiOutput("rmrow"),
+
 hr(),
 
 h4(tags$b(actionLink("Model","Build Model")))
@@ -119,6 +91,9 @@ tabPanel("Logit Plot",br(),
 
 uiOutput('tx'),
 uiOutput('ty'),
+p(tags$b("3. Change the labels of X and Y axes")),
+tags$textarea(id = "xlab", rows = 1, "X"),
+tags$textarea(id = "ylab", rows = 1, "Y"),
 
 plotly::plotlyOutput("p1")
 ),

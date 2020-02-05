@@ -38,7 +38,8 @@ selected = names(DF4()),
 choices = names(DF4()),
 multiple = TRUE,
 options = pickerOptions(
-      actionsBox=TRUE)
+      actionsBox=TRUE,
+      size=5)
 )
 })
 
@@ -54,7 +55,8 @@ choices = type.fac4(),
 multiple = TRUE,
 options = pickerOptions(
       maxOptions=2,
-      actionsBox=TRUE)
+      actionsBox=TRUE,
+      size=5)
 )
 })
 

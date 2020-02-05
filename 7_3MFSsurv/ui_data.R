@@ -97,6 +97,10 @@ tags$textarea(id='ref', column=40, ""),
 
 hr(),
 
+uiOutput("rmrow"),
+
+hr(),
+
 h4(tags$b(actionLink("Non-Parametric Model","Build Non-Parametric Model"))),
 h4(tags$b(actionLink("Semi-Parametric Model","Build Semi-Parametric Model"))),
 h4(tags$b(actionLink("Parametric Model","Build Parametric Model")))

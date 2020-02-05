@@ -18,7 +18,8 @@ output$x = renderUI({
     choices = type.num3(),
     multiple = TRUE,
     options = pickerOptions(
-      actionsBox=TRUE)
+      actionsBox=TRUE,
+      size=5)
 )
   })
 
