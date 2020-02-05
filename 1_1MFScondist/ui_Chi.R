@@ -75,7 +75,8 @@ sidebarLayout(
         plotOutput("x.plot", click = "plot_click5"),
         verbatimTextOutput("x.info"),
 
-        p(tags$b("The position of Red-line, x<sub>0</sub>")),
+        HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
+        #p(tags$b("The position of Red-line, x<sub>0</sub>")),
         tableOutput("x")
 		),
 

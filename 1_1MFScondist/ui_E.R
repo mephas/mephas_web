@@ -71,7 +71,8 @@ sidebarLayout(
   		  tags$b("Exponential distribution plot"),
   		  plotOutput("e.plot", click = "plot_click9"),#
   		  verbatimTextOutput("e.info"),
-  		  p(tags$b("The position of Red-line, x<sub>0</sub>")),
+        HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
+  		  #p(tags$b("The position of Red-line, x<sub>0</sub>")),
   		  tableOutput("e")
   		),
   		conditionalPanel(

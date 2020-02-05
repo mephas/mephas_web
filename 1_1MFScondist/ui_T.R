@@ -78,7 +78,8 @@ tabPanel.upload.num(file ="t.file", header="t.header", col="t.col", sep="t.sep")
         plotOutput("t.plot", click = "plot_click3"),
         verbatimTextOutput("t.info"),
 
-        p(tags$b("The position of Red-line, x<sub>0</sub>")),
+        HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
+        #p(tags$b("The position of Red-line, x<sub>0</sub>")),
         tableOutput("t")
 		),
 

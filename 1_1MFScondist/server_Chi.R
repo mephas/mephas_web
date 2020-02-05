@@ -51,6 +51,13 @@ output$x.sum = renderTable({
   return(x)
   }, digits = 6, colnames=FALSE, rownames=TRUE, width = "80%")
 
+output$x = renderTable({
+  x <- data.frame(x.postion = qchisq(input$x.pr, df = input$x.df))
+  rownames(x) <- c("Red-line Position (x)")
+  return(x)
+  }, digits = 6, colnames=FALSE, rownames=TRUE, width = "80%")
+
+
 XX <- reactive({
   inFile <- input$x.file
   if (is.null(inFile)) {

@@ -78,7 +78,8 @@ mainPanel(
 		tags$b("Beta distribution plot"),
         plotOutput("b.plot", click = "plot_click13"),
         verbatimTextOutput("b.info"),
-        p(tags$b("The position of Red-line, x<sub>0</sub>")),
+        HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
+        #p(tags$b("The position of Red-line, x<sub>0</sub>")),
         tableOutput("b")
 		),
 
