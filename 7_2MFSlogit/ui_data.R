@@ -57,7 +57,7 @@ h4(tags$b(actionLink("Model","Build Model")))
 
 ),
 
-
+##########----------##########----------##########
 mainPanel(
 h4(tags$b("Output 1. Data Information")),
 p(tags$b("Data Preview")),
@@ -89,6 +89,9 @@ downloadButton("download2", "Download Results (Categorical variables)")
 
 tabPanel("Logit Plot",br(),
 
+HTML("<p><b>Logit plot</b>: to roughly show the relation between any two numeric variable."),
+hr(),
+
 uiOutput('tx'),
 uiOutput('ty'),
 p(tags$b("3. Change the labels of X and Y axes")),
@@ -100,7 +103,10 @@ plotly::plotlyOutput("p1")
 
 tabPanel("Histogram", br(),
 
-HTML("<p><b>Histogram</b>: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values.</p>"),
+HTML("<p><b>Histogram</b>: to roughly show the probability distribution of a variable by depicting the frequencies of observations occurring in certain ranges of values.</p>"),
+HTML("<p><b>Density plot</b>: to show the distribution of a variable</p>"),
+hr(),
+
 uiOutput('hx'),
 p(tags$b("Histogram")),
 plotly::plotlyOutput("p2"),
@@ -108,5 +114,6 @@ sliderInput("bin", "The number of bins in the histogram", min = 0, max = 100, va
 p("When the number of bins is 0, plot will use the default number of bins "),
 p(tags$b("Density plot")),
 plotly::plotlyOutput("p21"))
-
-)))
+))
+##########----------##########----------##########
+)

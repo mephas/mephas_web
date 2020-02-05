@@ -87,8 +87,9 @@ output$pls_rmsep  <- renderPrint({
   })
 
 score.r <- reactive({
-  as.data.frame(pls()$scores[,1:pls()$ncomp])
-  })
+  s <- as.data.frame(predict(pls(), type="scores"))
+  rownames(s) <- rownames(X())
+  return(s)  })
 
 load.r <- reactive({
   as.data.frame(pls()$loadings[,1:pls()$ncomp])
@@ -109,7 +110,7 @@ output$pls.l <- DT::renderDT({load.r()},
     scrollX = TRUE))
 
 output$pls.pres <- DT::renderDT({
-  as.data.frame(pls()$fitted.values[,,1:pls()$ncomp])
+  as.data.frame(pls()$fitted.values[,,pls()$ncomp])
   }, 
   extensions = 'Buttons', 
     options = list(
@@ -117,14 +118,14 @@ output$pls.pres <- DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pls.coef <- DT::renderDT({as.data.frame(pls()$coefficients)}, 
+output$pls.coef <- DT::renderDT({as.data.frame(pls()$coefficients[,,pls()$ncomp])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pls.resi <- DT::renderDT({as.data.frame(pls()$residuals[,,1:pls()$ncomp])}, 
+output$pls.resi <- DT::renderDT({as.data.frame(pls()$residuals[,,pls()$ncomp])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

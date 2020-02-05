@@ -508,7 +508,7 @@ plot_load <- function(loads, a){
     scale_fill_gradient2(name = "Loading",
                          high = "blue", mid = "white", low = "red",
                          midpoint=0, guide=F) +
-    ylab("Loading Strength") + #improve y-axis label
+    ylab("") + #improve y-axis label
     theme_bw(base_size=10)
 }
 

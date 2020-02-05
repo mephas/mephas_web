@@ -99,7 +99,9 @@ output$pcr.l <- DT::renderDT({load()},
     scrollX = TRUE))
 
 output$pcr.pres <- DT::renderDT({
-  y <- as.data.frame(predict(pcr(), comps=pcr()$ncomp, type="response"))
+  y <- data.frame(
+    Predict.Y=predict(pcr(), comps=pcr()$ncomp, type="response"),
+    Residuals=pcr()$residuals[,,pcr()$ncomp])
   rownames(y) <- rownames(X())
   return(y)
   }, 
@@ -109,14 +111,8 @@ output$pcr.pres <- DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pcr.coef <- DT::renderDT({as.data.frame(pcr()$coefficients)}, 
-  extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
-
-output$pcr.resi <- DT::renderDT({as.data.frame(pcr()$residuals[,,1:pcr()$ncomp])}, 
+output$pcr.coef <- DT::renderDT({
+  data.frame(Coefficient = pcr()$coefficients[,, pcr()$ncomp])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -147,18 +143,16 @@ plotly::ggplotly(p)
 })
 
 output$tdplot <- plotly::renderPlotly({ 
-validate(need(input$nc>=3, "The number of components must be >= 3"))
 
 score <- score()
 load <- load()
 
-plot_3D(scores=score, loads=load, nx=input$td1,ny=input$td2,nz=input$td3, scale=input$lines)
+plot_3D(score, load, input$td1,input$td2,input$td3,input$lines)
 
 
 })
 
 output$tdtrace <- renderPrint({
-  validate(need(input$nc>=3, "The number of components must be >= 3"))
   x <- rownames(load())
   names(x) <- paste0("trace", 1:length(x)) 
   return(x)

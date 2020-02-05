@@ -17,8 +17,8 @@ uiOutput('y.s'),
 uiOutput('x.s'), 
 
 
-numericInput("nc.s", "4. How many new components", 3, min = 1, max = NA),
-numericInput("nc.eta", "5. Parameter for selection range (larger number chooses less variables)", 0.3, min = 0, max = 1, step=0.1),
+numericInput("nc.s", "4. How many new components (A, larger number chooses more variables)", 3, min = 1, max = NA),
+numericInput("nc.eta", "5. Parameter for selection range (larger number chooses less variables)", 0.5, min = 0, max = 1, step=0.1),
 
 radioButtons("method.s", "Which PLS algorithm",
   choices = c("SIMPLS: simple and fast" = 'simpls',
@@ -26,6 +26,15 @@ radioButtons("method.s", "Which PLS algorithm",
            "Wide kernel algorithm" = "widekernelpls",
            "Classical orthogonal scores algorithm" = "oscorespls"),
 selected = 'simpls'),
+
+conditionalPanel(
+condition = "input.explain_on_off",
+p(tags$i("SPLS adds a penalty to make variable selection available. The penalty will select the variables that may be good for the prediction. The components are generated based on the selected variables.")),
+p(tags$i("In the example of NKI data, we used time as dependent variable (Y), and variable from TSPYL5 ...are used as independent variables.
+  The default is to put all variables other than Y into X. Thus, we need to remove Diam and Age variables.")),
+p(tags$i("From the data tab, we knew that X is a 20 by 25 matrix, so the maximum of a is 19. There will be error if A=20.")),
+),
+
 hr(),
 
 h4(tags$b("Step 2. If data and model are ready, click the blue button to generate model results.")),
@@ -44,13 +53,12 @@ h4(tags$b("Output 1. Data Preview")),
 tabsetPanel(
 
 tabPanel("Cross-validated SPLS", p(br()),
-p("Choose optimal parameters from the following settings"),
-numericInput("cv.s", "Maximum new components", 10, min = 1, max = NA),
-numericInput("cv.eta", "Parameter for selection range (larger number chooses less variables)", 0.9, min = 0, max = 1, step=0.1),
+p("Choose optimal parameters from the following ranges"),
+numericInput("cv.s", "Maximum new components (default: 1 to 10)", 10, min = 1, max = NA),
+numericInput("cv.eta", "Parameter for selection range (larger number chooses less variables, default: 0.1 to 0.9)", 0.9, min = 0, max = 1, step=0.1),
 #p("This result chooses optimal parameters using 10-fold cross-validation which split data randomly, so the result will not be exactly the same every time."),
-p("Cross-validation will choose the parameters according to the minimum error, but it may not be always proper."),
+p("Cross-validation will choose the parameters according to the minimum error, giving some suggestions to choose parameters."),
 actionButton("splscv", (tags$b("Show CV Results >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
-
 verbatimTextOutput("spls_cv")
   ),
 tabPanel("Part of Data", br(),
@@ -65,8 +73,9 @@ h4(tags$b("Output 1. Model Results")),
 
 tabsetPanel(
 tabPanel("Selection",p(br()),
-p(tags$b("The selected variables")),
 verbatimTextOutput("spls"),
+hr(),
+p(tags$b("This plot shows how the coefficients changed to choose variables")),
 numericInput("spls.y", "Which response (N'th dependent variable) to plot", 1, min = 1, step=1),
 plotOutput("spls.bp"),
 p(tags$b("Coefficient")),
@@ -74,7 +83,7 @@ DT::DTOutput("spls.coef")
 ),
 
 tabPanel("Data Fitting",p(br()),
-p(tags$b("Predicted dependent variables")),
+p(tags$b("Predicted Y")),
 DT::DTOutput("spls.pres"),
 p(tags$b("Selected variables")),
 DT::DTOutput("spls.sv")
@@ -90,16 +99,21 @@ tabPanel("Components", p(br()),
 </ul>
   "),
     hr(),
-p(tags$b("When #comp >=2, choose components to show factor and loading 2D plot")),
+p(tags$b("When A >=2, choose 2 different components to show component and loading 2D plot")),
 numericInput("c1.s", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c2.s", "2. Component at y-axis", 2, min = 1, max = NA),
-p("x and y must be different"),
+
+conditionalPanel(
+condition = "input.explain_on_off",
+p(tags$i("In this plot, we plot the scatter points of component1 and component2, and found 378 was one of the outliers."))
+),
+
 	plotly::plotlyOutput("spls.s.plot"),
   DT::DTOutput("spls.s")
   ),
 
 tabPanel("Loading", p(br()),
-	p("This is loadings derived based on the selected variables"),
+  p(tags$b("This is loadings derived based on the selected variables")),
 	  HTML("
 <b>Explanations</b>
 <ul>
@@ -110,12 +124,13 @@ tabPanel("Loading", p(br()),
 <li> If you want to perform other analyses on the data, you may want to have at least 90% of the variance explained by the factors.</li>
 </ul>
   "),
+    hr(),
 	plotly::plotlyOutput("spls.l.plot"),
   DT::DTOutput("spls.l")
   ),
 
 tabPanel("Component and Loading 2D Plot", p(br()),
-  p("This is loadings derived based on the selected variables"),
+  p(tags$b("This is loadings derived based on the selected variables")),
     HTML("
 <b>Explanations</b>
 <ul>
@@ -126,10 +141,9 @@ tabPanel("Component and Loading 2D Plot", p(br()),
 </ul>
   "),
     hr(),
-p(tags$b("When #comp >=2, choose components to show factor and loading 2D plot")),
+p(tags$b("When A >=2, choose 2 different components to show component and loading 2D plot")),
 numericInput("c11.s", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c22.s", "2. Component at y-axis", 2, min = 1, max = NA),
-p("x and y must be different"),
   plotly::plotlyOutput("spls.biplot")
   ),
 
@@ -138,7 +152,7 @@ tabPanel("Component and Loading 3D Plot" ,p(br()),
 <b>Explanations</b>
 <ul>
 <li> This is the extension for 2D plot. This plot overlays the components and the loadings for 3 PCs (choose PCs and the length of lines in the left panel)</li>
-<li> We can find the outliers in the plot. </li>
+<li> This plot has similar functionality with 2D plots. Trace is the variables which can be hidden when click. </li>
 <li> If the data follow a normal distribution and no outliers are present, the points are randomly distributed around zero</li>
 <li> Loadings identify which variables have the largest effect on each component</li>
 <li> Loadings can range from -1 to 1. Loadings close to -1 or 1 indicate that the variable strongly influences the component. Loadings close to 0 indicate that the variable has a weak influence on the component.</li>
