@@ -12,3 +12,17 @@ body {
 	color: #4169e1; 
 	font-weight: bold;
 }
+
+.shiny-output-error { 
+	visibility: visible; 
+	color: #4169e1; 
+	font-weight: bold;
+}
+
+.shiny-output-error:before { 
+	visibility: visible; 
+	content: 'An error occurred. Please check the input parameter, data, and variables.'; 
+	color: #4169e1; 
+	font-weight: bold;
+}
+ 

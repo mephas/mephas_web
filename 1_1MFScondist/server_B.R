@@ -1,5 +1,9 @@
 #****************************************************************************************************************************************************1.4. beta
 output$b.plot <- renderPlot({
+  validate(need(input$b.xlim && input$b.shape && input$b.scale && input$b.pr, "Please input correct parameters"))
+  validate(need(input$b.shape >0 && input$b.scale>0, "Please input correct parameters"))
+  validate(need(input$b.pr >=0 && input$b.pr<=1, "Please input correct parameters"))
+
   ggplot(data = data.frame(x = c(-0.1, input$b.xlim)), aes(x)) +
   stat_function(fun = "dbeta", args = list(shape1 = input$b.shape, shape2=input$b.scale)) + 
   ylab("Density") +
@@ -16,6 +20,9 @@ output$b.info = renderText({
     paste0("Click Position: ", "\n", xy_str(input$plot_click13))})
 
 output$b = renderTable({
+  validate(need(input$b.shape >0 && input$b.scale>0, "Please input correct parameters"))
+  validate(need(input$b.pr >=0 && input$b.pr<=1, "Please input correct parameters"))
+
   x <- data.frame(x.postion = qbeta(input$b.pr, shape1 = input$b.shape, shape2=input$b.scale))
   rownames(x) <- c("Red-line Position (x)")
   return(x)
@@ -24,6 +31,8 @@ output$b = renderTable({
 ##########--------------------##########--------------------##########--------------------##########--------------------##########--------------------##########
 B = reactive({ # prepare dataset
   #set.seed(1)
+  validate(need(input$b.size, "Please input correct parameters"))
+  validate(need(input$b.pr >=0 && input$b.pr<=1, "Please input correct parameters"))
   df = data.frame(x = rbeta(input$b.size, shape1 = input$b.shape, shape2=input$b.scale))
   return(df)})
 
