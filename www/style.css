@@ -14,14 +14,14 @@ body {
 }
 
 .shiny-output-error { 
-	visibility: visible; 
+	visibility: hidden; 
 	color: #4169e1; 
 	font-weight: bold;
 }
 
 .shiny-output-error:before { 
 	visibility: visible; 
-	content: 'An error occurred. Please check the input parameter, data, and variables.'; 
+	content: 'An error occurred. Please check the input parameter and data (such as variable name and data type)'; 
 	color: #4169e1; 
 	font-weight: bold;
 }
