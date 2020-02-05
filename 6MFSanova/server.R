@@ -1,12 +1,3 @@
- 
-if (!require("shiny")) {install.packages("shiny")}; library("shiny")
-if (!require("ggplot2")) {install.packages("ggplot2")}; library("ggplot2")
-if (!require("psych")) {install.packages("psych")}; library("psych")
-if (!require("DescTools")) {install.packages("DescTools")}; library("DescTools")
-if (!require("dunn.test")) {install.packages("dunn.test")}; library("dunn.test")
-if (!require("DT")) {install.packages("DT")}; library("DT")
-if (!require("plotly")) {install.packages("plotly")}; library("plotly")
-if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
 #shinyServer(
 

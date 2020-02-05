@@ -58,3 +58,12 @@ shinyWidgets::switchInput(#
         )
 )
 }
+
+sty.link <- function(){
+  tags$head(
+  tags$link(rel = "shortcut icon", href = "../www/favicon.ico"),
+  tags$link(rel = "icon", type = "image/png", sizes = "96x96", href = "../www/favicon-96x96.ico"),
+  tags$link(rel = "icon", type = "image/png", sizes = "32x32", href = "../www/favicon-32x32.png"),
+  tags$link(rel = "icon", type = "image/png", sizes = "16x16", href = "../www/favicon-16x16.png")
+)
+}

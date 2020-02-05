@@ -1,18 +1,24 @@
+if (!require("stargazer")) {install.packages("stargazer")}; library("stargazer")
+if (!require("survival")) {install.packages("survival")}; library("survival")
+if (!require("survminer")) {install.packages("survminer")}; library("survminer")
+if (!require("shiny")) {install.packages("shiny")}; library("shiny")
+if (!require("ggplot2")) {install.packages("ggplot2")}; library("ggplot2")
+if (!require("psych")) {install.packages("psych")}; library("psych")
+if (!require("reshape2")) {install.packages("reshape2")}; library("reshape2")
+if (!require("survAUC")) {install.packages("survAUC")}; library("survAUC")
+if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
+
 source("../tab/tab.R")
 source("../tab/panel.R")
+source("../tab/func.R")
+
 tagList(
 
-source("../tab/font.R",local=TRUE, encoding="UTF-8")$value,
-#tags$head(includeScript("../0tabs/navtitle.js")),
-tags$head(
-  tags$link(rel = "shortcut icon", href = "../www/favicon.ico"),
-  tags$link(rel = "icon", type = "image/png", sizes = "96x96", href = "../www/favicon-96x96.ico"),
-  tags$link(rel = "icon", type = "image/png", sizes = "32x32", href = "../www/favicon-32x32.png"),
-  tags$link(rel = "icon", type = "image/png", sizes = "16x16", href = "../www/favicon-16x16.png")
-),
-tags$style(type="text/css", "body {padding-top: 70px;}"),
-#source("../0tabs/onoff.R", local=TRUE)$value,
+includeCSS("../www/style.css"),
+sty.link(),
 tabOF(),
+
+##########--------------------##########--------------------##########
 
 navbarPage(
 theme = shinythemes::shinytheme("cerulean"),

@@ -1,0 +1,14 @@
+
+
+* {
+	font-family: Arial, sans-serif;
+}
+
+body {
+	padding-top: 70px;
+}
+
+.shiny-output-error-validation {
+	color: #4169e1; 
+	font-weight: bold;
+}
