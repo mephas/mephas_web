@@ -110,7 +110,7 @@ p(tags$b("3. Change the labels of X and Y axes")),
 tags$textarea(id = "xlab", rows = 1, "X"),
 tags$textarea(id = "ylab", rows = 1, "Y"),
 
-plotly::plotlyOutput("p1", width = "80%")
+plotly::plotlyOutput("p1")
 ),
 
 tabPanel("Histogram", p(br()),
@@ -121,11 +121,11 @@ hr(),
 
 uiOutput('hx'),
 p(tags$b("Histogram")),
-plotly::plotlyOutput("p2", width = "80%"),
+plotly::plotlyOutput("p2"),
 sliderInput("bin", "The number of bins in the histogram", min = 0, max = 100, value = 0),
 p("When the number of bins is 0, plot will use the default number of bins "),
 p(tags$b("Density plot")),
-plotly::plotlyOutput("p21", width = "80%"))
+plotly::plotlyOutput("p21"))
 
 )
 
