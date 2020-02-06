@@ -99,6 +99,8 @@ tabPanel("Components", p(br()),
 </ul>
   "),
     hr(),
+uiOutput("g.s"),
+uiOutput("type.s"),
 p(tags$b("When A >=2, choose 2 different components to show component and loading 2D plot")),
 numericInput("c1.s", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c2.s", "2. Component at y-axis", 2, min = 1, max = NA),

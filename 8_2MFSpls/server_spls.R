@@ -153,13 +153,56 @@ output$spls.sv <- DT::renderDT({as.data.frame(X()[spls()$A])},
 
 
 
-output$spls.s.plot  <- plotly::renderPlotly({ 
-  validate(need(input$nc.s>=2, "The number of components must be >=2"))
+#output$spls.s.plot  <- plotly::renderPlotly({ 
+#  validate(need(input$nc.s>=2, "The number of components must be >=2"))#
 
-  score <- score.s()
-  p<-plot_score(score, input$c1.s, input$c2.s)
-  plotly::ggplotly(p)
-  })
+#  score <- score.s()
+#  p<-plot_score(score, input$c1.s, input$c2.s)
+#  plotly::ggplotly(p)
+#  })
+##########----------##########----------##########---------- score plot
+output$g.s = renderUI({
+selectInput(
+'g.s',
+tags$b('1. Choose one group variable, categorical to add group circle'),
+#selected = type.fac4()[1],
+choices = c("NULL",type.fac4())
+)
+})
+
+output$type = renderUI({
+radioButtons("type.s", "The type of ellipse",
+ choices = c(
+  "None" = "",
+  "T: assumes a multivariate t-distribution" = 't',
+ "Normal: assumes a multivariate normal-distribution" = "norm",
+ "Euclid: the euclidean distance from the center" = "euclid"),
+ selected = 'euclid',
+ width="500px")
+})
+
+output$spls.s.plot  <- plotly::renderPlotly({ 
+#output$pca.ind  <- renderPlot({ 
+df <- score.s()
+if (input$g.s == "NULL") {
+#df$group <- rep(1, nrow(df))
+p<-plot_score(df, input$c1.s, input$c2.s)
+
+}
+else {
+  group <- X()[,input$g.s]
+  if (input$type.s==""){
+    p<-plot_scoreg(df, input$c1.s, input$c2.s, group)
+  }
+  else{
+    p<-plot_scorec(df, input$c1.s, input$c2.s, group, input$type.s)
+}
+
+}
+plotly::ggplotly(p)
+})
+
+##########----------##########----------##########---------- load plot
 
 output$spls.l.plot  <- plotly::renderPlotly({ 
 load <- load.s()

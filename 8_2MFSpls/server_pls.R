@@ -134,14 +134,58 @@ output$pls.resi <- DT::renderDT({as.data.frame(pls()$residuals[,,pls()$ncomp])},
 
 
 
+#output$pls.s.plot  <- plotly::renderPlotly({ 
+#validate(need(input$nc.r>=2, "The number of components must be >= 2"))
+#score <- score.r()
+##p<-plot_score(score, input$c1.r, input$c2.r)
+#plotly::ggplotly(p)
+
+#  })
+
+##########----------##########----------##########---------- score plot
+
+output$g.pls = renderUI({
+selectInput(
+'g.pls',
+tags$b('1. Choose one group variable, categorical to add group circle'),
+#selected = type.fac4()[1],
+choices = c("NULL",type.fac4())
+)
+})
+
+output$type.pls = renderUI({
+radioButtons("type", "The type of ellipse",
+ choices = c(
+  "None" = "",
+  "T: assumes a multivariate t-distribution" = 't',
+ "Normal: assumes a multivariate normal-distribution" = "norm",
+ "Euclid: the euclidean distance from the center" = "euclid"),
+ selected = 'euclid',
+ width="500px")
+})
+
 output$pls.s.plot  <- plotly::renderPlotly({ 
-validate(need(input$nc.r>=2, "The number of components must be >= 2"))
-score <- score.r()
-p<-plot_score(score, input$c1.r, input$c2.r)
+#output$pca.ind  <- renderPlot({ 
+df <- score.r()
+if (input$g.pls == "NULL") {
+#df$group <- rep(1, nrow(df))
+p<-plot_score(df, input$c1.r, input$c2.r)
+
+}
+else {
+  group <- X()[,input$g.pls]
+  if (input$typ.pls==""){
+    p<-plot_scoreg(df, input$c1.r, input$c2.r, group)
+  }
+  else{
+    p<-plot_scorec(df, input$c1.r, input$c2.r, group, input$type.pls)
+}
+
+}
 plotly::ggplotly(p)
+})
 
-  })
-
+##########----------##########----------##########---------- load plot
 output$pls.l.plot  <- plotly::renderPlotly({ 
 load <- load.r()
 p<-plot_load(loads=load, a=pls()$ncomp)

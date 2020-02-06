@@ -95,10 +95,9 @@ p(tags$i("In this example, we decided to choose 3 components (A=3), according to
 tabPanel("Data Fitting",p(br()),
 
 p(tags$b("1. Predicted Y and residuals (Y-Predicted Y)")),
-
 DT::DTOutput("pcr.pres"),br(),
   p(tags$b("Coefficient")),
-DT::DTOutput("pcr.coef"),br()
+DT::DTOutput("pcr.coef")
 #  p(tags$b("Residuals table (= predicted dependent variable - dependent variable)")),
 #DT::DTOutput("pcr.resi")
 ),
@@ -112,6 +111,8 @@ HTML("
 </ul>
   "),
 hr(),
+uiOutput("g"),
+uiOutput("type"),
 p(tags$b("When A >=2, choose 2 different components to show component and loading 2D plot")),
 numericInput("c1", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c2", "2. Component at y-axis", 2, min = 1, max = NA),
