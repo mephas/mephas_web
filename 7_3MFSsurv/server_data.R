@@ -4,8 +4,8 @@ load("Surv.RData")
 
 data <- reactive({
                 switch(input$edata,
-               "Diabetes (Right-censored)" = dia.train,
-               "NKI70 (Left-truncated and Right-censored)" = nki.train
+               "Diabetes" = dia.train,
+               "NKI70" = nki.train
                )  
                 })
 
@@ -183,7 +183,7 @@ return(df)
 output$t2 = renderUI({
 selectInput(
 't2',
-('End-time variable, numeric'),
+'End-time variable, numeric',
 #selected = "NULL",
 choices = type.time2())
 })
