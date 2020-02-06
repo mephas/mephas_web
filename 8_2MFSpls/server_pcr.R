@@ -123,7 +123,12 @@ output$pcr.coef <- DT::renderDT({
 output$pcr.s.plot  <- plotly::renderPlotly({ 
 validate(need(input$nc>=2, "The number of components must be >= 2"))
 score <- score()
+if (input$g == NULL){
 p<-plot_score(score, input$c1, input$c2)
+}
+else{
+  p<-plot_score(score, input$c1, input$c2, input$g)
+}
 plotly::ggplotly(p)
   })
 

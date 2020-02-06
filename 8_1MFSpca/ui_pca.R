@@ -75,7 +75,7 @@ tabPanel("Components", p(br()),
 </ul></i>
   "),
   hr(),
-checkboxInput("frame", tags$b("1. Add group circle in the component plot"), FALSE),
+#checkboxInput("frame", tags$b("1. Add group circle in the component plot"), FALSE),
 uiOutput('g'), 
 radioButtons("type", "The type of ellipse",
  choices = c("T: assumes a multivariate t-distribution" = 't',

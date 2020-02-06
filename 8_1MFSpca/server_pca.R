@@ -95,8 +95,8 @@ output$g = renderUI({
 selectInput(
 'g',
 tags$b('Choose one group variable, categorical (if add group circle)'),
-selected = type.fac4()[1],
-choices = type.fac4()
+#selected = type.fac4()[1],
+choices = c("NULL",type.fac4())
 )
 })
 
@@ -104,7 +104,7 @@ output$pca.ind  <- plotly::renderPlotly({
 #output$pca.ind  <- renderPlot({ 
 validate(need(input$nc>=2, "Components are not enough to create the plot."))
 df <- as.data.frame(pca()$x)
-if (input$frame == FALSE) {
+if (input$g == "NULL") {
 df$group <- rep(1, nrow(df))
 p<-plot_score(df, input$c1, input$c2)
 
