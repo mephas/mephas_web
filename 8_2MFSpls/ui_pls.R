@@ -34,6 +34,15 @@ radioButtons("method.r", "5. Which PLS algorithm?",
            "Classical orthogonal scores algorithm" = "oscorespls"),
 selected = 'simpls'),
 p("These algorithms do not have much difference in the results"),
+
+shinyWidgets::prettySwitch(
+   inputId = "scale.r",
+   label = tags$b("Scale the data?"), 
+   value=TRUE,
+   status = "info",
+   fill = TRUE
+  ),
+
 conditionalPanel(
 condition = "input.explain_on_off",
 p(tags$i("PLSR can use more than one dependent variables and find the linear relation between Y matrix and X matrix. 

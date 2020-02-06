@@ -55,6 +55,10 @@ Data contained the clinical risk factors: (1) Age: Patient age at diagnosis (yea
 and gene expression measurements of 70 genes found to be prognostic for metastasis-free survival in an earlier study.
 In this example, we wanted to create a model that could find the relations between age, year until release, and gene expression measurements.
 
+<h4>Case Example: Liver toxicity data</h4>
+
+This data set contains the expression measure and clinical measurements for rats that were exposed to non-toxic, moderately toxic or severely toxic doses of acetaminophen in a controlled experiment.
+
 </i>
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please find the model in the next tabs.</h4>

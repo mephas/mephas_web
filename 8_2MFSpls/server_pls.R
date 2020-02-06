@@ -61,13 +61,15 @@ output$pls.x <- DT::renderDT({
 # model
 pls <- eventReactive(input$pls1,{
 
-  Y <- as.matrix(X()[,input$y.r])
-  X <- as.matrix(X()[,input$x.r])
+  DF<- data.frame(
+   Y = I(as.matrix(X()[,input$y.r])),
+  X = I(as.matrix(X()[,input$x.r]))
+  )
 
-  validate(need(input$y.r, "Please choose dependent variable"))
-  validate(need(min(ncol(X), nrow(X))>input$nc.r, "Please choose enough independent variables"))
-  validate(need(input$nc.r>=1, "Please input correct number of components"))
-  mvr(Y~X, ncomp=input$nc.r, validation=input$val.r, model=FALSE, method = input$method.r,scale = FALSE, center = FALSE)
+  #validate(need(input$y.r, "Please choose dependent variable"))
+  #validate(need(min(ncol(X), nrow(X))>input$nc.r, "Please choose enough independent variables"))
+  #validate(need(input$nc.r>=1, "Please input correct number of components"))
+  mvr(Y~X, data=DF, ncomp=input$nc.r, validation=input$val.r, model=FALSE, method = input$method.r,scale = input$scale.r, center = input$scale.r)
   })
 
 output$pls  <- renderPrint({
@@ -148,8 +150,8 @@ output$g.pls = renderUI({
 selectInput(
 'g.pls',
 tags$b('1. Choose one group variable, categorical to add group circle'),
-#selected = type.fac4()[1],
-choices = c("NULL",type.fac4())
+selected = "None",
+choices = c("None",type.fac4())
 )
 })
 
@@ -167,18 +169,18 @@ radioButtons("type", "The type of ellipse",
 output$pls.s.plot  <- plotly::renderPlotly({ 
 #output$pca.ind  <- renderPlot({ 
 df <- score.r()
-if (input$g.pls == "NULL") {
+if (input$g.pls == "None") {
 #df$group <- rep(1, nrow(df))
 p<-plot_score(df, input$c1.r, input$c2.r)
 
 }
 else {
-  group <- X()[,input$g.pls]
+  
   if (input$typ.pls==""){
-    p<-plot_scoreg(df, input$c1.r, input$c2.r, group)
+    p<-plot_scoreg(df, input$c1.r, input$c2.r, X()[,input$g.pls])
   }
   else{
-    p<-plot_scorec(df, input$c1.r, input$c2.r, group, input$type.pls)
+    p<-plot_scorec(df, input$c1.r, input$c2.r, X()[,input$g.pls], input$type.pls)
 }
 
 }

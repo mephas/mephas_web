@@ -49,12 +49,11 @@ output$pcr.x <- DT::renderDT({
 
 pcr <- eventReactive(input$pcr1,{
 
-  Y <- as.matrix(X()[,input$y])
-  X <- as.matrix(X()[,input$x])
-
-  validate(need(min(ncol(X), nrow(X))>input$nc, "Please input enough independent variables"))
-  validate(need(input$nc>=1, "Please input correct number of components"))
-  mvr(Y~X, ncomp=input$nc, validation=input$val, model=FALSE, method = "svdpc",scale = FALSE, center = FALSE)
+DF<- data.frame(
+  Y = I(as.matrix(X()[,input$y])),
+  X = I(as.matrix(X()[,input$x]))
+  )
+mvr(Y~X, ncomp=input$nc, validation=input$val, model=FALSE, method = "svdpc",scale = input$scale, center = input$scale.r, data=DF)
   })
 
 
@@ -128,8 +127,8 @@ output$g = renderUI({
 selectInput(
 'g',
 tags$b('1. Choose one group variable, categorical to add group circle'),
-#selected = type.fac4()[1],
-choices = c("NULL",type.fac4())
+selected = "None",
+choices = c("None",type.fac4())
 )
 })
 
@@ -147,7 +146,7 @@ radioButtons("type", "The type of ellipse",
 output$pcr.s.plot  <- plotly::renderPlotly({ 
 #output$pca.ind  <- renderPlot({ 
 df <- score()
-if (input$g == "NULL") {
+if (input$g == "None") {
 #df$group <- rep(1, nrow(df))
 p<-plot_score(df, input$c1, input$c2)
 

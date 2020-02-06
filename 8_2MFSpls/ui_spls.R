@@ -27,6 +27,13 @@ radioButtons("method.s", "5. Which PLS algorithm?",
            "Classical orthogonal scores algorithm" = "oscorespls"),
 selected = 'simpls'),
 
+shinyWidgets::prettySwitch(
+   inputId = "scale.s",
+   label = tags$b("Scale the data?"), 
+   value=TRUE,
+   status = "info",
+   fill = TRUE
+  ),
 conditionalPanel(
 condition = "input.explain_on_off",
 p(tags$i("SPLS adds a penalty to make variable selection available. The penalty will select the variables that may be good for the prediction. The components are generated based on the selected variables.")),
@@ -74,19 +81,21 @@ h4(tags$b("Output 1. Model Results")),
 tabsetPanel(
 tabPanel("Selection",p(br()),
 verbatimTextOutput("spls"),
-hr(),
-p(tags$b("This plot shows how the coefficients changed to choose variables")),
-numericInput("spls.y", "Which response (N'th dependent variable) to plot", 1, min = 1, step=1),
-plotOutput("spls.bp"),
-p(tags$b("Coefficient")),
-DT::DTOutput("spls.coef")
+p(br()),
+p(tags$b("Selected variables")),
+DT::DTOutput("spls.sv")
 ),
 
 tabPanel("Data Fitting",p(br()),
 p(tags$b("Predicted Y")),
 DT::DTOutput("spls.pres"),
-p(tags$b("Selected variables")),
-DT::DTOutput("spls.sv")
+p(br()),
+p(tags$b("This plot shows how the coefficients changed to choose variables")),
+numericInput("spls.y", "Which response (N'th dependent variable) to plot", 1, min = 1, step=1),
+plotOutput("spls.bp"),
+p(tags$b("Coefficient")),
+DT::DTOutput("spls.coef")
+
 ),
 
 tabPanel("Components", p(br()),

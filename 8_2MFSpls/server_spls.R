@@ -87,7 +87,7 @@ spls <- eventReactive(input$spls1,{
   validate(need(min(ncol(X), nrow(X))>input$nc.s, "Please input enough independent variables"))
   validate(need(input$nc.s>=1, "Please input correct number of components"))
   validate(need(input$nc.eta>0 && input$nc.eta<1, "Please correct parameters"))
-  spls::spls(X, Y, K=input$nc.s, eta=input$nc.eta, kappa=0.5, select="pls2", fit=input$method.s,scale.x=FALSE, scale.y=FALSE)
+  spls::spls(X, Y, K=input$nc.s, eta=input$nc.eta, kappa=0.5, select="pls2", fit=input$method.s,scale.x=input$scale.s, scale.y=input$scale.s)
   })
 
 
@@ -100,7 +100,9 @@ plot(spls(), yvar=input$spls.y)
 })
 
 score.s <- reactive({
-  data.frame(as.matrix(X()[spls()$A])%*%as.matrix(spls()$projection))
+  x <- as.data.frame(na.omit(X()))
+  X <- as.matrix(x[,input$x.s])
+  data.frame(as.matrix(X[,spls()$A])%*%as.matrix(spls()$projection))
   }) 
 load.s <- reactive({
   as.data.frame(spls()$projection)
@@ -144,7 +146,10 @@ output$spls.pres <- DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$spls.sv <- DT::renderDT({as.data.frame(X()[spls()$A])}, 
+output$spls.sv <- DT::renderDT({
+  x <- as.data.frame(na.omit(X()))
+  X <- as.matrix(x[,input$x.s])
+  as.data.frame(X[,spls()$A])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -165,8 +170,8 @@ output$g.s = renderUI({
 selectInput(
 'g.s',
 tags$b('1. Choose one group variable, categorical to add group circle'),
-selected = "NULL",
-choices = c("NULL",type.fac4())
+selected = "None",
+choices = c("None",type.fac4())
 )
 })
 
@@ -184,18 +189,20 @@ radioButtons("type.s", "The type of ellipse",
 output$spls.s.plot  <- plotly::renderPlotly({ 
 #output$pca.ind  <- renderPlot({ 
 df <- score.s()
-if (input$g.s == "NULL") {
+if (input$g.s == "None") {
 #df$group <- rep(1, nrow(df))
 p<-plot_score(df, input$c1.s, input$c2.s)
 
 }
 else {
-  group <- X()[,input$g.s]
+  
   if (input$type.s==""){
-    p<-plot_scoreg(df, input$c1.s, input$c2.s, group)
+    
+    p<-plot_scoreg(df, input$c1.s, input$c2.s, X()[,input$g.s])
   }
   else{
-    p<-plot_scorec(df, input$c1.s, input$c2.s, group, input$type.s)
+    #group <- X()[,input$g.s]
+    p<-plot_scorec(df, input$c1.s, input$c2.s, X()[,input$g.s], input$type.s)
 }
 
 }

@@ -26,6 +26,14 @@ choices = c("No, use full data" = 'none',
            "Leave-one-out cross-validation" = "LOO"),
 selected = 'CV'),
 
+shinyWidgets::prettySwitch(
+   inputId = "scale",
+   label = tags$b("Scale the data?"), 
+   value=TRUE,
+   status = "info",
+   fill = TRUE
+  ),
+
 conditionalPanel(
 condition = "input.explain_on_off",
 p(tags$i("In the example of NKI data, we used time as dependent variable (Y), and variable from TSPYL5 ...are used as independent variables.

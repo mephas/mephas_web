@@ -14,7 +14,7 @@ body {
 }
 
 .shiny-output-error { 
-	visibility: hidden; 
+	#visibility: hidden; 
 	color: #4169e1; 
 	font-weight: bold;
 }

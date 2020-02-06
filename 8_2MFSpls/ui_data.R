@@ -18,7 +18,7 @@ tabPanel("Example data", p(br()),
 shinyWidgets::radioGroupButtons(
    inputId = "edata",
    label = tags$b("Use example data"),
-   choices =  c("NKI"),
+   choices =  c("NKI", "Liver"),
    selected = "NKI",
    checkIcon = list(
     yes = tags$i(class = "fa fa-check-square", 
@@ -36,14 +36,6 @@ hr(),
   shinyWidgets::prettySwitch(
    inputId = "transform",
    label = tags$b("Transform the data?"), 
-   status = "info",
-   fill = TRUE
-  ),
-
-  shinyWidgets::prettySwitch(
-   inputId = "scale",
-   label = tags$b("Scale the data?"), 
-   value=TRUE,
    status = "info",
    fill = TRUE
   ),

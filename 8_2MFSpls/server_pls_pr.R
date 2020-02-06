@@ -3,10 +3,10 @@
 newX.pls = reactive({
   inFile = input$newfile.pls
   if (is.null(inFile)){
-    x <- nki2.test
-    #if (input$edata=="NKI") {x <- nki2.test}
-    #else {x<- liver.test}
-    if(input$transform) {x <- t(nki2.train)}
+    #x <- nki2.test
+    if (input$edata=="NKI") {x <- nki2.test}
+    else {x<- liver.test}
+   
 
     }
   else{
@@ -23,7 +23,7 @@ if(!input$newcol.pls){
   x <- as.data.frame(csv)
 }
    
-if(input$scale) {x <- scale(x)}
+
 
 return(as.data.frame(x))
 })
@@ -36,15 +36,21 @@ dom = 'Bfrtip',
 buttons = c('copy', 'csv', 'excel'),
 scrollX = TRUE))
 
-pred.lp.pls = eventReactive(input$B.pls,
-{
-x <- as.data.frame(predict(pls(), comps=pls()$ncomp, newdata = as.matrix(newX.pls())[,input$x.r], type="response"))
+pred.lp.pls = eventReactive(input$B.pls,{
+
+DF<- data.frame(
+  X <- I(as.matrix(newX.pls()[,input$x.r]))
+  )
+x <- as.data.frame(predict(pls(), comps=pls()$ncomp, newdata = DF$X, type="response"))
 colnames(x) <- input$y.r
 return(x)
 })
 
-pred.comp.pls = eventReactive(input$B.pls,
-{as.data.frame(predict(pls(), comps=1:pls()$ncomp, newdata = as.matrix(newX.pls())[,input$x.r], type="scores"))
+pred.comp.pls = eventReactive(input$B.pls,{
+DF<- data.frame(
+  X <- I(as.matrix(newX.pls()[,input$x.r]))
+  )
+as.data.frame(predict(pls(), comps=1:pls()$ncomp, newdata = DF$X, type="scores"))
 })
 
 
