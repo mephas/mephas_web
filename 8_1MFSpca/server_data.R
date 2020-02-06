@@ -81,7 +81,7 @@ colnames(X.1()[unlist(lapply(X.1(), is.factor))])
 output$rmrow = renderUI({
 shinyWidgets::pickerInput(
 'rmrow',
-tags$b('Remove some samples, may be outliers'),
+h4(tags$b('Remove some samples / outliers?')),
 selected = NULL,
 choices = rownames(X.1()),
 multiple = TRUE,

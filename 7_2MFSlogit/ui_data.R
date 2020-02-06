@@ -34,11 +34,11 @@ tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quot
 
 hr(),
 
-h4(tags$b("(Optional) Change the types of some variable?")),
+h4(tags$b("Change the types of some variable?")),
 uiOutput("factor1"),
 uiOutput("factor2"),
 
-h4(tags$b("(Optional) Change the referential level for categorical variable?")),
+h4(tags$b("Change the referential level for categorical variable?")),
 
 uiOutput("lvl"),
 
@@ -51,9 +51,11 @@ uiOutput("rmrow"),
 
 hr(),
 
-h4(tags$b(actionLink("Model","Build Model")))
+#h4(tags$b(actionLink("Model","Build Model")))
 #h4(tags$b("Build Model in the Next Tab"))
-
+p(br()),
+actionButton("Model", "Go to build Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+hr()
 
 ),
 

@@ -45,7 +45,7 @@ hr(),
 
 hr(),
 
-h4(tags$b("(Optional) Change the types of some variable?")),
+h4(tags$b("Change the types of some variable?")),
 
 #p(tags$b("Choice 1. Change Real-valued Variables into Categorical Variable")),
 
@@ -55,7 +55,7 @@ uiOutput("factor1"),
 
 uiOutput("factor2"),
 
-h4(tags$b("(Optional) Change the referential level for categorical variable?")),
+h4(tags$b("Change the referential level for categorical variable?")),
 
 uiOutput("lvl"),
 
@@ -68,9 +68,11 @@ uiOutput("rmrow"),
 
 hr(),
 
-h4(tags$b(actionLink("Model","Build Model")))
+#h4(tags$b(actionLink("Model","Build Model")))
 #h4(tags$b("Build Model in the Next Tab"))
-
+p(br()),
+actionButton("Model", "Go to build Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+hr()
 ),
 
 ##########----------##########----------##########

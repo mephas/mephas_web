@@ -90,11 +90,11 @@ multiple = TRUE
 output$rmrow = renderUI({
 shinyWidgets::pickerInput(
 'rmrow',
-tags$b('Remove some samples, may be outliers'),
+h4(tags$b('Remove some samples / outliers')),
 selected = NULL,
 choices = rownames(DF2()),
 multiple = TRUE,
-options = pickerOptions(
+options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
       size=5)
 )
@@ -157,7 +157,7 @@ colnames(DF3()[unlist(lapply(DF3(), is.factor))])
 output$t = renderUI({
 selectInput(
 't',
-tags$b('Choose time-duration variable, numeric'),
+tags$b('2.1. Choose time-duration variable, numeric'),
 #selected = type.time3()[1],
 choices = type.time3())
 })
@@ -165,7 +165,7 @@ choices = type.time3())
 output$t1 = renderUI({
 selectInput(
 't1',
-('Start-time variable, numeric'),
+('2.1. Start-time variable, numeric'),
 #selected = "NULL",
 choices = type.time3())
 })
@@ -183,7 +183,7 @@ return(df)
 output$t2 = renderUI({
 selectInput(
 't2',
-'End-time variable, numeric',
+'2.2. End-time variable, numeric',
 #selected = "NULL",
 choices = type.time2())
 })

@@ -33,14 +33,14 @@ tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quot
 hr(),
   shinyWidgets::prettySwitch(
    inputId = "transform",
-   label = "Transform the data?", 
+   label = tags$b("Transform the data?"), 
    status = "info",
    fill = TRUE
   ),
 
 hr(),
 
-h4(tags$b("(Optional) Change the types of some variable?")),
+h4(tags$b(" Change the types of some variable?")),
 uiOutput("factor1"),
 uiOutput("factor2"),
 hr(),
@@ -49,10 +49,10 @@ uiOutput("rmrow"),
 
 hr(),
 
-h4(tags$b(actionLink("ModelPCA","Build PCA Model"))),
-h4(tags$b(actionLink("ModelEFA","Build EFA Model")))
-#h4(tags$b("Build Model in the Next Tab"))
-
+p(br()),
+actionButton("ModelPCA", "Go to build PCA Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+actionButton("ModelEFA", "Go to build EFA Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+hr()
 ),
 
 

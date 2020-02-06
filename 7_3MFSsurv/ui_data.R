@@ -47,7 +47,7 @@ h4(tags$b("Step 2. Create a Survival Object")),
 uiOutput('c'),
 
   selectInput(
-      "time", "Select survival time type",
+      "time", "2. Select survival time type",
       c("Right-censored time" = "A",
         "Left-truncated right-censored time" = "B"
         )),
@@ -70,20 +70,20 @@ tags$i("Diabetes data has right-censored time, while Nki70 data has left-truncat
 hr(),
 h4(tags$b("Step 3. Check the Survival Object")),
 p(tags$b("Valid survival object example: Surv (time, status)")),
-p(tags$b("or, Surv (time1, time2, status)")),
+p(tags$b("or, Surv (start.time, end.time, status)")),
 verbatimTextOutput("surv", placeholder = TRUE),
 
 
 hr(),
 
 
-h4(tags$b("(Optional) Change the types of some variable?")),
+h4(tags$b("Change the types of some variable?")),
 
 uiOutput("factor1"),
 
 uiOutput("factor2"),
 
-h4(tags$b("(Optional) Change the referential level for categorical variable?")),
+h4(tags$b("Change the referential level for categorical variable?")),
 
 uiOutput("lvl"),
 
@@ -96,14 +96,16 @@ hr(),
 uiOutput("rmrow"),
 
 hr(),
-
-h4(tags$b(actionLink("Non-Parametric Model","Build Non-Parametric Model"))),
-h4(tags$b(actionLink("Semi-Parametric Model","Build Semi-Parametric Model"))),
-h4(tags$b(actionLink("Parametric Model","Build Parametric Model")))
+p(br()),
+#h4(tags$b(actionLink("Non-Parametric Model","Build Non-Parametric Model"))),
+#h4(tags$b(actionLink("Semi-Parametric Model","Build Semi-Parametric Model"))),
+#h4(tags$b(actionLink("Parametric Model","Build Parametric Model")))
 #h4(tags$b("Build Model in the Next Tab"))
+actionButton("Non-Parametric Model", "Go to build KM Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+actionButton("Semi-Parametric Model", "Go to build Cox Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+actionButton("Parametric Model", "Go to build AFT Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
 
-
-
+hr()
 ),
 
 ##########----------##########----------##########

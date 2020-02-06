@@ -60,10 +60,11 @@ uiOutput("rmrow"),
 
 hr(),
 
-h4(tags$b(actionLink("ModelPCR","Go to build PCR Model >>"))),
-h4(tags$b(actionLink("ModelPLSR","Go to build PLSR Model >>"))),
-h4(tags$b(actionLink("ModelSPLSR","Go to build SPLSR Model >>")))
-#h4(tags$b("Build Model in the Next Tab"))
+p(br()),
+actionButton("ModelPCR","Go to build PCR Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+actionButton("ModelPLSR","Go to build PLSR Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+actionButton("ModelSPLSR","Go to build SPLSR Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+hr()
 
 ),
 

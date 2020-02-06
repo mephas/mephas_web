@@ -92,7 +92,7 @@ multiple = TRUE
 output$rmrow = renderUI({
 shinyWidgets::pickerInput(
 'rmrow',
-tags$b('Remove some samples, may be outliers'),
+h4(tags$b('Remove some samples / outliers')),
 selected = NULL,
 choices = rownames(DF2()),
 multiple = TRUE,
