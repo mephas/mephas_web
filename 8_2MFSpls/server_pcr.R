@@ -154,6 +154,7 @@ p<-plot_score(df, input$c1, input$c2)
 else {
   group <- X()[,input$g]
   if (input$type==""){
+    
     p<-plot_scoreg(df, input$c1, input$c2, group)
   }
   else{

@@ -156,7 +156,7 @@ choices = c("None",type.fac4())
 })
 
 output$type.pls = renderUI({
-radioButtons("type", "The type of ellipse",
+radioButtons("type.pls", "The type of ellipse",
  choices = c(
   "None" = "",
   "T: assumes a multivariate t-distribution" = 't',
