@@ -119,7 +119,7 @@ numericInput("c2", "2. Component at y-axis", 2, min = 1, max = NA),
 
 conditionalPanel(
 condition = "input.explain_on_off",
-p(tags$i("In this plot, we plot the scatter points of component1 and component2, and found 277 was one of the outliers."))
+p(tags$i("In this plot, we plot the scatter points of component1 and component2, and found 327, 332 were the outliers."))
 ),
 
 plotly::plotlyOutput("pcr.s.plot"),
