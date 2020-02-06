@@ -175,8 +175,8 @@ p<-plot_score(df, input$c1.r, input$c2.r)
 
 }
 else {
-  
-  if (input$typ.pls==""){
+
+  if (input$type.pls==""){
     p<-plot_scoreg(df, input$c1.r, input$c2.r, X()[,input$g.pls])
   }
   else{
