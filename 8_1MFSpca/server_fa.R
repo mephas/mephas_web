@@ -87,11 +87,59 @@ output$var.fa <- DT::renderDT({as.data.frame(fa()$Vaccounted)},
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-
 output$pca.ind.fa  <- renderPlot({ 
 validate(need(input$ncfa>=1, "Components are not enough to create the plot."))
 psych::fa.diagram(fa(), cut = 0)
   })
+
+##########----------##########----------##########---------- score plot
+output$g.fa = renderUI({
+selectInput(
+'g.fa',
+tags$b('1. Choose one group variable, categorical to add group circle'),
+#selected = type.fac4()[1],
+choices = c("NULL",type.fac4())
+)
+})
+
+output$type.fa = renderUI({
+radioButtons("type.fa", "The type of ellipse",
+ choices = c(
+  "None" = "",
+  "T: assumes a multivariate t-distribution" = 't',
+ "Normal: assumes a multivariate normal-distribution" = "norm",
+ "Euclid: the euclidean distance from the center" = "euclid"),
+ selected = 'euclid',
+ width="500px")
+})
+
+output$fa.ind  <- plotly::renderPlotly({ 
+#output$pca.ind  <- renderPlot({ 
+validate(need(input$nc>=2, "Components are not enough to create the plot."))
+df <- as.data.frame(fa()$scores)
+if (input$g.fa == "NULL") {
+#df$group <- rep(1, nrow(df))
+p<-plot_score(df, input$c1.fa, input$c2.fa)
+
+}
+else {
+  group <- X()[,input$g.fa]
+  if (input$type.fa==""){
+    p<-plot_scoreg(df, input$c1.fa, input$c2.fa, group)
+  }
+  else{
+    p<-plot_scorec(df, input$c1.fa, input$c2.fa, group, input$type.fa)
+}
+
+}
+plotly::ggplotly(p)
+})
+
+
+##########----------##########----------##########---------- load plot
+
+
+
 
 output$pca.ind.fa2  <- plotly::renderPlotly({ 
 #validate(need(input$ncfa>=1, "Components are not enough to create the plot."))
