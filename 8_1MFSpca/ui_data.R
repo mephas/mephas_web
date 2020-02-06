@@ -19,8 +19,8 @@ tabPanel("Example data", p(br()),
   shinyWidgets::radioGroupButtons(
    inputId = "edata",
    label = tags$b("Use example data"),
-   choices = c("Mouse","Chemical"),
-   selected = "Mouse",
+   choices = c("Mouse (PCA)","Chemical (EFA)"),
+   selected = "Mouse (PCA)",
    checkIcon = list(
     yes = tags$i(class = "fa fa-check-square", 
     style = "color: steelblue"),

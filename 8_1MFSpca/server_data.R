@@ -4,8 +4,8 @@ load("pca.RData")
 
 data <- reactive({
                 switch(input$edata,
-               "Chemical" = chem,
-               "Mouse" = mouse)
+               "Chemical (EFA)" = chem,
+               "Mouse (PCA)" = mouse)
                #"Independent variable matrix (Gene sample2)" = genesample2)
         })
 
