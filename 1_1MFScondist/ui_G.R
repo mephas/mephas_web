@@ -72,7 +72,8 @@ mainPanel(
 		  tags$b("Gamma distribution plot"),
 		  plotOutput("g.plot", click = "plot_click11"),
          verbatimTextOutput("g.info"),
-		 p(tags$b("The position of Red-line, x<sub>0</sub>")),
+         HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
+		 #p(tags$b("The position of Red-line, x<sub>0</sub>")),
          tableOutput("g")
 		),
 

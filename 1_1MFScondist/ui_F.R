@@ -73,7 +73,8 @@ mainPanel(
         plotOutput("f.plot", click = "plot_click7"),
         verbatimTextOutput("f.info"),
 
-        p(tags$b("The position of Red-line, x0")),
+        HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
+        #p(tags$b("The position of Red-line, x0")),
         tableOutput("f")
 		),
 
