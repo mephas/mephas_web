@@ -89,7 +89,7 @@ h4(tags$b('Remove some samples / outliers?')),
 selected = NULL,
 choices = rownames(X.1()),
 multiple = TRUE,
-options = pickerOptions(
+options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
       size=5)
 )

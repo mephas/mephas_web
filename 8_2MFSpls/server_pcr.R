@@ -33,7 +33,7 @@ tags$b('2. Add / Remove independent variables (X)'),
 selected = type.num4(),
 choices = type.num4(),
 multiple = TRUE,
-options = pickerOptions(
+options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
       size=5)
 )

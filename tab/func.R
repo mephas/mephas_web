@@ -658,7 +658,7 @@ plot_piely <- function(data){
   plotly::plot_ly(data, labels = ~group, values = ~value, type = 'pie',
     textposition = 'inside',textinfo = 'label+percent',
     marker = list(colors = colors, line = list(color = '#FFFFFF', width = 1))) %>%
-  layout(
+  plotly::layout(
          xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
          yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 }
