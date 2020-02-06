@@ -24,8 +24,8 @@ tabPanel("Example data", p(br()),
 shinyWidgets::radioGroupButtons(
    inputId = "edata",
    label = tags$b("Use example data"),
-   choices = c("Diabetes","NKI70"),
-   selected = "Diabetes",
+   choices = c("Diabetes (Right-censored)","NKI70 (Left-truncated and Right-censored)"),
+   selected = "Diabetes (Right-censored)",
    checkIcon = list(
     yes = tags$i(class = "fa fa-check-square", 
     style = "color: steelblue"),

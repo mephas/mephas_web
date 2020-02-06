@@ -4,8 +4,8 @@ load("Surv.RData")
 
 data <- reactive({
                 switch(input$edata,
-               "Diabetes" = dia.train,
-               "NKI70" = nki.train
+               "Diabetes (Right-censored)" = dia.train,
+               "NKI70 (Left-truncated and Right-censored)" = nki.train
                )  
                 })
 
