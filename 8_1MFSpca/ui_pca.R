@@ -9,15 +9,15 @@ tags$head(tags$style("#tdtrace {overflow-y:scroll; max-height: 150px; background
 
 h4(tags$b("Build the Model")),
 p("Prepare the data in the Data tab"),
+p("The number of variables (columns) should be < the number of samples (rows)"),
+p(tags$i("Example data here is Chemical")),
 hr(),       
 
 h4(tags$b("Step 1. Choose parameters to build the model")),    
 
 uiOutput('x'), 
-p("The number of X should be < the number of samples (rows)"),
 
 numericInput("nc", "2. How many components (A < dimension of X)", 3, min = 1, max = NA),
-p(tags$i("According to the suggested results from parallel analysis, we chose to generate 4 components from the data")),
 
 hr(),
 
@@ -75,12 +75,13 @@ uiOutput('type'),
 p(tags$b("2. When A >=2, choose 2 components to show component and loading 2D plot")),
 numericInput("c1", "2.1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c2", "2.2. Component at y-axis", 2, min = 1, max = NA),
-plotly::plotlyOutput("pca.ind", ),
+
 conditionalPanel(
 condition = "input.explain_on_off",
 tags$i("In the plot of PC1 and PC2 (without group circle), we could find some outliers, for example, 11 and 23.
 If we chose diet and add group circle in Euclid distance, we could find diet type sun was separated from others.")
 ),
+plotly::plotlyOutput("pca.ind", ),
 DT::DTOutput("comp")
   ),
 

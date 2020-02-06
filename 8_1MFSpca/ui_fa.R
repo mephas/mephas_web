@@ -10,15 +10,18 @@ tags$head(tags$style("#tdtrace.fa {overflow-y:scroll; height: 150px; background:
 
 h4(tags$b("Build the Model")),
 p("Prepare the data in the Data tab"),
+p("The number of variables (columns) should be < the number of samples (rows)"),
+p(tags$i("Example data here is Mouse")),
+
+
 hr(),     
 
 h4(tags$b("Step 1. Choose parameters to build the model")),    
 
 uiOutput('x.fa'), 
-p("The number of X should be < the number of samples (rows)"),
 
 numericInput("ncfa", "2. How many factors (A < dimension of X)", 3, min = 1, max = NA),
-p(tags$i("According to the suggested results from the parallel analysis, we chose to generate 4 factors from the data")),
+p(tags$i("According to the suggested results from the parallel analysis, we chose to generate 3 factors from the data")),
 hr(),
 h4(tags$b("Step 2. If data and model are ready, click the blue button to generate model results.")),
 
@@ -85,12 +88,13 @@ uiOutput('type.fa'),
 p(tags$b("2. When A >=2, choose 2 factors to show component and loading 2D plot")),
 numericInput("c1.fa", "2.1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("c2.fa", "2.2. Component at y-axis", 2, min = 1, max = NA),
-plotly::plotlyOutput("fa.ind", ),
 conditionalPanel(
 condition = "input.explain_on_off",
-tags$i("In the plot of ML1 and ML2 (without group circle), we could find some outliers in the up. After soring PC2 in the table, we could see 107 and 108 are two of the outliers.
-In the plot of PC1 and PC2 (add group circle in Euclid distance), we could find chem2 is separated from chem3 and 5, and from others")
+tags$i("In the plot of ML1 and ML2, we could find some outliers, for example, 169 and 208. We can remove these points in Data tab.
+If we chose type and add group circle in Euclid distance, we could find B group was somewhat different. Not all the groups had circles due to the number of points were too less.")
 ),
+plotly::plotlyOutput("fa.ind", ),
+
 DT::DTOutput("comp.fa")
   ),
 
@@ -130,9 +134,7 @@ numericInput("c2.fa", "2. Factor at y-axis", 2, min = 1, max = NA),
 
 conditionalPanel(
 condition = "input.explain_on_off",
-tags$i("In the plot of PC1 and PC2, we could find ACAT2 have comparatively strong negative effect to PC1, and PKD4 has strong positive effect on PC1. 
-For PC2, THIOL has strong positive effect and VDR has strong negative effect. 
-The results are corresponding to the loading plot")
+tags$i("After removing the points 169 and 208, we could find chem2 have comparatively strong relation to ML2.")
 ),
 
 plotly::plotlyOutput("fa.bp")
