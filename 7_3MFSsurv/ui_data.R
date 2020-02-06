@@ -47,7 +47,7 @@ h4(tags$b("Step 2. Create a Survival Object")),
 uiOutput('c'),
 
   selectInput(
-      "time", "Select survival time type",
+      "time", "2. Select survival time type",
       c("Right-censored time" = "A",
         "Left-truncated right-censored time" = "B"
         )),
@@ -70,24 +70,20 @@ tags$i("Diabetes data has right-censored time, while Nki70 data has left-truncat
 hr(),
 h4(tags$b("Step 3. Check the Survival Object")),
 p(tags$b("Valid survival object example: Surv (time, status)")),
-p(tags$b("or, Surv (time1, time2, status)")),
+p(tags$b("or, Surv (start.time, end.time, status)")),
 verbatimTextOutput("surv", placeholder = TRUE),
 
 
 hr(),
 
 
-h4(tags$b("(Optional) Change the types of some variable?")),
-
-#p(tags$b("Choice 1. Change Numeric Variables (Numbers) into Categorical Variable (Factors)")),
+h4(tags$b("Change the types of some variable?")),
 
 uiOutput("factor1"),
 
-#p(tags$b("Choice 2. Change Categorical Variable (Numeric Factors) into Numeric Variables (Numbers)")),
-
 uiOutput("factor2"),
 
-h4(tags$b("(Optional) Change the referential level for categorical variable?")),
+h4(tags$b("Change the referential level for categorical variable?")),
 
 uiOutput("lvl"),
 
@@ -97,15 +93,22 @@ tags$textarea(id='ref', column=40, ""),
 
 hr(),
 
-h4(tags$b(actionLink("Non-Parametric Model","Build Non-Parametric Model"))),
-h4(tags$b(actionLink("Semi-Parametric Model","Build Semi-Parametric Model"))),
-h4(tags$b(actionLink("Parametric Model","Build Parametric Model")))
+uiOutput("rmrow"),
+
+hr(),
+p(br()),
+#h4(tags$b(actionLink("Non-Parametric Model","Build Non-Parametric Model"))),
+#h4(tags$b(actionLink("Semi-Parametric Model","Build Semi-Parametric Model"))),
+#h4(tags$b(actionLink("Parametric Model","Build Parametric Model")))
 #h4(tags$b("Build Model in the Next Tab"))
+actionButton("Non-Parametric Model", "Go to build KM Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+actionButton("Semi-Parametric Model", "Go to build Cox Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+actionButton("Parametric Model", "Go to build AFT Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
 
-
-
+hr()
 ),
 
+##########----------##########----------##########
 
 mainPanel(
 h4(tags$b("Output 1. Data Information")),
@@ -135,8 +138,6 @@ DT::DTOutput("sum"),
 p(tags$b("2. For categorical variable")),
 verbatimTextOutput("fsum"),
 
-
-#downloadButton("download1", "Download Results (Continuous variables)"),
 downloadButton("download2", "Download Results (Categorical variables)")
 
 ),
@@ -150,29 +151,31 @@ tabPanel("Survival Curves",  p(br()),
     ),
   choiceValues = list("pct", "event","cumhaz")
   ),
-plotOutput("km.a", width = "80%"),
+plotOutput("km.a"),
 verbatimTextOutput("kmat1")
      ),
 
 tabPanel("Life Table",  p(br()),
-  #p(tags$b("For all samples")),
 DT::DTOutput("kmat")
-#tags$head(tags$style("#kmat {overflow-y:scroll; max-height: 400px; background: white};"))
      ),
 
 tabPanel("Histogram", p(br()),
 
-p("This is to show the distribution of any numeric variable"),
+HTML("<p><b>Histogram</b>: to roughly show the probability distribution of a variable by depicting the frequencies of observations occurring in certain ranges of values.</p>"),
+HTML("<p><b>Density plot</b>: to show the distribution of a variable</p>"),
+hr(),
+
 uiOutput('hx'),
 p(tags$b("Histogram")),
-plotly::plotlyOutput("p2", width = "80%"),
+plotly::plotlyOutput("p2"),
 sliderInput("bin", "The number of bins in the histogram", min = 0, max = 100, value = 0),
 p("When the number of bins is 0, plot will use the default number of bins "),
 p(tags$b("Density plot")),
-plotly::plotlyOutput("p21", width = "80%"))
+plotly::plotlyOutput("p21"))
 
 )
 
 )
+##########----------##########----------##########
 
 )

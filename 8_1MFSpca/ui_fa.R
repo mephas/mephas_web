@@ -10,15 +10,18 @@ tags$head(tags$style("#tdtrace.fa {overflow-y:scroll; height: 150px; background:
 
 h4(tags$b("Build the Model")),
 p("Prepare the data in the Data tab"),
+p("The number of variables (columns) should be < the number of samples (rows)"),
+p(tags$i("Example data here is Mouse")),
+
+
 hr(),     
 
 h4(tags$b("Step 1. Choose parameters to build the model")),    
 
 uiOutput('x.fa'), 
 
-
-numericInput("ncfa", "2. How many factors (a)", 4, min = 1, max = NA),
-p(tags$i("According to the suggested results from the parallel analysis, we chose to generate 4 factors from the data")),
+numericInput("ncfa", "2. How many factors (A < dimension of X)", 3, min = 1, max = NA),
+p(tags$i("According to the suggested results from the parallel analysis, we chose to generate 3 factors from the data")),
 hr(),
 h4(tags$b("Step 2. If data and model are ready, click the blue button to generate model results.")),
 
@@ -65,12 +68,34 @@ tabPanel("Factors Result",p(br()),
 </ul>
 
   "),
+    hr(),
   plotOutput("pca.ind.fa"),
   verbatimTextOutput("fa")),
 
 tabPanel("Factors", p(br()),
+HTML("
+<b>Explanations</b>
+<ul>
+<li> This plot graphs the relations from two factors, you can use the score plot to assess the data structure and detect clusters, outliers, and trends</li>
+<li> Groupings of data on the plot may indicate two or more separate distributions in the data</li>
+<li> If the data follow a normal distribution and no outliers are present, the points are randomly distributed around zero</li>
+</ul>
+"),
+hr(),
 
-  DT::DTOutput("comp.fa")
+uiOutput('g.fa'), 
+uiOutput('type.fa'),
+p(tags$b("2. When A >=2, choose 2 factors to show component and loading 2D plot")),
+numericInput("c1.fa", "2.1. Component at x-axis", 1, min = 1, max = NA),
+numericInput("c2.fa", "2.2. Component at y-axis", 2, min = 1, max = NA),
+conditionalPanel(
+condition = "input.explain_on_off",
+tags$i("In the plot of ML1 and ML2, we could find some outliers, for example, 169 and 208. We can remove these points in Data tab.
+If we chose type and add group circle in Euclid distance, we could find B group was somewhat different. Not all the groups had circles due to the number of points were too less.")
+),
+plotly::plotlyOutput("fa.ind", ),
+
+DT::DTOutput("comp.fa")
   ),
 
 tabPanel("Loading", p(br()),
@@ -85,6 +110,7 @@ tabPanel("Loading", p(br()),
 </ul>
 
   "),
+      hr(),
 	plotly::plotlyOutput("pca.ind.fa2"),
 	p(tags$b("Loadings")),
   DT::DTOutput("load.fa"),
@@ -95,19 +121,22 @@ tabPanel("Factors and Loading 2D Plot" ,p(br()),
     HTML("
 <b>Explanations</b>
 <ul>
-<li> This plot (biplots) overlays the components and the loadings (choose PC in the left panel)</li>
+<li> This plot (biplots) overlays the factors and the loadings (choose PC in the left panel)</li>
 <li> If the data follow a normal distribution and no outliers are present, the points are randomly distributed around zero</li>
 <li> Loadings identify which variables have the largest effect on each component</li>
 <li> Loadings can range from -1 to 1. Loadings close to -1 or 1 indicate that the variable strongly influences the component. Loadings close to 0 indicate that the variable has a weak influence on the component.</li>
 </ul>
-
-
   "),
     hr(),
-p(tags$b("When factors >=2, choose 2 factors to show factors and loading 2D plot")),
-p(tags$i("The default is to show the first 2 factors for all the 2D plot")),
+p(tags$b("When A >=2, choose 2 factors to show factors and loading 2D plot")),
 numericInput("c1.fa", "1. Factor at x-axis", 1, min = 1, max = NA),
 numericInput("c2.fa", "2. Factor at y-axis", 2, min = 1, max = NA),
+
+conditionalPanel(
+condition = "input.explain_on_off",
+tags$i("After removing the points 169 and 208, we could find chem2 have comparatively strong relation to ML2.")
+),
+
 plotly::plotlyOutput("fa.bp")
 
 ),
@@ -116,7 +145,7 @@ tabPanel("Factors and Loading 3D Plot" ,p(br()),
 HTML("
   <b>Explanations</b>
 <ul>
-<li> This is the extension for 2D plot. This plot overlays the components and the loadings for 3 PCs (choose PCs and the length of lines in the left panel)</li>
+<li> This is the extension for 2D plot. This plot overlays the factors and the loadings for 3 PCs (choose PCs and the length of lines in the left panel)</li>
 <li> We can find the outliers in the plot. </li>
 <li> If the data follow a normal distribution and no outliers are present, the points are randomly distributed around zero</li>
 <li> Loadings identify which variables have the largest effect on each component</li>
@@ -126,7 +155,7 @@ HTML("
   "),
 hr(),
 p(tags$b("This plot needs some time to load for the first time")),
-p(tags$b("When components >=3, choose 3 components to show factors and loading 3D plot")),
+p(tags$b("When A >=3, choose 3 factors to show factors and loading 3D plot")),
 p(tags$i("The default is to show the first 3 factors in the 3D plot")),
 numericInput("td1.fa", "1. Factor at x-axis", 1, min = 1, max = NA),
 numericInput("td2.fa", "2. Factor at y-axis", 2, min = 1, max = NA),

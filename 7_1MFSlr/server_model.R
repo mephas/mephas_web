@@ -32,7 +32,8 @@ selected = names(DF4()),
 choices = names(DF4()),
 multiple = TRUE,
 options = pickerOptions(
-      actionsBox=TRUE)
+      actionsBox=TRUE,
+      size=5)
 )
 })
 
@@ -48,7 +49,8 @@ choices = type.fac4(),
 multiple = TRUE,
 options = pickerOptions(
       maxOptions=2,
-      actionsBox=TRUE)
+      actionsBox=TRUE,
+      size=5)
 )
 })
 
@@ -146,3 +148,39 @@ options = list(
 dom = 'Bfrtip',
 buttons = c('copy', 'csv', 'excel'),
 scrollX = TRUE))
+
+
+output$vx1 = renderUI({
+selectInput(
+'vx1',
+tags$b('1. Choose one independent variable (X1), real-valued numeric type'),
+selected = names(DF4())[1],
+choices = names(DF4())
+)
+})
+
+output$vx2 = renderUI({
+selectInput(
+'vx2',
+tags$b('2. Choose one independent variable (X2), real-valued numeric type'),
+selected = names(DF4())[2],
+choices = names(DF4())
+)
+})
+
+output$vgroup = renderUI({
+selectInput(
+'vgroup',
+tags$b('3. Choose one group variable, categorical type'),
+choices = c("NULL",type.fac4())
+)
+})
+
+output$p.3dl = plotly::renderPlotly({
+  if(input$vgroup == "NULL")
+  {plot_linely(DF3(), input$y, input$vx1, input$vx2)}
+  else{
+   plot_linely.grp(DF3(), input$y, input$vx1, input$vx2, input$vgroup)
+  }
+  
+})

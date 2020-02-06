@@ -24,8 +24,6 @@ if(input$newcol){
 }
 
 if(input$scale) {x <- scale(x)}
-
-
 return(as.data.frame(x))
 })
 #prediction plot

@@ -33,6 +33,7 @@ output$xs = renderTable({
   return(x)}, 
   digits = 6, colnames=FALSE, rownames=TRUE, width = "80%")
 
+
 N = reactive({ 
   df = data.frame(x = rnorm(input$size, input$mu, input$sigma))
   return(df)})

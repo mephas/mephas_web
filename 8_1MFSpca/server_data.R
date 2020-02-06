@@ -4,8 +4,8 @@ load("pca.RData")
 
 data <- reactive({
                 switch(input$edata,
-               "Chemical" = chem,
-               "Mouse" = mouse)
+               "Chemical (EFA)" = chem,
+               "Mouse (PCA)" = mouse)
                #"Independent variable matrix (Gene sample2)" = genesample2)
         })
 
@@ -68,15 +68,37 @@ selectInput(
 )
 })
 
-X <- reactive({
+X.1 <- reactive({
   df <-DF1() 
 df[input$factor2] <- as.data.frame(lapply(df[input$factor2], as.numeric))
 return(df)
   })
 
 type.fac2 <- reactive({
-colnames(X()[unlist(lapply(X(), is.factor))])
+colnames(X.1()[unlist(lapply(X.1(), is.factor))])
 })
+
+output$rmrow = renderUI({
+shinyWidgets::pickerInput(
+'rmrow',
+h4(tags$b('Remove some samples / outliers?')),
+selected = NULL,
+choices = rownames(X.1()),
+multiple = TRUE,
+options = shinyWidgets::pickerOptions(
+      actionsBox=TRUE,
+      size=5)
+)
+})
+
+X <- reactive({
+  if(length(input$rmrow)==0) {df <- X.1()}
+
+  else{
+  df <- X.1()[-which(rownames(X.1()) %in% c(input$rmrow)),]
+  }
+  return(df)
+  })
 
  output$Xdata <- DT::renderDT({
   if (ncol(X())>1000 || nrow(X())>1000) {X()[,1:1000]}
@@ -89,6 +111,7 @@ colnames(X()[unlist(lapply(X(), is.factor))])
       dom = 'Bfrtip',
       buttons = c('copy', 'csv', 'excel'),
       deferRender = TRUE,
+      scrollX=TRUE,
       scrollY = 300,
       scroller = TRUE))
 
@@ -158,7 +181,7 @@ output$tx = renderUI({
     validate(need(input$tx, "Loading variable"))
   validate(need(input$ty, "Loading variable"))
 
-   p<- plot_scat(X(), input$tx, input$ty)
+   p<- plot_scat(X(), input$tx, input$ty, input$xlab, input$ylab)
    plotly::ggplotly(p)
    })
 

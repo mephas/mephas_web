@@ -11,7 +11,7 @@ sidebarLayout(
 	    "InputSrc_b", "Select plot",
       c("Mathematical formula based" = "MathDist",
         "Simulation data based" = "SimuDist",
-        "Data-based" = "DataDist")),
+        "Upload data based" = "DataDist")),
 	hr(),
 	#Select Src end
 	h4(tags$b("Step 2. Set parameters")),
@@ -24,12 +24,7 @@ sidebarLayout(
 		  numericInput("b.scale", HTML("&#946 > 0, Shape parameter"), value = 2, min = 0),
 
 		  hr(),
-		  HTML("<b>2. Show Probability</b>"),
-		  #h4(tags$b("Step 2. Show Probability")),
-	 		numericInput("b.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
-		  hr(),
-	 		p(tags$b("You can adjust x-axes range")),
-		  numericInput("b.xlim", "Range of x-axis, > 0", value = 1, min = 1)
+		  numericInput("b.xlim", "Change the range of x-axis, > 0", value = 1, min = 1)
 		  #snumericInput("b.ylim", "Range of y-asis, > 0", value = 2.5, min = 0.1, max = 3),
 	  ),
 	 #condiPa 1 end
@@ -64,9 +59,12 @@ tabPanel.upload.num(file ="b.file", header="b.header", col="b.col", sep="b.sep")
 	    ),
 		sliderInput("bin.b","The number of bins in histogram", min = 0, max = 100, value = 0),
         p("When the number of bins is 0, plot will use the default number of bins")
-	  )
+	  ),
 	  #condiPa 3 end
-
+	  hr(),
+	  h4(tags$b("Step 3. Change Probability")),
+ 		numericInput("b.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
+	  hr()
 	), #sidePa end
 
 mainPanel(

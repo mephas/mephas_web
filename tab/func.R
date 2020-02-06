@@ -7,14 +7,14 @@
 ##' @param vary input y variable name
 ##'
 ##' @export
-plot_scat <- function(data, varx, vary){
+plot_scat <- function(data, varx, vary, xlab, ylab){
   x = data[, varx]
   y = data[, vary]
   name <- rownames(data)
   ggplot(data, aes(x=x,y=y,label=name)) +
     geom_point(shape = 19, size=1) +
     geom_smooth(method = "lm", size=0.5) +
-    xlab(varx) + ylab(vary) +
+    xlab(xlab) + ylab(ylab) +
     theme_minimal() + theme(legend.title = element_blank())
 }
 ##' @title plot functions in MEPHAS
@@ -24,14 +24,14 @@ plot_scat <- function(data, varx, vary){
 ##' @param vary input y variable name
 ##'
 ##' @export
-plot_slgt <- function(data, varx, vary){
+plot_slgt <- function(data, varx, vary, xlab, ylab){
   x = data[, varx]
   y = as.numeric(as.factor(data[, vary]))-1
   name <- rownames(data)
   ggplot(data, aes(x=x, y=y,label=name)) +
   geom_point(shape = 19,  size = 1) +
   stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE,  size = 0.5) +
-  xlab(varx) + ylab(vary) +
+  xlab(xlab) + ylab(ylab) +
   theme_minimal() + theme(legend.title = element_blank())
 }
 ##' @title plot functions in MEPHAS
@@ -508,7 +508,7 @@ plot_load <- function(loads, a){
     scale_fill_gradient2(name = "Loading",
                          high = "blue", mid = "white", low = "red",
                          midpoint=0, guide=F) +
-    ylab("Loading Strength") + #improve y-axis label
+    ylab("") + #improve y-axis label
     theme_bw(base_size=10)
 }
 
@@ -519,9 +519,10 @@ plot_load <- function(loads, a){
 ##' @param vary input y variable
 ##'
 ##' @export
-plot_scoreg <- function(scores, n1, n2){
+plot_scoreg <- function(scores, n1, n2, groupvec){
   x <- scores[,n1]
   y <- scores[,n2]
+  scores$group <- groupvec
   group <- as.factor(scores[,"group"])
   name <- rownames(scores)
   varx <- names(scores)[n1]
@@ -543,9 +544,10 @@ plot_scoreg <- function(scores, n1, n2){
 ##' @param vary input y variable
 ##'
 ##' @export
-plot_scorec <- function(scores, n1, n2, type){
+plot_scorec <- function(scores, n1, n2, groupvec, type){
   x <- scores[,n1]
   y <- scores[,n2]
+  scores$group <- groupvec
   group <- as.factor(scores[,"group"])
   name <- rownames(scores)
   varx <- names(scores)[n1]
@@ -656,7 +658,7 @@ plot_piely <- function(data){
   plotly::plot_ly(data, labels = ~group, values = ~value, type = 'pie',
     textposition = 'inside',textinfo = 'label+percent',
     marker = list(colors = colors, line = list(color = '#FFFFFF', width = 1))) %>%
-  layout(
+  plotly::layout(
          xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
          yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 }
@@ -687,24 +689,66 @@ plot_3D <- function(scores, loads, nx,ny,nz, scale){
   
   rnn <- rownames(as.data.frame(scores))
   
-  p <- plot_ly() %>%
-    add_trace(x=x, y=y, z=z, 
+  p <- plotly::plot_ly() %>%
+    plotly::add_trace(x=x, y=y, z=z, 
               type="scatter3d", mode = "text+markers", 
               name = "original", 
               linetypes = NULL, 
               opacity = 0.5,
               marker = list(size=2),
               text = rnn) %>%
-    layout(p, scene=layout$scene, title=layout$title)
+    plotly::layout(p, scene=layout$scene, title=layout$title)
   
   for (k in 1:nrow(loads)) {
     x <- c(0, loads[k,1])*scale.loads
     y <- c(0, loads[k,2])*scale.loads
     z <- c(0, loads[k,3])*scale.loads
-    p <- p %>% add_trace(x=x, y=y, z=z,
+    p <- p %>% plotly::add_trace(x=x, y=y, z=z,
                          type="scatter3d", mode="lines",
                          line = list(width=4),
                          opacity = 1) 
   }
   p
+}
+
+plot_linely.grp <- function(data, vary, vx1, vx2, vgrp){
+  y <- data[,vary]
+  x1 <- data[,vx1]
+  x2 <- data[,vx2]
+  group <- as.factor(data[, vgrp])
+
+  rnn <- rownames(as.data.frame(data))
+
+ plotly::plot_ly() %>%
+  plotly::add_trace(x=x1, y=x2, z=y, color=group,
+              type="scatter3d", mode = "text+markers", 
+              name = "original", 
+              linetypes = NULL, 
+              opacity = 1,
+              marker = list(size=3),
+              text = rnn) %>%
+  plotly::layout(scene = list(xaxis = list(title = vx1),
+                     yaxis = list(title = vx2),
+                     zaxis = list(title = vary)))
+
+}
+
+plot_linely <- function(data, vary, vx1, vx2){
+  y <- data[,vary]
+  x1 <- data[,vx1]
+  x2 <- data[,vx2]
+  rnn <- rownames(as.data.frame(data))
+
+ plotly::plot_ly() %>%
+  plotly::add_trace(x=x1, y=x2, z=y,
+              type="scatter3d", mode = "text+markers", 
+              name = "original", 
+              linetypes = NULL, 
+              opacity = 1,
+              marker = list(size=3),
+              text = rnn) %>%
+  plotly::layout(scene = list(xaxis = list(title = vx1),
+                     yaxis = list(title = vx2),
+                     zaxis = list(title = vary)))
+
 }

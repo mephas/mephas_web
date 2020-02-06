@@ -33,7 +33,7 @@ tags$b('2. Add / Remove independent variables (X)'),
 selected = type.num4(),
 choices = type.num4(),
 multiple = TRUE,
-options = pickerOptions(
+options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
       size=5)
 )
@@ -99,7 +99,9 @@ output$pcr.l <- DT::renderDT({load()},
     scrollX = TRUE))
 
 output$pcr.pres <- DT::renderDT({
-  y <- as.data.frame(predict(pcr(), comps=pcr()$ncomp, type="response"))
+  y <- data.frame(
+    Predict.Y=predict(pcr(), comps=pcr()$ncomp, type="response"),
+    Residuals=pcr()$residuals[,,pcr()$ncomp])
   rownames(y) <- rownames(X())
   return(y)
   }, 
@@ -109,27 +111,61 @@ output$pcr.pres <- DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pcr.coef <- DT::renderDT({as.data.frame(pcr()$coefficients)}, 
+output$pcr.coef <- DT::renderDT({
+  data.frame(Coefficient = pcr()$coefficients[,, pcr()$ncomp])}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$pcr.resi <- DT::renderDT({as.data.frame(pcr()$residuals[,,1:pcr()$ncomp])}, 
-  extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+##########----------##########----------##########---------- score plot
+type.fac4 <- reactive({
+colnames(X()[unlist(lapply(X(), is.factor))])
+})
 
+output$g = renderUI({
+selectInput(
+'g',
+tags$b('1. Choose one group variable, categorical to add group circle'),
+#selected = type.fac4()[1],
+choices = c("NULL",type.fac4())
+)
+})
+
+output$type = renderUI({
+radioButtons("type", "The type of ellipse",
+ choices = c(
+  "None" = "",
+  "T: assumes a multivariate t-distribution" = 't',
+ "Normal: assumes a multivariate normal-distribution" = "norm",
+ "Euclid: the euclidean distance from the center" = "euclid"),
+ selected = 'euclid',
+ width="500px")
+})
 
 output$pcr.s.plot  <- plotly::renderPlotly({ 
-validate(need(input$nc>=2, "The number of components must be >= 2"))
-score <- score()
-p<-plot_score(score, input$c1, input$c2)
+#output$pca.ind  <- renderPlot({ 
+df <- score()
+if (input$g == "NULL") {
+#df$group <- rep(1, nrow(df))
+p<-plot_score(df, input$c1, input$c2)
+
+}
+else {
+  group <- X()[,input$g]
+  if (input$type==""){
+    p<-plot_scoreg(df, input$c1, input$c2, group)
+  }
+  else{
+    p<-plot_scorec(df, input$c1, input$c2, group, input$type)
+}
+
+}
 plotly::ggplotly(p)
-  })
+})
+
+##########----------##########----------##########---------- load plot
 
 output$pcr.l.plot  <- plotly::renderPlotly({ 
 load <- load()
@@ -147,18 +183,16 @@ plotly::ggplotly(p)
 })
 
 output$tdplot <- plotly::renderPlotly({ 
-validate(need(input$nc>=3, "The number of components must be >= 3"))
 
 score <- score()
 load <- load()
 
-plot_3D(scores=score, loads=load, nx=input$td1,ny=input$td2,nz=input$td3, scale=input$lines)
+plot_3D(score, load, input$td1,input$td2,input$td3,input$lines)
 
 
 })
 
 output$tdtrace <- renderPrint({
-  validate(need(input$nc>=3, "The number of components must be >= 3"))
   x <- rownames(load())
   names(x) <- paste0("trace", 1:length(x)) 
   return(x)

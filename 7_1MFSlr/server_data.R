@@ -25,6 +25,9 @@ if(!input$col){
 
   x <- as.data.frame(csv)
 }
+
+  if(input$transform) {x <- as.data.frame(t(x))}
+
 return(as.data.frame(x))
 })
 
@@ -86,21 +89,42 @@ multiple = TRUE
 )
 })
 
+output$rmrow = renderUI({
+shinyWidgets::pickerInput(
+'rmrow',
+h4(tags$b('Remove some samples / outliers')),
+selected = NULL,
+choices = rownames(DF2()),
+multiple = TRUE,
+options = pickerOptions(
+      actionsBox=TRUE,
+      size=5)
+)
+})
+
+DF2.1 <- reactive({
+  if(length(input$rmrow)==0) {df <- DF2()}
+
+  else{
+  df <- DF2()[-which(rownames(DF2()) %in% c(input$rmrow)),]
+  }
+  return(df)
+  })
+
 DF3 <- reactive({
    
   if (length(input$lvl)==0 || length(unlist(strsplit(input$ref, "[\n]")))==0 ||length(input$lvl)!=length(unlist(strsplit(input$ref, "[\n]")))){
-  df <- DF2()
+  df <- DF2.1()
 }
 
 else{
-  df <- DF2()
+  df <- DF2.1()
   x <- input$lvl
   y <- unlist(strsplit(input$ref, "[\n]"))
   for (i in 1:length(x)){
     #df[,x[i]] <- as.factor(as.numeric(df[,x[i]]))
     df[,x[i]] <- relevel(df[,x[i]], ref= y[i])
   }
-
 }
 return(df)
   
@@ -114,6 +138,7 @@ output$Xdata <- DT::renderDT(DF3(),
       dom = 'Bfrtip',
       buttons = c('copy', 'csv', 'excel'),
       deferRender = TRUE,
+      scrollX = TRUE,
       scrollY = 300,
       scroller = TRUE))
 
@@ -185,7 +210,7 @@ output$tx = renderUI({
   validate(need(input$tx, "Loading variable"))
   validate(need(input$ty, "Loading variable"))
 
-   p<- plot_scat(DF3(), input$tx, input$ty)
+   p<- plot_scat(DF3(), input$tx, input$ty, input$xlab, input$ylab)
    plotly::ggplotly(p)
    })
  

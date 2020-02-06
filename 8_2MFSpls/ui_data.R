@@ -13,10 +13,9 @@ h4(tags$b("Training Set Preparation")),
 tabsetPanel(
 
 tabPanel("Example data", p(br()),
-#selectInput("edata", h4(tags$b("Use example data (training set)")),
-#        choices =  c("NKI"),
-#        selected = "NKI")
-    shinyWidgets::radioGroupButtons(
+
+
+shinyWidgets::radioGroupButtons(
    inputId = "edata",
    label = tags$b("Use example data"),
    choices =  c("NKI"),
@@ -32,32 +31,40 @@ tabPanel("Example data", p(br()),
 tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")
 ),
 
+hr(),
+
   shinyWidgets::prettySwitch(
    inputId = "transform",
-   label = "Transform the data?", 
+   label = tags$b("Transform the data?"), 
    status = "info",
    fill = TRUE
   ),
 
   shinyWidgets::prettySwitch(
    inputId = "scale",
-   label = "Scale the data?", 
+   label = tags$b("Scale the data?"), 
    value=TRUE,
    status = "info",
    fill = TRUE
   ),
 
 hr(),
-h4(tags$b("(Optional) Change the types of some variable?")),
+h4(tags$b("Change the types of some variable?")),
 
 uiOutput("factor1"),
 uiOutput("factor2"),
+
 hr(),
 
-h4(tags$b(actionLink("ModelPCR","Build PCR Model"))),
-h4(tags$b(actionLink("ModelPLSR","Build PLSR Model"))),
-h4(tags$b(actionLink("ModelSPLSR","Build SPLSR Model")))
-#h4(tags$b("Build Model in the Next Tab"))
+uiOutput("rmrow"),
+
+hr(),
+
+p(br()),
+actionButton("ModelPCR","Go to build PCR Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+actionButton("ModelPLSR","Go to build PLSR Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+actionButton("ModelSPLSR","Go to build SPLSR Model >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+hr()
 
 ),
 
@@ -94,24 +101,32 @@ downloadButton("download2", "Download Results (Categorical variable)")
 
 tabPanel("Linear fitting plot",p(br()),
 
-HTML("<p><b>Linear fitting plot</b>: to roughly show the linear relation between any two numeric variable. Grey area is 95% confidence interval.</p>"),
+HTML("<p><b>Linear fitting plot</b>: to roughly show the linear relation between any two numeric variable."),
+HTML("Grey area is 95% confidence interval.</p>"),
+hr(),
 
 uiOutput('tx'),
 uiOutput('ty'),
+p(tags$b("3. Change the labels of X and Y axes")),
+tags$textarea(id = "xlab", rows = 1, "X"),
+tags$textarea(id = "ylab", rows = 1, "Y"),
 
-plotly::plotlyOutput("p1", width = "80%")
+plotly::plotlyOutput("p1")
 ),
 
 tabPanel("Histogram", p(br()),
 
-HTML("<p><b>Histogram</b>: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values.</p>"),
+HTML("<p><b>Histogram</b>: to roughly show the probability distribution of a variable by depicting the frequencies of observations occurring in certain ranges of values.</p>"),
+HTML("<p><b>Density plot</b>: to show the distribution of a variable</p>"),
+hr(),
+
 uiOutput('hx'),
 p(tags$b("Histogram")),
-plotly::plotlyOutput("p2", width = "80%"),
+plotly::plotlyOutput("p2"),
 sliderInput("bin", "The number of bins in the histogram", min = 0, max = 100, value = 0),
 p("When the number of bins is 0, plot will use the default number of bins "),
 p(tags$b("Density plot")),
-plotly::plotlyOutput("p21", width = "80%"))
+plotly::plotlyOutput("p21"))
 
 )
 
