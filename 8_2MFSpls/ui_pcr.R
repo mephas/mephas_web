@@ -98,7 +98,7 @@ p(tags$b("1. Predicted Y and residuals (Y-Predicted Y)")),
 
 DT::DTOutput("pcr.pres"),br(),
   p(tags$b("Coefficient")),
-DT::DTOutput("pcr.coef"),br(),
+DT::DTOutput("pcr.coef"),br()
 #  p(tags$b("Residuals table (= predicted dependent variable - dependent variable)")),
 #DT::DTOutput("pcr.resi")
 ),

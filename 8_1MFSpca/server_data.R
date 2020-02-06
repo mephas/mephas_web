@@ -85,7 +85,7 @@ tags$b('Remove some samples, may be outliers'),
 selected = NULL,
 choices = rownames(X.1()),
 multiple = TRUE,
-options = pickerOptions(
+options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
       size=5)
 )

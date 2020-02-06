@@ -519,9 +519,10 @@ plot_load <- function(loads, a){
 ##' @param vary input y variable
 ##'
 ##' @export
-plot_scoreg <- function(scores, n1, n2){
+plot_scoreg <- function(scores, n1, n2, groupvec){
   x <- scores[,n1]
   y <- scores[,n2]
+  scores$group <- groupvec
   group <- as.factor(scores[,"group"])
   name <- rownames(scores)
   varx <- names(scores)[n1]
@@ -543,9 +544,10 @@ plot_scoreg <- function(scores, n1, n2){
 ##' @param vary input y variable
 ##'
 ##' @export
-plot_scorec <- function(scores, n1, n2, type){
+plot_scorec <- function(scores, n1, n2, groupvec, type){
   x <- scores[,n1]
   y <- scores[,n2]
+  scores$group <- groupvec
   group <- as.factor(scores[,"group"])
   name <- rownames(scores)
   varx <- names(scores)[n1]

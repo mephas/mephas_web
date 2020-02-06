@@ -91,13 +91,25 @@ type.fac4 <- reactive({
 colnames(X()[unlist(lapply(X(), is.factor))])
 })
 
+##########----------##########----------##########---------- score plot
 output$g = renderUI({
 selectInput(
 'g',
-tags$b('Choose one group variable, categorical (if add group circle)'),
+tags$b('1. Choose one group variable, categorical to add group circle'),
 #selected = type.fac4()[1],
 choices = c("NULL",type.fac4())
 )
+})
+
+output$type = renderUI({
+radioButtons("type", "The type of ellipse",
+ choices = c(
+  "None" = "",
+  "T: assumes a multivariate t-distribution" = 't',
+ "Normal: assumes a multivariate normal-distribution" = "norm",
+ "Euclid: the euclidean distance from the center" = "euclid"),
+ selected = 'euclid',
+ width="500px")
 })
 
 output$pca.ind  <- plotly::renderPlotly({ 
@@ -105,17 +117,25 @@ output$pca.ind  <- plotly::renderPlotly({
 validate(need(input$nc>=2, "Components are not enough to create the plot."))
 df <- as.data.frame(pca()$x)
 if (input$g == "NULL") {
-df$group <- rep(1, nrow(df))
+#df$group <- rep(1, nrow(df))
 p<-plot_score(df, input$c1, input$c2)
 
 }
 else {
-df$group <- X()[,input$g]
-p<-plot_scorec(df, input$c1, input$c2, input$type)
+  group <- X()[,input$g]
+  if (input$type==""){
+    p<-plot_scoreg(df, input$c1, input$c2, group)
+  }
+  else{
+    p<-plot_scorec(df, input$c1, input$c2, group, input$type)
+}
 
 }
 plotly::ggplotly(p)
 })
+
+
+##########----------##########----------##########---------- load plot
 
 output$pca.ind2  <- plotly::renderPlotly({ 
 #validate(need(input$nc>=1, "Components are not enough to create the plot."))
