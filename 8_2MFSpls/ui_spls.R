@@ -17,10 +17,10 @@ uiOutput('y.s'),
 uiOutput('x.s'), 
 
 
-numericInput("nc.s", "4. How many new components (A, larger number chooses more variables)", 3, min = 1, max = NA),
-numericInput("nc.eta", "5. Parameter for selection range (larger number chooses less variables)", 0.5, min = 0, max = 1, step=0.1),
+numericInput("nc.s", "3. How many new components? (A, larger number chooses more variables)", 3, min = 1, max = NA),
+numericInput("nc.eta", "4. Parameter for selection range (larger number chooses less variables)", 0.5, min = 0, max = 1, step=0.1),
 
-radioButtons("method.s", "Which PLS algorithm",
+radioButtons("method.s", "5. Which PLS algorithm?",
   choices = c("SIMPLS: simple and fast" = 'simpls',
            "Kernel algorithm" = "kernelpls",
            "Wide kernel algorithm" = "widekernelpls",

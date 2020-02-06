@@ -35,8 +35,6 @@ if(!input$col){
 return(as.data.frame(x))
 })
 
-#rownames <- reactive({rownames(DF0())})
-#colnames <- reactive({colnames(DF0())})
 
 
 type.num0 <- reactive({
@@ -87,7 +85,7 @@ colnames(X.1()[unlist(lapply(X.1(), is.factor))])
 output$rmrow = renderUI({
 shinyWidgets::pickerInput(
 'rmrow',
-tags$b('Remove some samples, may be outliers'),
+h4(tags$b('Remove some samples / outliers?')),
 selected = NULL,
 choices = rownames(X.1()),
 multiple = TRUE,

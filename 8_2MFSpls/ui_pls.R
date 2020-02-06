@@ -19,15 +19,15 @@ uiOutput('y.r'),
 uiOutput('x.r'), 
 
 
-numericInput("nc.r", "4. How many new components (A <= dimension of X)", 4, min = 1, max = NA),
+numericInput("nc.r", "3. How many new components? (A <= dimension of X)", 4, min = 1, max = NA),
 
-radioButtons("val.r", "5. Whether to do cross-validation",
-choices = c("No cross-validation" = 'none',
+radioButtons("val.r", "4. Do cross-validation?",
+choices = c("No, use full data" = 'none',
            "10-fold cross-validation" = "CV",
            "Leave-one-out cross-validation" = "LOO"),
 selected = 'CV'),
 
-radioButtons("method.r", "6. Which PLS algorithm",
+radioButtons("method.r", "5. Which PLS algorithm?",
   choices = c("SIMPLS: simple and fast" = 'simpls',
            "Kernel algorithm" = "kernelpls",
            "Wide kernel algorithm" = "widekernelpls",

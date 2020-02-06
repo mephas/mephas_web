@@ -13,10 +13,9 @@ h4(tags$b("Training Set Preparation")),
 tabsetPanel(
 
 tabPanel("Example data", p(br()),
-#selectInput("edata", h4(tags$b("Use example data (training set)")),
-#        choices =  c("NKI"),
-#        selected = "NKI")
-    shinyWidgets::radioGroupButtons(
+
+
+shinyWidgets::radioGroupButtons(
    inputId = "edata",
    label = tags$b("Use example data"),
    choices =  c("NKI"),
@@ -33,23 +32,24 @@ tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quot
 ),
 
 hr(),
+
   shinyWidgets::prettySwitch(
    inputId = "transform",
-   label = "Transform the data?", 
+   label = tags$b("Transform the data?"), 
    status = "info",
    fill = TRUE
   ),
 
   shinyWidgets::prettySwitch(
    inputId = "scale",
-   label = "Scale the data?", 
+   label = tags$b("Scale the data?"), 
    value=TRUE,
    status = "info",
    fill = TRUE
   ),
 
 hr(),
-h4(tags$b("(Optional) Change the types of some variable?")),
+h4(tags$b("Change the types of some variable?")),
 
 uiOutput("factor1"),
 uiOutput("factor2"),
@@ -60,9 +60,9 @@ uiOutput("rmrow"),
 
 hr(),
 
-h4(tags$b(actionLink("ModelPCR","Build PCR Model"))),
-h4(tags$b(actionLink("ModelPLSR","Build PLSR Model"))),
-h4(tags$b(actionLink("ModelSPLSR","Build SPLSR Model")))
+h4(tags$b(actionLink("ModelPCR","Go to build PCR Model >>"))),
+h4(tags$b(actionLink("ModelPLSR","Go to build PLSR Model >>"))),
+h4(tags$b(actionLink("ModelSPLSR","Go to build SPLSR Model >>")))
 #h4(tags$b("Build Model in the Next Tab"))
 
 ),

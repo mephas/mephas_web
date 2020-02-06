@@ -21,7 +21,7 @@ body {
 
 .shiny-output-error:before { 
 	visibility: visible; 
-	content: 'MEPHAS is confused. Please check the input parameter and data (such as variable name and data type)'; 
+	content: 'OOps! Something went wrong. Please check the input parameter and data (such as variable name and data type)'; 
 	color: #4169e1; 
 	font-weight: bold;
 }
@@ -33,4 +33,8 @@ body {
 
 .selectize-input { 
 	font-weight: bold;
+}
+
+.selected {
+	font-weight: bold !important;
 }
