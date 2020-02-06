@@ -96,7 +96,7 @@ tabPanel("Data Fitting",p(br()),
 
 p(tags$b("1. Predicted Y and residuals (Y-Predicted Y)")),
 DT::DTOutput("pcr.pres"),br(),
-  p(tags$b("Coefficient")),
+p(tags$b("Coefficient")),
 DT::DTOutput("pcr.coef")
 #  p(tags$b("Residuals table (= predicted dependent variable - dependent variable)")),
 #DT::DTOutput("pcr.resi")

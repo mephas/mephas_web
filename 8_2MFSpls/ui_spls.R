@@ -32,7 +32,7 @@ condition = "input.explain_on_off",
 p(tags$i("SPLS adds a penalty to make variable selection available. The penalty will select the variables that may be good for the prediction. The components are generated based on the selected variables.")),
 p(tags$i("In the example of NKI data, we used time as dependent variable (Y), and variable from TSPYL5 ...are used as independent variables.
   The default is to put all variables other than Y into X. Thus, we need to remove Diam and Age variables.")),
-p(tags$i("From the data tab, we knew that X is a 20 by 25 matrix, so the maximum of a is 19. There will be error if A=20.")),
+p(tags$i("From the data tab, we knew that X is a 20 by 25 matrix, so the maximum of a is 19. There will be error if A=20."))
 ),
 
 hr(),

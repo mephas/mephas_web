@@ -165,12 +165,12 @@ output$g.s = renderUI({
 selectInput(
 'g.s',
 tags$b('1. Choose one group variable, categorical to add group circle'),
-#selected = type.fac4()[1],
+selected = "NULL",
 choices = c("NULL",type.fac4())
 )
 })
 
-output$type = renderUI({
+output$type.s = renderUI({
 radioButtons("type.s", "The type of ellipse",
  choices = c(
   "None" = "",
@@ -206,7 +206,7 @@ plotly::ggplotly(p)
 
 output$spls.l.plot  <- plotly::renderPlotly({ 
 load <- load.s()
-p <- plot_load(loads=load, a=input$nc.s)
+p <- plot_load(load, input$nc.s)
 plotly::ggplotly(p)
   })
 
