@@ -21,7 +21,8 @@ sidebarPanel(
     ),
 
     p(tags$b("Please follow the example to input your data")),
-  p("Missing values can be separated by , ; /Enter /Tab /Space"),
+    p("Data point can be separated by , ; /Enter /Tab /Space"),
+    p(tags$b("Data be copied from CSV (one column) and pasted in the box")),   
           p(tags$b("Before")),
             tags$textarea(id = "x1.p",rows = 10,
               "0.6\n3\n4.7\n5.5\n6.2\n3.2\n2.5\n2.8\n1.1\n2.9"

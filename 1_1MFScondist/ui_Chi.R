@@ -41,8 +41,9 @@ sidebarLayout(
 	    condition = "input.InputSrc_x == 'DataDist'",
 	    tabsetPanel(
 	       tabPanel("Manual Input",p(br()),
-			p("Data point can be separated by , ; /Enter /Tab /Space"),
-    		tags$textarea(
+		p("Data point can be separated by , ; /Enter /Tab /Space"),
+		p(tags$b("Data be copied from CSV (one column) and pasted in the box")),
+		tags$textarea(
         	id = "x.x", #p
         	rows = 10, "11.92\n1.42\n5.56\n5.31\n1.28\n3.87\n1.31\n2.32\n3.75\n6.41\n3.04\n3.96\n1.09\n5.28\n7.88\n4.48\n1.22\n1.2\n9.06\n2.27"
 			),

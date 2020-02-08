@@ -21,8 +21,9 @@ tabsetPanel(
     ),
 
     p(tags$b("Please follow the example to input your data")),
-  p("Data point can be separated by , ; /Enter /Tab"),
-
+    p("Data point can be separated by , ; /Enter /Tab /Space"),
+    p(tags$b("Data be copied from CSV (one column) and pasted in the box")), 
+    
     p(tags$b("Sample Values")),
       tags$textarea(id = "x",rows = 10,
 "128.97\n118.76\n128.41\n115.33\n128.07\n110.71\n109.42\n102.20\n110.80\n106.10\n110.20\n116.58\n102.89\n129.92\n129.07\n116.16\n115.71\n102.19\n130.18\n102.73\n109.67\n120.10\n120.20\n110.42\n103.99\n110.05\n109.12\n115.27\n115.30\n119.16\n110.84\n109.47\n104.92\n120.21\n103.11\n119.42\n110.78\n119.56\n120.13\n129.86\n109.74\n116.69\n105.31\n129.51\n127.07\n104.69\n109.99\n119.74\n115.49\n129.63"

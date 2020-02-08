@@ -21,7 +21,8 @@ sidebarPanel(
     ),
 
     p(tags$b("Please follow the example to input your data")),
-  p("Data points can be separated by , ; /Enter /Tab /Space"),
+    p("Data point can be separated by , ; /Enter /Tab /Space"),
+    p(tags$b("Data be copied from CSV (one column) and pasted in the box")),   
     tags$textarea(id="a",
       rows=5,
       "1.83\n0.50\n1.62\n2.48\n1.68\n1.88\n1.55\n3.06\n1.30"

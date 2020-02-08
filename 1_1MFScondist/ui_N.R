@@ -48,7 +48,8 @@ sidebarLayout(
 
 	    tabsetPanel(
 	      tabPanel("Manual Input",p(br()),
-	        p("Data point can be separated by , ; /Enter /Tab /Space"),
+    p("Data point can be separated by , ; /Enter /Tab /Space"),
+    p(tags$b("Data be copied from CSV (one column) and pasted in the box")), 	        
 	        tags$textarea(
 	          id = "x", #p
 	          rows = 10,
