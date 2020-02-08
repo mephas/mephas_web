@@ -45,7 +45,7 @@ scrollX = TRUE))
   x <- pred.lm()
   vx <- input$y
   vy <- names(x)[1] 
-  p<-plot_scat(x, vx, vy)
+  p<-plot_scat(x, vx, vy, input$y, "Predicted Y")
   plotly::ggplotly(p)
    })
 

@@ -173,7 +173,7 @@ tabPanel("Component and Loading 3D Plot" ,p(br()),
 hr(),
 p(tags$b("This plot needs some time to load for the first time")),
 
-p(tags$b("When #comp >=3, choose components to show factor and loading 3D plot")),
+p(tags$b("When A >=3, choose components to show factor and loading 3D plot")),
 numericInput("td1.s", "1. Component at x-axis", 1, min = 1, max = NA),
 numericInput("td2.s", "2. Component at y-axis", 2, min = 1, max = NA),
 numericInput("td3.s", "3. Component at z-axis", 3, min = 1, max = NA),

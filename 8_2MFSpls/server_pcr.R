@@ -183,6 +183,7 @@ plotly::ggplotly(p)
 })
 
 output$tdplot <- plotly::renderPlotly({ 
+validate(need(input$nc>=3, "The number of components must be >= 2"))
 
 score <- score()
 load <- load()

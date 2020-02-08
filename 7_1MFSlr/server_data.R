@@ -26,9 +26,12 @@ if(!input$col){
   x <- as.data.frame(csv)
 }
 
-  if(input$transform) {x <- as.data.frame(t(x))}
+  if(input$transform) {
+    x <- as.data.frame(t(x))
+    names(x)<- make.names(names(x), unique = TRUE, allow_ = FALSE)
+    }
 
-return(as.data.frame(x))
+return(x)
 })
 
 ## variable type

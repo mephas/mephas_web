@@ -122,8 +122,8 @@ output$step = renderPrint({step(fit())})
 # 
 # # residual plot
 output$p.lm1 = plotly::renderPlotly({
-x <-data.frame(res=fit()$residuals)
-p <- plot_qq1(data=x, varx="res")
+x <-data.frame(residuals=fit()$residuals)
+p <- plot_qq1(data=x, varx="residuals")
 plotly::ggplotly(p)
 	})
 
