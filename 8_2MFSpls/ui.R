@@ -28,7 +28,7 @@ position="fixed-top",
 
 tabPanel("Data",
 
-titlePanel("Data Preparation"),
+headerPanel("Data Preparation"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
@@ -76,7 +76,7 @@ hr()
 ##########----------##########----------##########
 tabPanel("PCR and Prediction",
 
-titlePanel("Principal Component Regression"),
+headerPanel("Principal Component Regression"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
@@ -115,7 +115,7 @@ hr()
 ##########----------##########----------##########
 tabPanel("PLSR and Prediction",
 
-titlePanel("Partial Least Squares Regression"),
+headerPanel("Partial Least Squares Regression"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
@@ -155,7 +155,7 @@ hr()
 ##########----------##########----------##########
 tabPanel("SPLSR and Prediction",
 
-titlePanel("Sparse Partial Least Squares Regression"),
+headerPanel("Sparse Partial Least Squares Regression"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(

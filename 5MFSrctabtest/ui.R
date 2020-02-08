@@ -27,7 +27,7 @@ position="fixed-top",
 ##########----------##########----------##########
 tabPanel("2x2",
 
-titlePanel("Chi-square Test for 2 Categories of Factor in Case-Control Status"),
+headerPanel("Chi-square Test for 2 Categories of Factor in Case-Control Status"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
@@ -69,7 +69,7 @@ hr()
 ##########----------##########----------##########
 tabPanel("2x2(Exact)",
 
-titlePanel("Fisher Exact Test for 2 Categories of Factor with Small Expected Counts in Case-Control Status "),
+headerPanel("Fisher Exact Test for 2 Categories of Factor with Small Expected Counts in Case-Control Status "),
 
 conditionalPanel(
 condition = "input.explain_on_off",
@@ -111,7 +111,7 @@ hr()
 ##########----------##########----------##########
 tabPanel("2x2(Paired)",
 
-titlePanel("McNemar Test for 2 Categories of  of Factor with Matched Counts in Case-Control Status"),
+headerPanel("McNemar Test for 2 Categories of  of Factor with Matched Counts in Case-Control Status"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
@@ -164,7 +164,7 @@ hr()
 ##########----------##########----------##########
 tabPanel("2xC",
 
-titlePanel("Chi-square Test for >2 Categories of Factor in Case-Control Status"),
+headerPanel("Chi-square Test for >2 Categories of Factor in Case-Control Status"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML("
@@ -206,7 +206,7 @@ hr()
 
 tabPanel("RxC",
 
-titlePanel("Chi-square Test for >2 Factor Categories of Factor in >2 Status"),
+headerPanel("Chi-square Test for >2 Factor Categories of Factor in >2 Status"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
@@ -250,7 +250,7 @@ hr()
 
 tabPanel("Kappa(2xK)",
 
-titlePanel("Kappa Statistic for Reproducibility/Agreement of Two Raters"),
+headerPanel("Kappa Statistic for Reproducibility/Agreement of Two Raters"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
@@ -288,7 +288,7 @@ hr()
 
 tabPanel("Kappa(KxK)",
 
-titlePanel("Kappa Statistic for Reproducibility of Repeated/Related Measurements"),
+headerPanel("Kappa Statistic for Reproducibility of Repeated/Related Measurements"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
@@ -333,7 +333,7 @@ hr()
 
 tabPanel("(2x2)xK",
 
-titlePanel("Mantel-Haenszel Test for 2 Categories of Factor in Case-Control Status under K Confounding Strata"),
+headerPanel("Mantel-Haenszel Test for 2 Categories of Factor in Case-Control Status under K Confounding Strata"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
@@ -377,7 +377,7 @@ hr()
 
 tabPanel("(RxC)xK",
 
-titlePanel("Cochran-Mantel-Haenszel for >2 Categories of Factor in >2 Status under K Strata"),
+headerPanel("Cochran-Mantel-Haenszel for >2 Categories of Factor in >2 Status under K Strata"),
 
 conditionalPanel(
 condition = "input.explain_on_off",

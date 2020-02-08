@@ -28,7 +28,7 @@ position="fixed-top",
 
 tabPanel("Binomial",p(br()),
 
-titlePanel("Binomial Distribution"),
+headerPanel("Binomial Distribution"),
 
 #condiPa 1
 conditionalPanel(
@@ -59,7 +59,7 @@ hr()
 
 tabPanel("Poisson",
 
-titlePanel("Poisson Distribution"),
+headerPanel("Poisson Distribution"),
 #condiPa 1
 conditionalPanel(
 condition = "input.explain_on_off",

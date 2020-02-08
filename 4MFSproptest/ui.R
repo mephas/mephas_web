@@ -29,7 +29,7 @@ position="fixed-top",
 
 tabPanel("One Sample",
 
-titlePanel("Chi-square Test and Exact Binomial Method for One Proportion"),
+headerPanel("Chi-square Test and Exact Binomial Method for One Proportion"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
@@ -69,7 +69,7 @@ hr()
 ##########----------##########----------##########
 tabPanel("Two Samples",
 
-titlePanel("Chi-square Test for Two Independent Proportions"),
+headerPanel("Chi-square Test for Two Independent Proportions"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
@@ -106,7 +106,7 @@ hr()
 ##########----------##########----------##########
 tabPanel(">2 Samples",
 
-titlePanel("Chi-square Test for More than Two Independent Proportions"),
+headerPanel("Chi-square Test for More than Two Independent Proportions"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
@@ -142,7 +142,7 @@ hr()
 ##########----------##########----------##########
 tabPanel("Trend in >2 Samples ",
 
-titlePanel("Chi-square Test for Trend in Multiple Independent Samples"),
+headerPanel("Chi-square Test for Trend in Multiple Independent Samples"),
 conditionalPanel(
 condition = "input.explain_on_off",
 HTML(
