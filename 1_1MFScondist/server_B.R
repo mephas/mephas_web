@@ -7,7 +7,7 @@ output$b.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$b.xlim)), aes(x)) +
   stat_function(fun = "dbeta", args = list(shape1 = input$b.shape, shape2=input$b.scale)) + 
   ylab("Density") +
-  scale_y_continuous(breaks = NULL) + 
+  #scale_y_continuous(breaks = NULL) + 
   theme_minimal() + 
   ggtitle("") + #ylim(0, input$b.ylim) +
   geom_vline(aes(xintercept=qbeta(input$b.pr, shape1 = input$b.shape, shape2=input$b.scale)), colour = "red")})

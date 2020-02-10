@@ -9,7 +9,7 @@ output$norm.plot <- renderPlot({
 
   ggplot(data = data.frame(x = c(-(input$xlim), input$xlim)), aes(x)) +
   stat_function(fun = dnorm, n = 101, args = list(mean = input$mu, sd = input$sigma)) + 
-  scale_y_continuous(breaks = NULL) +
+  #scale_y_continuous(breaks = NULL) +
   stat_function(fun = mynorm, geom = "area", fill="cornflowerblue", alpha = 0.3) + 
   scale_x_continuous(breaks = c(-input$xlim, input$xlim))+
   ylab("Density") + 

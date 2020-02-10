@@ -5,7 +5,7 @@ output$g.plot <- renderPlot({
   ylab("Density") +
   theme_minimal() + 
   ggtitle("")+
-  scale_y_continuous(breaks = NULL) + #ylim(0, input$g.ylim) +
+  #scale_y_continuous(breaks = NULL) + #ylim(0, input$g.ylim) +
   geom_vline(aes(xintercept=qgamma(input$g.pr, shape = input$g.shape, scale=input$g.scale)), colour = "red")
   })
 

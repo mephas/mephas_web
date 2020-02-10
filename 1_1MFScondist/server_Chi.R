@@ -3,7 +3,7 @@ output$x.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$x.xlim)), aes(x)) +
   stat_function(fun = dchisq, n = 100, args = list(df = input$x.df)) + 
   ylab("Density") +
-  scale_y_continuous(breaks = NULL) + 
+  #scale_y_continuous(breaks = NULL) + 
   theme_minimal() + 
   ggtitle("") + #ylim(0, input$x.ylim) +
   geom_vline(aes(xintercept=qchisq(input$x.pr, df = input$x.df)), colour = "red")})

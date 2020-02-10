@@ -2,7 +2,7 @@
 output$e.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-0.1, input$e.xlim)), aes(x)) +
   stat_function(fun = "dexp", args = list(rate = input$r)) + ylab("Density") +
-  scale_y_continuous(breaks = NULL) + 
+  #scale_y_continuous(breaks = NULL) + 
   theme_minimal() + 
   ggtitle("") + #ylim(0, input$e.ylim) +
   geom_vline(aes(xintercept=qexp(input$e.pr, rate = input$r)), colour = "red")

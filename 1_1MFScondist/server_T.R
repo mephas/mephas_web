@@ -4,7 +4,7 @@ output$t.plot <- renderPlot({
   stat_function(fun = dt, n = 100, args = list(df = input$t.df)) + 
   stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color = "cornflowerblue") +
   ylab("Density") + 
-  scale_y_continuous(breaks = NULL) + 
+  #scale_y_continuous(breaks = NULL) + 
   theme_minimal() + 
   ggtitle("")+
   geom_vline(aes(xintercept=qt(input$t.pr, df = input$t.df)), colour = "red")})
