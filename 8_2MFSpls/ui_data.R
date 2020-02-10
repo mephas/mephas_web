@@ -91,7 +91,7 @@ downloadButton("download2", "Download Results (Categorical variable)")
 
 ),
 
-tabPanel("Linear fitting plot",p(br()),
+tabPanel("Linear Fitting Plot",p(br()),
 
 HTML("<p><b>Linear fitting plot</b>: to roughly show the linear relation between any two numeric variable."),
 HTML("Grey area is 95% confidence interval.</p>"),
@@ -113,7 +113,7 @@ HTML("<p><b>Density plot</b>: to show the distribution of a variable</p>"),
 hr(),
 
 uiOutput('hx'),
-p(tags$b("Histogram")),
+p(tags$b("Histogram and Density Plot")),
 plotly::plotlyOutput("p2"),
 sliderInput("bin", "The number of bins in the histogram", min = 0, max = 100, value = 0),
 p("When the number of bins is 0, plot will use the default number of bins "),

@@ -105,7 +105,7 @@ downloadButton("download2", "Download Results (Categorical variable)")
 
 ),
 
-tabPanel("Linear fitting plot",p(br()),
+tabPanel("Linear Fitting Plot",p(br()),
 
 HTML("<p><b>Linear fitting plot</b>: to roughly show the linear relation between any two numeric variable."),
 HTML("Grey area is 95% confidence interval.</p>"),
@@ -120,7 +120,7 @@ tags$textarea(id = "ylab", rows = 1, "Y"),
 plotly::plotlyOutput("p1")
 ),
 
-tabPanel("Histogram", p(br()),
+tabPanel("Histogram and Density Plot", p(br()),
 
 HTML("<p><b>Histogram</b>: to roughly show the probability distribution of a variable by depicting the frequencies of observations occurring in certain ranges of values.</p>"),
 HTML("<p><b>Density plot</b>: to show the distribution of a variable</p>"),

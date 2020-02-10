@@ -159,7 +159,7 @@ tabPanel("Life Table",  p(br()),
 DT::DTOutput("kmat")
      ),
 
-tabPanel("Histogram", p(br()),
+tabPanel("Histogram and Density Plot", p(br()),
 
 HTML("<p><b>Histogram</b>: to roughly show the probability distribution of a variable by depicting the frequencies of observations occurring in certain ranges of values.</p>"),
 HTML("<p><b>Density plot</b>: to show the distribution of a variable</p>"),
