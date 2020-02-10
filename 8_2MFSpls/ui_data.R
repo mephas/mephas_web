@@ -118,7 +118,19 @@ plotly::plotlyOutput("p2"),
 sliderInput("bin", "The number of bins in the histogram", min = 0, max = 100, value = 0),
 p("When the number of bins is 0, plot will use the default number of bins "),
 p(tags$b("Density plot")),
-plotly::plotlyOutput("p21"))
+plotly::plotlyOutput("p21")),
+
+tabPanel("Heatmap",p(br()),
+
+uiOutput('heat.x'),
+
+shinyWidgets::prettySwitch(
+   inputId = "heat.scale",
+   label = tags$b("Scale the data?"), 
+   status = "info",
+   fill = TRUE
+  ),
+plotly::plotlyOutput("heat"))
 
 )
 

@@ -34,22 +34,22 @@ hr()
 mainPanel(
 
 h4(tags$b("Output 1. Data Explores")),
-tabsetPanel(
-tabPanel("Parallel Analysis", p(br()),
-plotOutput("pc.plot", ),
-verbatimTextOutput("pcncomp")
-),
-tabPanel("Correlation Matrix", p(br()),
-plotOutput("cor.plot", ),p(br()),
-DT::DTOutput("cor")
-),
+#tabsetPanel(
+#tabPanel("Parallel Analysis", p(br()),
+#plotOutput("pc.plot", ),
+#verbatimTextOutput("pcncomp")
+#),
+#tabPanel("Correlation Matrix", p(br()),
+#plotOutput("cor.plot", ),p(br()),
+#DT::DTOutput("cor")
+#),
 
-tabPanel("Part of Data", br(),
+tags$b("Part of Data"),
  p("Please edit data in Data tab"),
-DT::DTOutput("table.x")
-)
+DT::DTOutput("table.x"),
+#)
 
-  ),
+#  ),
 
 hr(),
 h4(tags$b("Output 2. Model Results")),

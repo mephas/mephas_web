@@ -85,7 +85,7 @@ downloadButton("download2", "Download Results (Categorical variable)")
 
 ),
 
-tabPanel("Linear fitting plot",p(br()),
+tabPanel("Linear Fitting Plot",p(br()),
 
 HTML("<p><b>Linear fitting plot</b>: to roughly show the linear relation between any two numeric variable."),
 HTML("Grey area is 95% confidence interval.</p>"),
@@ -97,7 +97,7 @@ p(tags$b("3. Change the labels of X and Y axes")),
 tags$textarea(id = "xlab", rows = 1, "X"),
 tags$textarea(id = "ylab", rows = 1, "Y"),
 
-plotly::plotlyOutput("p1", width = "80%")
+plotly::plotlyOutput("p1")
 ),
 
 tabPanel("Histogram", p(br()),
@@ -107,14 +107,39 @@ HTML("<p><b>Density plot</b>: to show the distribution of a variable</p>"),
 hr(),
 
 uiOutput('hx'),
-p(tags$b("Histogram")),
-plotly::plotlyOutput("p2", width = "80%"),
+p(tags$b("Histogram and Density Plot")),
+plotly::plotlyOutput("p2"),
 sliderInput("bin", "The number of bins in the histogram", min = 0, max = 100, value = 0),
 p("When the number of bins is 0, plot will use the default number of bins "),
 p(tags$b("Density plot")),
-plotly::plotlyOutput("p21", width = "80%"))
+plotly::plotlyOutput("p21")),
 
+tabPanel("Heatmap and Correlation Plot",p(br()),
+
+uiOutput('heat.x'),
+shinyWidgets::prettySwitch(
+   inputId = "heat.scale",
+   label = tags$b("Scale the data?"), 
+   status = "info",
+   fill = TRUE
+  ),
+plotly::plotlyOutput("heat")),
+
+tabPanel("Correlation Matrix", p(br()),
+
+uiOutput('cor.x'), 
+plotOutput("cor.plot", ),p(br()),
+DT::DTOutput("cor")
+),
+tabPanel("Parallel Analysis", p(br()),
+
+uiOutput('para.x'), 
+plotOutput("fa.plot"),
+verbatimTextOutput("fancomp")
 )
+
+
+  )
 
 )
 

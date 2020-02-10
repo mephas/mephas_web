@@ -211,3 +211,90 @@ output$p21 = plotly::renderPlotly({
      plotly::ggplotly(p)
    })
 
+
+output$heat.x = renderUI({
+  pickerInput(
+    inputId = "heat.x",
+    label = "Choose variables to plot heatmap",
+    selected =type.num3(),
+    choices = type.num3(),
+    multiple = TRUE,
+    options = pickerOptions(
+      actionsBox=TRUE,
+      size=5)
+)
+  })
+
+output$heat = plotly::renderPlotly({
+    validate(need(input$heat.x, "Loading variable"))
+    if(input$heat.scale){
+    plotly::plot_ly(x = input$heat.x,
+             y = paste0("s.",c(rownames(X()))),
+            z = scale(as.matrix(X()[,input$heat.x])), 
+            type = "heatmap")      
+    }
+    else{
+    plotly::plot_ly(x = input$heat.x,
+             y = paste0("s.",c(rownames(X()))),
+            z = as.matrix(X()[,input$heat.x]), 
+            type = "heatmap")
+  }
+   })
+
+
+output$cor.x = renderUI({
+  pickerInput(
+    inputId = "cor.x",
+    label = "Choose variables to plot correlation matrix",
+    selected =type.num3(),
+    choices = type.num3(),
+    multiple = TRUE,
+    options = pickerOptions(
+      actionsBox=TRUE,
+      size=5)
+)
+  })
+
+output$cor <- DT::renderDT({
+  c <- as.data.frame(cor(X()[,input$cor.x]))
+  c <- c[ , order(names(c))]
+  c <- c[order(rownames(c)),]
+  return(c)}, 
+  extensions = 'Buttons', 
+    options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    scrollX = TRUE))
+
+output$cor.plot   <- renderPlot({ 
+    validate(need(input$cor.x, "Loading variable"))
+plot_corr(X()[,input$cor.x])
+
+})
+
+output$para.x = renderUI({
+  pickerInput(
+    inputId = "para.x",
+    label = "Choose variables to plot parallel analysis for PCA and EFA",
+    selected =type.num3(),
+    choices = type.num3(),
+    multiple = TRUE,
+    options = pickerOptions(
+      actionsBox=TRUE,
+      size=5)
+)
+  })
+
+output$fa.plot   <- renderPlot({
+df <- X()[,input$para.x]
+validate(need(nrow(df)>ncol(df), "Number of variables should be less than the number of rows"))
+validate(need(input$para.x, "Loading variables"))
+
+psych::fa.parallel(df,fa="both")
+})
+
+output$fancomp   <- renderPrint({ 
+df <- X()[,input$para.x]
+psych::fa.parallel(df,fa="both")
+#cat(paste0("Parallel analysis suggests that the number of factors: ", f$nfact))
+})

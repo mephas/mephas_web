@@ -49,19 +49,19 @@ output$fa  <- renderPrint({
   summary(fa())
   })
 
-fa1 <- eventReactive(input$pca1.fa,{
-  validate(need(nrow(DF4.fa())>ncol(DF4.fa()), "Number of variables should be less than the number of rows"))
-  psych::fa.parallel((DF4.fa()),fa="fa",fm="ml")
-  })
+#fa1 <- eventReactive(input$pca1.fa,{
+#  validate(need(nrow(DF4.fa())>ncol(DF4.fa()), "Number of variables should be less than the number of rows"))
+#  psych::fa.parallel((DF4.fa()),fa="fa",fm="ml")
+#  })
 
-output$fa.plot   <- renderPlot({ fa1()
+#output$fa.plot   <- renderPlot({ fa1()
 #psych::fa.parallel((DF4.fa()),fa="fa",fm="ml")
-})
+#})
 
-output$fancomp   <- renderPrint({ 
-#x <- psych::fa.parallel((DF4.fa()),fa="fa",fm="ml")
-cat(paste0("Parallel analysis suggests that the number of factors: ", fa1()$nfact))
-})
+#output$fancomp   <- renderPrint({ 
+##x <- psych::fa.parallel((DF4.fa()),fa="fa",fm="ml")
+#cat(paste0("Parallel analysis suggests that the number of factors: ", fa1()$nfact))
+#})
 
 
 output$comp.fa <- DT::renderDT({as.data.frame(fa()$scores)}, 
@@ -152,17 +152,17 @@ plotly::ggplotly(p)
 #fa.cor <- eventReactive(input$pca1.fa,{
 #  as.data.frame(cor(DF4.fa()))
 #  })
-output$cor.fa <- DT::renderDT({as.data.frame(cor(DF4.fa()))}, 
-  extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+#output$cor.fa <- DT::renderDT({as.data.frame(cor(DF4.fa()))}, 
+#  extensions = 'Buttons', 
+#    options = list(
+#    dom = 'Bfrtip',
+#    buttons = c('copy', 'csv', 'excel'),
+#    scrollX = TRUE))
 
-output$cor.fa.plot   <- renderPlot({ 
-plot_corr(DF4.fa())
+#output$cor.fa.plot   <- renderPlot({ 
+#plot_corr(DF4.fa())#
 
-})
+#})
 
 output$fa.bp   <- plotly::renderPlotly({ 
   validate(need(input$ncfa>=2, "Components are not enough to create the plot."))

@@ -37,21 +37,10 @@ mainPanel(
 
 h4(tags$b("Output 1. Data Explores")),
 
-tabsetPanel(
+tags$b("Part of Data"),
+p("Please edit data in Data tab"),
+DT::DTOutput("table.x.fa"),
 
-tabPanel("Parallel Analysis", p(br()),
-plotOutput("fa.plot"),
-verbatimTextOutput("fancomp")
-),
-tabPanel("Correlation Matrix", p(br()),
-plotOutput("cor.fa.plot"),p(br()),
-DT::DTOutput("cor.fa")
-),
-tabPanel("Part of Data", br(),
- p("Please edit data in Data tab"),
-DT::DTOutput("table.x.fa")
-)
-),
 hr(),
 
 h4(tags$b("Output 2. Model Results")),

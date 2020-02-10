@@ -30,22 +30,6 @@ DF4 <- eventReactive(input$pca1,{
 output$table.x <- DT::renderDT(
     head(X()), options = list(scrollX = TRUE,dom = 't'))
 
-output$cor <- DT::renderDT({
-  c <- as.data.frame(cor(DF4()))
-  c <- c[ , order(names(c))]
-  c <- c[order(rownames(c)),]
-  return(c)}, 
-  extensions = 'Buttons', 
-    options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
-
-output$cor.plot   <- renderPlot({ 
-plot_corr(DF4())
-
-})
-
 pca <- eventReactive(input$pca1,{
 
   X <- as.data.frame(na.omit(DF4()))

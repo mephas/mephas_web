@@ -215,3 +215,31 @@ output$p21 = plotly::renderPlotly({
      plotly::ggplotly(p)
    })
 
+output$heat.x = renderUI({
+  pickerInput(
+    inputId = "heat.x",
+    label = "Choose variables to plot heatmap",
+    selected =type.num3(),
+    choices = type.num3(),
+    multiple = TRUE,
+    options = pickerOptions(
+      actionsBox=TRUE,
+      size=5)
+)
+  })
+
+output$heat = plotly::renderPlotly({
+    validate(need(input$heat.x, "Loading variable"))
+    if(input$heat.scale){
+    plotly::plot_ly(x = input$heat.x,
+             y = paste0("s.",c(rownames(X()))),
+            z = scale(as.matrix(X()[,input$heat.x])), 
+            type = "heatmap")      
+    }
+    else{
+    plotly::plot_ly(x = input$heat.x,
+             y = paste0("s.",c(rownames(X()))),
+            z = as.matrix(X()[,input$heat.x]), 
+            type = "heatmap")
+  }
+   })
