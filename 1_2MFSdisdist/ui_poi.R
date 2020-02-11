@@ -80,8 +80,8 @@ mainPanel(
 		  p("The blue curve is the normal distribution with mean=rate and sd=rate. It indicates the normal approximation of binomial distribution."),
  		p(tags$b("Poisson probability plot")),
     	plotly::plotlyOutput("p.plot"),
-    	#p(tags$b("Probability at the observed number of occurrences (Red-Dot)")),
-    	#tableOutput("p.k")
+    	p(tags$b("Probability at the observed number of occurrences (Red-Dot)")),
+    	tableOutput("p.k")
     hr(),
      plotly::plotlyOutput("p.plot.cdf")   
     	),
