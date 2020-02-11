@@ -7,16 +7,40 @@ output$norm.plot <- renderPlot({
   return(norm)
   }
 
+  #myprob = function (x) {
+  #norm = dnorm(x, input$mu, input$sigma)
+  #norm[x>qnorm(input$pr, mean = input$mu, sd = input$sigma, lower.tail = TRUE, log.p = FALSE)] = NA
+  #return(norm)
+  #}
+
   ggplot(data = data.frame(x = c(-(input$xlim), input$xlim)), aes(x)) +
-  stat_function(fun = dnorm, n = 101, args = list(mean = input$mu, sd = input$sigma)) + 
+  stat_function(fun = "dnorm", args = list(mean = input$mu, sd = input$sigma)) + 
   #scale_y_continuous(breaks = NULL) +
   stat_function(fun = mynorm, geom = "area", fill="cornflowerblue", alpha = 0.3) + 
-  scale_x_continuous(breaks = c(-input$xlim, input$xlim))+
-  ylab("Density") + 
+  #stat_function(fun = myprob, geom = "area", fill="red", alpha = 0.1) + 
+  xlim(-input$xlim, input$xlim)+
+  ylab("Density Function") + 
   theme_minimal() + 
   ggtitle("")+
-  geom_vline(aes(xintercept=input$mu), color="red", linetype="dashed", size=0.5) +
-  geom_vline(aes(xintercept=qnorm(input$pr, mean = input$mu, sd = input$sigma, lower.tail = TRUE, log.p = FALSE)), color="red", size=0.5) })
+  geom_vline(aes(xintercept=input$mu), color="red", linetype="dashed", size=0.5)+
+  geom_vline(aes(xintercept=qnorm(input$pr, mean = input$mu, sd = input$sigma, lower.tail = TRUE, log.p = FALSE)), color="red", size=0.5)
+})
+
+
+output$norm.plot.cdf <- plotly::renderPlotly({
+x0<- qnorm(input$pr, mean = input$mu, sd = input$sigma, lower.tail = TRUE, log.p = FALSE)
+mean <- input$mu
+p<-ggplot(data = data.frame(x = c(-input$xlim, input$xlim)), mapping = aes(x = x)) +
+  stat_function(fun = ~ pnorm(q = .,mean = input$mu, sd = input$sigma))+
+  xlim(-input$xlim, input$xlim)+
+  ylab("Cumulative Density Function") + 
+  theme_minimal() + 
+  geom_vline(aes(xintercept=mean), color="red", linetype="dashed", size=0.3)+
+  geom_vline(aes(xintercept=x0), color="red", size=0.3)
+
+plotly::ggplotly(p)
+})
+
 
 output$info = renderText({
     xy_str = function(e) {
@@ -44,8 +68,7 @@ output$norm.plot2 = plotly::renderPlotly({
 
   df = N()
   x <- names(df)
-p<-plot_hist1c(df, x, input$bin)
-p<-p+geom_vline(aes(xintercept=quantile(x, probs = input$pr, na.rm=TRUE)), color="red", size=0.3)
+p<-plot_hist1c(df, x, input$bin) 
 plotly::ggplotly(p)
 })
 
@@ -53,7 +76,7 @@ plotly::ggplotly(p)
 output$sum = renderTable({
   x = N()[,1]
   x <- matrix(c(mean(x), sd(x), quantile(x, probs = input$pr)),3,1)
-  rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position (x0)")
+  rownames(x) <- c("Mean", "Standard Deviation", "Red-line Position, Pr(X<x0)")
   return(x)
   }, digits = 6, colnames=FALSE, rownames=TRUE, width = "80%")
 
@@ -103,8 +126,8 @@ output$makeplot.1 <- plotly::renderPlotly({
 
   df = NN()
   x <- names(df)
+  x0<- quantile(df[,x], probs = input$pr, na.rm=TRUE)
   p<-plot_hist1(df, x, input$bin1)
-  p<-p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$pr, na.rm=TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
   })
 
@@ -112,8 +135,19 @@ output$makeplot.2 <- plotly::renderPlotly({
   
   df = NN()
   x <- names(df)
+  x0<- quantile(df[,x], probs = input$pr, na.rm=TRUE)
   p<-plot_density1(df, x)
-  p<-p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$pr, na.rm=TRUE)), color="red", size=0.3)
+  p<-p+geom_vline(aes(xintercept=x0), color="red", size=0.3)
+  plotly::ggplotly(p)
+  })
+
+output$makeplot.3 <- plotly::renderPlotly({
+  
+  df = NN()
+  x <- df[,1]
+  p<- ggplot(df, aes(x)) + stat_ecdf(geom = "point")+
+  ylab("Cumulative Density Function") + 
+  theme_minimal()
   plotly::ggplotly(p)
   })
 

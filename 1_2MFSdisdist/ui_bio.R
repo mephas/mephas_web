@@ -19,7 +19,11 @@ sidebarLayout(
 	    condition = "input.InputSrc_b == 'MathDist'",
 	    HTML("<b> 1. Set Parameters</b>"),
 		numericInput("m", "The number of trials / samples, n > 0", value = 10, min = 1 , max = 1000000000),
-		numericInput("p", "The probability of success / event, p > 0", value = 0.2, min = 0, max = 1, step = 0.1)
+		numericInput("p", "The probability of success / event, p > 0", value = 0.2, min = 0, max = 1, step = 0.1),
+		HTML("
+<li> Mean = np
+<li> Variance = np(1-p)
+			")
 		),
 	  conditionalPanel(
 	    condition = "input.InputSrc_b == 'MathDist' && input.explain_on_off",
@@ -82,7 +86,9 @@ mainPanel(
 		  p("The blue curve is the normal distribution with mean n*p and sd n*p*(1-p). It indicates the normal approximation of binomial distribution."),
 		  plotly::plotlyOutput("b.plot"),
 		  p(tags$b("Probability at the observed number of success /event (Red-Dot)")),
-		  tableOutput("b.k")
+		  tableOutput("b.k"),
+		 hr(),
+     plotly::plotlyOutput("b.plot.cdf")   
 		),
 		conditionalPanel(
 		  condition = "input.InputSrc_b == 'MathDist' && input.explain_on_off",
@@ -105,7 +111,8 @@ mainPanel(
 		h4("Distribution of Your Data"),
  		p(tags$b("Histogram from upload data")),
 		plotly::plotlyOutput("makeplot.1"),
-		p("When the number of bins is 0, plot will use the default number of bins"),
+    tags$b("CDF from upload data"),
+    plotly::plotlyOutput("makeplot.11"),
 		p(tags$b("Sample descriptive statistics")),
 		tableOutput("sum2")
 

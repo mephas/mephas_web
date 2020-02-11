@@ -1,5 +1,12 @@
 #****************************************************************************************************************************************************2-1way
-
+output$dt.ref = renderUI({
+selectInput(
+'dt.ref',
+tags$b('* For Dunnett Methods, you can change the control factor from the factor groups above'),
+selected = level1()[1],
+choices = level1()
+)
+})
 
 multiple <- eventReactive(input$M1, {
   x <- Y1()
@@ -37,7 +44,7 @@ multiple <- eventReactive(input$M1, {
 
   }
     if (input$method == "DT"){
-    x2 <- relevel(x[,names(x)[2]], ref=level()[input$control])
+    x2 <- relevel(x[,names(x)[2]], ref=input$dt.ref)
     res <- DescTools::DunnettTest(x[,names(x)[1]],x2)[[1]]
     colnames(res) <-c("Difference", "95%CI lower band","95%CI higher band", "P Value" )
 

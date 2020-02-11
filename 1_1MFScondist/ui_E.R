@@ -18,11 +18,15 @@ sidebarLayout(
 	  conditionalPanel(
 	    condition = "input.InputSrc_e == 'MathDist'",
 	    #"Draw an Exponential Distribution", p(br()),
-      HTML("<b>1. Set Parameters for E(Rate)</b></h4>"),
-	    numericInput("r", HTML("Rate (> 0) indicates the rate of change"), value = 2, min = 0),
+      HTML("<b>Set Parameters for E(Rate)</b></h4>"),
+	    numericInput("r", HTML(" Rate (> 0) indicates the rate of change, input rate"), value = 2, min = 0),
+      hr(),
+      numericInput("e.mean", HTML("Or. Calculate Rate from Mean and SD (Mean = SD), input mean"), value = 0.5, min = 0),
+      verbatimTextOutput("e.rate"),
+      p("Mean = SD = 1/Rate"),
 	    hr(),
 
-	    numericInput("e.xlim", "Change the range of x-axis > 0", value = 5, min = 1)
+	    numericInput("e.xlim", "2. Change the range of x-axis > 0", value = 5, min = 1)
 
 	  ),
 	  #condiPa 2
@@ -70,9 +74,12 @@ sidebarLayout(
   		  tags$b("Exponential distribution plot"),
   		  plotOutput("e.plot", click = "plot_click9"),#
   		  verbatimTextOutput("e.info"),
-        HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
+        p(br()),
+        p(tags$b("The position of red line")),
   		  #p(tags$b("The position of Red-line, x<sub>0</sub>")),
-  		  tableOutput("e")
+  		  #verbatimTextOutput("e"),
+      hr(),
+      plotly::plotlyOutput("e.plot.cdf")        
   		),
   		conditionalPanel(
   		  condition = "input.InputSrc_e == 'SimuDist'",
@@ -83,16 +90,7 @@ sidebarLayout(
   		  downloadButton("download2", "Download Random Numbers"),
 
   		  p(tags$b("Sample descriptive statistics")),
-  		  tableOutput("e.sum"),
-  		  HTML(
-  		    "
-			    <b> Explanation </b>
-			   <ul>
-			    <li>  Mean = 1/Rate </li>
-			    <li>  SD = 1/Rate </li>
-			   </ul>
-			    "
-  		  )
+  		  tableOutput("e.sum")
   		),
 
   		conditionalPanel(
@@ -104,6 +102,8 @@ sidebarLayout(
   		  plotly::plotlyOutput("makeplot.e2"),
   		  tags$b("Histogram from upload data"),
   		  plotly::plotlyOutput("makeplot.e1"),
+        tags$b("CDF from upload data"),
+        plotly::plotlyOutput("makeplot.e3"),
   		  p(tags$b("Sample descriptive statistics")),
   		  tableOutput("e.sum2")
 

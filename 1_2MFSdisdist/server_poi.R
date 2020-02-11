@@ -10,16 +10,38 @@ return(data)
 
 output$p.plot <- plotly::renderPlotly({
 X = P()
-obs = X$x0[input$k+1]
-y = X$Pr.at.x0[input$k+1]
+obs = X$x0[input$x0+1]
+y = X$Pr.at.x0[input$x0+1]
 x0= X[,"x0"]
 prob = X[,"Pr.at.x0"]
+mean <- input$lad
 p <-ggplot(X, aes(x0, prob)) + geom_step(size=0.3) + 
   geom_point(aes(x = obs, y = y),color = "red", size = 2) +
+  geom_vline(aes(xintercept=mean), color="red", linetype="dashed", size=0.3)+
   stat_function(fun = dnorm, args = list(mean = input$lad, sd = sqrt(input$lad)), color = "cornflowerblue") + scale_y_continuous(breaks = NULL) + 
-  xlab("") + ylab("PMF")  + theme_minimal() + ggtitle("")
+  xlab("") + ylab("Probability Mass Function")  + theme_minimal() + ggtitle("")
 plotly::ggplotly(p)
    })
+
+output$p.plot.cdf <- plotly::renderPlotly({
+#x0<- qbinom(input$e.pr, rate = input$r)
+X = P()
+obs = X$x0[input$x0+1]
+y = X$Pr.x0.cumulated[input$x0+1]
+mean <- input$lad
+x0= X[,"x0"]
+prob = X[,"Pr.x0.cumulated"]
+p<-ggplot(X, aes(x0, prob))+ geom_step(size=0.3) + 
+  #stat_function(fun = ~ pbinom(q = .,input$m, input$p))+
+  geom_point(aes(x = obs, y = y),color = "red", size = 2) +
+  #xlim(c(1:input$m))+
+  ylab("Cumulative Mass Function") + 
+  theme_minimal() + 
+  geom_vline(aes(xintercept=mean), color="red", linetype="dashed", size=0.3)
+  #geom_vline(aes(xintercept=x0), color="red", size=0.3)
+
+plotly::ggplotly(p)
+})
 
 output$p.k = renderTable({
   x <- t(P()[(input$x0+1),])
@@ -81,9 +103,18 @@ NN.p <- reactive({
 
 output$makeplot.2 <- plotly::renderPlotly({
 
-    df = NN.p()
+  df = NN.p()
   x <- names(df)
   p<-plot_hist1(df, x, input$bin1.p)
+  plotly::ggplotly(p)
+  })
+
+output$makeplot.22 <- plotly::renderPlotly({
+  df = NN.p()
+  x <- df[,1]  
+  p<- ggplot(df, aes(x)) + stat_ecdf(geom = "point")+
+  ylab("Cumulative Mass Function") + 
+  theme_minimal()
   plotly::ggplotly(p)
   })
 

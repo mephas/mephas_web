@@ -18,13 +18,19 @@ sidebarLayout(
 	  conditionalPanel(
 	    condition = "input.InputSrc_g == 'MathDist'",
 	    #h3("Draw a Gamma Distribution", p(br())),
-	    HTML("<b>1. Set Parameters for Gamma(&#945, &#952)</b>"),
-	    numericInput("g.shape", HTML("&#945 > 0, Shape parameter"), value = 9, min = 0),
+	    HTML("<b>1. Set Parameters for Gamma(k, &#952)</b>"),
+	    numericInput("g.shape", HTML("k > 0, Shape parameter"), value = 9, min = 0),
 		numericInput("g.scale", HTML("&#952 > 0, Scale parameter"), value = 0.5, min = 0),
+hr(),
+numericInput("g.mean", HTML("Or. Calculate k and &#952 from Mean and SD (Mean = SD), input mean"), value = 0.5, min = 0),
+numericInput("g.sd", HTML("Input SD"), value = 0.5, min = 0),
+
+verbatimTextOutput("g.rate"),
+HTML("<li> Mean = k&#952
+			<li> Variance = k&#952<sup>2</sup>"),
 		hr(),
 
-	 	p(tags$b("You can adjust x-axes range")),
-		numericInput("g.xlim", "Range of x-axis, > 0", value = 20, min = 1)
+		numericInput("g.xlim", "Change the range of x-axis, > 0", value = 20, min = 1)
 	  ),
 	  #condiPa 1 end
 
@@ -74,9 +80,11 @@ mainPanel(
 		  tags$b("Gamma distribution plot"),
 		  plotOutput("g.plot", click = "plot_click11"),
          verbatimTextOutput("g.info"),
-         HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
+         #HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
 		 #p(tags$b("The position of Red-line, x<sub>0</sub>")),
-         tableOutput("g")
+         #tableOutput("g")
+     hr(),
+     plotly::plotlyOutput("g.plot.cdf")   
 		),
 
 		conditionalPanel(
@@ -89,16 +97,7 @@ mainPanel(
         #verbatimTextOutput("g.info2"),
         downloadButton("download3", "Download Random Numbers"),
         p(tags$b("Sample descriptive statistics")),
-        tableOutput("g.sum"),
-        HTML(
-    "
-    <b> Explanation </b>
-   <ul>
-    <li>  Rate = &#946=1/&#952 </li>
-    <li>  Mean = &#945*&#952 </li>
-   </ul>
-    "
-    )
+        tableOutput("g.sum")
 
 		),
 
@@ -111,6 +110,8 @@ mainPanel(
         plotly::plotlyOutput("makeplot.g2"),
         tags$b("Histogram from upload data"),
         plotly::plotlyOutput("makeplot.g1"),
+        tags$b("CDF from upload data"),
+        plotly::plotlyOutput("makeplot.g3"),
         p(tags$b("Sample descriptive statistics")),
         tableOutput("g.sum2")
 		)

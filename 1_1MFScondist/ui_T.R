@@ -19,10 +19,14 @@ sidebarLayout(
 	    HTML("<b>1. Set Parameters for T(v)</b>"),
 	    #HTML("<h4><b>Step 1. Set Parameters for T(v)</h4></b>"),
  		numericInput("t.df", HTML("v > 0, Degree of Freedom, related to the shape"), value = 4, min = 0),
+ 		hr(),
+numericInput("t.sd", HTML("Or. Calculate Rate from SD, input SD"), value = 0.5, min = 0),
+verbatimTextOutput("t.rate"),
+p("SD = v/(v-2)"),
 
 		  hr(),
-		  p(tags$b("You can adjust x-axes range")),
-		  numericInput("t.xlim", "Range of x-asis", value = 5, min = 1)
+		  #p(tags$b("You can adjust x-axes range")),
+		  numericInput("t.xlim", "Change the range of x-asis", value = 5, min = 1)
 		  #numericInput("t.ylim", "Range of y-asis, > 0", value = 0.5, min = 0.1, max = 3),
 	  ),
 	 #condiPa 1 end
@@ -80,9 +84,11 @@ tabPanel.upload.num(file ="t.file", header="t.header", col="t.col", sep="t.sep")
         plotOutput("t.plot", click = "plot_click3"),
         verbatimTextOutput("t.info"),
 
-        HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
+        #HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
         #p(tags$b("The position of Red-line, x<sub>0</sub>")),
-        tableOutput("t")
+        #tableOutput("t")
+        hr(),
+      plotly::plotlyOutput("t.plot.cdf")  
 		),
 
 		conditionalPanel(
@@ -109,7 +115,8 @@ tabPanel.upload.num(file ="t.file", header="t.header", col="t.col", sep="t.sep")
         plotly::plotlyOutput("makeplot.t2"),
         tags$b("Histogram from upload data"),
         plotly::plotlyOutput("makeplot.t1"),
-
+        tags$b("CDF from upload data"),
+        plotly::plotlyOutput("makeplot.t3"),
       p(tags$b("Sample descriptive statistics")),
       tableOutput("t.sum2")
 

@@ -20,14 +20,13 @@ sidebarLayout(
 	    condition = "input.InputSrc == 'MathDist'",
 	    #h3("Draw a Normal Distribution"), p(br()),
 
-	    HTML("<b>1. Set Parameters for N(&#956, &#963)</b>"),
-	    numericInput("mu", HTML("Mean(&#956), the dashed line, indicates the location  "), value = 0, min = -10000000, max = 10000000),
-	    numericInput("sigma", HTML("Standard Deviation(&#963), indicates the shape"), value = 1, min = 0, max = 10000000),
+	    HTML("<b>Set Parameters for N(&#956, &#963)</b>"),
+	    numericInput("mu", HTML("1. Mean(&#956), the dashed line, indicates the location  "), value = 0, min = -10000000, max = 10000000),
+	    numericInput("sigma", HTML("2. Standard Deviation(&#963), indicates the shape"), value = 1, min = 0, max = 10000000),
 	    hr(),
-	   	numericInput("n", HTML("Blue Area = Pr(Mean-n*SD < X < Mean+n*SD)"), value = 1, min = 0, max = 10),
+	   	numericInput("n", HTML("3. Blue Area = Pr(Mean-n*SD < X < Mean+n*SD)"), value = 1, min = 0, max = 10),
 	    hr(),
-	    p(tags$b("You can adjust x-axes range")),
-	    numericInput("xlim", "Range of x-axis, symmetric to 0", value = 5)
+	    numericInput("xlim", "4. Change range of x-axis, symmetric to 0", value = 5)
 	    #numericInput("ylim", "Range of y-axis > 0", value = 0.5, min = 0.1, max = 1),
 	  ),
 	  #condiPa 1 end
@@ -66,7 +65,7 @@ sidebarLayout(
 	  #condiPa 3 end
 	  	hr(),
 	    h4(tags$b("Step 3. Show Probability")),
-	    numericInput("pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.025, min = 0, max = 1, step = 0.05),
+	    numericInput("pr", HTML("Area Proportion Left to Red line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.025, min = 0, max = 1, step = 0.05),
 
 	    hr()
 	), #sidePa end
@@ -82,9 +81,12 @@ sidebarLayout(
 		  plotOutput("norm.plot", click = "plot_click"), #click = "plot_click",
 
 		  verbatimTextOutput("info"),
+		  p(br()),
+		  p(tags$b("The position of the red line and the blue ares")),
+		  tableOutput("xs"),
+		  hr(),
+		  plotly::plotlyOutput("norm.plot.cdf")
 
-		  p(tags$b("The position of Red-line and the Blue Ares")),
-		  tableOutput("xs")
 		),
 
 		conditionalPanel(
@@ -111,7 +113,8 @@ sidebarLayout(
 		  plotly::plotlyOutput("makeplot.2"),
 		  tags$b("Histogram from upload data"),
 		  plotly::plotlyOutput("makeplot.1"),
-
+		  tags$b("CDF from upload data"),
+		  plotly::plotlyOutput("makeplot.3"),
 		  p(tags$b("Sample descriptive statistics")),
 		  tableOutput("sum2")
 

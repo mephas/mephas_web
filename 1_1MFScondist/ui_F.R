@@ -18,8 +18,10 @@ sidebarLayout(
 	    condition = "input.InputSrc_f == 'MathDist'",
 	    HTML("<b>1. Set Parameters</b>"),
 	    #HTML("<h4><b>Step 1. Set Parameters</b></h4>"),
-		numericInput("df11", HTML("df<sub>1</sub> > 0, Degree of Freedom 1"), value = 100, min = 0),
-		numericInput("df21", HTML("df<sub>2</sub> > 0, Degree of Freedom 2"), value = 100, min = 0),
+		numericInput("df11", HTML("v1 > 0, Degree of Freedom 1"), value = 100, min = 0),
+		numericInput("df21", HTML("v2 > 0, Degree of Freedom 2"), value = 100, min = 0),
+		HTML("<li> Mean = v2 / (v2 - 2), for v2 > 2
+			<li> Variance = [ 2 * v2^2 * ( v1 + v2 - 2 ) ] / [ v1 * ( v2 - 2 )^2 * ( v2 - 4 ) ] for v2 > 4"),
 		hr(),
 
 	 	p(tags$b("You can adjust x-axes range")),
@@ -74,10 +76,11 @@ mainPanel(
 
         plotOutput("f.plot", click = "plot_click7"),
         verbatimTextOutput("f.info"),
-
-        HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
+     hr(),
+     plotly::plotlyOutput("f.plot.cdf") 
+        #HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
         #p(tags$b("The position of Red-line, x0")),
-        tableOutput("f")
+        #tableOutput("f")
 		),
 
 		conditionalPanel(
@@ -103,7 +106,8 @@ mainPanel(
         plotly::plotlyOutput("makeplot.f2"),
         tags$b("Histogram from upload data"),
         plotly::plotlyOutput("makeplot.f1"),
-
+        tags$b("CDF from upload data"),
+        plotly::plotlyOutput("makeplot.f3"),        
         p(tags$b("Sample descriptive statistics")),
         tableOutput("f.sum2")
 

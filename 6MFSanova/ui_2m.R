@@ -33,16 +33,17 @@ hr(),
     ),
   choiceValues = list("SF", "TH")
   ),
+        p(br()),
+      actionButton("M2", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
+hr(),
       HTML(
   "<b> Explanations </b>
 
     <li> <b>Scheffe</b> procedure controls for the search over any possible contrast</li>
     <li> <b>Tukey Honest Significant Difference</b> is preferred if there are unequal group sizes among the experimental and control groups</li>
   "
-    ),
+    )
 
-      p(br()),
-      actionButton("M2", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
 
 ),
 

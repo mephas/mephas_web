@@ -33,6 +33,10 @@ hr(),
     ),
   choiceValues = list("B", "BH", "FDR", "BY", "SF", "TH", "DT")
   ),
+  uiOutput("dt.ref"),
+      p(br()),
+      actionButton("M1", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
+hr(),
       HTML(
   "<b> Explanations </b>
   
@@ -44,10 +48,7 @@ hr(),
     <li> <b>Tukey Honest Significant Difference</b> is preferred if there are unequal group sizes among the experimental and control groups</li>
     <li> <b>Dunnett</b> is useful for compare all treatment groups with a control group</li>
   "
-    ),
-      p(br()),
-      actionButton("M1", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
-
+    )
 
 ),
 
@@ -55,9 +56,8 @@ mainPanel(
 
   h4(tags$b("Output 3. Multiple Comparison Results")), p(br()),
 
-  numericInput("control", HTML("* For Dunnett Methods, you can change the control factor from the factor groups above"), 
-    value = 1, min = 1, max = 20, step=1),
-
+  #numericInput("control", HTML("* For Dunnett Methods, you can change the control factor from the factor groups above"), 
+  #  value = 1, min = 1, max = 20, step=1),
 
   p(tags$b("Pairwise P Value Table")),
   DT::DTOutput("multiple.t"),p(br()),

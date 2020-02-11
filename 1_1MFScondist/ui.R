@@ -166,7 +166,7 @@ HTML(
 </ul>
 
 <h4><i>Case Example</i></h4>
-<i>Suppose we wanted to see the shape of Beta(2, 2), and wanted to know at which point x<sub>0</sub> when Pr(X < x<sub>0</sub>)= 0.05 </i>
+<i>Suppose we wanted to see the shape of Beta(12, 12), and wanted to know at which point x<sub>0</sub> when Pr(X < x<sub>0</sub>)= 0.05 </i>
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
 "

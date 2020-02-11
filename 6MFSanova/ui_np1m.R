@@ -24,13 +24,16 @@ hr(),
     HTML("Bonferroni's"),
     HTML("Sidak's"),
     HTML("Holm's"),
-    HTML("Holm-Šidak"),
+    HTML("Holm-Sidak"),
     HTML("Hochberg's "),
     HTML("Benjamini-Hochberg"),
     HTML("Benjamini-Yekutieli")
     ),
   choiceValues = list("bonferroni", "sidak", "holm", "hs", "hochberg", "bh", "by")
   ),
+   p(br()),
+      actionButton("M3", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o")),
+      hr(),
   HTML(
   "<b> Explanations </b>
 
@@ -43,12 +46,7 @@ hr(),
     <li> <b>Benjamini-Yekutieli</b> adjusted p-values = max[1, pmC/(m+1-i)]; C = 1 + 1/2 + ... + 1/m</li>
 
   "
-    ),
-        p(br()),
-      actionButton("M3", (tags$b("Show Results >>")),class="btn btn-primary",icon=icon("bar-chart-o"))
-      
-
-
+    )
 ),
 
 mainPanel(

@@ -4,7 +4,7 @@
 function(input, output) {
 
 ##########----------##########----------##########
-source("../tab/func.R")
+options(digits=6)
 
 source("server_N.R", local=TRUE)$value
 

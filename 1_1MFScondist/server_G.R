@@ -1,13 +1,32 @@
 #****************************************************************************************************************************************************1.3. gamma
 output$g.plot <- renderPlot({
-  ggplot(data = data.frame(x = c(-0.1, input$g.xlim)), aes(x)) +
+  ggplot(data = data.frame(x = c(0, input$g.xlim)), aes(x)) +
   stat_function(fun = "dgamma", args = list(shape = input$g.shape, scale=input$g.scale)) + 
+  xlim(0, input$g.xlim)+
   ylab("Density") +
   theme_minimal() + 
   ggtitle("")+
-  #scale_y_continuous(breaks = NULL) + #ylim(0, input$g.ylim) +
+  geom_vline(aes(xintercept=input$g.shape*input$g.scale), color="red", linetype="dashed", size=0.5)+
   geom_vline(aes(xintercept=qgamma(input$g.pr, shape = input$g.shape, scale=input$g.scale)), colour = "red")
   })
+
+output$g.rate <- renderPrint({
+  cat(paste0("Input: shape (k) = ", (input$g.mean/input$g.sd)^2, " and  scale (theta) = ", input$g.sd^2/input$g.mean))
+  })
+
+output$g.plot.cdf <- plotly::renderPlotly({
+x0<- qgamma(input$g.pr, shape = input$g.shape, scale=input$g.scale)
+mean <- input$g.shape*input$g.scale
+p<-ggplot(data = data.frame(x = c(0, input$g.xlim)), mapping = aes(x = x)) +
+  stat_function(fun = ~ pgamma(q = .,shape = input$g.shape, scale=input$g.scale))+
+  xlim(0, input$g.xlim)+
+  ylab("Cumulative Density Function") + 
+  theme_minimal() + 
+  geom_vline(aes(xintercept=mean), color="red", linetype="dashed", size=0.3)+
+  geom_vline(aes(xintercept=x0), color="red", size=0.3)
+
+plotly::ggplotly(p)
+})
 
 output$g.info = renderText({
     xy_str = function(e) {
@@ -40,7 +59,6 @@ output$g.plot2 = plotly::renderPlotly({
   df = G()
   x <- names(df)
 p<-plot_hist1c(df, x, input$g.bin)
-p<-p+geom_vline(aes(xintercept=quantile(x, probs = input$g.pr, na.rm=TRUE)), color="red", size=0.3)
 plotly::ggplotly(p)
 })
 
@@ -85,18 +103,28 @@ output$Z <- DT::renderDT({Z()},
       scroller = TRUE))
 
 output$makeplot.g1 <- plotly::renderPlotly({
-    df = Z()
+  df = Z()
   x <- names(df)
   p<-plot_hist1(df, x, input$bin.g)
-  p<-p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$g.pr, na.rm=TRUE)), color="red", size=0.3)
   plotly::ggplotly(p)
   })
 
 output$makeplot.g2 <- plotly::renderPlotly({
     df = Z()
   x <- names(df)
+  x0<-quantile(df[,x], probs = input$g.pr, na.rm = TRUE)
   p<-plot_density1(df, x)
-  p<- p+geom_vline(aes(xintercept=quantile(df[,x], probs = input$g.pr, na.rm = TRUE)), color="red", size=0.3)
+  p<- p+geom_vline(aes(xintercept=x0), color="red", size=0.3)
+  plotly::ggplotly(p)
+  })
+
+output$makeplot.g3 <- plotly::renderPlotly({
+  
+  df = Z()
+  x <- df[,1]  
+  p<- ggplot(df, aes(x)) + stat_ecdf(geom = "point")+
+  ylab("Cumulative Density Function") + 
+  theme_minimal()
   plotly::ggplotly(p)
   })
 
