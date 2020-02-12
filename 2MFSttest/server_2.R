@@ -52,7 +52,7 @@ basic_desc2 <- reactive({
   res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
   colnames(res) = names(x)
   rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
-  return(res)
+  return(round(res,6))
   })
 
 output$bas2 <- DT::renderDT({
