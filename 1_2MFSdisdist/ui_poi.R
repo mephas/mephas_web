@@ -81,7 +81,7 @@ mainPanel(
  		p(tags$b("Poisson probability plot")),
     	plotly::plotlyOutput("p.plot"),
     	p(tags$b("Probability at the observed number of occurrences (Red-Dot)")),
-    	tableOutput("p.k")
+    	tableOutput("p.k"),
     hr(),
      plotly::plotlyOutput("p.plot.cdf")   
     	),
