@@ -70,18 +70,18 @@ HTML(
 AUC here is time-dependent AUC, which gives AUC at given time series.
 <ul>
 <li>Chambless and Diao:  assumed that lp and lpnew are the predictors of a Cox proportional hazards model.
-[Chambless, L. E. and G. Diao (2006). Estimation of time-dependent area under the ROC curve for long-term risk prediction. Statistics in Medicine 25, 3474–3486.]</li>
+\[Chambless, L. E. and G. Diao (2006). Estimation of time-dependent area under the ROC curve for long-term risk prediction. Statistics in Medicine 25, 3474–3486.\]</li>
 
 <li>Hung and Chiang: assumed that there is a one-to-one relationship between the predictor and the expected survival times conditional on the predictor.
-[Hung, H. and C.-T. Chiang (2010). Estimation methods for time-dependent AUC models with survival data. Canadian Journal of Statistics 38, 8–26.]</li>
+\[Hung, H. and C.-T. Chiang (2010). Estimation methods for time-dependent AUC models with survival data. Canadian Journal of Statistics 38, 8–26.\]</li>
 
 <li>Song and Zhou: in this method, the estimators remain valid even if the censoring times depend on the values of the predictors.
-[Song, X. and X.-H. Zhou (2008). A semiparametric approach for the covariate specific ROC curve with survival outcome. Statistica Sinica 18, 947–965.]</li>
+\[Song, X. and X.-H. Zhou (2008). A semiparametric approach for the covariate specific ROC curve with survival outcome. Statistica Sinica 18, 947–965.\]</li>
 
 
 <li>Uno et al.: are based on inverse-probability-of-censoring weights and do not assume a specific working model for deriving the predictor lpnew.
 It is assumed that there is a one-to-one relationship between the predictor and the expected survival times conditional on the predictor.
-[Uno, H., T. Cai, L. Tian, and L. J. Wei (2007). Evaluating prediction rules for t-year survivors with censored regression models. Journal of the American Statistical Association 102, 527–537.]</li>
+\[Uno, H., T. Cai, L. Tian, and L. J. Wei (2007). Evaluating prediction rules for t-year survivors with censored regression models. Journal of the American Statistical Association 102, 527–537.\]</li>
 </ul>
 
 "
