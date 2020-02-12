@@ -17,7 +17,7 @@ tags$b('1. Choose one or more dependent variables (Y)'),
 selected = type.num3()[1:3],
 choices = type.num3(),
 multiple = TRUE,
-options = pickerOptions(
+options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
       size=5)
 )
@@ -36,7 +36,7 @@ tags$b('2. Add / Remove independent variables (X)'),
 selected = type.num4.r(),
 choices = type.num4.r(),
 multiple = TRUE,
-options = pickerOptions(
+options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
       size=5)
 )

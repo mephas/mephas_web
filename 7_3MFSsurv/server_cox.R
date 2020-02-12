@@ -16,7 +16,7 @@ tags$b('2. Add / Remove independent variables (X)'),
 selected = names(DF4())[1],
 choices = names(DF4()),
 multiple = TRUE,
-options = pickerOptions(
+options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
       size=5)
 )
@@ -28,7 +28,7 @@ shinyWidgets::pickerInput(
 tags$b('3 (Optional). Add interaction term between 2 categorical variables'),
 choices = type.fac4(),
 multiple = TRUE,
-options = pickerOptions(
+options = shinyWidgets::pickerOptions(
       maxOptions=2,
       actionsBox=TRUE,
       size=5)

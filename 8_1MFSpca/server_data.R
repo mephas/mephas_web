@@ -211,13 +211,13 @@ output$p21 = plotly::renderPlotly({
 
 
 output$heat.x = renderUI({
-  pickerInput(
+  shinyWidgets::pickerInput(
     inputId = "heat.x",
     label = "Choose variables to plot heatmap",
     selected =type.num3(),
     choices = type.num3(),
     multiple = TRUE,
-    options = pickerOptions(
+    options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
       size=5)
 )
@@ -241,13 +241,13 @@ output$heat = plotly::renderPlotly({
 
 
 output$cor.x = renderUI({
-  pickerInput(
+  shinyWidgets::pickerInput(
     inputId = "cor.x",
     label = "Choose variables to plot correlation matrix",
     selected =type.num3(),
     choices = type.num3(),
     multiple = TRUE,
-    options = pickerOptions(
+    options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
       size=5)
 )
@@ -271,13 +271,13 @@ plot_corr(X()[,input$cor.x])
 })
 
 output$para.x = renderUI({
-  pickerInput(
+  shinyWidgets::pickerInput(
     inputId = "para.x",
     label = "Choose variables to plot parallel analysis for PCA and EFA",
     selected =type.num3(),
     choices = type.num3(),
     multiple = TRUE,
-    options = pickerOptions(
+    options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
       size=5)
 )

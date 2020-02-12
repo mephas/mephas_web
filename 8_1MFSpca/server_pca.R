@@ -11,13 +11,13 @@
 #})
 
 output$x = renderUI({
-  pickerInput(
+  shinyWidgets::pickerInput(
     inputId = "x",
     label = "1. Add / Remove independent variables (X)",
     selected =type.num3(),
     choices = type.num3(),
     multiple = TRUE,
-    options = pickerOptions(
+    options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
       size=5)
 )

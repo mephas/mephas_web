@@ -3,7 +3,7 @@
 
 function(input, output) {
 
-source("../tab/func.R")
+#source("../tab/func.R")
 ##########----------##########----------##########
 
 source("server_1.R", local=TRUE)$value
