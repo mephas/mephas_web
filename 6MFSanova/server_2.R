@@ -114,8 +114,8 @@ output$bas.t <- DT::renderDT({
   rownames(res) <- levels(as.factor(x$grp))
     }
   colnames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
-  return(res)
-  }, 
+  return(round(res,6))
+    }, 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -167,7 +167,7 @@ anova0 <- reactive({
 
   }
   
-  return(res.table)
+  return(round(res.table,6))
   })
 output$anova <- DT::renderDT({
   anova0()

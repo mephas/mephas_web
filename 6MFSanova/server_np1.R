@@ -89,7 +89,7 @@ basnp1 <- reactive({
   res <- (psych::describeBy(x[,1], x[,2], mat=TRUE))[,-c(1,2,3,8,9)]
   rownames(res) <- levels(x[,2])
   colnames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
-  return(res)
+  return(round(res,6))
   })
 
 output$basnp1.t <- DT::renderDT({
@@ -115,7 +115,7 @@ output$kwtest <- DT::renderDT({
                             df= res[["parameter"]][["df"]]))
   colnames(res.table) <- res$method
   rownames(res.table) <- c("Kruskal-Wallis chi-squared", "P Value","Degree of Freedom")
-  return(res.table)
+  return(round(res.table,6))
     },
     extensions = 'Buttons', 
     options = list(

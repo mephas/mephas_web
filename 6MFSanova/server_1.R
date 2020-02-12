@@ -95,7 +95,7 @@ bas1 <- reactive({
   res <- (describeBy(x[,1], x[,2], mat=TRUE))[,-c(1,2,3,8,9)]
   rownames(res) <- levels(x[,2])
   colnames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
-  return(res)
+  return(round(res,6))
   })
 
 output$bas1.t <- DT::renderDT({
@@ -125,7 +125,7 @@ anova10 <- reactive({
     res.table <- anova(res)
     rownames(res.table)[1] <-colnames(x)[2]
     colnames(res.table) <- c("Degree of Freedom (DF)", "Sum of Squares (SS)", "Mean Squares (MS)", "F Statistic", "P Value")
-  return(res.table)
+  return(round(res.table,6))
   })
 
 output$anova1 <- DT::renderDT({

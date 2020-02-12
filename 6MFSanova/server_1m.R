@@ -50,7 +50,7 @@ multiple <- eventReactive(input$M1, {
 
   }
   res <- as.data.frame(res)
-  return(res)
+  return(round(res,6))
 })
 
 output$multiple.t <- DT::renderDT({multiple()},

@@ -19,7 +19,7 @@ multiple2 <- eventReactive(input$M2,{
   res <- as.data.frame(res)
   colnames(res) <-c("Difference", "95%CI lower band","95%CI higher band", "P Value" )
 
-  return(res)
+  return(round(res,6))
 })
 
 output$multiple.t2 <- DT::renderDT({multiple2()},
