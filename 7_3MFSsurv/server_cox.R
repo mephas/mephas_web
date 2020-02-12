@@ -135,7 +135,7 @@ else {y=DF3()[,input$t]}
  colnames(res) <- c("Time", "Censor", "Linear Part = bX", "Risk Score = exp(bX)", 
   #"Expected number of events", "survival Prob. = exp(-Expected number of events)",
   "Martingale Residuals", "Deviance Residuals", "Cox-Snell Residuals")
- return(res)
+ return(round(res,6))
   })
 # 
  output$fit.cox = DT::renderDT(fit.cox(),

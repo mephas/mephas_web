@@ -118,7 +118,7 @@ res$mar <- res$c- res$csr
  return(res)
   })
 # 
- output$fit.aft = DT::renderDT(round(fit.aft(),6),
+ output$fit.aft = DT::renderDT({round(fit.aft(),6)},
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

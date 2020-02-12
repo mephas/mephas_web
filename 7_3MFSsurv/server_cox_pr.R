@@ -28,12 +28,12 @@ pred2 = eventReactive(input$B2.1,
   lp = predict(coxfit(), newdata = newX2(), type="lp"),
   risk= predict(coxfit(), newdata = newX2(), type="risk"))
   colnames(res) <- c("Linear Predictors = bX", "Risk score = exp(bX)")
-  res <- cbind.data.frame(res, newX2())
+  res <- cbind.data.frame(round(res,6), newX2())
   return(res)
 })
 
 output$pred2 = DT::renderDT({
-round(pred2(),6)
+pred2()
 },
 extensions = 'Buttons', 
 options = list(
