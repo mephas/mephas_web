@@ -41,7 +41,7 @@ HTML(
 <li> To upload data file, preview data set, and check the correctness of data input</li>
 <li> To pre-process some variables (when necessary) for building the model</li>
 <li> To achieve the basic descriptive statistics and plots of the variables</li>
-<li> To prepare the survival object as 'dependent variable' for building model</li>
+<li> To prepare the <b>survival object</b> alternative to the <b>dependent variable</b> for in the model</li>
 </ul>
 
 <h4><b> 2. About your data (training set)</b></h4>

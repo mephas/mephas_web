@@ -57,9 +57,10 @@ p("Frailty: individuals have different frailties, and those who most frail will 
 
 p("Cluster model is also called marginal model. It estimates the population averaged relative risk due to the independent variable."),
 
-tags$i("In the example of Diabetes data: 'eye' could be used as random effect of strata;
-  'id' can be used as random effect variable of cluster. " )
-  )
+p(tags$i("In the example of Diabetes data: 'eye' could be used as random effect of strata, then the results will be shown by eye group;
+  'id' can be used as random effect variable of cluster, then the result will assume the independent within a cluster;
+  'id' can also be used as random effect variable of frailty, then the result will be adjusted by the simulated distribution from 'id'." ))
+)
   ),
 
 hr(),

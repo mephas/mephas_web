@@ -57,7 +57,9 @@ numericInput("ss", HTML("Set time series: start point"), value = 1, min = 0),
 numericInput("ee", HTML("Set time series:end point"), value = 10, min = 1),
 numericInput("by", HTML("Set time series: sequence"), value = 1, min = 0),
 
+p(tags$i("The default setting give time series 1,2,...10")),
 p(tags$b("Brier score at given time")),
+
 plotly::plotlyOutput("bsplot"),
 DT::DTOutput("bstab")
 

@@ -119,8 +119,9 @@ tabPanel("Log-Rank Test",  p(br()),
 </ul>"),
 
 p(tags$b("Log-rank Test Result")),
-    verbatimTextOutput("kmlr")
-
+    verbatimTextOutput("kmlr"),
+    p(tags$i("In this example, we could not find the statistical difference between 2 laser groups (p=0.8). 
+      Also from the Kaplan-Meier plot, we could found that the survival curves from 2 laser group intersect with each other."))
      ),
 
 tabPanel("Pairwise Log-Rank Test",  p(br()),
