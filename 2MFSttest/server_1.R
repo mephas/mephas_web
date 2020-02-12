@@ -108,10 +108,10 @@ t.test0 <- reactive({
     alternative = input$alt)
   res.table <- t(
     data.frame(
-      T = round(res$statistic, digits=6),
-      P = res$p.value,
-      E.M = round(res$estimate, digits=6),
-      CI = paste0("(",round(res$conf.int[1], digits = 6),", ",round(res$conf.int[2], digits = 6),")"),
+      T = round(res$statistic, 6),
+      P = round(res$p.value,6),
+      E.M = round(res$estimate, 6),
+      CI = paste0("(",round(res$conf.int[1], 6),", ",round(res$conf.int[2], 6),")"),
       DF = res$parameter
       )
     )

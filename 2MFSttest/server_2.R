@@ -102,10 +102,10 @@ var.test0 <- reactive({
   res <- var.test(as.vector(x[, 1]), as.vector(x[, 2]),alternative=input$alt.t22)
   res.table <- t(
     data.frame(
-      F = res$statistic,
-      P = res$p.value,
-      CI = paste0("(", round(res$conf.int[1], digits = 6), ", ", round(res$conf.int[2], digits = 6),")"),
-      EVR = res$estimate
+      F = round(res$statistic,6),
+      P = round(res$p.value,6),
+      CI = paste0("(", round(res$conf.int[1], 6), ", ", round(res$conf.int[2], 6),")"),
+      EVR = round(res$estimate,6)
       )
     )
   colnames(res.table) <- res$method
@@ -133,12 +133,12 @@ t.test20 <- reactive({
 
 res.table <- t(
   data.frame(
-    T = res$statistic,
-    P = res$p.value,
-    EMX = res$estimate[1],
-    EMY = res$estimate[2],
-    EMD = res$estimate[1] - res$estimate[2],
-    CI = paste0("(",round(res$conf.int[1], digits = 6),", ", round(res$conf.int[2], digits = 6), ")" ),
+    T = round(res$statistic,6),
+    P = round(res$p.value,6),
+    EMX = round(res$estimate[1],6),
+    EMY = round(res$estimate[2],6),
+    EMD = round(res$estimate[1] - res$estimate[2],6),
+    CI = paste0("(",round(res$conf.int[1], 6),", ", round(res$conf.int[2], 6), ")" ),
     DF = res$parameter
     )
   )
@@ -150,12 +150,12 @@ res.table <- t(
     )
   res1.table <- t(
     data.frame(
-      T = res1$statistic,
-      P = res1$p.value,
-      EMX = res1$estimate[1],
-      EMY = res1$estimate[2],
-      EMD = res1$estimate[1] - res1$estimate[2],
-      CI = paste0("(",round(res1$conf.int[1], digits = 6),", ",round(res1$conf.int[2], digits = 6),")"),
+      T = round(res1$statistic,6),
+      P = round(res1$p.value,6),
+      EMX = round(res1$estimate[1],6),
+      EMY = round(res1$estimate[2],6),
+      EMD = round(res1$estimate[1] - res1$estimate[2],6),
+      CI = paste0("(",round(res1$conf.int[1], 6),", ",round(res1$conf.int[2], 6),")"),
       DF = res1$parameter
       )
     )

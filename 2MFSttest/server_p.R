@@ -115,9 +115,9 @@ t.test.p0 <- reactive({
 
   res.table <- t(
     data.frame(
-      T = res$statistic,
-      P = res$p.value,
-      EMD = res$estimate,
+      T = round(res$statistic,6),
+      P = round(res$p.value,6),
+      EMD = round(res$estimate,6),
       CI = paste0("(",round(res$conf.int[1], digits = 6),", ",round(res$conf.int[2], digits = 6),")"),
       DF = res$parameter
       )
