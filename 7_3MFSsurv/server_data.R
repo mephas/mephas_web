@@ -322,7 +322,7 @@ res<- data.frame(
 colnames(res) <- c("Time", "Number of at Risk", "Number of Event", "Number of Censor", 
   "Survival Probability", "95% CI lower limit", "95% CI upper limit",
   "SE of Surv. Prob.", "Cumulative Hazard Probability")
-return(res)
+return(round(res,6))
 },
 extensions = 'Buttons', 
 options = list(
