@@ -47,7 +47,7 @@ output$var  <- DT::renderDT({
   validate(need(input$nc>=2, "Components must be >= 2."))
   res <- summary(pca())
   res.tab<- as.data.frame(res$importance)[,1:input$nc]
-  return(res.tab)
+  return(round(res.tab,6))
   },
   extensions = 'Buttons', 
     options = list(
@@ -56,14 +56,14 @@ output$var  <- DT::renderDT({
     scrollX = TRUE))
 
 output$comp <- DT::renderDT({
-  as.data.frame(pca()$x)}, 
+  as.data.frame(round(pca()$x,6))}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$load <- DT::renderDT({pca()$rotation}, 
+output$load <- DT::renderDT({round(pca()$rotation,6)}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

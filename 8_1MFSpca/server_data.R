@@ -134,7 +134,7 @@ sum <- reactive({
   res <- as.data.frame(psych::describe(x))[,-c(1,6,7)]
   rownames(res) = names(x)
   colnames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
-  return(res)
+  return(round(res,6))
   })
 
 output$sum <- DT::renderDT({sum()}, 
@@ -257,7 +257,7 @@ output$cor <- DT::renderDT({
   c <- as.data.frame(cor(X()[,input$cor.x]))
   c <- c[ , order(names(c))]
   c <- c[order(rownames(c)),]
-  return(c)}, 
+  return(round(c,6))}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

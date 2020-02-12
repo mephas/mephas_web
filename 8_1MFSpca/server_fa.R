@@ -64,7 +64,7 @@ output$fa  <- renderPrint({
 #})
 
 
-output$comp.fa <- DT::renderDT({as.data.frame(fa()$scores)}, 
+output$comp.fa <- DT::renderDT({as.data.frame(round(fa()$scores,6))}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -73,14 +73,14 @@ output$comp.fa <- DT::renderDT({as.data.frame(fa()$scores)},
 
 output$load.fa <- DT::renderDT({
   validate(need(input$ncfa>=2, "Components must be >= 2."))
-  as.data.frame(fa()$loadings[,1:input$ncfa])}, 
+  as.data.frame(round(fa()$loadings[,1:input$ncfa],6))}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$var.fa <- DT::renderDT({as.data.frame(fa()$Vaccounted)}, 
+output$var.fa <- DT::renderDT({as.data.frame(round(fa()$Vaccounted,6))}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
