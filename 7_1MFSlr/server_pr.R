@@ -26,7 +26,7 @@ pred = eventReactive(input$B2,
 })
 
 pred.lm <- reactive({
-	cbind.data.frame("Predicted Y"=(pred()),newX())
+	round(cbind.data.frame("Predicted Y"=(pred()),newX()),6)
 	})
 
 output$pred = DT::renderDT({

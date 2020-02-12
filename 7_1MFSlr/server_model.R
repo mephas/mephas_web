@@ -106,7 +106,7 @@ lm(as.formula(formula()), data = DF3())
 afit = reactive( {
   res.table <- anova(fit())
   colnames(res.table) <- c("Degree of Freedom (DF)", "Sum of Squares (SS)", "Mean Squares (MS)", "F Statistic", "P Value")
-  return(res.table)
+  return(round(res.table,6))
   })
 
 output$anova = DT::renderDT({(afit())},
@@ -139,7 +139,7 @@ plotly::ggplotly(p)
  Residuals = fit()[["residuals"]]
  )
  colnames(res) <- c("Dependent Variable = Y", "Fittings = Predicted Y", "Residuals = Y - Predicted Y")
- return(res)
+ return(round(res,6))
  	})
 # 
 output$fitdt0 = DT::renderDT(fit.lm(),
