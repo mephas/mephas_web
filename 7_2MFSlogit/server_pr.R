@@ -26,7 +26,7 @@ pred = eventReactive(input$B2,
   res <- data.frame(lp = predict(fit(), newdata = newX(), type="link"),
   predict= predict(fit(), newdata = newX(), type="response"))
   colnames(res) <- c("Linear Predictors", "Predicted Y")
-  return(res)
+  return(round(res,6))
 })
 
 pred.lm <- reactive({
@@ -61,7 +61,7 @@ perf2 <- data.frame(
   spec2=1-unlist(perf@x.values), 
   cut=unlist(perf@alpha.values))
 colnames(perf2) <- c("Sensitivity", "Specificity", "1-Specificity","Cut-off Point")
-return(perf2)
+return(round(perf2,6))
   })
 
  output$sst.s = DT::renderDT((sst.s()),

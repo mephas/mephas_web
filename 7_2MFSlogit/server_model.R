@@ -37,7 +37,7 @@ tags$b('2. Add / Remove independent variables (X)'),
 selected = names(DF4()),
 choices = names(DF4()),
 multiple = TRUE,
-options = pickerOptions(
+options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
       size=5)
 )
@@ -53,7 +53,7 @@ shinyWidgets::pickerInput(
 tags$b('3 (Optional). Add interaction term between 2 categorical variables'),
 choices = type.fac4(),
 multiple = TRUE,
-options = pickerOptions(
+options = shinyWidgets::pickerOptions(
       maxOptions=2,
       actionsBox=TRUE,
       size=5)
@@ -148,7 +148,7 @@ output$step = renderPrint({step(fit())})
  Residuals = (fit()[["fitted.values"]])
  )
  colnames(res) <- c("Dependent Variable = Y", "Numeric Y", "Linear Predictors = bX", "Predicted Y = 1/(1+exp(-bX))")
- return(res)
+ return(round(res,6))
  	})
 # 
  output$fitdt0 = DT::renderDT(fit.lm(),
@@ -168,7 +168,7 @@ perf2 <- data.frame(
   spec2=1-unlist(perf@x.values), 
   cut=unlist(perf@alpha.values))
 colnames(perf2) <- c("Sensitivity", "Specificity", "1-Specificity","Cut-off Point")
-return(perf2)
+return(round(perf2,6))
   })
 
  output$sst = DT::renderDT(sst(),
