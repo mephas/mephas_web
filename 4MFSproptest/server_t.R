@@ -24,7 +24,7 @@ output$dt4 = DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$dt4.2 = DT::renderDT({prop.table(T4(), 2)},
+output$dt4.2 = DT::renderDT({round(prop.table(T4(), 2),6)},
 
     extensions = 'Buttons', 
     options = list(
