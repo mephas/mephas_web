@@ -5,16 +5,7 @@ names1 <- reactive({
   return(x[1:2])
   }) 
 
-level1 <- reactive({
-  F1 <-as.factor(unlist(strsplit(input$f11, "[,;\n\t ]")))
-  x <- matrix(levels(F1), nrow=1)
-  colnames(x) <- c(1:length(x))
-  rownames(x) <- names1()[2]
-  return(x)
-  })
-output$level.t1 <- DT::renderDT({level1()}, options = list(dom = 't'))
-
-Y1 <- reactive({
+Y1.0 <- reactive({
   inFile <- input$file1
   if (is.null(inFile)) {
     X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t ]")))
@@ -44,6 +35,48 @@ if(!input$col1){
     }
     return(as.data.frame(x))
 })
+
+
+type.num <- reactive({
+colnames(Y1.0()[unlist(lapply(Y1.0(), is.numeric))])
+})
+
+output$value = renderUI({
+selectInput(
+  'value',
+  HTML('For upload data, choose the numeric values'),
+  choices = type.num()
+  )
+})
+
+
+Y1 <- reactive({
+  inFile <- input$file1
+  if (is.null(inFile)) {
+    x <- Y1.0()
+  }
+  else{
+    x <- data.frame(
+      value = Y1.0()[, input$value],
+      factor = as.factor(Y1.0()[, -which(names(Y1.0()) %in% c(input$value))])
+      )
+    colnames(x) = c(input$value, names(Y1.0())[!names(Y1.0()) %in% input$value])
+
+  }
+  return(as.data.frame(x))
+  })
+
+
+level1 <- reactive({
+  #F1 <-as.factor(unlist(strsplit(input$f11, "[,;\n\t ]")))
+  F1 <- as.factor(Y1()[,2])
+  x <- matrix(levels(F1), nrow=1)
+  colnames(x) <- c(1:length(x))
+  rownames(x) <- names(Y1())[2]
+  return(x)
+  })
+output$level.t1 <- DT::renderDT({level1()}, options = list(dom = 't'))
+
 
 
 output$table1 <- DT::renderDT(Y1(),

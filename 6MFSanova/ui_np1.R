@@ -41,6 +41,8 @@ tabPanel.upload(file ="filenp1", header="headernp1", col="colnp1", sep="sepnp1",
 
 ),
 hr(),
+uiOutput("value3"),
+hr(),
   h4(tags$b("Hypothesis")),
   p(tags$b("Null hypothesis")),
   p("The means from each group are equal"),

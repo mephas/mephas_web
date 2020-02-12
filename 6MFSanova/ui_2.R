@@ -44,6 +44,8 @@ tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote = "qu
 
 ),
 hr(),
+uiOutput("value2"),
+hr(),
   h4(tags$b("Hypothesis")),
   p(tags$b("Null hypothesis")),
   p("1. The population means under the first factor are equal."),
