@@ -40,10 +40,10 @@ output$n.test = DT::renderDT({
 
   res = prop.test(x, n)
   res.table = t(data.frame(
-    Statistic = res$statistic,
-    Degree.of.freedom = res$parameter,
+    Statistic = round(res$statistic,6),
+    Degree.of.freedom = round(res$parameter,6),
     Estimated.prop = toString(round(res$estimate,6)),
-    P.value = (res$p.value)
+    P.value = round(res$p.value,6)
     ))
   colnames(res.table) = c(res$method)
   rownames(res.table) =c("X-squared Statistic", "Degree of Freedom","Estimated Probability/Proportions", "P Value")

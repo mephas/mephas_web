@@ -48,10 +48,10 @@ output$p.test = DT::renderDT({
   n <- c(input$n1, input$n2)
   res = prop.test(x = x, n= n, alternative = input$alt1, correct = input$cr)
   res.table = t(data.frame(
-    Statistic = res$statistic,
-    Degree.of.freedom = res$parameter,
+    Statistic = round(res$statistic,6),
+    Degree.of.freedom = round(res$parameter,6),
     Estimated.prop = paste0("prop.1 = ",round(res$estimate[1],6),", ","prop.2 = ",round(res$estimate[2],6)),
-    P.value = (res$p.value),
+    P.value = round(res$p.value,6),
     Confidence.Interval.95 = paste0("(", round(res$conf.int[1],6),",",round(res$conf.int[2],6), ")")
 ))
 
