@@ -39,7 +39,7 @@ pred.lp = eventReactive(input$B.pcr,
   DF<- data.frame(
   X <- I(as.matrix(newX()[,input$x]))
   )
-  as.data.frame(predict(pcr(), newdata = DF$X, type="response",comps=pcr()$ncomp))
+  as.data.frame(round(predict(pcr(), newdata = DF$X, type="response",comps=pcr()$ncomp),6))
 
   #as.data.frame(predict(pcr(), newdata = as.matrix(newX())[,input$x], type="response")[,,1:pcr()$ncomp])
 })
@@ -49,7 +49,7 @@ pred.comp = eventReactive(input$B.pcr,
   DF<- data.frame(
   X <- I(as.matrix(newX()[,input$x]))
   )
-  as.data.frame(predict(pcr(), newdata = DF$X, type="scores"))
+  as.data.frame(round(predict(pcr(), newdata = DF$X, type="scores"),6))
   #as.data.frame(predict(pcr(), newdata = as.matrix(newX())[,input$x], type="scores"))
 
 })

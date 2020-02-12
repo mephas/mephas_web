@@ -102,10 +102,10 @@ plot(spls(), yvar=input$spls.y)
 score.s <- reactive({
   x <- as.data.frame(na.omit(X()))
   X <- as.matrix(x[,input$x.s])
-  data.frame(as.matrix(X[,spls()$A])%*%as.matrix(spls()$projection))
+  data.frame(round(as.matrix(X[,spls()$A])%*%as.matrix(spls()$projection),6))
   }) 
 load.s <- reactive({
-  as.data.frame(spls()$projection)
+  as.data.frame(round(spls()$projection,6))
   })
 
 output$spls.coef <- DT::renderDT({
@@ -115,7 +115,7 @@ output$spls.coef <- DT::renderDT({
   x<-as.data.frame(spls()$betamat)
   colnames(x) <- cnames#paste0(input$y.s, "at comp", 1:spls()$K)
   rownames(x) <- input$x.s
-  return(x)}, 
+  return(round(x,6))}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
@@ -137,7 +137,7 @@ output$spls.l <- DT::renderDT({load.s()},
     scrollX = TRUE))
 
 output$spls.pres <- DT::renderDT({
-  x <- as.data.frame(predict(spls(), type="fit"))
+  x <- as.data.frame(round(predict(spls(), type="fit"),6))
   colnames(x) <- input$y.s
   return(x)}, 
   extensions = 'Buttons', 

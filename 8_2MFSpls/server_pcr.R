@@ -74,13 +74,13 @@ output$pcr_rmsep  <- renderPrint({
   })
 
 score <- eventReactive(input$pcr1,{
-  s <- as.data.frame(predict(pcr(), type="scores"))
+  s <- as.data.frame(round(predict(pcr(), type="scores"),6))
   rownames(s) <- rownames(X())
   return(s)
   })
 
 load <- eventReactive(input$pcr1,{
-  as.data.frame(pcr()$loadings[,1:pcr()$ncomp])
+  as.data.frame(round(pcr()$loadings[,1:pcr()$ncomp],6))
   })
 
 output$pcr.s <- DT::renderDT({score()}, 
@@ -102,7 +102,7 @@ output$pcr.pres <- DT::renderDT({
     Predict.Y=predict(pcr(), comps=pcr()$ncomp, type="response"),
     Residuals=pcr()$residuals[,,pcr()$ncomp])
   rownames(y) <- rownames(X())
-  return(y)
+  return(round(y,6))
   }, 
   extensions = 'Buttons', 
     options = list(
@@ -111,7 +111,7 @@ output$pcr.pres <- DT::renderDT({
     scrollX = TRUE))
 
 output$pcr.coef <- DT::renderDT({
-  data.frame(Coefficient = pcr()$coefficients[,, pcr()$ncomp])}, 
+  data.frame(Coefficient = round(pcr()$coefficients[,, pcr()$ncomp],6))}, 
   extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

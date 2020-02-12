@@ -56,7 +56,7 @@ as.data.frame(predict(pls(), comps=1:pls()$ncomp, newdata = DF$X, type="scores")
 
 
 output$pred.lp.pls = DT::renderDT({
-pred.lp.pls()
+round(pred.lp.pls(),6)
 },
 extensions = 'Buttons', 
 options = list(
@@ -65,7 +65,7 @@ buttons = c('copy', 'csv', 'excel'),
 scrollX = TRUE))
 
 output$pred.comp.pls = DT::renderDT({
-pred.comp.pls()
+round(pred.comp.pls(),6)
 },
 extensions = 'Buttons', 
 options = list(

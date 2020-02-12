@@ -141,7 +141,7 @@ sum <- reactive({
   return(res)
   })
 
-output$sum <- DT::renderDT({sum()}, 
+output$sum <- DT::renderDT({round(sum(),6)}, 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',

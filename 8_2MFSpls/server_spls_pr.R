@@ -42,7 +42,7 @@ return(x)
 })
 
 output$pred.lp.spls = DT::renderDT({
-pred.lp.spls()
+round(pred.lp.spls(),6)
 },
 extensions = 'Buttons', 
 options = list(
