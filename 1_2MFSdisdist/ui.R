@@ -10,7 +10,7 @@ source("../tab/func.R")
 tagList(
 
 includeCSS("../www/style.css"),
-sty.link(),
+stylink(),
 tabOF(),
 
 ##########--------------------##########--------------------##########
