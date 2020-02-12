@@ -70,7 +70,7 @@ HTML(
 AUC here is time-dependent AUC, which gives AUC at given time series.
 <ul>
 <li>Chambless and Diao:  assumed that lp and lpnew are the predictors of a Cox proportional hazards model.
-[Chambless, L. E. and G. Diao (2006). Estimation of time-dependent area under the ROC curve for long-term risk prediction. Statistics in Medicine 25, 3474–3486.</li>
+[Chambless, L. E. and G. Diao (2006). Estimation of time-dependent area under the ROC curve for long-term risk prediction. Statistics in Medicine 25, 3474–3486.]</li>
 
 <li>Hung and Chiang: assumed that there is a one-to-one relationship between the predictor and the expected survival times conditional on the predictor.
 [Hung, H. and C.-T. Chiang (2010). Estimation methods for time-dependent AUC models with survival data. Canadian Journal of Statistics 38, 8–26.]</li>

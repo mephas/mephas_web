@@ -92,7 +92,7 @@ output$table1 <- DT::renderDT(Y1(),
 
 bas1 <- reactive({
   x <- Y1()
-  res <- (describeBy(x[,1], x[,2], mat=TRUE))[,-c(1,2,3,8,9)]
+  res <- psych::describeBy(x[,1], x[,2], mat=TRUE)[,-c(1,2,3,8,9)]
   rownames(res) <- levels(x[,2])
   colnames(res) <- c("Total Number of Valid Values","Mean", "SD", "Median", "Minimum","Maximum", "Range","Skew", "Kurtosis","SE")
   return(round(res,6))
