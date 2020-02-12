@@ -26,7 +26,7 @@ output$dt4 = DT::renderDT({
 
 output$dt4.0 = DT::renderDT({
   res = chisq.test(T4())
-  exp = res$expected
+  exp = round(res$expected,6)
   return(exp)}, 
   extensions = 'Buttons', 
   options = list(
@@ -34,21 +34,21 @@ output$dt4.0 = DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$dt4.1 = DT::renderDT({prop.table(T4(), 1)}, 
+output$dt4.1 = DT::renderDT({round(prop.table(T4(), 1),6)}, 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$dt4.2 = DT::renderDT({prop.table(T4(), 2)}, #class="row-border", 
+output$dt4.2 = DT::renderDT({round(prop.table(T4(), 2),6)}, #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$dt4.3 = DT::renderDT({prop.table(T4())}, #class="row-border", 
+output$dt4.3 = DT::renderDT({round(prop.table(T4()),6)}, #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -70,8 +70,8 @@ output$makeplot4.1 <- plotly::renderPlotly({  #shinysession
 output$c.test4 = DT::renderDT({
     x = as.matrix(T4())
     res = fisher.test(x=x, y=NULL,alternative = input$yt4)
-    res.table = t(data.frame(odds_ratio = res$estimate,                           
-                            P_value = res$p.value,
+    res.table = t(data.frame(odds_ratio = round(res$estimate,6),                           
+                            P_value = rround(es$p.value,6),
                             CI = paste0("(", res$conf.int[1],",",res$conf.int[2], ")")
 ))
     colnames(res.table) <- c(res$method)

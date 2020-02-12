@@ -51,7 +51,7 @@ output$dt6.1 = DT::renderDT({
 output$c.test6 = DT::renderDT({
     x = as.matrix(T6())
     res = cohen.kappa(x)
-    res.table = res[["confid"]]
+    res.table = round(res[["confid"]],6)
     colnames(res.table) =c("95% CI Low", "Kappa Estimate", "95% CI High")
     return(res.table)
     }, 

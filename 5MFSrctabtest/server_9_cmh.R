@@ -48,7 +48,7 @@ output$c.test7 = DT::renderDT({
                               P_value = res$p.value))
     colnames(res.table) <- c(res$method)
     rownames(res.table) <- c("Mantel-Haenszel Chi-Square", "P Value")
-    return(res.table)
+    return(round(res.table,6))
     }, 
     #class="row-border", 
   extensions = 'Buttons', 

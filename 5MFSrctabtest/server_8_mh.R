@@ -49,11 +49,11 @@ output$c.test8 = DT::renderDT({
       res <- mantelhaen.test(x, alternative=input$alt8, correct=TRUE, exact=TRUE)
     }
 
-    res.table = t(data.frame(X_statistic = res$statistic,
-                              estimate=res$estimate,
+    res.table = t(data.frame(X_statistic = round(res$statistic, 6),
+                              estimate=round(res$estimate, 6),
                               #Degree_of_freedom = res$parameter,
-                              P_value = res$p.value,
-                              CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
+                              P_value = round(res$p.value, 6),
+                              CI = paste0("(",round(res$conf.int[1], 6),", ",round(res$conf.int[2], 6), ")")))
   
     colnames(res.table) <- c(res$method)
     rownames(res.table) <- c("Mantel-Haenszel Chi-Square", "Estimated Odds Ratio", "P Value", "95% Confidence Interval")

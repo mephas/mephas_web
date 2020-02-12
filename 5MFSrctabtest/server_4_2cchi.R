@@ -26,7 +26,7 @@ output$dt3 = DT::renderDT({
 
 output$dt3.0 = DT::renderDT({
   res = chisq.test(T3())
-  exp = res$expected
+  exp = round(res$expected,6)
   return(exp)}, 
   extensions = 'Buttons', 
   options = list(
@@ -34,21 +34,21 @@ output$dt3.0 = DT::renderDT({
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$dt3.1 = DT::renderDT({prop.table(T3(), 1)}, 
+output$dt3.1 = DT::renderDT({round(prop.table(T3(), 1),6)}, 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$dt3.2 = DT::renderDT({prop.table(T3(), 2)}, 
+output$dt3.2 = DT::renderDT({round(prop.table(T3(), 2),6)}, 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-output$dt3.3 = DT::renderDT({prop.table(T3())},
+output$dt3.3 = DT::renderDT({round(prop.table(T3()),6)},
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
@@ -73,7 +73,7 @@ output$c.test3 = DT::renderDT({
 
     colnames(res.table) <- c(res$method)
     rownames(res.table) <- c("Chi-Square", "Degree of freedom", "P Value")
-    return(res.table)
+    return(round(res.table,6))
     }, 
   extensions = 'Buttons', 
   options = list(
