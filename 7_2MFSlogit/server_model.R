@@ -144,11 +144,11 @@ output$step = renderPrint({step(fit())})
  res <- data.frame(
   Y=DF3()[,input$y],
   nY=fit()$y,
- Fittings = (fit()[["linear.predictors"]]),
- Residuals = (fit()[["fitted.values"]])
+ Fittings = round(fit()[["linear.predictors"]],6),
+ Residuals = round(fit()[["fitted.values"]],6)
  )
  colnames(res) <- c("Dependent Variable = Y", "Numeric Y", "Linear Predictors = bX", "Predicted Y = 1/(1+exp(-bX))")
- return(round(res,6))
+ return(res)
  	})
 # 
  output$fitdt0 = DT::renderDT(fit.lm(),
