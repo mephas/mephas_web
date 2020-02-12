@@ -20,7 +20,7 @@
 
     h4(tags$b("Step 2. Specify Parameter")),
 
-      numericInput('p', HTML("The specified rate / proportion / probability (0 < p<sub>0</sub> < 1) that you want to compare"), value = 0.2, min = 0, max = 1, step = 0.1),
+      numericInput('p', HTML("The specified rate / proportion / probability (0 < p<sub>0</sub> < 1) that you want to compare with"), value = 0.2, min = 0, max = 1, step = 0.1),
         conditionalPanel(
     condition = "input.explain_on_off",
     p(tags$i("The infertility rate in general (20%) was what we wanted to compare."))
