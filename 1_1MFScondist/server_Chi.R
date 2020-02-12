@@ -1,7 +1,7 @@
 #****************************************************************************************************************************************************1.6. chi
 output$x.plot <- renderPlot({
   ggplot(data = data.frame(x = c(0, input$x.xlim)), aes(x)) +
-  stat_function(fun = "dchisq", n = 100, args = list(df = input$x.df)) + 
+  stat_function(fun = "dchisq", args = list(df = input$x.df)) + 
   ylab("Density") +
   xlim(0, input$x.xlim)+
   geom_vline(aes(xintercept=input$x.df), color="red", linetype="dashed", size=0.5)+
@@ -13,7 +13,7 @@ output$x.plot.cdf <- plotly::renderPlotly({
 x0<- qchisq(input$x.pr, df = input$x.df)
 mean <- input$x.df
 p<-ggplot(data = data.frame(x = c(0, input$x.xlim)), mapping = aes(x = x)) +
-  stat_function(fun = ~ pchisq(q = .,df = input$x.df))+
+  stat_function(fun = "pchisq", args = list(df = input$x.df)) + 
   xlim(0, input$x.xlim)+
   ylab("Cumulative Density Function") + 
   theme_minimal() + 

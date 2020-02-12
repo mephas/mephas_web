@@ -17,7 +17,7 @@ output$t.rate <- renderPrint({
 output$t.plot.cdf <- plotly::renderPlotly({
 x0<- qt(input$t.pr, df = input$t.df)
 p<-ggplot(data = data.frame(x = c(-input$t.xlim, input$t.xlim)), mapping = aes(x = x)) +
-  stat_function(fun = ~ pt(q = .,df = input$t.df))+
+  stat_function(fun = "pt", args = list(df = input$t.df)) + 
   xlim(-input$t.xlim, input$t.xlim)+
   ylab("Cumulative Density Function") + 
   theme_minimal() + 
