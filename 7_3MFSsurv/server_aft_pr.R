@@ -49,7 +49,7 @@ pred.n <- reactive({
                    low.band=ptime$fit - 2*ptime$se.fit,
                    ybreak=1-c(1:98/100))
   colnames(df)=c("Estimated Times", "95% CI up band", "95% CI lower band", "Survival Probability")
-  return(rounf(df,6))
+  return(round(df,6))
 })
 
 output$pred.n = DT::renderDT({
