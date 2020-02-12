@@ -4,7 +4,7 @@
 - [News](#news)
 - [Statistical methods in MEPHAS](#statistical-methods-in-mephas)
 - [The main functionalities](#the-main-functionalities)
-- [The help files](#the-help-files)
+- [Tutorial](#tutorial)
 
 <!-- /MarkdownTOC -->
 
@@ -147,29 +147,10 @@
 
 #### 6. Statistical plots 
 
-<a id="the-help-files"></a>
-## The help files
+<a id="tutorial"></a>
+## Tutorial
 
-<a id="1-probability-distributions-1"></a>
-~~#### 1. [Probability Distributions](https://alain003.phs.osaka-u.ac.jp/mephas/help1.html)~~
- 
-<a id="2-t-test-1"></a>
-~~#### 2. [T Test](https://alain003.phs.osaka-u.ac.jp/mephas/help2.html/)~~
+<a id="GitBook"></a>
+#### See [GitBook](https://mephas.github.io/helppage/)
 
-<a id="3-non-parametric-tests-1"></a>
-~~#### 3. [Non-parametric Tests](https://alain003.phs.osaka-u.ac.jp/mephas/help3.html/)~~
 
-<a id="4-test-for-binomial-proportions-1"></a>
-~~#### 4. [Test for Binomial Proportions](https://alain003.phs.osaka-u.ac.jp/mephas/help4.html/)~~
-
-<a id="5-test-for-contingency-table-1"></a>
-~~#### 5. [Test for Contingency Table](https://alain003.phs.osaka-u.ac.jp/mephas/help5.html/)~~
-
-<a id="6-analysis-of-variance-1"></a>
-~~#### 6. [Analysis of Variance](https://alain003.phs.osaka-u.ac.jp/mephas/help6.html/)~~
-
-<a id="7-regression-model-1"></a>
-~~#### 7. [Regression Model](https://alain003.phs.osaka-u.ac.jp/mephas/help7.html/)~~
-
-<a id="8-principal-components-1"></a>
-~~#### 8. [Principal Components](https://alain003.phs.osaka-u.ac.jp/mephas/help8.html/)~~
