@@ -3,7 +3,7 @@ if (!require("shiny")) {install.packages("shiny")}; library("shiny")
 #if (!require("psych")) {install.packages("psych")}; library("psych")
 if (!require("pls")) {install.packages("pls")}; library("pls")
 if (!require("spls")) {install.packages("spls")}; library("spls")
-#if (!require("plotly")) {install.packages("plotly")}; library("plotly")
+if (!require("plotly")) {install.packages("plotly")}; library("plotly")
 #if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
 source("../tab/tab.R")
