@@ -54,7 +54,7 @@ output$table3 <-DT::renderDT(C() ,
     res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
     colnames(res) = names(x)
     rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
-    return(res)
+    return(round(res,6))
   })
 
   output$bas3 <- DT::renderDT({  ## don't use renerPrint to do DT::renderDT
@@ -103,10 +103,10 @@ psr.test <- reactive({
       alternative = input$alt.wsr3, exact=TRUE, conf.int = TRUE)
 
   }
-    res.table <- t(data.frame(W = res$statistic,
-                              P = res$p.value,
-                              EM = res$estimate,
-                              CI = paste0("(",round(res$conf.int[1], digits = 4),", ",round(res$conf.int[2], digits = 4), ")")))
+    res.table <- t(data.frame(W = round(res$statistic, 6),
+                              P = round(res$p.value, 6),
+                              EM = round(res$estimate, 6),
+                              CI = paste0("(",round(res$conf.int[1], 6),", ",round(res$conf.int[2], 6), ")")))
     colnames(res.table) <- res$method
     rownames(res.table) <- c("W Statistic", "P Value","Estimated Median","95% Confidence Interval")
 

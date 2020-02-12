@@ -9,7 +9,7 @@ validate(need(input$n>=input$x, "Please check your data whether x <= n"))
     Num.trial = res$parameter,
     Estimated.prob.success = res$estimate,
     p.value = round(res$p.value,6),
-    Confidence.Interval.95 = paste0("(", round(res$conf.int[1],4),",",round(res$conf.int[2],4), ")")
+    Confidence.Interval.95 = paste0("(", round(res$conf.int[1],6),",",round(res$conf.int[2],6), ")")
     ))
 
   colnames(res.table) = res$method
@@ -31,7 +31,7 @@ validate(need(input$n>=input$x, "Please check your data whether x <= n"))
     X.squared = res$statistic,
     Estimated.prob.success = res$estimate,
     p.value = (res$p.value),
-    Confidence.Interval.95 = paste0("(", round(res$conf.int[1],4),",",round(res$conf.int[2],4), ")")
+    Confidence.Interval.95 = paste0("(", round(res$conf.int[1],6),",",round(res$conf.int[2],6), ")")
     ))
 
   colnames(res.table) = res$method
