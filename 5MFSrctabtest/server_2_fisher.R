@@ -71,8 +71,8 @@ output$c.test4 = DT::renderDT({
     x = as.matrix(T4())
     res = fisher.test(x=x, y=NULL,alternative = input$yt4)
     res.table = t(data.frame(odds_ratio = round(res$estimate,6),                           
-                            P_value = rround(es$p.value,6),
-                            CI = paste0("(", res$conf.int[1],",",res$conf.int[2], ")")
+                            P_value = round(res$p.value,6),
+                            CI = paste0("(", round(res$conf.int[1],6),",",round(res$conf.int[2],6), ")")
 ))
     colnames(res.table) <- c(res$method)
     rownames(res.table) <- c("Odds Ratio (Group 1 vs Group 2)","P Value", "95% Confidence Interval")

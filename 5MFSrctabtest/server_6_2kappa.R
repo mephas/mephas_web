@@ -22,7 +22,7 @@ output$dt9 = DT::renderDT({T9()},
 
 output$dt9.0 =  DT::renderDT({
     x = T9()
-    res = as.data.frame(cohen.kappa(x)$agree)[,3]
+    res = as.data.frame(psych::cohen.kappa(x)$agree)[,3]
     res.table <- round(matrix(res, nrow=nrow(x), ncol=nrow(x)),6)
     rownames(res.table) <- paste0("Rater", 1:nrow(x))
     colnames(res.table) <- paste0("Rater", 1:nrow(x))
@@ -36,7 +36,7 @@ output$dt9.0 =  DT::renderDT({
 
 output$dt9.1 =  DT::renderDT({
     x = T9()
-    res = as.data.frame(round(cohen.kappa(x)$weight,6))
+    res = as.data.frame(round(psych::cohen.kappa(x)$weight,6))
     return(res)
     }, 
   extensions = 'Buttons', 
@@ -47,7 +47,7 @@ output$dt9.1 =  DT::renderDT({
 
 output$c.test9 = DT::renderDT({
     x = as.matrix(T9())
-    res = cohen.kappa(x)
+    res = psych::cohen.kappa(x)
     res.table = round(res[["confid"]],6)
     colnames(res.table) =c("95% CI Low", "Kappa Estimate", "95% CI High")
     return(res.table)
