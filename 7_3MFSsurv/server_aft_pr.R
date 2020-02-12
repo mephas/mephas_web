@@ -29,7 +29,7 @@ pred = eventReactive(input$B1.1,
   predict= predict(aftfit(), newdata = newX(), type="response"))
   colnames(res) <- c("Linear Predictors", "Predictors")
   res <- cbind.data.frame(res, newX())
-  return(res)
+  return(round(res,6))
 })
 
 output$pred = DT::renderDT({

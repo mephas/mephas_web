@@ -108,7 +108,7 @@ output$zph = DT::renderDT({
 res <- cox.zph(coxfit())
 res.tab<- as.data.frame(res[["table"]])
 colnames(res.tab) <- c("Chi-squared", "Degree of Freedom", "P Value")
-return(res.tab)
+return(round(res.tab,6))
 },
 extensions = 'Buttons', 
 options = list(

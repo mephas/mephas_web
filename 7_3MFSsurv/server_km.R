@@ -129,7 +129,7 @@ if (input$time=="B") {surv <- paste0("Surv(", input$t2, " - ", input$t1, ",", in
 
   }
   res <- as.data.frame(res)
-  return(res)
+  return(round(res,6))
 })
 
 output$PLR = DT::renderDT({PLR()}, 

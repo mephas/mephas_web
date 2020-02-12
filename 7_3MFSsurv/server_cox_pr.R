@@ -33,7 +33,7 @@ pred2 = eventReactive(input$B2.1,
 })
 
 output$pred2 = DT::renderDT({
-pred2()
+round(pred2(),6)
 },
 extensions = 'Buttons', 
 options = list(
@@ -66,7 +66,7 @@ return(df)
 })
 
 output$bstab = DT::renderDT({
-BStab()},
+round(BStab(),6)},
 extensions = 'Buttons', 
 options = list(
 dom = 'Bfrtip',
@@ -108,7 +108,7 @@ return(df)
 })
 
 output$auctab = DT::renderDT({
-AUCtab()},
+round(AUCtab(),6)},
 extensions = 'Buttons', 
 options = list(
 dom = 'Bfrtip',
