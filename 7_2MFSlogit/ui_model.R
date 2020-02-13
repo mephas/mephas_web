@@ -95,10 +95,10 @@ tabPanel("Data Fitting",  br(),
 tabPanel("AIC-based Selection",  br(),
 HTML(
 "<b> Explanations </b>
-<ul> 
-<li> The Akaike Information Criterion (AIC) is a way of selecting a model from a set of models. </li>
-<li> Model fits are ranked according to their AIC values, and the model with the lowest AIC value is sometime considered the ‘best’. </li>
-<li> This selection is just for your reference.</li>
+  <ul> 
+    <li> The Akaike Information Criterion (AIC) is used to performs stepwise model selection. </li>
+    <li> Model fits are ranked according to their AIC values, and the model with the lowest AIC value is sometime considered the 'best'. </li>
+  </ul>
 </ul>"
 ),
     p(tags$b("Model selection suggested by AIC")),

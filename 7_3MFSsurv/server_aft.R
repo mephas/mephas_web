@@ -90,6 +90,9 @@ res$call <- "AFT Model Result"
 return(res)
 })
 
+output$step = renderPrint({step(aftfit())})
+
+
 fit.aft <- eventReactive(input$B1, {
 
 if (input$time=="B") {y = DF3()[,input$t2]-DF3()[,input$t1]}

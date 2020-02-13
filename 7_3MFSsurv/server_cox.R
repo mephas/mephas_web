@@ -92,6 +92,8 @@ res$call <- "Cox Regression Result"
 return(res)
 })
 
+output$step = renderPrint({step(coxfit())})
+
 output$zphplot = renderPlot({
   validate(need((input$effect.cx =="" ), "Models with random effect terms can not be used in this plot."))
 

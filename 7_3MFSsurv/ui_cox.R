@@ -123,6 +123,21 @@ tabPanel("Data Fitting", p(br()),
     DT::DTOutput("fit.cox")
 ),
 
+tabPanel("AIC-based Selection",  br(),
+HTML(
+"<b> Explanations </b>
+  <ul> 
+    <li> The Akaike Information Criterion (AIC) is used to performs stepwise model selection. </li>
+    <li> Model fits are ranked according to their AIC values, and the model with the lowest AIC value is sometime considered the 'best'. </li>
+  </ul>
+</ul>"
+),
+    p(tags$b("Model selection suggested by AIC")),
+    verbatimTextOutput("step")
+
+
+    ),
+
 tabPanel("Survival Curve", p(br()),
   HTML(
      "
