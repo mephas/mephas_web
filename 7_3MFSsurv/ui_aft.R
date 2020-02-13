@@ -8,6 +8,7 @@ sidebarPanel(
 tags$head(tags$style("#aft_form {height: 50px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
 tags$head(tags$style("#str3 {overflow-y:scroll; max-height:: 200px; background: white};")),
 tags$head(tags$style("#fit {overflow-y:scroll; max-height:: 400px; background: white};")),
+tags$head(tags$style("#step2 {overflow-y:scroll; max-height:: 400px; background: white};")),
 
 h4(tags$b("Build the Model")),
 p("Prepare the data in the Data tab"),

@@ -90,7 +90,7 @@ res$call <- "AFT Model Result"
 return(res)
 })
 
-output$step = renderPrint({step(aftfit())})
+output$step2 = renderPrint({step(aftfit())})
 
 
 fit.aft <- eventReactive(input$B1, {
