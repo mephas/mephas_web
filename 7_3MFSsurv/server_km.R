@@ -92,7 +92,7 @@ if (input$time=="B") {surv <- paste0("Surv(", input$t2, " - ", input$t1, ",", in
 
   y <- paste0(surv, "~", paste0(as.factor(input$g), collapse = "+"))
   fit <- survdiff(as.formula(y), rho=input$rho, data = DF3())
-  fit$call <- NULL
+  #fit$call <- NULL
   return(fit)
 })
 

@@ -33,7 +33,7 @@ radioButtons("rho", "Choose Log-rank Test Method", selected=1,
     HTML("1. Log-rank test"),
     HTML("2. Peto & Peto modification of the Gehan-Wilcoxon test")
     ),
-  choiceValues = list(1, 2)
+  choiceValues = list(0, 1)
   ),
 p("See method explanations in Output 2. Log-rank Test tab."),
 hr(),
@@ -43,12 +43,12 @@ h4(tags$b("Pairwise Log-rank Test")),
 p(tags$b("Null hypothesis")),
 p("Two groups have identical hazard functions"),
 
-radioButtons("rho2", "1. Choose Log-rank Test Method)", selected=1,
+radioButtons("rho2", "1. Choose Log-rank Test Method", selected=1,
   choiceNames = list(
     HTML("1. Log-rank test"),
     HTML("2. Peto & Peto modification of the Gehan-Wilcoxon test")
     ),
-  choiceValues = list(1, 2)
+  choiceValues = list(0, 1)
   ),
 radioButtons("pm", 
   "2. Choose a method to adjust P value", selected="BH",
