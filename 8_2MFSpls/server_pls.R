@@ -168,18 +168,21 @@ radioButtons("type.pls", "The type of ellipse",
 
 output$pls.s.plot  <- plotly::renderPlotly({ 
 #output$pca.ind  <- renderPlot({ 
-df <- score.r()
+
 if (input$g.pls == "None") {
 #df$group <- rep(1, nrow(df))
+df <- score.r()
 p<-plot_score(df, input$c1.r, input$c2.r)
 
 }
 else {
 
   if (input$type.pls==""){
+    df <- score.r()
     p<-plot_scoreg(df, input$c1.r, input$c2.r, X()[,input$g.pls])
   }
   else{
+    df <- score.r()
     p<-plot_scorec(df, input$c1.r, input$c2.r, X()[,input$g.pls], input$type.pls)
 }
 
