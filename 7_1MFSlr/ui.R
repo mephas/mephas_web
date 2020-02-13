@@ -1,7 +1,7 @@
-if (!require("shiny")) {install.packages("shiny")}; library("shiny")
-if (!require("ggplot2")) {install.packages("ggplot2")}; library("ggplot2")
+if (!requireNamespace("shiny", quietly = TRUE)) {install.packages("shiny")}; require("shiny",quietly = TRUE)
+if (!requireNamespace("ggplot2",quietly = TRUE)) {install.packages("ggplot2")}; require("ggplot2",quietly = TRUE)
 #if (!require("DT")) {install.packages("DT")}
-if (!require("plotly")) {install.packages("plotly")}; library("plotly")
+if (!requireNamespace("plotly",quietly = TRUE)) {install.packages("plotly")}; require("plotly",quietly = TRUE)
 #if (!require("psych")) {install.packages("psych")}; library("psych")
 #if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
