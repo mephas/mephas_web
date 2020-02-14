@@ -61,7 +61,8 @@ sidebarLayout(
 	  #condiPa 3 end
 	  hr(),
 		h4(tags$b("Step 3. Show Probability")),
-	 	numericInput("f.pr", HTML("Area Proportion Left to Red-line = Pr(X < x0), x0 is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
+	 	numericInput("f.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
+		
 		hr()
 	), #sidePa end
 
