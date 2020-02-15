@@ -39,7 +39,7 @@ tablink <- function(){
                           tags$a("",
                                 target = "_blank",
                                 #style = "margin-top:-30px; color:DodgerBlue",
-                                href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas/","index.html"),#,
+                                href = paste0("https://www.youtube.com/channel/UC7NNDN2iIjWe2NSRKT-7VgA/videos"),#,
                                 list(icon("video"), "Video"))
                    )
               )       
