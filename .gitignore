@@ -44,3 +44,6 @@ backshinypage/
 
 mephasrun.R
 *.csv
+*.sublime-project
+*.sublime-workspace
+*.txt
