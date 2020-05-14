@@ -20,6 +20,8 @@ source("server_Chi.R", local=TRUE)$value
 
 source("server_F.R", local=TRUE)$value
 
+source("server_data.R", local=TRUE)$value
+
 ##########----------##########----------##########
 
 observe({

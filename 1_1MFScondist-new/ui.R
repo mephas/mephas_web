@@ -285,6 +285,39 @@ source("ui_F.R", local=TRUE)$value,
 hr()
 ),
 
+tabPanel("User data",
+
+headerPanel("Find the distribution of the data"),
+
+conditionalPanel(
+condition = "input.explain_on_off",
+HTML(
+"
+<h4><b> Functionalities</b></h4>
+<ul>
+<li> Draw a F Distribution with F(df<sub>1</sub>, df<sub>2</sub>) ; df<sub>1</sub> and df<sub>2</sub> are the degree of freedom related to your sample size and control the shape
+<li> Get the probability distribution of x<sub>0</sub> that Pr(X &#8804; x<sub>0</sub>) = left to the red-line
+<li> Get the probability distribution from simulation numbers in Simulation-based tab
+<li> Download the random number in Simulation-based tab
+<li> Get the mean, SD, and Pr(X &#8804; x<sub>0</sub>) of simulated numbers
+<li> Get the probability distribution of your data which can be roughly compared to F(df<sub>1</sub>, df<sub>2</sub>)
+</ul>
+
+<h4><i>Case Example</i></h4>
+<i>Suppose we wanted to see the shape of F(100, 10), and wanted to know at which point x<sub>0</sub> when Pr(X < x<sub>0</sub>)= 0.05 </i>
+
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results.</h4>
+"
+)
+),
+
+hr(),
+
+source("ui_data.R", local=TRUE)$value,
+
+hr()
+),
+
 ##########----------##########----------##########
 tabstop(),
 tablink()

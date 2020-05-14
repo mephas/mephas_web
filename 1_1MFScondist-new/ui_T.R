@@ -8,8 +8,7 @@ sidebarLayout(
 	selectInput(
 	    "InputSrc_t", "Select plot",
 	    c("Mathematical formula based" = "MathDist",
-	      "Simulation data based" = "SimuDist",
-	      "Upload data based" = "DataDist")),
+	      "Simulation data based" = "SimuDist")),
 	hr(),
 	#Select Src end
 	h4(tags$b("Step 2. Set parameters")),
@@ -40,31 +39,8 @@ p("SD = v/(v-2)"),
 
 	  ),
 	  #condiPa 2 end
-	  #condiPa 3
-	  conditionalPanel(
-	    condition = "input.InputSrc_t == 'DataDist'",
 
-	    tabsetPanel(
-	       tabPanel("Manual Input",p(br()),
-    p("Data point can be separated by , ; /Enter /Tab /Space"),
-    p(tags$b("Data be copied from CSV (one column) and pasted in the box")), 
-        		
-    		tags$textarea(
-        id = "x.t", #p
-        rows = 10,
-"-0.52\n-0.36\n-1.15\n-1.46\n0.54\n-1.6\n0.1\n-0.48\n-0.69\n-1.66\n0.59\n0.11\n-0.01\n0.32\n-1.31\n1.25\n-0.19\n-0.66\n0.75\n-1.86"
-),
-      p("Missing value is input as NA")
-	     	 ), #tab1 end
-tabPanel.upload.num(file ="t.file", header="t.header", col="t.col", sep="t.sep")
-
-	    ),
-      sliderInput("bin.t","The number of bins in histogram", min = 0, max = 100, value = 0),
-        p("When the number of bins is 0, plot will use the default number of bins")
-	  ),
-	  #condiPa 3 end
 	  	hr(),
-
 		 	h4(tags$b("Step 2. Show Probability")),
 	 		numericInput("t.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.025, min = 0, max = 1, step = 0.05),
 	 		hr()
@@ -103,22 +79,6 @@ tabPanel.upload.num(file ="t.file", header="t.header", col="t.col", sep="t.sep")
         downloadButton("download5", "Download Random Numbers"),
         p(tags$b("Sample descriptive statistics")),
         tableOutput("t.sum")
-
-		),
-
-		conditionalPanel(
-		condition = "input.InputSrc_t == 'DataDist'",
-		tags$b("Data preview"),
-		DT::DTOutput("TT"),
-		 h4("Distribution of Your Data"),
-        tags$b("Density from upload data"),
-        plotly::plotlyOutput("makeplot.t2"),
-        tags$b("Histogram from upload data"),
-        plotly::plotlyOutput("makeplot.t1"),
-        tags$b("CDF from upload data"),
-        plotly::plotlyOutput("makeplot.t3"),
-      p(tags$b("Sample descriptive statistics")),
-      tableOutput("t.sum2")
 
 		)
 

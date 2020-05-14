@@ -10,8 +10,8 @@ sidebarLayout(
 	selectInput(
 	    "InputSrc_b", "Select plot",
       c("Mathematical formula based" = "MathDist",
-        "Simulation data based" = "SimuDist",
-        "Upload data based" = "DataDist")),
+        "Simulation data based" = "SimuDist")
+      ),
 	hr(),
 	#Select Src end
 	h4(tags$b("Step 2. Set parameters")),
@@ -45,29 +45,6 @@ HTML("<li> Mean = &#945 / (&#945 + &#946)
 	  ),
 	  #condiPa 2 end
 
-	  #condiPa 3
-	  conditionalPanel(
-	    condition = "input.InputSrc_b == 'DataDist'",
-
-	    tabsetPanel(
-	       tabPanel("Manual Input",p(br()),
-		p("Data point can be separated by , ; /Enter /Tab /Space"),
-		p(tags$b("Data be copied from CSV (one column) and pasted in the box")),
-    	tags$textarea(
-        id = "x.b", #p
-        rows = 10,
-"0.11\n0.57\n0.59\n0.52\n0.13\n0.45\n0.63\n0.68\n0.44\n0.55\n0.48\n0.54\n0.29\n0.41\n0.64\n0.75\n0.33\n0.24\n0.45\n0.18"
-),
-      	p("Missing value is input as NA")
-	     	 ), #tab1 end
-
-tabPanel.upload.num(file ="b.file", header="b.header", col="b.col", sep="b.sep")
-
-	    ),
-		sliderInput("bin.b","The number of bins in histogram", min = 0, max = 100, value = 0),
-        p("When the number of bins is 0, plot will use the default number of bins")
-	  ),
-	  #condiPa 3 end
 	  hr(),
 	  h4(tags$b("Step 3. Change Probability")),
  		numericInput("b.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
@@ -110,25 +87,6 @@ mainPanel(
    </ul>
     "
     )
-
-		),
-
-		conditionalPanel(
-		condition = "input.InputSrc_b == 'DataDist'",
-
-		tags$b("Data preview"),
-		DT::DTOutput("ZZ"),
-		h4("Distribution of Your Data"),
-        tags$b("Density from upload data"),
-        plotly::plotlyOutput("makeplot.b2"),
-        tags$b("Histogram from upload data"),
-        plotly::plotlyOutput("makeplot.b1"),
-        tags$b("CDF from upload data"),
-        plotly::plotlyOutput("makeplot.b3"),
-        p(tags$b("Sample descriptive statistics")),
-        tableOutput("b.sum2")
-
-
 
 		)
 

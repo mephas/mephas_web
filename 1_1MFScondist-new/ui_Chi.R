@@ -9,8 +9,7 @@ sidebarLayout(
 	selectInput(
 	    "InputSrc_x", "Select plot",
 	    c("Mathematical formula based" = "MathDist",
-	      "Simulation data based" = "SimuDist",
-	      "Upload data based" = "DataDist")),
+	      "Simulation data based" = "SimuDist")),
 	hr(),
 	#Select Src end
 	h4(tags$b("Step 2. Set parameters")),
@@ -36,27 +35,7 @@ sidebarLayout(
 
 	  ),
 	  #condiPa 2 end
-	  #condiPa 3
-	  conditionalPanel(
-	    condition = "input.InputSrc_x == 'DataDist'",
-	    tabsetPanel(
-	       tabPanel("Manual Input",p(br()),
-		p("Data point can be separated by , ; /Enter /Tab /Space"),
-		p(tags$b("Data be copied from CSV (one column) and pasted in the box")),
-		tags$textarea(
-        	id = "x.x", #p
-        	rows = 10, "11.92\n1.42\n5.56\n5.31\n1.28\n3.87\n1.31\n2.32\n3.75\n6.41\n3.04\n3.96\n1.09\n5.28\n7.88\n4.48\n1.22\n1.2\n9.06\n2.27"
-			),
-      		p("Missing value is input as NA")
-	     ), #tab1 end
 
-			tabPanel.upload.num(file ="x.file", header="x.header", col="x.col", sep="x.sep")
-
-	    ),
-        sliderInput("bin.x","The number of bins in histogram", min = 0, max = 100, value = 0),
-        p("When the number of bins is 0, plot will use the default number of bins")
-	  ),
-	  #condiPa 3 end
 	  hr(),
 		h4(tags$b("Step 2. Show Probability")),
 		numericInput("x.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
@@ -103,22 +82,6 @@ sidebarLayout(
    </ul>
     "
     )
-
-		),
-
-		conditionalPanel(
-		condition = "input.InputSrc_x == 'DataDist'",
-		tags$b("Data preview"),
-		DT::DTOutput("XX"),
-		 h4("Distribution of Your Data"),
- 		tags$b("Density from upload data"),
-        plotly::plotlyOutput("makeplot.x2"),
-        tags$b("Histogram from upload data"),
-        plotly::plotlyOutput("makeplot.x1"),
-        tags$b("CDF from upload data"),
-        plotly::plotlyOutput("makeplot.x3"),
-        p(tags$b("Sample descriptive statistics")),
-        tableOutput("x.sum2")
 
 		)
 
