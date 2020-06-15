@@ -10,7 +10,8 @@ choices = type.num3()
 })
 
 DF4 <- reactive({
-  df <-DF3()[ ,-which(names(DF3()) %in% c(input$y))]
+  #df <-DF3()[ ,!which(names(DF3()) %in% c(input$y))]
+  df <- names(DF3())[-which(names(DF3()) %in% c(input$y))]
 return(df)
   })
 
@@ -28,8 +29,8 @@ output$x = renderUI({
 shinyWidgets::pickerInput(
 'x',
 tags$b('2. Add / Remove independent variables (X)'),
-selected = names(DF4()),
-choices = names(DF4()),
+selected = DF4(), #names(DF4()),
+choices = DF4(),
 multiple = TRUE,
 options = shinyWidgets::pickerOptions(
       actionsBox=TRUE,
