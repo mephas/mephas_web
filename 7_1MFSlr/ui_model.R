@@ -4,8 +4,8 @@ sidebarLayout(
 sidebarPanel(
 
 tags$head(tags$style("#formula {height: 50px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#str {overflow-y:scroll; max-height: 200px; background: lavender};")),
-tags$head(tags$style("#fit {overflow-y:scroll; max-height: 500px; background: lavender};")),
+tags$head(tags$style("#str {overflow-y:scroll; max-height: 200px; background: lavender}")),
+tags$head(tags$style("#fit {overflow-y:scroll; max-height: 500px; background: lavender;color: black;}")),
 tags$head(tags$style("#step {overflow-y:scroll;max-height: 500px; background: lavender};")),
 
 h4(tags$b("Build the Model")),

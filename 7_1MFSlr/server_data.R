@@ -185,15 +185,11 @@ output$var.type <- DT::renderDT(var.type.list3(),
       scrollY = 200,
       scroller = TRUE))
 
-sum <- reactive({
-  x <- DF3()[,type.num3(),drop=FALSE]
-  res <- as.data.frame(psych::describe(x))[,-c(1,6,7)]
-  rownames(res) = names(x)
-  colnames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
-  return(round(res,6))
-  })
+#sum <- reactive({
+#  desc.numeric(DF3())
+#  })
 
-output$sum <- DT::renderDT({sum()}, 
+output$sum <- DT::renderDT({desc.numeric(DF3())}, 
     extensions = list(
       'Buttons'=NULL,
       'Scroller'=NULL),
@@ -205,11 +201,11 @@ output$sum <- DT::renderDT({sum()},
       scrollY = 200,
       scroller = TRUE))
 
-fsum <- reactive({
-	desc.factor(DF3())
-	}) 
+#fsum <- reactive({
+#	desc.factor(DF3())
+#	}) 
 
-output$fsum = DT::renderDT({fsum()}, 
+output$fsum = DT::renderDT({desc.factor(DF3())}, 
     extensions = list(
       'Buttons'=NULL,
       'Scroller'=NULL),

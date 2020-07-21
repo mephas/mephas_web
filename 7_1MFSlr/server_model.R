@@ -187,6 +187,7 @@ output$vgroup = renderUI({
 selectInput(
 'vgroup',
 tags$b('3. Choose one group variable, categorical type'),
+selected = "NULL",
 choices = c("NULL",type.fac4())
 )
 })

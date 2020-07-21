@@ -54,3 +54,23 @@ desc.factor<-function(data){
   }
   return(df)
 }
+
+
+##' @title Summary of numeric variables
+##'
+##' @param data input data frame
+##' @export
+desc.numeric<- function(data){
+x <- var.class(data)
+a<-x[,1] %in% c("integer", "numeric")
+
+if(sum(a)==0) {df <- data.frame(NULL)}
+else{
+  data2<- data[,a,drop=FALSE]
+  df <- round(as.data.frame(psych::describe(data2))[,-c(1,6,7)],4)
+  rownames(df) = names(data2)
+  colnames(df) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
+}
+
+return(df)
+}
