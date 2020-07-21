@@ -39,7 +39,8 @@ options = shinyWidgets::pickerOptions(
 })
 
 type.fac4 <- reactive({
-colnames(DF4()[unlist(lapply(DF4(), is.factor))])
+#colnames(DF4()[unlist(lapply(DF4(), is.factor))])
+  colnames(DF3()[,var.type.list3()[,1] %in% c("factor", "binary"),drop=FALSE])
 })
 
 output$conf = renderUI({
@@ -168,8 +169,8 @@ output$vx1 = renderUI({
 selectInput(
 'vx1',
 tags$b('1. Choose one independent variable (X1), real-valued numeric type'),
-selected = names(DF4())[1],
-choices = names(DF4())
+selected = names(DF3())[1],
+choices = names(DF3())
 )
 })
 
@@ -177,8 +178,8 @@ output$vx2 = renderUI({
 selectInput(
 'vx2',
 tags$b('2. Choose one independent variable (X2), real-valued numeric type'),
-selected = names(DF4())[2],
-choices = names(DF4())
+selected = names(DF3())[2],
+choices = names(DF3())
 )
 })
 
