@@ -15,10 +15,10 @@ DF0 = reactive({
     }
   else{
 if(!input$col){
-    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote,stringsAsFactors=TRUE)
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote, stringsAsFactors=TRUE)
     }
     else{
-    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote, row.names=1,stringsAsFactors=TRUE)
+    csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote, row.names=1, stringsAsFactors=TRUE)
     }
     validate( need(ncol(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
     validate( need(nrow(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
@@ -31,20 +31,30 @@ if(!input$col){
     names(x)<- make.names(names(x), unique = TRUE, allow_ = FALSE)
     }
 
+  class <- var.class(x)
+
+  b.names <- colnames(x[,class[,1] %in% "binary"])
+  x[,b.names]<-sapply(x[,b.names], as.factor)
+
 return(x)
 })
 
-## variable type
-type.num0 <- reactive({
-colnames(DF0()[unlist(lapply(DF0(), is.numeric))])
+## raw variable type
+var.type.list0 <- reactive({
+	var.class(DF0())
+})
+
+
+type.int <- reactive({
+colnames(DF0()[,var.type.list0()[,1] %in% "integer", drop=FALSE])
 })
 
 output$factor1 = renderUI({
 selectInput(
   'factor1',
-  HTML('1. Convert real-valued numeric variable into categorical variable'),
+  HTML('1. Convert integer variable into categorical variable'),
   selected = NULL,
-  choices = type.num0(),
+  choices = type.int(),
   multiple = TRUE
 )
 })
@@ -55,8 +65,12 @@ df[input$factor1] <- as.data.frame(lapply(df[input$factor1], factor))
 return(df)
   })
 
+var.type.list1 <- reactive({
+	var.class(DF1())
+})
+
 type.fac1 <- reactive({
-colnames(DF1()[unlist(lapply(DF1(), is.factor))])
+colnames(DF1()[,var.type.list1()[,1] %in% c("factor", "binary"),drop=FALSE])
 })
 
 output$factor2 = renderUI({
@@ -69,8 +83,6 @@ selectInput(
   multiple = TRUE
 )
 })
-
-
 
 DF2 <- reactive({
   df <-DF1() 
@@ -153,12 +165,28 @@ type.fac3 <- reactive({
 colnames(DF3()[unlist(lapply(DF3(), is.factor))])
 })
 
-output$strnum <- renderPrint({str(DF3()[,type.num3()])})
-output$strfac <- renderPrint({Filter(Negate(is.null), lapply(DF3(),levels))})
+#output$strnum <- renderPrint({str(DF3()[,type.num3()])})
+#output$strfac <- renderPrint({Filter(Negate(is.null), lapply(DF3(),levels))})
 
+## final variable type
+var.type.list3 <- reactive({
+	var.class(DF3())
+})
+
+output$var.type <- DT::renderDT(var.type.list3(),
+	extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
+    options = list(
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollX = TRUE,
+      scrollY = 200,
+      scroller = TRUE))
 
 sum <- reactive({
-  x <- DF3()[,type.num3()]
+  x <- DF3()[,type.num3(),drop=FALSE]
   res <- as.data.frame(psych::describe(x))[,-c(1,6,7)]
   rownames(res) = names(x)
   colnames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
@@ -166,31 +194,34 @@ sum <- reactive({
   })
 
 output$sum <- DT::renderDT({sum()}, 
-    extensions = 'Buttons', 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE))
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollX = TRUE,
+      scrollY = 200,
+      scroller = TRUE))
 
-fsum = reactive({
-  x <- DF3()[,type.fac3()]
-  summary(x)
-  })
+fsum <- reactive({
+	desc.factor(DF3())
+	}) 
 
-output$fsum = renderPrint({fsum()})
+output$fsum = DT::renderDT({fsum()}, 
+    extensions = list(
+      'Buttons'=NULL,
+      'Scroller'=NULL),
+    options = list(
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel'),
+      deferRender = TRUE,
+      scrollX = TRUE,
+      scrollY = 200,
+      scroller = TRUE))
 
- 
- output$download2 <- downloadHandler(
-     filename = function() {
-       "lr.des2.txt"
-     },
-     content = function(file) {
-       write.table(fsum(), file, row.names = TRUE)
-     }
-   )
-# 
-# # First Exploration of Variables
-# 
+
 output$tx = renderUI({
    selectInput(
      'tx', 

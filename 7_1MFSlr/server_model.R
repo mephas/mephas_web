@@ -93,16 +93,29 @@ lm(as.formula(formula()), data = DF3())
  header=FALSE,
  dep.var.caption = "Linear Regression",
  dep.var.labels = paste0("Y = ",input$y),
- type = "text",
+ type = "html",
  style = "all",
  align = TRUE,
  ci = TRUE,
  single.row = TRUE,
  #no.space=TRUE,
- title=paste(Sys.time()),
+ title=paste("Produced at ",Sys.time()),
  model.names =FALSE)
  
  })
+
+ dfit<-reactive({
+  summary(fit())$coefficients
+ })
+
+output$downloadfit <- downloadHandler(
+    filename = function() {
+      paste("fit-", Sys.Date(), ".csv", sep="")
+    },
+    content = function(file) {
+      write.csv(dfit(), file)
+    }
+  )
 
 afit = reactive( {
   res.table <- anova(fit())

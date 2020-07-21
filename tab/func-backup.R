@@ -15,11 +15,7 @@ plot_scat <- function(data, varx, vary, xlab, ylab){
     geom_point(shape = 19, size=1) +
     geom_smooth(method = "lm", size=0.5) +
     xlab(xlab) + ylab(ylab) +
-    theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+    theme_minimal() + theme(legend.title = element_blank())
 }
 ##' @title plot functions in MEPHAS
 ##'
@@ -36,11 +32,7 @@ plot_slgt <- function(data, varx, vary, xlab, ylab){
   geom_point(shape = 19,  size = 1) +
   stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE,  size = 0.5) +
   xlab(xlab) + ylab(ylab) +
-  theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+  theme_minimal() + theme(legend.title = element_blank())
 }
 ##' @title plot functions in MEPHAS
 ##'
@@ -58,11 +50,7 @@ plot_res <- function(data, varx, vary){
   stat_smooth(method="loess", size=0.5)+
   geom_hline(yintercept=0, col="red", linetype="dashed", size=0.3)+
   xlab("Fitted values")+ylab("Residuals")+
-  theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+  theme_minimal() + theme(legend.title = element_blank())
 }
 
 ##' @title plot functions in MEPHAS
@@ -76,11 +64,7 @@ plot_box1 <- function(data, varx){
   ggplot(data, aes(x = varx, y = value)) +
   geom_boxplot(outlier.colour = "red", fill="cornflowerblue", size=0.3, alpha=0.7) +
   xlab("")+ylab("")+
-  theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+  theme_minimal() + theme(legend.title = element_blank())
 }
 
 ##' @title plot functions in MEPHAS
@@ -96,11 +80,7 @@ plot_box2 <- function(data2){
   ggplot(data, aes(x = variable, y = value, fill = variable)) +
   geom_boxplot(outlier.colour = "red",size=0.3, alpha=0.7) +
   scale_fill_brewer(palette="Set1")+
-  theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+  theme_minimal() + theme(legend.title = element_blank())
 
 }
 ##' @title plot functions in MEPHAS
@@ -115,11 +95,7 @@ plot_boxm <- function(datam){
   ggplot(datam, aes(x = variable, y = value, fill = variable)) +
   geom_boxplot(outlier.colour = "red",size=0.3, alpha=0.7) +
   scale_fill_brewer(palette="Set1")+
-  theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+  theme_minimal() + theme(legend.title = element_blank())
 
 }
 
@@ -142,11 +118,7 @@ plot_msd1 <- function(data, varx){
   xlab("")+
   geom_bar(position = position_dodge(), stat = "identity", width = 0.3, fill="cornflowerblue", alpha=0.7) +
   geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - sd, ymax = mean + sd), data = des) +
-  theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+  theme_minimal() + theme(legend.title = element_blank())
 }
 
 ##' @title plot functions in MEPHAS
@@ -167,11 +139,7 @@ plot_msd2 <- function(data){
   geom_bar(position = position_dodge(), stat = "identity", width = 0.3, alpha=0.7) +
   geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - sd, ymax = mean + sd), data = des) +
   scale_fill_brewer(palette="Set1")+
-  theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+  theme_minimal() + theme(legend.title = element_blank())
 }
 
 ##' @title plot functions in MEPHAS
@@ -194,11 +162,7 @@ plot_msdm <- function(datam, var, grp){
   geom_bar(position = position_dodge(), stat = "identity", width = 0.3, alpha=0.7) +
   geom_errorbar(width = .1, position = position_dodge(.9), aes(ymin = mean - sd, ymax = mean + sd), data = des) +
   scale_fill_brewer(palette="Set1")+
-  theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+  theme_minimal() + theme(legend.title = element_blank())
 }
 
 
@@ -218,11 +182,7 @@ plot_line1 <- function(data, varx, vary){
   xlab("") +ylab("")+
   geom_point(shape = 19, size=0.5) +
   scale_colour_brewer(palette="Set1")+
-  theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+  theme_minimal() + theme(legend.title = element_blank())
 }
 
 ##' @title plot functions in MEPHAS
@@ -244,11 +204,7 @@ plot_line2 <- function(data2, var, grp1, grp2){
   xlab("") +ylab("")+
   geom_point(shape = 19, size=1) +
   scale_colour_brewer(palette="Set1")+
-  theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+  theme_minimal() + theme(legend.title = element_blank())
 }
 
 
@@ -260,11 +216,7 @@ value <- plot_data[,"value"]
 variable <- plot_data[,"variable"]
 ggplot(plot_data, aes(x=value, y=y, group=variable)) +
   geom_line(aes(lty=as.factor(variable))) +
-  theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+  theme_minimal() + theme(legend.title = element_blank())
 }
 
 ##' @title plot functions in MEPHAS
@@ -313,21 +265,13 @@ plot_hist1c <- function(data, varx, bw){
     ggplot(data, aes(x = variable)) +
       stat_bin(colour = "white", fill = "cornflowerblue", size = 0.1, alpha = 0.7) +
       xlab(varx) +
-      theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+      theme_minimal() + theme(legend.title = element_blank())
   }
   else{
     ggplot(data, aes(x = variable)) +
       stat_bin(bins=bw, colour = "white", fill = "cornflowerblue", size = 0.1, alpha = 0.7) +
       xlab(varx) +
-      theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+      theme_minimal() + theme(legend.title = element_blank())
   }
 }
 
@@ -348,22 +292,14 @@ plot_hist2 <- function(data2, bw){
       stat_bin(colour = "white", size=0.1, alpha = .5, position = "identity") +
       xlab("") +
       scale_fill_brewer(palette="Set1")+
-      theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+      theme_minimal() + theme(legend.title = element_blank())
   }
   else{
     ggplot(data, aes(x = value, colour = variable, fill = variable)) +
       stat_bin(bins = bw, colour = "white", size=0.1,alpha = .5, position = "identity") +
       xlab("") +
       scale_fill_brewer(palette="Set1")+
-      theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+      theme_minimal() + theme(legend.title = element_blank())
   }
 }
 
@@ -379,11 +315,7 @@ plot_density1 <- function(data, varx){
   ggplot(data, aes(x = variable)) +
   geom_density(size=0.3) +
   xlab(varx) +
-  theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+  theme_minimal() + theme(legend.title = element_blank())
 }
 
 
@@ -401,11 +333,7 @@ plot_density2 <- function(data2){
     geom_density(size=0.3) +
     xlab("") +
     scale_colour_brewer(palette="Set1")+
-    theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+    theme_minimal() + theme(legend.title = element_blank())
 }
 
 
@@ -421,11 +349,7 @@ plot_qq1 <- function(data, varx){
   ggplot(data, aes(sample = variable)) +
     stat_qq() + stat_qq_line(size=0.3, colour="red")+
     xlab(varx) +
-    theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+    theme_minimal() + theme(legend.title = element_blank())
 }
 
 
@@ -443,11 +367,7 @@ plot_qq2 <- function(data2){
     stat_qq() + stat_qq_line()+
     xlab("") +
     scale_colour_brewer(palette="Set1")+
-    theme_classic(
-        base_size = 11,
-        base_family = "Helvetica"
-      ) + 
-      theme(legend.title = element_blank())
+    theme_minimal() + theme(legend.title = element_blank())
 }
 
 

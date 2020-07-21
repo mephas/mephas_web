@@ -8,6 +8,7 @@ if (!requireNamespace("plotly",quietly = TRUE)) {install.packages("plotly")}; re
 source("../tab/tab.R")
 source("../tab/panel.R")
 source("../tab/func.R")
+source("../tab/func2.R")
 
 tagList(
 

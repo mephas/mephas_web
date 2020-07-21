@@ -6,7 +6,6 @@ sidebarPanel(
 
   tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
   tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
-  tags$head(tags$style("#fsum {overflow-y:scroll; max-height: 100px; background: white};")),
 
 h4(tags$b("Training Set Preparation")),
 
@@ -81,11 +80,14 @@ h4(tags$b("Output 1. Data Information")),
 p(tags$b("Data Preview")),
 DT::DTOutput("Xdata"),
 
-p(tags$b("1. Numeric variable information list")),
-verbatimTextOutput("strnum"),
+#p(tags$b("1. Numeric variable information list")),
+#verbatimTextOutput("strnum"),
 
-p(tags$b("2. Categorical variable information list")),
-verbatimTextOutput("strfac"),
+#p(tags$b("2. Categorical variable information list")),
+#verbatimTextOutput("strfac"),
+
+p(tags$b("Variable types")),
+DT::DTOutput("var.type"),
 
 hr(),
 h4(tags$b("Output 2. Descriptive Results")),
@@ -95,13 +97,10 @@ tabsetPanel(
 tabPanel("Basic Descriptives", p(br()),
 
 p(tags$b("1. For numeric variable")),
-
 DT::DTOutput("sum"),
 
 p(tags$b("2. For categorical variable")),
-verbatimTextOutput("fsum"),
-
-downloadButton("download2", "Download Results (Categorical variable)")
+DT::DTOutput("fsum")
 
 ),
 

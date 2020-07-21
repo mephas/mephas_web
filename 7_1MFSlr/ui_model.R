@@ -4,9 +4,9 @@ sidebarLayout(
 sidebarPanel(
 
 tags$head(tags$style("#formula {height: 50px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
-tags$head(tags$style("#str {overflow-y:scroll; max-height: 200px; background: white};")),
-tags$head(tags$style("#fit {overflow-y:scroll; max-height: 400px; background: white};")),
-tags$head(tags$style("#step {overflow-y:scroll;max-height: 400px; background: white};")),
+tags$head(tags$style("#str {overflow-y:scroll; max-height: 200px; background: lavender};")),
+tags$head(tags$style("#fit {overflow-y:scroll; max-height: 500px; background: lavender};")),
+tags$head(tags$style("#step {overflow-y:scroll;max-height: 500px; background: lavender};")),
 
 h4(tags$b("Build the Model")),
 p("Prepare the data in the previous tab"),
@@ -77,7 +77,10 @@ Suppose R2 = 0.49. This result implies that 49% of the variability of the depend
 </ul>
 "
 ),
-verbatimTextOutput("fit")
+#verbatimTextOutput("fit")
+p(tags$b("Results")),
+htmlOutput("fit"),
+downloadButton("downloadfit", "Save into CSV")
 
     ),
 
