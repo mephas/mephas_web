@@ -533,7 +533,11 @@ plot_roc <- function(yhat, y){
   ggtitle("") +
   xlab("False positive rate (1-specificity)")+
   ylab("True positive rate (sensitivity)")+
-  theme_minimal() +theme(legend.title=element_blank())+
+  theme_classic(
+        base_size = 11,
+        base_family = "Helvetica"
+      ) + 
+      theme(legend.title = element_blank())+
   annotate("text", x = .75, y = .25, label = paste("AUC =",pf@y.values))
 
 }
@@ -550,8 +554,13 @@ plot_coxstep <-function(data){
   ggplot() +
   geom_step(data = data, mapping = aes(x = time, y = hazard)) +
   geom_abline(intercept =0,slope = 1, color = "red") +
-  theme_minimal() + 
-  xlab("Cox-Snell residuals") + ylab("Estimated Cumulative Hazard Function")
+  xlab("Cox-Snell residuals") + ylab("Estimated Cumulative Hazard Function")+
+  theme_classic(
+        base_size = 11,
+        base_family = "Helvetica"
+      ) + 
+      theme(legend.title = element_blank())
+  
 }
 
 
@@ -567,7 +576,11 @@ plot_devres <- function(data){
   geom_point(shape = 19, size=1) +
   geom_hline(yintercept = 0, color="red", linetype=2)+
   geom_smooth(method = "loess", linetype=2) +
-  theme_minimal() +
+  theme_classic(
+        base_size = 11,
+        base_family = "Helvetica"
+      ) + 
+      theme(legend.title = element_blank()) +
   xlab("Observation Id") + ylab("Deviance residuals") 
 }
 
@@ -597,7 +610,11 @@ plot_load <- function(loads, a){
                          high = "blue", mid = "white", low = "red",
                          midpoint=0, guide=F) +
     ylab("") + #improve y-axis label
-    theme_bw(base_size=10)
+    theme_classic(
+        base_size = 11,
+        base_family = "Helvetica"
+      ) + 
+      theme(legend.title = element_blank())
 }
 
 ##' @title plot functions in MEPHAS
@@ -621,7 +638,11 @@ plot_scoreg <- function(scores, n1, n2, groupvec){
   geom_vline(xintercept=0, lty=2,size=0.3)+
   xlab(varx)+ylab(vary)+
   scale_colour_brewer(palette="Set1")+
-  theme_minimal()+theme(legend.title=element_blank())
+  theme_classic(
+        base_size = 11,
+        base_family = "Helvetica"
+      ) + 
+      theme(legend.title = element_blank())
 
 }
 
@@ -648,7 +669,11 @@ plot_scorec <- function(scores, n1, n2, groupvec, type){
   stat_ellipse(type = type)+
   xlab(varx)+ylab(vary)+
   scale_colour_brewer(palette="Set1")+
-  theme_minimal()+theme(legend.title=element_blank())
+  theme_classic(
+        base_size = 11,
+        base_family = "Helvetica"
+      ) + 
+      theme(legend.title = element_blank())
 
 }
 
@@ -672,7 +697,11 @@ plot_score <- function(scores, n1, n2){
   geom_vline(xintercept=0, lty=2,size=0.3)+
   xlab(varx)+ylab(vary)+
   scale_fill_brewer(palette="Set1")+
-  theme_minimal()+theme(legend.title=element_blank())
+  theme_classic(
+        base_size = 11,
+        base_family = "Helvetica"
+      ) + 
+      theme(legend.title = element_blank())
 }
 
 ##' @title plot functions in MEPHAS
@@ -701,7 +730,11 @@ geom_segment(data=loads, aes(x=0, y=0, xend=x2, yend=y2),
              arrow=arrow(length=unit(0.3,"cm")), alpha=0.5, colour="red")+
 geom_text(data=loads, aes(x=x2, y=y2, label=names), alpha=0.5, size=3)+
 xlab(varx)+ylab(vary)+
-theme_minimal()+theme(legend.title=element_blank())
+theme_classic(
+        base_size = 11,
+        base_family = "Helvetica"
+      ) + 
+      theme(legend.title = element_blank())
 }
 
 ##' @title plot functions in MEPHAS
@@ -723,14 +756,19 @@ plot_corr <- function(data){
     geom_tile() + #rectangles for each correlation
     #add actual correlation value in the rectangle
     geom_text(aes(label = round(value, 2)), size=2.5) +
-    theme_bw(base_size=10) + #black and white theme with set font size
+    #black and white theme with set font size
     #rotate x-axis labels so they don't overlap,
     #get rid of unnecessary axis titles
     #adjust plot margins
-    theme(axis.text.x = element_text(angle = 90),
+    theme_classic(
+        base_size = 11,
+        base_family = "Helvetica"
+      ) + 
+      theme(legend.title = element_blank(),
+        axis.text.x = element_text(angle = 90),
           axis.title.x=element_blank(),
           axis.title.y=element_blank(),
-          plot.margin = unit(c(3, 1, 0, 0), "mm")) +
+          plot.margin = unit(c(3, 1, 0, 0), "mm"))
     #set correlation fill gradient
     scale_fill_gradient(low="white", high="red") +
     guides(fill=F) #omit unnecessary gradient legend
