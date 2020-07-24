@@ -38,7 +38,7 @@ desc.factor<-function(data){
   x.list<-sapply(data[,a, drop=FALSE], function(v){
     cbind(
       round(table(v)),
-      round(prop.table(table(v)),3)
+      round(prop.table(table(v)),6)
     )
   }
   )
@@ -67,7 +67,7 @@ a<-x[,1] %in% c("integer", "numeric")
 if(sum(a)==0) {df <- data.frame(NULL)}
 else{
   data2<- data[,a,drop=FALSE]
-  df <- round(as.data.frame(psych::describe(data2))[,-c(1,6,7)],4)
+  df <- round(as.data.frame(psych::describe(data2))[,-c(1,6,7)],6)
   rownames(df) = names(data2)
   colnames(df) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
 }

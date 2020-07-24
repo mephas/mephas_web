@@ -34,8 +34,11 @@ headerPanel("Data Preparation"),
 
 conditionalPanel(
 condition = "input.explain_on_off",
+
 HTML(
-"
+'
+<div style = "background-color: #AED6F1; width: 80%; border-radius: 3px;">
+
 <b>Linear regression</b> is a linear approach to modeling the relationship between a dependent variable and one or more independent variables.
 The case of one explanatory variable is called <b>(simple) linear regression</b>.
 For more than one explanatory variable, the process is called <b>multiple linear regression</b>.
@@ -66,7 +69,9 @@ and (2) find the relations between birth weight and the other variables, that is
 
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. After getting data ready, please build the model in the next tab.</h4>
-"
+</div>
+
+'
 )
 ),
 

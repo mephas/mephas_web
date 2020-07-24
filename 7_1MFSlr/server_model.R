@@ -62,7 +62,7 @@ options = list(scrollX = TRUE,dom = 't'))
 ### for summary
 output$str <- renderPrint({str(DF3())})
 
-##3. regression formula
+## LM formula
 formula = reactive({
 validate(need(input$x, "Please choose some independent variable"))
 
@@ -83,42 +83,59 @@ cat(formula())
 ## 4. output results
 ### 4.2. model
 fit = eventReactive(input$B1, {
-#validate(need(input$x, "Please choose some independent variable"))
 lm(as.formula(formula()), data = DF3())
 })
 
- output$fit = renderPrint({
- stargazer::stargazer(
+output$fit = renderPrint({
+stargazer::stargazer(
+fit(),
+header=FALSE,
+dep.var.caption = "Linear Regression",
+dep.var.labels = paste0("Y = ",input$y),
+type = "html",
+style = "all",
+align = TRUE,
+ci = TRUE,
+single.row = TRUE,
+title=paste("Produced at ",Sys.time()),
+model.names =FALSE)
+
+})
+
+output$downloadfit <- downloadHandler(
+    filename = function() {
+      paste("lm-fit", Sys.Date(), ".csv", sep="")
+    },
+    content = function(file) {
+      coef <- summary(fit())$coefficients
+      write.csv(coef, file)
+    }
+  )
+
+output$downloadfit.latex <- downloadHandler(
+    filename = function() {
+      paste("fit-", Sys.Date(), ".txt", sep="")
+    },
+    content = function(file) {
+sink(file)
+stargazer::stargazer(
  fit(),
- #out="linear.txt",
  header=FALSE,
  dep.var.caption = "Linear Regression",
  dep.var.labels = paste0("Y = ",input$y),
- type = "html",
+ type = "latex",
  style = "all",
  align = TRUE,
  ci = TRUE,
  single.row = TRUE,
- #no.space=TRUE,
  title=paste("Produced at ",Sys.time()),
  model.names =FALSE)
- 
- })
-
- dfit<-reactive({
-  summary(fit())$coefficients
- })
-
-output$downloadfit <- downloadHandler(
-    filename = function() {
-      paste("fit-", Sys.Date(), ".csv", sep="")
-    },
-    content = function(file) {
-      write.csv(dfit(), file)
+sink()
     }
   )
 
-afit = reactive( {
+#### anova
+afit = reactive({
   res.table <- anova(fit())
   colnames(res.table) <- c("Degree of Freedom (DF)", "Sum of Squares (SS)", "Mean Squares (MS)", "F Statistic", "P Value")
   return(round(res.table,6))
@@ -131,9 +148,18 @@ output$anova = DT::renderDT({(afit())},
     buttons = c('copy', 'csv', 'excel'),
     scrollX = TRUE))
 
-#sp = reactive({step(fit())})
 output$step = renderPrint({step(fit())})
 
+output$downloadsp <- downloadHandler(
+    filename = function() {
+      paste("lm-step", Sys.Date(), ".txt", sep="")
+    },
+    content = function(file) {
+      sink(file)
+      step(fit())
+      sink()
+    }
+  )
 # 
 # # residual plot
 output$p.lm1 = plotly::renderPlotly({

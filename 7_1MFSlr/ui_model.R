@@ -8,6 +8,7 @@ tags$head(tags$style("#str {overflow-y:scroll; max-height: 200px; background: la
 tags$head(tags$style("#fit {overflow-y:scroll; max-height: 500px; background: lavender;color: black;}")),
 tags$head(tags$style("#step {overflow-y:scroll;max-height: 500px; background: lavender};")),
 
+
 h4(tags$b("Build the Model")),
 p("Prepare the data in the previous tab"),
 hr(),      
@@ -66,9 +67,9 @@ HTML(
 "
 <b> Explanations  </b>
 <ul>
-<li> For each variable, estimated coefficients (95% confidence interval), T statistic (t = ) for the significance of single variable, and P value (p = ) are given</li>
-<li> T test of each variable and P < 0.05 indicates this variable is statistically significant to the model</li>
-<li> Observations mean the number of samples</li>
+<li> The values for each variable are: estimated coefficients (95% confidence interval), T statistic (t = ) , and P value (p = ) for the significance of each variable </li>
+<li> T test of each variable and P < 0.05 indicate this variable is statistically significant to the model</li>
+<li> Observations show the number of samples</li>
 <li> R2 (R<sup>2</sup>) is a goodness-of-fit measure for linear regression models and indicates the percentage of the variance in the dependent variable that the independent variables explain collectively.
 Suppose R2 = 0.49. This result implies that 49% of the variability of the dependent variable has been accounted for, and the remaining 51% is still unaccounted for.</li>
 <li> Adjusted R2 (adjusted R<sup>2</sup>) is used to compare the goodness-of-fit for regression models that contain different numbers of independent variables.</li>
@@ -80,7 +81,8 @@ Suppose R2 = 0.49. This result implies that 49% of the variability of the depend
 #verbatimTextOutput("fit")
 p(tags$b("Results")),
 htmlOutput("fit"),
-downloadButton("downloadfit", "Save into CSV")
+downloadButton("downloadfit", "Save into CSV"),
+downloadButton("downloadfit.latex", "Save LaTex codes")
 
     ),
 
@@ -114,7 +116,8 @@ tabPanel("AIC-based Selection",  br(),
     ),
 
     p(tags$b("Model selection suggested by AIC")),
-    verbatimTextOutput("step")
+    verbatimTextOutput("step"),
+    downloadButton("downloadsp", "Save into TXT")
 
     ),
 
