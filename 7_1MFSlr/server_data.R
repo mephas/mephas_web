@@ -33,7 +33,7 @@ if(!input$col){
 
   class <- var.class(x)
 
-  b.names <- colnames(x[,class[,1] %in% "binary"])
+  b.names <- colnames(x[,class[,1] %in% "binary",drop=FALSE])
   x[,b.names]<-sapply(x[,b.names], as.factor)
 
 return(x)
@@ -78,7 +78,6 @@ selectInput(
   'factor2',
   HTML('2. Convert categorical variable into real-valued numeric variable'),
   selected = NULL,
-  #choices = names(DF()),
   choices = type.fac1(),
   multiple = TRUE
 )
@@ -200,10 +199,6 @@ output$sum <- DT::renderDT({desc.numeric(DF3())},
       scrollX = TRUE,
       scrollY = 200,
       scroller = TRUE))
-
-#fsum <- reactive({
-#	desc.factor(DF3())
-#	}) 
 
 output$fsum = DT::renderDT({desc.factor(DF3())}, 
     extensions = list(

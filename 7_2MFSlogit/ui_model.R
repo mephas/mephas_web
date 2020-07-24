@@ -7,9 +7,9 @@ sidebarPanel(
 
 tags$head(tags$style("#formula {height: 50px; background: ghostwhite; color: blue;word-wrap: break-word;}")),
 tags$head(tags$style("#str {overflow-y:scroll; max-height: 200px; background: white};")),
-tags$head(tags$style("#fit {overflow-y:scroll; max-height: 400px; background: white};")),
-tags$head(tags$style("#fit2 {overflow-y:scroll; max-height: 400px; background: white};")),
-tags$head(tags$style("#step {overflow-y:scroll; max-height: 400px; background: white};")),
+tags$head(tags$style("#fit1 {overflow-y:scroll; max-height: 500px; background: lavender; color: black;};")),
+tags$head(tags$style("#fit2 {overflow-y:scroll; max-height: 500px; background: lavender; color: black;};")),
+tags$head(tags$style("#step {overflow-y:scroll; max-height: 500px; background: lavender};")),
 
 
 h4(tags$b("Prepare the Model")),
@@ -80,11 +80,17 @@ HTML(
 ),
 
 fluidRow(
-column(6, verbatimTextOutput("fit")
+column(6, htmlOutput("fit1"),
+    downloadButton("downloadfit1", "Save into CSV"),
+    downloadButton("downloadfit.latex1", "Save LaTex codes")
 ),
-column(6, verbatimTextOutput("fit2")
+column(6, htmlOutput("fit2"),
+    downloadButton("downloadfit2", "Save into CSV"),
+    downloadButton("downloadfit.latex2", "Save LaTex codes")
 )
 )
+
+
 ),
 
 tabPanel("Data Fitting",  br(),

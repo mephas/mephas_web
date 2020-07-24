@@ -46,12 +46,7 @@ hr(),
 
 h4(tags$b("Change the types of some variable?")),
 
-#p(tags$b("Choice 1. Change Real-valued Variables into Categorical Variable")),
-
 uiOutput("factor1"),
-
-#p(tags$b("Choice 2. Change Categorical Variable (Numeric Factors) into Numeric Variables (Numbers)")),
-
 uiOutput("factor2"),
 
 h4(tags$b("Change the referential level for categorical variable?")),

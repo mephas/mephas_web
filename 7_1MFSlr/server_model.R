@@ -114,7 +114,7 @@ output$downloadfit <- downloadHandler(
 
 output$downloadfit.latex <- downloadHandler(
     filename = function() {
-      paste("fit-", Sys.Date(), ".txt", sep="")
+      paste("lm-fit-", Sys.Date(), ".txt", sep="")
     },
     content = function(file) {
 sink(file)

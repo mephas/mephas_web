@@ -9,6 +9,7 @@ if (!requireNamespace("ggplot2",quietly = TRUE)) {install.packages("ggplot2")}; 
 source("../tab/tab.R")
 source("../tab/panel.R")
 source("../tab/func.R")
+source("../tab/func2.R")
 
 tagList(
 
