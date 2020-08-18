@@ -141,7 +141,7 @@ type.bi3 <- reactive({
 type.time3 <- reactive({
   df <- DF3()
   names <- apply(df,2,function(x) { length(levels(as.factor(x)))>2 })
-  df <- DF3()[,names]
+  df <- DF3()[,names,drop=FALSE]
   x <- colnames(df[unlist(lapply(df, is.numeric))])
   return(x)
   })
@@ -173,7 +173,7 @@ choices = type.time3())
 type.time2 <- reactive({
   if (input$time=="B") {df <-DF3()[ ,-which(names(DF3()) %in% c(input$c,input$t1))]
   names <- apply(df,2,function(x) { length(levels(as.factor(x)))>2 })
-  df <- df[,names]
+  df <- df[,names, drop=FALSE]
   x <- colnames(df[unlist(lapply(df, is.numeric))])
   return(x)
   }
@@ -297,7 +297,11 @@ ggsurvplot(fit, data=DF3(),
            risk.table = "abs_pct",
            #surv.median.line = "hv", 
            palette = "Set1",
-           ggtheme = theme_minimal(),
+           #ggtheme = theme_minimal(),
+           ggtheme = theme_classic(
+            base_size = 11,
+            base_family = "Helvetica"
+            ),
            legend="bottom",
            risk.table.y.text.col = TRUE, # colour risk table text annotations.
            risk.table.y.text = FALSE) 
