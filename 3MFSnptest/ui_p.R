@@ -49,7 +49,7 @@ tabPanel.upload.num(file ="file3", header="header3", col="col3", sep="sep3")
   h4(tags$b("Step 2. Choose Hypothesis")),
 
   p(tags$b("Null hypothesis")),
-  HTML("<p>  m = 0: the difference of medians between X and Y is not zero </p>
+  HTML("<p>  m = 0: the difference of medians between X and Y is zero </p>
         <p>  Or, the distribution of the differences in paired values is symmetric around zero</p> "),
 
   radioButtons("alt.wsr3", label = "Alternative hypothesis",

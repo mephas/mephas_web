@@ -70,13 +70,13 @@
      HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, then the population proportion/rate IS significantly different from the specified median. (Accept the alternative hypothesis)</li>
-    <li> P Value >= 0.05, then the population proportion/rate IS NOT significantly different from the specified median. (Accept the null hypothesis)</li>
+    <li> P Value < 0.05, then the population proportion/rate IS significantly different from the specified proportion/rate. (Accept the alternative hypothesis)</li>
+    <li> P Value >= 0.05, then the population proportion/rate IS NOT significantly different from the specified proportion/rate. (Accept the null hypothesis)</li>
     </ul>"
   ),
     conditionalPanel(
     condition = "input.explain_on_off",
-  HTML("<i> From the default settings, we concluded that there was no significant difference in the rate of infertility among homozygous women compared to the general interfile rate (P = 0.55). In this case, np<sub>0</sub>(1-p<sub>0</sub>)=40*0.2*0.8 > 5, so the <b>Normal Theory Method</b> was preferable. </i>")
+  HTML("<i> From the default settings, we concluded that there was no significant difference in the rate of infertility among homozygous women compared to the general infertility rate (P = 0.55). In this case, np<sub>0</sub>(1-p<sub>0</sub>)=40*0.2*0.8 > 5, so the <b>Normal Theory Method</b> was preferable. </i>")
   )
 
 

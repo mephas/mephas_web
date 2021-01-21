@@ -99,10 +99,10 @@ HTML(
 </ul>
 
 <h4><i>Case Example</i></h4>
-<i>Suppose we were interested in the effects of sex and 3 dietary groups on SPB.
+<i>Suppose we were interested in the effects of sex and 3 dietary groups on SBP.
 The 3 dietary groups included strict vegetarians (SV), lactovegentarians (LV), and normal (NOR) people, and we tested the SBP.
 The effects of sex and and dietary group might be related (interact) with each other.
-We wanted to know the effect of dietary group and sex on the SPB and whether the two factors were related with each other.
+We wanted to know the effect of dietary group and sex on the SBP and whether the two factors were related with each other.
 </i>
 
 

@@ -66,8 +66,8 @@ conditionalPanel(
      HTML(
     "<b> Explanations </b> 
     <ul> 
-    <li> P Value < 0.05, to control for personal smoking, passive smoking and cancer risk have no significant relation, the odds ratios are significantly different. (Accept the alternative hypothesis)</li>
-    <li> P Value >= 0.05, to control for personal smoking, passive smoking and cancer risk have no significant relation. (Accept the null hypothesis)</li>
+    <li> P Value < 0.05, by controlling the gender, the prevalence of habitual snoring and ages have a significant relation, the odds ratios are significantly different. (Accept the alternative hypothesis)</li>
+    <li> P Value >= 0.05, by controlling the gender, the prevalence of habitual snoring and ages have no significant relation. (Accept the null hypothesis)</li>
     </ul>"
   ),
 conditionalPanel(
