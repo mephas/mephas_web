@@ -134,7 +134,7 @@ tabPanel.upload.num(file ="file.p", header="header.p", col="col.p", sep="sep.p")
   ),
     conditionalPanel(
     condition = "input.explain_on_off",
-  p(tags$i("初始设定的结果为，该药物对睡眠时间不具有影响。 （P = 0.2）"))
+  p(tags$i("根据初始设定，结果为该药物对睡眠时间不具有影响。 （P = 0.2）"))
   )
         )
       )
