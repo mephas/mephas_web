@@ -56,7 +56,6 @@ library(shinyjs)
 if(!require("shinydashboard")) install.packages("shinydashboard",update = F,ask = F)
 library(shinydashboard)
 
-
 source("../tab/tab.R")
 source("../tab/panel.R")
 source("../tab/func.R")
@@ -75,63 +74,65 @@ tagList(
     
     #title ="MephasGEO",
     collapsible = TRUE,
-    id="navbar",
+    #id="navbar",
     position="fixed-top",
     
     
 #panel 0 DATA处理
-    tabPanel("差异基因分析",
-             titlePanel("差异基因分析"),
+    tabPanel("Differential Gene Expression Analysis",
+
+             titlePanel("Differential Gene Expression Analysis"),
              
              conditionalPanel(
                condition = "input.explain_on_off",
                HTML(
                "    
-<h4><b>功能</b></h4>
-<p><b>1：对从GEO数据库中下载的基因芯片实验数据进行处理</b></p>
+<h4><b>Functions</b></h4>
+<p><b>1. Download and analyze gene microarray data from GEO database</b></p>
 <ul> 
-<li>数据处理：log2转换、数据正则化、探针与基因ID的转换
-<li>可视化：聚类分析、PCA分析
+<li>Data preprocess: log2-transformation、normalization、probs and gene-ID transformation
+<li>Visaulization: Cluster and PCA
 </ul>
-<p><b>2：使用LIMMA分析，确定在不同分组中表达量具有显著差异的基因</b></p>
+<p><b>2. Use LIMMA to find significantly differenttial genes in different expression level groups.</b></p>
 <ul> 
-<li> 生成单基因表达值箱线图、火山图、热图
+<li> Produce boxplot, volcano plot, and heatmap for gene expression level
 </ul>
-<p><b>3：对差异基因进行通道分析</b></p>
+<p><b>3. Pathway analysis</b></p>
 <ul> 
-<li> 生成GO分析、KEGG分析
+<li> GO analysis, KEGG analysis
 </ul>
 
 
-<h4><b>注意</b></h4>
-<p><b>1：暂时无法支持全部GEO数据与GPL平台数据，敬请谅解。</b></p>
-<p><b>2：请在重新下载数据前点击按钮刷新界面，或重新启动程序。</b></p>
-<p><b>3：请不要在数据预处理完成前点击分组信息输入界面。若出现表格显示不全的状况，请重新下载数据。</b></p>
+<h4><b>Notice</b></h4>
+<p><b>1. Cannot support all the GEO (GLP) data </b></p>
+<p><b>2. If you want to download data again, plear click refresh button, or re-start this application </b></p>
+<p><b>3. Donnot go to 'Input group' panel before the completion of data preprocess. If the table is uncomplete, please download the data again.</b></p>
 
-<i><h4>示范例子</h4>
-以GSE16020芯片为例，研究多形核白细胞中常染色体显性单核细胞减少症的影响。根据病情分为对照组和常染色体显性单核细胞减少症组，对照组12例，常染色体显性单核细胞减少症组8例，不同的RNA提取方法对基因的表达量有影响。
-我们希望通过MephasGEO，来寻找差异表达的基因。
+<i><h4>Case Example</h4>
+To take GSE16020 as example, this data is used to study the effect of autosomal dominant monocytopenia in polymorphonuclear leukocytes. 
+According to the condition, they were divided into control group and autosomal dominant monocytopenia group, 12 cases in control group, and 8 cases in autosomal dominant monocytopenia group. Different RNA extraction methods have an impact on gene expression.
+We hope to use MephasGEO to find differentially expressed genes.
 </h4></i>
-<h4> 请遵照 <b>步骤</b>执行， 程序将会实时性地返回<b>结果</b> </h4>
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results </h4>
     
 
     ")),
              
-             hr(),
-             
-             source("0_datainput_ui.R", local=TRUE,encoding = "utf-8")$value,
-             hr(),
+    hr(),
+            
+    source("0_datainput_ui.R", local=TRUE,encoding = "utf-8")$value,
+    hr(),
     ),
 
 tabstop(),
 tablink()
-  )
+)
 
 #tablang(),
 
 #navbarMenu("",icon=icon("link"))
 
-  )
+)
 
 
 
