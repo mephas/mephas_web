@@ -18,9 +18,12 @@ if (!requireNamespace("shiny", quietly = TRUE)) {install.packages("shiny")}; req
 if (!requireNamespace("mephas.tools",quietly = TRUE)) {remotes::install_github("mephas/mephas.tools", upgrade="never")}; require("mephas.tools",quietly = TRUE)
 
 
+source("../tab/tab.R")
+source("../tab/panel.R")
+source("../tab/func.R")
 
 
-shinyUI(
+#shinyUI(
   tagList(
   
   includeCSS("../www/style.css"),
@@ -125,15 +128,19 @@ We selected the first four columns of the iris data as an example of cluster ana
          
          hr(),
          
-         source("2HC_ui.R", local=TRUE,encoding = "utf-8")$value)
+         source("2HC_ui.R", local=TRUE,encoding = "utf-8")$value),
 
-  ),
+hr(),
 
 tabstop(),
 tablink()
+
+  ))
+
+
 #navbarMenu("",icon=icon("link"))
 
-))
+
 
 
 
