@@ -4,38 +4,38 @@ sidebarLayout(
 
 sidebarPanel(
 
-  h4(tags$b("Step 1. Data Preparation")),
+  h4(tags$b("第1步 准备数据")),
 
-  p(tags$b("1. Give names to your data (Required)")),
+  p(tags$b("1. 命名数据（必填）")),
 
   tags$textarea(id="cn2", rows=2, "Group1\nGroup2"), p(br()),
 
-  p(tags$b("2. Input data")),
+  p(tags$b("2. 数据输入")),
 
   tabsetPanel(
   ##-------input data-------##
-  tabPanel("Manual input", p(br()),
+  tabPanel("手动输入", p(br()),
         conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("The example shown here was the Depression Rating Scale factor measurements of 19 patients from two groups of patients."))
+    p(tags$i("这里的数据是两组19名患者的抑郁评定量表(DRS) 测量结果."))
       ),
 
-    p(tags$b("Please follow the example to input your data")),
-    p("Data point can be separated by , ; /Enter /Tab /Space"),
-    p(tags$b("Data be copied from CSV (one column) and pasted in the box")),   
-    p(tags$b("Group 1")),
+    p(tags$b("请参考示例格式上传数据")),
+    p("数据点可以用 逗号（,） 分号（;） 回车（/Enter） 制表符（/Tab） 空格（/Space）分隔"),
+    p(tags$b("从CSV（一列）复制数据并粘贴到框中")),   
+    p(tags$b("组 1")),
     tags$textarea(id="x1",
     rows=10,
     "1.83\n0.50\n1.62\n2.48\n1.68\n1.88\n1.55\n3.06\n1.30\nNA"
     ),
 
-    p(tags$b("Group 2")),## disable on chrome
+    p(tags$b("组 2")),## disable on chrome
     tags$textarea(id="x2",
       rows=10,
       "0.80\n0.83\n1.89\n1.04\n1.45\n1.38\n1.91\n1.64\n0.73\n1.46"
       ),
 
-    p("Missing values are input as NAs to ensure 2 sets have equal length; otherwise, there will be error")
+    p("缺失值输入NA，保证2个集长度相等；否则会出错")
     ),
 
   tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
@@ -44,54 +44,54 @@ sidebarPanel(
 
   hr(),
 
-    h4(tags$b("Step 2. Choose Hypothesis")),
+    h4(tags$b("第2步 选择假设")),
 
-    p(tags$b("Null hypothesis")),
+    p(tags$b("虚假设")),
 
-    HTML("<p> m&#8321 = m&#8322: the medians of two group are equal </p>
-          <p> Or, the distribution of values for each group are equal </p>"),
+    HTML("<p> m&#8321 = m&#8322: 两组中位数相等</p>
+          <p> 或，每组值分布相等</p>"),
 
-radioButtons("alt.wsr2", label = "Alternative hypothesis",
+radioButtons("alt.wsr2", label = "备择假设",
   choiceNames = list(
-    HTML("m&#8321 &#8800 m&#8322: the population medians of each group are not equal"),
-    HTML("m&#8321 < m&#8322: the population median of Group 2 is greater"),
-    HTML("m&#8321 > m&#8322: the population median of Group 1 is greater")),
+    HTML("m&#8321 &#8800 m&#8322: 各组总体中位数不相等"),
+    HTML("m&#8321 < m&#8322: 第2组的总体中位数较大"),
+    HTML("m&#8321 > m&#8322: 第1组的总体中位数较大")),
   choiceValues = list("two.sided", "less", "greater")),
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this default setting, we wanted to know if the Depression Rating Scale from two groups of patients were different."))
+    p(tags$i("在初始条件下，我们想知道两组患者的抑郁评定量表(DRS)测量结果是否不同。"))
       ),
     hr(),
 
 
-  h4(tags$b("Step 3. Decide P Value method")),
+  h4(tags$b("第3步  选择P值的计算方法")),
   radioButtons("alt.md2",
-    label = "What is the data like", selected = "c",
+    label = "数据是什么样的", selected = "c",
     choiceNames = list(
-      HTML("Approximate normal distributed P value: sample size is large"),
-      HTML("Asymptotic normal distributed P value: sample size is large"),
-      HTML("Exact P value: sample size is small (< 50)")
+      HTML("近似正态分布P值：样本量大"),
+      HTML("渐近正态分布P值：样本量大"),
+      HTML("精确P值：样本量小 (<50)")
       ),
     choiceValues = list("a", "b", "c")),
       conditionalPanel(
     condition = "input.explain_on_off",
-      p(tags$i("The sample sizes in each group were 9 and 10, so we used the exact p value."))
+      p(tags$i("两组的样本量分别为9和10， 所以我们使用精确P值法."))
       )
 
   ),
 
 mainPanel(
 
-  h4(tags$b("Output 1. Descriptive Results")),
+  h4(tags$b("Output 1. 描述性统计结果")),
 
   tabsetPanel(
 
-    tabPanel("Data Preview", p(br()),
+    tabPanel("数据确认", p(br()),
 
       DT::DTOutput("table2")
       ),
 
-    tabPanel("Basic Descriptives", p(br()),
+    tabPanel("描述性统计量", p(br()),
 
         DT::DTOutput("bas2")#,
 
@@ -99,33 +99,33 @@ mainPanel(
       #  downloadButton("download2b", "Download Results")
       ),
 
-    tabPanel("Box-Plot", p(br()),
+    tabPanel("箱型图", p(br()),
         plotly::plotlyOutput("bp2"),#, click = "plot_click2"
 
         #verbatimTextOutput("info2"),
         hr(),
           HTML(
-          "Notes:
+          "说明:
           <ul>
-            <li> The band inside the box is the median</li>
-            <li> The box measures the difference between 75th and 25th percentiles</li>
-            <li> Outliers will be in red, if existing</li>
+            <li> 框内的条带为中位数</li>
+            <li> 方框测量了第75和第25个百分位数之间的差值</li>
+            <li> 如果存在离群值，将显示为红色</li>
           </ul>"
             )
          ),
 
-    tabPanel("Histogram", p(br()),
+    tabPanel("直方图", p(br()),
       HTML(
-          "Notes:
+          "说明:
           <ul>
-            <li> Histogram: to roughly assess the probability distribution of a given variable by depicting the frequencies of observations occurring in certain ranges of values</li>
-            <li> Density Plot: to estimate the probability density function of the data</li>
+			<li> 直方图：通过描述某一数值范围内出现的观察值频率，粗略评估给定变量的概率分布</li>
+			<li> 密度图：估计数据的概率密度函数</li>
           </ul>"),
-      p(tags$b("Histogram")),
+      p(tags$b("直方图")),
       plotly::plotlyOutput("makeplot2"),
-      sliderInput("bin2", "The number of bins in histogram",min = 0,max = 100,value = 0),
-      p("When the number of bins is 0, plot will use the default number of bins"),
-      p(tags$b("Density plot")),
+      sliderInput("bin2", "直方图的分箱数",min = 0,max = 100,value = 0),
+      p("当分箱数为0时，绘图将使用默认分箱数"),
+      p(tags$b("密度图")),
       plotly::plotlyOutput("makeplot2.1")
       )
     ),
@@ -137,15 +137,15 @@ mainPanel(
   DT::DTOutput("mwu.test.t"), p(br()),
 
   HTML(
-    "<b> Explanations </b>
+    "<b> 说明 </b>
     <ul>
-    <li> P Value < 0.05, then the population medians of 2 groups are significantly different. (Accept alternative hypothesis)</li>
-    <li> P Value >= 0.05, no significant differences between the medians of 2 groups. (Accept null hypothesis)</li>
+    <li> P值 < 0.05，则2组总体中位数有显著差异。（接受备择假设）</li>
+    <li> P值 >= 0.05，则2组中位数无显著差异。（接受虚假设）</li>
     </ul>"
   ),
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("From the default settings, we concluded that there was no significant differences in 2 groups Rating scale (P=0.44)."))
+    p(tags$i("在初始条件下，我们可以得到这两组患者的DRS测量结果没有显著的不同(P = 0.44)."))
     )#,
 
 
