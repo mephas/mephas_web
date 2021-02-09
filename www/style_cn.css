@@ -1,0 +1,42 @@
+
+
+/*!
+Chinese style sheet
+*/
+
+* {
+font-family:   "Microsoft TimesNewRoman", "SimSun", "Microsoft YaHei", "微软雅黑", sans-serif;
+}
+
+body {
+	padding-top: 70px;
+}
+
+.shiny-output-error-validation {
+	color: #4169e1; 
+	font-weight: bold;
+}
+
+.shiny-output-error { 
+	color: #4169e1; 
+	font-weight: bold;
+}
+
+.shiny-output-error:before { 
+	visibility: visible; 
+	content: 'OOps! Something went wrong. Please check your inputs......  '; 
+	color: #ff6347;
+}
+ 
+.selectize-control.single .selectize-dropdown{ 
+	color: grey;
+	font-weight: bold;
+}
+
+.selectize-input { 
+	font-weight: bold;
+}
+
+.selected {
+	font-weight: bold !important;
+}
