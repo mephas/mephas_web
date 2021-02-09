@@ -55,7 +55,7 @@ library(shinyAce)
 library(shinyjs)
 #if(!require("shinydashboard")) install.packages("shinydashboard",update = F,ask = F)
 library(shinydashboard)
-
+library(rhandsontable)
 source("../tab/tab.R")
 source("../tab/panel.R")
 source("../tab/func.R")
