@@ -43,7 +43,7 @@ library("heatmaply")#好看的heatmaply
 ##if(!require("dplyr")) install.packages("dplyr",update = F,ask = F)
 #library("dplyr")
 #if(!require("clusterProfiler")) install.packages("clusterProfiler",update = F,ask = F)
-suppressMessages(library(clusterProfiler))
+#suppressMessages(library(clusterProfiler))
 
 
 #代码生成
@@ -120,7 +120,7 @@ tagList(
              hr(),
              
              source("0_datainput_ui.R", local=TRUE,encoding = "utf-8")$value,
-             hr(),
+             hr()
     ),
 
 tabstop(),
