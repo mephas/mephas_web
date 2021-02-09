@@ -181,7 +181,7 @@ sidebarLayout(
       tabPanel("Reproducible R codes",
                verbatimTextOutput("Code"),
                aceEditor("rmd", mode="markdown", value='',readOnly=T, height="500px"),
-               actionButton("gecode","生成代码")
+               actionButton("gecode","Generate Codes")
                ),
       tabPanel("RmarkDown Results",
                uiOutput("RMarkD"),#未实装

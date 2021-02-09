@@ -47,3 +47,4 @@ mephasrun.R
 *.sublime-project
 *.sublime-workspace
 *.txt
+*.txt.gz

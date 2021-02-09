@@ -57,8 +57,8 @@ library(shinyjs)
 library(shinydashboard)
 
 
-source("../tab/tab.R")
-source("../tab/panel.R")
+source("../tab/tab_cn.R")
+source("../tab/panel_cn.R")
 source("../tab/func.R")
 
 
