@@ -1,21 +1,21 @@
 library(shiny)
-if (!require("BiocManager")) install.packages("BiocManager", update = F, ask = F)
-if (!require("rhandsontable")) install.packages("rhandsontable", update = F, ask = F)
-if (!require("DT")) install.packages("DT", update = F, ask = F)
+#if (!require("BiocManager")) install.packages("BiocManager", update = F, ask = F)
+#if (!require("rhandsontable")) install.packages("rhandsontable", update = F, ask = F)
+#if (!require("DT")) install.packages("DT", update = F, ask = F)
 
-if (!require("GEOquery")) BiocManager::install("GEOquery",update = F,ask = F)
-if (!require("limma")) BiocManager::install("limma",update = F,ask = F)
-if (!require("gplots")) BiocManager::install("gplots",update = F,ask = F)
+#if (!require("GEOquery")) BiocManager::install("GEOquery",update = F,ask = F)
+#if (!require("limma")) BiocManager::install("limma",update = F,ask = F)
+#if (!require("gplots")) BiocManager::install("gplots",update = F,ask = F)
 library(GEOquery)
 library(limma)
 library(gplots)
 library(DT)
 
-if (!requireNamespace("shiny", quietly = TRUE)) {install.packages("shiny")}; require("shiny",quietly = TRUE)
-if (!requireNamespace("mephas.tools",quietly = TRUE)) {remotes::install_github("mephas/mephas.tools", upgrade="never")}; require("mephas.tools",quietly = TRUE)
+#if (!requireNamespace("shiny", quietly = TRUE)) {install.packages("shiny")}; require("shiny",quietly = TRUE)
+#if (!requireNamespace("mephas.tools",quietly = TRUE)) {remotes::install_github("mephas/mephas.tools", upgrade="never")}; require("mephas.tools",quietly = TRUE)
 
-if(!require("factoextra")) install.packages("factoextra",update = F,ask = F) #聚类
-if(!require("ggpubr")) install.packages("ggpubr",update = F,ask = F)
+#if(!require("factoextra")) install.packages("factoextra",update = F,ask = F) #聚类
+#if(!require("ggpubr")) install.packages("ggpubr",update = F,ask = F)
 library(factoextra)
 library(ggplot2)
 library("FactoMineR");
@@ -23,39 +23,39 @@ library("factoextra");
 
 #绘图用
 #火山图
-if(!require("EnhancedVolcano")) BiocManager::install("EnhancedVolcano",update = F,ask = F)
+#if(!require("EnhancedVolcano")) BiocManager::install("EnhancedVolcano",update = F,ask = F)
 library(EnhancedVolcano)
 #热图
-if(!require("tidyverse")) install.packages("tidyverse",update = F,ask = F)
+#if(!require("tidyverse")) install.packages("tidyverse",update = F,ask = F)
 library('tidyverse')
-if(!require("pheatmap")) install.packages("pheatmap",update = F,ask = F)
+#if(!require("pheatmap")) install.packages("pheatmap",update = F,ask = F)
 library("pheatmap")
 
-if (!require("devtools")) install.packages("devtools",update = F,ask = F)
-if (!requireNamespace("d3heatmap",quietly = TRUE)) devtools::install_github("rstudio/d3heatmap", upgrade="never")
+#if (!require("devtools")) install.packages("devtools",update = F,ask = F)
+#if (!requireNamespace("d3heatmap",quietly = TRUE)) devtools::install_github("rstudio/d3heatmap", upgrade="never")
 library("d3heatmap")
 
-if(!require("heatmaply")) install.packages("heatmaply",update = F,ask = F)
+#if(!require("heatmaply")) install.packages("heatmaply",update = F,ask = F)
 library("heatmaply")#好看的heatmaply
-#if(!require("shinyHeatmaply")) install.packages("shinyHeatmaply",update = F,ask = F)
+##if(!require("shinyHeatmaply")) install.packages("shinyHeatmaply",update = F,ask = F)
 #library("shinyHeatmaply")
 
-#if(!require("dplyr")) install.packages("dplyr",update = F,ask = F)
+##if(!require("dplyr")) install.packages("dplyr",update = F,ask = F)
 #library("dplyr")
-if(!require("clusterProfiler")) install.packages("clusterProfiler",update = F,ask = F)
-suppressMessages(library(clusterProfiler))
+#if(!require("clusterProfiler")) install.packages("clusterProfiler",update = F,ask = F)
+#suppressMessages(library(clusterProfiler))
 
 
 #代码生成
-if(!require("shinyAce")) install.packages("shinyAce",update = F,ask = F)
+#if(!require("shinyAce")) install.packages("shinyAce",update = F,ask = F)
 library(shinyAce)
 
 #生成文字隐藏
-if(!require("shinyjs")) install.packages("shinyjs",update = F,ask = F)
+#if(!require("shinyjs")) install.packages("shinyjs",update = F,ask = F)
 library(shinyjs)
-if(!require("shinydashboard")) install.packages("shinydashboard",update = F,ask = F)
+#if(!require("shinydashboard")) install.packages("shinydashboard",update = F,ask = F)
 library(shinydashboard)
-
+library(rhandsontable)
 source("../tab/tab.R")
 source("../tab/panel.R")
 source("../tab/func.R")
@@ -121,7 +121,7 @@ We hope to use MephasGEO to find differentially expressed genes.
     hr(),
             
     source("0_datainput_ui.R", local=TRUE,encoding = "utf-8")$value,
-    hr(),
+    hr()
     ),
 
 tabstop(),
