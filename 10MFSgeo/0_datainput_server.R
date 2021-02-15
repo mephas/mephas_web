@@ -893,7 +893,7 @@ observeEvent(input$gpl_id_choose,{
   
   output$text_Output1a <- renderUI({
     HTML("
- <h4><b>Output 1-a 经数据处理后的表达矩阵</b></h4>
+ <h4><b>Output 1-a Expression matrix after data processing</b></h4>
 ")
   })
   
@@ -910,7 +910,7 @@ observeEvent(input$gpl_id_choose,{
   )
   output$text_Output1b <- renderUI({
     HTML("
- <h4><b>Output 1-b 所有样本的表达值的统计图</b></h4>
+ <h4><b>Output 1-b Statistical graph of expression values of all samples</b></h4>
 ")
   })
   output$dataBox <- renderPlot({# 用来生成Boxplot

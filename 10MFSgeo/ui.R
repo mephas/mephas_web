@@ -70,9 +70,9 @@ tagList(
   
   navbarPage(
     theme = shinythemes::shinytheme("cerulean"),
-    title = a("MephasGEO", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
+    #title = a("MephasGEO", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
     
-    #title ="MephasGEO",
+    title ="MephasGEO",
     collapsible = TRUE,
     #id="navbar",
     position="fixed-top",
