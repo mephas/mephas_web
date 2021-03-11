@@ -6,7 +6,7 @@ sidebarPanel(
 
 h4(tags$b("一元配置分散分析(One-way ANOVA)")),
 
-  h4(tags$b("Step 1. データのの準備")),
+  h4(tags$b("Step 1. データの準備")),
 
   p(tags$b("1. 値と因子群に名前を付ける")),
 

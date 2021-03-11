@@ -44,7 +44,7 @@ colnames(Y1.0()[unlist(lapply(Y1.0(), is.numeric))])
 output$value = renderUI({
 selectInput(
   'value',
-  HTML('请选择要上传的数值数据'),
+  HTML('アップロードするデータの数値を選択する'),
   choices = type.num()
   )
 })

@@ -38,7 +38,7 @@ colnames(DF0()[unlist(lapply(DF0(), is.numeric))])
 output$factor1 = renderUI({
 selectInput(
   'factor1',
-  HTML('1. 実数変数をカテゴリ変数に変換する'),
+  HTML('1. 将数值变量转换为分类变量'),
   selected = NULL,
   choices = type.num0(),
   multiple = TRUE
@@ -58,7 +58,7 @@ colnames(DF1()[unlist(lapply(DF1(), is.factor))])
 output$factor2 = renderUI({
 selectInput(
   'factor2',
-  HTML('2. カテゴリ変数を実数値の数値変数に変換する'),
+  HTML('2. 将分类变量转换为数值变量'),
   selected = NULL,
   choices = type.fac1(),
   multiple = TRUE
@@ -80,7 +80,7 @@ colnames(DF2()[unlist(lapply(DF2(), is.factor))])
 output$lvl = renderUI({
 selectInput(
 'lvl',
-HTML('1. カテゴリ変数を選択する'),
+HTML('1. 选择一个分类变量'),
 selected = NULL,
 choices = type.fac2(),
 multiple = TRUE
@@ -90,7 +90,7 @@ multiple = TRUE
 output$rmrow = renderUI({
 shinyWidgets::pickerInput(
 'rmrow',
-h4(tags$b('いくつかのサンプル/外れ値を削除する')),
+h4(tags$b('删除一些样本/离群值')),
 selected = NULL,
 choices = rownames(DF2()),
 multiple = TRUE,
@@ -157,7 +157,7 @@ colnames(DF3()[unlist(lapply(DF3(), is.factor))])
 output$t = renderUI({
 selectInput(
 't',
-tags$b('2.1. 時間期間変数（数値型）を選択する'),
+tags$b('2.1. 选择一个时间段变量（数值型）'),
 #selected = type.time3()[1],
 choices = type.time3())
 })
@@ -165,7 +165,7 @@ choices = type.time3())
 output$t1 = renderUI({
 selectInput(
 't1',
-('2.1. 開始時間の変数（数値型）'),
+('2.1. 开始时间变量（数值型）'),
 #selected = "NULL",
 choices = type.time3())
 })
@@ -183,7 +183,7 @@ return(df)
 output$t2 = renderUI({
 selectInput(
 't2',
-'2.2. 終了時間の変数（数値型）',
+'2.2. 结束时间变量（数值型）',
 #selected = "NULL",
 choices = type.time2())
 })
@@ -191,7 +191,7 @@ choices = type.time2())
 output$c = renderUI({
 selectInput(
 'c',
-('1. 1/0打ち切り情報変数を選択する (1= 事象、0= 打ち切り)'),
+('1. 选择1/0删失信息变量（1 = 事件，0 = 删失）'),
 #selected = type.bi3()[1],
 choices = type.bi3())
 })
@@ -199,20 +199,20 @@ choices = type.bi3())
 ##3. Survival Object
 surv = reactive({
 
-validate(need(input$c, "打ち切り情報変数を選択してください"))
+validate(need(input$c, "选择检查信息变量"))
 
 if (input$time == "A"){
-validate(need(!("FALSE" %in% (DF0()[,input$t]>=0)), "時間 >= 0の必要がある"))
+validate(need(!("FALSE" %in% (DF0()[,input$t]>=0)), "时间需要 >= 0"))
 validate(need(input$t, "Please choose a time variable"))
 y <- paste0("Surv(", input$t, ",", input$c, ")")
 }
 if (input$time == "B"){
 #validate(need(!("FALSE" %in% (input$t2>=input$t1)), "終了時間は開始時間より大きい必要があります"))
-validate(need(!("FALSE" %in% (DF0()[,input$t2] - DF0()[,input$t1]>=0)), "終了時間は開始時間より大きい必要があります"))
-validate(need(!("FALSE" %in% (DF0()[,input$t1]>=0)), "時間 >= 0の必要がある"))
+validate(need(!("FALSE" %in% (DF0()[,input$t2] - DF0()[,input$t1]>=0)), "结束时间需要大于开始时间"))
+validate(need(!("FALSE" %in% (DF0()[,input$t1]>=0)), "时间需要 >= 0"))
 #validate(need(!(input$t1=="NULL"), "開始時間を選んでください"))
 #validate(need(!(input$t2=="NULL"), "終了時間を選んでください"))
-#validate(need(!("FALSE" %in% (DF0()[,input$t2]>=0)), "時間 >= 0の必要がある"))
+#validate(need(!("FALSE" %in% (DF0()[,input$t2]>=0)), "时间需要 >= 0"))
 
 y <- paste0("Surv(", input$t1, ",", input$t2, ",", input$c, ")")
 }

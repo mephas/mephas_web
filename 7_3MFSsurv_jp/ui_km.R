@@ -30,11 +30,11 @@ p("2群のハザード関数は同一"),
 radioButtons("rho", "ログランク検定の方法を選択する", selected=0,
   choiceNames = list(
     HTML("1. ログランク検定"),
-    HTML("2. Peto検定とGehan-Wilcoxon検定のPeto修正")
+    HTML("2. Gehan-Wilcoxon検定とPeto&Peto修正")
     ),
   choiceValues = list(0, 1)
   ),
-p("2. ログランク検定タブの説明を参照してください。"),
+p("Output 2. ログランク検定タブの説明を参照してください。"),
 hr(),
 
 h4(tags$b("対応のあるログランク検定(Pairwise Log-rank Test)")),      

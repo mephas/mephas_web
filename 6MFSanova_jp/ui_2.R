@@ -119,7 +119,7 @@ mainPanel(
   #checkboxInput('inter', 'Interaction', TRUE),
   shinyWidgets::prettySwitch(
    inputId = "inter",
-   label = "交互作を追加", 
+   label = "交互作用を追加", 
    value = TRUE,
    status = "info",
    fill = TRUE
