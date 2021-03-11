@@ -163,7 +163,7 @@ hr()
 
 ##########----------##########----------##########
 
-tablang(),
+tablang("6MFSanova"),
 tabstop(),
 tablink()
 #navbarMenu("",icon=icon("link"))

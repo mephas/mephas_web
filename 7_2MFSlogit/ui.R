@@ -113,6 +113,7 @@ hr()
 
 ##########----------##########----------##########
 
+tablang("7_2MFSlogit"),
 tabstop(),
 tablink()
 #navbarMenu("",icon=icon("link"))

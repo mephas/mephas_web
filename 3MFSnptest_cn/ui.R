@@ -12,7 +12,6 @@ source("../tab/panel_cn.R")
 source("../tab/func.R")
 
 tagList(
-
 includeCSS("../www/style_cn.css"),
 stylink(),
 tabOF(),
@@ -170,6 +169,7 @@ hr()
 ),
 ##########----------##########----------##########
 
+tablang("3MFSnptest"),
 tabstop(),
 tablink()
 #navbarMenu("",icon=icon("link"))

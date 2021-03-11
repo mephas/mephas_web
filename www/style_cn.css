@@ -5,13 +5,18 @@ Chinese style sheet
 */
 
 * {
-font-family:   "Microsoft TimesNewRoman", "SimSun", "Microsoft YaHei", "微软雅黑", sans-serif;
+ font-family: 'Segoe UI',SegoeUI,'Microsoft YaHei',微软雅黑,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 body {
 	padding-top: 70px;
 }
+.navbar .navbar-nav { font-family: 'Segoe UI',SegoeUI,'Microsoft YaHei',微软雅黑,"Helvetica Neue",Helvetica,Arial,sans-serif;}
+.navbar.navbar-default.navbar-static-top{ font-family: 'Segoe UI',SegoeUI,'Microsoft YaHei',微软雅黑,"Helvetica Neue",Helvetica,Arial,sans-serif;}
+.navbar .navbar-header { font-family: 'Segoe UI',SegoeUI,'Microsoft YaHei',微软雅黑,"Helvetica Neue",Helvetica,Arial,sans-serif;}
+.navbar-default .navbar-brand { font-family: 'Segoe UI',SegoeUI,'Microsoft YaHei',微软雅黑,"Helvetica Neue",Helvetica,Arial,sans-serif;}
 
+h1,h2,h3{ font-family: 'Segoe UI',SegoeUI,'Microsoft YaHei',微软雅黑,"Helvetica Neue",Helvetica,Arial,sans-serif;}
 .shiny-output-error-validation {
 	color: #4169e1; 
 	font-weight: bold;

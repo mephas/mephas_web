@@ -17,13 +17,13 @@ tabstop <- function(){
 )
 }
 
-tablang <- function(){
+tablang <- function(name){
         navbarMenu("", icon = icon("globe"),
                    tabPanel(
                            tags$a("",
                                   target = "_blank",
                                   #style = "margin-top:-30px; color:DodgerBlue",
-                                  href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas/","index.html"),#,
+                                  href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas_web/",name,"/"),#,
                                   list(icon("EN"), "English"))
                    ),
                    
@@ -31,7 +31,7 @@ tablang <- function(){
                            tags$a("",
                                   target = "_blank",
                                   #style = "margin-top:-30px; color:DodgerBlue",
-                                  href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas/","index_jp.html"),#
+                                  href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas_web/",name,"_jp/"),#
                                   list(icon("JP"), "Japanese"))
                     ),
                    tabPanel(
@@ -39,7 +39,7 @@ tablang <- function(){
                           tags$a("",
                                 target = "_blank",
                                 #style = "margin-top:-30px; color:DodgerBlue",
-                                href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas/","index_cn.html"),#
+                                href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas_web/",name,"_cn/"),#
                                 list(icon("CN"), "Chinese"))
                    )
               )       

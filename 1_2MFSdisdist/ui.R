@@ -86,6 +86,7 @@ hr()
 ),
 
 ##########----------##########----------##########
+tablang("1_2MFSdisdist"),
 tabstop(),
 tablink()
 #navbarMenu("",icon=icon("link"))
