@@ -131,8 +131,8 @@ mainPanel(
     ),
   hr(),
 
-  h4(tags$b("Output 2. Test Results")),
-  tags$b('Results of Wilcoxon Rank-Sum Test'), p(br()),
+  h4(tags$b("Output 2. 检验结果")),
+  tags$b('威尔科克森秩和检验(Wilcoxon Rank-Sum Test)的结果'), p(br()),
 
   DT::DTOutput("mwu.test.t"), p(br()),
 

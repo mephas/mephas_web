@@ -55,7 +55,7 @@ library(shinyAce)
 library(shinyjs)
 #if(!require("shinydashboard")) install.packages("shinydashboard",update = F,ask = F)
 library(shinydashboard)
-
+library(rhandsontable)
 
 source("../tab/tab_cn.R")
 source("../tab/panel_cn.R")
@@ -65,20 +65,19 @@ source("../tab/func.R")
 #shinyUI(
 tagList(
   
-  includeCSS("../www/style.css"),
+  includeCSS("../www/style_cn.css"),
   stylink(),
   tabOF(),
   
   navbarPage(
     theme = shinythemes::shinytheme("cerulean"),
-    title = a("MephasGEO", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
-    
-    #title ="MephasGEO",
+    #title = a("MephasGEO", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
+    title ="MephasGEO",
     collapsible = TRUE,
-    id="navbar",
+    #id="navbar",
     position="fixed-top",
     
-    
+##########----------##########----------##########  
 #panel 0 DATA处理
     tabPanel("差异基因分析",
              titlePanel("差异基因分析"),
@@ -119,19 +118,17 @@ tagList(
              
              hr(),
              
-             source("0_datainput_ui.R", local=TRUE,encoding = "utf-8")$value,
+             source("0_datainput_ui.R", local=TRUE, encoding = "utf-8")$value,
              hr()
     ),
 
+##########----------##########----------##########
+
+tablang("10MFSgeo"),
 tabstop(),
 tablink()
-  )
-
-#tablang(),
-
 #navbarMenu("",icon=icon("link"))
 
-  )
-
+))
 
 

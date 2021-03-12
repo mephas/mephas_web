@@ -123,16 +123,15 @@ We hope to use MephasGEO to find differentially expressed genes.
     source("0_datainput_ui.R", local=TRUE,encoding = "utf-8")$value,
     hr()
     ),
+	
+##########----------##########----------##########
 
+tablang("10MFSgeo"),
 tabstop(),
 tablink()
-)
-
-#tablang(),
-
 #navbarMenu("",icon=icon("link"))
 
-)
+))
 
 
 
