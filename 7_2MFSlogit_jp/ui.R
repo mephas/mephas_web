@@ -13,7 +13,7 @@ source("../tab/func2.R")
 
 tagList(
 
-includeCSS("../www/style.css"),
+includeCSS("../www/style_jp.css"),
 stylink(),
 tabOF(),
 

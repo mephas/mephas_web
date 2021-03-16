@@ -9,7 +9,7 @@ source("../tab/func.R")
 
 tagList(
 
-includeCSS("../www/style.css"),
+includeCSS("../www/style_jp.css"),
 stylink(),
 tabOF(),
 
