@@ -3,13 +3,13 @@ sidebarLayout(
     useShinyjs(),
  #   tabsetPanel(     
 #    tabPanel("CSV file",
-    h4(tags$b("Step1. Download GEO Data")),#####step1 数据处理输入
+    h4(tags$b("步骤1. 下载GEO数据")),#####step1 数据处理输入
     #1 填写GEO号直接生成样本
     textInput(inputId = "gse.id",
-              label = h5("Input GSE Series Number"),
+              label = h5("输入您想查找的芯片的序号（GSE）:"),
               value = "GSE16020",#"GSE32575",GSE37455 GSE16020
               placeholder = "GSE16020"),
-    actionButton("gsegoButton","Search GEO Profiles"),
+    actionButton("gsegoButton","搜索芯片"),
     uiOutput('gpl.id'),
     
     
@@ -47,7 +47,7 @@ sidebarLayout(
     
     uiOutput('text_step5'),#####step5通路分析
     
-    p(tags$b("You can reload this page by clicking the button below.")),
+    p(tags$b("you can reload this page by clicking the button below.")),
     actionButton("NUM_clear","clear")
                        
   #    ))
@@ -60,22 +60,20 @@ sidebarLayout(
 #    uiOutput('condi_plot'),
     tabsetPanel(
   #    tabPanel("使用说明",uiOutput("introword")),
-      tabPanel("Data Descriptives",
+      tabPanel("数据描述",
                uiOutput('text_Output1a'),#####Output1 
                dataTableOutput("showexpr"),
-               downloadButton('downloadExpr', 'Download Expression Matrix'),
+               downloadButton('downloadExpr', '下载表达矩阵'),
                uiOutput('text_Output1b'),
-			   plotOutput("dataBoxBefore"),
-               uiOutput('text_Output1b_2'),
                plotOutput("dataBox"),
                uiOutput('text_Output1all')
 
                ),
 
       
-      tabPanel("Grouping Information",
+      tabPanel("分组信息",
                tabsetPanel(
-                 tabPanel("Descriptives by Group",
+                 tabPanel("分组特征描述",
                           #uiOutput('textgse'),#本来是想做一个提示信息
                           uiOutput('text_Output2a'),
                           uiOutput('text_Output2aall'),
@@ -83,7 +81,7 @@ sidebarLayout(
                           
                           ),#####Output2
                  
-                 tabPanel("Input Group Information",
+                 tabPanel("分组信息输入",
                           uiOutput('text_Output2b'),
                           uiOutput('text_Output2ball'),
                           rHandsontableOutput("hot")
@@ -99,14 +97,14 @@ sidebarLayout(
                )
 
                ),
-      tabPanel("Check Data",
+      tabPanel("数据检查",
                tabsetPanel(
 
-                 tabPanel("Clustering Analysis",
+                 tabPanel("聚类分析",
                           uiOutput('text_Output3a'),
                           plotOutput("HC_cluster"),
                           uiOutput('text_Output3aall')),
-                 tabPanel("PCA",
+                 tabPanel("主成分分析",
                           uiOutput('text_Output3b'),
                           plotOutput("dataPCA2"),
                           uiOutput('text_Output3ball'))
@@ -114,7 +112,7 @@ sidebarLayout(
                )
                ),
 
-      tabPanel("Differential Expression Analysis",
+      tabPanel("差异表达",
                
                tabsetPanel(
                  tabPanel("LIMMA",
@@ -129,28 +127,28 @@ sidebarLayout(
                           uiOutput('text_Output4aall')),
                  
                           
-                 tabPanel("Gene Scatter Plot",
+                 tabPanel("基因散点图",
                           uiOutput('text_Output4b'),
                           uiOutput("geneselect"),
                           plotOutput("genebotPlot"),
                           uiOutput('text_Output4ball')),#差异基因配对点图
-                 tabPanel("Volcano Plot",
+                 tabPanel("火山图",
                           uiOutput('text_Output4c'),
                           plotOutput("volPlot"),
                           uiOutput('text_Output4call')),
-                 #tabPanel("Heatmap",plotly::plotlyOutput("heatout"))
-                 tabPanel("Heatmap",
+                 #tabPanel("热图",plotly::plotlyOutput("heatout"))
+                 tabPanel("热图",
                           uiOutput('text_Output4d'),
                           plotOutput("heatout"),
                           uiOutput('text_Output4dall'))
                )
                
                ),
-      tabPanel("Pathway Analysis",
+      tabPanel("通路分析",
                tabsetPanel(
-                 tabPanel("GO Analysis",
+                 tabPanel("GO分析",
                           
-                          actionButton("GopathButton","Start Pathway Analysis"),
+                          actionButton("GopathButton","开始通路分析"),
                           uiOutput('text_Output5a'),
                           uiOutput('text_GOup'),
                           #HTML("Up genes"),
@@ -160,10 +158,10 @@ sidebarLayout(
                           #HTML("Down genes"),
                           dataTableOutput('GoTable_down'),
                           plotOutput("GOplot_down"),
-                          #downloadButton("downlodGO", "Download GO result")
+                          downloadButton("downlodGO", "Download GO result")
                           
                           ),
-                 tabPanel("KEGG Analysis",
+                 tabPanel("KEGG分析",
                           uiOutput('text_Output5b'),
                           uiOutput('text_KEGGup'),
                           #HTML("Up genes"),
@@ -173,19 +171,19 @@ sidebarLayout(
                           #HTML("Down genes"),
                           dataTableOutput("KEGGTable_down"),
                           plotOutput("KEGGplot_down"),
-                          #downloadButton("downlodKEGG", "Download KEGG result")
+                          downloadButton("downlodKEGG", "Download KEGG result")
                           
                           )#KEGG
                )
                
                
                ),
-      tabPanel("Reproducible R codes",
+      tabPanel("可重复R代码",
                verbatimTextOutput("Code"),
                aceEditor("rmd", mode="markdown", value='',readOnly=T, height="500px"),
-               downloadButton("gecode","Generate Codes")
+               actionButton("gecode","生成代码")
                ),
-      tabPanel("RmarkDown Results",
+      tabPanel("RmarkDown结果",
                uiOutput("RMarkD"),#未实装
                downloadButton('downloadreport', 'Download Result')#未实装
                )

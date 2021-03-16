@@ -3,13 +3,13 @@ sidebarLayout(
     useShinyjs(),
  #   tabsetPanel(     
 #    tabPanel("CSV file",
-    h4(tags$b("Step1. Download GEO Data")),#####step1 数据处理输入
+    h4(tags$b("ステップ1. GEOデータのダウンロード")),#####step1 数据处理输入
     #1 填写GEO号直接生成样本
     textInput(inputId = "gse.id",
-              label = h5("Input GSE Series Number"),
+              label = h5("検索するチップのシリアル番号（GSE）を入力:"),
               value = "GSE16020",#"GSE32575",GSE37455 GSE16020
               placeholder = "GSE16020"),
-    actionButton("gsegoButton","Search GEO Profiles"),
+    actionButton("gsegoButton","検索"),
     uiOutput('gpl.id'),
     
     
@@ -60,10 +60,10 @@ sidebarLayout(
 #    uiOutput('condi_plot'),
     tabsetPanel(
   #    tabPanel("使用说明",uiOutput("introword")),
-      tabPanel("Data Descriptives",
+      tabPanel("データの説明",
                uiOutput('text_Output1a'),#####Output1 
                dataTableOutput("showexpr"),
-               downloadButton('downloadExpr', 'Download Expression Matrix'),
+               downloadButton('downloadExpr', '発現量マトリックスのダウンロード'),
                uiOutput('text_Output1b'),
 			   plotOutput("dataBoxBefore"),
                uiOutput('text_Output1b_2'),
@@ -73,9 +73,9 @@ sidebarLayout(
                ),
 
       
-      tabPanel("Grouping Information",
+      tabPanel("グループ情報",
                tabsetPanel(
-                 tabPanel("Descriptives by Group",
+                 tabPanel("グループ特徴量の記述",
                           #uiOutput('textgse'),#本来是想做一个提示信息
                           uiOutput('text_Output2a'),
                           uiOutput('text_Output2aall'),
@@ -83,7 +83,7 @@ sidebarLayout(
                           
                           ),#####Output2
                  
-                 tabPanel("Input Group Information",
+                 tabPanel("グループ情報",
                           uiOutput('text_Output2b'),
                           uiOutput('text_Output2ball'),
                           rHandsontableOutput("hot")
@@ -99,14 +99,14 @@ sidebarLayout(
                )
 
                ),
-      tabPanel("Check Data",
+      tabPanel("データの確認",
                tabsetPanel(
 
-                 tabPanel("Clustering Analysis",
+                 tabPanel("クラスター分析",
                           uiOutput('text_Output3a'),
                           plotOutput("HC_cluster"),
                           uiOutput('text_Output3aall')),
-                 tabPanel("PCA",
+                 tabPanel("主成分分析",
                           uiOutput('text_Output3b'),
                           plotOutput("dataPCA2"),
                           uiOutput('text_Output3ball'))
@@ -114,7 +114,7 @@ sidebarLayout(
                )
                ),
 
-      tabPanel("Differential Expression Analysis",
+      tabPanel("発現変動解析",
                
                tabsetPanel(
                  tabPanel("LIMMA",
@@ -129,28 +129,28 @@ sidebarLayout(
                           uiOutput('text_Output4aall')),
                  
                           
-                 tabPanel("Gene Scatter Plot",
+                 tabPanel("遺伝子散布図",
                           uiOutput('text_Output4b'),
                           uiOutput("geneselect"),
                           plotOutput("genebotPlot"),
                           uiOutput('text_Output4ball')),#差异基因配对点图
-                 tabPanel("Volcano Plot",
+                 tabPanel("Volcanoプロット",
                           uiOutput('text_Output4c'),
                           plotOutput("volPlot"),
                           uiOutput('text_Output4call')),
-                 #tabPanel("Heatmap",plotly::plotlyOutput("heatout"))
-                 tabPanel("Heatmap",
+                 #tabPanel("ヒートマップ",plotly::plotlyOutput("heatout"))
+                 tabPanel("ヒートマップ",
                           uiOutput('text_Output4d'),
                           plotOutput("heatout"),
                           uiOutput('text_Output4dall'))
                )
                
                ),
-      tabPanel("Pathway Analysis",
+      tabPanel("パスウェイ解析",
                tabsetPanel(
-                 tabPanel("GO Analysis",
+                 tabPanel("GO解析",
                           
-                          actionButton("GopathButton","Start Pathway Analysis"),
+                          actionButton("GopathButton","パスウェイ解析を実行"),
                           uiOutput('text_Output5a'),
                           uiOutput('text_GOup'),
                           #HTML("Up genes"),
@@ -163,7 +163,7 @@ sidebarLayout(
                           #downloadButton("downlodGO", "Download GO result")
                           
                           ),
-                 tabPanel("KEGG Analysis",
+                 tabPanel("KEGG解析",
                           uiOutput('text_Output5b'),
                           uiOutput('text_KEGGup'),
                           #HTML("Up genes"),
@@ -180,12 +180,12 @@ sidebarLayout(
                
                
                ),
-      tabPanel("Reproducible R codes",
+      tabPanel("再現可能なRコード",
                verbatimTextOutput("Code"),
                aceEditor("rmd", mode="markdown", value='',readOnly=T, height="500px"),
-               downloadButton("gecode","Generate Codes")
+               downloadButton("gecode","Rコード生成")
                ),
-      tabPanel("RmarkDown Results",
+      tabPanel("RmarkDown結果レポート",
                uiOutput("RMarkD"),#未实装
                downloadButton('downloadreport', 'Download Result')#未实装
                )

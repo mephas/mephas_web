@@ -32,6 +32,7 @@ v <- reactiveValues(data = NULL,platformdb=NULL,geoid=NULL,log2=FALSE) #初始�
 genecode <- reactiveValues(report = NULL) #存放生成的可运行代码
 ctrlcode<-reactiveValues(gse.code1=FALSE,gpl.code2=FALSE,
                          B1.code3=FALSE,B2.code4=FALSE,GOKE.code5=FALSE) #判断要不要更新代码
+  
 
 
 
@@ -47,8 +48,8 @@ data.geodownload <- reactive({
   
   progress <- shiny::Progress$new() #过程监视弹窗
   on.exit(progress$close())
-  progress$set(message = "Step 1: ", value = 0)
-  progress$inc(0.70, detail = "Downloading GEO data")
+  progress$set(message = "Performing ", value = 0)
+  progress$inc(0.70, detail = "Downloading and parsing supplemental data")
   
   
   if (is.null(geoID)){
@@ -79,9 +80,7 @@ data.geodownload <- reactive({
       )
       return(NULL)
     }
-   
-
-   
+    
   }
   
   #从注释文件里获取平台信息并存入v中
@@ -103,6 +102,10 @@ data.gpldownload <- reactive({
   }
   
   
+  progress <- shiny::Progress$new() #过程监视弹窗
+  on.exit(progress$close())
+  progress$set(message = "Performing ", value = 0)
+  progress$inc(0.70, detail = "Downloading and parsing supplemental data")
 
 
   gse <-v$dataSerise
@@ -265,6 +268,16 @@ data.gpldownload <- reactive({
   dataPchr <- cbind(dataPchr, Pair_Entry)#加到dataPchr后面
   
   
+#  Batch_Effect <-#生成批次效应输入框Batch_Effect
+#    as.data.frame(matrix(
+#      data = "edit here",
+#      nrow = nrow(dataPchr),
+#      ncol = 1
+#    ))
+#  colnames(Batch_Effect) <- "Batch"#定制批次效应部分列名
+#  dataPchr <- cbind(dataPchr, Batch_Effect)#加到dataPchr后面
+  
+  
   
   dataPchr = dataPchr[,-1]#去掉第一列NA
   dataPchr <- as.data.frame(dataPchr)#将pdata转换成dataframe
@@ -292,12 +305,8 @@ data.update<-reactive({
     return(NULL)
   }
   
-  progress <- shiny::Progress$new() #过程监视弹窗
-  on.exit(progress$close())
-  progress$set(message = "Step2: Processing ", value = 0)
-  progress$inc(0.20, detail = "Id transform")
- 
- 
+
+  
   dataExpr <-v$dataExpr
   #做id转换
   idss <- findIdPack(input$gpl_id_choose,v)
@@ -307,18 +316,17 @@ data.update<-reactive({
     print("wrong in idss")
   }
   
-  progress$inc(0.20, detail = "Log transform and normalization")
   #做log2变换
   
   dataExpr <- log2Transform(dataExpr,v) 
   dataExpr<-as.data.frame(dataExpr)
   
-  v$dataExpr<-dataExpr
   #做正交变换 
   
   dataExpr <- normalizeBetweenArrays(dataExpr)  
   
-  progress$inc(0.30, detail = "PCA data calculating")
+
+  
   #pca 处理
   dataex.tr<-t(dataExpr)##转换数据至行为sample,列为gene
   dataex.tr<-as.data.frame(dataex.tr)##注意数据要转换为数据框
@@ -401,8 +409,6 @@ data.LimmaPrepare <- reactive({
       rownames(design.a)=colnames(v$dataExprN)
       
       v$design<- design.a
-	  
-	   v$selectfeature<-input$diffA_tab1
     }else{
       return(NULL)
     }
@@ -414,8 +420,7 @@ data.LimmaPrepare <- reactive({
       grouprand<-as.data.frame(grouplist[,input$diffrandomA])
       grouprand<-as.data.frame(sapply(grouprand,as.character))
       v$group.rand <- factor(as.data.frame(t(grouprand)))
-	  v$select_rand_name <- input$diffrandomA
-	}
+    }
     
     
   }
@@ -449,8 +454,6 @@ data.LimmaPrepare <- reactive({
       v$designB <- design.b
     #  v$designcolname <- c(levels(BlockB),levels(Treatment))#这里生成了一个c(“a”,“b”)很奇怪
       
-	  v$selectfeature<-input$diffB_tab2
-      v$select_batch_name<-input$diffB_tab1  
     }else{
       return(NULL)
     }
@@ -463,7 +466,6 @@ data.LimmaPrepare <- reactive({
       grouprand<-as.data.frame(grouplist[,input$diffrandomB])
       grouprand<-as.data.frame(sapply(grouprand,as.character))
       v$group.rand <- factor(as.data.frame(t(grouprand)))
-	  v$select_rand_name <- input$diffrandomB
     }
   }
 
@@ -506,10 +508,6 @@ data.Limma<-reactive({
   if(is.null(v$diffchoice)){
     return(NULL)
   }
-  progress <- shiny::Progress$new() #过程监视弹窗
-  on.exit(progress$close())
-  progress$set(message = "Step 4: DGEA", value = 0.1)
-  
   
   #
   if(v$diffchoice == "choiceA" && !is.null(input$Selecontrast) ){
@@ -524,13 +522,19 @@ data.Limma<-reactive({
       fit.a1 <- lmFit(v$dataExprN, design.a1)
       
     }else{#有随机效应
-	  progress$inc(0.60, detail = "Dealing with random effect.") 
+      progress <- shiny::Progress$new() #过程监视弹窗
+      on.exit(progress$close())
+      progress$set(message = "Performing ", value = 0)
+      progress$inc(0.70, detail = "Downloading and parsing supplemental data")
+      
+      
       corfit.a <- duplicateCorrelation(v$dataExprN,design.a1,block=v$group.rand)
      # corfit$consensus
       fit.a1 <- lmFit(v$dataExprN,design.a1,block=v$group.rand,correlation=corfit.a$consensus)##重点
     }
     
-       
+    
+    
     fit.a2 <- contrasts.fit(fit.a1, contrast.matrix.a1) 
     ## 贝叶斯检验
     fit.a2 <- eBayes(fit.a2)
@@ -541,7 +545,6 @@ data.Limma<-reactive({
    # head(all.diff.a1)
     v$diff_result_org <- all.diff.a1
     v$work1 <- "workA"
-	v$select_contrast_name<-input$Selecontrast
 }
   
   
@@ -558,7 +561,10 @@ data.Limma<-reactive({
       fit.b1 <- lmFit(v$dataExprN, design.b)
       
     }else{#有随机效应
-      progress$inc(0.60, detail = "Dealing with random effect.")
+      progress <- shiny::Progress$new() #过程监视弹窗
+      on.exit(progress$close())
+      progress$set(message = "Performing ", value = 0)
+      progress$inc(0.70, detail = "Downloading and parsing supplemental data")
       
       
       corfit.b <- duplicateCorrelation(v$dataExprN,design.b,block=v$group.rand)
@@ -577,7 +583,6 @@ data.Limma<-reactive({
     #head(all.diff.B)
     v$diff_result_org <- all.diff.B
     v$work1 <- "workB"
-	v$select_contrast_name<-input$SelecontrastB
   }
   
 
@@ -594,8 +599,6 @@ data.Limma<-reactive({
   
 })
 
-
-
 ##0126 用于生成了差异分析之后 通路分析数据
 ##使用了v$diff_result
 ##生成了v$pathENTREZID v$orgapack v$go v$kegg v$gotab v$keggtab
@@ -603,13 +606,6 @@ data.pathway<-reactive({
   if(is.null(v$diffSig) || is.null(v$organism)){
     return(NULL)
   }
-  
-  progress <- shiny::Progress$new() #过程监视弹窗
-  on.exit(progress$close())
-  progress$set(message = "Step 5: Enrichment analysis ", value = 0)
-  progress$inc(0.10, detail = "getting gene ID.")  
-  
-  
   all.diff <- v$diffSig
   orga<-findEntreIdPack(v$organism)
   orga.go <- orga[1]
@@ -626,33 +622,23 @@ data.pathway<-reactive({
     geneup <- bitr(geneup, fromType="SYMBOL", toType="ENTREZID", OrgDb=orga.go)
     genedown <- bitr(genedown, fromType="SYMBOL", toType="ENTREZID", OrgDb=orga.go)
     
-	progress$inc(0.20, detail = "doing GO analysis.(upregulation)")
     #GO
     go_up <- enrichGO(geneup$ENTREZID, OrgDb = orga.go, ont="all")
-    
-    progress$inc(0.20, detail = "doing GO analysis.(downregulation)")
-	go_down <- enrichGO(genedown$ENTREZID, OrgDb = orga.go, ont="all")
+    go_down <- enrichGO(genedown$ENTREZID, OrgDb = orga.go, ont="all")
     
     Gt_up<-as.data.frame(summary(go_up))#为了生成table 
     colnames(Gt_up)<-gsub(" ", "", colnames(Gt_up))
     Gt_up <- Gt_up[,!colnames(Gt_up) %in% c("geneID")]
 
-    ordgo <- order(Gt_up["pvalue"])
-    Gt_up<-Gt_up[ordgo,]
-	
     Gt_down<-as.data.frame(summary(go_down))#为了生成table 
     colnames(Gt_down)<-gsub(" ", "", colnames(Gt_down))
     Gt_down <- Gt_down[,!colnames(Gt_down) %in% c("geneID")]
     
-    ordgo <- order(Gt_down["pvalue"])
-    Gt_down<-Gt_down[ordgo,]
-	
+    
     #KEGG 
-	progress$inc(0.20, detail = "doing KEGG analysis.(upregulation)")
     KEGG_up <- enrichKEGG(geneup$ENTREZID,
                          organism     = orga.kegg,
                          pvalueCutoff = 0.05)
-	progress$inc(0.20, detail = "doing KEGG analysis.(downregulation)")
     KEGG_down <- enrichKEGG(genedown$ENTREZID,
                           organism     = orga.kegg,
                           pvalueCutoff = 0.05)
@@ -667,11 +653,6 @@ data.pathway<-reactive({
     colnames(Et_down)<-gsub(" ", "", colnames(Et_down))
     Et_down <- Et_down[,!colnames(Et_down) %in% c("geneID")]
     
-	ordgo <- order(Et_up["pvalue"])
-    Et_up<-Et_up[ordgo,]
-
-    ordgo <- order(Et_down["pvalue"])
-    Et_down<-Et_down[ordgo,]
     
     v$pathENTREZID_up <- geneup$ENTREZID
     v$pathENTREZID_down <- genedown$ENTREZID
@@ -769,50 +750,54 @@ observeEvent(input$gpl_id_choose,{
   ##4：生成Step2、3的UI
   output$text_step2 <- renderUI({
     HTML("
- <h4><b>Step2. Pre-Process Data</b></h4>
- <p><b>The data has been pre-processed automatically:</b></p>
+ <h4><b>步骤2. 进行数据预处理</b></h4>
+ <p><b>软件会自动对下载的数据进行下述处理。</b></p>
 <ul> 
-<li>log2-transformation
-<li>Normalization
-<li>Transpose between Prob ID and Gene SYMBOL
+<li>log2转换
+<li>数据正则化
+<li>指针ID与基因SYMBOL的转换
 </ul>
-<p><b>Results：</b> See Output 1（Data Descriptives）</p>
+<p><b>结果展示：</b>请见输出1（Data描述面板）</p>
 ")
     })
 
-
+  #批次效应
+#  output$diff_batch <- renderUI({
+#    selectInput("diff_batch","批次效应",choices = colnames(v$dataPchr)[-1],
+#                selected = c("Batch"), multiple = FALSE)
+#  })
   
   
   #Step3分组信息
   output$text_step3 <- renderUI({
     HTML("
- <h4><b>Step3. Group</b></h4>
- <h>Please choose methods，and define the groups。MephasGEO will check the quality of data and reasonability of group</h>
- <h><b>Results：</b>See Output 3（Check Data）</h>
+ <h4><b>步骤3. 进行分组</b></h4>
+ <h>请选择差异分析方式，并对样本进行自定义分组。MephasGEO将据此检查数据质量和分组合理性</h>
+ <h><b>结果展示：</b>请见输出3（数据检查面板）</h>
 ")
 
   })
   
   #可隐藏部分的勾选框
   output$text_step3_control<-renderUI({
-    checkboxInput("text_step3_control", "Click to see details",
+    checkboxInput("text_step3_control", "点击查看详细说明",
                   value=FALSE)
   })
   #可隐藏部分的文字
   output$text_step3_choosetext <- renderUI({
     box(id = "step3text", width = '800px',#title = "Tree Output", 
-        HTML("<h5><b>1. How to choose methods</b></h5>
+        HTML("<h5><b>1:如何选择差异比较方式</b></h5>
 <ul> 
-<li><b>Between-group comparison：Compare 2 groups or pairs. </b>E.g.,：The purpose of GSE16020 analysis is to compare the difference in gene expression between the control group and the experimental group (autosomal dominant monocytopenia group). We can select the comparison between groups in the following difference comparison methods, and select disease state in the comparison basis, and select none in the random effect.
-<li><b>Within-group comparison：Remove batch effect by paring samples. </b>On the basis of the comparison between the control group and the experimental group, other batch factors affect the experimental results, such as the differences between subjects. The batch element in GSE16020 is the rna isolation method. We can fill in the batch elements in the grouping basis for comparison within the group. And fill in the original disease state of the sample column to be compared in the comparison basis, and select none in the random effect.
-<li><b>Random-effect：Deal with the variablity in repeat measures. </b>When it is necessary to compare the differences within and between the experimental subjects, we can regard the experimental subjects as random effects.
+<li><b>组间差异分析：比较两组，或者比较若干组中的两组。</b>例：GSE16020的分析目的为比较对照组和实验组（常染色体显性单核细胞减少症组）的基因表达差异。我们可以在下面的差异比较方式中选择组间比较，并在比较依据中选中disease state，在随机效应中选中无。
+<li><b>组内差异分析：利用配对样本去除批次效应。</b>在要进行对照组与实验组对比的基础上，另外的具有批次性的要素影响了实验结果，例如被试者之间的差异。GSE16020中的批次要素为rna isolation method。我们可以在组内比较的分组依据中填入该批次要素。并在比较依据中填入原本要比较的样本列disease state，并在随机效应中选中无。
+<li><b>随机效应：处理同一受试者重复测量时数据的可变性。</b>当既要比较实验对象内部的差异、又要比较实验对象之间的差异时，我们可以将实验对象看作随机效应。
 </ul> 
-<h5><b>2. How to choose group feature</b></h5>
-<b>According to the objective of analysis</b>
+<h5><b>2：如何选择分组的特征</b></h5>
+<b>依据：分析的主要目的。</b>
 <ul>
-<li>Refer to the grouping descriptive in Output 2-a. This  gives the statistical information of the original grouping characteristics of the chip.
-<li>Check the output of Table 2-b，The table shows the features that can be selected. Please select the grouping feature that best meets the purpose according to the purpose of analysis（group list）
-<li>If the existing grouping information cannot meet your needs, you can fill in the information in the Group and Block of Table 2-b, and select them in the subsequent operations.
+<li>参照输出2-a的分组特征描述面板。该面板给出了芯片原有的分组特征的统计信息。
+<li>确认输出2-b表格，该表格给出了可以选择的特征。请根据分析的目的，选择最符合目的的分组特征（group list）
+<li>如果在现有的分组信息无法涵盖您的需求，可以在输出2-b表格的Group、Block中填入信息，并在后续操作中选择他们。
 </ul> ")#要隐藏的内容
     )
   })
@@ -827,8 +812,8 @@ observeEvent(input$gpl_id_choose,{
 
   
   output$diffchoice<- renderUI({
-    selectInput("diffchoice", "Differential Analysis Methods", 
-                choices=c("Between-group"="choiceA","Within-group"="choiceB"),
+    selectInput("diffchoice", "差异比较方式", 
+                choices=c("组间比较"="choiceA","组内比较"="choiceB"),
                 selected=c("choiceA"), multiple=FALSE)
   })
   
@@ -860,32 +845,32 @@ observeEvent(input$gpl_id_choose,{
     
     if(input$diffchoice=="choiceA"){
       output$diffA_tab1 <- renderUI({
-        selectInput("diffA_tab1","Comparison Evidence",choices = colnames(v$dataPchr)[-1],
+        selectInput("diffA_tab1","比较依据",choices = colnames(v$dataPchr)[-1],
                     selected = NULL, multiple = TRUE)
       })
       
       
       #随机效应面板A
       output$diffrandomA<- renderUI({
-        selectInput("diffrandomA", "Random-effects", choices = c("No"="noneinrandom",colnames(v$dataPchr)[- c(1,which(colnames(v$dataPchr) %in% input$diffA_tab1))]),
-                    multiple=FALSE)#selected=list("No"), 
+        selectInput("diffrandomA", "随机效应", choices = c("无"="noneinrandom",colnames(v$dataPchr)[- c(1,which(colnames(v$dataPchr) %in% input$diffA_tab1))]),
+                    multiple=FALSE)#selected=list("无"), 
       })
       
     }else if(input$diffchoice=="choiceB"){
       output$diffB_tab1 <- renderUI({
-        selectInput("diffB_tab1","Group (block)",choices = colnames(v$dataPchr)[-1],
+        selectInput("diffB_tab1","分组依据(block)",choices = colnames(v$dataPchr)[-1],
                     selected = NULL, multiple = FALSE)
       })
       
       output$diffB_tab2 <- renderUI({
-        selectInput("diffB_tab2","Comparison (Treatment)",choices = colnames(v$dataPchr)[- c(1,which(colnames(v$dataPchr) %in% input$diffB_tab1))],#这里还需要去掉1
+        selectInput("diffB_tab2","比较依据(Treatment)",choices = colnames(v$dataPchr)[- c(1,which(colnames(v$dataPchr) %in% input$diffB_tab1))],#这里还需要去掉1
                     selected = NULL, multiple = FALSE)
       })
      # v$delatechoice<-c(input$diffB_tab1,input$diffB_tab2)
       
       #随机效应面板B
       output$diffrandomB<- renderUI({
-        selectInput("diffrandomB", "Random-effects", choices = c("No"="noneinrandom",
+        selectInput("diffrandomB", "随机效应", choices = c("无"="noneinrandom",
                     colnames(v$dataPchr)[- c(1,which(colnames(v$dataPchr) %in% input$diffB_tab1),which(colnames(v$dataPchr) %in% input$diffB_tab2))]),
                     multiple=FALSE)#selected=list("无"), 
       })
@@ -900,7 +885,7 @@ observeEvent(input$gpl_id_choose,{
   
   #5 生成分析按钮
   output$uploadB1 <- renderUI({
-    actionButton("uploadB1","Data Analysis")
+    actionButton("uploadB1","分析数据")
   })
   
   
@@ -908,7 +893,7 @@ observeEvent(input$gpl_id_choose,{
   
   output$text_Output1a <- renderUI({
     HTML("
- <h4><b>Output 1-a Expression matrix after data processing</b></h4>
+ <h4><b>Output 1-a 经数据处理后的表达矩阵</b></h4>
 ")
   })
   
@@ -925,26 +910,11 @@ observeEvent(input$gpl_id_choose,{
   )
   output$text_Output1b <- renderUI({
     HTML("
- <h4><b>Output 1-b Statistical graph of expression values of all samples</b></h4>
- <h5>before normalization</h5>
+ <h4><b>Output 1-b 所有样本的表达值的统计图</b></h4>
 ")
   })
-
-
-  output$dataBoxBefore <- renderPlot({# 用来生成未正则化Boxplot
-    par()
-    boxplot(v$dataExpr,outline=FALSE, notch=T, las=2)
-  })
-
-  output$text_Output1b_2 <- renderUI({
-    HTML("
- <h5>After normalization</h5>
- ")
-  })
-  
   output$dataBox <- renderPlot({# 用来生成Boxplot
-    cat("")
-	par()
+    par()
     boxplot(v$dataExprN,outline=FALSE, notch=T, las=2)
   })
   
@@ -953,12 +923,12 @@ observeEvent(input$gpl_id_choose,{
     output$text_Output1all <- renderUI({
       HTML(
         "
- <h5><b>Explanation</b></h5>
+ <h5><b>结果说明</b></h5>
  <ul>
- <li>Data is log2 transformed
- <li>Data is normalizaed 
- <li>The pointer of the chip has been converted to the corresponding gene name. (The blank pointer has been deleted, and the expression level of the same gene has been merged)
- <li>Notice: When the data center line of each sample cannot be approximated on a straight line, the results of the difference analysis may have large errors.
+ <li>已经对数据进行了log2转换
+ <li>已经对该数据进行了正则化。
+ <li>已将该芯片的指针转换为对应的基因名称。（已删除空白指针、合并了相同基因的表达量）
+ <li>注意：每个样本的数据中心线无法近似在一条直线上时，差异分析的结果可能有较大误差。
  </ul>
 
 ")
@@ -967,12 +937,12 @@ observeEvent(input$gpl_id_choose,{
     output$text_Output1all <- renderUI({
       HTML(
         "
- <h5><b>Explantion</b></h5>
+ <h5><b>结果说明</b></h5>
  <ul>
- <li>No need to do log2-transformation
- <li>Data is normalizaed 
- <li>The pointer of the chip has been converted to the corresponding gene name. (The blank pointer has been deleted, and the expression level of the same gene has been merged)
- <li>Notice: When the data center line of each sample cannot be approximated on a straight line, the results of the difference analysis may have large errors.
+ <li>无需对该数据进行log2转换
+ <li>已经对该数据进行了正则化。
+ <li>已将该芯片的指针转换为对应的基因名称。（已删除空白指针、合并了相同基因的表达量）
+ <li>注意：每个样本的数据中心线无法近似在一条直线上时，差异分析的结果可能有较大误差。
  </ul>
 
 ")
@@ -981,28 +951,28 @@ observeEvent(input$gpl_id_choose,{
   
   output$text_Output2a <- renderUI({
     HTML("
- <h4><b>Output2-a Feature Descriptive Table</b></h4>
+ <h4><b>Output2-a 特征描述表格</b></h4>
 ")
   })
   output$text_Output2aall <- renderUI({
     HTML("
  <h5><b>说明</b></h5>
- <p>This table counts the sample feature information that comes with the chip, and gives the number of samples in each feature that fall into the corresponding group.</p>
+ <p>该表格统计了芯片自带的样本特征信息，并给出了每个特征中分入相应组的样本数。</p>
 ")
   })
 
   output$text_Output2b <- renderUI({
     HTML("
- <h4><b>Output2-b Feature Input Table</b></h4>
+ <h4><b>Output2-b 特征输入表格</b></h4>
 ")
   })
   output$text_Output2ball <- renderUI({
     HTML("
- <h5><b>Explantion</b></h5>
- <p>This table gives the characteristics of classification significance.</p>
+ <h5><b>说明</b></h5>
+ <p>该表格给出了具有分类意义的特征。</p>
  <ul>
- <li>You can select existing features, or fill in the grouping method you want in the last two columns of the table.
- <li>To facilitate your management of custom features, we recommended to fill in the features used for grouping in the Group column and fill in the features used for pairing or batch identification in the Block column.
+ <li>您可以选择现有的特征，或在表格的最后两列中填入自己想要的分组方式。
+ <li>为了方便您管理自定义特征，建议在Group列中填入用于分组的特征，在Block列中填入用于做配对或用于标识批次的特征。
  </ul>
          ")
   })
@@ -1014,8 +984,8 @@ observeEvent(input$gpl_id_choose,{
   }else{
     add.code(paste0("wrong in Gpl"))
   }
+
   
-  v$havePart1 <- TRUE
   
 })#GPL/Step2的信息输入结束（还没有处理）
 
@@ -1037,13 +1007,13 @@ observeEvent(input$uploadB1,{
   ##出现step4面板
   output$text_step4 <- renderUI({#s4说明文字
     HTML("
- <h4><b>Step 4. Differential Analysis</b></h4>
- <p><b>After confirming that the data and grouping are correct, please select the two groups you want to compare. </b></p>
+ <h4><b>步骤4. 进行差异分析</b></h4>
+ <p><b>确认数据和分组无误后，请选择想要比较的两个分组。</b></p>
 <ul> 
-<li>Only when the format is the control group-the experimental group, the correct up- and down-regulated genes can be obtained.
-<li>If the automatically generated two sets of comparisons are inconsistent with the order you expect, please check the factor conversion box, which will reverse the comparison order.
+<li>只有格式为对照组-实验组时能够得到正确的上下调基因。
+<li>如果自动生成的两组比较与您所期待的顺序不一致，请选中因子转换框，这将会使比较顺序前后对调。
 </ul>
-<p><b>Results </b>See Ouptut 4 Diffetential Analysis</p>
+<p><b>结果展示：</b>请见输出4（差异表达）</p>
 ")
   })
   
@@ -1054,7 +1024,7 @@ observeEvent(input$uploadB1,{
     output$SelecontrastB <- renderUI({})
     
     output$Selecontrast <- renderUI({
-      selectInput("Selecontrast","Choose Comparisons",
+      selectInput("Selecontrast","选择你想要进行的对比",
                   choices = v$contrast,
                   multiple = FALSE,
                   selectize = FALSE)
@@ -1064,7 +1034,7 @@ observeEvent(input$uploadB1,{
     output$Selecontrast <- renderUI({})
     
     output$SelecontrastB <- renderUI({
-      selectInput("SelecontrastB","Choose Comparisons",
+      selectInput("SelecontrastB","选择你想要进行的对比",
                   choices = v$contrastB,
                   multiple = FALSE,
                   selectize = FALSE)
@@ -1072,12 +1042,12 @@ observeEvent(input$uploadB1,{
     
   }
   output$updownreverse <- renderUI({
-    checkboxInput("updownreverse","Factor Transformation",value=FALSE)#如果有挑上的话代表对照非对照反了 logFC和t取负
+    checkboxInput("updownreverse","因子转换",value=FALSE)#如果有挑上的话代表对照非对照反了 logFC和t取负
   })
   
   
   output$uploadB2 <- renderUI({
-    actionButton("uploadB2","Start Differential Analysis")
+    actionButton("uploadB2","开始差异分析")
   })
   
     ##part4ui结束
@@ -1088,7 +1058,7 @@ observeEvent(input$uploadB1,{
   #part4
   output$HC_cluster <- renderPlot({# 用来生成聚类
     if(!is.null(v$hc)){
-	 par(mar=c(5,5,5,50))
+      par(mar=c(5,5,5,20))
      fviz_dend(v$hc,k =length(levels(v$group.list)),
                 #cex = 0.5, 
                 #          k_colors = c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
@@ -1096,8 +1066,7 @@ observeEvent(input$uploadB1,{
                 color_labels_by_k = TRUE, 
                 repel = TRUE,
                 horiz = TRUE,
-                rect = TRUE,
-				cex=0.5)
+                rect = TRUE)
     }
   })
   
@@ -1115,31 +1084,31 @@ observeEvent(input$uploadB1,{
   
   output$text_Output3a <- renderUI({
     HTML("
- <h4><b>Output3-a Cluster Analysis</b></h4>
+ <h4><b>Output3-a 层次聚类分析</b></h4>
  
 ")
   })
   output$text_Output3aall <- renderUI({
     HTML("
- <h5><b>Explanation</b></h5>
+ <h5><b>说明</b></h5>
 <ul>
- <li>The graph is a hierarchical clustering graph generated by selecting the 2000 genes with the largest average expression in the expression file (if less than 2000 genes are used, all genes are used).
-<li>If the samples are not separated according to your groupings in the cluster diagram, it means that the data may be affected by other factors (batch effects, etc.), and the accuracy of subsequent analysis may be reduced.
+ <li>该图为选取了表达文件中平均表达量最大的2000个基因（不足2000个基因时则使用全部基因）所生成的层次聚类图。
+<li>若聚类图中，样本没能按照您的分组分离开来，说明该数据可能受到了其他因素的影响（批次效应等），后续分析的准确性可能因此有所降低。
 </ul>
          ")
   })
   
   output$text_Output3b <- renderUI({
     HTML("
- <h4><b>Output3-b PCA</b></h4>
+ <h4><b>Output3-b 主成分分析</b></h4>
 ")
   })
   output$text_Output3ball <- renderUI({
     HTML("
- <h5><b>Explanation</b></h5>
+ <h5><b>说明</b></h5>
 <ul>
- <li>This figure selects the 2000 genes with the largest average expression in the expression file (when less than 2000 genes are used, all genes are used), the principal component analysis is performed, and the previous two independent descriptive variables are used to visualize the sample.
-<li>If the scatter plot generated in this step is not well separated by grouping, it means that the data may be affected by other factors (batch effect, etc.), and the accuracy of subsequent analysis may be reduced.
+ <li>该图选取了表达文件中平均表达量最大的2000个基因（不足2000个基因时则使用全部基因），进行主成分分析，并以前两个独立的描述性变量对样本进行可视化。
+<li>若该步生成的散点图没能较好地按照分组分离开来，说明该数据可能受到了其他因素的影响（批次效应等），后续分析的准确性可能因此有所降低。
 </ul>
          ")
   })
@@ -1153,7 +1122,7 @@ observeEvent(input$uploadB1,{
   ctrlcode$gpl.code2<-TRUE
   ctrlcode$B1.code3<-TRUE
   
-  v$havePart2 <- TRUE
+  
   
 })
 
@@ -1168,78 +1137,78 @@ observeEvent(input$uploadB2,{
     ##出现step5面板
     output$text_step5 <- renderUI({#s5说明文字
       HTML("
- <h4><b>Step5. Pathway Analysis</b></h4>
- <p><b>After the Differential Analysis is completed, you can perform GO analysis and KEGG analysis on the channel analysis page.</b></p>
-<p><b>Results：</b>See Output 5 Differential Analysis</p>
+ <h4><b>步骤5. 进行通路分析</b></h4>
+ <p><b>差异分析完成后，您可以在通路分析页面执行GO分析和KEGG分析。</b></p>
+<p><b>结果展示：</b>请见输出5（差异表达）</p>
 ")
     })
     
     output$text_Output4a <- renderUI({
       HTML("
- <h4><b>Output4-a Limma Analysis</b></h4>
+ <h4><b>Output4-a Limma分析结果</b></h4>
 ")
     })
     
     output$text_Output4aall <- renderUI({
       HTML("
- <h5><b>Explanation</b></h5>
- <p>The table gives a list of differentially expressed genes analyzed by LIMMA software.</p>
+ <h5><b>说明</b></h5>
+ <p>表格给出了LIMMA软件分析得到的差异性表达基因列表。</p>
   <p> </p>
 <ul>
- <li>logFC: Shows the size of gene difference, the greater the absolute value, the greater the gene difference, the threshold default is 1.
-<li>adj.P.Value：Shows the significance of the difference of the selected gene, the default is 0.05. You can customize the P value to change the confidence interval for screening differential genes. When you do not enter a p-value or enter a non-numeric p-value, the table will return the results of the difference analysis of all genes generated by LIMMA.
+ <li>logFC：展示了基因差异性大小，绝对值越大代表基因差异性越大，阈值默认为1，
+<li>adj.P.Value：展示了选出的基因的差异的显著性，默认为0.05。您可以自定义P值来更改筛选差异基因的置信区间。当不输入p值或输入非数字p值时，表格将返回由LIMMA生成的全部基因的差异分析的结果。
 </ul>
          ")
     })
     
     output$text_Output4b <- renderUI({
       HTML("
- <h4><b>Output4-b Scatter Plot and Boxplot</b></h4>
+ <h4><b>Output4-b 基因表达散点和箱线图</b></h4>
 ")
     })
     
     output$text_Output4ball <- renderUI({
       HTML("
- <h5><b>Explantion</b></h5>
- <p>You can view the expression of the gene in different groups of samples by selecting the gene name.</p>
+ <h5><b>说明</b></h5>
+ <p>您可以通过选择基因名称来查看该基因在不同组的样本中的表达情况。</p>
 
                    ")
     })
     
     output$text_Output4c <- renderUI({
       HTML("
- <h4><b>Output4-c Volcano plot</b></h4>
+ <h4><b>Output4-c 火山图</b></h4>
 ")
     })
     output$text_Output4call <- renderUI({
       HTML("
- <h5><b>Explanation</b></h5>
- <p>The volcano map is used to test whether the differential gene expression obtained is significantly different.</p>
+ <h5><b>说明</b></h5>
+ <p>火山图用于检验得出的差异基因表达是否具有显著差异性。</p>
  <p> </p>
   <ul>
- <li>Each point in the figure represents a gene.
-<li>Red dots are genes that are significantly up-regulated. The green dots are genes whose expression is significantly down-regulated. Black dots are genes with no significant differences.
-<li>It can be considered that the absolute value of logFC value is less than 1, adj.P.Value is less than the adj.P.Value selected by the user, there is no significant difference in gene points.
+ <li>图中每个点代表一个基因。
+<li>红点是显著表达上调的基因。绿点是显著表达下调的基因。黑点是无显著差异的基因。
+<li>可认为logFC值的绝对值小于1、adj.P.Value小于用户选择的adj.P.Value的基因点无显著差异。
  </ul>
          ")
     })
     
     output$text_Output4d <- renderUI({
       HTML("
- <h4><b>Output4-d Heatmap</b></h4>
+ <h4><b>Output4-d 热图</b></h4>
 ")
     })
     
     output$text_Output4dall <- renderUI({
       HTML("
- <h5><b>Expanation</b></h5>
-<p>The heat map is used to show the expression levels of the top 50 differentially expressed genes in different samples. </p>
-  <p> </p>
-   <ul>
-  <li>The abscissa is the sample name, and the ordinate is the selected differential gene.
-<li>Red dots are genes that are significantly up-regulated. The green dots are genes whose expression is significantly down-regulated. Black dots are genes with no significant differences.
-<li>Red represents the high expression value of the differential gene in the grouped samples, and blue represents the low expression value of the differential gene in the grouped samples.
-  </ul>
+ <h5><b>说明</b></h5>
+ <p>热图用于展示前50个差异表达基因在不同样本中的表达水平。</p>
+ <p> </p>
+  <ul>
+ <li>横坐标为样本名称，纵坐标为选出的差异基因。
+<li>红点是显著表达上调的基因。绿点是显著表达下调的基因。黑点是无显著差异的基因。
+<li>红色代表该差异基因在分组样本中表达值高，蓝色代表差异基因在分组样本中表达值低。
+ </ul>
          ")
     })
     
@@ -1258,13 +1227,13 @@ observeEvent(input$uploadB2,{
 
     
     if(v$pvalue==0){
-     # v$diff_result$change <- ifelse(v$diff_result$adj.P.Val < 0.05 & abs(v$diff_result$logFC) > 1,
-    #                                 ifelse(v$diff_result$logFC > 1,'UP','DOWN'),
-    #                                 'NOT')
-    #这里是之前留下来的diffsig
-      v$diffSig <- v$diff_result[-grep("NOT",v$diff_result$change),]
-      v$diffUp <- v$diff_result[grep("UP",v$diff_result$change),]
-      v$diffDown <- v$diff_result[grep("DOWN",v$diff_result$change),]
+#      v$diff_result$change <- ifelse(v$diff_result$adj.P.Val < 0.05 & abs(v$diff_result$logFC) > 1,
+#                                     ifelse(v$diff_result$logFC > 1,'UP','DOWN'),
+#                                     'NOT')
+      
+      v$diffSig <- NULL
+      v$diffUp <- NULL
+      v$diffDown <- NULL
       
       v$diffshow<-v$diff_result
 
@@ -1279,11 +1248,11 @@ observeEvent(input$uploadB2,{
       v$diffDown <- v$diff_result[grep("DOWN",v$diff_result$change),]
       
       v$diffshow<-v$diffSig 
-
-      v$pvalueold <- v$pvalue #把之前的pvalue存了下来 当p=0的时候可以用      
+      
     }
 
-  
+
+    
     
   })
   
@@ -1294,7 +1263,7 @@ observeEvent(input$uploadB2,{
         paste(v$geoid,"_Diffgene.txt", sep="")
       },
       content = function(file) {
-        write.table(v$diffshow, file,quote=FALSE,sep='\t')
+        write.table(v$diffSig, file,quote=FALSE,sep='\t')
       }
     )
   })
@@ -1309,12 +1278,12 @@ observeEvent(input$uploadB2,{
   
   output$Limmaresulttext<- renderUI({
     if(!is.null(v$diffSig) && v$pvalue!=0){
-      p(paste0("P value",v$pvalue,"，Include Differential Genes",nrow(v$diffSig),
-                  "The number of Up-regulated genes",nrow(v$diffUp),"The number of Down-regulate genes",nrow(v$diffDown),"."))
+      p(paste0("您选择的P值为",v$pvalue,"，包含差异基因",nrow(v$diffSig),
+                  "个，上调基因",nrow(v$diffUp),"个，下调基因",nrow(v$diffDown),"个。"))
 #      HTML(paste0("您选择的P值为",v$pvalue,"，包含差异基因",nrow(v$diffSig),
 #                  "个。"))
     }else{
-      p(paste0("You select all data. p is",v$pvalueold),"。")
+      p("您选择的是全部数据。")
     }
 
     
@@ -1328,7 +1297,7 @@ observeEvent(input$uploadB2,{
       #从基因列表中选择基因 
       selectInput( ##type(list) length
         'geneselect',
-        h5('Scatter plot gene selection'),
+        h5('散点图基因选择'),
         selected = v$rowOrder[1],
         choices = v$rowOrder,
         multiple = FALSE,
@@ -1338,12 +1307,6 @@ observeEvent(input$uploadB2,{
   })
   observeEvent(input$geneselect,{
     output$genebotPlot <- renderPlot({
-	  progress <- shiny::Progress$new() #过程监视弹窗
-      on.exit(progress$close())
-      progress$set(message = "STEP4: ", value = 0)
-      progress$inc(0.50, detail = "Dot plot of genes")
-
-
       if(!is.null(v$pair.list) && v$diffchoice == "choiceB"){
         
         data_plot <- as.data.frame(t(v$dataExprN))
@@ -1394,15 +1357,8 @@ observeEvent(input$uploadB2,{
   observeEvent(v$diffSig,{
     #火山图
     output$volPlot <- renderPlot({
-      progress <- shiny::Progress$new() #过程监视弹窗
-      on.exit(progress$close())
-      progress$set(message = "STEP4: ", value = 0)
-      progress$inc(0.50, detail = "volcano plot")
-     
-	  xMax=max(-log10(v$diff_result$adj.P.Val)) 
-	  v$xMax<-xMax
+      xMax=max(-log10(v$diff_result$adj.P.Val))   
       yMax=max(abs(v$diff_result$logFC))
-	  v$yMax<-yMax
       par()
       ggplot(data= v$diff_result, aes(x = -log10(adj.P.Val), y = logFC, color = change)) +
         geom_point(alpha=0.8, size = 1) +
@@ -1426,7 +1382,7 @@ observeEvent(input$uploadB2,{
           mutate(genename=rownames(v$diff_result)) %>% 
           dplyr::arrange(desc(logFC)) %>% 
           .$genename %>% .[1:25] ## 管道符中的提取
-        
+        ## FC低前50
         down_25<-v$diff_result %>% as_tibble() %>% 
           mutate(genename=rownames(v$diff_result)) %>% 
           dplyr::arrange(logFC) %>% 
@@ -1442,7 +1398,10 @@ observeEvent(input$uploadB2,{
         v$anno<-anno
       }
       
-
+      progress <- shiny::Progress$new() #过程监视弹窗
+      on.exit(progress$close())
+      progress$set(message = "Performing ", value = 0)
+      progress$inc(0.50, detail = "Downloading and parsing supplemental data")
       
       
       
@@ -1459,16 +1418,9 @@ observeEvent(input$uploadB2,{
       
       #函数外的热图代码
       
-      interactiveHeatmap()
-	  
-	  output$heatout <- renderPlot({#plotly::renderPlotly({
-        #dev.off()
-        progress <- shiny::Progress$new() #过程监视弹窗
-        on.exit(progress$close())
-        progress$set(message = "STEP4: ", value = 0)
-        progress$inc(0.50, detail = "Heat map")
-
-		par()
+      output$heatout <- renderPlot({#plotly::renderPlotly({
+        interactiveHeatmap()
+        par()
         pheatmap(v$index_matrix,
                  show_colnames =F,
                  show_rownames = F,
@@ -1477,7 +1429,7 @@ observeEvent(input$uploadB2,{
       })
    
     
-      v$havePart3 <- TRUE
+      
     
 
 
@@ -1491,37 +1443,38 @@ observeEvent(input$uploadB2,{
       data.pathway()
       output$text_Output5a <- renderUI({
         HTML("
- <h4><b>Output5-a GO Analysis</b></h4>
+ <h4><b>Output5-a GO分析</b></h4>
 ")
       })
       
       output$text_Output5b <- renderUI({
         HTML("
- <h4><b>Output5-b KEGG Analysis</b></h4>
+ <h4><b>Output5-b KEGG分析</b></h4>
 ")
       })
       
       
+      ######
       output$text_GOup <- renderUI({
         HTML("
- <h5><b>Up-regulated genes: </b></h5>
+ <h5><b>上调基因：</b></h5>
 ")
       })
       
       
       output$text_GOdown <- renderUI({
         HTML("
- <h5><b>Down-regulated genes:</b></h5>
+ <h5><b>下调基因：</b></h5>
 ")
       })
       output$text_KEGGup <- renderUI({
         HTML("
- <h5><b>Up-regulated genes:</b></h5>
+ <h5><b>上调基因：</b></h5>
 ")
       })
       output$text_KEGGdown <- renderUI({
         HTML("
- <h5><b>Down-regulated genes:</b></h5>
+ <h5><b>下调基因：</b></h5>
 ")
       })
       
@@ -1575,28 +1528,26 @@ observeEvent(input$uploadB2,{
       ctrlcode$B1.code3<-TRUE
       ctrlcode$B2.code4<-TRUE
       ctrlcode$GOKE.code5<-TRUE
-
-    
-      v$havePart4 <- TRUE
-  
+      
     })
     
     
     
     #通路分析下载
-#    output$downlodGO <- downloadHandler(
-#      filename = function() {
-#        paste("result_GO","tar", sep=".")
-#      },
-#      content = function(file) {
-#        tar(file, "file/path/")
-#      },
-#      contentType = "application/zip"
-#    )
+    output$downlodGO <- downloadHandler(
+      filename = function() {
+        paste("result_GO","tar", sep=".")
+      },
+      content = function(file) {
+        tar(file, "file/path/")
+      },
+      contentType = "application/zip"
+    )
 
   })
   
-
+#  if(!is.null(v$diff_result)){
+#  }
   
   genecode$report<- NULL
   ctrlcode$gse.code1 <- TRUE
@@ -1606,8 +1557,6 @@ observeEvent(input$uploadB2,{
 
   
 })
-
-
 
 #######生成可运行代码#######
 ## add R code to ace editor 加入代码
@@ -1619,21 +1568,10 @@ add.code <-function(line) {
   }
 }
 
-
-
 #
 observeEvent(genecode$report, {
   updateAceEditor(session, "rmd", genecode$report, 
                   mode = "markdown",wordWrap= TRUE, theme = "chrome")
-
-  output$gecode <- downloadHandler(
-    filename = function() {
-      paste(v$geoid,"_code.r", sep="")
-    },
-    content = function(file) {
-      writeLines(genecode$report, file,sep='\n')
-    }
-  )
 })
 
 #代码保存和生成的部分
@@ -1655,7 +1593,7 @@ library(limma)
     
 ## 下载GEO原始数据
 GSE = \"",GSE,"\"
-data.series = getGEO(GSE,destdir =\".\",getGPL = FALSE)# GEO芯片数据 
+data.series = getGEO(GSE,destdir =\".\")#GEO芯片数据 
     "
 )
   
@@ -1680,7 +1618,7 @@ m2 = match(common, rownames(data.p))
 data.expr = data.expr[,m1] # 表达矩阵
 data.p = data.p[m2,] # 分组矩阵
 
-orgnism = \"",v$organism,"\"
+orgnism = \"",v$organism,"\" #种族信息
 
 fvarLabels(data.series[[data.index]]) = make.names(fvarLabels(data.series[[data.index]]))
 ")
@@ -1693,7 +1631,7 @@ fvarLabels(data.series[[data.index]]) = make.names(fvarLabels(data.series[[data.
   if(is.null(v$platformdb)){
     add.code("wrong in platform")
   }else if(v$platformdb[1]==1){
-    pluscode <- paste0("# id转换
+    pluscode <- paste0("## id转换
 BiocManager::install(\"",v$platformdb[2],".db\", update = F, ask = F)
 library(\"",v$platformdb[2],".db\", character.only = T)
 geneid = toTable(get(paste(\"",v$platformdb[2],"\", \"SYMBOL\", sep=\"\")))")
@@ -1701,7 +1639,7 @@ geneid = toTable(get(paste(\"",v$platformdb[2],"\", \"SYMBOL\", sep=\"\")))")
     add.code(pluscode)
     
   }else if(v$platformdb[1]==2){
-    pluscode <- paste0("# id转换
+    pluscode <- paste0("## id转换
 library(idmap2)
 geneid = get_soft_IDs(\"",Gpl,"\")")
     
@@ -1711,11 +1649,11 @@ geneid = get_soft_IDs(\"",Gpl,"\")")
   }
   
 
-
-  pluscode <- paste0("
-geneid = na.omit(geneid) # 删除无对应基因的探针行
   
-ids_h=grep('///',geneid[,2])# 删除对应多个基因的探针行（如果有）
+  pluscode <- paste0("
+geneid = na.omit(geneid) #删除无对应基因的探针行
+  
+ids_h=grep('///',geneid[,2])#删除对应多个基因的探针行（如果有）
 if(!is_empty(ids_h)){
   geneid = geneid[-ids_h,] 
 }
@@ -1726,7 +1664,7 @@ geneid = geneid[match(rownames(data.expr),geneid[[1]]),]
 data.expr=as.data.frame(avereps(data.expr,ID=geneid[[2]]))
 
 
-# log2变换判断
+## log2变换判断
 qx = as.numeric(quantile(data.expr, c(0., 0.25, 0.5, 0.75, 0.99, 1.0), na.rm=T))
 LogC = (qx[5] > 100) || (qx[6]-qx[1] > 50 && qx[2] > 0) ||
     (qx[2] > 0 && qx[2] < 1 && qx[4] > 1 && qx[4] < 2)
@@ -1737,10 +1675,10 @@ if (LogC) {
 }
 data.expr = as.data.frame(data.expr) 
 
-# 正交变换
+## 正交变换
 data.expr = normalizeBetweenArrays(data.expr)
 
-# 绘制箱线图
+##绘制箱线图
 head(data.expr)
 par()
 boxplot(data.expr,outline=FALSE, notch=T, las=2)
@@ -1751,12 +1689,12 @@ boxplot(data.expr,outline=FALSE, notch=T, las=2)
 })
 
 
-observe({## 聚类和分类信息
+observe({####第三部分 聚类和分类信息
   if (!ctrlcode$B1.code3) return(NULL) #控制为F时，不要运行该部分
   
   if(is.null(v$group.list)) return(NULL)
   GG <- as.data.frame(sapply(as.data.frame(v$group.list),as.character))
-  pluscode <- paste0("# 获取分组信息
+  pluscode <- paste0("## 获取分组信息
 Group = as.factor(",GG,")")
   add.code(pluscode)
 
@@ -1776,13 +1714,13 @@ Group = as.factor(",GG,")")
   
   
   if(v$diffchoice == "choiceA"){
-    pluscode <- paste0("# 组间差异设计矩阵
+    pluscode <- paste0("##组间差异设计矩阵
 design = model.matrix(~0+Group)")
     add.code(pluscode)
   }
   
   if(v$diffchoice == "choiceB"){
-    pluscode <- paste0("# 组内差异设计矩阵
+    pluscode <- paste0("##组内差异设计矩阵
 design = model.matrix(~0+Group+Block)")
     add.code(pluscode)
   }
@@ -1790,43 +1728,33 @@ design = model.matrix(~0+Group+Block)")
   pluscode<-paste0("colnames(design)[1:length(levels(Group))] = levels(Group)
 rownames(design) = colnames(data.expr)
 
-# PCA图生成
+## hclust聚类
 library(factoextra)
 
+colnames(data.expr) = paste(colnames(data.expr),Group,sep='-')
+dataHC = hclust(dist(t(data.expr)))
+
+par()
+fviz_dend(dataHC,k =length(levels(Group)),
+          color_labels_by_k = TRUE, 
+          repel = TRUE,
+          horiz = TRUE,
+          rect = TRUE)
+
+
+## PCA图生成
 dataex.tr=as.data.frame(t(data.expr))
 dataex.tr = dataex.tr[,apply(dataex.tr, 2, var) != 0]
-if(ncol(dataex.tr)>=2000){
-  dataex.tr.pca = as.matrix(dataex.tr[,order(colMeans(dataex.tr), decreasing =
-                                               TRUE)[1:2000]])
-}else{
-  dataex.tr.pca = as.matrix(dataex.tr[,order(colMeans(dataex.tr), decreasing =
-                                               TRUE)[1:ncol(dataex.tr)]])
-  
-}
-dataPCA = prcomp(dataex.tr.pca, scale = TRUE)
+dataPCA = prcomp(dataex.tr, scale = TRUE)
 
 par()
 fviz_pca_ind(dataPCA,
              col.ind = Group, 
              addEllipses = TRUE, # Concentration ellipses
              ellipse.type = \"confidence\",
-             legend.title = \"Group\",
+             legend.title = \"Group\",## Legend名称
              repel = TRUE
-)
-
-# hclust聚类
-
-rownames(dataex.tr.pca) = paste(rownames(dataex.tr.pca),Group,sep='-')
-datahc = hclust(dist(dataex.tr.pca))
-
-par()
-fviz_dend(datahc,k =length(levels(Group)),
-          color_labels_by_k = TRUE, 
-          repel = TRUE,
-          horiz = TRUE,
-          rect = TRUE,
-          cex=0.5)
-")
+)")
   
   add.code(pluscode)
   
@@ -1844,13 +1772,8 @@ observe({####第四部分 Limma和基因和热图和火山图
   if(v$diffchoice == "choiceB" && !is.null(input$SelecontrastB) ){
     Contr<-input$SelecontrastB }
   
-  if(input$updownreverse && !is.null(input$updownreverse)){
-    hlContr<- strsplit(Contr,"-")
-    Contr<-paste(hlContr[[1]][2],hlContr[[1]][1],sep="-")
-  }
-
-  pluscode<-paste0("## Limma差异分析
-
+  pluscode<-paste0("##Limma差异分析
+## 比较矩阵
 contrast.matrix = makeContrasts(contrasts=\"",Contr,"\",levels = design)
 ")
   
@@ -1866,44 +1789,38 @@ fit.1 = lmFit(data.expr,design,block=Rand,correlation=corfit$consensus)
   add.code(pluscode)
   
   pluscode<-paste0("fit.2 = contrasts.fit(fit.1, contrast.matrix) 
-fit.2 = eBayes(fit.2)# 贝叶斯检验
-# 差异结果
+fit.2 = eBayes(fit.2)## 贝叶斯检验
+## 差异结果
 all.diff = topTable(fit.2,adjust='fdr',coef=1,sort.by = \"p\",number=Inf) 
 all.diff = na.omit(all.diff) ")
-  add.code(pluscode)
-
-  pluscode<-paste0("  
-all.diff$change = ifelse(all.diff$adj.P.Val < ",v$pvalueold," & abs(all.diff$logFC) > 1,
-                                 ifelse(all.diff$logFC > 1,'UP','DOWN'),
-                                 'NOT')
-")  
+  
   add.code(pluscode)
   
-  # 基因图
+  #基因图
   if(!is.null(input$geneselect)){
     if(!is.null(v$pair.list) && v$diffchoice == "choiceB"){
-      pluscode<-paste0("# 基因配对点图
+      pluscode<-paste0("#基因配对点图
     data.plot = data.frame(pairinfo=Block,
                         group=Group,
                         dataex.tr,stringsAsFactors = F)
-ggplot(data.plot, aes(group,data.plot[,\"",input$geneselect,"\"],fill=group)) +
+ggplot(data.plot, aes(group,data.plot[,",input$geneselect,"],fill=group)) +
   geom_boxplot() +
   geom_point(size=2, alpha=0.5) +
   geom_line(aes(group=pairinfo), colour=\"black\", linetype=\"11\") +
   xlab(\"\") +
-  ylab(paste(\"Expression of \",\"",input$geneselect,"\"))+
+  ylab(paste(\"Expression of \",",input$geneselect,"))+
   theme_classic()+
   theme(legend.position = \"none\")")
     }else{
-      pluscode<-paste0("# 基因配对点图
+      pluscode<-paste0("#基因配对点图
 data.plot = data.frame(group=Group,
                         dataex.tr,stringsAsFactors = F)
 
-ggplot(data.plot, aes(group,data.plot[,\"",input$geneselect,"\"] ,fill=group)) +
+ggplot(data.plot, aes(group,data.plot[,",input$geneselect,"] ,fill=group)) +
   geom_boxplot(alpha = 0.5) +
   geom_jitter(aes(colour=group), size=2, alpha=0.7)+
   xlab(\"\") +
-  ylab(paste(\"Expression of \",\"",input$geneselect,"\"))+
+  ylab(paste(\"Expression of \",",input$geneselect,"))+
   theme_classic()+
   theme(legend.position = \"none\")")
       
@@ -1915,7 +1832,7 @@ ggplot(data.plot, aes(group,data.plot[,\"",input$geneselect,"\"] ,fill=group)) +
   }
   
   
-  pluscode<-paste0("# 火山图
+  pluscode<-paste0("#火山图
 xMax = max(-log10(all.diff$adj.P.Val))   
 yMax = max(abs(all.diff$logFC))
 library(ggplot2)
@@ -1924,9 +1841,9 @@ par()
 ggplot(data= all.diff, aes(x = -log10(adj.P.Val), y = logFC, color = change)) +
   geom_point(alpha=0.8, size = 1) +
   theme_bw(base_size = 15) +
-  theme(plot.title=element_text(hjust=0.5),
+  theme(plot.title=element_text(hjust=0.5),   #  标题居中
         panel.grid.minor = element_blank(),
-        panel.grid.major = element_blank()) +
+        panel.grid.major = element_blank()) + # 网格线设置为空白
   geom_hline(yintercept= 0 ,linetype= 2 ) +
   scale_color_manual(name = \"\", 
                      values = c(\"red\", \"green\", \"black\"),
@@ -1939,32 +1856,30 @@ ggplot(data= all.diff, aes(x = -log10(adj.P.Val), y = logFC, color = change)) +
   
   
   
-  pluscode<-paste0("# 热图
+  pluscode<-paste0("#热图
 library(tidyverse)
 library(pheatmap)
 
-up_25 = all.diff %>% as_tibble() %>% 
+## 提取FC前50
+up_50 = all.diff %>% as_tibble() %>% 
   mutate(genename=rownames(all.diff)) %>% 
   dplyr::arrange(desc(logFC)) %>% 
-  .$genename %>% .[1:25] ## 
-  
-down_25 = all.diff %>% as_tibble() %>% 
+  .$genename %>% .[1:50] ## 管道符中的提取
+## FC低前50
+down_50 = all.diff %>% as_tibble() %>% 
   mutate(genename=rownames(all.diff)) %>% 
   dplyr::arrange(logFC) %>% 
-  .$genename %>% .[1:25] ## 
-index = c(up_25,down_25)  
-index_matrix = t(scale(t(data.expr[index,])))## 
+  .$genename %>% .[1:50] ## 管道符中的提取
+index = c(up_50,down_50)  
+index_matrix = t(scale(t(data.expr[index,])))##归一化
 index_matrix[index_matrix>1]=1
 index_matrix[index_matrix = 1]=-1
 anno=data.frame(group=Group)
 rownames(anno)=colnames(index_matrix)
 
-par()
-pheatmap(index_matrix,
-           show_colnames =F,
-           show_rownames = F,
-           cluster_cols = T, 
-           annotation_col=anno)")
+library(heatmaply)
+p = heatmaply(index_matrix)
+p")
   
   add.code(pluscode)
   
@@ -1980,27 +1895,18 @@ observe({#GO KEGG 代码区
   if (!ctrlcode$GOKE.code5) return(NULL) #控制为F时，不要运行该部分
   
   if(!is.null(v$orgapack)){
-   
-    pluscode<-paste0("
-## 富集分析
-library(clusterProfiler)
-all.diff =all.diff[-grep(\"NOT\",all.diff$change),]
-geneup = rownames(all.diff[grep(\"UP\",all.diff$change),])
-genedown = rownames(all.diff[grep(\"DOWN\",all.diff$change),])
-
-
-geneup = bitr(geneup, fromType=\"SYMBOL\", toType=\"ENTREZID\", OrgDb=\"",v$orgapack,"\")
-genedown = bitr(genedown, fromType=\"SYMBOL\", toType=\"ENTREZID\", OrgDb=\"",v$orgapack,"\")
-
-ENTREZ.ID.UP = geneup$ENTREZID
-ENTREZ.ID.DOWN = genedown$ENTREZID ")
+    
+    pluscode<-paste0("library(clusterProfiler)
+gene = rownames(all.diff)
+gene = bitr(gene, fromType=\"SYMBOL\", toType=\"ENTREZID\", OrgDb=\"",v$orgapack,"\")
+ENTREZ.ID = gene$ENTREZID")
     
     add.code(pluscode)
     
     
     
   }else{
-    pluscode<-paste0("# 没有种族信息或没有对应注释包 无法进行通道分析")
+    pluscode<-paste0("##没有种族信息或没有对应注释包 无法进行通道分析")
     add.code(pluscode)
     ctrlcode$GOKE.code5 <- FALSE
     return(NULL)
@@ -2008,60 +1914,26 @@ ENTREZ.ID.DOWN = genedown$ENTREZID ")
   
   
   pluscode<-paste0("## GO分析
-go.up = enrichGO(ENTREZ.ID.UP, OrgDb = \"",v$orgapack,"\", ont=\"all\")
-go.down = enrichGO(ENTREZ.ID.DOWN, OrgDb = \"",v$orgapack,"\", ont=\"all\")
+go = enrichGO(ENTREZ.ID, OrgDb = \"",v$orgapack,"\", ont=\"all\")
 
-# 上调基因
-Gt.up = as.data.frame(summary(go.up)) # table 
-colnames(Gt.up) = gsub(\" \", \"\", colnames(Gt.up))
-Gt.up = Gt.up[,!colnames(Gt.up) %in% c(\"geneID\")]
-ordgou = order(Gt.up[\"pvalue\"])
-Gt.up = Gt.up[ordgou,]
+Gt = as.data.frame(summary(go)) # table 
+colnames(Gt) = gsub(\" \", \"\", colnames(Gt))
+Gt = Gt[,!colnames(Gt) %in% c(\"geneID\")]
 
-head(Gt.up)
-barplot(go.up, split=\"ONTOLOGY\") +facet_grid(ONTOLOGY~., scale=\"free\")
-
-# 下调基因
-Gt.down = as.data.frame(summary(go.down)) # table 
-colnames(Gt.down) = gsub(\" \", \"\", colnames(Gt.down))
-Gt.down = Gt.down[,!colnames(Gt.down) %in% c(\"geneID\")]
-ordgod = order(Gt.down[\"pvalue\"])
-Gt.down = Gt.down[ordgod,]
-
-head(Gt.down)
-barplot(go.down, split=\"ONTOLOGY\") +facet_grid(ONTOLOGY~., scale=\"free\")
-
-
+head(Gt)
+barplot(v$go, split=\"ONTOLOGY\") +facet_grid(ONTOLOGY~., scale=\"free\")
 
 ## KEGG分析
-
-# 上调基因
-KEGG.up = enrichKEGG(ENTREZ.ID.UP,
+KEGG = enrichKEGG(ENTREZ.ID,
                    organism     = \"",v$keggpack,"\",
                    pvalueCutoff = 0.05)
-                   
-Et.up = as.data.frame(summary(KEGG.up)) #table 
-colnames(Et.up) = gsub(\" \", \"\", colnames(Et.up))
-Et.up = Et.up[,!colnames(Et.up) %in% c(\"geneID\")]
-ordgouk = order(Et.up[\"pvalue\"])
-Et.up = Et.up[ordgouk,]
 
-head(Et.up)
-barplot(KEGG.up)
+Et = as.data.frame(summary(KEGG)) #table 
+colnames(Et) = gsub(\" \", \"\", colnames(Et))
+Et = Et[,!colnames(Et) %in% c(\"geneID\")]
 
-# 下调基因             
-KEGG.down = enrichKEGG(ENTREZ.ID.DOWN,
-                   organism     = \"",v$keggpack,"\",
-                   pvalueCutoff = 0.05)
-Et.down = as.data.frame(summary(KEGG.down)) #table 
-colnames(Et.down) = gsub(\" \", \"\", colnames(Et.down))
-Et.down = Et.down[,!colnames(Et.down) %in% c(\"geneID\")]
-ordgodk = order(Et.down[\"pvalue\"])
-Et.down = Et.down[ordgodk,]
-
-head(Et.down)
-barplot(KEGG.down)                  
-")
+head(Et)
+barplot(KEGG)")
   
   add.code(pluscode)
   
@@ -2070,26 +1942,49 @@ barplot(KEGG.down)
 
 #######生成report#######
 #下载markdown report
+#0131 没有写完
 
 output$downloadreport <- downloadHandler(
   # For PDF output, change this to "report.pdf"
-  
   filename = "report.html",
   
   content = function(file) {
     
+    
+    # Copy the report file to a temporary directory before processing it, in
+    # case we don't have write permissions to the current working dir (which
+    # can happen when deployed).
     tempReport <- file.path(tempdir(), "MephasGEO.Rmd")
     file.copy("MephasGEO.Rmd", tempReport, overwrite = TRUE)
+    
+    # Set up parameters to pass to Rmd document
     params <- list(v = v)
     
-    progress <- shiny::Progress$new() #过程监视弹窗
-    on.exit(progress$close())
-    progress$set(message = "Result", value = 0)
-    progress$inc(0.70, detail = "generating Rmarkdown file")
-	
+    # Knit the document, passing in the `params` list, and eval it in a
+    # child of the global environment (this isolates the code in the document
+    # from the code in this app).
     rmarkdown::render(tempReport, output_file = file,
                       params = params,
                       envir = new.env(parent = globalenv())
     )
   }
 )
+
+#迷之测试模块
+output$test2 = renderUI({
+  #  if(input$gsegoButton){
+  #    data.geodownload()#这里是不正确的， 但是确实需要调用函数
+  #  }
+  
+  if(is.null(v$dataSerise)){
+    
+    HTML("NULL")
+  }else if(is.null(v$dataP)){
+    HTML("dataserise")
+  }else if(!is.null(v$group.list)){
+    HTML(as.character(v$group.list))
+  }else{
+    HTML(names(v$dataP))
+  }
+  
+})

@@ -56,6 +56,8 @@ library(shinyjs)
 #if(!require("shinydashboard")) install.packages("shinydashboard",update = F,ask = F)
 library(shinydashboard)
 library(rhandsontable)
+
+#setwd(dirname(rstudioapi::getActiveDocumentContext()$path))#不能有中文路径 用途是切换工作目录到本文件的目录中
 source("../tab/tab.R")
 source("../tab/panel.R")
 source("../tab/func.R")
@@ -71,20 +73,18 @@ tagList(
   navbarPage(
     theme = shinythemes::shinytheme("cerulean"),
     #title = a("MephasGEO", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
-    
     title ="MephasGEO",
     collapsible = TRUE,
     #id="navbar",
     position="fixed-top",
     
-    
+##########----------##########----------##########  
 #panel 0 DATA处理
     tabPanel("Differential Gene Expression Analysis",
-
              titlePanel("Differential Gene Expression Analysis"),
              
              conditionalPanel(
-               condition = "input.explain_on_off",
+               condition = "!input.explain_on_off",
                HTML(
                "    
 <h4><b>Functions</b></h4>
@@ -104,26 +104,26 @@ tagList(
 
 
 <h4><b>Notice</b></h4>
-<p><b>1. Cannot support all the GEO (GLP) data </b></p>
-<p><b>2. If you want to download data again, plear click refresh button, or re-start this application </b></p>
+<p><b>1. Cannot support all the GEO (GLP) data</b></p>
+<p><b>2. If you want to download data again, plear click refresh button, or re-start this application</b></p>
 <p><b>3. Donnot go to 'Input group' panel before the completion of data preprocess. If the table is uncomplete, please download the data again.</b></p>
 
 <i><h4>Case Example</h4>
 To take GSE16020 as example, this data is used to study the effect of autosomal dominant monocytopenia in polymorphonuclear leukocytes. 
 According to the condition, they were divided into control group and autosomal dominant monocytopenia group, 12 cases in control group, and 8 cases in autosomal dominant monocytopenia group. Different RNA extraction methods have an impact on gene expression.
 We hope to use MephasGEO to find differentially expressed genes.
-</h4></i>
+</i>
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results </h4>
     
 
     ")),
              
-    hr(),
-            
-    source("0_datainput_ui.R", local=TRUE,encoding = "utf-8")$value,
-    hr()
+             hr(),
+             
+             source("0_datainput_ui.R", local=TRUE, encoding = "utf-8")$value,
+             hr()
     ),
-	
+
 ##########----------##########----------##########
 
 tablang("10MFSgeo"),
@@ -132,6 +132,5 @@ tablink()
 #navbarMenu("",icon=icon("link"))
 
 ))
-
 
 

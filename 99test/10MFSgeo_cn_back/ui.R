@@ -57,7 +57,6 @@ library(shinyjs)
 library(shinydashboard)
 library(rhandsontable)
 
-#setwd(dirname(rstudioapi::getActiveDocumentContext()$path))#不能有中文路径 用途是切换工作目录到本文件的目录中
 source("../tab/tab_cn.R")
 source("../tab/panel_cn.R")
 source("../tab/func.R")
@@ -84,7 +83,7 @@ tagList(
              titlePanel("差异基因分析"),
              
              conditionalPanel(
-               condition = "!input.explain_on_off",
+               condition = "input.explain_on_off",
                HTML(
                "    
 <h4><b>功能</b></h4>
@@ -111,7 +110,7 @@ tagList(
 <i><h4>示范例子</h4>
 以GSE16020芯片为例，研究多形核白细胞中常染色体显性单核细胞减少症的影响。根据病情分为对照组和常染色体显性单核细胞减少症组，对照组12例，常染色体显性单核细胞减少症组8例，不同的RNA提取方法对基因的表达量有影响。
 我们希望通过MephasGEO，来寻找差异表达的基因。
-</i>
+</h4></i>
 <h4> 请遵照 <b>步骤</b>执行， 程序将会实时性地返回<b>结果</b> </h4>
     
 

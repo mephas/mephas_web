@@ -65,8 +65,6 @@ sidebarLayout(
                dataTableOutput("showexpr"),
                downloadButton('downloadExpr', 'Download Expression Matrix'),
                uiOutput('text_Output1b'),
-			   plotOutput("dataBoxBefore"),
-               uiOutput('text_Output1b_2'),
                plotOutput("dataBox"),
                uiOutput('text_Output1all')
 
@@ -138,7 +136,7 @@ sidebarLayout(
                           uiOutput('text_Output4c'),
                           plotOutput("volPlot"),
                           uiOutput('text_Output4call')),
-                 #tabPanel("Heatmap",plotly::plotlyOutput("heatout"))
+                 #tabPanel("热图",plotly::plotlyOutput("heatout"))
                  tabPanel("Heatmap",
                           uiOutput('text_Output4d'),
                           plotOutput("heatout"),
@@ -160,7 +158,7 @@ sidebarLayout(
                           #HTML("Down genes"),
                           dataTableOutput('GoTable_down'),
                           plotOutput("GOplot_down"),
-                          #downloadButton("downlodGO", "Download GO result")
+                          downloadButton("downlodGO", "Download GO result")
                           
                           ),
                  tabPanel("KEGG Analysis",
@@ -173,7 +171,7 @@ sidebarLayout(
                           #HTML("Down genes"),
                           dataTableOutput("KEGGTable_down"),
                           plotOutput("KEGGplot_down"),
-                          #downloadButton("downlodKEGG", "Download KEGG result")
+                          downloadButton("downlodKEGG", "Download KEGG Result")
                           
                           )#KEGG
                )
@@ -183,7 +181,7 @@ sidebarLayout(
       tabPanel("Reproducible R codes",
                verbatimTextOutput("Code"),
                aceEditor("rmd", mode="markdown", value='',readOnly=T, height="500px"),
-               downloadButton("gecode","Generate Codes")
+               actionButton("gecode","Generate Codes")
                ),
       tabPanel("RmarkDown Results",
                uiOutput("RMarkD"),#未实装

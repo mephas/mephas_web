@@ -47,7 +47,7 @@ sidebarLayout(
     
     uiOutput('text_step5'),#####step5通路分析
     
-    p(tags$b("you can reload this page by clicking the button below.")),
+    p(tags$b("You can reload this page by clicking the button below.")),
     actionButton("NUM_clear","clear")
                        
   #    ))
@@ -65,6 +65,8 @@ sidebarLayout(
                dataTableOutput("showexpr"),
                downloadButton('downloadExpr', '下载表达矩阵'),
                uiOutput('text_Output1b'),
+			   plotOutput("dataBoxBefore"),
+               uiOutput('text_Output1b_2'),
                plotOutput("dataBox"),
                uiOutput('text_Output1all')
 
@@ -158,7 +160,7 @@ sidebarLayout(
                           #HTML("Down genes"),
                           dataTableOutput('GoTable_down'),
                           plotOutput("GOplot_down"),
-                          downloadButton("downlodGO", "Download GO result")
+                          #downloadButton("downlodGO", "Download GO result")
                           
                           ),
                  tabPanel("KEGG分析",
@@ -171,7 +173,7 @@ sidebarLayout(
                           #HTML("Down genes"),
                           dataTableOutput("KEGGTable_down"),
                           plotOutput("KEGGplot_down"),
-                          downloadButton("downlodKEGG", "Download KEGG result")
+                          #downloadButton("downlodKEGG", "Download KEGG result")
                           
                           )#KEGG
                )
@@ -181,7 +183,7 @@ sidebarLayout(
       tabPanel("可重复R代码",
                verbatimTextOutput("Code"),
                aceEditor("rmd", mode="markdown", value='',readOnly=T, height="500px"),
-               actionButton("gecode","生成代码")
+               downloadButton("gecode","生成代码")
                ),
       tabPanel("RmarkDown结果",
                uiOutput("RMarkD"),#未实装

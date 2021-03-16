@@ -769,14 +769,14 @@ observeEvent(input$gpl_id_choose,{
   ##4：生成Step2、3的UI
   output$text_step2 <- renderUI({
     HTML("
- <h4><b>Step2. Pre-Process Data</b></h4>
- <p><b>The data has been pre-processed automatically:</b></p>
+ <h4><b>ステップ2. データの前処理</b></h4>
+ <p><b>ダウンロードしたデータを次のように自動的に処理。</b></p>
 <ul> 
-<li>log2-transformation
-<li>Normalization
-<li>Transpose between Prob ID and Gene SYMBOL
+<li>log2変換</li>
+<li>データの正則化</li>
+<li>プローブIDと遺伝子SYMBOLの変換
 </ul>
-<p><b>Results：</b> See Output 1（Data Descriptives）</p>
+<p><b>結果の表示：</b>データの説明欄を確認してください</p>
 ")
     })
 
@@ -786,33 +786,34 @@ observeEvent(input$gpl_id_choose,{
   #Step3分组信息
   output$text_step3 <- renderUI({
     HTML("
- <h4><b>Step3. Group</b></h4>
- <h>Please choose methods，and define the groups。MephasGEO will check the quality of data and reasonability of group</h>
- <h><b>Results：</b>See Output 3（Check Data）</h>
+ <h4><b>ステップ3. グループ化</b></h4>
+ <h>変動遺伝子の分析方法を選んだ上、グループ欄にサンプルのグループ情報を定義してください。MephasGEOは、入力に応じてデータ品質とグループ化の合理性をチェックする。</h>
+ <h><b>結果の表示：</b>データの確認欄を確認してください</h>
 ")
 
   })
   
   #可隐藏部分的勾选框
   output$text_step3_control<-renderUI({
-    checkboxInput("text_step3_control", "Click to see details",
+    checkboxInput("text_step3_control", "より詳細の説明",
                   value=FALSE)
   })
   #可隐藏部分的文字
   output$text_step3_choosetext <- renderUI({
     box(id = "step3text", width = '800px',#title = "Tree Output", 
-        HTML("<h5><b>1. How to choose methods</b></h5>
+        HTML("<h5><b>1:比較方法の選び方</b></h5>
 <ul> 
-<li><b>Between-group comparison：Compare 2 groups or pairs. </b>E.g.,：The purpose of GSE16020 analysis is to compare the difference in gene expression between the control group and the experimental group (autosomal dominant monocytopenia group). We can select the comparison between groups in the following difference comparison methods, and select disease state in the comparison basis, and select none in the random effect.
-<li><b>Within-group comparison：Remove batch effect by paring samples. </b>On the basis of the comparison between the control group and the experimental group, other batch factors affect the experimental results, such as the differences between subjects. The batch element in GSE16020 is the rna isolation method. We can fill in the batch elements in the grouping basis for comparison within the group. And fill in the original disease state of the sample column to be compared in the comparison basis, and select none in the random effect.
-<li><b>Random-effect：Deal with the variablity in repeat measures. </b>When it is necessary to compare the differences within and between the experimental subjects, we can regard the experimental subjects as random effects.
+<li><b>グループ間比較：2つのグループを比較するか、複数のグループの2つのグループを比較する。</b>例：GSE16020分析の目的は、対照群と実験群（常染色体優性単球減少症群）の遺伝子発現の違いを比較することです。 以下の比較基準欄では比較するグループを選択し、比較基準でdisease stateを選択し、変量効果でなしを選択する。</li>
+<li><b>グループ内比較：ペアのサンプルを使用して、バッチ効果を削除する。</b>対照群と実験群の比較の上に、被験者間の違いなど、他のバッチ要因が実験の結果に影響を与える場合を使用する。GSE16020のバッチ要素はRNA分離法である。グループ内比較を選んだ上、比較基準欄にバッチ要素を入力することができる。変量効果で「なし」を選択する。
+另外的具有批次性的要素影响了实验结果，例如被试者之间的差异。GSE16020中的批次要素为rna isolation method。我们可以在组内比较的分组依据中填入该批次要素。并在比较依据中填入原本要比较的样本列disease state，并在随机效应中选中无。
+<li><b>変量効果：同じ被験者が繰り返し測定を行う場合のデータの変動に対処する。</b>実験対象内および実験対象間の差異を比較する必要がある場合、実験対象を変量効果と見なすことができる。
 </ul> 
-<h5><b>2. How to choose group feature</b></h5>
-<b>According to the objective of analysis</b>
+<h5><b>2：グループの特徴の選び方</b></h5>
+<b>分析の主な目的に従って選ぶ</b>
 <ul>
-<li>Refer to the grouping descriptive in Output 2-a. This  gives the statistical information of the original grouping characteristics of the chip.
-<li>Check the output of Table 2-b，The table shows the features that can be selected. Please select the grouping feature that best meets the purpose according to the purpose of analysis（group list）
-<li>If the existing grouping information cannot meet your needs, you can fill in the information in the Group and Block of Table 2-b, and select them in the subsequent operations.
+<li>グループ特徴量の記述欄を参照してください。 このパネルは、チップの元のグループ化できる特徴の情報を提供する。</li>
+<li>グループ情報欄にもグループとして使える特徴量をテーブルの形式で示している。分析の目的に従って、最適なグループ特徴(Group List)を選んでください。</li>
+<li>既存のグループ化情報でニーズを満たせない場合は、グループとブロックカラムに情報を入力し、後続の操作でそれらを選択することも可能である。</li>
 </ul> ")#要隐藏的内容
     )
   })
@@ -827,8 +828,8 @@ observeEvent(input$gpl_id_choose,{
 
   
   output$diffchoice<- renderUI({
-    selectInput("diffchoice", "Differential Analysis Methods", 
-                choices=c("Between-group"="choiceA","Within-group"="choiceB"),
+    selectInput("diffchoice", "差异比较方式", 
+                choices=c("グループ間比較"="choiceA","グループ内比較"="choiceB"),
                 selected=c("choiceA"), multiple=FALSE)
   })
   
@@ -860,32 +861,32 @@ observeEvent(input$gpl_id_choose,{
     
     if(input$diffchoice=="choiceA"){
       output$diffA_tab1 <- renderUI({
-        selectInput("diffA_tab1","Comparison Evidence",choices = colnames(v$dataPchr)[-1],
+        selectInput("diffA_tab1","比較基準",choices = colnames(v$dataPchr)[-1],
                     selected = NULL, multiple = TRUE)
       })
       
       
       #随机效应面板A
       output$diffrandomA<- renderUI({
-        selectInput("diffrandomA", "Random-effects", choices = c("No"="noneinrandom",colnames(v$dataPchr)[- c(1,which(colnames(v$dataPchr) %in% input$diffA_tab1))]),
-                    multiple=FALSE)#selected=list("No"), 
+        selectInput("diffrandomA", "変量効果", choices = c("无"="noneinrandom",colnames(v$dataPchr)[- c(1,which(colnames(v$dataPchr) %in% input$diffA_tab1))]),
+                    multiple=FALSE)#selected=list("无"), 
       })
       
     }else if(input$diffchoice=="choiceB"){
       output$diffB_tab1 <- renderUI({
-        selectInput("diffB_tab1","Group (block)",choices = colnames(v$dataPchr)[-1],
+        selectInput("diffB_tab1","比較基準(block)",choices = colnames(v$dataPchr)[-1],
                     selected = NULL, multiple = FALSE)
       })
       
       output$diffB_tab2 <- renderUI({
-        selectInput("diffB_tab2","Comparison (Treatment)",choices = colnames(v$dataPchr)[- c(1,which(colnames(v$dataPchr) %in% input$diffB_tab1))],#这里还需要去掉1
+        selectInput("diffB_tab2","比較基準(Treatment)",choices = colnames(v$dataPchr)[- c(1,which(colnames(v$dataPchr) %in% input$diffB_tab1))],#这里还需要去掉1
                     selected = NULL, multiple = FALSE)
       })
      # v$delatechoice<-c(input$diffB_tab1,input$diffB_tab2)
       
       #随机效应面板B
       output$diffrandomB<- renderUI({
-        selectInput("diffrandomB", "Random-effects", choices = c("No"="noneinrandom",
+        selectInput("diffrandomB", "変量効果", choices = c("なし"="noneinrandom",
                     colnames(v$dataPchr)[- c(1,which(colnames(v$dataPchr) %in% input$diffB_tab1),which(colnames(v$dataPchr) %in% input$diffB_tab2))]),
                     multiple=FALSE)#selected=list("无"), 
       })
@@ -900,7 +901,7 @@ observeEvent(input$gpl_id_choose,{
   
   #5 生成分析按钮
   output$uploadB1 <- renderUI({
-    actionButton("uploadB1","Data Analysis")
+    actionButton("uploadB1","データ分析")
   })
   
   
@@ -908,7 +909,7 @@ observeEvent(input$gpl_id_choose,{
   
   output$text_Output1a <- renderUI({
     HTML("
- <h4><b>Output 1-a Expression matrix after data processing</b></h4>
+ <h4><b>Output 1-a データ処理後の発現行列</b></h4>
 ")
   })
   
@@ -925,7 +926,7 @@ observeEvent(input$gpl_id_choose,{
   )
   output$text_Output1b <- renderUI({
     HTML("
- <h4><b>Output 1-b Statistical graph of expression values of all samples</b></h4>
+ <h4><b>Output 1-b 発現量のグラフ</b></h4>
  <h5>before normalization</h5>
 ")
   })
@@ -953,12 +954,12 @@ observeEvent(input$gpl_id_choose,{
     output$text_Output1all <- renderUI({
       HTML(
         "
- <h5><b>Explanation</b></h5>
+ <h5><b>結果の説明</b></h5>
  <ul>
- <li>Data is log2 transformed
- <li>Data is normalizaed 
- <li>The pointer of the chip has been converted to the corresponding gene name. (The blank pointer has been deleted, and the expression level of the same gene has been merged)
- <li>Notice: When the data center line of each sample cannot be approximated on a straight line, the results of the difference analysis may have large errors.
+ <li>データはlog2変換された。</li>
+ <li>データは正規化された。</li>
+ <li>チップのプローブ名は、対応する遺伝子名に変換された。 （空白のプローブが削除され、同じ遺伝子の発現レベルがマージされた）</li>
+ <li>注：各サンプルのデータセンターラインを直線で近似できない場合、変動分析の結果に大きな誤差が生じる可能性がある。</li>
  </ul>
 
 ")
@@ -967,12 +968,12 @@ observeEvent(input$gpl_id_choose,{
     output$text_Output1all <- renderUI({
       HTML(
         "
- <h5><b>Explantion</b></h5>
+ <h5><b>結果の説明</b></h5>
  <ul>
- <li>No need to do log2-transformation
- <li>Data is normalizaed 
- <li>The pointer of the chip has been converted to the corresponding gene name. (The blank pointer has been deleted, and the expression level of the same gene has been merged)
- <li>Notice: When the data center line of each sample cannot be approximated on a straight line, the results of the difference analysis may have large errors.
+ <li>データのlog2変換は必要ない。</li>
+ <li>データは正規化された。</li>
+ <li>チップのプローブ名は、対応する遺伝子名に変換された。 （空白のプローブが削除され、同じ遺伝子の発現レベルがマージされた）</li>
+ <li>注：各サンプルのデータセンターラインを直線で近似できない場合、変動分析の結果に大きな誤差が生じる可能性がある。</li>
  </ul>
 
 ")
@@ -981,28 +982,28 @@ observeEvent(input$gpl_id_choose,{
   
   output$text_Output2a <- renderUI({
     HTML("
- <h4><b>Output2-a Feature Descriptive Table</b></h4>
+ <h4><b>Output2-a 特徴記述テーブル</b></h4>
 ")
   })
   output$text_Output2aall <- renderUI({
     HTML("
- <h5><b>说明</b></h5>
- <p>This table counts the sample feature information that comes with the chip, and gives the number of samples in each feature that fall into the corresponding group.</p>
+ <h5><b>説明</b></h5>
+ <p>このテーブルは、チップに付属するサンプルの特徴情報をカウントし、対応する特徴に各グループのサンプル数を示している。</p>
 ")
   })
 
   output$text_Output2b <- renderUI({
     HTML("
- <h4><b>Output2-b Feature Input Table</b></h4>
+ <h4><b>Output2-b 特徴表示テーブル</b></h4>
 ")
   })
   output$text_Output2ball <- renderUI({
     HTML("
- <h5><b>Explantion</b></h5>
- <p>This table gives the characteristics of classification significance.</p>
+ <h5><b>説明</b></h5>
+ <p>このテーブルは、分類として使える特徴を示している。</p>
  <ul>
- <li>You can select existing features, or fill in the grouping method you want in the last two columns of the table.
- <li>To facilitate your management of custom features, we recommended to fill in the features used for grouping in the Group column and fill in the features used for pairing or batch identification in the Block column.
+ <li>既存の特徴をグループ基準として選択するか、テーブルの最後の2列に必要なグループ情報を入力することができる。
+ <li>カスタム機能の管理を容易にするために、グループ化に使用される機能を[グループ]列に入力し、ペアリングまたはバッチ識別に使用される機能を[ブロック]列に入力することをお勧めする。
  </ul>
          ")
   })
@@ -1037,13 +1038,13 @@ observeEvent(input$uploadB1,{
   ##出现step4面板
   output$text_step4 <- renderUI({#s4说明文字
     HTML("
- <h4><b>Step 4. Differential Analysis</b></h4>
- <p><b>After confirming that the data and grouping are correct, please select the two groups you want to compare. </b></p>
+ <h4><b>ステップ4. 変動遺伝子分析</b></h4>
+ <p><b>データとグループ化が正しいことを確認した後、比較する2つのグループを選択してください。</b></p>
 <ul> 
-<li>Only when the format is the control group-the experimental group, the correct up- and down-regulated genes can be obtained.
-<li>If the automatically generated two sets of comparisons are inconsistent with the order you expect, please check the factor conversion box, which will reverse the comparison order.
+<li>フォーマットは対照群-実験群の場合にのみ、正しいUp regulation, Down reguraltion遺伝子を得ることができる。</li>
+<li>自動生成された2セットの比較が期待する順序と一致しない場合は、係数変換ボックスをオンにしてください。これにより、比較の順序が逆になる。</li>
 </ul>
-<p><b>Results </b>See Ouptut 4 Diffetential Analysis</p>
+<p><b>結果の表示：</b>発現変動解析欄を確認して下さい。</p>
 ")
   })
   
@@ -1054,7 +1055,7 @@ observeEvent(input$uploadB1,{
     output$SelecontrastB <- renderUI({})
     
     output$Selecontrast <- renderUI({
-      selectInput("Selecontrast","Choose Comparisons",
+      selectInput("Selecontrast","行う比較を選択してください",
                   choices = v$contrast,
                   multiple = FALSE,
                   selectize = FALSE)
@@ -1064,7 +1065,7 @@ observeEvent(input$uploadB1,{
     output$Selecontrast <- renderUI({})
     
     output$SelecontrastB <- renderUI({
-      selectInput("SelecontrastB","Choose Comparisons",
+      selectInput("SelecontrastB","行う比較を選択してください",
                   choices = v$contrastB,
                   multiple = FALSE,
                   selectize = FALSE)
@@ -1072,12 +1073,12 @@ observeEvent(input$uploadB1,{
     
   }
   output$updownreverse <- renderUI({
-    checkboxInput("updownreverse","Factor Transformation",value=FALSE)#如果有挑上的话代表对照非对照反了 logFC和t取负
+    checkboxInput("updownreverse","因子変換",value=FALSE)#如果有挑上的话代表对照非对照反了 logFC和t取负
   })
   
   
   output$uploadB2 <- renderUI({
-    actionButton("uploadB2","Start Differential Analysis")
+    actionButton("uploadB2","分析実行")
   })
   
     ##part4ui结束
@@ -1115,31 +1116,31 @@ observeEvent(input$uploadB1,{
   
   output$text_Output3a <- renderUI({
     HTML("
- <h4><b>Output3-a Cluster Analysis</b></h4>
+ <h4><b>Output3-a クラスター分析</b></h4>
  
 ")
   })
   output$text_Output3aall <- renderUI({
     HTML("
- <h5><b>Explanation</b></h5>
+ <h5><b>説明</b></h5>
 <ul>
- <li>The graph is a hierarchical clustering graph generated by selecting the 2000 genes with the largest average expression in the expression file (if less than 2000 genes are used, all genes are used).
-<li>If the samples are not separated according to your groupings in the cluster diagram, it means that the data may be affected by other factors (batch effects, etc.), and the accuracy of subsequent analysis may be reduced.
+ <li>発現ファイル内で平均発現が最大の2000個の遺伝子を選択して生成された階層的クラスタリンググラフである。（使用する遺伝子が2000個未満の場合は、すべての遺伝子を用いた）。</li>
+<li>クラスター図のサンプルがグループ化によって分離されていない場合は、データが他の要因（バッチ効果など）の影響を受け、その結果、後続の分析の精度が低下する可能性があることを意味する。</li>
 </ul>
          ")
   })
   
   output$text_Output3b <- renderUI({
     HTML("
- <h4><b>Output3-b PCA</b></h4>
+ <h4><b>Output3-b 主成分分析</b></h4>
 ")
   })
   output$text_Output3ball <- renderUI({
     HTML("
- <h5><b>Explanation</b></h5>
+ <h5><b>説明</b></h5>
 <ul>
- <li>This figure selects the 2000 genes with the largest average expression in the expression file (when less than 2000 genes are used, all genes are used), the principal component analysis is performed, and the previous two independent descriptive variables are used to visualize the sample.
-<li>If the scatter plot generated in this step is not well separated by grouping, it means that the data may be affected by other factors (batch effect, etc.), and the accuracy of subsequent analysis may be reduced.
+ <li>発現ファイルで平均発現が最大の2000個の遺伝子を選択し（2000個未満の遺伝子を使用する場合は、すべての遺伝子を使用）、主成分分析を実行し、前の2つの独立した記述変数を使用してサンプルを可視化している。</li>
+<li>このステップで生成された散布図がグループ化によって十分に分離されていない場合、データが他の要因（バッチ効果など）の影響を受け、結果として後続の分析の精度が低下する可能性があることを意味する。</li>
 </ul>
          ")
   })
@@ -1168,78 +1169,77 @@ observeEvent(input$uploadB2,{
     ##出现step5面板
     output$text_step5 <- renderUI({#s5说明文字
       HTML("
- <h4><b>Step5. Pathway Analysis</b></h4>
- <p><b>After the Differential Analysis is completed, you can perform GO analysis and KEGG analysis on the channel analysis page.</b></p>
-<p><b>Results：</b>See Output 5 Differential Analysis</p>
+ <h4><b>ステップ5.パスウェイ解析</b></h4>
+ <p><b>発現変動遺伝子解析完了後、パスウェイ解析のGO解析とKEGG解析を行うことが可能。</b></p>
+<p><b>結果の表示：</b>パスウェイ解析欄を確認して下さい。</p>
 ")
     })
     
     output$text_Output4a <- renderUI({
       HTML("
- <h4><b>Output4-a Limma Analysis</b></h4>
+ <h4><b>Output4-a Limma分析結果</b></h4>
 ")
     })
     
     output$text_Output4aall <- renderUI({
       HTML("
- <h5><b>Explanation</b></h5>
- <p>The table gives a list of differentially expressed genes analyzed by LIMMA software.</p>
+ <h5><b>説明</b></h5>
+ <p>この表は、Limmaによって得られた発現変動遺伝子のリストである。</p>
   <p> </p>
 <ul>
- <li>logFC: Shows the size of gene difference, the greater the absolute value, the greater the gene difference, the threshold default is 1.
-<li>adj.P.Value：Shows the significance of the difference of the selected gene, the default is 0.05. You can customize the P value to change the confidence interval for screening differential genes. When you do not enter a p-value or enter a non-numeric p-value, the table will return the results of the difference analysis of all genes generated by LIMMA.
+ <li>logFC：遺伝子差のサイズを表す。絶対値が大きいほど、遺伝子差が大きくなり。デフォルトでは、しきい値は1である。</li>
+<li>adj.P.Value：選択した遺伝子の差の有意性を示す。デフォルトは0.05である。 P値をカスタマイズして、発現変動遺伝子をスクリーニングするための信頼区間を変更できる。 p値を入力しない場合、または数値以外のp値を入力した場合、テーブルはLimmaによって生成されたすべての遺伝子の差異分析の結果を返す。</li>
 </ul>
          ")
     })
     
     output$text_Output4b <- renderUI({
       HTML("
- <h4><b>Output4-b Scatter Plot and Boxplot</b></h4>
+ <h4><b>Output4-b 遺伝子発現の散布図と箱ひげ図</b></h4>
 ")
     })
     
     output$text_Output4ball <- renderUI({
       HTML("
- <h5><b>Explantion</b></h5>
- <p>You can view the expression of the gene in different groups of samples by selecting the gene name.</p>
+ <h5><b>説明</b></h5>
+ <p>遺伝子名を選択することにより、サンプルのさまざまなグループで遺伝子の発現を表示できる。</p>
 
                    ")
     })
     
     output$text_Output4c <- renderUI({
       HTML("
- <h4><b>Output4-c Volcano plot</b></h4>
+ <h4><b>Output4-c Volcanoプロット</b></h4>
 ")
     })
     output$text_Output4call <- renderUI({
       HTML("
- <h5><b>Explanation</b></h5>
- <p>The volcano map is used to test whether the differential gene expression obtained is significantly different.</p>
+ <h5><b>説明</b></h5>
+ <p>Volcanoプロットは、得られた変動遺伝子の発現が有意に異なるかどうかを確認するために使用される。</p>
  <p> </p>
   <ul>
- <li>Each point in the figure represents a gene.
-<li>Red dots are genes that are significantly up-regulated. The green dots are genes whose expression is significantly down-regulated. Black dots are genes with no significant differences.
-<li>It can be considered that the absolute value of logFC value is less than 1, adj.P.Value is less than the adj.P.Value selected by the user, there is no significant difference in gene points.
+ <li>各点は遺伝子を表している。</li>
+<li>赤い点は、大幅にアップレギュレートされている遺伝子。 緑の点は、発現が大幅にダウンレギュレートされている遺伝子。 黒い点は有意差のない遺伝子。</li>
+<li>logFC値の絶対値は1未満、adj.P.Valueはユーザーが選択したadj.P.Value未満の場合、有意差はないと考えられる。</li>
  </ul>
          ")
     })
     
     output$text_Output4d <- renderUI({
       HTML("
- <h4><b>Output4-d Heatmap</b></h4>
+ <h4><b>Output4-d ヒートマップ</b></h4>
 ")
     })
     
     output$text_Output4dall <- renderUI({
       HTML("
- <h5><b>Expanation</b></h5>
-<p>The heat map is used to show the expression levels of the top 50 differentially expressed genes in different samples. </p>
-  <p> </p>
-   <ul>
-  <li>The abscissa is the sample name, and the ordinate is the selected differential gene.
-<li>Red dots are genes that are significantly up-regulated. The green dots are genes whose expression is significantly down-regulated. Black dots are genes with no significant differences.
-<li>Red represents the high expression value of the differential gene in the grouped samples, and blue represents the low expression value of the differential gene in the grouped samples.
-  </ul>
+ <h5><b>説明</b></h5>
+ <p>ヒートマップは、さまざまなサンプルで上位50個の変動遺伝子の発現レベルを示す.</p>
+ <p> </p>
+  <ul>
+ <li>横軸はサンプル名、縦軸は選択された変動遺伝子。</li>
+<li>赤色は、グループ化されたサンプルの変動遺伝子の高い発現値を示し、青色は、グループ化されたサンプル中の変動遺伝子の低い発現値を表す。</li>
+ </ul>
          ")
     })
     
@@ -1309,12 +1309,12 @@ observeEvent(input$uploadB2,{
   
   output$Limmaresulttext<- renderUI({
     if(!is.null(v$diffSig) && v$pvalue!=0){
-      p(paste0("P value",v$pvalue,"，Include Differential Genes",nrow(v$diffSig),
-                  "The number of Up-regulated genes",nrow(v$diffUp),"The number of Down-regulate genes",nrow(v$diffDown),"."))
+      p(paste0("選択したP値は",v$pvalue,"，であり、",nrow(v$diffSig),
+                  "個差異遺伝子を有し、",nrow(v$diffUp),"個 up-regulation　遺伝子と",nrow(v$diffDown),"個 down-regulation　遺伝子があった。"))
 #      HTML(paste0("您选择的P值为",v$pvalue,"，包含差异基因",nrow(v$diffSig),
 #                  "个。"))
     }else{
-      p(paste0("You select all data. p is",v$pvalueold),"。")
+      p(paste0("すべてのデータを選択している。 p値は",v$pvalueold),"である。")
     }
 
     
@@ -1328,7 +1328,7 @@ observeEvent(input$uploadB2,{
       #从基因列表中选择基因 
       selectInput( ##type(list) length
         'geneselect',
-        h5('Scatter plot gene selection'),
+        h5('散布図遺伝子の選択'),
         selected = v$rowOrder[1],
         choices = v$rowOrder,
         multiple = FALSE,
@@ -1491,37 +1491,37 @@ observeEvent(input$uploadB2,{
       data.pathway()
       output$text_Output5a <- renderUI({
         HTML("
- <h4><b>Output5-a GO Analysis</b></h4>
+ <h4><b>Output5-a GO解析</b></h4>
 ")
       })
       
       output$text_Output5b <- renderUI({
         HTML("
- <h4><b>Output5-b KEGG Analysis</b></h4>
+ <h4><b>Output5-b KEGG解析</b></h4>
 ")
       })
       
       
       output$text_GOup <- renderUI({
         HTML("
- <h5><b>Up-regulated genes: </b></h5>
+ <h5><b>Up-regulation　遺伝子：</b></h5>
 ")
       })
       
       
       output$text_GOdown <- renderUI({
         HTML("
- <h5><b>Down-regulated genes:</b></h5>
+ <h5><b>Down-regulation　遺伝子：</b></h5>
 ")
       })
       output$text_KEGGup <- renderUI({
         HTML("
- <h5><b>Up-regulated genes:</b></h5>
+ <h5><b>Up-regulation　遺伝子：</b></h5>
 ")
       })
       output$text_KEGGdown <- renderUI({
         HTML("
- <h5><b>Down-regulated genes:</b></h5>
+ <h5><b>Down-regulation　遺伝子：</b></h5>
 ")
       })
       
@@ -1653,9 +1653,9 @@ library(GEOquery)
 library(ggplot2)
 library(limma)
     
-## 下载GEO原始数据
+## GEO生データをダウンロードする
 GSE = \"",GSE,"\"
-data.series = getGEO(GSE,destdir =\".\",getGPL = FALSE)# GEO芯片数据 
+data.series = getGEO(GSE,destdir =\".\",getGPL = FALSE)# GEOチップデータ
     "
 )
   
@@ -1669,7 +1669,7 @@ data.series = getGEO(GSE,destdir =\".\",getGPL = FALSE)# GEO芯片数据
 observe({####第二部分 gpl
   if (!ctrlcode$gpl.code2) return(NULL) #控制为F时，不要运行该部分
   
-  pluscode <- paste0("GPL = \"",input$gpl_id_choose,"\" # 选择的平台
+  pluscode <- paste0("GPL = \"",input$gpl_id_choose,"\" # 選択したGPL
 data.index = match(GPL, sapply(data.series, annotation)) 
 data.p = pData(data.series[[data.index]]) 
 data.expr = exprs(data.series[[data.index]]) 
@@ -1677,8 +1677,8 @@ data.expr = exprs(data.series[[data.index]])
 common = intersect(colnames(data.expr), rownames(data.p)) 
 m1 = match(common, colnames(data.expr)) 
 m2 = match(common, rownames(data.p)) 
-data.expr = data.expr[,m1] # 表达矩阵
-data.p = data.p[m2,] # 分组矩阵
+data.expr = data.expr[,m1] # 発現量マトリックス
+data.p = data.p[m2,] # 分組マトリックス
 
 orgnism = \"",v$organism,"\"
 
@@ -1693,7 +1693,7 @@ fvarLabels(data.series[[data.index]]) = make.names(fvarLabels(data.series[[data.
   if(is.null(v$platformdb)){
     add.code("wrong in platform")
   }else if(v$platformdb[1]==1){
-    pluscode <- paste0("# id转换
+    pluscode <- paste0("# id変換
 BiocManager::install(\"",v$platformdb[2],".db\", update = F, ask = F)
 library(\"",v$platformdb[2],".db\", character.only = T)
 geneid = toTable(get(paste(\"",v$platformdb[2],"\", \"SYMBOL\", sep=\"\")))")
@@ -1701,7 +1701,7 @@ geneid = toTable(get(paste(\"",v$platformdb[2],"\", \"SYMBOL\", sep=\"\")))")
     add.code(pluscode)
     
   }else if(v$platformdb[1]==2){
-    pluscode <- paste0("# id转换
+    pluscode <- paste0("# id変換
 library(idmap2)
 geneid = get_soft_IDs(\"",Gpl,"\")")
     
@@ -1713,9 +1713,9 @@ geneid = get_soft_IDs(\"",Gpl,"\")")
 
 
   pluscode <- paste0("
-geneid = na.omit(geneid) # 删除无对应基因的探针行
+geneid = na.omit(geneid) # 対応する遺伝子のないプローブ行を削除する
   
-ids_h=grep('///',geneid[,2])# 删除对应多个基因的探针行（如果有）
+ids_h=grep('///',geneid[,2])# 複数の遺伝子に対応するプローブ行を削除します（存在する場合）
 if(!is_empty(ids_h)){
   geneid = geneid[-ids_h,] 
 }
@@ -1726,7 +1726,7 @@ geneid = geneid[match(rownames(data.expr),geneid[[1]]),]
 data.expr=as.data.frame(avereps(data.expr,ID=geneid[[2]]))
 
 
-# log2变换判断
+# log2変換判定
 qx = as.numeric(quantile(data.expr, c(0., 0.25, 0.5, 0.75, 0.99, 1.0), na.rm=T))
 LogC = (qx[5] > 100) || (qx[6]-qx[1] > 50 && qx[2] > 0) ||
     (qx[2] > 0 && qx[2] < 1 && qx[4] > 1 && qx[4] < 2)
@@ -1737,10 +1737,10 @@ if (LogC) {
 }
 data.expr = as.data.frame(data.expr) 
 
-# 正交变换
+# 直交変換
 data.expr = normalizeBetweenArrays(data.expr)
 
-# 绘制箱线图
+# 箱ひげ図を描く
 head(data.expr)
 par()
 boxplot(data.expr,outline=FALSE, notch=T, las=2)
@@ -1751,12 +1751,12 @@ boxplot(data.expr,outline=FALSE, notch=T, las=2)
 })
 
 
-observe({## 聚类和分类信息
+observe({## クラスタリングおよび分類情報
   if (!ctrlcode$B1.code3) return(NULL) #控制为F时，不要运行该部分
   
   if(is.null(v$group.list)) return(NULL)
   GG <- as.data.frame(sapply(as.data.frame(v$group.list),as.character))
-  pluscode <- paste0("# 获取分组信息
+  pluscode <- paste0("# グループ情報を取得する
 Group = as.factor(",GG,")")
   add.code(pluscode)
 
@@ -1776,13 +1776,13 @@ Group = as.factor(",GG,")")
   
   
   if(v$diffchoice == "choiceA"){
-    pluscode <- paste0("# 组间差异设计矩阵
+    pluscode <- paste0("# グループ間差分行列
 design = model.matrix(~0+Group)")
     add.code(pluscode)
   }
   
   if(v$diffchoice == "choiceB"){
-    pluscode <- paste0("# 组内差异设计矩阵
+    pluscode <- paste0("# グループ内差分行列
 design = model.matrix(~0+Group+Block)")
     add.code(pluscode)
   }
@@ -1790,7 +1790,7 @@ design = model.matrix(~0+Group+Block)")
   pluscode<-paste0("colnames(design)[1:length(levels(Group))] = levels(Group)
 rownames(design) = colnames(data.expr)
 
-# PCA图生成
+# PCA図を描く
 library(factoextra)
 
 dataex.tr=as.data.frame(t(data.expr))
@@ -1814,7 +1814,7 @@ fviz_pca_ind(dataPCA,
              repel = TRUE
 )
 
-# hclust聚类
+# hclustクラスタリング
 
 rownames(dataex.tr.pca) = paste(rownames(dataex.tr.pca),Group,sep='-')
 datahc = hclust(dist(dataex.tr.pca))
@@ -1849,7 +1849,7 @@ observe({####第四部分 Limma和基因和热图和火山图
     Contr<-paste(hlContr[[1]][2],hlContr[[1]][1],sep="-")
   }
 
-  pluscode<-paste0("## Limma差异分析
+  pluscode<-paste0("## Limma変動解析
 
 contrast.matrix = makeContrasts(contrasts=\"",Contr,"\",levels = design)
 ")
@@ -1866,8 +1866,8 @@ fit.1 = lmFit(data.expr,design,block=Rand,correlation=corfit$consensus)
   add.code(pluscode)
   
   pluscode<-paste0("fit.2 = contrasts.fit(fit.1, contrast.matrix) 
-fit.2 = eBayes(fit.2)# 贝叶斯检验
-# 差异结果
+fit.2 = eBayes(fit.2)# ベイジアン検定
+# 差異の結果
 all.diff = topTable(fit.2,adjust='fdr',coef=1,sort.by = \"p\",number=Inf) 
 all.diff = na.omit(all.diff) ")
   add.code(pluscode)
@@ -1879,10 +1879,10 @@ all.diff$change = ifelse(all.diff$adj.P.Val < ",v$pvalueold," & abs(all.diff$log
 ")  
   add.code(pluscode)
   
-  # 基因图
+  # 遺伝子プロット
   if(!is.null(input$geneselect)){
     if(!is.null(v$pair.list) && v$diffchoice == "choiceB"){
-      pluscode<-paste0("# 基因配对点图
+      pluscode<-paste0("# 遺伝子ペアリングドットマップ
     data.plot = data.frame(pairinfo=Block,
                         group=Group,
                         dataex.tr,stringsAsFactors = F)
@@ -1895,7 +1895,7 @@ ggplot(data.plot, aes(group,data.plot[,\"",input$geneselect,"\"],fill=group)) +
   theme_classic()+
   theme(legend.position = \"none\")")
     }else{
-      pluscode<-paste0("# 基因配对点图
+      pluscode<-paste0("# 遺伝子ペアリングドットマップ
 data.plot = data.frame(group=Group,
                         dataex.tr,stringsAsFactors = F)
 
@@ -1915,7 +1915,7 @@ ggplot(data.plot, aes(group,data.plot[,\"",input$geneselect,"\"] ,fill=group)) +
   }
   
   
-  pluscode<-paste0("# 火山图
+  pluscode<-paste0("# Volcanoプロット
 xMax = max(-log10(all.diff$adj.P.Val))   
 yMax = max(abs(all.diff$logFC))
 library(ggplot2)
@@ -1939,7 +1939,7 @@ ggplot(data= all.diff, aes(x = -log10(adj.P.Val), y = logFC, color = change)) +
   
   
   
-  pluscode<-paste0("# 热图
+  pluscode<-paste0("# ヒートマップ
 library(tidyverse)
 library(pheatmap)
 
@@ -1982,7 +1982,7 @@ observe({#GO KEGG 代码区
   if(!is.null(v$orgapack)){
    
     pluscode<-paste0("
-## 富集分析
+## パスウェイ解析
 library(clusterProfiler)
 all.diff =all.diff[-grep(\"NOT\",all.diff$change),]
 geneup = rownames(all.diff[grep(\"UP\",all.diff$change),])
@@ -2000,18 +2000,18 @@ ENTREZ.ID.DOWN = genedown$ENTREZID ")
     
     
   }else{
-    pluscode<-paste0("# 没有种族信息或没有对应注释包 无法进行通道分析")
+    pluscode<-paste0("# レース情報や対応するコメントパッケージはありません。 パスウェイ解析できない。")
     add.code(pluscode)
     ctrlcode$GOKE.code5 <- FALSE
     return(NULL)
   }
   
   
-  pluscode<-paste0("## GO分析
+  pluscode<-paste0("## GO解析
 go.up = enrichGO(ENTREZ.ID.UP, OrgDb = \"",v$orgapack,"\", ont=\"all\")
 go.down = enrichGO(ENTREZ.ID.DOWN, OrgDb = \"",v$orgapack,"\", ont=\"all\")
 
-# 上调基因
+# Up-regulation　遺伝子
 Gt.up = as.data.frame(summary(go.up)) # table 
 colnames(Gt.up) = gsub(\" \", \"\", colnames(Gt.up))
 Gt.up = Gt.up[,!colnames(Gt.up) %in% c(\"geneID\")]
@@ -2021,7 +2021,7 @@ Gt.up = Gt.up[ordgou,]
 head(Gt.up)
 barplot(go.up, split=\"ONTOLOGY\") +facet_grid(ONTOLOGY~., scale=\"free\")
 
-# 下调基因
+# Down-regulation　遺伝子
 Gt.down = as.data.frame(summary(go.down)) # table 
 colnames(Gt.down) = gsub(\" \", \"\", colnames(Gt.down))
 Gt.down = Gt.down[,!colnames(Gt.down) %in% c(\"geneID\")]
@@ -2033,9 +2033,9 @@ barplot(go.down, split=\"ONTOLOGY\") +facet_grid(ONTOLOGY~., scale=\"free\")
 
 
 
-## KEGG分析
+## KEGG解析
 
-# 上调基因
+# Up-regulation　遺伝子
 KEGG.up = enrichKEGG(ENTREZ.ID.UP,
                    organism     = \"",v$keggpack,"\",
                    pvalueCutoff = 0.05)
@@ -2049,7 +2049,7 @@ Et.up = Et.up[ordgouk,]
 head(Et.up)
 barplot(KEGG.up)
 
-# 下调基因             
+# Down-regulation　遺伝子           
 KEGG.down = enrichKEGG(ENTREZ.ID.DOWN,
                    organism     = \"",v$keggpack,"\",
                    pvalueCutoff = 0.05)
@@ -2068,8 +2068,8 @@ barplot(KEGG.down)
   ctrlcode$GOKE.code5 <- FALSE
 })
 
-#######生成report#######
-#下载markdown report
+#######report生成#######
+#markdown reportをダウンロード
 
 output$downloadreport <- downloadHandler(
   # For PDF output, change this to "report.pdf"

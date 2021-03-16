@@ -1,0 +1,47 @@
+
+
+/*!
+Japanese style sheet
+*/
+
+* {
+ font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック',sans-serif;
+}
+
+body {
+	padding-top: 70px;
+}
+.navbar .navbar-nav { font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック',sans-serif;}
+.navbar.navbar-default.navbar-static-top{ font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック',sans-serif;}
+.navbar .navbar-header { font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック',sans-serif;}
+.navbar-default .navbar-brand { font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック',sans-serif;}
+
+h1,h2,h3{ font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック',sans-serif;}
+.shiny-output-error-validation {
+	color: #4169e1; 
+	font-weight: bold;
+}
+
+.shiny-output-error { 
+	color: #4169e1; 
+	font-weight: bold;
+}
+
+.shiny-output-error:before { 
+	visibility: visible; 
+	content: 'OOps! Something went wrong. Please check your inputs......  '; 
+	color: #ff6347;
+}
+ 
+.selectize-control.single .selectize-dropdown{ 
+	color: grey;
+	font-weight: bold;
+}
+
+.selectize-input { 
+	font-weight: bold;
+}
+
+.selected {
+	font-weight: bold !important;
+}
