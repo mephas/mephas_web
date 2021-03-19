@@ -48,7 +48,7 @@ tablang <- function(name){
         navbarMenu("", icon = icon("globe"),
                    tabPanel(
                            tags$a("",
-                                  target = "_blank",
+                                  #target = "_blank",
                                   #style = "margin-top:-30px; color:DodgerBlue",
                                   href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas_web/",name,"/"),#,
                                   list(icon("EN"), "English"))
@@ -56,7 +56,7 @@ tablang <- function(name){
                    
                    tabPanel(
                            tags$a("",
-                                  target = "_blank",
+                                  #target = "_blank",
                                   #style = "margin-top:-30px; color:DodgerBlue",
                                   href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas_web/",name,"_jp/"),#
                                   list(icon("JP"), "Japanese"))
@@ -64,7 +64,7 @@ tablang <- function(name){
                    tabPanel(
 
                           tags$a("",
-                                target = "_blank",
+                                #target = "_blank",
                                 #style = "margin-top:-30px; color:DodgerBlue",
                                 href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas_web/",name,"_cn/"),#
                                 list(icon("CN"), "Chinese"))
