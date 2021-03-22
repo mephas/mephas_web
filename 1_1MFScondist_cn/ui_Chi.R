@@ -4,35 +4,35 @@ sidebarLayout(
 
 	sidebarPanel(
 	h4(tags$b("第1步  选择数据源")),
-	p("Mathematical-based, simulated-data-based, or user data-based"),
+	p("基于数学公式、模拟数据或用户数据"),
 	#Select Src
 	selectInput(
 	    "InputSrc_x", "Select plot",
-	    c("Mathematical formula based" = "MathDist",
-	      "Simulation data based" = "SimuDist",
-	      "Upload data based" = "DataDist")),
+	    c("基于数学公式" = "MathDist",
+	      "基于模拟数据" = "SimuDist",
+	      "基于用户数据" = "DataDist")),
 	hr(),
 	#Select Src end
-	h4(tags$b("Step 2. Set parameters")),
+	h4(tags$b("第2步 设置参数")),
 
 	#condiPa 1
 	  conditionalPanel(
 	    condition = "input.InputSrc_x == 'MathDist'",
-	    HTML("<b>1. Set Parameters for Chi(v)</b>"),
+	    HTML("<b>1. 设置参数 Chi(v)</b>"),
 	    #HTML("<h4><b>Step 1. Set Parameters for Chi(v)</b></h4>"),
- 		numericInput("x.df", HTML("v > 0, Degree of Freedom = Mean = Variance/2"), value = 4, min = 0),
+ 		numericInput("x.df", HTML("v > 0, 自由度=均值=方差/2"), value = 4, min = 0),
 		hr(),
 
-		numericInput("x.xlim", "Change the range of x-axis, > 0", value = 8, min = 1)
+		numericInput("x.xlim", "改变x轴的范围, x轴须 > 0", value = 8, min = 1)
 	  ),
 	 #condiPa 1 end
 
 	  #condiPa 2
 	  conditionalPanel(
 	    condition = "input.InputSrc_x == 'SimuDist'",
-        numericInput("x.size", "Sample size of simulated numbers", value = 100, min = 1, step = 1),
-        sliderInput("x.bin", "The number of bins in histogram", min = 0, max = 100, value = 0),
-		p("When the number of bins is 0, plot will use the default number of bins")
+        numericInput("x.size", "模拟数据样本量", value = 100, min = 1, step = 1),
+        sliderInput("x.bin", "直方图中柱子的个数", min = 0, max = 100, value = 0),
+		p("如果个数是 0, 直方图将使用默认个数。")
 
 	  ),
 	  #condiPa 2 end
@@ -40,26 +40,26 @@ sidebarLayout(
 	  conditionalPanel(
 	    condition = "input.InputSrc_x == 'DataDist'",
 	    tabsetPanel(
-	       tabPanel("Manual Input",p(br()),
-		p("Data point can be separated by , ; /Enter /Tab /Space"),
-		p(tags$b("Data be copied from CSV (one column) and pasted in the box")),
+	       tabPanel("手动输入",p(br()),
+		p("数据可以用「，」，「分号」，「回车」，「空格」，「制表符」进行分隔。"),
+		p(tags$b("从CSV（一列）复制数据并粘贴到框中")),
 		tags$textarea(
         	id = "x.x", #p
         	rows = 10, "11.92\n1.42\n5.56\n5.31\n1.28\n3.87\n1.31\n2.32\n3.75\n6.41\n3.04\n3.96\n1.09\n5.28\n7.88\n4.48\n1.22\n1.2\n9.06\n2.27"
 			),
-      		p("Missing value is input as NA")
+      		p("缺失值输入NA")
 	     ), #tab1 end
 
 			tabPanel.upload.num(file ="x.file", header="x.header", col="x.col", sep="x.sep")
 
 	    ),
-        sliderInput("bin.x","The number of bins in histogram", min = 0, max = 100, value = 0),
-        p("When the number of bins is 0, plot will use the default number of bins")
+        sliderInput("bin.x","直方图中的分箱数", min = 0, max = 100, value = 0),
+        p("当分箱数为0时，绘图将使用默认分箱数")
 	  ),
 	  #condiPa 3 end
 	  hr(),
-		h4(tags$b("Step 2. Show Probability")),
-		numericInput("x.pr", HTML("Area Proportion Left to Red-line = Pr(X < x<sub>0</sub>), x<sub>0</sub> is the position of Red-line"), value = 0.05, min = 0, max = 1, step = 0.05),
+		h4(tags$b("第3步 显示概率")),
+		numericInput("x.pr", HTML("红线左侧的面积比例 = Pr(X < x<sub>0</sub>), x<sub>0</sub>为红线位置"), value = 0.05, min = 0, max = 1, step = 0.05),
 		hr()
 	), #sidePa end
 
@@ -69,8 +69,8 @@ sidebarLayout(
 
 		conditionalPanel(
 		  condition = "input.InputSrc_x == 'MathDist'",
-		  h4("Mathematical-based Plot"),
-		tags$b("Chi-square distribution plot"),
+		  h4("基于数学公式"),
+		tags$b("卡方分布图"),
 
         plotOutput("x.plot", click = "plot_click5"),
         verbatimTextOutput("x.info"),
@@ -84,19 +84,19 @@ sidebarLayout(
 
 		conditionalPanel(
 		  condition = "input.InputSrc_x == 'SimuDist'",
-		 h4("Simulation-based Plot"),
+		 h4("基于模拟数据的绘图"),
 
-		 tags$b("Histogram from random numbers"),
+		 tags$b("随机数的直方图"),
         plotly::plotlyOutput("x.plot2"),#click = "plot_click6",
 
-        p("When the number of bins is 0, plot will use the default number of bins"),
+        p("如果个数是 0, 直方图将使用默认个数。"),
         #verbatimTextOutput("x.info2"),
-        downloadButton("download6", "Download Random Numbers"),
-        p(tags$b("Sample descriptive statistics")),
+        downloadButton("download6", "随机数下载"),
+        p(tags$b("样本描述性统计量")),
         tableOutput("x.sum"),
         HTML(
     "
-    <b> Explanation </b>
+    <b> 说明 </b>
    <ul>
     <li>  Mean = v </li>
     <li>  SD = sqrt(2v) </li>
@@ -108,16 +108,16 @@ sidebarLayout(
 
 		conditionalPanel(
 		condition = "input.InputSrc_x == 'DataDist'",
-		tags$b("Data preview"),
+		tags$b("数据预览"),
 		DT::DTOutput("XX"),
-		 h4("Distribution of Your Data"),
- 		tags$b("Density from upload data"),
+		 h4("用户数据的绘图"),
+ 		tags$b("上传数据的密度分布"),
         plotly::plotlyOutput("makeplot.x2"),
-        tags$b("Histogram from upload data"),
+        tags$b("上传数据的直方图"),
         plotly::plotlyOutput("makeplot.x1"),
-        tags$b("CDF from upload data"),
+        tags$b("上传数据的累积概率分布（CDF）"),
         plotly::plotlyOutput("makeplot.x3"),
-        p(tags$b("Sample descriptive statistics")),
+        p(tags$b("样本描述性统计量")),
         tableOutput("x.sum2")
 
 		)

@@ -53,7 +53,7 @@ output$xs = renderTable({
   a = qnorm(input$pr, mean = input$mu, sd = input$sigma, lower.tail = TRUE, log.p = FALSE)
   b = 100*pnorm(input$mu+input$n*input$sigma, input$mu, input$sigma)-pnorm(input$mu-input$n*input$sigma, input$mu, input$sigma)
   x <- t(data.frame(x.position = a, blue.area = b))
-  rownames(x) <- c("Red-line Position (x0)", "Blue Area, Probability %")
+  rownames(x) <- c("红线位置 (x0)", "蓝色区域, 概率 %")
   return(x)}, 
   digits = 6, colnames=FALSE, rownames=TRUE, width = "80%")
 

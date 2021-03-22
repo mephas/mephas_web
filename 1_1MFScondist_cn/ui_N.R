@@ -71,7 +71,7 @@ sidebarLayout(
 	), #sidePa end
 
 	mainPanel(
-		h4(tags$b("输出")),
+		h4(tags$b("Outputs")),
 
 		conditionalPanel(
 		  condition = "input.InputSrc == 'MathDist'",
