@@ -154,11 +154,11 @@ body<-dashboardBody(
             
             tags$h3("List of Inputs"),
             
-            colorPickr(inputId = 'fig0_1_0',
-                       selected = "black",
-                       label = 'X Variable',
-                       #  choices = c("fjif",2)
-            ),
+            # colorPickr(inputId = 'fig0_1_0',
+            #            selected = "black",
+            #            label = 'X Variable',
+            #            #  choices = c("fjif",2)
+            # ),
             
             htmlOutput("html.select1"),
             selectInput(inputId = 'ycol',
@@ -197,11 +197,11 @@ body<-dashboardBody(
                       
                       tags$h3("List of Inputs"),
                       
-                      colorPickr(inputId = 'fig1_1_0',
-                                 selected = "black",
-                                 label = 'X Variable',
-                                 #  choices = c("fjif",2)
-                      ),
+                      # colorPickr(inputId = 'fig1_1_0',
+                      #            selected = "black",
+                      #            label = 'X Variable',
+                      #            #  choices = c("fjif",2)
+                      # ),
                       
                       selectInput(inputId = 'ycol',
                                   label = 'Y Variable',
