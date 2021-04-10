@@ -52,30 +52,50 @@ sidebar<-dashboardSidebar(
                  value = "study,TP,FN,FP,TN\n1,12,0,29,289\n2,10,2,14,72\n3,17,1,36,85\n4,13,0,18,67\n5,4,0,21,225\n6,15,2,122,403\n7,45,5,28,34\n8,18,4,69,133\n9,5,0,11,34\n10,8,9,15,96\n11,5,0,7,63\n12,11,2,122,610\n13,5,1,6,145\n14,7,5,25,342\n15,10,1,93,296",
                  rows = 10
                ), icon = icon("keyboard")),
-               menuSubItem(sliderInput("mochifc","Single Selection Probability(FC)",0, 1, 0.5),
+               menuSubItem(sliderInput("mochifc","Assign value for c11",0, 1, 0.5),
                            icon = icon("dashboard")),
                
-               menuSubItem(sliderInput("mochirc","Single Selection Probability(RC)",0, 1, 0.5),
+               menuSubItem(sliderInput("mochirc","Assign initial value for c11",0, 1, 0.5),
                            icon = icon("dashboard")),
-               menuSubItem(textAreaInput(inputId = "plist","Multiple Selection Probabilities",value = "1, 0.9, 0.8, 0.7, 0.6"),
+               menuSubItem(textAreaInput(inputId = "plist","Input Selection Probabilities",value = "1, 0.9, 0.8, 0.7, 0.6"),
                            icon = icon("dashboard"))
               # menuItem("a",tabName="!!!",icon=icon("dashboard"),menuSubItem("m1",tabName = "momo"),menuSubItem("m2",tabName = "momo"))
       )
     ),
 
     sidebarMenu(
-      menuItem('Optinal Settings of Paramaters', tabName = 'menuTwo', icon = icon('code-branch'),
-      menuSubItem(icon=icon("dashboard"),sliderInput("correct.value","correct.value",0,1,0.5)),
-      menuSubItem(icon=icon("dashboard"),switchInput(inputId = "Id015",label = "brem.init",labelWidth = "80px",onLabel = "Set Vector",offLabel = "NUll")),
-      htmlOutput("html.brem.init1"),
-      menuSubItem(icon=icon("dashboard"),sliderInput("b.init1","b.init",0.1,5,0.1)),
-      menuSubItem(icon=icon("dashboard"),sliderInput(inputId = "b.interval1", label = "b.interval", value  = c(0, 2),min = 0,max=10)),
-      menuSubItem(icon=icon("dashboard"),sliderInput(inputId = "a.interval1", label = "a.interval", value  = c(-3, 3),min = -10,max=10)),
+      menuItem('Optinal Settings of Paramaters', 
+               tabName = 'menuTwo', 
+               icon = icon('code-branch'),
+               
+      menuSubItem(icon=icon("dashboard"),
+                  switchInput(inputId = "Id015",
+                              label = "Set initials",
+                              width  = "80px",
+                              onLabel = "Set Initials",
+                              offLabel = "Not Set")),
+      htmlOutput("html.brem.init1", inline = TRUE),
+      menuSubItem(icon=icon("dashboard"),
+                  sliderInput("b.init1",
+                              "Set initial value for b",0.1, 5, 1)),
+      menuSubItem(icon=icon("dashboard"),sliderInput(inputId = "b.interval1", 
+                                                     label = "Set estimation interval", 
+                                                     value  = c(0, 2),
+                                                     min = 0,max=10)),
+      menuSubItem(icon=icon("dashboard"),sliderInput(inputId = "a.interval1", 
+                                                     label = "Set estimation interval for a",
+                                                     value  = c(-3, 3),
+                                                     min = -10,max=10)),
+      
+      menuSubItem(icon=icon("dashboard"),
+                  sliderInput("correct.value",
+                              "Value of Conituity Correction",
+                              0,1,0.5)),
       menuSubItem(
         icon = icon("dashboard"), 
         radioGroupButtons(
         inputId = "Id070",
-        label = "Label",
+        label = "Imputation Method of Conituity Correction",
         choices = c("all", "single"),
         justified = TRUE,
         checkIcon = list(
@@ -90,43 +110,45 @@ sidebar<-dashboardSidebar(
       #   shape = "curve"
       # )
       )
-  ),
-  sidebarMenu(
-    menuItem('Confidence interval of SAUC',tabName = 'menuThree',icon =icon('code-branch'),
-             startExpanded = TRUE,
-             menuSubItem(icon = icon("dashboard"), sliderInput("B","Boostraping times",1,2000,5, step = 100)),
-             
-             menuSubItem(
-               icon = icon("dashboard"),
-               radioGroupButtons(
-               inputId = "ci.level1",
-               label = "Level of alpha",
-               choices = c("0.90", "0.95", "0.99"),
-               selected = "0.95",
-               justified = TRUE,
-               checkIcon = list(
-                 yes = icon("ok", lib = "glyphicon"))
-             )),
-             
-             menuSubItem(icon = icon("dashboard"), textAreaInput("set.seed1", "Set a seed", 2021)),
-             menuSubItem(icon = icon("desktop"),
-               actionBttn(
-                 inputId = "Id114",
-                 label = "Calculate CI", 
-                 style = "gradient",
-                 color = "danger",
-                 icon = icon("thumbs-up")
-             )
-             )
-             # prettyCheckbox(
-             #   inputId = "Id022",
-             #   label = "Click to caluculate the confidence intervals of SAUC", 
-             #   value = FALSE,
-             #   status = "danger",
-             #   shape = "curve"
-             # ),
   ))
-    )
+  
+  # ,
+  # sidebarMenu(
+  #   menuItem('Confidence interval of SAUC',tabName = 'menuThree',icon =icon('code-branch'),
+  #            startExpanded = TRUE,
+  #            menuSubItem(icon = icon("dashboard"), sliderInput("B","Boostraping times",1,2000,5, step = 100)),
+  #            
+  #            menuSubItem(
+  #              icon = icon("dashboard"),
+  #              radioGroupButtons(
+  #              inputId = "ci.level1",
+  #              label = "Level of alpha",
+  #              choices = c("0.90", "0.95", "0.99"),
+  #              selected = "0.95",
+  #              justified = TRUE,
+  #              checkIcon = list(
+  #                yes = icon("ok", lib = "glyphicon"))
+  #            )),
+  #            
+  #            menuSubItem(icon = icon("dashboard"), textAreaInput("set.seed1", "Set a seed", 2021)),
+  #            menuSubItem(icon = icon("desktop"),
+  #              actionBttn(
+  #                inputId = "Id114",
+  #                label = "Calculate CI", 
+  #                style = "gradient",
+  #                color = "danger",
+  #                icon = icon("thumbs-up")
+  #            )
+  #            )
+  #            # prettyCheckbox(
+  #            #   inputId = "Id022",
+  #            #   label = "Click to caluculate the confidence intervals of SAUC", 
+  #            #   value = FALSE,
+  #            #   status = "danger",
+  #            #   shape = "curve"
+  #            # ),
+  # ))
+
 #=================================================================================================================================================
 body<-dashboardBody( 
   fluidRow(  tabBox(title = "",width = 6,tabPanel("Raw Input Data","data",dataTableOutput("default"))) ,
@@ -153,12 +175,19 @@ body<-dashboardBody(
             
             tags$h3("List of Inputs"),
             
+
             colorPickr(inputId = 'fig0_1_0',
                        selected = "black",
                        label = 'X Variable',
                        #  choices = c("fjif",2)
             ),
-            
+
+            # colorPickr(inputId = 'fig0_1_0',
+            #            selected = "black",
+            #            label = 'X Variable',
+            #            #  choices = c("fjif",2)
+            # ),
+
             htmlOutput("html.select1"),
             selectInput(inputId = 'ycol',
                         label = 'Y Variable',
@@ -195,13 +224,14 @@ body<-dashboardBody(
                     dropdownButton(
                       
                       tags$h3("List of Inputs"),
-                      
-                      colorPickr(inputId = 'fig1_1_0',
-                                 selected = "black",
-                                 label = 'X Variable',
-                                 #  choices = c("fjif",2)
-                      ),
-                      
+                    
+
+                      # colorPickr(inputId = 'fig1_1_0',
+                      #            selected = "black",
+                      #            label = 'X Variable',
+                      #            #  choices = c("fjif",2)
+                      # ),
+
                       selectInput(inputId = 'ycol',
                                   label = 'Y Variable',
                                   choices = names(iris),
@@ -244,6 +274,7 @@ body<-dashboardBody(
   
   #),
 #),
+
 fluidRow(
   tabBox(
     # Title can include an icon
@@ -255,22 +286,24 @@ fluidRow(
     title = tagList(shiny::icon("gear"), "Parameters2"),
     tabPanel("Par2","Estimated SROC when c11 and c22 are assigned by the specific values",
              dataTableOutput("sarc1"))
-)),
-fluidRow(
-  
-  tabBox(title = tagList(icon("gear"),"SAUC1"),selected = "Estimates",
-         tabPanel("Estimates",
-                  "Estimates",
-                  dataTableOutput("SAUC1Table")),
-         tabPanel("Plot","Plot",
-                  plotOutput("SAUC1Plot", 
-                             width = "400px", height = "400px"))),
-  
-  tabBox(title = tagList(icon("gear"),"SAUC2"),selected = "Estimates",
-         tabPanel("Estimates","Estimates",dataTableOutput("SAUC2Table")),
-         tabPanel("Plot","Plot",plotOutput("SAUC2Plot", width = "400px", height = "400px")))
-  
 ))
+# ,
+# fluidRow(
+#   
+#   tabBox(title = tagList(icon("gear"),"SAUC1"),selected = "Estimates",
+#          tabPanel("Estimates",
+#                   "Estimates",
+#                   dataTableOutput("SAUC1Table")),
+#          tabPanel("Plot","Plot",
+#                   plotOutput("SAUC1Plot", 
+#                              width = "400px", height = "400px"))),
+#   
+#   tabBox(title = tagList(icon("gear"),"SAUC2"),selected = "Estimates",
+#          tabPanel("Estimates","Estimates",dataTableOutput("SAUC2Table")),
+#          tabPanel("Plot","Plot",plotOutput("SAUC2Plot", width = "400px", height = "400px")))
+#   
+# )
+)
 
 ui<-dashboardPage(dashboardHeader(title = "DTA-META-SA"),sidebar,body)
 
