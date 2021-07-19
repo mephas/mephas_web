@@ -12,8 +12,8 @@ if(!input$newcol){
     else{
     csv <- read.csv(inFile$datapath, header = input$newheader, sep = input$newsep, quote=input$newquote, row.names=1)
     }
-    validate( need(ncol(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
-    validate( need(nrow(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
+    validate( need(ncol(csv)>1, "Please check your data (nrow>=1, ncol>=1), valid row names, column names, and spectators") )
+    validate( need(nrow(csv)>1, "Please check your data (nrow>=1, ncol>=1), valid row names, column names, and spectators") )
 
   x <- as.data.frame(csv)
 }
