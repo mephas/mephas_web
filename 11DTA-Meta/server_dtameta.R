@@ -4,7 +4,7 @@
  p.10 <- seq(1, 0.1, -0.1)
 
 data<-reactiveVal(NULL)
-md <- reactive(madad(data()))
+md <- reactive(mada::madad(data()))
 p.seq<-eventReactive(input$calculateStart,as.numeric(unlist(strsplit(input$plist, "[,;\n\t]"))))
 logitData<-eventReactive(input$calculateStart,logit.data(correction(data(), type = input$allsingle)))
 ###data preculculate=====
