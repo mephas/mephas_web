@@ -60,14 +60,14 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","S
                                                                                              #, width = "400px", height = "400px"
                                                                                   ),
                                                                                   downloadButton("downloadsrocA","Save Image"))
-                                                                           # ,column(width = 6,"Probit of α and β","Estimated SROC when c11 and c22 are estimated",
-                                                                           #         plotOutput("sauc"
-                                                                           #                    #, width = "400px", height = "400px"
-                                                                           #         ),
-                                                                           #         downloadButton("downloadsauc","Save Image"))
-                                                                           # ,column(width = 6,"SAUC","Estimates when c11 and c22 are assigned by the specific values",
-                                                                           #         plotOutput("curveAandB"),
-                                                                           #         downloadButton("downloadcurveAandB","Save Image"))
+                                                                           ,column(width = 6,"Probit of α and β","Estimated SROC when c11 and c22 are estimated",
+                                                                                   plotOutput("sauc"
+                                                                                              #, width = "400px", height = "400px"
+                                                                                   ),
+                                                                                   downloadButton("downloadsauc","Save Image"))
+                                                                           ,column(width = 6,"SAUC","Estimates when c11 and c22 are assigned by the specific values",
+                                                                                   plotOutput("curveAandB"),
+                                                                                   downloadButton("downloadcurveAandB","Save Image"))
                                                                           )
                                             )
                                           )
