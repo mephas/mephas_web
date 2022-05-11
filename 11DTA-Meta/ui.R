@@ -7,6 +7,7 @@ if (!requireNamespace("ggplot2",quietly = TRUE)) {install.packages("ggplot2")}; 
 if (!requireNamespace("DT", quietly = TRUE)) {install.packages("DT")}; require("DT",quietly = TRUE)
 if (!requireNamespace("meta", quietly = TRUE)) {install.packages("meta")}; require("meta",quietly = TRUE)
 if (!requireNamespace("mada", quietly = TRUE)) {install.packages("mada")}; require("mada",quietly = TRUE)
+if (!requireNamespace("dtametasa", quietly = TRUE)) {install.packages("dtametasa")}; require("dtametasa",quietly = TRUE)
 
 source("function.R")
 #source("./ui_dtameta.R",local = TRUE)
