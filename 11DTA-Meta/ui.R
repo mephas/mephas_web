@@ -29,7 +29,7 @@ source("../tab/func.R")
 # }
 tagList(includeCSS("../www/style.css"),
         stylink(),
-  hr(),hr(),tabOF(),
+  tabOF(),
         
 navbarPage(
   theme = shinythemes::shinytheme("cerulean"),

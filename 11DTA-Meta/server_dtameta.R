@@ -95,7 +95,7 @@ est.sauc01 <-eventReactive(input$calculateStart,
 #data input=================================================================================
 output$RawData<-DT::renderDataTable({
   inFile1 <- input$filer
-  if (is.null(inFile1)||input$manualInputTRUE){
+  if (is.null(inFile1)||input$manualInputTRUE=='Manual input'){
     DATA<-read.table(text=input$manualInput,sep = ",",header = TRUE)
     validate(need(DATA$TP,"Data must contain TP"),
              need(DATA$FN,"Data must contain FN"),
