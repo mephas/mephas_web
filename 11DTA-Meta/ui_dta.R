@@ -32,8 +32,52 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","S
                                           sidebarLayout(
                                             sidebarPanel(width = 3,
                                                          icon("keyboard"),
-                                                         textAreaInput(inputId = "plist","Multiple Selection Probabilities(0<p<1)",value = "1, 0.8, 0.6, 0.4"),
-                                                         icon("calendar"),
+                                                         textAreaInput(inputId = "plist","Multiple Selection Probabilities(0<p<1)",value = "1,0.8,0.6,0.4"),
+                                                         verbatimTextOutput("uiprob"),icon("calendar"),
+                                                         
+#                                                          HTML('<FORM>
+# テキストボックス
+# <input type="text" value="" onInput="checkForm(this)">
+#  
+# テキストエリア
+# <textarea rows="2" onInput="checkForm(this)"></textarea>
+# </FORM>
+#  
+# <script type="text/javascript">
+# <!--
+# function checkForm($this)
+# {
+#     var str=$this.value;
+#     while(str.match(/[^A-Z^a-z\d\-]/))
+#     {
+#         str=str.replace(/[^A-Z^a-z\d\-]/,"");
+#     }
+#     $this.value=str;
+# }
+# //-->
+# </script>'),
+                                                    HTML('<FORM>aA
+                                                         <input type="text" value="" onInput="checkForm(this)">
+                                                         a
+                                                         <textarea rows="2" onInput="checkForm(this)"></textarea>
+                                                         </FORM><script type="text/javascript">
+                                                          <!--
+                                                         function checkForm($this)
+                                                         {
+                                                         var str=$this.value;
+                                                         while(str.match(/[^A-Z^a-z\\d\\-\\,]/))
+                                                         {
+                                                         str=str.replace(/[^A-Z^a-z\\d\\-\\,]/,"");
+                                                         }
+                                                         $this.value=str;
+                                                         }
+                                                         //-->
+                                                         </script>'),
+                                                        HTML('<FORM>aA
+                                                         <input type="text" value="" pattern="^[\\d,.]+$">
+                                                         a
+                                                         <textarea rows="2" onInput="checkForm(this)"></textarea>
+                                                         </FORM>'),
                                                          radioGroupButtons(
                                                            inputId = "Sauc1",
                                                            label = "Sauc type",
@@ -60,11 +104,11 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","S
                                                                                              #, width = "400px", height = "400px"
                                                                                   ),
                                                                                   downloadButton("downloadsrocA","Save Image"))
-                                                                           ,column(width = 6,"Probit of α and β","Estimated SROC when c11 and c22 are estimated",
-                                                                                   plotOutput("sauc"
-                                                                                              #, width = "400px", height = "400px"
-                                                                                   ),
-                                                                                   downloadButton("downloadsauc","Save Image"))
+                                                                           # ,column(width = 6,"Probit of α and β","Estimated SROC when c11 and c22 are estimated",
+                                                                           #         plotOutput("sauc"
+                                                                           #                    #, width = "400px", height = "400px"
+                                                                           #         ),
+                                                                           #         downloadButton("downloadsauc","Save Image"))
                                                                            ,column(width = 6,"SAUC","Estimates when c11 and c22 are assigned by the specific values",
                                                                                    plotOutput("curveAandB"),
                                                                                    downloadButton("downloadcurveAandB","Save Image"))

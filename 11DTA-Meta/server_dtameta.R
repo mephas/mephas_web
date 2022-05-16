@@ -5,16 +5,28 @@
 
 data<-reactiveVal(NULL)
 md <- reactive(mada::madad(data()))
-p.seq<-eventReactive(input$calculateStart,as.numeric(unlist(strsplit(input$plist, "[,;\n\t]"))))
+p.seq<-reactive(as.numeric(unlist(strsplit(input$plist, "[,;\n\t\r]"))))
+output$uiprob<-renderText({
+ # validate(sapply(p.seq(),function(p)need(p<=1,"a")))
+  validate(need(identical(p.seq()<=1&p.seq()>=0,rep(TRUE,length(p.seq()))),p.seq()[p.seq()<=1&p.seq()>=0,na.rm = FALSE]))
+  paste("p=",p.seq()," ",sep = "")})
 logitData<-eventReactive(input$calculateStart,logit.data(correction(data(), type = input$allsingle)))
 ###data preculculate=====
 est2<-eventReactive(input$calculateStart,
                     withProgress(message = 'Calculation RC1',
                                  detail = 'This may take a while...', value = 0,
-                                 {sapply(p.seq(), function(p) {
+                                 {
+                    # validate(need(p.seq()<=1,"p.seq()"),
+                    #          need(p.seq()>=0,"mochi") #,
+                    #          # need(p.seq()[1]<=1,"nmo"))
+                    # )
+                                   print(p.seq())
+                                   #validate(need(identical(p.seq()<=1&p.seq()>=0,rep(TRUE,length(p.seq()))),"p.seq()"))
+                                   
+                                   sapply(p.seq(), function(p) {
                                    incProgress(1/length(p.seq()))
                                    
-                                   opt2 <- dtametasa.rc(data(), p, c1.square0 = 0.5, beta.interval = c(0,2), sauc.type = input$Sauc1)
+                                   opt2 <- dtametasa.rc(data(), p, c1.square0 = 0.5, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
                                    
                                    c(conv = opt2$convergence, opt2$sauc.ci, opt2$mu1.ci[4:6], opt2$mu2.ci[4:6], opt2$beta.ci, opt2$alpha, opt2$par)
                                    # })
@@ -25,7 +37,7 @@ est11<-eventReactive(input$calculateStart,
                                   {sapply(p.seq(), function(p) {
                                     incProgress(1/length(p.seq()))
                                     
-                                    opt1 <- dtametasa.fc(data(), p, c1.square = 0.5, beta.interval = c(0,2), sauc.type = input$Sauc1)
+                                    opt1 <- dtametasa.fc(data(), p, c1.square = 0.5, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
                                     
                                     c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(0.5))
                                     
@@ -36,7 +48,7 @@ est10<-eventReactive(input$calculateStart,
                                   {sapply(p.seq(), function(p) {
                                     incProgress(1/length(p.seq()))
                                     
-                                    opt1 <- dtametasa.fc(data(), p, c1.square = 1, beta.interval = c(0,2), sauc.type = input$Sauc1)
+                                    opt1 <- dtametasa.fc(data(), p, c1.square = 1, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
                                     
                                     c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(1))
                                     
@@ -47,7 +59,7 @@ est01 <-eventReactive(input$calculateStart,
                                    {sapply(p.seq(), function(p) {
                                      incProgress(1/length(p.seq()))
                                      
-                                     opt1 <- dtametasa.fc(data(), p, c1.square = 0, beta.interval = c(0,2), sauc.type = input$Sauc1)
+                                     opt1 <- dtametasa.fc(data(), p, c1.square = 0, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
                                      
                                      c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(0))
                                      
@@ -57,7 +69,7 @@ est.sauc2 <-eventReactive(input$calculateStart,
                                        detail = 'This may take a while...', value = 0,
                                        {sapply(p.10, function(p) {
                                          incProgress(1/10)
-                                         opt2 <- dtametasa.rc(data(), p, beta.interval = c(0,2), sauc.type = input$Sauc1)
+                                         opt2 <- dtametasa.rc(data(), p, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
                                          c(opt2$sauc.ci)
                                        })}))
 est.sauc11 <-eventReactive(input$calculateStart,
@@ -66,7 +78,7 @@ est.sauc11 <-eventReactive(input$calculateStart,
                                         {sapply(p.10, function(p) {
                                           incProgress(1/10)
                                           
-                                          opt1 <- dtametasa.fc(data(), p,  c1.square=0.5, beta.interval = c(0,2), sauc.type =  input$Sauc1)
+                                          opt1 <- dtametasa.fc(data(), p,  c1.square=0.5, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle)
                                           
                                           c(opt1$sauc.ci)
                                         })}))
@@ -76,7 +88,7 @@ est.sauc10 <-eventReactive(input$calculateStart,
                                         {sapply(p.10, function(p) {
                                           incProgress(1/10)
                                           
-                                          opt1 <- dtametasa.fc(data(), p,  c1.sq = 1, beta.interval = c(0,2), sauc.type =input$Sauc1)
+                                          opt1 <- dtametasa.fc(data(), p,  c1.sq = 1, beta.interval = c(0,2), sauc.type =input$Sauc1,correct.type = input$allsingle)
                                           
                                           c(opt1$sauc.ci)
                                           
@@ -87,7 +99,7 @@ est.sauc01 <-eventReactive(input$calculateStart,
                                         {sapply(p.10, function(p) {
                                           
                                           incProgress(1/10)
-                                          opt1 <- dtametasa.fc(data(), p,  c1.sq = 0, beta.interval = c(0,2), sauc.type = input$Sauc1)
+                                          opt1 <- dtametasa.fc(data(), p,  c1.sq = 0, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
                                           
                                           c(opt1$sauc.ci)
                                           
@@ -97,20 +109,26 @@ output$RawData<-DT::renderDataTable({
   inFile1 <- input$filer
   if (is.null(inFile1)||input$manualInputTRUE=='Manual input'){
     DATA<-read.table(text=input$manualInput,sep = ",",header = TRUE)
-    validate(need(DATA$TP,"Data must contain TP"),
-             need(DATA$FN,"Data must contain FN"),
-             need(DATA$TN,"Data must contain TN"),
-             need(DATA$FP,"Data must contain FP"))
+    validate(need(DATA$TP & DATA$FN & DATA$TN & DATA$FP,"Data must contain TP,FN,TN,FP"))
     data(DATA)
     return(DATA)
   }
   else{
     list1<-read.csv(inFile1$datapath, header=TRUE)
-    validate(need(list1$TP,"Data must contain TP"),
-             need(list1$FN,"Data must contain FN"),
-             need(list1$TN,"Data must contain TN"),
-             need(list1$FP,"Data must contain FP"),
-             showModal(modalDialog(title = "エラー", "Data must contain TP,FP,FN,TP", easyClose = TRUE, footer = modalButton("OK"))))
+    # validate(need(list1$TP,#"Data must contain TP",
+    #               showModal(modalDialog(title = "Warning", "Data must contain TP,FP,FN,TP", easyClose = TRUE, footer = modalButton("OK")))),
+    #          need(list1$FN,"Data must contain FN",
+    #               showModal(modalDialog(title = "Warning", "Data must contain TP,FP,FN,TP", easyClose = TRUE, footer = modalButton("OK")))
+    #               ),
+    #          need(list1$TN,"Data must contain TN",
+    #               showModal(modalDialog(title = "Warning", "Data must contain TP,FP,FN,TP", easyClose = TRUE, footer = modalButton("OK")))
+    #               ),
+    #          need(list1$FP,"Data must contain FP",
+    #               showModal(modalDialog(title = "Warning", "Data must contain TP,FP,FN,TP", easyClose = TRUE, footer = modalButton("OK")))
+    #               ))
+    #validate(need(list1$TP & list1$FN & list1$TN & list1$FP,showModal(modalDialog(title = "Warning", "Data must contain TP,FP,FN,TP", easyClose = TRUE, footer = modalButton("OK")))))
+    validate(need(list1$TP & list1$FN & list1$TN & list1$FP,"Data must contain TP,FP,FN,TP"))
+
     list2<-read.csv(inFile1$datapath, header=FALSE)
     data(list1)
     df<-datatable(list1)
@@ -197,6 +215,9 @@ output$srocA<-renderPlot({
   sp <- data()$TN/(data()$TN+data()$FP)
   se <- data()$TP/(data()$TP+data()$FN)
   #p.seq<- as.numeric(unlist(strsplit(input$plist, "[,;\n\t]")))
+  withProgress(message = 'Calculation in progress(1/2)',
+               detail = 'This may take a while...(SROC)', value = 0,
+               {
   legend.cex <- 1
   col <- 1:4
   title.cex <- 1.5
@@ -204,19 +225,24 @@ output$srocA<-renderPlot({
   est2.par  <- est2()[15:19,]
   sauc2  <- est2()[2,]
   
+  incProgress(1/4)
   ##B=======#   
   ## ESITMATION WHEN c1 = c2
   est11.par <- est11()[15:19,]
   sauc11 <- est11()[2,]   
   
+  incProgress(1/4)
   est10.par<-est10()[15:19,]
+  
+  incProgress(1/4)
   est01.par <- est01()[15:19,]
+  
   sauc10 <- est10()[2,]
   sauc01 <- est01()[2,]
   # incProgress(1/20)
   plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1),
        xlab = "", ylab = "")
-  SROC(est2.par, addon  = TRUE, sauc.type = c("sroc", "hsroc")[1])
+  SROC(est2.par, addon  = TRUE, sauc.type = input$Sauc1)
   
   legend("bottomright",
          bty='n',
@@ -231,7 +257,7 @@ output$srocA<-renderPlot({
   plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1), 
        xlab = "",
        yaxt = "n")
-  SROC(est11.par, addon = TRUE, sauc.type = c("sroc", "hsroc")[1])
+  SROC(est11.par, addon = TRUE, sauc.type = input$Sauc1)
   legend("bottomright", 
          bty='n',
          legend = c(sprintf("p = %.1f, SAUC = %.3f", p.seq(), sauc11)), 
@@ -245,7 +271,7 @@ output$srocA<-renderPlot({
   plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1), 
        xlab = "",
        yaxt = "n")
-  SROC(est10.par, addon = TRUE, sroc.type = c("sroc", "hsroc"))
+  SROC(est10.par, addon = TRUE, sroc.type = input$Sauc1)
   legend("bottomright", 
          bty='n',
          legend = c(sprintf("p = %.1f, SAUC = %.3f", p.seq(), sauc10)), 
@@ -259,7 +285,7 @@ output$srocA<-renderPlot({
   plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1), 
        xlab = "",
        yaxt = "n")
-  SROC(est01.par, addon = TRUE, sroc.type = c("sroc", "hsroc"))
+  SROC(est01.par, addon = TRUE, sroc.type = input$Sauc1)
   legend("bottomright", 
          bty='n',
          legend = c(sprintf("p = %.1f, SAUC = %.3f", p.seq(), sauc01)), 
@@ -268,7 +294,7 @@ output$srocA<-renderPlot({
   title("(D)", adj = 0, font.main = 1, cex.main = title.cex)
   title(TeX("$(c_1,\\, c_2) = (0,\\, 1)$"), cex.main = title.cex)
   title(xlab = "FPR", line=2, cex = 0.7)
-  
+               })
 })
 #download sroc====================================
 output$downloadsrocA<-downloadHandler(filename = "SROC.png",content = function(file){
@@ -294,7 +320,7 @@ output$downloadsrocA<-downloadHandler(filename = "SROC.png",content = function(f
   # incProgress(1/20)
   plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1),
        xlab = "", ylab = "")
-  SROC(est2.par, addon  = TRUE, sauc.type = c("sroc", "hsroc")[1])
+  SROC(est2.par, addon  = TRUE, sauc.type = input$Sauc1)
   
   legend("bottomright",
          bty='n',
@@ -309,7 +335,7 @@ output$downloadsrocA<-downloadHandler(filename = "SROC.png",content = function(f
   plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1), 
        xlab = "",
        yaxt = "n")
-  SROC(est11.par, addon = TRUE, sauc.type = c("sroc", "hsroc")[1])
+  SROC(est11.par, addon = TRUE, sauc.type = input$Sauc1)
   legend("bottomright", 
          bty='n',
          legend = c(sprintf("p = %.1f, SAUC = %.3f", p.seq(), sauc11)), 
@@ -323,7 +349,7 @@ output$downloadsrocA<-downloadHandler(filename = "SROC.png",content = function(f
   plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1), 
        xlab = "",
        yaxt = "n")
-  SROC(est10.par, addon = TRUE, sroc.type = c("sroc", "hsroc"))
+  SROC(est10.par, addon = TRUE, sroc.type = input$Sauc1)
   legend("bottomright", 
          bty='n',
          legend = c(sprintf("p = %.1f, SAUC = %.3f", p.seq(), sauc10)), 
@@ -337,7 +363,7 @@ output$downloadsrocA<-downloadHandler(filename = "SROC.png",content = function(f
   plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1), 
        xlab = "",
        yaxt = "n")
-  SROC(est01.par, addon = TRUE, sroc.type = c("sroc", "hsroc"))
+  SROC(est01.par, addon = TRUE, sroc.type = input$Sauc1)
   legend("bottomright", 
          bty='n',
          legend = c(sprintf("p = %.1f, SAUC = %.3f", p.seq(), sauc01)), 
@@ -353,7 +379,7 @@ output$downloadsrocA<-downloadHandler(filename = "SROC.png",content = function(f
 output$sauc<-renderPlot({
   title.cex <- 1.5
   withProgress(message = 'Calculation in progress(2/2)',
-               detail = 'This may take a while...(FC1~FC4)', value = 0,
+               detail = 'This may take a while...(SAUC)', value = 0,
                {
                  par(mfrow = c(2,2), oma = c(0.2, 3, 0.2, 0.3), mar = c(3, 2, 2, 0.2))
                  
