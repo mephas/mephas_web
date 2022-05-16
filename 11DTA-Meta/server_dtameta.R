@@ -5,10 +5,10 @@
 
 data<-reactiveVal(NULL)
 md <- reactive(mada::madad(data()))
-p.seq<-reactive(as.numeric(unlist(strsplit(input$plist, "[,;\n\t\r]"))))
+p.seq<-reactive(as.numeric(unlist(strsplit(input$mochimochi, "[,;\n\t\r]"))))
 output$uiprob<-renderText({
  # validate(sapply(p.seq(),function(p)need(p<=1,"a")))
-  validate(need(identical(p.seq()<=1&p.seq()>=0,rep(TRUE,length(p.seq()))),p.seq()[p.seq()<=1&p.seq()>=0,na.rm = FALSE]))
+  validate(need(identical(p.seq()<=1&p.seq()>=0,rep(TRUE,length(p.seq()))),paste("Each value must be from 0 to 1.\nEach value must be separated by a space or a comma.",paste(p.seq(),collapse = ","))))
   paste("p=",p.seq()," ",sep = "")})
 logitData<-eventReactive(input$calculateStart,logit.data(correction(data(), type = input$allsingle)))
 ###data preculculate=====

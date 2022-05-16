@@ -35,10 +35,15 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","S
                                                          textAreaInput(inputId = "plist","Multiple Selection Probabilities(0<p<1)",value = "1,0.8,0.6,0.4"),
                                                          verbatimTextOutput("uiprob"),icon("calendar"),
                                                          
+                                                        HTML('<FORM>Multiple Selection Probabilities
+                                                         <input type="text" id="mochimochi" value="1,0.8,0.6,0.4" pattern="^[\\d,.]+$">
+                                                         
+                                                         </FORM>'),
 #                                                          HTML('<FORM>
 # テキストボックス
 # <input type="text" value="" onInput="checkForm(this)">
-#  
+#  a<textarea rows="2" onInput="checkForm(this)"></textarea>
+                                                         
 # テキストエリア
 # <textarea rows="2" onInput="checkForm(this)"></textarea>
 # </FORM>
@@ -56,28 +61,23 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","S
 # }
 # //-->
 # </script>'),
-                                                    HTML('<FORM>aA
-                                                         <input type="text" value="" onInput="checkForm(this)">
-                                                         a
-                                                         <textarea rows="2" onInput="checkForm(this)"></textarea>
-                                                         </FORM><script type="text/javascript">
-                                                          <!--
-                                                         function checkForm($this)
-                                                         {
-                                                         var str=$this.value;
-                                                         while(str.match(/[^A-Z^a-z\\d\\-\\,]/))
-                                                         {
-                                                         str=str.replace(/[^A-Z^a-z\\d\\-\\,]/,"");
-                                                         }
-                                                         $this.value=str;
-                                                         }
-                                                         //-->
-                                                         </script>'),
-                                                        HTML('<FORM>aA
-                                                         <input type="text" value="" pattern="^[\\d,.]+$">
-                                                         a
-                                                         <textarea rows="2" onInput="checkForm(this)"></textarea>
-                                                         </FORM>'),
+                                                    # HTML('<FORM>aA
+                                                    #      <input type="text" value="" onInput="checkForm(this)">
+                                                    #      a
+                                                    #      <textarea rows="2" onInput="checkForm(this)"></textarea>
+                                                    #      </FORM><script type="text/javascript">
+                                                    #       <!--
+                                                    #      function checkForm($this)
+                                                    #      {
+                                                    #      var str=$this.value;
+                                                    #      while(str.match(/[^A-Z^a-z\\d\\-\\,]/))
+                                                    #      {
+                                                    #      str=str.replace(/[^A-Z^a-z\\d\\-\\,]/,"");
+                                                    #      }
+                                                    #      $this.value=str;
+                                                    #      }
+                                                    #      //-->
+                                                    #      </script>'),
                                                          radioGroupButtons(
                                                            inputId = "Sauc1",
                                                            label = "Sauc type",
