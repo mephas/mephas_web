@@ -56,7 +56,7 @@ est01 <-eventReactive(input$calculateStart,
                                      c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(0))
                                      
                                    })}))
-est.sauc2 <-eventReactive(input$calculateStart,
+est.sauc2 <-reactive(#input$calculateStart,
                           withProgress(message = 'Calculation FC1',
                                        detail = 'This may take a while...', value = 0,
                                        {sapply(p.10, function(p) {
@@ -64,7 +64,7 @@ est.sauc2 <-eventReactive(input$calculateStart,
                                          opt2 <- dtametasa.rc(data(), p, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
                                          c(opt2$sauc.ci)
                                        })}))
-est.sauc11 <-eventReactive(input$calculateStart,
+est.sauc11 <-reactive(#input$calculateStart,
                            withProgress(message = 'Calculation FC2',
                                         detail = 'This may take a while...', value = 0,
                                         {sapply(p.10, function(p) {
@@ -74,7 +74,7 @@ est.sauc11 <-eventReactive(input$calculateStart,
                                           
                                           c(opt1$sauc.ci)
                                         })}))
-est.sauc10 <-eventReactive(input$calculateStart,
+est.sauc10 <-reactive(#input$calculateStart,
                            withProgress(message = 'Calculation FC3',
                                         detail = 'This may take a while...', value = 0,
                                         {sapply(p.10, function(p) {
@@ -85,7 +85,7 @@ est.sauc10 <-eventReactive(input$calculateStart,
                                           c(opt1$sauc.ci)
                                           
                                         })}))
-est.sauc01 <-eventReactive(input$calculateStart,
+est.sauc01 <-reactive(#input$calculateStart,
                            withProgress(message = 'Calculation FC4',
                                         detail = 'This may take a while...', value = 0,
                                         {sapply(p.10, function(p) {
@@ -223,7 +223,7 @@ output$srocC<-renderPlot({
   
   data_m<-data.frame(sp,se)
   print(str(data_m))
-  p<-ggplot(data = data_m,mapping = aes(x=1-se,y=sp))+ ylim(0,1)+ xlim(0,1)
+  p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
   p<-p+layer(geom = "point", stat = "identity", position = "identity")
   if(input$calculateStart>0){
      est2.par  <- est2()[15:19,]
@@ -243,7 +243,7 @@ output$srocC<-renderPlot({
     spec <- plogis(par[2, ])
     print(sens)
     print(spec)
-    p<-p+sapply(1:ncol(par),function(i)geom_point(aes(x=1-sens[i],y=spec[i]),color="blue",size=5))
+    p<-p+sapply(1:ncol(par),function(i)geom_point(aes(x=1-spec[i],y=sens[i]),color="blue",size=5))
     
   #p<-p+geom_point(aes(x=1-sens[1],y=spec[1]),color="blue")
    }
