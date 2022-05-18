@@ -113,7 +113,7 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","S
                                                                          plotOutput("curveAandB"),
                                                                          downloadButton("downloadcurveAandB","Save Image"))
                                                                  ,column(width = 6,"mo","momomomo",
-                                                                        plotly::plotlyOutput("srocC")) #plotOutput("srocC")
+                                                                        plotOutput("srocC")) #plotly::plotlyOutput("srocC")
                                    )
                                    )
                                  )

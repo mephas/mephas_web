@@ -225,13 +225,11 @@ output$srocC<-renderPlot({
   print(str(data_m))
   p<-ggplot(data = data_m,mapping = aes(x=1-se,y=sp))+ ylim(0,1)+ xlim(0,1)
   p<-p+layer(geom = "point", stat = "identity", position = "identity")
- # if(!is.null(est2())){
-    
-    est2.par  <- est2()[15:19,]
+  if(input$calculateStart>0){
+     est2.par  <- est2()[15:19,]
     print(est2.par[1,1])
     par <- as.matrix(est2.par)
-    #for (i in 1:ncol(par)) {
-    i<-1
+    p<-p+mapply(function(i) {
     u1 <- par[1, i]
     u2 <- par[2, i]
     t1 <- par[3, i]
@@ -239,10 +237,20 @@ output$srocC<-renderPlot({
     if (input$Sauc1 == "sroc"){
       r <- par[5, i]}
     else{ r <- -1}
-  p<-p+stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)))#}
-#  }
-  plotly::ggplotly(p)
-  
+      stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)))}
+           , 1:ncol(par))
+    sens <- plogis(par[1, ])
+    spec <- plogis(par[2, ])
+    print(sens)
+    print(spec)
+    p<-p+sapply(1:ncol(par),function(i)geom_point(aes(x=1-sens[i],y=spec[i]),color="blue",size=5))
+    
+  #p<-p+geom_point(aes(x=1-sens[1],y=spec[1]),color="blue")
+   }
+  #stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)))#}
+  p<-p+geom_point(aes(x=1,y=0,color="blue",size=5))
+ # plotly::ggplotly(p)
+  p
 })
 #sroc====================================
 output$srocA<-renderPlot({
