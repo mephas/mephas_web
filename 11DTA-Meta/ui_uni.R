@@ -2,12 +2,8 @@ library(shiny)
 library(shinyWidgets)
 
   Uni_Fennel<-fluidPage(plotOutput("uni_fennel_meta"))
-  Uni_Meta_Main<-mainPanel(width=9,fluidRow(column(6,DT::dataTableOutput("rawdata_uni"))),fluidRow(plotOutput("uni_forest_meta_cont"),withTags(label(
-    span("popupを表示"),
-    #   input(type="checkbox", name="checkbox"),
-    div( id="popup",img("https://assets.techacademy.jp/public/logo.png" ,alt="TechAcademy")
-    ))
-  )))
+  Uni_Meta_Main<-mainPanel(width=9,fluidRow(column(6,DT::dataTableOutput("rawdata_uni"))),fluidRow(plotOutput("uni_forest_meta_cont")
+  ))
   Uni_Meta<-fluidPage(sidebarLayout(
     sidebarPanel(width=3,
                  tags$h3("1. Meta "),

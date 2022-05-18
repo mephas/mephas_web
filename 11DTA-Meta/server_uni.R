@@ -21,12 +21,6 @@ output$rawdata_uni<-DT::renderDataTable({
     data_uni$list_uni<- read.csv(filer$datapath)
   }
 })
-# op$meta_uni<-renderPlot({
-#   plot()
-# })
-# op$ui_mate_uni<-renderUI({
-#   
-# })
 ###===================================================
 # output$inputn1<-renderUI({
 #   if(!is.null(data_uni$list_uni)){

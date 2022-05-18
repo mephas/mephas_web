@@ -5,31 +5,23 @@
 
 data<-reactiveVal(NULL)
 md <- reactive(mada::madad(data()))
-p.seq<-reactive(as.numeric(unlist(strsplit(input$mochimochi, "[,;\n\t\r]"))))
+p.seq<-eventReactive(input$calculateStart,as.numeric(unlist(strsplit(input$plist, "[,;\n\t\r]"))))
 output$uiprob<-renderText({
- # validate(sapply(p.seq(),function(p)need(p<=1,"a")))
-  validate(need(identical(p.seq()<=1&p.seq()>=0,rep(TRUE,length(p.seq()))),paste("Each value must be from 0 to 1.\nEach value must be separated by a space or a comma.",paste(p.seq(),collapse = ","))))
-  paste("p=",p.seq()," ",sep = "")})
+  probs<-as.numeric(unlist(strsplit(input$plist, "[,;\n\t\r]")))
+  validate(need(identical(probs<=1&probs>=0,rep(TRUE,length(probs))),paste("Each value must be from 0 to 1.\nEach value must be separated by a space or a comma.",paste(probs,collapse = ","))))
+  paste("p=",probs," ",sep = "")})
 logitData<-eventReactive(input$calculateStart,logit.data(correction(data(), type = input$allsingle)))
 ###data preculculate=====
 est2<-eventReactive(input$calculateStart,
                     withProgress(message = 'Calculation RC1',
                                  detail = 'This may take a while...', value = 0,
                                  {
-                    # validate(need(p.seq()<=1,"p.seq()"),
-                    #          need(p.seq()>=0,"mochi") #,
-                    #          # need(p.seq()[1]<=1,"nmo"))
-                    # )
-                                   print(p.seq())
-                                   #validate(need(identical(p.seq()<=1&p.seq()>=0,rep(TRUE,length(p.seq()))),"p.seq()"))
-                                   
                                    sapply(p.seq(), function(p) {
                                    incProgress(1/length(p.seq()))
                                    
                                    opt2 <- dtametasa.rc(data(), p, c1.square0 = 0.5, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
                                    
                                    c(conv = opt2$convergence, opt2$sauc.ci, opt2$mu1.ci[4:6], opt2$mu2.ci[4:6], opt2$beta.ci, opt2$alpha, opt2$par)
-                                   # })
                                  })}))
 est11<-eventReactive(input$calculateStart,
                      withProgress(message = 'Calculation RC2',
@@ -111,7 +103,13 @@ output$RawData<-DT::renderDataTable({
     DATA<-read.table(text=input$manualInput,sep = ",",header = TRUE)
     validate(need(DATA$TP & DATA$FN & DATA$TN & DATA$FP,"Data must contain TP,FN,TN,FP"))
     data(DATA)
-    return(DATA)
+    datatable(DATA
+              ,extensions = 'Buttons',
+              options=(list(scrollX = TRUE,
+                            dom = 'Blfrtip',
+                            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                            lengthMenu = list(c(12))
+              )))
   }
   else{
     list1<-read.csv(inFile1$datapath, header=TRUE)
@@ -131,7 +129,6 @@ output$RawData<-DT::renderDataTable({
 
     list2<-read.csv(inFile1$datapath, header=FALSE)
     data(list1)
-    df<-datatable(list1)
     y<-""
     for (i in 1:length(list2)){
       if (i==length(list2)) {
@@ -142,7 +139,14 @@ output$RawData<-DT::renderDataTable({
     }
     #y<-paste(list2[[1]],",",list2[[2]],",",list2[[3]],",",list2[[4]],",",list2[[5]],sep =  "")
     updateTextAreaInput(session,"manualInput",value =paste(y,collapse ="\n"))
-    return(df)
+    
+    datatable(list1
+                  ,extensions = 'Buttons',
+                  options=(list(scrollX = TRUE,
+                                dom = 'Blfrtip',
+                                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                                lengthMenu = list(c(12))
+                  )))
   }}
 )
 output$LogitData<-renderDataTable(datatable(logitData()
@@ -209,12 +213,43 @@ output$downloadFRP2<-downloadHandler(filename = "FRP2.png",content = function(fi
   points(1-md()$spec$spec,md()$sens$sens,pch=16)
   dev.off()
 })
+#sroc plot setting=====================
+output$srocB<-renderUI({
+  dropdown()
+})
+output$srocC<-renderPlot({
+  sp <- data()$TN/(data()$TN+data()$FP)
+  se <- data()$TP/(data()$TP+data()$FN)
+  
+  data_m<-data.frame(sp,se)
+  print(str(data_m))
+  p<-ggplot(data = data_m,mapping = aes(x=1-se,y=sp))+ ylim(0,1)+ xlim(0,1)
+  p<-p+layer(geom = "point", stat = "identity", position = "identity")
+ # if(!is.null(est2())){
+    
+    est2.par  <- est2()[15:19,]
+    print(est2.par[1,1])
+    par <- as.matrix(est2.par)
+    #for (i in 1:ncol(par)) {
+    i<-1
+    u1 <- par[1, i]
+    u2 <- par[2, i]
+    t1 <- par[3, i]
+    t2 <- par[4, i]
+    if (input$Sauc1 == "sroc"){
+      r <- par[5, i]}
+    else{ r <- -1}
+  p<-p+stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)))#}
+#  }
+  plotly::ggplotly(p)
+  
+})
 #sroc====================================
 output$srocA<-renderPlot({
+  
   par(mfrow = c(2,2), oma = c(0.2, 3, 0.2, 0.3), mar = c(2, 0.2, 2, 0.2))
   sp <- data()$TN/(data()$TN+data()$FP)
   se <- data()$TP/(data()$TP+data()$FN)
-  #p.seq<- as.numeric(unlist(strsplit(input$plist, "[,;\n\t]")))
   withProgress(message = 'Calculation in progress(1/2)',
                detail = 'This may take a while...(SROC)', value = 0,
                {
