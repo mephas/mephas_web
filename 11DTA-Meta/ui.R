@@ -9,7 +9,7 @@ if (!requireNamespace("meta", quietly = TRUE)) {install.packages("meta")}; requi
 if (!requireNamespace("mada", quietly = TRUE)) {install.packages("mada")}; require("mada",quietly = TRUE)
 if (!requireNamespace("dtametasa", quietly = TRUE)) {install.packages("dtametasa")}; require("dtametasa",quietly = TRUE)
 if (!requireNamespace("stats", quietly = TRUE)) {install.packages("stats")}; require("stats",quietly = TRUE)
-library("shinyWidgets")
+
 source("function.R")
 #source("./ui_dtameta.R",local = TRUE)
 source("./ui_uni.R",local = TRUE)
