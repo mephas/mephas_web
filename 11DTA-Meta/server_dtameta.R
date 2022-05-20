@@ -311,7 +311,7 @@ output$srocC<-renderPlot({
   #stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)))#}
   #p<-p+geom_point(aes(x=1,y=0),color=input$mochi3,size=6)
  # plotly::ggplotly(p)
-  p
+  ggplot(p)
 })
 #sroc====================================
 output$srocA<-renderPlot({
