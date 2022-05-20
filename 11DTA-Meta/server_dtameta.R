@@ -276,13 +276,13 @@ output$srocCsetting_curve<-renderUI({
 output$srocC<-renderPlot({
   sp <- data()$TN/(data()$TN+data()$FP)
   se <- data()$TP/(data()$TP+data()$FN)
-  print(input$each_point_radius)
-  print(input$each_point_color)
-  print(input$each_point_shape)
+  # print(input$each_point_radius)
+  # print(input$each_point_color)
+  # print(input$each_point_shape)
   
   data_m<-data.frame(sp,se)
-  p<-ggplot2::ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
-  p<-p+geom_point(color=input$each_point_color,size=input$each_point_radius,shape=as.numeric(input$each_point_shape))
+  p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
+  p<-p+geom_point()#color=input$each_point_color,size=input$each_point_radius,shape=as.numeric(input$each_point_shape))
   #p<-p+layer(geom = "point", stat = "identity", position = "identity")
   if(input$calculateStart>0){
      est2.par  <- est2()[15:19,]
