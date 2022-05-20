@@ -113,27 +113,7 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","S
                                                                          plotOutput("curveAandB"),
                                                                          downloadButton("downloadcurveAandB","Save Image"))
                                                                  ,column(width = 6,"mo","momomomo",
-                                                                        #plotOutput("srocC"),
-                                                                        shinyWidgets::dropdown(                     
-                                                                          colorPickr("each_point_color","point colour",selected="#ff7f50"),
-                                                                          sliderInput("each_point_radius","Each Point Radius",min = 0,max=10,value = 3),
-                                                                          #radioButtons("each_point_shape","each point shape",choiceNames  = c("round","square","diamond","triangle","24","25"),choiceValues = c(20,21,22,23,24,25),inline = TRUE,selected = 21),
-                                                                          sliderInput("each_point_shape","Each Point Shape",min = 0,max=25,value = 20),
-                                                                          shinyWidgets::switchInput(#
-                                                                            inputId = "setting_each_point",#
-                                                                            label = "mo",#<i class=\"fa fa-book\"></i>", # Explanation in Details
-                                                                            inline = TRUE,
-                                                                            onLabel = "Close",
-                                                                            offLabel = "Advanced Setting",
-                                                                            size = "mini"
-                                                                          ),
-                                                                          conditionalPanel(condition = "input.setting_each_point==1",
-                                                                                           sliderInput("each_point_transparency","Point Transparency",min = 0,max=1,value = 1)
-                                                                          )
-                                                                          ,
-                                                                          
-                                                                          label = "Setting"
-                                                                        ),
+                                                                        plotOutput("srocC"),uiOutput("srocCsetting_point"),
                                                                              uiOutput("srocCsetting_curve")
                                                                              ) #plotly::plotlyOutput("srocC")
                                                                  ,column(width = 12,"Results",
