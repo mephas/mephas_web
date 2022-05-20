@@ -113,7 +113,7 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","S
                                                                          plotOutput("curveAandB"),
                                                                          downloadButton("downloadcurveAandB","Save Image"))
                                                                  ,column(width = 6,"mo","momomomo",
-                                                                        plotOutput("srocC"),
+                                                                        #plotOutput("srocC"),
                                                                         shinyWidgets::dropdown(                     
                                                                           colorPickr("each_point_color","point colour",selected="#ff7f50"),
                                                                           sliderInput("each_point_radius","Each Point Radius",min = 0,max=10,value = 3),
@@ -127,7 +127,6 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","S
                                                                             offLabel = "Advanced Setting",
                                                                             size = "mini"
                                                                           ),
-                                                                          
                                                                           conditionalPanel(condition = "input.setting_each_point==1",
                                                                                            sliderInput("each_point_transparency","Point Transparency",min = 0,max=1,value = 1)
                                                                           )
