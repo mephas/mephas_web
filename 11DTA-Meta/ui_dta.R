@@ -121,7 +121,7 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","S
                                                                           sliderInput("each_point_shape","Each Point Shape",min = 0,max=25,value = 20),
                                                                           shinyWidgets::switchInput(#
                                                                             inputId = "setting_each_point",#
-                                                                            label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
+                                                                            label = "3",#<i class=\"fa fa-book\"></i>", # Explanation in Details
                                                                             inline = TRUE,
                                                                             onLabel = "Close",
                                                                             offLabel = "Advanced Setting",
