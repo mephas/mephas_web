@@ -243,7 +243,7 @@ output$srocCsetting_point<-renderUI({
   dropdown(                     
     shinyWidgets::colorPickr("each_point_color","point colour",selected="#ff7f50"),
     sliderInput("each_point_radius","Each Point Radius",min = 0,max=10,value = 3),
-    radioButtons("each_point_shape","each point shape",choiceNames  = c("round","square","diamond","triangle","24","25"),choiceValues = c(20,21,22,23,24,25),inline = TRUE,selected = 21),
+    #radioButtons("each_point_shape","each point shape",choiceNames  = c("round","square","diamond","triangle","24","25"),choiceValues = c(20,21,22,23,24,25),inline = TRUE,selected = 21),
     sliderInput("each_point_shape","Each Point Shape",min = 0,max=25,value = 20),
     shinyWidgets::switchInput(#
       inputId = "setting_each_point",#
@@ -281,6 +281,7 @@ output$srocC<-renderPlot({
   # print(input$each_point_shape)
   
   data_m<-data.frame(sp,se)
+  print(data_m)
   p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
   p<-p+geom_point(color=input$each_point_color,size=input$each_point_radius,shape=as.numeric(input$each_point_shape))
   #p<-p+layer(geom = "point", stat = "identity", position = "identity")
@@ -311,7 +312,7 @@ output$srocC<-renderPlot({
   #stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)))#}
   #p<-p+geom_point(aes(x=1,y=0),color=input$mochi3,size=6)
  # plotly::ggplotly(p)
-  ggplot(p)
+  p
 })
 #sroc====================================
 output$srocA<-renderPlot({
