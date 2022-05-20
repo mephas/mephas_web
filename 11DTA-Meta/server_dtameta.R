@@ -241,36 +241,36 @@ output$downloadFRP2<-downloadHandler(filename = "FRP2.png",content = function(fi
 #sroc plot setting=====================
 output$srocCsetting_point<-renderUI({
   dropdown(                     
-    #colorPickr("each_point_color","point colour",selected="#ff7f50"),
+    shinyWidgets::colorPickr("each_point_color","point colour",selected="#ff7f50"),
     sliderInput("each_point_radius","Each Point Radius",min = 0,max=10,value = 3),
-    #radioButtons("each_point_shape","each point shape",choiceNames  = c("round","square","diamond","triangle","24","25"),choiceValues = c(20,21,22,23,24,25),inline = TRUE,selected = 21),
-    # sliderInput("each_point_shape","Each Point Shape",min = 0,max=25,value = 20),
-    # shinyWidgets::switchInput(#
-    #   inputId = "setting_each_point",#
-    #   label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
-    #   inline = TRUE,
-    #   onLabel = "Close",
-    #   offLabel = "Advanced Setting",
-    #   size = "mini"
-    # ),
-    # 
-    # conditionalPanel(condition = "input.setting_each_point==1",
-    #                  sliderInput("each_point_transparency","Point Transparency",min = 0,max=1,value = 1)
-    #                  )
-    #,
+    radioButtons("each_point_shape","each point shape",choiceNames  = c("round","square","diamond","triangle","24","25"),choiceValues = c(20,21,22,23,24,25),inline = TRUE,selected = 21),
+    sliderInput("each_point_shape","Each Point Shape",min = 0,max=25,value = 20),
+    shinyWidgets::switchInput(#
+      inputId = "setting_each_point",#
+      label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
+      inline = TRUE,
+      onLabel = "Close",
+      offLabel = "Advanced Setting",
+      size = "mini"
+    ),
+
+    conditionalPanel(condition = "input.setting_each_point==1",
+                     sliderInput("each_point_transparency","Point Transparency",min = 0,max=1,value = 1)
+                     )
+    ,
     
     label = "Setting"
    )
   
 })
 output$srocCsetting_curve<-renderUI({
-  dropdown(label = "SROC setting"#,
-  # lapply(1:length(p.seq()), function(i) dropdown(label =paste("p=",p.seq()[i]) 
-  #                                                ,colorPickr(paste("sroc_point_color",i),label = "Summary Point Colour",selected = "#800080")
-  #                                                ,sliderInput(paste("sroc_point_radius",i), "Summary Point Radius",min = 0,max=10,value = 5,step = 0.01)
-  #                                                ,colorPickr(paste("sroc_curve_color",i),label="SROC Curve color",selected="#00ced1")
-  #                                                ,sliderInput(paste("sroc_curve_thick",i), "Curve thickness",min = 0,max = 3,value = 1,step = 0.01)
-  #                                                ,sliderTextInput(paste("sroc_curve_shape",i),grid = TRUE,label =  "Curve shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")))
+  dropdown(label = "SROC setting",
+  lapply(1:length(p.seq()), function(i) dropdown(label =paste("p=",p.seq()[i])
+                                                 ,colorPickr(paste("sroc_point_color",i),label = "Summary Point Colour",selected = "#800080")
+                                                 ,sliderInput(paste("sroc_point_radius",i), "Summary Point Radius",min = 0,max=10,value = 5,step = 0.01)
+                                                 ,colorPickr(paste("sroc_curve_color",i),label="SROC Curve color",selected="#00ced1")
+                                                 ,sliderInput(paste("sroc_curve_thick",i), "Curve thickness",min = 0,max = 3,value = 1,step = 0.01)
+                                                 ,sliderTextInput(paste("sroc_curve_shape",i),grid = TRUE,label =  "Curve shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")))
 )
 })
 output$srocC<-renderPlot({
