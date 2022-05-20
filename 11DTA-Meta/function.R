@@ -43,3 +43,29 @@ correction <- function(data,value = 0.5,type = c("single", "all")){
   }
   return(data)
 }
+.reform.est <- function(est,p.seq)
+{
+  est <- est[-c(1, 20,21),]
+  sauc.ci <- sprintf("%.3f (%.3f, %.3f)", est[1,], est[2,], est[3,])
+  se.ci   <- sprintf("%.3f (%.3f, %.3f)", est[4,], est[5,], est[6,])
+  sp.ci   <- sprintf("%.3f (%.3f, %.3f)", est[7,], est[8,], est[9,])
+  b.ci    <- sprintf("%.3f (%.3f, %.3f)", est[10,], est[11,], est[12,])
+  
+  tb <- data.frame(p.seq=p.seq, 
+                   sauc.ci= sauc.ci, 
+                   se.ci = se.ci,
+                   sp.ci = sp.ci,
+                   b.ci = b.ci, 
+                   round(t(est[-c(1:12),]),3)
+  )#[, -c(8:9, 13:14, 18:19)]
+  
+  colnames(tb) <- c("$p$", "SAUC (95\\%CI)",
+                    "Se (95\\%CI)", "Sp (95\\%CI)",
+                    "$\\beta$ (95\\%CI)", "$\\alpha_p$",
+                    "$\\mu_1$", "$\\mu_2$", "$\\tau_1$","$\\tau_2$","$\\rho$"
+  )
+  rownames(tb) <- NULL
+  
+  tb
+  
+}

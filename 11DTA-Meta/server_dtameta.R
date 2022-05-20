@@ -156,6 +156,31 @@ output$LogitData<-renderDataTable(datatable(logitData()
                                                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                                                           lengthMenu = list(c(12))
                                             ))))
+output$Results<-renderDataTable({
+  #function.R 
+  tb2  <- .reform.est(est2(),p.seq())
+  tb11 <- .reform.est(est11(),p.seq())
+  tb10 <- .reform.est(est10(),p.seq())
+  tb01 <- .reform.est(est01(),p.seq())
+  
+  tb1 <- rbind(tb2, tb11, tb10, tb01)
+  
+  tb1[c(1,5,9,13), 5] <- ""
+  tb1[c(1,5,9,13), 5:6] <- NA
+  
+  tb <- cbind("$(c_1, \\,c_2)$" = c("$(\\hat{c}_1, \\hat{c}_2)$", rep("", 3),
+                                    "$(0.7, 0.7)$", rep("",3),
+                                    "$(1, 0)$", rep("", 3),
+                                    "$(0, 1)$", rep("", 3)),
+              tb1)
+  
+  datatable(tb
+  ,extensions = 'Buttons',
+  options=(list(scrollX = TRUE,
+                dom = 'Blfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                lengthMenu = list(c(12))
+  )))})
 #meta====================================
 output$meta_sesp<-renderPlot({
   par(mfrow=c(1,2),pty="m")
@@ -214,22 +239,58 @@ output$downloadFRP2<-downloadHandler(filename = "FRP2.png",content = function(fi
   dev.off()
 })
 #sroc plot setting=====================
-output$srocB<-renderUI({
-  dropdown()
+output$srocCsetting_point<-renderUI({
+  dropdown(                     
+    colorPickr("each_point_color","point colour",selected="#ff7f50"),
+    sliderInput("each_point_radius","Each Point Radius",min = 0,max=10,value = 3),
+    #radioButtons("each_point_shape","each point shape",choiceNames  = c("round","square","diamond","triangle","24","25"),choiceValues = c(20,21,22,23,24,25),inline = TRUE,selected = 21),
+    sliderInput("each_point_shape","Each Point Shape",min = 0,max=25,value = 20),
+    shinyWidgets::switchInput(#
+      inputId = "setting_each_point",#
+      label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
+      inline = TRUE,
+      onLabel = "Close",
+      offLabel = "Advanced Setting",
+      size = "mini"
+    ),
+
+    conditionalPanel(condition = "input.setting_each_point==1",
+                     sliderInput("each_point_transparency","Point Transparency",min = 0,max=1,value = 1)
+                     )
+    ,
+    
+    label = "Setting"
+   )
+  
+})
+output$srocCsetting_curve<-renderUI({
+  dropdown(label = "SROC setting",
+  lapply(1:length(p.seq()), function(i) dropdown(label =paste("p=",p.seq()[i]) 
+                                                 ,colorPickr(paste("sroc_point_color",i),label = "Summary Point Colour",selected = "#800080")
+                                                 ,sliderInput(paste("sroc_point_radius",i), "Summary Point Radius",min = 0,max=10,value = 5,step = 0.01)
+                                                 ,colorPickr(paste("sroc_curve_color",i),label="SROC Curve color",selected="#00ced1")
+                                                 ,sliderInput(paste("sroc_curve_thick",i), "Curve thickness",min = 0,max = 3,value = 1,step = 0.01)
+                                                 ,sliderTextInput(paste("sroc_curve_shape",i),grid = TRUE,label =  "Curve shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")))
+)
 })
 output$srocC<-renderPlot({
   sp <- data()$TN/(data()$TN+data()$FP)
   se <- data()$TP/(data()$TP+data()$FN)
+  print(input$each_point_radius)
+  print(input$each_point_color)
+  print(input$each_point_shape)
   
   data_m<-data.frame(sp,se)
   print(str(data_m))
   p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
-  p<-p+layer(geom = "point", stat = "identity", position = "identity")
+  p<-p+geom_point(color=input$each_point_color,size=input$each_point_radius,shape=as.numeric(input$each_point_shape))
+  #p<-p+layer(geom = "point", stat = "identity", position = "identity")
   if(input$calculateStart>0){
      est2.par  <- est2()[15:19,]
     print(est2.par[1,1])
     par <- as.matrix(est2.par)
     p<-p+mapply(function(i) {
+      print(i)
     u1 <- par[1, i]
     u2 <- par[2, i]
     t1 <- par[3, i]
@@ -237,18 +298,19 @@ output$srocC<-renderPlot({
     if (input$Sauc1 == "sroc"){
       r <- par[5, i]}
     else{ r <- -1}
-      stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)))}
+      stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=input[[paste("sroc_curve_color",i)]],size=input[[paste("sroc_curve_thick",i)]],linetype = input[[paste("sroc_curve_shape",i)]],linetype = input[[paste("sroc_curve_shape",i)]])
+      }
            , 1:ncol(par))
     sens <- plogis(par[1, ])
     spec <- plogis(par[2, ])
     print(sens)
     print(spec)
-    p<-p+sapply(1:ncol(par),function(i)geom_point(aes(x=1-spec[i],y=sens[i]),color="blue",size=5))
-    
+    p<-p+sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=input[[paste("sroc_point_color",t)]],size=input[[paste("sroc_point_radius",t)]]))
+
   #p<-p+geom_point(aes(x=1-sens[1],y=spec[1]),color="blue")
    }
   #stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)))#}
-  p<-p+geom_point(aes(x=1,y=0,color="blue",size=5))
+  #p<-p+geom_point(aes(x=1,y=0),color=input$mochi3,size=6)
  # plotly::ggplotly(p)
   p
 })
