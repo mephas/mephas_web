@@ -241,7 +241,7 @@ output$downloadFRP2<-downloadHandler(filename = "FRP2.png",content = function(fi
 #sroc plot setting=====================
 output$srocCsetting_point<-renderUI({
   dropdown(                     
-    colorPickr("each_point_color","point colour",selected="#ff7f50"),
+    #colorPickr("each_point_color","point colour",selected="#ff7f50"),
     sliderInput("each_point_radius","Each Point Radius",min = 0,max=10,value = 3),
     #radioButtons("each_point_shape","each point shape",choiceNames  = c("round","square","diamond","triangle","24","25"),choiceValues = c(20,21,22,23,24,25),inline = TRUE,selected = 21),
     # sliderInput("each_point_shape","Each Point Shape",min = 0,max=25,value = 20),
