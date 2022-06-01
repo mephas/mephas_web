@@ -69,3 +69,58 @@ correction <- function(data,value = 0.5,type = c("single", "all")){
   tb
   
 }
+reform.dtametasa<-function(est.rf,p.seq,c1.square=0.5){
+  #est.rf<-match.fun(est.rf)
+  sauc.ci <- sprintf("%.3f (%.3f, %.3f)", est.rf(c1.square,par ="sauc.ci","sauc"),est.rf(c1.square,par ="sauc.ci","sauc.lb"),est.rf(c1.square,par ="sauc.ci","sauc.ub"))
+  se.ci   <- sprintf("%.3f (%.3f, %.3f)", est.rf(c1.square,par ="mu1.ci","sens"),est.rf(c1.square,par ="mu1.ci","se.lb"),est.rf(c1.square,par ="mu1.ci","se.ub"))
+  sp.ci   <- sprintf("%.3f (%.3f, %.3f)", est.rf(c1.square,par ="mu2.ci","spec"),est.rf(c1.square,par ="mu2.ci","sp.lb"),est.rf(c1.square,par ="mu2.ci","sp.ub"))
+  b.ci    <- sprintf("%.3f (%.3f, %.3f)", est.rf(c1.square,par ="beta.ci","beta"),est.rf(c1.square,par ="beta.ci","beta.lb"),est.rf(c1.square,par ="beta.ci","beta.ub"))
+  par<-est.rf(c1.square,c("mu1","mu2","tau1","tau2","rho"))
+  tb <- data.frame(p.seq=p.seq, 
+                   sauc.ci= sauc.ci, 
+                   se.ci = se.ci,
+                   sp.ci = sp.ci,
+                   b.ci = b.ci,
+                  par%>%round(.,3)%>%t())
+
+  # sapply(object,function(x)c(x$alpha,x$mu1.c1["mu1"],x$mu2.ci["mu2"],x$par[c("tau1","tau2","rho")]))%>%round(.,3)%>%t())
+}
+est.get<-function(p.seq,est){
+  
+}
+ui.plot_baseset_drop<-function(id){
+dropdown(                     
+  shinyWidgets::colorPickr(paste0("each_point_color",id),"point colour",selected="#ff7f50"),
+  sliderInput(paste0("each_point_radius",id),"Each Point Radius",min = 0,max=10,value = 3),
+  sliderInput(paste0("each_point_shape",id),"Each Point Shape",min = 0,max=25,value = 20),
+  shinyWidgets::switchInput(#
+    inputId = paste0("setting_each_point",id),#
+    label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
+    inline = TRUE,
+    onLabel = "Close",
+    offLabel = "Advanced Setting",
+    size = "mini"
+  ),
+  conditionalPanel(condition = paste0("input.setting_each_point",id,"==1"),
+                   sliderInput(paste0("each_point_transparency",id),"Point Transparency",min = 0,max=1,value = 1)
+  )
+  ,
+  label = "Setting"
+)}
+ui.plot_baseline_drop<-function(id,plot_title="title",x_axis="",y_axis=waiver()){
+  dropdown(label = "Plot Outline",
+    textInput(paste0("plot_title",id),"title",plot_title),
+    textInput(paste0("plot_x_axis",id),"x_axis",x_axis),
+    textInput(paste0("plot_y_axis",id),"y_axis",y_axis)
+  )
+}
+ui.plot_srocline_drop<-function(plot_id,p.seq){
+  dropdown(label = "SROC setting",
+  lapply(1:length(p.seq), function(i) dropdown(label =paste("p=",p.seq[i])
+                                                 ,colorPickr(paste0("sroc_point_color",plot_id,i),label = "Summary Point Colour",selected = "#800080")
+                                                 ,sliderInput(paste0("sroc_point_radius",plot_id,i), "Summary Point Radius",min = 0,max=10,value = 5,step = 0.01)
+                                                 ,colorPickr(paste0("sroc_curve_color",plot_id,i),label="SROC Curve color",selected="#00ced1")
+                                                 ,sliderInput(paste0("sroc_curve_thick",plot_id,i), "Curve thickness",min = 0,max = 3,value = 1,step = 0.01)
+                                                 ,sliderTextInput(paste0("sroc_curve_shape",plot_id,i),grid = TRUE,label =  "Curve shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")))
+)
+}

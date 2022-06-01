@@ -1,5 +1,5 @@
 
-fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","Start Calculation",icon = icon("fa-solid fa-wave-square",lib = "font-awesome")),
+fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","Reload DATA TO Calculation",icon = icon("fa-solid fa-wave-square",lib = "font-awesome")),
           tabsetPanel(tabPanel("Meta-Analysis",
                                fluidPage(
                                  sidebarLayout(
@@ -33,7 +33,7 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","S
                                    sidebarPanel(width = 3,
                                                 icon("keyboard"),
                                                 #textAreaInput(inputId = "plist","Multiple Selection Probabilities(0<p<1)",value = "1,0.8,0.6,0.4"),
-                                                HTML('<b>Multiple Selection Probabilities(0&lt;p&lt;1)
+                                                HTML('<b>Multiple Selection Probabilities(0&#60;p&#x2266;1)
                                                          <input type="text" id="plist" value="1,0.8,0.6,0.4" pattern="^[\\d,.]+$">
 
                                                          </b>'),
@@ -99,7 +99,32 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","S
                                                                lib = "glyphicon"))
                                                 )
                                    ),
-                                   mainPanel(width =9  ,fluidRow(column(width = 6,"SROC1","Estimated SROC when c11 and c22 are assigned by the specific values",
+                                   mainPanel(width =9  ,tabsetPanel(
+                                                        tabPanel("SROC",
+                                                                fluidRow(column(width = 6,"c1c2","estimate",
+                                                                         plotOutput("srocB"),
+                                                                         ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve")
+                                                                             ) #plotly::plotlyOutput("srocC")
+                                                                 ,column(width = 6,"c1c2","c1=c2",
+                                                                         plotOutput("srocC_11"),
+                                                                         ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11"))
+                                                                 ,column(width = 6,"c1c2","c1=c2",
+                                                                    plotOutput("srocC_10"),ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10")
+                                                                    )
+                                                                 ,column(width = 6,"c1c2","c1=c2",
+                                                                    plotOutput("srocC_01"),ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01")
+                                                                    )
+                                                                 ,column(width = 6,"c1c2","set",
+                                                                         sliderInput("c1c2_set","c1::",0,1,0.5),actionButton("c1c2_set_button","c1c2"),
+                                                                         plotOutput("srocD"),
+                                                                         ui.plot_baseline_drop("c1c2_manul",plot_title = "C1C2",x_axis = "1-sp",y_axis = "se"),
+                                                                         ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve")
+                                                                         
+                                                                 ))),
+                                                        tabPanel("Results",column(width = 12,"Results",
+                                                                         DT::dataTableOutput("Results"))),
+                                                        tabPanel("SROC_old",
+                                                            fluidRow(column(width = 6,"SROC1","Estimated SROC when c11 and c22 are assigned by the specific values",
                                                                         plotOutput("srocA"
                                                                                    #, width = "400px", height = "400px"
                                                                         ),
@@ -111,14 +136,11 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","S
                                                                          downloadButton("downloadsauc","Save Image"))
                                                                  ,column(width = 6,"SAUC","Estimates when c11 and c22 are assigned by the specific values",
                                                                          plotOutput("curveAandB"),
-                                                                         downloadButton("downloadcurveAandB","Save Image"))
-                                                                 ,column(width = 6,"mo","momomomo",
-                                                                        plotOutput("srocC"),uiOutput("srocCsetting_point"),
-                                                                             uiOutput("srocCsetting_curve")
-                                                                             ) #plotly::plotlyOutput("srocC")
-                                                                 ,column(width = 12,"Results",
-                                                                         DT::dataTableOutput("Results"))
-                                   )
+                                                                         downloadButton("downloadcurveAandB","Save Image"))))
+
+                                                                 
+                                                                 
+                                                )    
                                    )
                                  )
                                ))))
