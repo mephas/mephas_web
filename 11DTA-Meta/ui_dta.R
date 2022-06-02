@@ -108,7 +108,7 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","R
                                                                  ,column(width = 6,"c1c2","c1=c2",
                                                                          plotOutput("srocC_11"),
                                                                          ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11"))
-                                                                 ,column(width = 6,"c1c2","c1=c2",
+                                                                 ,column(width = 6,"c1c2","c1=1,c2=0",
                                                                     plotOutput("srocC_10"),ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10")
                                                                     )
                                                                  ,column(width = 6,"c1c2","c1=c2",
@@ -121,6 +121,11 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","R
                                                                          ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve")
                                                                          
                                                                  ))),
+                                                        tabPanel("SAUC",flowLayout( 
+                                                                         plotly::plotlyOutput(width="300%","sauc_gg_estimate"),br(),br(),
+                                                                         plotly::plotlyOutput(width="300%","sauc_gg_c11"),br(),br(),
+                                                                         plotly::plotlyOutput(width="300%","sauc_gg_c10"),br(),br(),
+                                                                         plotly::plotlyOutput(width="300%","sauc_gg_c01"))),
                                                         tabPanel("Results",column(width = 12,"Results",
                                                                          DT::dataTableOutput("Results"))),
                                                         tabPanel("SROC_old",

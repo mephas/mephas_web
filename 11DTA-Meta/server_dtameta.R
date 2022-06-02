@@ -57,50 +57,6 @@ est.f<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
   esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,id())]][[par]][...]
 })}
 
-est2<-eventReactive(input$calculateStart,
-                    withProgress(message = 'Calculation RC1',
-                                 detail = 'This may take a while...', value = 0,
-                                 {
-                                   sapply(p.seq(), function(p) {
-                                   incProgress(1/length(p.seq()))
-
-                                   opt2 <- dtametasa.rc(data(), p, c1.square0 = 0.5, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
-
-                                   c(conv = opt2$convergence, opt2$sauc.ci, opt2$mu1.ci[4:6], opt2$mu2.ci[4:6], opt2$beta.ci, opt2$alpha, opt2$par)
-                                 })}))
-est11<-eventReactive(input$calculateStart,
-                     withProgress(message = 'Calculation RC2',
-                                  detail = 'This may take a while...', value = 0,
-                                  {sapply(p.seq(), function(p) {
-                                    incProgress(1/length(p.seq()))
-
-                                    opt1 <- dtametasa.fc(data(), p, c1.square = 0.5, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
-
-                                    c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(0.5))
-
-                                  })}))
-est10<-eventReactive(input$calculateStart,
-                     withProgress(message = 'Calculation RC3',
-                                  detail = 'This may take a while...', value = 0,
-                                  {sapply(p.seq(), function(p) {
-                                    incProgress(1/length(p.seq()))
-
-                                    opt1 <- dtametasa.fc(data(), p, c1.square = 1, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
-
-                                    c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(1))
-
-                                  })}))
-est01 <-eventReactive(input$calculateStart,
-                      withProgress(message = 'Calculation RC4',
-                                   detail = 'This may take a while...', value = 0,
-                                   {sapply(p.seq(), function(p) {
-                                     incProgress(1/length(p.seq()))
-
-                                     opt1 <- dtametasa.fc(data(), p, c1.square = 0, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
-
-                                     c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(0))
-
-                                   })}))
 est<-reactive(withProgress(message = 'Calculation c1c2 FC',
                                   detail = 'This may take a while...', value = 0,
                                   {sapply(p.seq(), function(p) {
@@ -110,19 +66,18 @@ est<-reactive(withProgress(message = 'Calculation c1c2 FC',
                                     
                                     c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(0.5))
                                     
-                                  })}))%>%bindCache(input$c1c2_set,input$Sauc1,input$allsingle,id(),p.seq())%>%bindEvent(input$c1c2_set_button,input$c1c2_set,input$Sauc1,input$allsingle,p.seq())
+                                  })}))%>%bindCache(input$c1c2_set,input$Sauc1,input$allsingle,id(),p.seq())%>%bindEvent(input$c1c2_set_button,input$c1c2_set,input$Sauc1,input$allsingle,p.seq(),id())
 dtametasa.rc_p.10 <-reactive(
   withProgress(message = 'Calculation dtametasa.rc for each seq(0.1, 1, -0.1)',
                detail = 'This may take a while...', value = 0,
                {lapply(p.10, function(p) {
-                 message = paste('Calculation dtametasa.rc for',p)
                  incProgress(1/10)
                  r<-c(p,dtametasa.rc(data(), p, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle))
                names(r)[1]<-c("p")
                esting[[paste0(p,input$Sauc1,input$allsingle,id())]]<-r
                r
                 })
-                 }))%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(input$calculateStart,input$Sauc1,input$allsingle)
+                 }))%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(id(),input$Sauc1,input$allsingle)
 dtametasa.fc_c1.square0.5_p.10 <-reactive(
   withProgress(message = 'Calculation dtametasa.fc (c1.square=0.5) for each seq(0.1, 1, -0.1)',
                detail = 'This may take a while...', value = 0,
@@ -131,7 +86,7 @@ dtametasa.fc_c1.square0.5_p.10 <-reactive(
                  f<-c(p=p,dtametasa.fc(data(), p,  c1.square=0.5, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
                esting_omg[[paste0(p,"0.5",input$Sauc1,input$allsingle,id())]]<-f
                f
-                 })}))%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(input$calculateStart,input$Sauc1,input$allsingle)
+                 })}))%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(id(),input$Sauc1,input$allsingle)
 dtametasa.fc_c1.square1_p.10 <-reactive(
   withProgress(message = 'Calculation dtametasa.fc (c1.square=1) for each seq(0.1, 1, -0.1)',
                detail = 'This may take a while...', value = 0,
@@ -140,7 +95,7 @@ dtametasa.fc_c1.square1_p.10 <-reactive(
                  f<-c(p=p,dtametasa.fc(data(), p,  c1.square=1, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
                  esting_omg[[paste0(p,"1",input$Sauc1,input$allsingle,id())]]<-f
                  f
-                })}))%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(input$calculateStart,input$Sauc1,input$allsingle)
+                })}))%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(id(),input$Sauc1,input$allsingle)
 dtametasa.fc_c1.square0_p.10 <-reactive(
   withProgress(message = 'Calculation dtametasa.fc (c1.square=0) for each seq(0.1, 1, -0.1)',
                detail = 'This may take a while...', value = 0,
@@ -149,48 +104,7 @@ dtametasa.fc_c1.square0_p.10 <-reactive(
                  f<-c(p=p,dtametasa.fc(data(), p,  c1.square=0, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
                  esting_omg[[paste0(p,"0",input$Sauc1,input$allsingle,id())]]<-f
                  f
-                 })}))%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(input$calculateStart,input$Sauc1,input$allsingle)
-# est.sauc2 <-reactive(#input$calculateStart,
-#                           withProgress(message = 'Calculation FC1',
-#                                        detail = 'This may take a while...', value = 0,
-#                                        {sapply(p.10, function(p) {
-#                                          incProgress(1/10)
-#                                          opt2 <- dtametasa.rc(data(), p, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
-#                                          c(opt2$sauc.ci)
-#                                        })}))
-# 
-# est.sauc11 <-reactive(#input$calculateStart,
-#                            withProgress(message = 'Calculation FC2',
-#                                         detail = 'This may take a while...', value = 0,
-#                                         {sapply(p.10, function(p) {
-#                                           incProgress(1/10)
-#                                           
-#                                           opt1 <- dtametasa.fc(data(), p,  c1.square=0.5, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle)
-#                                           
-#                                           c(opt1$sauc.ci)
-#                                         })}))
-# est.sauc10 <-reactive(#input$calculateStart,
-#                            withProgress(message = 'Calculation FC3',
-#                                         detail = 'This may take a while...', value = 0,
-#                                         {sapply(p.10, function(p) {
-#                                           incProgress(1/10)
-#                                           
-#                                           opt1 <- dtametasa.fc(data(), p,  c1.sq = 1, beta.interval = c(0,2), sauc.type =input$Sauc1,correct.type = input$allsingle)
-#                                           
-#                                           c(opt1$sauc.ci)
-#                                           
-#                                         })}))
-# est.sauc01 <-reactive(#input$calculateStart,
-#                            withProgress(message = 'Calculation FC4',
-#                                         detail = 'This may take a while...', value = 0,
-#                                         {sapply(p.10, function(p) {
-#                                           
-#                                           incProgress(1/10)
-#                                           opt1 <- dtametasa.fc(data(), p,  c1.sq = 0, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
-#                                           
-#                                           c(opt1$sauc.ci)
-#                                           
-#                                         })}))
+                 })}))%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(id(),input$Sauc1,input$allsingle)
 
 #data input=================================================================================
 output$RawData<-DT::renderDataTable({
@@ -209,18 +123,6 @@ output$RawData<-DT::renderDataTable({
   }
   else{
     list1<-read.csv(inFile1$datapath, header=TRUE)
-    # validate(need(list1$TP,#"Data must contain TP",
-    #               showModal(modalDialog(title = "Warning", "Data must contain TP,FP,FN,TP", easyClose = TRUE, footer = modalButton("OK")))),
-    #          need(list1$FN,"Data must contain FN",
-    #               showModal(modalDialog(title = "Warning", "Data must contain TP,FP,FN,TP", easyClose = TRUE, footer = modalButton("OK")))
-    #               ),
-    #          need(list1$TN,"Data must contain TN",
-    #               showModal(modalDialog(title = "Warning", "Data must contain TP,FP,FN,TP", easyClose = TRUE, footer = modalButton("OK")))
-    #               ),
-    #          need(list1$FP,"Data must contain FP",
-    #               showModal(modalDialog(title = "Warning", "Data must contain TP,FP,FN,TP", easyClose = TRUE, footer = modalButton("OK")))
-    #               ))
-    #validate(need(list1$TP & list1$FN & list1$TN & list1$FP,showModal(modalDialog(title = "Warning", "Data must contain TP,FP,FN,TP", easyClose = TRUE, footer = modalButton("OK")))))
     validate(need(list1$TP & list1$FN & list1$TN & list1$FP,"Data must contain TP,FP,FN,TP"))
     list2<-read.csv(inFile1$datapath, header=FALSE)
     data(list1)
@@ -232,7 +134,6 @@ output$RawData<-DT::renderDataTable({
       }
       y<-paste(y,list2[[i]],",",sep = "")
     }
-    #y<-paste(list2[[1]],",",list2[[2]],",",list2[[3]],",",list2[[4]],",",list2[[5]],sep =  "")
     updateTextAreaInput(session,"manualInput",value =paste(y,collapse ="\n"))
     datatable(list1
                   ,extensions = 'Buttons',
@@ -252,10 +153,6 @@ output$LogitData<-renderDataTable(datatable(logitData()
                                                           lengthMenu = list(c(12))
                                             ))))
 output$Results<-renderDataTable({
-  # tb2  <- .reform.est(est2(),p.seq())
-  # tb11 <- .reform.est(est11(),p.seq())
-  # tb10 <- .reform.est(est10(),p.seq())
-  # tb01 <- .reform.est(est01(),p.seq())
   if(is.null(dtametasa.rc_p.10()))return()
   if(is.null(dtametasa.fc_c1.square0.5_p.10()))return()
   if(is.null(dtametasa.fc_c1.square1_p.10()))return()
@@ -353,7 +250,8 @@ output$srocB<-renderPlot({
   if(is.null(dtametasa.fc_c1.square1_p.10()))return()
   if(is.null(dtametasa.fc_c1.square0_p.10()))return()
   print(input[[paste0("each_point_color",plot_id)]])
-  
+  withProgress(message = "c1c2 estimate",value = 0,detail = "take a minutes",
+  {
   data_m<-data.frame(sp=sp(),se=se())
   p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
   p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))
@@ -376,12 +274,7 @@ output$srocB<-renderPlot({
     spec <- plogis(par[2, ])
     p<-p+sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=input[[paste0("sroc_point_color",plot_id,t)]],size=input[[paste0("sroc_point_radius",plot_id,t)]]))
 
-  #p<-p+geom_point(aes(x=1-sens[1],y=spec[1]),color="blue")
-   
-  #stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)))#}
-  #p<-p+geom_point(aes(x=1,y=0),color=input$mochi3,size=6)
- # plotly::ggplotly(p)
-  p
+    p})
 })
 #sroc C plot setting=====================
 output$srocCsetting_curve_11<-renderUI({
@@ -392,6 +285,24 @@ output$srocCsetting_curve_10<-renderUI({
 })
 output$srocCsetting_curve_01<-renderUI({
   ui.plot_srocline_drop("c1c2_01",p.seq())
+})
+output$srocC_11<-renderPlot({
+  withProgress(message = "c1 = 2^(-1/2),c2 = 2^(-1/2)",value = 0,detail = "take a minutes",
+  {
+  sroc_ggplot("c1c2_11",0.5)
+  })
+  })
+output$srocC_10<-renderPlot({
+  withProgress(message = "c1 = 1,c2 = 0",value = 0,detail = "take a minutes",
+  {  
+  sroc_ggplot("c1c2_10",1)
+  })
+})
+output$srocC_01<-renderPlot({
+  withProgress(message = "c1 = 0,c2 = 1",value = 0,detail = "take a minutes",
+  {  
+  sroc_ggplot("c1c2_01",0)
+  })
 })
 sroc_ggplot<-function(plot_id,c1.square){
     data<-data.frame(sp=sp(),se=se())
@@ -417,19 +328,6 @@ sroc_ggplot<-function(plot_id,c1.square){
     p<-p+sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=input[[paste0("sroc_point_color",plot_id,t)]],size=input[[paste0("sroc_point_radius",plot_id,t)]]))
     p
 }
-output$srocC_11<-renderPlot({
-  sroc_ggplot("c1c2_11",0.5)
-  #p10<-test("c1c2_10",1)
-  #p01<-test("c1c2_01",0)
-  #gridExtra::grid.arrange(p11,p10,p01)
-  
-  })
-output$srocC_10<-renderPlot({
-  sroc_ggplot("c1c2_10",1)
-})
-output$srocC_01<-renderPlot({
-  sroc_ggplot("c1c2_01",0)
-})
 #sroc D plot setting=====================
 output$srocDsetting_curve<-renderUI(ui.plot_srocline_drop("c1c2_manul",p.seq()))
 output$srocD<-renderPlot({
@@ -465,6 +363,36 @@ output$srocD<-renderPlot({
   p<-p+xlab(input[[paste0("plot_x_axis",plot_id)]])+ylab(input[[paste0("plot_y_axis",plot_id)]])
   p
 })
+#sauc ployt==========
+output$sauc_gg_estimate<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate")))
+output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_11",dtametasa.fc_c1.square0.5_p.10(),"B")))
+output$sauc_gg_c10<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_10",dtametasa.fc_c1.square1_p.10(),"C")))
+output$sauc_gg_c01<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_01",dtametasa.fc_c1.square0_p.10(),"D")))
+
+sauc_ggplot<-function(plot_id,title="Education level"){
+  #par(mfrow = c(2,2), oma = c(0.2, 3, 0.2, 0.3), mar = c(3, 2, 2, 0.2))
+  est.sauc2<-sapply(dtametasa.rc_p.10(),function(x)x$sauc.ci)%>%t()
+  print(est.sauc2)
+  data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc2[,"sauc"],est.sauc2[,"sauc.lb"],est.sauc2[,"sauc.ub"]),sauctype=c(rep("sauc",10),rep("sauc.lb",10),rep("sauc.ub",10)))
+  p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+
+    ylim(0,1)+
+    xlim(0,1)+
+    ggtitle(title)+
+    geom_point()+
+    geom_line()
+  p
+}
+sauc_ggplot_b<-function(plot_id,omg,title="Education level"){
+  est.sauc<-sapply(omg,function(x)x$sauc.ci)%>%t()
+  data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc[,"sauc"],est.sauc[,"sauc.lb"],est.sauc[,"sauc.ub"]),sauctype=c(rep("sauc",10),rep("sauc.lb",10),rep("sauc.ub",10)))
+  p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+
+    ylim(0,1)+
+    xlim(0,1)+
+    ggtitle(title)+
+    geom_point()+
+    geom_line()
+  p
+}
 #sroc====================================
 output$srocA<-renderPlot({
   par(mfrow = c(2,2), oma = c(0.2, 3, 0.2, 0.3), mar = c(2, 0.2, 2, 0.2))
