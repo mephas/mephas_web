@@ -103,29 +103,39 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","R
                                                         tabPanel("SROC",
                                                                 fluidRow(column(width = 6,"c1c2","estimate",
                                                                          plotOutput("srocB"),
-                                                                         ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve")
+                                                                         flowLayout(ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve"))
                                                                              ) #plotly::plotlyOutput("srocC")
+                                                                 # ,column(width = 6,"c1c2","c1=c2",
+                                                                 #         plotOutput("srocC_11"),
+                                                                 #         ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11"))
+                                                                 # ,column(width = 6,"c1c2","c1=1,c2=0",
+                                                                 #    plotOutput("srocC_10"),ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10")
+                                                                 #    )
+                                                                 # ,column(width = 6,"c1c2","c1=c2",
+                                                                 #    plotOutput("srocC_01"),ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01")
+                                                                 #    )
                                                                  ,column(width = 6,"c1c2","c1=c2",
                                                                          plotOutput("srocC_11"),
-                                                                         ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11"))
+                                                                         flowLayout(ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11")))
                                                                  ,column(width = 6,"c1c2","c1=1,c2=0",
-                                                                    plotOutput("srocC_10"),ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10")
-                                                                    )
-                                                                 ,column(width = 6,"c1c2","c1=c2",
-                                                                    plotOutput("srocC_01"),ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01")
-                                                                    )
-                                                                 ,column(width = 6,"c1c2","set",
+                                                                    plotOutput("srocC_10"),flowLayout(ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10")
+                                                                    ))
+                                                                 ,column(width = 6,"c1c2","c1=0,c2=1",
+                                                                    plotOutput("srocC_01"),flowLayout(ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01")
+                                                                    ))
+                                                                 ,column(width = 6,"c1c2","Manual set",
                                                                          sliderInput("c1c2_set","c1::",0,1,0.5),actionButton("c1c2_set_button","c1c2"),
                                                                          plotOutput("srocD"),
-                                                                         ui.plot_baseline_drop("c1c2_manul",plot_title = "C1C2",x_axis = "1-sp",y_axis = "se"),
-                                                                         ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve")
+                                                                         flowLayout(ui.plot_baseline_drop("c1c2_manul",plot_title = "C1C2",x_axis = "1-sp",y_axis = "se"),
+                                                                         ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve"))
                                                                          
                                                                  ))),
                                                         tabPanel("SAUC",flowLayout( 
                                                                          plotly::plotlyOutput(width="300%","sauc_gg_estimate"),br(),br(),
                                                                          plotly::plotlyOutput(width="300%","sauc_gg_c11"),br(),br(),
                                                                          plotly::plotlyOutput(width="300%","sauc_gg_c10"),br(),br(),
-                                                                         plotly::plotlyOutput(width="300%","sauc_gg_c01"))),
+                                                                         plotly::plotlyOutput(width="300%","sauc_gg_c01")
+                                                                         )),
                                                         tabPanel("Results",column(width = 12,"Results",
                                                                          DT::dataTableOutput("Results"))),
                                                         tabPanel("SROC_old",

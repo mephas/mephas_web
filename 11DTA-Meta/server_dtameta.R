@@ -344,7 +344,6 @@ output$srocD<-renderPlot({
     est2.par  <- est()[15:19,]
     par <- as.matrix(est2.par)
     p<-p+mapply(function(i) {
-      print(i)
       u1 <- par[1, i]
       u2 <- par[2, i]
       t1 <- par[3, i]
@@ -365,14 +364,13 @@ output$srocD<-renderPlot({
 })
 #sauc ployt==========
 output$sauc_gg_estimate<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate")))
-output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_11",dtametasa.fc_c1.square0.5_p.10(),"B")))
-output$sauc_gg_c10<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_10",dtametasa.fc_c1.square1_p.10(),"C")))
-output$sauc_gg_c01<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_01",dtametasa.fc_c1.square0_p.10(),"D")))
+output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_11",dtametasa.fc_c1.square0.5_p.10(),"(B) c1=c2")))
+output$sauc_gg_c10<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_10",dtametasa.fc_c1.square1_p.10(),"(C) c1=1,c2=0")))
+output$sauc_gg_c01<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_01",dtametasa.fc_c1.square0_p.10(),"(D) c1=0,c2=1")))
 
-sauc_ggplot<-function(plot_id,title="Education level"){
+sauc_ggplot<-function(plot_id,title="(A) C1,C2 estimate"){
   #par(mfrow = c(2,2), oma = c(0.2, 3, 0.2, 0.3), mar = c(3, 2, 2, 0.2))
   est.sauc2<-sapply(dtametasa.rc_p.10(),function(x)x$sauc.ci)%>%t()
-  print(est.sauc2)
   data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc2[,"sauc"],est.sauc2[,"sauc.lb"],est.sauc2[,"sauc.ub"]),sauctype=c(rep("sauc",10),rep("sauc.lb",10),rep("sauc.ub",10)))
   p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+
     ylim(0,1)+
