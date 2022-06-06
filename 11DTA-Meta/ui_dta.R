@@ -11,8 +11,7 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","R
                                                   inputId = "manualInput", 
                                                   label = "Manually input data",
                                                   value = "study,TP,FN,FP,TN\n1,12,0,29,289\n2,10,2,14,72\n3,17,1,36,85\n4,13,0,18,67\n5,4,0,21,225\n6,15,2,122,403\n7,45,5,28,34\n8,18,4,69,133\n9,5,0,11,34\n10,8,9,15,96\n11,5,0,7,63\n12,11,2,122,610\n13,5,1,6,145\n14,7,5,25,342",
-                                                  rows = 10)),
-                                                numericInput("mochi","mo",1,min = 0,max = 1,0.01)
+                                                  rows = 10))
                                    ),
                                    mainPanel(width =9 ,
                                              fluidRow(column(width=12,tabsetPanel(tabPanel(title = "Raw Input Data","Raw Input Data",DT::dataTableOutput("RawData")),
@@ -101,7 +100,7 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","R
                                    ),
                                    mainPanel(width =9  ,tabsetPanel(
                                                         tabPanel("SROC",
-                                                                fluidRow(column(width = 6,"c1c2","estimate",
+                                                                fluidRow(column(width = 6,"c1c2","estimate",downloadButton("downloadsauc_gg_estimate","Save Image"),
                                                                          plotOutput("srocB"),
                                                                          flowLayout(ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve"))
                                                                              ) #plotly::plotlyOutput("srocC")
@@ -114,16 +113,16 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","R
                                                                  # ,column(width = 6,"c1c2","c1=c2",
                                                                  #    plotOutput("srocC_01"),ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01")
                                                                  #    )
-                                                                 ,column(width = 6,"c1c2","c1=c2",
+                                                                 ,column(width = 6,"c1c2","c1=c2",downloadButton("download_srocC_11","Save Image"),
                                                                          plotOutput("srocC_11"),
                                                                          flowLayout(ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11")))
-                                                                 ,column(width = 6,"c1c2","c1=1,c2=0",
+                                                                 ,column(width = 6,"c1c2","c1=1,c2=0",downloadButton("download_srocC_10","Save Image"),
                                                                     plotOutput("srocC_10"),flowLayout(ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10")
                                                                     ))
-                                                                 ,column(width = 6,"c1c2","c1=0,c2=1",
+                                                                 ,column(width = 6,"c1c2","c1=0,c2=1",downloadButton("download_srocC_01","Save Image"),
                                                                     plotOutput("srocC_01"),flowLayout(ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01")
                                                                     ))
-                                                                 ,column(width = 6,"c1c2","Manual set",
+                                                                 ,column(width = 6,"c1c2","Manual set",downloadButton("download_c1c2_manul","Save Image"),
                                                                          sliderInput("c1c2_set","c1::",0,1,0.5),actionButton("c1c2_set_button","c1c2"),
                                                                          plotOutput("srocD"),
                                                                          flowLayout(ui.plot_baseline_drop("c1c2_manul",plot_title = "C1C2",x_axis = "1-sp",y_axis = "se"),
@@ -152,10 +151,8 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","R
                                                                  ,column(width = 6,"SAUC","Estimates when c11 and c22 are assigned by the specific values",
                                                                          plotOutput("curveAandB"),
                                                                          downloadButton("downloadcurveAandB","Save Image"))))
-
                                                                  
-                                                                 
-                                                )    
+                                                                    )
                                    )
                                  )
                                ))))

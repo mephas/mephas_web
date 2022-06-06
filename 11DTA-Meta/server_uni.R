@@ -170,8 +170,8 @@ output$inputval<-renderUI({
                         choiceNames  = colnames(data_uni$list_uni),
                         choiceValues=1:length(colnames(data_uni$list_uni))
       ),
-      style = "unite", right = TRUE,icon = icon("cog"),
-      status = "primary", width = "300px"
+      style = "default", right = TRUE,icon = icon("cog"),
+      status = "info", width = "300px"
       # ,animate = animateOptions(
       #   enter = animations$fading_entrances$fadeInLeftBig,
       #   exit = animations$fading_exits$fadeOutRightBig

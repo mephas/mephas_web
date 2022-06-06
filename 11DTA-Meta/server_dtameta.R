@@ -11,10 +11,16 @@ observe({
   id(newID)
 })%>%bindEvent(input$calculateStart)
 observe({
-  est.rc(p.seq())
+  withProgress(message = "Calculation one second",detail = 'This may take a while...', value = 0,
+  {est.rc(p.seq())
+    incProgress(1/4)
   est.fc(p.seq(),c1.square = 1)
+  incProgress(1/4)
   est.fc(p.seq(),c1.square = 0.5)
+  incProgress(1/4)
   est.fc(p.seq(),c1.square = 0)
+  incProgress(1/4)
+  })
 })%>%bindEvent(p.seq(),input$Sauc1,input$allsingle,input$calculateStart)
 md <- reactive(mada::madad(data()))
 #p.seq<-eventReactive(input$calculateStart,as.numeric(unlist(strsplit(input$plist, "[,;\n\t\r]"))))
@@ -145,7 +151,7 @@ output$RawData<-DT::renderDataTable({
   }}
 )
 #logit===============
-output$LogitData<-renderDataTable(datatable(logitData()
+output$LogitData<-renderDataTable(datatable(logitData()%>%round(.,3)
                                             ,extensions = 'Buttons',
                                             options=(list(scrollX = TRUE,
                                                           dom = 'Blfrtip',
@@ -249,7 +255,6 @@ output$srocB<-renderPlot({
   if(is.null(dtametasa.fc_c1.square0.5_p.10()))return()
   if(is.null(dtametasa.fc_c1.square1_p.10()))return()
   if(is.null(dtametasa.fc_c1.square0_p.10()))return()
-  print(input[[paste0("each_point_color",plot_id)]])
   withProgress(message = "c1c2 estimate",value = 0,detail = "take a minutes",
   {
   data_m<-data.frame(sp=sp(),se=se())
@@ -273,9 +278,14 @@ output$srocB<-renderPlot({
     sens <- plogis(par[1, ])
     spec <- plogis(par[2, ])
     p<-p+sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=input[[paste0("sroc_point_color",plot_id,t)]],size=input[[paste0("sroc_point_radius",plot_id,t)]]))
-
+    esting$plot_sroc<-p
     p})
 })
+output$downloadsauc_gg_estimate<-downloadHandler(
+  filename = function(){paste("c1c2_estimate",'.png',sep='')},
+  content = function(file){
+    ggsave(file,plot=esting$plot_sroc)
+  })
 #sroc C plot setting=====================
 output$srocCsetting_curve_11<-renderUI({
   ui.plot_srocline_drop("c1c2_11",p.seq())
@@ -304,6 +314,26 @@ output$srocC_01<-renderPlot({
   sroc_ggplot("c1c2_01",0)
   })
 })
+output$download_srocC_11<-downloadHandler(
+  filename = function(){paste("c1c2_11",'.png',sep='')},
+  content = function(file){
+    ggsave(file,plot=esting_omg[["c1c2_11"]])
+  })
+output$download_srocC_10<-downloadHandler(
+  filename = function(){paste("c1c2_10",'.png',sep='')},
+  content = function(file){
+    ggsave(file,plot=esting_omg[["c1c2_10"]])
+  })
+output$download_srocC_01<-downloadHandler(
+  filename = function(){paste("c1c2_01",'.png',sep='')},
+  content = function(file){
+    ggsave(file,plot=esting_omg[["c1c2_01"]])
+  })
+output$download_c1c2_manul<-downloadHandler(
+  filename = function(){paste("c1c2_estimate",'.png',sep='')},
+  content = function(file){
+    ggsave(file,plot=esting_omg$c1c2_manul_plot)
+  })
 sroc_ggplot<-function(plot_id,c1.square){
     data<-data.frame(sp=sp(),se=se())
     
@@ -326,6 +356,7 @@ sroc_ggplot<-function(plot_id,c1.square){
     sens <- plogis(par[1, ])
     spec <- plogis(par[2, ])
     p<-p+sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=input[[paste0("sroc_point_color",plot_id,t)]],size=input[[paste0("sroc_point_radius",plot_id,t)]]))
+    esting_omg[[plot_id]]<-p
     p
 }
 #sroc D plot setting=====================
@@ -360,6 +391,7 @@ output$srocD<-renderPlot({
   
   p<-p+labs(subtitle  = input[[paste0("plot_title",plot_id)]],tag="D")#input[[paste0("plot_y_axis","P")]],x=ifelse((input[[paste0("plot_x_axis","P")]]==""),waiver(),input[[paste0("plot_x_axis","P")]])
   p<-p+xlab(input[[paste0("plot_x_axis",plot_id)]])+ylab(input[[paste0("plot_y_axis",plot_id)]])
+  esting_omg$c1c2_manul_plot<-p
   p
 })
 #sauc ployt==========
@@ -380,7 +412,7 @@ sauc_ggplot<-function(plot_id,title="(A) C1,C2 estimate"){
     geom_line()
   p
 }
-sauc_ggplot_b<-function(plot_id,omg,title="Education level"){
+sauc_ggplot_b<-function(plot_id,omg,title="C1,C2"){
   est.sauc<-sapply(omg,function(x)x$sauc.ci)%>%t()
   data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc[,"sauc"],est.sauc[,"sauc.lb"],est.sauc[,"sauc.ub"]),sauctype=c(rep("sauc",10),rep("sauc.lb",10),rep("sauc.ub",10)))
   p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+
