@@ -272,12 +272,16 @@ output$srocB<-renderPlot({
     if (input$Sauc1 == "sroc"){
       r <- par["rho", i]}
     else{ r <- -1}
-      stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=input[[paste0("sroc_curve_color",plot_id,i)]],size=input[[paste0("sroc_curve_thick",plot_id,i)]],linetype = input[[paste0("sroc_curve_shape",plot_id,i)]],aes(linetype="h"))
+      stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(length(input[[paste0("sroc_curve_color",plot_id,i)]])==0,"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(length(input[[paste0("sroc_curve_thick",plot_id,i)]])==0,1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]),aes(linetype="h"))
       }
            , 1:ncol(par))
     sens <- plogis(par[1, ])
     spec <- plogis(par[2, ])
-    p<-p+sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=input[[paste0("sroc_point_color",plot_id,t)]],size=input[[paste0("sroc_point_radius",plot_id,t)]]))
+    p<-p+
+      sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
+      ggtitle(plot_id)+
+      theme(title= element_text(size = 16))
+    
     esting$plot_sroc<-p
     p})
 })
@@ -350,12 +354,15 @@ sroc_ggplot<-function(plot_id,c1.square){
       if (input$Sauc1 == "sroc"){
         r <- par["rho", i]}
       else{ r <- -1}
-      stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=input[[paste0("sroc_curve_color",plot_id,i)]],size=input[[paste0("sroc_curve_thick",plot_id,i)]],linetype = input[[paste0("sroc_curve_shape",plot_id,i)]],aes(linetype="h"))
+      stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(length(input[[paste0("sroc_curve_color",plot_id,i)]])==0,"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id,i)]]),1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]),aes(linetype="h"))
     }
     , 1:ncol(par))
     sens <- plogis(par[1, ])
     spec <- plogis(par[2, ])
-    p<-p+sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=input[[paste0("sroc_point_color",plot_id,t)]],size=input[[paste0("sroc_point_radius",plot_id,t)]]))
+    p<-p+
+      sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
+      ggtitle(plot_id)+
+      theme(title= element_text(size = 16))
     esting_omg[[plot_id]]<-p
     p
 }
@@ -363,10 +370,10 @@ sroc_ggplot<-function(plot_id,c1.square){
 output$srocDsetting_curve<-renderUI(ui.plot_srocline_drop("c1c2_manul",p.seq()))
 output$srocD<-renderPlot({
   
-  if(is.null(dtametasa.rc_p.10()))return()
-  if(is.null(dtametasa.fc_c1.square0.5_p.10()))return()
-  if(is.null(dtametasa.fc_c1.square1_p.10()))return()
-  if(is.null(dtametasa.fc_c1.square0_p.10()))return()
+  # if(is.null(dtametasa.rc_p.10()))return()
+  # if(is.null(dtametasa.fc_c1.square0.5_p.10()))return()
+  # if(is.null(dtametasa.fc_c1.square1_p.10()))return()
+  # if(is.null(dtametasa.fc_c1.square0_p.10()))return()
   plot_id<-"c1c2_manul"
   data_m<-data.frame(sp=sp(),se=se())
   p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
@@ -382,32 +389,36 @@ output$srocD<-renderPlot({
       if (input$Sauc1 == "sroc"){
         r <- par[5, i]}
       else{ r <- -1}
-      stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=input[[paste0("sroc_curve_color",plot_id,i)]],size=input[[paste0("sroc_curve_thick",plot_id,i)]],linetype = input[[paste0("sroc_curve_shape",plot_id,i)]])
+      stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(is.null(input[[paste0("sroc_curve_color",plot_id,i)]]),"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id,i)]]),1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]))
     }
     , 1:ncol(par))
     sens <- plogis(par[1, ])
     spec <- plogis(par[2, ])
-    p<-p+sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=input[[paste0("sroc_point_color",plot_id,t)]],size=input[[paste0("sroc_point_radius",plot_id,t)]]))
+    p<-p+sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=ifelse(is.null(input[[paste0("sroc_point_color",plot_id,t)]]),"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))
   
   p<-p+labs(subtitle  = input[[paste0("plot_title",plot_id)]],tag="D")#input[[paste0("plot_y_axis","P")]],x=ifelse((input[[paste0("plot_x_axis","P")]]==""),waiver(),input[[paste0("plot_x_axis","P")]])
-  p<-p+xlab(input[[paste0("plot_x_axis",plot_id)]])+ylab(input[[paste0("plot_y_axis",plot_id)]])
+  p<-p+
+    xlab(input[[paste0("plot_x_axis",plot_id)]])+ylab(input[[paste0("plot_y_axis",plot_id)]])+
+    ggtitle(plot_id)+
+    theme(title= element_text(size = 16))
+  
   esting_omg$c1c2_manul_plot<-p
   p
 })
-#sauc ployt==========
+#sauc ploy==========
 output$sauc_gg_estimate<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate")))
 output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_11",dtametasa.fc_c1.square0.5_p.10(),"(B) c1=c2")))
 output$sauc_gg_c10<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_10",dtametasa.fc_c1.square1_p.10(),"(C) c1=1,c2=0")))
 output$sauc_gg_c01<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_01",dtametasa.fc_c1.square0_p.10(),"(D) c1=0,c2=1")))
 
 sauc_ggplot<-function(plot_id,title="(A) C1,C2 estimate"){
-  #par(mfrow = c(2,2), oma = c(0.2, 3, 0.2, 0.3), mar = c(3, 2, 2, 0.2))
   est.sauc2<-sapply(dtametasa.rc_p.10(),function(x)x$sauc.ci)%>%t()
   data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc2[,"sauc"],est.sauc2[,"sauc.lb"],est.sauc2[,"sauc.ub"]),sauctype=c(rep("sauc",10),rep("sauc.lb",10),rep("sauc.ub",10)))
   p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+
     ylim(0,1)+
     xlim(0,1)+
     ggtitle(title)+
+    theme(title= element_text(size = 16))+
     geom_point()+
     geom_line()
   p
@@ -419,6 +430,7 @@ sauc_ggplot_b<-function(plot_id,omg,title="C1,C2"){
     ylim(0,1)+
     xlim(0,1)+
     ggtitle(title)+
+    #theme(title= element_text(size = 16))+
     geom_point()+
     geom_line()
   p
@@ -452,7 +464,7 @@ output$srocA<-renderPlot({
 
   sauc10 <- est.f(c1.square=1,c("sauc"),par = "sauc.ci")#est10()[2,]
   sauc01 <- est.f(c1.square=0,c("sauc"),par = "sauc.ci")#est01()[2,]
-  # incProgress(1/20)
+  
   plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1),
        xlab = "", ylab = "")
   SROC(est2.par, addon  = TRUE, sroc.type = input$Sauc1)
@@ -510,28 +522,28 @@ output$srocA<-renderPlot({
                })
 })
 #download sroc====================================
-output$downloadsrocA<-downloadHandler(filename = "SROC.png",content = function(file){
-  sp <- data()$TN/(data()$TN+data()$FP)
-  se <- data()$TP/(data()$TP+data()$FN)
-  legend.cex <- 1.2
+output$downloadsrocA<-downloadHandler(filename = "SROC.png",contentType = "image/png",content = function(file){
+
+  legend.cex <- 1
   col <- 1:4
   title.cex <- 1.5
-  p.10 <- seq(1, 0.1, -0.1)
-  est2.par  <- est2()[15:19,]
-  sauc2  <- est2()[2,]
+  est2.par  <-est.r(0.5,c("mu1","mu2","tau1","tau2","rho"))
+  sauc2  <- est.r(0.5,par="sauc.ci","sauc")
   ##B=======#   
   ## ESITMATION WHEN c1 = c2
-  est11.par <- est11()[15:19,]
-  sauc11 <- est11()[2,]   
+  est11.par <- est.f(c1.square=0.5,c("mu1","mu2","tau1","tau2","rho"))
+  sauc11 <- est.f(c1.square=0.5,c("sauc"),par = "sauc.ci")##est11()[2,]
   
-  est10.par<-est10()[15:19,]
-  est01.par <- est01()[15:19,]
-  sauc10 <- est10()[2,]
-  sauc01 <- est01()[2,]
+  est10.par<-est.f(c1.square=1,c("mu1","mu2","tau1","tau2","rho"))#est10()[15:19,]
+  est01.par <- est.f(c1.square=0,c("mu1","mu2","tau1","tau2","rho"))#est01()[15:19,]
+  
+  sauc10 <- est.f(c1.square=1,c("sauc"),par = "sauc.ci")#est10()[2,]
+  sauc01 <- est.f(c1.square=0,c("sauc"),par = "sauc.ci")#est01()[2,]
+  
   png(file)
   par(mfrow = c(2,2), oma = c(0.2, 3, 0.2, 0.3), mar = c(2, 0.2, 2, 0.2))
-  # incProgress(1/20)
-  plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1),
+  #A
+  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1),
        xlab = "", ylab = "")
   SROC(est2.par, addon  = TRUE, sauc.type = input$Sauc1)
   
@@ -545,7 +557,8 @@ output$downloadsrocA<-downloadHandler(filename = "SROC.png",content = function(f
   title(TeX("$(\\hat{c}_1, \\, \\hat{c}_2)$"), cex.main = title.cex)
   title(xlab = "FPR", line=2, cex = 0.7)
   mtext("TPR", side=2, line=2, at=0.5, cex = 0.7)
-  plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1), 
+  #B
+  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1), 
        xlab = "",
        yaxt = "n")
   SROC(est11.par, addon = TRUE, sroc.type =  input$Sauc1)
@@ -557,9 +570,9 @@ output$downloadsrocA<-downloadHandler(filename = "SROC.png",content = function(f
   title("(B)", adj = 0, font.main = 1, cex.main = title.cex)
   title(TeX("$(c_1, \\,c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$"), cex.main = title.cex)
   title(xlab = "FPR", line=2, cex = 0.7)
-  ## zC
+  ## C
   
-  plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1), 
+  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1), 
        xlab = "",
        yaxt = "n")
   SROC(est10.par, addon = TRUE, sroc.type = input$Sauc1)
@@ -573,7 +586,7 @@ output$downloadsrocA<-downloadHandler(filename = "SROC.png",content = function(f
   title(xlab = "FPR", line=2, cex = 0.7)
   ## D
   
-  plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1), 
+  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1), 
        xlab = "",
        yaxt = "n")
   SROC(est01.par, addon = TRUE, sroc.type = input$Sauc1)
@@ -645,12 +658,13 @@ output$sauc<-renderPlot({
   
 })#%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(input$calculateStart,input$Sauc1,input$allsingle)
 #download sauc======================================================
-output$downloadsauc <- downloadHandler(filename ="dtametasa_fc.png",
+output$downloadsauc <- downloadHandler(filename ="dtametasa_fc.png",contentType = "image/png",
                                        content = function(file) {
                                          png(file)
+                                         title.cex <- 1.5
                                          par(mfrow = c(2,2), oma = c(0.2, 3, 0.2, 0.3), mar = c(3, 2, 2, 0.2))
                                          
-                                         matplot(t(dtametasa.rc_p.10()$sauc.ci),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
+                                         matplot(t(est.r(c1.square = 0.5,par = "sauc.ci",p = p.10)),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                                                  ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                                          title(TeX("$(\\hat{c}_1, \\, \\hat{c}_2)$"), cex.main = title.cex)
                                          axis(1, at = 1:10, labels = p.10)
@@ -662,14 +676,14 @@ output$downloadsauc <- downloadHandler(filename ="dtametasa_fc.png",
                                          
                                          ## F(B)
                                          
-                                         matplot(t(dtametasa.fc_c1.square0.5_p.10()$sauc.ci),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
+                                         matplot(t(est.f(c1.square = 0.5,par = "sauc.ci",p = p.10)),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                                                  ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                                          title(TeX("$(c_1, \\,c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$"), cex.main = title.cex)
                                          axis(1, at = 1:10, labels = p.10)
                                          abline(h=0.5, col="grey54", lty=2)
                                          title("(F)", adj = 0, font.main = 1, cex.main = title.cex)
                                          title(xlab = "p", line=2, cex = 0.7)
-                                         matplot(t(dtametasa.fc_c1.square1_p.10()$sauc.ci),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
+                                         matplot(t(est.f(c1.square = 1,par = "sauc.ci",p = p.10)),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                                                  ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                                          title(TeX("$(c_1, \\,c_2) = (1, \\,0)$"), cex.main = title.cex)
                                          axis(1, at = 1:10, labels = p.10)
@@ -681,7 +695,7 @@ output$downloadsauc <- downloadHandler(filename ="dtametasa_fc.png",
                                          
                                          ## H(D)
                                          
-                                         matplot(t(dtametasa.fc_c1.square0_p.10()$sauc.ci),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
+                                         matplot(t(est.f(c1.square = 0,par = "sauc.ci",p = p.10)),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                                                  ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                                          title(TeX("$(c_1, \\,c_2) = (0, \\,1)$"), cex.main = title.cex)
                                          axis(1, at = 1:10, labels = p.10)
@@ -693,7 +707,6 @@ output$downloadsauc <- downloadHandler(filename ="dtametasa_fc.png",
 )
 ###curve===============
 output$curveAandB<-renderPlot({
-  # p.seq<- as.numeric(unlist(strsplit(input$plist, "[,;\n\t]")))
   title.cex <- 1.5
   par(mfrow = c(2, 2), oma = c(0.2, 1, 0.2, 0.2), mar = c(3, 2.5, 2, 0.2))
   ldata <- logitData()
@@ -802,21 +815,27 @@ output$curveAandB<-renderPlot({
 })#%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(input$calculateStart,input$Sauc1,input$allsingle)
 ###download curve ===============
 output$downloadcurveAandB <- downloadHandler(filename = function() {
-  "dtametasa_fc.png"
-}
+  paste0("dtametasa_fc.png")
+},contentType = "image/png"
 ,content = function(file) {
   png(file)
+  title.cex <- 1.5
   par(mfrow = c(2, 2), oma = c(0.2, 1, 0.2, 0.2), mar = c(3, 2.5, 2, 0.2))
   ldata <- logitData()
-  c1 <- sqrt(est2()[21,]); c2 <- sqrt(1-c1^2)
+  c1<- est.r(0.5,"c1")
+  c2 <- sqrt(1-c1^2)
   t11 <- (ldata$y1 + ldata$y2)/sqrt(ldata$v1+ldata$v2)
   t10 <- (ldata$y1 )/sqrt(ldata$v1)
   t01 <- (ldata$y2)/sqrt(ldata$v2)
-  beta2  <- est2()[11,];  alpha2  <- est2()[14,]
-  beta11 <- est11()[11,]; alpha11 <- est11()[14,]
-  beta10 <- est10()[11,]; alpha10 <- est10()[14,]
-  beta01 <- est01()[11,]
-  alpha01 <- est01()[14,]
+  beta2  <- est.r(0.5,c("beta"));  alpha2  <- est.r(par="alpha")
+  print("mo.")
+  print(beta2)
+  print("mo0")
+  beta11 <- est.f(0.5,c("beta"));alpha11 <- est.f(0.5,par="alpha")# est11()["beta",]; alpha11 <- est11()["alpha",]
+  beta10 <- est.f(1,c("beta")); alpha10 <- est.f(1,par="alpha")
+  beta01 <- est.f(0,c("beta")); alpha01 <-est.f(0,par="alpha")
+  print(beta01)
+  print(alpha01)
   ytext<-("$p = \\Phi(\\beta \\, t + \\alpha)$")
   ## A
   curve(pnorm(beta2[2]*x + alpha2[2]), -5, 15, ylim = c(0,1),
@@ -834,7 +853,7 @@ output$downloadcurveAandB <- downloadHandler(filename = function() {
   points(t03, rep(0.1, length(t03)), pch="|", col=3, cex = 1)
   points(t04, rep(0,   length(t04)), pch="|", col=4, cex = 1)
   title(TeX("$(\\hat{c}_1, \\, \\hat{c}_2)$"), cex.main = title.cex)
-  legend("topright", 
+  legend("bottomright", 
          bty='n',
          legend = TeX(sprintf("$p = %.1f$", p.seq()[-1])), 
          col = 2:4, cex = 1.2, 
@@ -852,7 +871,7 @@ output$downloadcurveAandB <- downloadHandler(filename = function() {
   curve(pnorm(beta11[4]*x + alpha11[4]), -5, 15, add = TRUE, col=4)
   points(t11, rep(0, length(t11)), pch="|", cex = 1)
   title(TeX("$(c_1, \\,c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$"), cex.main = title.cex)
-  legend("topright", 
+  legend("bottomright", 
          bty='n',
          legend = TeX(sprintf("$p = %.1f$", p.seq()[-1])), 
          col = 2:4, cex = 1.2, 
@@ -870,7 +889,7 @@ output$downloadcurveAandB <- downloadHandler(filename = function() {
   curve(pnorm(beta10[4]*x + alpha10[4]), -5, 15, add = TRUE, col=4)
   points(t10, rep(0, length(t10)), pch="|", cex = 1)
   title(TeX("$(c_1, \\,c_2) = (1, \\,0)$"), cex.main = title.cex)
-  legend("topright", 
+  legend("bottomright", 
          bty='n',
          legend = TeX(sprintf("$p = %.1f$", p.seq()[-1])), 
          col = 2:4, cex = 1.2, 
@@ -889,11 +908,14 @@ output$downloadcurveAandB <- downloadHandler(filename = function() {
   curve(pnorm(beta01[4]*x + alpha01[4]), -5, 15, add = TRUE, col=4)
   points(t01, rep(0, length(t01)), pch="|", cex = 1)
   title(TeX("$(c_1, \\,c_2) = (0, \\,1)$"), cex.main = title.cex)
-  legend("topright", 
+  legend("bottomright", 
          bty='n',
          legend = TeX(sprintf("$p = %.1f$", p.seq()[-1])), 
          col = 2:4, cex = 1.2, 
          lty = rep(1,3))
   title("(D)", adj = 0, font.main = 1, cex.main = title.cex)
   title(xlab = "t", line=2, cex = 0.7)
+  
+  
+  par(mfrow = c(1, 1))
   dev.off()})
