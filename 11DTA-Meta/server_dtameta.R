@@ -23,7 +23,6 @@ observe({
   })
 })%>%bindEvent(p.seq(),input$Sauc1,input$allsingle,input$calculateStart)
 md <- reactive(mada::madad(data()))
-#p.seq<-eventReactive(input$calculateStart,as.numeric(unlist(strsplit(input$plist, "[,;\n\t\r]"))))
 p.seq<-reactiveVal(NULL)
 output$uiprob<-renderText({
   probs<-round(as.numeric(unlist(strsplit(input$plist, "[,;\n\t\r]"))),2)
@@ -42,9 +41,7 @@ est.add_rc<-function(p,  c1.square=0.5){
   rc
 }
 est.add_fc<-function(p,  c1.square=0.5){
-  print(paste0(p,c1.square,input$Sauc1,input$allsingle,id()))
   fc<- c(p=p,dtametasa.fc(data(), p,  c1.square=c1.square, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
-  print(c1.square)
   esting_omg[[paste0(p,c1.square,input$Sauc1,input$allsingle,id())]]<-fc
   fc
 }
@@ -360,9 +357,11 @@ sroc_ggplot<-function(plot_id,c1.square){
     sens <- plogis(par[1, ])
     spec <- plogis(par[2, ])
     p<-p+
-      sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
+      sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t],color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]])),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
       ggtitle(plot_id)+
-      theme(title= element_text(size = 16))
+      #guide_legend(title = "p=")+
+      theme(title= element_text(size = 16)
+            ,legend.position = "right",)
     esting_omg[[plot_id]]<-p
     p
 }
@@ -721,14 +720,9 @@ output$curveAandB<-renderPlot({
   t10 <- (ldata$y1 )/sqrt(ldata$v1)
   t01 <- (ldata$y2)/sqrt(ldata$v2)
   beta2  <- est.r(0.5,c("beta"));  alpha2  <- est.r(par="alpha")
-  print("mo.")
-  print(beta2)
-  print("mo0")
   beta11 <- est.f(0.5,c("beta"));alpha11 <- est.f(0.5,par="alpha")# est11()["beta",]; alpha11 <- est11()["alpha",]
   beta10 <- est.f(1,c("beta")); alpha10 <- est.f(1,par="alpha")
   beta01 <- est.f(0,c("beta")); alpha01 <-est.f(0,par="alpha")
-  print(beta01)
-  print(alpha01)
   ytext<-("$p = \\Phi(\\beta \\, t + \\alpha)$")
   ## A
   curve(pnorm(beta2[2]*x + alpha2[2]), -5, 15, ylim = c(0,1),
@@ -828,14 +822,10 @@ output$downloadcurveAandB <- downloadHandler(filename = function() {
   t10 <- (ldata$y1 )/sqrt(ldata$v1)
   t01 <- (ldata$y2)/sqrt(ldata$v2)
   beta2  <- est.r(0.5,c("beta"));  alpha2  <- est.r(par="alpha")
-  print("mo.")
-  print(beta2)
-  print("mo0")
   beta11 <- est.f(0.5,c("beta"));alpha11 <- est.f(0.5,par="alpha")# est11()["beta",]; alpha11 <- est11()["alpha",]
   beta10 <- est.f(1,c("beta")); alpha10 <- est.f(1,par="alpha")
   beta01 <- est.f(0,c("beta")); alpha01 <-est.f(0,par="alpha")
-  print(beta01)
-  print(alpha01)
+  
   ytext<-("$p = \\Phi(\\beta \\, t + \\alpha)$")
   ## A
   curve(pnorm(beta2[2]*x + alpha2[2]), -5, 15, ylim = c(0,1),

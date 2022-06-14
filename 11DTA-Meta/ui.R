@@ -30,7 +30,19 @@ source("../tab/func.R")
 # }
 tagList(includeCSS("../www/style.css"),
         stylink(),
-  tabOF(),
+        
+        fluidPage(
+          shinyWidgets::switchInput(
+            
+            inputId = "explain_on_off",#
+            label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
+            inline = TRUE,
+            onLabel = "Close",
+            offLabel = "How to use",
+            size = "mini"
+          )
+        )
+        ,
         
 navbarPage(
   theme = shinythemes::shinytheme("cerulean"),
@@ -39,7 +51,9 @@ navbarPage(
   title = "DTA-META-SA",
   tabPanel("DTA",conditionalPanel(
     condition = "input.explain_on_off",
-    HTML("<h4><b>Functionalities</b></h4>")),
+    HTML("<h4><b>Functionalities</b></h4>"),
+    actionButton("mochimochi","Download Manual")
+    ),
     source("./ui_dta.R",local = TRUE)),
   tabPanel("Univariate-meta",Univariate_Body),
   tablang("11DTA-Meta"),
