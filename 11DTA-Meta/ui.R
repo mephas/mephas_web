@@ -52,7 +52,7 @@ navbarPage(
   tabPanel("DTA",conditionalPanel(
     condition = "input.explain_on_off",
     HTML("<h4><b>Functionalities</b></h4>"),
-    actionButton("mochimochi","Download Manual")
+    downloadButton("ManualPDF_download","Download Manual")
     ),
     source("./ui_dta.R",local = TRUE)),
   tabPanel("Univariate-meta",Univariate_Body),
