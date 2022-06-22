@@ -7,18 +7,24 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","R
                                                 radioButtons("manualInputTRUE",choices = c("Manual input","File upload"),"choose input way",inline = TRUE),
                                                 
                                                 conditionalPanel(condition = "input.manualInputTRUE=='File upload'",icon("fa-regular fa-file",lib = "font-awesome"),fileInput("filer",label = "csv,txt",accept = c("text/csv"))),
-                                                conditionalPanel(condition = "input.manualInputTRUE=='Manual input'",icon("fa-regular fa-keyboard",lib="font-awesome"),textAreaInput(
-                                                  inputId = "manualInput", 
-                                                  label = "Manually input data",
-                                                  value = "study,TP,FN,FP,TN\n1,12,0,29,289\n2,10,2,14,72\n3,17,1,36,85\n4,13,0,18,67\n5,4,0,21,225\n6,15,2,122,403\n7,45,5,28,34\n8,18,4,69,133\n9,5,0,11,34\n10,8,9,15,96\n11,5,0,7,63\n12,11,2,122,610\n13,5,1,6,145\n14,7,5,25,342",
-                                                  rows = 10))
+                                                icon("fa-regular fa-keyboard",lib="font-awesome")
+                                                                 # ,textAreaInput(
+                                                                 #   inputId = "manualInput", 
+                                                                 #   label = "Manually input data",
+                                                                 #   value = "study,TP,FN,FP,TN\n1,12,0,29,289\n2,10,2,14,72\n3,17,1,36,85\n4,13,0,18,67\n5,4,0,21,225\n6,15,2,122,403\n7,45,5,28,34\n8,18,4,69,133\n9,5,0,11,34\n10,8,9,15,96\n11,5,0,7,63\n12,11,2,122,610\n13,5,1,6,145\n14,7,5,25,342",
+                                                                 #   rows = 10)
+                                                                 ,aceEditor("manualInput"
+                                                                            ,value = "study,TP,FN,FP,TN\n1,12,0,29,289\n2,10,2,14,72\n3,17,1,36,85\n4,13,0,18,67\n5,4,0,21,225\n6,15,2,122,403\n7,45,5,28,34\n8,18,4,69,133\n9,5,0,11,34\n10,8,9,15,96\n11,5,0,7,63\n12,11,2,122,610\n13,5,1,6,145\n14,7,5,25,342"
+                                                                            ,mode = "r"
+                                                                            ,theme="eclipse"
+                                                                            )
                                    ),
                                    mainPanel(width =9 ,
                                              fluidRow(column(width=12,tabsetPanel(tabPanel(title = "Raw Input Data","Raw Input Data",DT::dataTableOutput("RawData")),
                                                                                   tabPanel(title = "Logit-transformed Data","Logit-transformed Data",DT::dataTableOutput("LogitData"))
                                              )),
                                              column(width = 12,tabsetPanel(tabPanel(title = "Meta-Sensitivity/Specificity",
-                                                                                    plotOutput("meta_sesp")),
+                                                                                    plotOutput("meta_sesp"),plotOutput("meta_se")),
                                                                            tabPanel(title = "Meta-LDOR",plotOutput("meta_LDOR")),
                                                                            tabPanel(title = "Plot",column(width=6,checkboxInput("ROCellipse", "95%CI",value = FALSE),checkboxInput("mslSROC", "mslSROC",value = FALSE),checkboxInput("rsSROC", "rsSROC",value = FALSE)),column(width = 6,checkboxInput("mrfit", "mrfit",value = FALSE)),plotOutput("plot_FRP"),column(width=6,downloadButton("downloadFRP1","Download FRP Plot"))
                                                                                     ,conditionalPanel(condition = "input.mrfit=='1'",column(width=6,downloadButton("downloadFRP2","Download mrfit"))))
@@ -99,60 +105,51 @@ fluidPage(headerPanel("Digostic Test Analysis"),actionButton("calculateStart","R
                                                 )
                                    ),
                                    mainPanel(width =9  ,tabsetPanel(
-                                                        tabPanel("SROC",
-                                                                fluidRow(column(width = 6,"c1c2","estimate",downloadButton("downloadsauc_gg_estimate","Save Image"),
-                                                                         plotOutput("srocB"),
-                                                                         flowLayout(ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve"))
-                                                                             ) #plotly::plotlyOutput("srocC")
-                                                                 # ,column(width = 6,"c1c2","c1=c2",
-                                                                 #         plotOutput("srocC_11"),
-                                                                 #         ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11"))
-                                                                 # ,column(width = 6,"c1c2","c1=1,c2=0",
-                                                                 #    plotOutput("srocC_10"),ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10")
-                                                                 #    )
-                                                                 # ,column(width = 6,"c1c2","c1=c2",
-                                                                 #    plotOutput("srocC_01"),ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01")
-                                                                 #    )
-                                                                 ,column(width = 6,"c1c2","c1=c2",downloadButton("download_srocC_11","Save Image"),
-                                                                         plotOutput("srocC_11"),
-                                                                         flowLayout(ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11")))
-                                                                 ,column(width = 6,"c1c2","c1=1,c2=0",downloadButton("download_srocC_10","Save Image"),
-                                                                    plotOutput("srocC_10"),flowLayout(ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10")
-                                                                    ))
-                                                                 ,column(width = 6,"c1c2","c1=0,c2=1",downloadButton("download_srocC_01","Save Image"),
-                                                                    plotOutput("srocC_01"),flowLayout(ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01")
-                                                                    ))
-                                                                 ,column(width = 6,"c1c2","Manual set",downloadButton("download_c1c2_manul","Save Image"),
-                                                                         sliderInput("c1c2_set","c1::",0,1,0.5),actionButton("c1c2_set_button","c1c2"),
-                                                                         plotOutput("srocD"),
-                                                                         flowLayout(ui.plot_baseline_drop("c1c2_manul",plot_title = "C1C2",x_axis = "1-sp",y_axis = "se"),
-                                                                         ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve"))
-                                                                         
-                                                                 ))),
-                                                        tabPanel("SAUC",flowLayout( 
-                                                                         plotly::plotlyOutput(width="300%","sauc_gg_estimate"),br(),br(),
-                                                                         plotly::plotlyOutput(width="300%","sauc_gg_c11"),br(),br(),
-                                                                         plotly::plotlyOutput(width="300%","sauc_gg_c10"),br(),br(),
-                                                                         plotly::plotlyOutput(width="300%","sauc_gg_c01")
-                                                                         )),
-                                                        tabPanel("Results",column(width = 12,"Results",
-                                                                         DT::dataTableOutput("Results"))),
-                                                        tabPanel("SROC_old",
-                                                            fluidRow(column(width = 6,"SROC1","Estimated SROC when c11 and c22 are assigned by the specific values",
-                                                                        plotOutput("srocA"
-                                                                                   #, width = "400px", height = "400px"
-                                                                        ),
-                                                                        downloadButton("downloadsrocA","Save Image"))
-                                                                 ,column(width = 6,"Probit of α and β","Estimated SROC when c11 and c22 are estimated",
-                                                                         plotOutput("sauc"
-                                                                                    #, width = "400px", height = "400px"
-                                                                         ),
-                                                                         downloadButton("downloadsauc","Save Image"))
-                                                                 ,column(width = 6,"SAUC","Estimates when c11 and c22 are assigned by the specific values",
-                                                                         plotOutput("curveAandB"),
-                                                                         downloadButton("downloadcurveAandB","Save Image"))))
-                                                                 
-                                                                    )
+                                     tabPanel("SROC",
+                                              fluidRow(column(width = 6,"c1c2","estimate",downloadButton("downloadsauc_gg_estimate","Save Image"),
+                                                              plotOutput("srocB"),
+                                                              flowLayout(ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve"))
+                                              )
+                                              ,column(width = 6,"c1c2","c1=c2",downloadButton("download_srocC_11","Save Image"),
+                                                      plotOutput("srocC_11"),
+                                                      flowLayout(ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11")))
+                                              ,column(width = 6,"c1c2","c1=1,c2=0",downloadButton("download_srocC_10","Save Image"),
+                                                      plotOutput("srocC_10"),flowLayout(ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10")
+                                                      ))
+                                              ,column(width = 6,"c1c2","c1=0,c2=1",downloadButton("download_srocC_01","Save Image"),
+                                                      plotOutput("srocC_01"),flowLayout(ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01")
+                                                      ))
+                                              ,column(width = 6,"c1c2","Manual set",downloadButton("download_c1c2_manul","Save Image"),
+                                                      sliderInput("c1c2_set","c1::",0,1,0.5),actionButton("c1c2_set_button","c1c2"),
+                                                      plotOutput("srocD"),
+                                                      flowLayout(ui.plot_baseline_drop("c1c2_manul",plot_title = "C1C2",x_axis = "1-sp",y_axis = "se"),
+                                                                 ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve"))
+                                                      
+                                              ))),
+                                     tabPanel("SAUC",flowLayout( 
+                                       plotly::plotlyOutput(width="300%","sauc_gg_estimate"),br(),br(),
+                                       plotly::plotlyOutput(width="300%","sauc_gg_c11"),br(),br(),
+                                       plotly::plotlyOutput(width="300%","sauc_gg_c10"),br(),br(),
+                                       plotly::plotlyOutput(width="300%","sauc_gg_c01")
+                                     )),
+                                     tabPanel("Results",column(width = 12,"Results",
+                                                               DT::dataTableOutput("Results"))),
+                                     tabPanel("SROC_old",
+                                              fluidRow(column(width = 6,"SROC1","Estimated SROC when c11 and c22 are assigned by the specific values",
+                                                              plotOutput("srocA"
+                                                                         #, width = "400px", height = "400px"
+                                                              ),
+                                                              downloadButton("downloadsrocA","Save Image"))
+                                                       ,column(width = 6,"Probit of α and β","Estimated SROC when c11 and c22 are estimated",
+                                                               plotOutput("sauc"
+                                                                          #, width = "400px", height = "400px"
+                                                               ),
+                                                               downloadButton("downloadsauc","Save Image"))
+                                                       ,column(width = 6,"SAUC","Estimates when c11 and c22 are assigned by the specific values",
+                                                               plotOutput("curveAandB"),
+                                                               downloadButton("downloadcurveAandB","Save Image"))))
+                                     
+                                   )
                                    )
                                  )
                                ))))

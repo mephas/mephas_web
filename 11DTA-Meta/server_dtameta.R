@@ -137,7 +137,7 @@ output$RawData<-DT::renderDataTable({
       }
       y<-paste(y,list2[[i]],",",sep = "")
     }
-    updateTextAreaInput(session,"manualInput",value =paste(y,collapse ="\n"))
+    updateAceEditor(session,"manualInput",value =paste(y,collapse ="\n"))
     datatable(list1
                   ,extensions = 'Buttons',
                   options=(list(scrollX = TRUE,
@@ -190,6 +190,7 @@ output$meta_sesp<-renderPlot({
   forest(md(),type="sens",main="Sensitivity")
   forest(md(),type="spec",main="Specificity")
 })
+output$meta_se<-renderPlot(forest(md(),type="sens",main="Sensitivity"))
 output$meta_LDOR<-renderPlot({
   forest(md(),type="DOR",log=TRUE,main="Log diagnostic odds ratio")
 })

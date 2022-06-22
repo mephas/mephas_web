@@ -9,31 +9,21 @@ if (!requireNamespace("meta", quietly = TRUE)) {install.packages("meta")}; requi
 if (!requireNamespace("mada", quietly = TRUE)) {install.packages("mada")}; require("mada",quietly = TRUE)
 if (!requireNamespace("dtametasa", quietly = TRUE)) {install.packages("dtametasa")}; require("dtametasa",quietly = TRUE)
 if (!requireNamespace("stats", quietly = TRUE)) {install.packages("stats")}; require("stats",quietly = TRUE)
-
+library("shinyAce")
 source("function.R")
 #source("./ui_dtameta.R",local = TRUE)
 source("./ui_uni.R",local = TRUE)
 source("../tab/tab.R")
 source("../tab/panel.R")
 source("../tab/func.R")
-# tabOF <- function(){
-#   fluidPage(#
-#     shinyWidgets::switchInput(#
-#       inputId = "explain_on_off",#
-#       label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
-#       inline = TRUE,
-#       onLabel = "Show",
-#       offLabel = "Hide",
-#       size = "mini"
-#     )
-#   )
-# }
+
+
+
 tagList(includeCSS("../www/style.css"),
         stylink(),
         
         fluidPage(
           shinyWidgets::switchInput(
-            
             inputId = "explain_on_off",#
             label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
             inline = TRUE,
