@@ -1,18 +1,18 @@
-# legend.cex <- 1.2
-# col <- 1:4
-# title.cex <- 1.5
- p.10 <- seq( 10,1, -1)/10
-id<-reactiveVal(0)
+p.10 <- seq( 10,1, -1)/10
+studyId<-reactiveVal(0)
 data<-reactiveVal()
 esting<-reactiveValues()
 esting_omg<-reactiveValues()
 observe({
-  newID<-id()+1
-  id(newID)
+  newID<-studyId()+1
+  studyId(newID)
 })%>%bindEvent(input$calculateStart)
 observe({
   withProgress(message = "Calculation one second",detail = 'This may take a while...', value = 0,
-  {est.rc(p.seq())
+  {print(p.seq())
+    print(input$input$Sauc1)
+    print(esting)
+    est.rc(p.seq())
     incProgress(1/4)
   est.fc(p.seq(),c1.square = 1)
   incProgress(1/4)
@@ -24,40 +24,43 @@ observe({
 })%>%bindEvent(p.seq(),input$Sauc1,input$allsingle,input$calculateStart)
 md <- reactive(mada::madad(data()))
 p.seq<-reactiveVal(NULL)
+output$studyId<-renderUI({
+  radioButtons("momomo","",inline = TRUE,choices = paste0("studyID",seq(studyId(),0)))
+})
 output$uiprob<-renderText({
   probs<-round(as.numeric(unlist(strsplit(input$plist, "[,;\n\t\r]"))),2)
   validate(need(identical(probs<=1&probs>0,rep(TRUE,length(probs))),paste("Each value must be from 0 to 1.\nEach value must be separated by a space or a comma.",paste(probs,collapse = ","))))
   probs<-sort(probs,decreasing = TRUE)
   p.seq(probs)
-  paste("p=",probs," ",sep = "")})
-logitData<-reactive(logit.data(correction(data(), type = input$allsingle)))%>%bindCache(input$allsingle,id())%>%bindEvent(input$calculateStart,input$allsingle)
+  paste("Correct input:/n",paste("p=",probs," ",sep = ""))})
+logitData<-reactive(logit.data(correction(data(), type = input$allsingle)))%>%bindCache(input$allsingle,studyId())%>%bindEvent(input$calculateStart,input$allsingle)
 ###data preculculate=====
 
-sp <-reactive(data()$TN/(data()$TN+data()$FP))%>%bindEvent(id())
-se <-reactive(data()$TP/(data()$TP+data()$FN))%>%bindEvent(id())
+sp <-reactive(data()$TN/(data()$TN+data()$FP))%>%bindEvent(studyId())
+se <-reactive(data()$TP/(data()$TP+data()$FN))%>%bindEvent(studyId())
 est.add_rc<-function(p,  c1.square=0.5){
   rc<-c(p=p,dtametasa.rc(data(), p,  c1.square0 = 0.5, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
-  esting[[paste0(p,input$Sauc1,input$allsingle,id())]]<-rc
+  esting[[paste0(p,input$Sauc1,input$allsingle,studyId())]]<-rc
   rc
 }
 est.add_fc<-function(p,  c1.square=0.5){
   fc<- c(p=p,dtametasa.fc(data(), p,  c1.square=c1.square, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
-  esting_omg[[paste0(p,c1.square,input$Sauc1,input$allsingle,id())]]<-fc
+  esting_omg[[paste0(p,c1.square,input$Sauc1,input$allsingle,studyId())]]<-fc
   fc
 }
 est.rc<-function(p.seq){sapply(p.seq,function(p){
-  if(length(esting[[paste0(p,input$Sauc1,input$allsingle,id())]])==0) est.add_rc(p)
+  if(length(esting[[paste0(p,input$Sauc1,input$allsingle,studyId())]])==0) est.add_rc(p)
 })}
 est.fc<-function(p.seq,c1.square=0.5){sapply(p.seq,function(p){
-  if(length(esting_omg[[paste0(p,c1.square,input$Sauc1,input$allsingle,id())]])==0) est.add_fc(p,c1.square)
+  if(length(esting_omg[[paste0(p,c1.square,input$Sauc1,input$allsingle,studyId())]])==0) est.add_fc(p,c1.square)
 })}
 est.r<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
-  validate(need(length(esting[[paste0(x,input$Sauc1,input$allsingle,id())]])>0,"Push Above Button[Reload DATA TO Calculation]\nerror 111"))
-  esting[[paste0(x,input$Sauc1,input$allsingle,id())]][[par]][...]
+  validate(need(length(esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]])>0,"Push Above Button[Reload DATA TO Calculation]\nerror 111"))
+  esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
 est.f<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
-  validate(need(length(esting[[paste0(x,input$Sauc1,input$allsingle,id())]])>0,"Push Above Button[Reload DATA TO Calculation]\nerror 112"))
-  esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,id())]][[par]][...]
+  validate(need(length(esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]])>0,"Push Above Button[Reload DATA TO Calculation]\nerror 112"))
+  esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
 
 est<-reactive(withProgress(message = 'Calculation c1c2 FC',
@@ -69,7 +72,7 @@ est<-reactive(withProgress(message = 'Calculation c1c2 FC',
                                     
                                     c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(0.5))
                                     
-                                  })}))%>%bindCache(input$c1c2_set,input$Sauc1,input$allsingle,id(),p.seq())%>%bindEvent(input$c1c2_set_button,input$c1c2_set,input$Sauc1,input$allsingle,p.seq(),id())
+                                  })}))%>%bindCache(input$c1c2_set,input$Sauc1,input$allsingle,studyId(),p.seq())%>%bindEvent(input$c1c2_set_button,input$c1c2_set,input$Sauc1,input$allsingle,p.seq(),studyId())
 dtametasa.rc_p.10 <-reactive(
   withProgress(message = 'Calculation dtametasa.rc for each seq(0.1, 1, -0.1)',
                detail = 'This may take a while...', value = 0,
@@ -77,43 +80,44 @@ dtametasa.rc_p.10 <-reactive(
                  incProgress(1/10)
                  r<-c(p,dtametasa.rc(data(), p, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle))
                names(r)[1]<-c("p")
-               esting[[paste0(p,input$Sauc1,input$allsingle,id())]]<-r
+               esting[[paste0(p,input$Sauc1,input$allsingle,studyId())]]<-r
                r
                 })
-                 }))%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(id(),input$Sauc1,input$allsingle)
+                 }))%>%bindCache(input$Sauc1,input$allsingle,studyId())%>%bindEvent(studyId(),input$Sauc1,input$allsingle)
 dtametasa.fc_c1.square0.5_p.10 <-reactive(
   withProgress(message = 'Calculation dtametasa.fc (c1.square=0.5) for each seq(0.1, 1, -0.1)',
                detail = 'This may take a while...', value = 0,
                {lapply(p.10, function(p) {
                  incProgress(1/10)
                  f<-c(p=p,dtametasa.fc(data(), p,  c1.square=0.5, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
-               esting_omg[[paste0(p,"0.5",input$Sauc1,input$allsingle,id())]]<-f
+               esting_omg[[paste0(p,"0.5",input$Sauc1,input$allsingle,studyId())]]<-f
                f
-                 })}))%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(id(),input$Sauc1,input$allsingle)
+                 })}))%>%bindCache(input$Sauc1,input$allsingle,studyId())%>%bindEvent(studyId(),input$Sauc1,input$allsingle)
 dtametasa.fc_c1.square1_p.10 <-reactive(
   withProgress(message = 'Calculation dtametasa.fc (c1.square=1) for each seq(0.1, 1, -0.1)',
                detail = 'This may take a while...', value = 0,
                {lapply(p.10, function(p) {
                  incProgress(1/10)
                  f<-c(p=p,dtametasa.fc(data(), p,  c1.square=1, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
-                 esting_omg[[paste0(p,"1",input$Sauc1,input$allsingle,id())]]<-f
+                 esting_omg[[paste0(p,"1",input$Sauc1,input$allsingle,studyId())]]<-f
                  f
-                })}))%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(id(),input$Sauc1,input$allsingle)
+                })}))%>%bindCache(input$Sauc1,input$allsingle,studyId())%>%bindEvent(studyId(),input$Sauc1,input$allsingle)
 dtametasa.fc_c1.square0_p.10 <-reactive(
   withProgress(message = 'Calculation dtametasa.fc (c1.square=0) for each seq(0.1, 1, -0.1)',
                detail = 'This may take a while...', value = 0,
                {lapply(p.10, function(p) {
                  incProgress(1/10)
                  f<-c(p=p,dtametasa.fc(data(), p,  c1.square=0, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
-                 esting_omg[[paste0(p,"0",input$Sauc1,input$allsingle,id())]]<-f
+                 esting_omg[[paste0(p,"0",input$Sauc1,input$allsingle,studyId())]]<-f
                  f
-                 })}))%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(id(),input$Sauc1,input$allsingle)
+                 })}))%>%bindCache(input$Sauc1,input$allsingle,studyId())%>%bindEvent(studyId(),input$Sauc1,input$allsingle)
 
 #data input=================================================================================
 output$RawData<-DT::renderDataTable({
   inFile1 <- input$filer
+  separater = input$Delimiter
   if (is.null(inFile1)||input$manualInputTRUE=='Manual input'){
-    DATA<-read.table(text=input$manualInput,sep = ",",header = TRUE)
+    DATA<-read.table(text=input$manualInput,sep = separater,header = TRUE)
     validate(need(DATA$TP & DATA$FN & DATA$TN & DATA$FP,"Data must contain TP,FN,TN,FP"))
     data(DATA)
     datatable(DATA
@@ -125,9 +129,9 @@ output$RawData<-DT::renderDataTable({
               )))
   }
   else{
-    list1<-read.csv(inFile1$datapath, header=TRUE)
+    list1<-read.csv(inFile1$datapath,sep = input$Delimiter, header=TRUE)
     validate(need(list1$TP & list1$FN & list1$TN & list1$FP,"Data must contain TP,FP,FN,TP"))
-    list2<-read.csv(inFile1$datapath, header=FALSE)
+    list2<-read.csv(inFile1$datapath,sep = input$Delimiter, header=FALSE)
     data(list1)
     y<-""
     for (i in 1:length(list2)){
@@ -135,7 +139,7 @@ output$RawData<-DT::renderDataTable({
         y<-paste(y,list2[[i]],sep = "")
         break()
       }
-      y<-paste(y,list2[[i]],",",sep = "")
+      y<-paste(y,list2[[i]],input$Delimiter,sep = "")
     }
     updateAceEditor(session,"manualInput",value =paste(y,collapse ="\n"))
     datatable(list1
@@ -189,8 +193,23 @@ output$meta_sesp<-renderPlot({
   par(mfrow=c(1,2),pty="m")
   forest(md(),type="sens",main="Sensitivity")
   forest(md(),type="spec",main="Specificity")
+} )
+output$meta_se<-renderPlot(expr = {forest(md(),type="sens",main="Sensitivity"
+                                  ,pch=15,cex=1
+                                  )})
+output$meta_sp<-renderPlot({
+  forest(md(),type="spec",main="Specificity"
+                                  ,pch=15,cex=1
+      )
+  })
+output$meta_sesp_plot<-renderUI({
+  flowLayout(style='width:300px',plotOutput("meta_se",height =paste0((md()$nobs*13.5+200),"px"),width = "600px" )
+,plotOutput("meta_sp",height =paste0((md()$nobs*13.5+200),"px"),width = "600px" )
+          ) })
+output$meta_sp_plot<-renderUI({
+ 
+  
 })
-output$meta_se<-renderPlot(forest(md(),type="sens",main="Sensitivity"))
 output$meta_LDOR<-renderPlot({
   forest(md(),type="DOR",log=TRUE,main="Log diagnostic odds ratio")
 })
@@ -656,7 +675,7 @@ output$sauc<-renderPlot({
                  incProgress(1/4)
                })
   
-})#%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(input$calculateStart,input$Sauc1,input$allsingle)
+})
 #download sauc======================================================
 output$downloadsauc <- downloadHandler(filename ="dtametasa_fc.png",contentType = "image/png",
                                        content = function(file) {
@@ -807,7 +826,7 @@ output$curveAandB<-renderPlot({
   
   par(mfrow = c(1, 1))
   
-})#%>%bindCache(input$Sauc1,input$allsingle,id())%>%bindEvent(input$calculateStart,input$Sauc1,input$allsingle)
+})
 ###download curve ===============
 output$downloadcurveAandB <- downloadHandler(filename = function() {
   paste0("dtametasa_fc.png")

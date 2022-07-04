@@ -44,6 +44,7 @@ navbarPage(
     HTML("<h4><b>Functionalities</b></h4>"),
     downloadButton("ManualPDF_download","Download Manual")
     ),
+    headerPanel("Digostic Test Analysis"),
     source("./ui_dta.R",local = TRUE)),
   tabPanel("Univariate-meta",Univariate_Body),
   tablang("11DTA-Meta"),
