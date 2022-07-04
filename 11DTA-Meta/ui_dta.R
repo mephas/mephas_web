@@ -1,74 +1,75 @@
 
-  sidebarLayout(
+sidebarLayout(
   sidebarPanel(
-  tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
-  tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
-  
+    tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
+    tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
+    
     tabsetPanel(tabPanel(title ="Data Input",
                          width = 3#,tags$h3("Data Input")
-                         ,p(tags$b("Set Header TP,FN,FP,TN")),
-                         radioButtons("manualInputTRUE",choices = c("Manual input","File upload"),"1. choose input way",inline = TRUE),
-                         
-                         conditionalPanel(condition = "input.manualInputTRUE=='File upload'",icon("fa-regular fa-file",lib = "font-awesome"),fileInput("filer",label = "csv,txt",accept = c("text/csv"))
-                         ),
-                         icon("fa-regular fa-keyboard",lib="font-awesome")
-                         
-                         ,shinyWidgets::prettyRadioButtons(
-                           inputId = "Delimiter",
-                           label = "2. Which Delimiter for data?", 
-                           status = "info",
-                           fill = TRUE,
-                           icon = icon("check"),
-                           choiceNames = list(
-                             HTML("Comma (,): CSV often uses this"),
-                             HTML("One Tab (->|): TXT often uses this"),
-                             HTML("Semicolon (;)"),
-                             HTML("One Space (_)")
-                           ),
-                           choiceValues = list(",", "\t", ";", " ")
-                         )
-                         ,p(tags$b("3. Edit Data"))
-                         ,aceEditor("manualInput"
-                                    ,value = "study,TP,FN,FP,TN\n1,12,0,29,289\n2,10,2,14,72\n3,17,1,36,85\n4,13,0,18,67\n5,4,0,21,225\n6,15,2,122,403\n7,45,5,28,34\n8,18,4,69,133\n9,5,0,11,34\n10,8,9,15,96\n11,5,0,7,63\n12,11,2,122,610\n13,5,1,6,145\n14,7,5,25,342"
-                                    ,mode = "r"
-                                    ,theme="eclipse"
-                         )
-                         ,p(tags$b("4. Edit Selection Probabilities"))
-                         ,HTML('<b>Multiple Selection Probabilities(0&#60;p&#x2266;1)<br>
+                         ,
+                         actionButton("calculateStart","Reload DATA TO Calculation",icon = icon("fa-solid fa-wave-square",lib = "font-awesome")),
+                                      radioButtons("manualInputTRUE",choices = c("Manual input","File upload"),"1. choose input way",inline = TRUE),
+                                      
+                                      conditionalPanel(condition = "input.manualInputTRUE=='File upload'",icon("fa-regular fa-file",lib = "font-awesome"),fileInput("filer",label = "csv,txt",accept = c("text/csv"))
+                                      ),
+                                      icon("fa-regular fa-keyboard",lib="font-awesome")
+                                      
+                                      ,shinyWidgets::prettyRadioButtons(
+                                        inputId = "Delimiter",
+                                        label = "2. Which Delimiter for data?", 
+                                        status = "info",
+                                        fill = TRUE,
+                                        icon = icon("check"),
+                                        choiceNames = list(
+                                          HTML("Comma (,): CSV often uses this"),
+                                          HTML("One Tab (->|): TXT often uses this"),
+                                          HTML("Semicolon (;)"),
+                                          HTML("One Space (_)")
+                                        ),
+                                        choiceValues = list(",", "\t", ";", " ")
+                                      )
+                                      ,p(tags$b("3. Edit Data"))
+                                      ,aceEditor("manualInput"
+                                                 ,value = "study,TP,FN,FP,TN\n1,12,0,29,289\n2,10,2,14,72\n3,17,1,36,85\n4,13,0,18,67\n5,4,0,21,225\n6,15,2,122,403\n7,45,5,28,34\n8,18,4,69,133\n9,5,0,11,34\n10,8,9,15,96\n11,5,0,7,63\n12,11,2,122,610\n13,5,1,6,145\n14,7,5,25,342"
+                                                 ,mode = "r"
+                                                 ,theme="eclipse"
+                                      )
+                                      ,p(tags$b("4. Edit Selection Probabilities"))
+                                      ,HTML('<b>Multiple Selection Probabilities(0&#60;p&#x2266;1)<br>
                          
                                                          <input type="text" id="plist" value="1,0.8,0.6,0.4" pattern="^[\\d,.]+$">
 
                                                          </b>'),
-                         verbatimTextOutput("uiprob")
-                         #,uiOutput("studyId")
+                                      verbatimTextOutput("uiprob")
+                                      #,uiOutput("studyId")
                          )
-                ,
-                tabPanel(title = "Set Value",
-                         icon("keyboard"),
-                         icon("calendar"),
-                         radioGroupButtons(
-                           inputId = "Sauc1",
-                           label = "Sauc type",
-                           choices = c("sroc", "hsroc"),
-                           justified = TRUE,
-                           checkIcon = list(
-                             yes = icon("ok",
-                                        lib = "glyphicon"))
-                         ),
-                         icon = icon("calendar"),
-                         radioGroupButtons(
-                           inputId = "allsingle",
-                           label = "Sauc type",
-                           choices = c("all", "single"),
-                           selected = "single",
-                           justified = TRUE,
-                           checkIcon = list(
-                             yes = icon("ok",
-                                        lib = "glyphicon"))
-                         )
+                         ,
+                         tabPanel(title = "Set Value",
+                                  icon("keyboard"),
+                                  icon("calendar"),
+                                  radioGroupButtons(
+                                    inputId = "Sauc1",
+                                    label = "Sauc type",
+                                    choices = c("sroc", "hsroc"),
+                                    justified = TRUE,
+                                    checkIcon = list(
+                                      yes = icon("ok",
+                                                 lib = "glyphicon"))
+                                  ),
+                                  icon = icon("calendar"),
+                                  radioGroupButtons(
+                                    inputId = "allsingle",
+                                    label = "Sauc type",
+                                    choices = c("all", "single"),
+                                    selected = "single",
+                                    justified = TRUE,
+                                    checkIcon = list(
+                                      yes = icon("ok",
+                                                 lib = "glyphicon"))
+                                  )
                          )
     )),
-    
+  
   mainPanel(
     tabsetPanel(tabPanel("Meta-Analysis",
                          fluidRow(column(width=12,h3("Raw Input Data"),DT::dataTableOutput("RawData")),
@@ -129,6 +130,6 @@
                                                      downloadButton("downloadcurveAandB","Save Image"))))
                            
                          ))
+    )
   )
-)
 )

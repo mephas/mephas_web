@@ -42,6 +42,9 @@ navbarPage(
   tabPanel("DTA",conditionalPanel(
     condition = "input.explain_on_off",
     HTML("<h4><b>Functionalities</b></h4>"),
+    p("This page can make",tags$strong(" SROC Plot")," and",tags$strong(" SAUC Plot")),
+    HTML('<b>&#9312;Set Header TP,FN,FP,TN</b>'),br(),
+    HTML("&#10103;<b>When Change the Data, Click Reload DATA TO Calculation</b>"),br(),
     downloadButton("ManualPDF_download","Download Manual")
     ),
     headerPanel("Digostic Test Analysis"),
