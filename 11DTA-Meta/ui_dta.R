@@ -59,7 +59,7 @@ sidebarLayout(
                                   icon = icon("calendar"),
                                   radioGroupButtons(
                                     inputId = "allsingle",
-                                    label = "Sauc type",
+                                    label = "correct type",
                                     choices = c("all", "single"),
                                     selected = "single",
                                     justified = TRUE,

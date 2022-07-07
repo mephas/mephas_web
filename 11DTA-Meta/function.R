@@ -85,8 +85,17 @@ reform.dtametasa<-function(est.rf,p.seq,c1.square=0.5){
 
   # sapply(object,function(x)c(x$alpha,x$mu1.c1["mu1"],x$mu2.ci["mu2"],x$par[c("tau1","tau2","rho")]))%>%round(.,3)%>%t())
 }
-est.get<-function(p.seq,est){
-  
+data_ErrorMessage<-function(){
+  showModal(modalDialog(
+    title = "Error message",
+    easyClose = FALSE,
+    p(tags$strong("Data must contain TP,FN,TN,FP:
+                             "), "Please edit the data-set",br(),
+      tags$i(tags$u("")), "If you need more important, please check",tags$a(href="https://mephas.github.io/helppage/", "DTA-Meta Manual",target="_blank") ), 
+    br(),
+    modalButton("Close"),
+    footer = NULL
+  ))
 }
 ui.plot_baseset_drop<-function(id){
 dropdown(                     

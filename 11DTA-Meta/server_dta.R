@@ -1,28 +1,95 @@
-p.10 <- seq( 10,1, -1)/10
+p.10 <- seq(10,1, -1)/10
 studyId<-reactiveVal(0)
-data<-reactiveVal()
+data<-reactiveVal(data.frame(study=seq(1:14)
+                             ,TP=c(12,10,17,13,4,15,45,18,5,8,5,11,5,7)
+                             ,FN=c(0,2,1,0,0,2,5,4,0,9,0,2,1,5)
+                             ,FP=c(29,14,36,18,21,122,28,69,11,15,7,122,6,25)
+                             ,TN=c(289,72,85,67,225,403,34,133,34,96,63,610,145,342)))
 esting<-reactiveValues()
 esting_omg<-reactiveValues()
 observe({
+  print(input$manualInput)
+  inFile1 <- input$filer
+  separater <- input$Delimiter
+  if (is.null(inFile1)||input$manualInputTRUE=='Manual input'){
+    DATA<-read.table(text=input$manualInput,sep = separater,header = TRUE)
+    #validate(need(DATA$TP & DATA$FN & DATA$TN & DATA$FP,"Data must contain TP,FN,TN,FP"))
+    if(is.null(DATA$TP) || is.null(DATA$FN)|| is.null(DATA$TN) || is.null(DATA$FP)){
+      showModal(modalDialog(
+        title = "Error message",
+        easyClose = FALSE,
+        p(tags$strong("Data must contain TP,FN,TN,FP:
+                             "), "Please edit the data-set",br(),
+          tags$i(tags$u("")), "If you need more important, please check",tags$a(href="https://mephas.github.io/helppage/", "DTA-Meta Manual",target="_blank") ), 
+        br(),
+        modalButton("Close"),
+        footer = NULL
+      ))
+      return()
+    }
+    data(DATA)
+  }
+  else{
+    list1<-read.csv(inFile1$datapath,sep = separater, header=TRUE)
+    validate(need(list1$TP & list1$FN & list1$TN & list1$FP,"Data must contain TP,FP,FN,TP"))
+    list2<-read.csv(inFile1$datapath,sep = separater, header=FALSE)
+    data(list1)
+    y<-""
+    for (i in 1:length(list2)){
+      if (i==length(list2)) {
+        y<-paste(y,list2[[i]],sep = "")
+        break()
+      }
+      y<-paste(y,list2[[i]],separater,sep = "")
+    }
+    updateAceEditor(session,"manualInput",value =paste(y,collapse ="\n"))
+  }
+  print(input$manualInput)
+  print("mo1")
+    data(read.csv(text=input$manualInput,sep = separater,header = TRUE))
+  print(data())
+  print("mo2")
   newID<-studyId()+1
   studyId(newID)
 })%>%bindEvent(input$calculateStart)
 observe({
   withProgress(message = "Calculation one second",detail = 'This may take a while...', value = 0,
-  {print(p.seq())
-    print(input$input$Sauc1)
-    print(esting)
-    est.rc(p.seq())
-    incProgress(1/4)
-  est.fc(p.seq(),c1.square = 1)
-  incProgress(1/4)
-  est.fc(p.seq(),c1.square = 0.5)
-  incProgress(1/4)
-  est.fc(p.seq(),c1.square = 0)
-  incProgress(1/4)
-  })
+               {
+                 est.rc(p.10)
+                 incProgress(1/4)
+                 est.fc(p.10,c1.square = 1)
+                 incProgress(1/4)
+                 est.fc(p.10,c1.square = 0.5)
+                 incProgress(1/4)
+                 est.fc(p.10,c1.square = 0)
+                 incProgress(1/5)
+                 est.rc(p.seq())
+                 est.fc(p.seq(),c1.square = 1)
+                 est.fc(p.seq(),c1.square = 0.5)
+                 est.fc(p.seq(),c1.square = 0)
+               })
 })%>%bindEvent(p.seq(),input$Sauc1,input$allsingle,input$calculateStart)
-
+observe({
+  inFile1 <- input$filer
+  separater <- input$Delimiter
+  list1<-read.csv(inFile1$datapath,sep = separater, header=TRUE)
+  if(is.null(list1$TP) || is.null(list1$FN)|| is.null(list1$TN) || is.null(list1$FP)){
+    data_ErrorMessage()
+    return()
+    }
+  list2<-read.csv(inFile1$datapath,sep = separater, header=FALSE)
+  y<-""
+  for (i in 1:length(list2)){
+    if (i==length(list2)) {
+      y<-paste(y,list2[[i]],sep = "")
+      break()
+    }
+    y<-paste(y,list2[[i]],separater,sep = "")
+  }
+  updateAceEditor(session,"manualInput",value =paste(y,collapse ="\n"))
+  updateRadioButtons(session,"manualInputTRUE",selected = "Manual input")
+  
+})%>%bindEvent(input$filer)
 md <- reactive(mada::madad(data()))
 p.seq<-reactiveVal(NULL)
 output$studyId<-renderUI({
@@ -46,6 +113,7 @@ est.add_rc<-function(p,  c1.square=0.5){
 }
 est.add_fc<-function(p,  c1.square=0.5){
   fc<- c(p=p,dtametasa.fc(data(), p,  c1.square=c1.square, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
+  print(fc$converge)
   esting_omg[[paste0(p,c1.square,input$Sauc1,input$allsingle,studyId())]]<-fc
   fc
 }
@@ -63,96 +131,28 @@ est.f<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
   validate(need(length(esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]])>0,"Push Above Button[Reload DATA TO Calculation]\nerror 112"))
   esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
-
 est<-reactive(withProgress(message = 'Calculation c1c2 FC',
-                                  detail = 'This may take a while...', value = 0,
-                                  {sapply(p.seq(), function(p) {
-                                    incProgress(1/length(p.seq()))
-                                    
-                                    opt1 <- dtametasa.fc(data(), p, c1.square = input$c1c2_set, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
-                                    
-                                    c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(0.5))
-                                    
-                                  })}))%>%bindCache(input$c1c2_set,input$Sauc1,input$allsingle,studyId(),p.seq())%>%bindEvent(input$c1c2_set_button,input$c1c2_set,input$Sauc1,input$allsingle,p.seq(),studyId())
-dtametasa.rc_p.10 <-reactive(
-  withProgress(message = 'Calculation dtametasa.rc for each seq(0.1, 1, -0.1)',
-               detail = 'This may take a while...', value = 0,
-               {lapply(p.10, function(p) {
-                 incProgress(1/10)
-                 r<-c(p,dtametasa.rc(data(), p, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle))
-               names(r)[1]<-c("p")
-               esting[[paste0(p,input$Sauc1,input$allsingle,studyId())]]<-r
-               r
-                })
-                 }))%>%bindCache(input$Sauc1,input$allsingle,studyId())%>%bindEvent(studyId(),input$Sauc1,input$allsingle)
-dtametasa.fc_c1.square0.5_p.10 <-reactive(
-  withProgress(message = 'Calculation dtametasa.fc (c1.square=0.5) for each seq(0.1, 1, -0.1)',
-               detail = 'This may take a while...', value = 0,
-               {lapply(p.10, function(p) {
-                 incProgress(1/10)
-                 f<-c(p=p,dtametasa.fc(data(), p,  c1.square=0.5, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
-               esting_omg[[paste0(p,"0.5",input$Sauc1,input$allsingle,studyId())]]<-f
-               f
-                 })}))%>%bindCache(input$Sauc1,input$allsingle,studyId())%>%bindEvent(studyId(),input$Sauc1,input$allsingle)
-dtametasa.fc_c1.square1_p.10 <-reactive(
-  withProgress(message = 'Calculation dtametasa.fc (c1.square=1) for each seq(0.1, 1, -0.1)',
-               detail = 'This may take a while...', value = 0,
-               {lapply(p.10, function(p) {
-                 incProgress(1/10)
-                 f<-c(p=p,dtametasa.fc(data(), p,  c1.square=1, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
-                 esting_omg[[paste0(p,"1",input$Sauc1,input$allsingle,studyId())]]<-f
-                 f
-                })}))%>%bindCache(input$Sauc1,input$allsingle,studyId())%>%bindEvent(studyId(),input$Sauc1,input$allsingle)
-dtametasa.fc_c1.square0_p.10 <-reactive(
-  withProgress(message = 'Calculation dtametasa.fc (c1.square=0) for each seq(0.1, 1, -0.1)',
-               detail = 'This may take a while...', value = 0,
-               {lapply(p.10, function(p) {
-                 incProgress(1/10)
-                 f<-c(p=p,dtametasa.fc(data(), p,  c1.square=0, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
-                 esting_omg[[paste0(p,"0",input$Sauc1,input$allsingle,studyId())]]<-f
-                 f
-                 })}))%>%bindCache(input$Sauc1,input$allsingle,studyId())%>%bindEvent(studyId(),input$Sauc1,input$allsingle)
+                           detail = 'This may take a while...', value = 0,
+                           {sapply(p.seq(), function(p) {
+                             incProgress(1/length(p.seq()))
+                             
+                             opt1 <- dtametasa.fc(data(), p, c1.square = input$c1c2_set, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
+                             
+                             c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(0.5))
+                             
+                           })}))%>%bindCache(input$c1c2_set,input$Sauc1,input$allsingle,studyId(),p.seq())%>%bindEvent(input$c1c2_set_button,input$c1c2_set,input$Sauc1,input$allsingle,p.seq(),studyId())
 
-#data input=================================================================================
+#data input=================e ================================================================
 output$RawData<-DT::renderDataTable({
-  inFile1 <- input$filer
-  separater = input$Delimiter
-  if (is.null(inFile1)||input$manualInputTRUE=='Manual input'){
-    DATA<-read.table(text=input$manualInput,sep = separater,header = TRUE)
-    validate(need(DATA$TP & DATA$FN & DATA$TN & DATA$FP,"Data must contain TP,FN,TN,FP"))
-    data(DATA)
-    datatable(DATA
+    datatable(data()
               ,extensions = 'Buttons',
               options=(list(scrollX = TRUE,
                             dom = 'Blfrtip',
                             buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                             lengthMenu = list(c(12))
               )))
-  }
-  else{
-    list1<-read.csv(inFile1$datapath,sep = input$Delimiter, header=TRUE)
-    validate(need(list1$TP & list1$FN & list1$TN & list1$FP,"Data must contain TP,FP,FN,TP"))
-    list2<-read.csv(inFile1$datapath,sep = input$Delimiter, header=FALSE)
-    data(list1)
-    y<-""
-    for (i in 1:length(list2)){
-      if (i==length(list2)) {
-        y<-paste(y,list2[[i]],sep = "")
-        break()
-      }
-      y<-paste(y,list2[[i]],input$Delimiter,sep = "")
-    }
-    updateAceEditor(session,"manualInput",value =paste(y,collapse ="\n"))
-    datatable(list1
-                  ,extensions = 'Buttons',
-                  options=(list(scrollX = TRUE,
-                                dom = 'Blfrtip',
-                                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                                lengthMenu = list(c(12))
-                  )))
-  }
-  }
-)
+  
+})
 #logit===============
 output$LogitData<-renderDataTable(datatable(logitData()%>%round(.,3)
                                             ,extensions = 'Buttons',
@@ -162,10 +162,6 @@ output$LogitData<-renderDataTable(datatable(logitData()%>%round(.,3)
                                                           lengthMenu = list(c(12))
                                             ))))
 output$Results<-renderDataTable({
-  if(is.null(dtametasa.rc_p.10()))return()
-  if(is.null(dtametasa.fc_c1.square0.5_p.10()))return()
-  if(is.null(dtametasa.fc_c1.square1_p.10()))return()
-  if(is.null(dtametasa.fc_c1.square0_p.10()))return()
   tb2<-reform.dtametasa(est.rf=est.r,p.seq())
   tb11<-reform.dtametasa(est.f,p.seq())
   tb10<-reform.dtametasa(est.f,p.seq(),1)
@@ -175,21 +171,21 @@ output$Results<-renderDataTable({
   tb1[c(1,5,9,13), 5:6] <- NA
   
   tb <- c( TeX("$(\\hat{c}_1, \\hat{c}_2)$"), "","","",
-                                    "$(0.7, 0.7)$","","","",
-                                    "$(1, 0)$", "","","",
-                                    "$(0, 1)$","","","")
+           "$(0.7, 0.7)$","","","",
+           "$(1, 0)$", "","","",
+           "$(0, 1)$","","","")
   # tb <- cbind("$(c_1, \\,c_2)$" = c("$(\\hat{c}_1, \\hat{c}_2)$", rep("", 3),
   #                                   "$(0.7, 0.7)$", rep("",3),
   #                                   "$(1, 0)$", rep("", 3),
   #                                   "$(0, 1)$", rep("", 3)),
   #             tb1)
   datatable(tb1,rownames = tb# c(paste(expression(hat(ca)),expression(hat(c))) ,"0&#60;c^",HTML("&#x2266;"),"h'","m","d","v","u","yo","i","o","h","m","d","v","u")
-  ,extensions = 'Buttons',
-  options=(list(scrollX = TRUE,
-                dom = 'Blfrtip',
-                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                lengthMenu = list(c(12))
-  )))})
+            ,extensions = 'Buttons',
+            options=(list(scrollX = TRUE,
+                          dom = 'Blfrtip',
+                          buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                          lengthMenu = list(c(12))
+            )))})
 #meta====================================
 output$meta_sesp<-renderPlot({
   par(mfrow=c(1,2),pty="m")
@@ -197,19 +193,19 @@ output$meta_sesp<-renderPlot({
   forest(md(),type="spec",main="Specificity")
 } )
 output$meta_se<-renderPlot(expr = {forest(md(),type="sens",main="Sensitivity"
-                                  ,pch=15,cex=1
-                                  )})
+                                          ,pch=15,cex=1
+)})
 output$meta_sp<-renderPlot({
   forest(md(),type="spec",main="Specificity"
-                                  ,pch=15,cex=1
-      )
-  })
+         ,pch=15,cex=1
+  )
+})
 output$meta_sesp_plot<-renderUI({
   flowLayout(style='width:300px',plotOutput("meta_se",height =paste0((md()$nobs*13.5+200),"px"),width = "600px" )
-,plotOutput("meta_sp",height =paste0((md()$nobs*13.5+200),"px"),width = "600px" )
-          ) })
+             ,plotOutput("meta_sp",height =paste0((md()$nobs*13.5+200),"px"),width = "600px" )
+  ) })
 output$meta_sp_plot<-renderUI({
- 
+  
   
 })
 output$meta_LDOR<-renderPlot({
@@ -270,39 +266,35 @@ output$srocBsetting_curve<-renderUI({
 })
 output$srocB<-renderPlot({
   plot_id<-"c1c2_estimate"
-  if(is.null(dtametasa.rc_p.10()))return()
-  if(is.null(dtametasa.fc_c1.square0.5_p.10()))return()
-  if(is.null(dtametasa.fc_c1.square1_p.10()))return()
-  if(is.null(dtametasa.fc_c1.square0_p.10()))return()
   withProgress(message = "c1c2 estimate",value = 0,detail = "take a minutes",
-  {
-  data_m<-data.frame(sp=sp(),se=se())
-  p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
-  p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))
-  #p<-p+layer(geom = "point", stat = "identity", position = "identity")
-
-    est2.par<- est.r(0.5,c("mu1","mu2","tau1","tau2","rho")) 
-    par <- as.matrix(est2.par)
-    p<-p+mapply(function(i) {
-    u1 <- par["mu1", i]
-    u2 <- par["mu2", i]
-    t1 <- par["tau1", i]
-    t2 <- par["tau2", i]
-    if (input$Sauc1 == "sroc"){
-      r <- par["rho", i]}
-    else{ r <- -1}
-      stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(length(input[[paste0("sroc_curve_color",plot_id,i)]])==0,"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(length(input[[paste0("sroc_curve_thick",plot_id,i)]])==0,1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]),aes(linetype="h"))
-      }
-           , 1:ncol(par))
-    sens <- plogis(par[1, ])
-    spec <- plogis(par[2, ])
-    p<-p+
-      sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
-      ggtitle(plot_id)+
-      theme(title= element_text(size = 16))
-    
-    esting$plot_sroc<-p
-    p})
+               {
+                 data_m<-data.frame(sp=sp(),se=se())
+                 p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
+                 p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))
+                 #p<-p+layer(geom = "point", stat = "identity", position = "identity")
+                 
+                 est2.par<- est.r(0.5,c("mu1","mu2","tau1","tau2","rho")) 
+                 par <- as.matrix(est2.par)
+                 p<-p+mapply(function(i) {
+                   u1 <- par["mu1", i]
+                   u2 <- par["mu2", i]
+                   t1 <- par["tau1", i]
+                   t2 <- par["tau2", i]
+                   if (input$Sauc1 == "sroc"){
+                     r <- par["rho", i]}
+                   else{ r <- -1}
+                   stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(length(input[[paste0("sroc_curve_color",plot_id,i)]])==0,"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(length(input[[paste0("sroc_curve_thick",plot_id,i)]])==0,1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]),aes(linetype="h"))
+                 }
+                 , 1:ncol(par))
+                 sens <- plogis(par[1, ])
+                 spec <- plogis(par[2, ])
+                 p<-p+
+                   sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
+                   ggtitle(plot_id)+
+                   theme(title= element_text(size = 16))
+                 
+                 esting$plot_sroc<-p
+                 p})
 })
 output$downloadsauc_gg_estimate<-downloadHandler(
   filename = function(){paste("c1c2_estimate",'.png',sep='')},
@@ -321,21 +313,21 @@ output$srocCsetting_curve_01<-renderUI({
 })
 output$srocC_11<-renderPlot({
   withProgress(message = "c1 = 2^(-1/2),c2 = 2^(-1/2)",value = 0,detail = "take a minutes",
-  {
-  sroc_ggplot("c1c2_11",0.5)
-  })
-  })
+               {
+                 sroc_ggplot("c1c2_11",0.5)
+               })
+})
 output$srocC_10<-renderPlot({
   withProgress(message = "c1 = 1,c2 = 0",value = 0,detail = "take a minutes",
-  {  
-  sroc_ggplot("c1c2_10",1)
-  })
+               {  
+                 sroc_ggplot("c1c2_10",1)
+               })
 })
 output$srocC_01<-renderPlot({
   withProgress(message = "c1 = 0,c2 = 1",value = 0,detail = "take a minutes",
-  {  
-  sroc_ggplot("c1c2_01",0)
-  })
+               {  
+                 sroc_ggplot("c1c2_01",0)
+               })
 })
 output$download_srocC_11<-downloadHandler(
   filename = function(){paste("c1c2_11",'.png',sep='')},
@@ -358,64 +350,66 @@ output$download_c1c2_manul<-downloadHandler(
     ggsave(file,plot=esting_omg$c1c2_manul_plot)
   })
 sroc_ggplot<-function(plot_id,c1.square){
-    data<-data.frame(sp=sp(),se=se())
-    
-    p<-ggplot(data = data,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
-    p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))
-
-    est.par<- est.f(c1.square,c("mu1","mu2","tau1","tau2","rho")) 
-    par <- as.matrix(est.par)
-    p<-p+mapply(function(i) {
-      u1 <- par["mu1", i]
-      u2 <- par["mu2", i]
-      t1 <- par["tau1", i]
-      t2 <- par["tau2", i]
-      if (input$Sauc1 == "sroc"){
-        r <- par["rho", i]}
-      else{ r <- -1}
-      stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(length(input[[paste0("sroc_curve_color",plot_id,i)]])==0,"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id,i)]]),1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]),aes(linetype="h"))
-    }
-    , 1:ncol(par))
-    sens <- plogis(par[1, ])
-    spec <- plogis(par[2, ])
-    p<-p+
-      sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t],color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]])),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
-      ggtitle(plot_id)+
-      #guide_legend(title = "p=")+
-      theme(title= element_text(size = 16)
-            ,legend.position = "right",)
-    esting_omg[[plot_id]]<-p
-    p
+  data<-data.frame(sp=sp(),se=se())
+  
+  p<-ggplot(data = data,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
+  p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))
+  
+  est.par<- est.f(c1.square,c("mu1","mu2","tau1","tau2","rho")) 
+  par <- as.matrix(est.par)
+  print("par")
+  print(esting_omg[[paste0(1,c1.square,input$Sauc1,input$allsingle,studyId())]]$par)
+  print(esting_omg[[paste0(0.8,c1.square,input$Sauc1,input$allsingle,studyId())]]$par)
+  print(esting_omg[[paste0(0.6,c1.square,input$Sauc1,input$allsingle,studyId())]]$par)
+  print(esting_omg[[paste0(0.4,c1.square,input$Sauc1,input$allsingle,studyId())]]$par)
+  print(esting_omg[[paste0(0.4,c1.square,input$Sauc1,input$allsingle,studyId())]])
+  print(par)
+  p<-p+mapply(function(i) {
+    u1 <- par["mu1", i]
+    u2 <- par["mu2", i]
+    t1 <- par["tau1", i]
+    t2 <- par["tau2", i]
+    if (input$Sauc1 == "sroc"){
+      r <- par["rho", i]}
+    else{ r <- -1}
+    stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(length(input[[paste0("sroc_curve_color",plot_id,i)]])==0,"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id,i)]]),1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]),aes(linetype="h"))
+  }
+  , 1:ncol(par))
+  sens <- plogis(par[1, ])
+  spec <- plogis(par[2, ])
+  p<-p+
+    sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t],color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]])),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
+    ggtitle(plot_id)+
+    #guide_legend(title = "p=")+
+    theme(title= element_text(size = 16)
+          ,legend.position = "right",)
+  esting_omg[[plot_id]]<-p
+  p
 }
 #sroc D plot setting=====================
 output$srocDsetting_curve<-renderUI(ui.plot_srocline_drop("c1c2_manul",p.seq()))
 output$srocD<-renderPlot({
-  
-  # if(is.null(dtametasa.rc_p.10()))return()
-  # if(is.null(dtametasa.fc_c1.square0.5_p.10()))return()
-  # if(is.null(dtametasa.fc_c1.square1_p.10()))return()
-  # if(is.null(dtametasa.fc_c1.square0_p.10()))return()
   plot_id<-"c1c2_manul"
   data_m<-data.frame(sp=sp(),se=se())
   p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
   p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))
-
-    est2.par  <- est()[15:19,]
-    par <- as.matrix(est2.par)
-    p<-p+mapply(function(i) {
-      u1 <- par[1, i]
-      u2 <- par[2, i]
-      t1 <- par[3, i]
-      t2 <- par[4, i]
-      if (input$Sauc1 == "sroc"){
-        r <- par[5, i]}
-      else{ r <- -1}
-      stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(is.null(input[[paste0("sroc_curve_color",plot_id,i)]]),"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id,i)]]),1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]))
-    }
-    , 1:ncol(par))
-    sens <- plogis(par[1, ])
-    spec <- plogis(par[2, ])
-    p<-p+sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=ifelse(is.null(input[[paste0("sroc_point_color",plot_id,t)]]),"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))
+  
+  est2.par  <- est()[15:19,]
+  par <- as.matrix(est2.par)
+  p<-p+mapply(function(i) {
+    u1 <- par[1, i]
+    u2 <- par[2, i]
+    t1 <- par[3, i]
+    t2 <- par[4, i]
+    if (input$Sauc1 == "sroc"){
+      r <- par[5, i]}
+    else{ r <- -1}
+    stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(is.null(input[[paste0("sroc_curve_color",plot_id,i)]]),"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id,i)]]),1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]))
+  }
+  , 1:ncol(par))
+  sens <- plogis(par[1, ])
+  spec <- plogis(par[2, ])
+  p<-p+sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=ifelse(is.null(input[[paste0("sroc_point_color",plot_id,t)]]),"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))
   
   p<-p+labs(subtitle  = input[[paste0("plot_title",plot_id)]],tag="D")#input[[paste0("plot_y_axis","P")]],x=ifelse((input[[paste0("plot_x_axis","P")]]==""),waiver(),input[[paste0("plot_x_axis","P")]])
   p<-p+
@@ -428,12 +422,12 @@ output$srocD<-renderPlot({
 })
 #sauc ploy==========
 output$sauc_gg_estimate<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate")))
-output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_11",dtametasa.fc_c1.square0.5_p.10(),"(B) c1=c2")))
-output$sauc_gg_c10<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_10",dtametasa.fc_c1.square1_p.10(),"(C) c1=1,c2=0")))
-output$sauc_gg_c01<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_01",dtametasa.fc_c1.square0_p.10(),"(D) c1=0,c2=1")))
+output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_11",0.5,"(B) c1=c2")))
+output$sauc_gg_c10<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_10",1,"(C) c1=1,c2=0")))
+output$sauc_gg_c01<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_01",0,"(D) c1=0,c2=1")))
 
 sauc_ggplot<-function(plot_id,title="(A) C1,C2 estimate"){
-  est.sauc2<-sapply(dtametasa.rc_p.10(),function(x)x$sauc.ci)%>%t()
+  est.sauc2<-sapply(p.10,function(x)esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)%>%t()
   data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc2[,"sauc"],est.sauc2[,"sauc.lb"],est.sauc2[,"sauc.ub"]),sauctype=c(rep("sauc",10),rep("sauc.lb",10),rep("sauc.ub",10)))
   p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+
     ylim(0,1)+
@@ -444,8 +438,8 @@ sauc_ggplot<-function(plot_id,title="(A) C1,C2 estimate"){
     geom_line()
   p
 }
-sauc_ggplot_b<-function(plot_id,omg,title="C1,C2"){
-  est.sauc<-sapply(omg,function(x)x$sauc.ci)%>%t()
+sauc_ggplot_b<-function(plot_id,c1.square,title="C1,C2"){
+  est.sauc<-sapply(p.10,function(x)esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)%>%t()
   data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc[,"sauc"],est.sauc[,"sauc.lb"],est.sauc[,"sauc.ub"]),sauctype=c(rep("sauc",10),rep("sauc.lb",10),rep("sauc.ub",10)))
   p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+
     ylim(0,1)+
@@ -459,92 +453,88 @@ sauc_ggplot_b<-function(plot_id,omg,title="C1,C2"){
 #sroc====================================
 output$srocA<-renderPlot({
   par(mfrow = c(2,2), oma = c(0.2, 3, 0.2, 0.3), mar = c(2, 0.2, 2, 0.2))
-  if(is.null(dtametasa.rc_p.10()))return()
-  if(is.null(dtametasa.fc_c1.square0.5_p.10()))return()
-  if(is.null(dtametasa.fc_c1.square1_p.10()))return()
-  if(is.null(dtametasa.fc_c1.square0_p.10()))return()
 
   withProgress(message = 'Calculation in progress(1/2)',
                detail = 'This may take a while...(SROC)', value = 0,
                {
-  legend.cex <- 1
-  col <- 1:4
-  title.cex <- 1.5
-  est2.par  <-est.r(0.5,c("mu1","mu2","tau1","tau2","rho"))
-  sauc2  <- est.r(0.5,par="sauc.ci","sauc")
-  incProgress(1/4)
-  ##B=======#   
-  ## ESITMATION WHEN c1 = c2
-  est11.par <- est.f(c1.square=0.5,c("mu1","mu2","tau1","tau2","rho"))
-  sauc11 <- est.f(c1.square=0.5,c("sauc"),par = "sauc.ci")##est11()[2,]
-  incProgress(1/4)
-  est10.par<-est.f(c1.square=1,c("mu1","mu2","tau1","tau2","rho"))#est10()[15:19,]
-
-  incProgress(1/4)
-  est01.par <- est.f(c1.square=0,c("mu1","mu2","tau1","tau2","rho"))#est01()[15:19,]
-
-  sauc10 <- est.f(c1.square=1,c("sauc"),par = "sauc.ci")#est10()[2,]
-  sauc01 <- est.f(c1.square=0,c("sauc"),par = "sauc.ci")#est01()[2,]
-  
-  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1),
-       xlab = "", ylab = "")
-  SROC(est2.par, addon  = TRUE, sroc.type = input$Sauc1)
-  
-  legend("bottomright",
-         bty='n',
-         legend = c(sprintf("p = %.1f, SAUC = %.3f", p.seq(), sauc2)),
-         col = col, pch = 18, pt.cex = 2, cex = legend.cex,
-         lty = rep(1,3))
-  
-  title("(A)", adj = 0, font.main = 1, cex.main = title.cex)
-  title(TeX("$(\\hat{c}_1, \\, \\hat{c}_2)$"), cex.main = title.cex)
-  title(xlab = "FPR", line=2, cex = 0.7)
-  mtext("TPR", side=2, line=2, at=0.5, cex = 0.7)
-  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1), 
-       xlab = "",
-       yaxt = "n")
-  SROC(est11.par, addon = TRUE,sroc.type =  input$Sauc1)
-  legend("bottomright", 
-         bty='n',
-         legend = c(sprintf("p = %.2f, SAUC = %.3f", p.seq(), sauc11)), 
-         col = col, pch = 18, pt.cex = 2, cex = legend.cex, 
-         lty = rep(1,3))
-  title("(B)", adj = 0, font.main = 1, cex.main = title.cex)
-  title(TeX("$(c_1, \\,c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$"), cex.main = title.cex)
-  title(xlab = "FPR", line=2, cex = 0.7)
-  ## zC
-  
-  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1), 
-       xlab = "",
-       yaxt = "n")
-  SROC(est10.par, addon = TRUE, sroc.type = input$Sauc1)
-  legend("bottomright", 
-         bty='n',
-         legend = c(sprintf("p = %.2f, SAUC = %.3f", p.seq(), sauc10)), 
-         col = col, pch = 18, pt.cex = 2, cex = legend.cex, 
-         lty = rep(1,3))
-  title("(C)", adj = 0, font.main = 1, cex.main = title.cex)
-  title(TeX("$(c_1,\\, c_2) = (1,\\, 0)$"), cex.main = title.cex)
-  title(xlab = "FPR", line=2, cex = 0.7)
-  ## D
-  
-  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1), 
-       xlab = "",
-       yaxt = "n")
-  SROC(est01.par, addon = TRUE, sroc.type = input$Sauc1)
-  legend("bottomright", 
-         bty='n',
-         legend = c(sprintf("p = %.2f, SAUC = %.3f", p.seq(), sauc01)), 
-         col = col, pch = 18, pt.cex = 2, cex = legend.cex, 
-         lty = rep(1,3))
-  title("(D)", adj = 0, font.main = 1, cex.main = title.cex)
-  title(TeX("$(c_1,\\, c_2) = (0,\\, 1)$"), cex.main = title.cex)
-  title(xlab = "FPR", line=2, cex = 0.7)
+                 legend.cex <- 1
+                 col <- 1:4
+                 title.cex <- 1.5
+                 est2.par  <-est.r(0.5,c("mu1","mu2","tau1","tau2","rho"))
+                 sauc2  <- est.r(0.5,par="sauc.ci","sauc")
+                 incProgress(1/4)
+                 ##B=======#   
+                 ## ESITMATION WHEN c1 = c2
+                 est11.par <- est.f(c1.square=0.5,c("mu1","mu2","tau1","tau2","rho"))
+                 sauc11 <- est.f(c1.square=0.5,c("sauc"),par = "sauc.ci")##est11()[2,]
+                 incProgress(1/4)
+                 est10.par<-est.f(c1.square=1,c("mu1","mu2","tau1","tau2","rho"))#est10()[15:19,]
+                 
+                 incProgress(1/4)
+                 est01.par <- est.f(c1.square=0,c("mu1","mu2","tau1","tau2","rho"))#est01()[15:19,]
+                 
+                 sauc10 <- est.f(c1.square=1,c("sauc"),par = "sauc.ci")#est10()[2,]
+                 sauc01 <- est.f(c1.square=0,c("sauc"),par = "sauc.ci")#est01()[2,]
+                 
+                 plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1),
+                      xlab = "", ylab = "")
+                 SROC(est2.par, addon  = TRUE, sroc.type = input$Sauc1)
+                 
+                 legend("bottomright",
+                        bty='n',
+                        legend = c(sprintf("p = %.1f, SAUC = %.3f", p.seq(), sauc2)),
+                        col = col, pch = 18, pt.cex = 2, cex = legend.cex,
+                        lty = rep(1,3))
+                 
+                 title("(A)", adj = 0, font.main = 1, cex.main = title.cex)
+                 title(TeX("$(\\hat{c}_1, \\, \\hat{c}_2)$"), cex.main = title.cex)
+                 title(xlab = "FPR", line=2, cex = 0.7)
+                 mtext("TPR", side=2, line=2, at=0.5, cex = 0.7)
+                 plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1), 
+                      xlab = "",
+                      yaxt = "n")
+                 SROC(est11.par, addon = TRUE,sroc.type =  input$Sauc1)
+                 legend("bottomright", 
+                        bty='n',
+                        legend = c(sprintf("p = %.2f, SAUC = %.3f", p.seq(), sauc11)), 
+                        col = col, pch = 18, pt.cex = 2, cex = legend.cex, 
+                        lty = rep(1,3))
+                 title("(B)", adj = 0, font.main = 1, cex.main = title.cex)
+                 title(TeX("$(c_1, \\,c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$"), cex.main = title.cex)
+                 title(xlab = "FPR", line=2, cex = 0.7)
+                 ## zC
+                 
+                 plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1), 
+                      xlab = "",
+                      yaxt = "n")
+                 SROC(est10.par, addon = TRUE, sroc.type = input$Sauc1)
+                 legend("bottomright", 
+                        bty='n',
+                        legend = c(sprintf("p = %.2f, SAUC = %.3f", p.seq(), sauc10)), 
+                        col = col, pch = 18, pt.cex = 2, cex = legend.cex, 
+                        lty = rep(1,3))
+                 title("(C)", adj = 0, font.main = 1, cex.main = title.cex)
+                 title(TeX("$(c_1,\\, c_2) = (1,\\, 0)$"), cex.main = title.cex)
+                 title(xlab = "FPR", line=2, cex = 0.7)
+                 ## D
+                 
+                 plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1), 
+                      xlab = "",
+                      yaxt = "n")
+                 SROC(est01.par, addon = TRUE, sroc.type = input$Sauc1)
+                 legend("bottomright", 
+                        bty='n',
+                        legend = c(sprintf("p = %.2f, SAUC = %.3f", p.seq(), sauc01)), 
+                        col = col, pch = 18, pt.cex = 2, cex = legend.cex, 
+                        lty = rep(1,3))
+                 title("(D)", adj = 0, font.main = 1, cex.main = title.cex)
+                 title(TeX("$(c_1,\\, c_2) = (0,\\, 1)$"), cex.main = title.cex)
+                 title(xlab = "FPR", line=2, cex = 0.7)
                })
 })
 #download sroc====================================
 output$downloadsrocA<-downloadHandler(filename = "SROC.png",contentType = "image/png",content = function(file){
-
+  
   legend.cex <- 1
   col <- 1:4
   title.cex <- 1.5
@@ -629,7 +619,7 @@ output$sauc<-renderPlot({
                detail = 'This may take a while...(SAUC)', value = 0,
                {
                  par(mfrow = c(2,2), oma = c(0.2, 3, 0.2, 0.3), mar = c(3, 2, 2, 0.2))
-                 est.sauc2<-sapply(dtametasa.rc_p.10(), function(x)x$sauc.ci)
+                 est.sauc2<-sapply(p.10,function(x)esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)
                  matplot(t(est.sauc2),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                          ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                  title(TeX("$(\\hat{c}_1, \\, \\hat{c}_2)$"), cex.main = title.cex)
@@ -642,7 +632,7 @@ output$sauc<-renderPlot({
                  
                  incProgress(1/4)
                  ## F(B)
-                 est.sauc2<-sapply(dtametasa.fc_c1.square0.5_p.10(), function(x)x$sauc.ci)
+                 est.sauc2<-sapply(p.10,function(x)esting_omg[[paste0(x,0.5,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)
                  matplot(t(est.sauc2),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                          ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                  title(TeX("$(c_1, \\,c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$"), cex.main = title.cex)
@@ -650,7 +640,7 @@ output$sauc<-renderPlot({
                  abline(h=0.5, col="grey54", lty=2)
                  title("(F)", adj = 0, font.main = 1, cex.main = title.cex)
                  title(xlab = "p", line=2, cex = 0.7) 
-                 est.sauc2<-sapply(dtametasa.fc_c1.square1_p.10(), function(x)x$sauc.ci)
+                 est.sauc2<-sapply(p.10,function(x)esting_omg[[paste0(x,1,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)
                  matplot(t(est.sauc2),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                          ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                  title(TeX("$(c_1, \\,c_2) = (1, \\,0)$"), cex.main = title.cex)
@@ -664,7 +654,7 @@ output$sauc<-renderPlot({
                  incProgress(1/4)
                  ## H(D)
                  
-                 est.sauc2<-sapply(dtametasa.fc_c1.square1_p.10(), function(x)x$sauc.ci)
+                 est.sauc2<-sapply(p.10,function(x)esting_omg[[paste0(x,0,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)
                  matplot(t(est.sauc2),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                          ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                  title(TeX("$(c_1, \\,c_2) = (0, \\,1)$"), cex.main = title.cex)
