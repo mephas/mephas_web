@@ -8,7 +8,6 @@ data<-reactiveVal(data.frame(study=seq(1:14)
 esting<-reactiveValues()
 esting_omg<-reactiveValues()
 observe({
-  print(input$manualInput)
   inFile1 <- input$filer
   separater <- input$Delimiter
   if (is.null(inFile1)||input$manualInputTRUE=='Manual input'){
@@ -44,11 +43,7 @@ observe({
     }
     updateAceEditor(session,"manualInput",value =paste(y,collapse ="\n"))
   }
-  print(input$manualInput)
-  print("mo1")
-    data(read.csv(text=input$manualInput,sep = separater,header = TRUE))
-  print(data())
-  print("mo2")
+  data(read.csv(text=input$manualInput,sep = separater,header = TRUE))
   newID<-studyId()+1
   studyId(newID)
 })%>%bindEvent(input$calculateStart)
@@ -69,6 +64,8 @@ observe({
                  est.fc(p.seq(),c1.square = 0)
                })
 })%>%bindEvent(p.seq(),input$Sauc1,input$allsingle,input$calculateStart)
+observe(est.fc(p.seq(),c1.square =input$c1c2_set))%>%bindEvent(input$c1c2_set,input$Sauc1,input$allsingle,input$calculateStart)
+
 observe({
   inFile1 <- input$filer
   separater <- input$Delimiter
@@ -112,8 +109,7 @@ est.add_rc<-function(p,  c1.square=0.5){
   rc
 }
 est.add_fc<-function(p,  c1.square=0.5){
-  fc<- c(p=p,dtametasa.fc(data(), p,  c1.square=c1.square, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
-  print(fc$converge)
+  fc<- c(p=p,dtametasa_fc(data(), p,  c1.square=c1.square, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
   esting_omg[[paste0(p,c1.square,input$Sauc1,input$allsingle,studyId())]]<-fc
   fc
 }
@@ -131,17 +127,6 @@ est.f<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
   validate(need(length(esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]])>0,"Push Above Button[Reload DATA TO Calculation]\nerror 112"))
   esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
-est<-reactive(withProgress(message = 'Calculation c1c2 FC',
-                           detail = 'This may take a while...', value = 0,
-                           {sapply(p.seq(), function(p) {
-                             incProgress(1/length(p.seq()))
-                             
-                             opt1 <- dtametasa.fc(data(), p, c1.square = input$c1c2_set, beta.interval = c(0,2), sauc.type = input$Sauc1,correct.type = input$allsingle)
-                             
-                             c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(0.5))
-                             
-                           })}))%>%bindCache(input$c1c2_set,input$Sauc1,input$allsingle,studyId(),p.seq())%>%bindEvent(input$c1c2_set_button,input$c1c2_set,input$Sauc1,input$allsingle,p.seq(),studyId())
-
 #data input=================e ================================================================
 output$RawData<-DT::renderDataTable({
     datatable(data()
@@ -186,7 +171,30 @@ output$Results<-renderDataTable({
                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                           lengthMenu = list(c(12))
             )))})
-#meta====================================
+#RMD====
+output$downloadreport <- downloadHandler(
+  # For PDF output, change this to "report.pdf"
+  
+  filename = "report.html",
+  
+  content = function(file) {
+    
+    tempReport <- file.path(tempdir(), "MephasGEO.Rmd")
+    file.copy("MephasGEO.Rmd", tempReport, overwrite = TRUE)
+    params <- list(v = v)
+    
+    progress <- shiny::Progress$new() #过程监视弹窗
+    on.exit(progress$close())
+    progress$set(message = "Result", value = 0)
+    progress$inc(0.70, detail = "generating Rmarkdown file")
+    
+    rmarkdown::render(tempReport, output_file = file,
+                      params = params,
+                      envir = new.env(parent = globalenv())
+    )
+  }
+)
+#meta forest====================================
 output$meta_sesp<-renderPlot({
   par(mfrow=c(1,2),pty="m")
   forest(md(),type="sens",main="Sensitivity")
@@ -344,26 +352,23 @@ output$download_srocC_01<-downloadHandler(
   content = function(file){
     ggsave(file,plot=esting_omg[["c1c2_01"]])
   })
+#sroc D plot setting=====================
+output$srocDsetting_curve<-renderUI(ui.plot_srocline_drop("c1c2_manul",p.seq()))
+output$srocD<-renderPlot({
+  sroc_ggplot(plot_id ="c1c2_manul",input$c1c2_set)
+})
 output$download_c1c2_manul<-downloadHandler(
   filename = function(){paste("c1c2_estimate",'.png',sep='')},
   content = function(file){
     ggsave(file,plot=esting_omg$c1c2_manul_plot)
   })
+#sroc Ploting=================================
 sroc_ggplot<-function(plot_id,c1.square){
   data<-data.frame(sp=sp(),se=se())
-  
   p<-ggplot(data = data,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
   p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))
-  
   est.par<- est.f(c1.square,c("mu1","mu2","tau1","tau2","rho")) 
   par <- as.matrix(est.par)
-  print("par")
-  print(esting_omg[[paste0(1,c1.square,input$Sauc1,input$allsingle,studyId())]]$par)
-  print(esting_omg[[paste0(0.8,c1.square,input$Sauc1,input$allsingle,studyId())]]$par)
-  print(esting_omg[[paste0(0.6,c1.square,input$Sauc1,input$allsingle,studyId())]]$par)
-  print(esting_omg[[paste0(0.4,c1.square,input$Sauc1,input$allsingle,studyId())]]$par)
-  print(esting_omg[[paste0(0.4,c1.square,input$Sauc1,input$allsingle,studyId())]])
-  print(par)
   p<-p+mapply(function(i) {
     u1 <- par["mu1", i]
     u2 <- par["mu2", i]
@@ -386,40 +391,6 @@ sroc_ggplot<-function(plot_id,c1.square){
   esting_omg[[plot_id]]<-p
   p
 }
-#sroc D plot setting=====================
-output$srocDsetting_curve<-renderUI(ui.plot_srocline_drop("c1c2_manul",p.seq()))
-output$srocD<-renderPlot({
-  plot_id<-"c1c2_manul"
-  data_m<-data.frame(sp=sp(),se=se())
-  p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
-  p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))
-  
-  est2.par  <- est()[15:19,]
-  par <- as.matrix(est2.par)
-  p<-p+mapply(function(i) {
-    u1 <- par[1, i]
-    u2 <- par[2, i]
-    t1 <- par[3, i]
-    t2 <- par[4, i]
-    if (input$Sauc1 == "sroc"){
-      r <- par[5, i]}
-    else{ r <- -1}
-    stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(is.null(input[[paste0("sroc_curve_color",plot_id,i)]]),"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id,i)]]),1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]))
-  }
-  , 1:ncol(par))
-  sens <- plogis(par[1, ])
-  spec <- plogis(par[2, ])
-  p<-p+sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=ifelse(is.null(input[[paste0("sroc_point_color",plot_id,t)]]),"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))
-  
-  p<-p+labs(subtitle  = input[[paste0("plot_title",plot_id)]],tag="D")#input[[paste0("plot_y_axis","P")]],x=ifelse((input[[paste0("plot_x_axis","P")]]==""),waiver(),input[[paste0("plot_x_axis","P")]])
-  p<-p+
-    xlab(input[[paste0("plot_x_axis",plot_id)]])+ylab(input[[paste0("plot_y_axis",plot_id)]])+
-    ggtitle(plot_id)+
-    theme(title= element_text(size = 16))
-  
-  esting_omg$c1c2_manul_plot<-p
-  p
-})
 #sauc ploy==========
 output$sauc_gg_estimate<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate")))
 output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_11",0.5,"(B) c1=c2")))

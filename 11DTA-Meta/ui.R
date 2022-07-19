@@ -16,7 +16,9 @@ source("./ui_uni.R",local = TRUE)
 source("../tab/tab.R")
 source("../tab/panel.R")
 source("../tab/func.R")
-
+source("./sauc.R")
+source("./llk.o.R")
+source("./dtametasa_fc.R")
 
 
 tagList(includeCSS("../www/style.css"),

@@ -128,6 +128,9 @@ sidebarLayout(
                                              ,column(width = 6,h4("SAUC","Estimates when c11 and c22 are assigned by the specific values"),
                                                      plotOutput("curveAandB"),
                                                      downloadButton("downloadcurveAandB","Save Image"))))
+                           ,tabPanel("Reproducible R codes",
+                                     downloadButton("downloadreport")
+                                     )
                            
                          ))
     )
