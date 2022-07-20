@@ -129,7 +129,8 @@ sidebarLayout(
                                                      plotOutput("curveAandB"),
                                                      downloadButton("downloadcurveAandB","Save Image"))))
                            ,tabPanel("Reproducible R codes",
-                                     downloadButton("downloadreport")
+                                     downloadButton("downloadreport"),downloadButton("RMDdownload","Rmd download"),
+                                     verbatimTextOutput("Rmd")
                                      )
                            
                          ))
