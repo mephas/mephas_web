@@ -129,8 +129,22 @@ sidebarLayout(
                                                      plotOutput("curveAandB"),
                                                      downloadButton("downloadcurveAandB","Save Image"))))
                            ,tabPanel("Reproducible R codes",
-                                     downloadButton("downloadreport"),downloadButton("RMDdownload","Rmd download"),
-                                     verbatimTextOutput("Rmd")
+                                     downloadButton("RMDdownload","Rmd download")
+                                     ,actionButton("downloadreport","html download",icon = icon("download"))
+                                     ,tags$style(#"#downloadreport {
+                                        #background:black;
+                                        #color:yellow;
+                                        #font-size:20rem;}
+                                        #   "#downloadreport:hover {
+                                        # background-color: yellow;
+                                        #            color:black;}"
+                                         "#downloadreport:hover {
+                                         outline-color:#0000ff;
+                                       background: blue;
+                                                  color:white;}"
+
+                                          )
+                                     ,verbatimTextOutput("Rmd")
                                      )
                            
                          ))
