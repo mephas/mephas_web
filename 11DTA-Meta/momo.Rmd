@@ -7,7 +7,7 @@ params:
   p: NA
   n: NA
   sauc: "sauc"
-  data: NA
+  data: Null
 
 ---
 
