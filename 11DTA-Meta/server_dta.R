@@ -220,25 +220,25 @@ output$RMDdownload<-downloadHandler(
   }
 )
 #=======
-output$downloadreport <- downloadHandler(
+output$htmldownload <- downloadHandler(
   # For PDF output, change this to "report.pdf"
   
-  filename = "report.html",
+  filename = input$html,
   
   content = function(file) {
     
-    tempReport <- file.path(tempdir(), "MephasGEO.Rmd")
-    file.copy("MephasGEO.Rmd", tempReport, overwrite = TRUE)
-    params <- list(v = v)
+    #tempReport <- file.path(tempdir(), "momo.Rmd")
+    #file.copy("momo.Rmd", tempReport, overwrite = TRUE)
+    params <- list(n="mo",p = p.seq(),data=data(),sauc=input$Sauc1)
     
     progress <- shiny::Progress$new() #过程监视弹窗
     on.exit(progress$close())
     progress$set(message = "Result", value = 0)
     progress$inc(0.70, detail = "generating Rmarkdown file")
     
-    rmarkdown::render(tempReport, output_file = file,
+    rmarkdown::render("momo.Rmd", output_file = file,
                       params = params,
-                      envir = new.env(parent = globalenv())
+                      envir = new.env(parent = globalenv())#globalenv()
     )
   }
 )

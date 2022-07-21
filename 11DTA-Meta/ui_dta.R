@@ -140,7 +140,9 @@ sidebarLayout(
                                         #            color:black;}"
                                          "#downloadreport:hover {
                                          outline-color:#0000ff;
-                                       background: blue;
+                                       border-color: #000000;
+                                       background: #4169e1;
+                                       border-radius:3%;
                                                   color:white;}"
 
                                           )
