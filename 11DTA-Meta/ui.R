@@ -35,7 +35,8 @@ tagList(includeCSS("../www/style.css"),
           )
         )
         ,
-        
+
+  shinythemes::themeSelector(),
 navbarPage(
   theme = shinythemes::shinytheme("cerulean"),
   collapsible = TRUE,
@@ -50,9 +51,10 @@ navbarPage(
     downloadButton("ManualPDF_download","Download Manual")
     ),
     headerPanel("Digostic Test Analysis"),
-    source("./ui_dta.R",local = TRUE)),
+    source("./ui_dta.R",local = TRUE)$value),
   tabPanel("Univariate-meta",Univariate_Body),
   tablang("11DTA-Meta"),
   tabstop(),
-  tablink()
+  tablink(),
+  
   ))

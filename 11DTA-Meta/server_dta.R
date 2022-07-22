@@ -1,4 +1,5 @@
-p.10 <- seq(10,1, -1)/10
+ p.10 <- seq(10,1, -1)/10
+#p.10 <- 0.5
 studyId<-reactiveVal(0)
 data<-reactiveVal(data.frame(study=seq(1:14)
                              ,TP=c(12,10,17,13,4,15,45,18,5,8,5,11,5,7)
@@ -320,13 +321,29 @@ output$downloadFRP2<-downloadHandler(filename = "FRP2.png",content = function(fi
 output$srocBsetting_curve<-renderUI({
   ui.plot_srocline_drop("c1c2_estimate",p.seq())
 })
+
+#gg theme--------
+gg_theme   <- reactive({
+  switch(input$ggplot_theme
+     ,theme_bw = theme_bw()
+     ,theme_classic = theme_classic()
+     ,theme_light = theme_light()
+     ,theme_linedraw = theme_linedraw()
+     ,theme_minimal = theme_minimal()
+     ,theme_test = theme_test()
+     ,theme_void = theme_void()
+     ,theme_default = NULL
+    )
+
+})
 output$srocB<-renderPlot({
   plot_id<-"c1c2_estimate"
   withProgress(message = "c1c2 estimate",value = 0,detail = "take a minutes",
                {
                  data_m<-data.frame(sp=sp(),se=se())
                  p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
-                 p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))
+                 p<-p+
+                 geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))+gg_theme()
                  #p<-p+layer(geom = "point", stat = "identity", position = "identity")
                  
                  est2.par<- est.r(0.5,c("mu1","mu2","tau1","tau2","rho")) 
@@ -344,10 +361,12 @@ output$srocB<-renderPlot({
                  , 1:ncol(par))
                  sens <- plogis(par[1, ])
                  spec <- plogis(par[2, ])
+                 
                  p<-p+
                    sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
                    ggtitle(plot_id)+
-                   theme(title= element_text(size = 16))
+                   theme(title= element_text(size = 16))+ gg_theme()
+                   
                  
                  esting$plot_sroc<-p
                  p})
@@ -414,7 +433,7 @@ output$download_c1c2_manul<-downloadHandler(
 sroc_ggplot<-function(plot_id,c1.square){
   data<-data.frame(sp=sp(),se=se())
   p<-ggplot(data = data,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
-  p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))
+  p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))+gg_theme()
   est.par<- est.f(c1.square,c("mu1","mu2","tau1","tau2","rho")) 
   par <- as.matrix(est.par)
   p<-p+mapply(function(i) {
@@ -448,7 +467,7 @@ output$sauc_gg_c01<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1
 sauc_ggplot<-function(plot_id,title="(A) C1,C2 estimate"){
   est.sauc2<-sapply(p.10,function(x)esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)%>%t()
   data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc2[,"sauc"],est.sauc2[,"sauc.lb"],est.sauc2[,"sauc.ub"]),sauctype=c(rep("sauc",10),rep("sauc.lb",10),rep("sauc.ub",10)))
-  p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+
+  p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+gg_theme()+
     ylim(0,1)+
     xlim(0,1)+
     ggtitle(title)+
@@ -460,7 +479,7 @@ sauc_ggplot<-function(plot_id,title="(A) C1,C2 estimate"){
 sauc_ggplot_b<-function(plot_id,c1.square,title="C1,C2"){
   est.sauc<-sapply(p.10,function(x)esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)%>%t()
   data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc[,"sauc"],est.sauc[,"sauc.lb"],est.sauc[,"sauc.ub"]),sauctype=c(rep("sauc",10),rep("sauc.lb",10),rep("sauc.ub",10)))
-  p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+
+  p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+eval(call(input$ggplot_theme))+
     ylim(0,1)+
     xlim(0,1)+
     ggtitle(title)+

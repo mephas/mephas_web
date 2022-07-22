@@ -41,6 +41,13 @@ sidebarLayout(
 
                                                          </b>'),
                                       verbatimTextOutput("uiprob")
+                                      ,pickerInput(inputId="ggplot_theme",
+                                        label="select plot theme",
+                                        choices=paste0("theme_",c("bw","classic","light","linedraw","minimal","test","void","default")),
+
+
+
+                                        )
                                       #,uiOutput("studyId")
                          )
                          ,
