@@ -18,6 +18,7 @@ library(latex2exp)
 library(mvmeta)
 library(meta)
 library(mada)
+library(dtametasa)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -29,11 +30,17 @@ When you click the **Knit** button a document will be generated that includes bo
 
 
 
-```{r,echo=FALSE}
+```{r}
 params$n
 prob<- params$p
 sauc.type <- params$sauc
+sauc.type
+data<-params$data
+data
 summary(params$data)
+opt2 <- dtametasa.rc(data, 0.5, c1.square0  = 0.5, beta.interval = c(0,2), sauc.type = sauc.type)
+opt2
+c(conv = opt2$convergence, opt2$sauc.ci, opt2$mu1.ci[4:6], opt2$mu2.ci[4:6], opt2$beta.ci, opt2$alpha, opt2$par)
 ```
 ## Including Plots
 

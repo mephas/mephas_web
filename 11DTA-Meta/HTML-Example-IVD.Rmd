@@ -11,7 +11,6 @@ params:
   n: NA
   sauc: "sauc"
   data: Null
-
 ---
 
 ```{r setup, include=FALSE}
@@ -52,7 +51,7 @@ p.seq <- params$p
 
 est2 <- sapply(p.seq, function(p) {
   
-  opt2 <- dtametasa.rc(data, p, c1.sq.init = 0.5, beta.interval = c(0,2), sauc.type = sauc.type)
+  opt2 <- dtametasa.rc(data, p, c1.square0  = 0.5, beta.interval = c(0,2), sauc.type = sauc.type)
 
   c(conv = opt2$convergence, opt2$sauc.ci, opt2$mu1.ci[4:6], opt2$mu2.ci[4:6], opt2$beta.ci, opt2$alpha, opt2$par)
   
@@ -64,7 +63,7 @@ est2 <- sapply(p.seq, function(p) {
 
 est11 <- sapply(p.seq, function(p) {
   
-  opt1 <- dtametasa.fc(data, p, c1.sq = 0.5, beta.interval = c(0,2), sauc.type = sauc.type)
+  opt1 <- dtametasa.fc(data, p, c1.square  = 0.5, beta.interval = c(0,2), sauc.type = sauc.type)
   
   c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(0.5))
   
@@ -75,7 +74,7 @@ est11 <- sapply(p.seq, function(p) {
 
 est10 <- sapply(p.seq, function(p) {
   
-  opt1 <- dtametasa.fc(data, p, c1.sq = 1, beta.interval = c(0,2), sauc.type = sauc.type)
+  opt1 <- dtametasa.fc(data, p, c1.square = 1, beta.interval = c(0,2), sauc.type = sauc.type)
   
   c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(1))
   
@@ -86,7 +85,7 @@ est10 <- sapply(p.seq, function(p) {
 
 est01 <- sapply(p.seq, function(p) {
   
-  opt1 <- dtametasa.fc(data, p, c1.sq = 0, beta.interval = c(0,2), sauc.type = sauc.type)
+  opt1 <- dtametasa.fc(data, p, c1.square  = 0, beta.interval = c(0,2), sauc.type = sauc.type)
   
   c(conv = opt1$convergence, opt1$sauc.ci, opt1$mu1.ci[4:6], opt1$mu2.ci[4:6], opt1$beta.ci, opt1$alpha, opt1$par, c1 = sqrt(0))
   
@@ -230,10 +229,6 @@ colnames(est.sauc2) <- colnames(est.sauc11) <- colnames(est.sauc10) <- colnames(
 ```{r, fig.width=10, fig.height=6}
 # PLEASE CHOOSE ONE SAVED DATA *******
 
-params$data
-params$p
-params$n
-params$sauc
 se <- data$TP/(data$TP+data$FN)
 sp <- data$TN/(data$TN+data$FP)
 
@@ -264,7 +259,7 @@ col <- 1:4
 
 plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1), 
      xlab = "", ylab = "")
-SROC(est2.par, add = TRUE, ncols = col, sroc.type = sauc.type)
+SROC(est2.par, addon  = TRUE, ncols = col, sroc.type = sauc.type)
 
 legend("bottomright", 
        bty='n',
@@ -283,7 +278,7 @@ mtext("TPR", side=2, line=2, at=0.5, cex = 0.7)
 plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1), 
      xlab = "",
      yaxt = "n")
-SROC(est11.par, add = TRUE, ncols = col, sroc.type = sauc.type)
+SROC(est11.par, addon  = TRUE, ncols = col, sroc.type = sauc.type)
 legend("bottomright", 
        bty='n',
        legend = c(sprintf("p = %.1f, SAUC = %.3f", p.seq, sauc11)), 
@@ -298,7 +293,7 @@ title(xlab = "FPR", line=2, cex = 0.7)
 plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1), 
      xlab = "",
      yaxt = "n")
-SROC(est10.par, add = TRUE, ncols = col, sroc.type = sauc.type)
+SROC(est10.par, addon  = TRUE, ncols = col, sroc.type = sauc.type)
 legend("bottomright", 
        bty='n',
        legend = c(sprintf("p = %.1f, SAUC = %.3f", p.seq, sauc10)), 
@@ -313,7 +308,7 @@ title(xlab = "FPR", line=2, cex = 0.7)
 plot(1-sp, se, type = "p", ylim = c(0,1), xlim = c(0,1), 
      xlab = "",
      yaxt = "n")
-SROC(est01.par, add = TRUE, ncols = col, sroc.type = sauc.type)
+SROC(est01.par, addon = TRUE, ncols = col, sroc.type = sauc.type)
 legend("bottomright", 
        bty='n',
        legend = c(sprintf("p = %.1f, SAUC = %.3f", p.seq, sauc01)), 

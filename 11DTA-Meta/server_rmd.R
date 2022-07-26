@@ -25,7 +25,7 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ```{r}
 prob<- c(",paste(p.seq(),collapse =","),")
-summary(cars)
+
 ```
 
 ## Including Plots
@@ -62,7 +62,7 @@ output$htmldownload <- downloadHandler(
     on.exit(progress$close())
     progress$set(message = "Result", value = 0)
     progress$inc(0.70, detail = "generating Rmarkdown file")
-    
+    #"momo.Rmd"
     rmarkdown::render("HTML-Example-IVD.Rmd", output_file = file,
                       params = params,
                       envir = new.env(parent = globalenv())#globalenv()
