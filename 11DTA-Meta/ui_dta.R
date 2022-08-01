@@ -4,10 +4,8 @@ sidebarLayout(
     tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
     tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
     h4(tags$b("Step 1. Data Preparation")),
-    radioButtons("manualInputTRUE",choices = c("Manual input","File upload"),"1. choose input way",inline = TRUE),
-    tags$style("#radioSelect:checked {
-  box-shadow: 0 0 0 3px orange;
-}"),
+    shinyWidgets::prettyRadioButtons("manualInputTRUE",
+      icon = icon("check"),choices = c("Manual input","File upload"),"1. choose input way",inline = TRUE),
     conditionalPanel(condition = "input.manualInputTRUE=='File upload'",icon("fa-regular fa-file",lib = "font-awesome"),fileInput("filer",label = "csv,txt",accept = c("text/csv"))),
     icon("fa-regular fa-keyboard",lib="font-awesome")
     ,shinyWidgets::prettyRadioButtons(
