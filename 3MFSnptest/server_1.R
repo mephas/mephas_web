@@ -35,7 +35,7 @@ names1 <- reactive({
   })
 
   #table 
-output$table <- DT::renderDT(A(),
+output$table <- DT::renderDT({A()},
     extensions = list(
       'Buttons'=NULL,
       'Scroller'=NULL),

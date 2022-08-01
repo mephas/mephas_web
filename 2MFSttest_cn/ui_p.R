@@ -42,7 +42,7 @@ tabPanel.upload.num(file ="file.p", header="header.p", col="col.p", sep="sep.p")
 
   h4(tags$b("第2步 选择假设")),
 
-        tags$b("虚假设"),
+        tags$b("零假设"),
         HTML("<p> &#916 = 0: 第1组（前）和第2组（后）等效 </p>"),
 
         radioButtons(
@@ -88,9 +88,9 @@ tabPanel.upload.num(file ="file.p", header="header.p", col="col.p", sep="sep.p")
           HTML(
           "<b> 说明 </b>
           <ul>
-            <li> 框内的条带为中位数</li>
-            <li> 方框测量了第75和第25个百分位数之间的差值</li>
-            <li> 如果存在离群值，将显示为红色</li>
+            <li> 框内的条带为中位数；</li>
+            <li> 方框测量了第75和第25个百分位数之间的差值；</li>
+            <li> 如果存在离群值，将显示为红色。</li>
           </ul>"
             )
          ),
@@ -105,8 +105,8 @@ tabPanel.upload.num(file ="file.p", header="header.p", col="col.p", sep="sep.p")
 			"<b> 说明 </b>
 			<ul>
 			<li> 正态Q-Q图：将垂直轴上随机生成的独立标准正态数据与水平轴上的标准正态总体进行比较。点的线性表明数据呈正态分布。</li>
-			<li> 直方图：通过描述某一数值范围内出现的观察值频率，粗略评估给定变量的概率分布</li>
-			<li> 密度图：估计数据的概率密度函数</li>
+			<li> 直方图：通过描述某一数值范围内出现的观察值频率，粗略评估给定变量的概率分布。</li>
+			<li> 密度图：估计数据的概率密度函数。</li>
 			</ul>"
             ),
             p(tags$b("正态Q-Q图")),
@@ -128,13 +128,13 @@ tabPanel.upload.num(file ="file.p", header="header.p", col="col.p", sep="sep.p")
             HTML(
     "<b> 说明 </b>
     <ul>
-    <li> P值 < 0.05，则第1组（服用前）和第二组（服用后）存在统计学差异.（接受备择假设）</li>
-    <li> P >= 0.05，则2组数据没有统计学差异.(接受虚假设)</li>
+    <li> P值 < 0.05，则第1组（服用前）和第二组（服用后）存在统计学差异。（接受备择假设）</li>
+    <li> P值 >= 0.05，则2组数据没有统计学差异。(接受零假设)</li>
     </ul>"
   ),
     conditionalPanel(
     condition = "input.explain_on_off",
-  p(tags$i("根据初始设定，结果为该药物对睡眠时间不具有影响。 （P = 0.2）"))
+  p(tags$i("根据初始设定，结果为该药物对睡眠时间不具有影响。（P = 0.2）"))
   )
         )
       )

@@ -31,7 +31,7 @@ sidebarPanel(
 "50\n42\n50\n43\n47\n38\n41\n48\n47\n36\n42\n42\n45\n44\n32\n46\n50\n38\n43\n40\n42\n46\n41\n46\n48"
 ), 
 
-    p("缺失值输入NA，保证2个集长度相等；否则会出错")
+    p("缺失值输入NA，保证2个集长度相等；否则会出错。")
 
         ),
 tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
@@ -44,7 +44,7 @@ tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
 
   h4(tags$b("第2步 方差等价性")),
   p("进行T检验前，需要检查方差的等价性，然后决定使用哪种T检验。"),
-  p(tags$b("虚假设")),
+  p(tags$b("零假设")),
   HTML("<p> v1 = v2: 第1组和第2组总体方差相等 </p>"),
 
     radioButtons("alt.t22", #p
@@ -59,7 +59,7 @@ tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
 
   h4(tags$b("第3步 T 检验")),
 
-  p(tags$b("虚假设")),
+  p(tags$b("零假设")),
   HTML("<p> &#956&#8321 = &#956&#8322: 第1组和第2组的总体平均相等</p>"),
 
     radioButtons("alt.t2", #p
@@ -103,9 +103,9 @@ tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
           HTML(
           "<b> 说明 </b>
           <ul>
-            <li> 框内的条带为中位数</li>
-            <li> 方框测量了第75和第25个百分位数之间的差值</li>
-            <li> 如果存在离群值，将显示为红色</li>
+            <li> 框内的条带为中位数；</li>
+            <li> 方框测量了第75和第25个百分位数之间的差值；</li>
+            <li> 如果存在离群值，将显示为红色。</li>
           </ul>"
             )
          ),
@@ -119,8 +119,8 @@ tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
 		"<b> 说明 </b>
 		<ul>
 		<li> 正态Q-Q图：将垂直轴上随机生成的独立标准正态数据与水平轴上的标准正态总体进行比较。点的线性表明数据呈正态分布。</li>
-		<li> 直方图：通过描述某一数值范围内出现的观察值频率，粗略评估给定变量的概率分布</li>
-		<li> 密度图：估计数据的概率密度函数</li>
+		<li> 直方图：通过描述某一数值范围内出现的观察值频率，粗略评估给定变量的概率分布。</li>
+		<li> 密度图：估计数据的概率密度函数。</li>
 		</ul>"
 		),
         p(tags$b("正态Q-Q图")),
@@ -129,7 +129,7 @@ tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
         p(tags$b("直方图")),
         plotly::plotlyOutput("makeplot2.3"),
         sliderInput("bin2","直方图的分箱数",min = 0,max = 100,value = 0),
-        p("当分箱数为0时，绘图将使用默认分箱数"),
+        p("当分箱数为0时，绘图将使用默认分箱数。"),
         p(tags$b("密度图")),
         plotly::plotlyOutput("makeplot2.4")
 
@@ -147,14 +147,14 @@ tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
     HTML(
     "<b> 说明 </b>
     <ul>
-    <li> 当P < 0.05时，请使用<b>韦尔奇两样本t检验（Welch Two-Sample t-test）</b>的结果</li>
-    <li> 当P >= 0.05时，请使用<b>两样本t检验（Two-Sample t-test）</b>的结果</li>
+    <li> 当P < 0.05时，请使用<b>韦尔奇两样本t检验（Welch Two-Sample t-test）</b>的结果；</li>
+    <li> 当P >= 0.05时，请使用<b>两样本t检验（Two-Sample t-test）</b>的结果。</li>
     </ul>"
   ),
 
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("在这个例子里，因为F检验的P値大约为0.15（> 0.05），数据的方差具有等价性，所以我们使用「两样本t检验」的结果"))
+    p(tags$i("在这个例子里，因为F检验的P値大约为0.15（> 0.05），数据的方差具有等价性，所以我们使用“独立双样本t检验”的结果"))
     ),
 
     hr(),
@@ -174,7 +174,7 @@ tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
   ),
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("在这个例子里，我们可以得到ER阳性患者和阴性患者的总体年龄没有统计学差异（P = 0.55、「两样本t检验」的结果）"))
+    p(tags$i("在这个例子里，我们可以得到ER阳性患者和阴性患者的总体年龄没有统计学差异（P = 0.55，“独立双样本t检验”的结果）"))
     )
     )
   )
