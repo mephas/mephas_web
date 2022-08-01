@@ -36,7 +36,7 @@ tagList(includeCSS("../www/style.css"),
         )
         ,
 
-  shinythemes::themeSelector(),
+  #shinythemes::themeSelector(),
 navbarPage(
   theme = shinythemes::shinytheme("cerulean"),
   collapsible = TRUE,
@@ -79,8 +79,8 @@ navbarPage(
     ),
     headerPanel("Meta-Analysis of Diagnostic Studies"),
     source("./ui_dta.R",local = TRUE)$value),
-  tabPanel("Sensitivity Analysis",
-  									source("./ui_sensitivity.R")
+  tabPanel("Sensitivity Analysis",headerPanel("Sensitivity-Analysis of Diagnostic Studies"),
+  									source("./ui_sensitivity.R",local = TRUE)$value
   									),
   tablang("11DTA-Meta"),
   tabstop(),

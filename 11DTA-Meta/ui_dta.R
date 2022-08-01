@@ -4,8 +4,10 @@ sidebarLayout(
     tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
     tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
     h4(tags$b("Step 1. Data Preparation")),
-    actionButton("calculateStart","Reload DATA TO Calculation",icon = icon("fa-solid fa-wave-square",lib = "font-awesome")),
     radioButtons("manualInputTRUE",choices = c("Manual input","File upload"),"1. choose input way",inline = TRUE),
+    tags$style("#radioSelect:checked {
+  box-shadow: 0 0 0 3px orange;
+}"),
     conditionalPanel(condition = "input.manualInputTRUE=='File upload'",icon("fa-regular fa-file",lib = "font-awesome"),fileInput("filer",label = "csv,txt",accept = c("text/csv"))),
     icon("fa-regular fa-keyboard",lib="font-awesome")
     ,shinyWidgets::prettyRadioButtons(
@@ -58,15 +60,27 @@ sidebarLayout(
   ),
   icon = icon("calendar"),
   radioGroupButtons(
-    inputId = "allsingle",
-    label = "correct type",
-    choices = c("all", "single"),
-    selected = "single",
-    justified = TRUE,
-    checkIcon = list(
-      yes = icon("ok",
-                 lib = "glyphicon"))
-  )
+                inputId = "allsingle",
+                label = "Continuity correction type",
+                choiceNames = c("Correction for sigle study", "Correction for all studies"),
+                choiceValues = c("single", "all"),
+                selected = "single",
+                justified = TRUE,
+                checkIcon = list(
+                  yes = icon("ok", lib = "glyphicon")),
+                direction = "vertical"
+              ),
+  actionButton("calculateStart",tags$b(HTML("Reload DATA TO Calculation&#x2192;")),icon = icon("fa-solid fa-wave-square",lib = "font-awesome")
+),tags$style("#calculateStart {background:#4169e1;
+                              color:white;}
+              #calculateStart:hover {
+              outline-color:#0000ff;
+            border-color: #000000;
+            background: #413E3D;
+            border-radius:3%;
+                      color:white;}"
+              
+    )
                          
     ),
     mainPanel(
@@ -192,4 +206,5 @@ sidebarLayout(
   #                     ))
   #             )
   #           )
+
 )
