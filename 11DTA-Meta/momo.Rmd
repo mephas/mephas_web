@@ -34,7 +34,8 @@ When you click the **Knit** button a document will be generated that includes bo
 params$n
 prob<- params$p
 sauc.type <- params$sauc
-sauc.type
+p<-c("%s")
+sauc<-'%s'
 data<-params$data
 data
 summary(params$data)
