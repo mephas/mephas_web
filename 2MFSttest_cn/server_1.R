@@ -41,7 +41,11 @@ output$table <- DT::renderDT({X()},
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy', 
+        list(extend = 'csv', title = "data"),
+        list(extend = 'excel', title = "data")
+        ),
       deferRender = TRUE,
       scrollY = 300,
       scroller = TRUE))
