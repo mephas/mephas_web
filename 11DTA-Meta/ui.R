@@ -30,29 +30,58 @@ tagList(includeCSS("../www/style.css"),
             label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
             inline = TRUE,
             onLabel = "Close",
-            offLabel = "How to use",
+            offLabel = "Information",
             size = "mini"
           )
         )
         ,
 
-  shinythemes::themeSelector(),
+  #shinythemes::themeSelector(),
 navbarPage(
   theme = shinythemes::shinytheme("cerulean"),
   collapsible = TRUE,
   position="fixed-top",
-  title = "DTA-META-SA",
-  tabPanel("DTA",conditionalPanel(
+  title = "Meta-Analysis of Diagnostic Test Accuracy",
+  tabPanel("Meta-Analysis",conditionalPanel(
     condition = "input.explain_on_off",
-    HTML("<h4><b>Functionalities</b></h4>"),
+    HTML(
+    	"
+<b>Meta-analysis of diagnostic test accuracy (DTA meta) </b> is used to summaries results of diagnostic studies
+
+<h4><b> 1. Functionalities  </b></h4>
+<ul>
+<li> To upload data files, preview data set, and check the correctness of data input</li>
+<li> Two models are available: (1) bivariate random-effect model (Reitsma et al. 2005) or 
+(2) HSROC model (Rutter and Gatsonis, 2001)</li>
+<li> To produce summary ROC (SROC) curves and summary AUC (SAUC)</li>
+</ul>
+
+<h4><b> 2. About your data (training set) </b></h4>
+
+<ul>
+<li> The variables in your data should be names as <b>TP, FP, TN, FN </b>, indicating true positive, false positive, true negative, false negative, respectively.  </li>
+</ul>
+
+<h4><i>Case Example</i></h4>
+
+<i> We used the meta-analysis for diagnosing intravascular device–related bloodstream infection. (Safdar et al. 2005) 
+
+</i>
+
+<h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. </h4>
+"
+    	
+    ),
     p("This page can make",tags$strong(" SROC Plot")," and",tags$strong(" SAUC Plot")),
     HTML('<b>&#9312;Set Header TP,FN,FP,TN</b>'),br(),
     HTML("&#10103;<b>When Change the Data, Click Reload DATA TO Calculation</b>"),br(),
     downloadButton("ManualPDF_download","Download Manual")
     ),
-    headerPanel("Digostic Test Analysis"),
+    headerPanel("Meta-Analysis of Diagnostic Studies"),
     source("./ui_dta.R",local = TRUE)$value),
-  tabPanel("Univariate-meta",Univariate_Body),
+  tabPanel("Sensitivity Analysis",headerPanel("Sensitivity-Analysis of Diagnostic Studies"),
+  									source("./ui_sensitivity.R",local = TRUE)$value
+  									),
   tablang("11DTA-Meta"),
   tabstop(),
   tablink(),
