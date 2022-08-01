@@ -42,10 +42,10 @@ navbarPage(
   collapsible = TRUE,
   position="fixed-top",
   title = "Meta-Analysis of Diagnostic Test Accuracy",
-  tabPanel("Meta-Analysis",conditionalPanel(
-    condition = "input.explain_on_off",
-    HTML(
-    	"
+  conditionalPanel(
+  	condition = "input.explain_on_off",
+  	HTML(
+  		"
 <b>Meta-analysis of diagnostic test accuracy (DTA meta) </b> is used to summaries results of diagnostic studies
 
 <h4><b> 1. Functionalities  </b></h4>
@@ -70,13 +70,14 @@ navbarPage(
 
 <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give real-time analytical results. </h4>
 "
-    	
-    ),
-    p("This page can make",tags$strong(" SROC Plot")," and",tags$strong(" SAUC Plot")),
-    HTML('<b>&#9312;Set Header TP,FN,FP,TN</b>'),br(),
-    HTML("&#10103;<b>When Change the Data, Click Reload DATA TO Calculation</b>"),br(),
-    downloadButton("ManualPDF_download","Download Manual")
-    ),
+  		
+  	),
+  	p("This page can make",tags$strong(" SROC Plot")," and",tags$strong(" SAUC Plot")),
+  	HTML('<b>&#9312;Set Header TP,FN,FP,TN</b>'),br(),
+  	HTML("&#10103;<b>When Change the Data, Click Reload DATA TO Calculation</b>"),br(),
+  	downloadButton("ManualPDF_download","Download Manual")
+  ),
+  tabPanel("Meta-Analysis",
     headerPanel("Meta-Analysis of Diagnostic Studies"),
     source("./ui_dta.R",local = TRUE)$value),
   tabPanel("Sensitivity Analysis",headerPanel("Sensitivity-Analysis of Diagnostic Studies"),

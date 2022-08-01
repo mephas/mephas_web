@@ -362,6 +362,21 @@ output$download_c1c2_manul<-downloadHandler(
   })
 #sroc Ploting=================================
 sroc_ggplot<-function(plot_id,c1.square){
+  # if(input$batch){
+  #   each_point_color<-
+  #   each_point_radius<-
+  #   each_point_shape<-
+  #   sroc_curve_color<-
+  #   sroc_curve_thick<-
+  #   sroc_curve_shape<-
+  #   sroc_point_color
+  #   sroc_point_radius
+
+
+  # }
+  # else{
+
+  # }
   data<-data.frame(sp=sp(),se=se())
   p<-ggplot(data = data,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
   p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))+gg_theme()
@@ -381,11 +396,12 @@ sroc_ggplot<-function(plot_id,c1.square){
   sens <- plogis(par[1, ])
   spec <- plogis(par[2, ])
   p<-p+
-    sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t],color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]])),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
+    sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t],color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]])),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),shape=ifelse(length(input[[paste0("sroc_point_shape",plot_id,t)]])==0,20,as.numeric(input[[paste0("sroc_point_shape",plot_id,t)]])),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
     ggtitle(plot_id)+
     #guide_legend(title = "p=")+
     theme(title= element_text(size = 16)
-          ,legend.position = "right",)
+          ,legend.position = "right")
+
   esting_omg[[plot_id]]<-p
   p
 }
