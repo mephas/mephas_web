@@ -11,7 +11,7 @@ names1 <- reactive({
   if (is.null(inFile)) {
     # input data
     x <- as.numeric(unlist(strsplit(input$a, "[,;\n\t]")))
-    validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
+    validate( need(sum(!is.na(x))>1, "请检查数据是否存在缺失值。") )
     x <- as.data.frame(x)
     colnames(x) = names1()
     }
@@ -22,8 +22,8 @@ names1 <- reactive({
     else{
     csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, row.names=1)
     }
-    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
-    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(ncol(csv)>0, "请检查数据格式，列数是否有效。") )
+    validate( need(nrow(csv)>1, "请检查数据格式，行数是否有效。") )
 
     x <- as.data.frame(csv[,1])
     colnames(x) <- names(csv)[1]
@@ -41,7 +41,11 @@ output$table <- DT::renderDT(A(),
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据确认"),
+        list(extend = 'excel', title = "数据确认")
+        ),
       deferRender = TRUE,
       scrollY = 300,
       scroller = TRUE))
@@ -55,13 +59,17 @@ output$table <- DT::renderDT(A(),
   })
 
   output$bas <- DT::renderDT({  
-    res <- A.des()
+    A.des()
     },
   
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "描述性统计量"),
+        list(extend = 'excel', title = "描述性统计量")
+        ),
     scrollX = TRUE))
 
    output$bp = plotly::renderPlotly({
@@ -118,6 +126,10 @@ output$table <- DT::renderDT(A(),
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "检验结果"),
+        list(extend = 'excel', title = "检验结果")
+        ),
     scrollX = TRUE))
 

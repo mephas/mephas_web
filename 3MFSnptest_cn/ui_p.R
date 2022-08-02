@@ -17,7 +17,7 @@ sidebarPanel(
   tabPanel("手动输入", p(br()),
         conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("这里的数据是9名患者在治疗前后的抑郁评定量表(DRS) 测量结果."))
+    p(tags$i("这里的数据是9名患者在治疗前后的抑郁评定量表(DRS) 测量结果。"))
       ),
 
     p(tags$b("请参考示例格式上传数据")),
@@ -48,8 +48,8 @@ tabPanel.upload.num(file ="file3", header="header3", col="col3", sep="sep3")
 
   h4(tags$b("第2步 选择假设")),
 
-  p(tags$b("虚假设")),
-  HTML("<p>  m = 0: X和Y之间的中值差不为零 </p>
+  p(tags$b("零假设")),
+  HTML("<p>  m = 0: X和Y之间的中位数差为零</p>
         <p>  或者，配对值之差的分布在零附近对称</p> "),
 
   radioButtons("alt.wsr3", label = "备择假设",
@@ -75,7 +75,7 @@ radioButtons("alt.md3",
     choiceValues = list("a", "b", "c")),
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("在这个示例里，我们只有9位患者。 因此，我们选择精确P值"))
+    p(tags$i("在这个示例里，我们只有9位患者。 因此，我们选择精确P值。"))
     )
 
   ),
@@ -117,14 +117,14 @@ mainPanel(
             HTML(
           "说明:
           <ul>
-			<li> 直方图：通过描述某一数值范围内出现的观察值频率，粗略评估给定变量的概率分布</li>
-			<li> 密度图：估计数据的概率密度函数</li>
+			<li> 直方图：通过描述某一数值范围内出现的观察值频率，粗略评估给定变量的概率分布。</li>
+			<li> 密度图：估计数据的概率密度函数。</li>
           </ul>"
             ),
       p(tags$b("直方图")),
       plotly::plotlyOutput("makeplot3"),
       sliderInput("bin3", "直方图的分箱数",min = 0,max = 100,value = 0),
-      p("当分箱数为0时，绘图将使用默认分箱数"),
+      p("当分箱数为0时，绘图将使用默认分箱数。"),
       p(tags$b("密度图")),
       plotly::plotlyOutput("makeplot3.1")
 
@@ -139,8 +139,8 @@ mainPanel(
       HTML(
     "<b> 说明 </b>
     <ul>
-    <li> P值 < 0.05，则第1组（治疗前）和第二组（治疗后）存在统计学差异.（接受备择假设）</li>
-    <li> P值 >= 0.05, 则2组数据没有统计学差异.(接受虚假设)</li>
+    <li> P值 < 0.05，则第1组（治疗前）和第二组（治疗后）存在统计学差异。（接受备择假设）</li>
+    <li> P值 >= 0.05，则2组数据没有统计学差异。(接受零假设)</li>
     </ul>"
   ),
       conditionalPanel(

@@ -17,7 +17,7 @@ sidebarPanel(
   tabPanel("手动输入", p(br()),
         conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("这里的数据是两组19名患者的抑郁评定量表(DRS) 测量结果."))
+    p(tags$i("这里的数据是两组19名患者的抑郁评定量表(DRS) 测量结果。"))
       ),
 
     p(tags$b("请参考示例格式上传数据")),
@@ -35,7 +35,7 @@ sidebarPanel(
       "0.80\n0.83\n1.89\n1.04\n1.45\n1.38\n1.91\n1.64\n0.73\n1.46"
       ),
 
-    p("缺失值输入NA，保证2个集长度相等；否则会出错")
+    p("缺失值输入NA，保证2个集长度相等；否则会出错。")
     ),
 
   tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
@@ -46,7 +46,7 @@ sidebarPanel(
 
     h4(tags$b("第2步 选择假设")),
 
-    p(tags$b("虚假设")),
+    p(tags$b("零假设")),
 
     HTML("<p> m&#8321 = m&#8322: 两组中位数相等</p>
           <p> 或，每组值分布相等</p>"),
@@ -75,7 +75,7 @@ radioButtons("alt.wsr2", label = "备择假设",
     choiceValues = list("a", "b", "c")),
       conditionalPanel(
     condition = "input.explain_on_off",
-      p(tags$i("两组的样本量分别为9和10， 所以我们使用精确P值法."))
+      p(tags$i("两组的样本量分别为9和10，所以我们使用精确P值法。"))
       )
 
   ),
@@ -107,9 +107,9 @@ mainPanel(
           HTML(
           "说明:
           <ul>
-            <li> 框内的条带为中位数</li>
-            <li> 方框测量了第75和第25个百分位数之间的差值</li>
-            <li> 如果存在离群值，将显示为红色</li>
+            <li> 框内的条带为中位数；</li>
+            <li> 方框测量了第75和第25个百分位数之间的差值；</li>
+            <li> 如果存在离群值，将显示为红色。</li>
           </ul>"
             )
          ),
@@ -118,13 +118,13 @@ mainPanel(
       HTML(
           "说明:
           <ul>
-			<li> 直方图：通过描述某一数值范围内出现的观察值频率，粗略评估给定变量的概率分布</li>
-			<li> 密度图：估计数据的概率密度函数</li>
+			<li> 直方图：通过描述某一数值范围内出现的观察值频率，粗略评估给定变量的概率分布。</li>
+			<li> 密度图：估计数据的概率密度函数。</li>
           </ul>"),
       p(tags$b("直方图")),
       plotly::plotlyOutput("makeplot2"),
       sliderInput("bin2", "直方图的分箱数",min = 0,max = 100,value = 0),
-      p("当分箱数为0时，绘图将使用默认分箱数"),
+      p("当分箱数为0时，绘图将使用默认分箱数。"),
       p(tags$b("密度图")),
       plotly::plotlyOutput("makeplot2.1")
       )
@@ -140,12 +140,12 @@ mainPanel(
     "<b> 说明 </b>
     <ul>
     <li> P值 < 0.05，则2组总体中位数有显著差异。（接受备择假设）</li>
-    <li> P值 >= 0.05，则2组中位数无显著差异。（接受虚假设）</li>
+    <li> P值 >= 0.05，则2组中位数无显著差异。（接受零假设）</li>
     </ul>"
   ),
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("在初始条件下，我们可以得到这两组患者的DRS测量结果没有显著的不同(P = 0.44)."))
+    p(tags$i("在初始条件下，我们可以得到这两组患者的DRS测量结果没有显著的不同(P = 0.44)。"))
     )#,
 
 

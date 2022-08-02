@@ -65,8 +65,8 @@ output$bas2 <- DT::renderDT({basic_desc2()},
     dom = 'Bfrtip',
     buttons = 
       list('copy',
-        list(extend = 'csv', title = "基本统计量"),
-        list(extend = 'excel', title = "基本统计量")
+        list(extend = 'csv', title = "描述性统计量"),
+        list(extend = 'excel', title = "描述性统计量")
         ),
     scrollX = TRUE))
 
