@@ -27,14 +27,8 @@ sidebarLayout(
                  ,value = "study,TP,FN,FP,TN\n1,12,0,29,289\n2,10,2,14,72\n3,17,1,36,85\n4,13,0,18,67\n5,4,0,21,225\n6,15,2,122,403\n7,45,5,28,34\n8,18,4,69,133\n9,5,0,11,34\n10,8,9,15,96\n11,5,0,7,63\n12,11,2,122,610\n13,5,1,6,145\n14,7,5,25,342"
                  ,mode = "r"
                  ,theme="eclipse"
-      )
-      ,p(tags$b("4. Edit Selection Probabilities"))
-      ,HTML('<b>Multiple Selection Probabilities(0&#60;p&#x2266;1)<br>
+      ),
 
-                         <input type="text" id="plist" value="1,0.8,0.6,0.4" pattern="^[\\d,.]+$">
-
-                         </b>'),
-      verbatimTextOutput("uiprob"),
       numericInput("ci.level", label = "Confidence interval level", value = 0.95, min = 0.01, max = 0.99),
 
       selectInput("ci.method", label = "Methods for confidence interval", 
@@ -42,20 +36,9 @@ sidebarLayout(
         "modified wilson" = "modified wilson", "modified jeffreys" = "modified jeffreys", "clopper-pearson" = "clopper-pearson", 
         "arcsine" = "arcsine", "logit" = "logit", "witting" = "witting"), 
       selected = "wald")
-      ,pickerInput(inputId="ggplot_theme",
-        label="select plot theme",
-        choices=paste0("theme_",c("bw","classic","light","linedraw","minimal","test","void","default"))),
+      ,
   icon("keyboard"),
   icon("calendar"),
-  radioGroupButtons(
-    inputId = "Sauc1",
-    label = "Sauc type",
-    choices = c("sroc", "hsroc"),
-    justified = TRUE,
-    checkIcon = list(
-      yes = icon("ok",
-                 lib = "glyphicon"))
-  ),
   icon = icon("calendar"),
   radioGroupButtons(
                 inputId = "allsingle",

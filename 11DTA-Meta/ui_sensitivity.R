@@ -3,7 +3,23 @@ sidebarLayout(
     tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
     tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
     h4(tags$b("Step5. Sensitivity Analysis Setting")),
-    pickerInput(inputId="sensisetting","Sensitivity setting switch",
+    p(tags$b("4. Edit Selection Probabilities")),
+    HTML('<b>Multiple Selection Probabilities(0&#60;p&#x2266;1)<br>
+
+	     <input type="text" id="plist" value="1,0.8,0.6,0.4" pattern="^[\\d,.]+$">
+
+	     </b>'),
+    verbatimTextOutput("uiprob"),
+  	radioGroupButtons(
+    inputId = "Sauc1",
+    label = "Sauc type",
+    choices = c("sroc", "hsroc"),
+    justified = TRUE,
+    checkIcon = list(
+      yes = icon("ok",
+                 lib = "glyphicon"))
+  	),
+    pickerInput(inputId="sensisetting","Setting switch Tab",
     	choices=c("SROC","SAUC","Results","Plot Summary","Reproducible R codes")
     	),
     conditionalPanel(condition="input.sensisetting=='SROC'",
@@ -15,9 +31,9 @@ sidebarLayout(
 
 			  ),
     	conditionalPanel(condition="input.batch==true",
-    		shinyWidgets::colorPickr("each_point_color","point colour",selected="#ff7f50"),
-  sliderInput("each_point_radius","Each Point Radius",min = 0,max=10,value = 2),
-  sliderInput("each_point_shape","Each Point Shape",min = 0,max=25,value = 20)
+    		shinyWidgets::colorPickr("each_point_color","Each study point colour",selected="#47848C"),
+  			sliderInput("each_point_radius","Each Point Radius",min = 0,max=10,value = 2),
+  			sliderInput("each_point_shape","Each Point Shape",min = 0,max=25,value = 20)
     		
     		),
     	conditionalPanel(condition="input.batch==false",
@@ -30,8 +46,10 @@ sidebarLayout(
     	),
 	conditionalPanel(condition="input.sensisetting=='Reproducible R codes'",
     	
-    	)
-
+    	),
+	pickerInput(inputId="ggplot_theme",
+        label="select plot theme",
+        choices=paste0("theme_",c("bw","classic","light","linedraw","minimal","test","void","default")))
     ),
    mainPanel(
     	    tabsetPanel(id="Sensitivity_Panel",

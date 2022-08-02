@@ -98,8 +98,8 @@ data_ErrorMessage<-function(){
   ))
 }
 ui.plot_baseset_drop<-function(id){
-dropdown(                     width = 300,
-  shinyWidgets::colorPickr(paste0("each_point_color",id),"point colour",selected="#ff7f50"),
+dropdown(width = 300,
+  shinyWidgets::colorPickr(paste0("each_point_color",id),"point colour",selected="#47848C"),
   sliderInput(paste0("each_point_radius",id),"Each Point Radius",min = 0,max=10,value = 3),
   sliderInput(paste0("each_point_shape",id),"Each Point Shape",min = 0,max=25,value = 20),
   shinyWidgets::switchInput(#
@@ -124,12 +124,12 @@ ui.plot_baseline_drop<-function(id,plot_title="title",x_axis="",y_axis=waiver())
   )
 }
 ui.plot_srocline_drop<-function(plot_id,p.seq){
-  dropdown(label = paste(plot_id,"SROC setting"),
-  lapply(1:length(p.seq), function(i) dropdown(label =paste("p=",p.seq[i]),width = 300
-                                                 ,colorPickr(paste0("sroc_point_color",plot_id,i),label = "Summary Point Colour",selected = "#800080")
-                                                 ,sliderInput(paste0("sroc_point_radius",plot_id,i), "Summary Point Radius",min = 0,max=10,value = 5,step = 0.01)
+  dropdown(label = "SROC setting",width = 300,
+  lapply(1:length(p.seq), function(i) dropdown(label =paste("p=",p.seq[i])
+                                                 ,colorPickr(paste0("sroc_point_color",plot_id,i),label = "Summary Point Colour",selected = "#0A99BD")
+                                                 ,sliderInput(paste0("sroc_point_radius",plot_id,i), "Summary Point Radius",min = 0,max=10,value = 3,step = 0.01)
                                                  ,sliderInput(paste0("sroc_point_shape",plot_id,i),"Each Point Shape",min = 0,max=25,value = 20)
-                                                 ,colorPickr(paste0("sroc_curve_color",plot_id,i),label="SROC Curve color",selected="#00ced1")
+                                                 ,colorPickr(paste0("sroc_curve_color",plot_id,i),label="SROC Curve color",selected="#39377A")
                                                  ,sliderInput(paste0("sroc_curve_thick",plot_id,i), "Curve thickness",min = 0,max = 3,value = 1,step = 0.01)
                                                  ,sliderTextInput(paste0("sroc_curve_shape",plot_id,i),grid = TRUE,label =  "Curve shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")))
 )
