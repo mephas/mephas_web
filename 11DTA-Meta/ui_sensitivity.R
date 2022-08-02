@@ -6,7 +6,7 @@ sidebarLayout(
     p(tags$b("4. Edit Selection Probabilities")),
     HTML('<b>Multiple Selection Probabilities(0&#60;p&#x2266;1)<br>
 
-	     <input type="text" id="plist" value="1,0.8,0.6,0.4" pattern="^[\\d,.]+$">
+	     <input type="text" id="plist" value="1,0.8" pattern="^[\\d,.]+$">
 
 	     </b>'),
     verbatimTextOutput("uiprob"),
@@ -74,7 +74,9 @@ sidebarLayout(
                                             # ,flowLayout(ui.plot_baseline_drop("c1c2_manul",plot_title = "C1C2",x_axis = "1-sp",y_axis = "se"),
                                             #            ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve"))
                                             
-                                    ))),
+                                    ),
+                                    column(width=6,plotOutput("sroctest"))
+                                    )),
                            tabPanel("SAUC",
                              column(width=6,plotly::plotlyOutput("sauc_gg_estimate")),
                              column(width=6,plotly::plotlyOutput("sauc_gg_c11")),
