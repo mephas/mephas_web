@@ -10,7 +10,7 @@ X <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
     x <- as.numeric(unlist(strsplit(input$x, "[,;\n\t]")))
-    validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
+    validate( need(sum(!is.na(x))>1, "请检查数据是否存在缺失值。") )
     x <- as.data.frame(x)
     colnames(x) <- names1()
 
@@ -22,8 +22,8 @@ X <- reactive({
     else{
     csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, row.names=1)
     }
-    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
-    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(ncol(csv)>0, "请检查数据格式，列数是否有效。") )
+    validate( need(nrow(csv)>1, "请检查数据格式，行数是否有效。") )
 
     x <- as.data.frame(csv[,1])
     colnames(x) <- names(csv)[1]
@@ -42,9 +42,9 @@ output$table <- DT::renderDT({X()},
     options = list(
       dom = 'Bfrtip',
       buttons = 
-      list('copy', 
-        list(extend = 'csv', title = "data"),
-        list(extend = 'excel', title = "data")
+      list('copy',
+        list(extend = 'csv', title = "数据确认"),
+        list(extend = 'excel', title = "数据确认")
         ),
       deferRender = TRUE,
       scrollY = 300,
@@ -62,7 +62,11 @@ output$bas <- DT::renderDT({basic_desc()},
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "基本统计量"),
+        list(extend = 'excel', title = "基本统计量")
+        ),
     scrollX = TRUE))
 
 
@@ -90,6 +94,7 @@ output$makeplot1 <- plotly::renderPlotly({
   p <- plot_qq1(x, var)
   plotly::ggplotly(p)
   })
+
 output$makeplot1.2 <- plotly::renderPlotly({
   x = X()
   var <- names(x)[1]
@@ -105,7 +110,7 @@ output$makeplot1.3 <- plotly::renderPlotly({
 
 t.test0 <- reactive({
   x <- X()
-  validate(need(input$mu, "Waiting for the parameter Mean"))
+  validate(need(input$mu, "需要指定一个均值。"))
   res <-t.test(
     x[,1],
     mu = input$mu,
@@ -129,5 +134,9 @@ output$t.test <- DT::renderDT({t.test0()},
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "检验结果"),
+        list(extend = 'excel', title = "检验结果")
+        ),
     scrollX = TRUE))

@@ -7,7 +7,7 @@ sidebarPanel(
 
   p(tags$b("1. 命名数据（必填）")),
 
-  tags$textarea(id = "cn2", rows = 2, "Age.positive\nAge.negative"), p(br()),
+  tags$textarea(id = "cn2", rows = 2, "Age\nGroup"), p(br()),
 
     p(tags$b("2. 数据输入")),
 
@@ -29,9 +29,9 @@ sidebarPanel(
         p(tags$b("组 2")),
         tags$textarea(id = "x2",rows = 10,
 "50\n42\n50\n43\n47\n38\n41\n48\n47\n36\n42\n42\n45\n44\n32\n46\n50\n38\n43\n40\n42\n46\n41\n46\n48"
-), 
+)
 
-    p("缺失值输入NA，保证2个集长度相等；否则会出错。")
+    # p("缺失值输入NA，保证2个集长度相等；否则会出错。")
 
         ),
 tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
@@ -147,7 +147,7 @@ tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
     HTML(
     "<b> 说明 </b>
     <ul>
-    <li> 当P < 0.05时，请使用<b>韦尔奇两样本t检验（Welch Two-Sample t-test）</b>的结果；</li>
+    <li> 当P < 0.05时，请使用<b>韦尔奇t检验（Welch Two-Sample t-test）</b>的结果；</li>
     <li> 当P >= 0.05时，请使用<b>两样本t检验（Two-Sample t-test）</b>的结果。</li>
     </ul>"
   ),
@@ -169,7 +169,7 @@ tabPanel.upload.num(file ="file2", header="header2", col="col2", sep="sep2")
     "<b> 说明 </b>
     <ul>
     <li> P值 < 0.05，则2组数据的总体均值有显著差异。（接受备择假设）</li>
-    <li> P值 >= 0.05，则2组数据的总体均值无显著差异。（接受虚假设）</li>
+    <li> P值 >= 0.05，则2组数据的总体均值无显著差异。（接受零假设）</li>
     </ul>"
   ),
     conditionalPanel(

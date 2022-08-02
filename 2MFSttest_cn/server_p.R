@@ -12,9 +12,9 @@ Z <- reactive({
     X <- as.numeric(unlist(strsplit(input$x1.p, "[,;\n\t]")))
     Y <- as.numeric(unlist(strsplit(input$x2.p, "[,;\n\t]")))
     
-    validate( need(sum(!is.na(X))>1, "Please input enough valid numeric data") )
-    validate( need(sum(!is.na(Y))>1, "Please input enough valid numeric data") )
-    validate( need(length(X)==length(Y), "Please make sure two groups have equal length") )
+    validate( need(sum(!is.na(X))>1, "请检查数据格式是否有效。") )
+    validate( need(sum(!is.na(Y))>1, "请检查数据格式是否有效。") )
+    validate( need(length(X)==length(Y), "请检查两组数据是否一样长。") )
     x <- data.frame(X = X, Y = Y)
     x$diff <- round(x[, 2] - x[, 1], 4)
     colnames(x) = names.p()
@@ -26,8 +26,8 @@ Z <- reactive({
     else{
     csv <- read.csv(inFile$datapath, header = input$header.p, sep = input$sep.p, row.names=1)  
     }
-    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
-    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(ncol(csv)>0, "请检查数据格式，列数是否有效。") )
+    validate( need(nrow(csv)>1, "请检查数据格式，行数是否有效。") )
 
     x <- csv[,1:2]
     x$diff <- round(x[, 2] - x[, 1], 4)
@@ -45,7 +45,11 @@ output$table.p <-DT::renderDT({Z()},
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据确认"),
+        list(extend = 'excel', title = "数据确认")
+        ),
       deferRender = TRUE,
       scrollY = 300,
       scroller = TRUE))
@@ -64,7 +68,11 @@ output$bas.p <- DT::renderDT({
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "基本统计量"),
+        list(extend = 'excel', title = "基本统计量")
+        ),
     scrollX = TRUE))
 
 
@@ -132,5 +140,9 @@ output$t.test.p <- DT::renderDT({
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "检验结果"),
+        list(extend = 'excel', title = "检验结果")
+        ),
     scrollX = TRUE))

@@ -11,11 +11,11 @@ Y <- reactive({
     X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t]")))
     Y <- as.numeric(unlist(strsplit(input$x2, "[,;\n\t]")))
     
-    validate( need(sum(!is.na(X))>1, "Please input enough valid numeric data") )
-    validate( need(sum(!is.na(Y))>1, "Please input enough valid numeric data") )
-    validate( need(length(X)==length(Y), "Please make sure two groups have equal length") )
+    validate( need(sum(!is.na(X))>1, "请检查数据是否有效。") )
+    validate( need(sum(!is.na(Y))>1, "请检查数据是否有效。") )
+    # validate( need(length(X)==length(Y), "Please make sure two groups have equal length") )
     
-    x <- data.frame(X = X, Y = Y)
+    x <- data.frame(data=c(X,Y), group=c(rep(1,length(X)), rep(2, length(Y))))
     colnames(x) = names2()
     }
   else {
@@ -25,8 +25,8 @@ Y <- reactive({
     else{
     csv <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2, row.names=1)  
     }
-    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
-    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(length(X)>0, "请检查数据输入是否有效。") )
+    validate( need(length(Y)>1, "请检查数据输入是否有效。") )
 
     x <- csv[,1:2]
     if(input$header2==FALSE){
@@ -42,7 +42,11 @@ output$table2 <-DT::renderDT(Y(),
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据确认"),
+        list(extend = 'excel', title = "数据确认")
+        ),
       deferRender = TRUE,
       scrollY = 300,
       scroller = TRUE))
@@ -55,13 +59,15 @@ basic_desc2 <- reactive({
   return(round(res,6))
   })
 
-output$bas2 <- DT::renderDT({
-basic_desc2()
-},
+output$bas2 <- DT::renderDT({basic_desc2()},
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "基本统计量"),
+        list(extend = 'excel', title = "基本统计量")
+        ),
     scrollX = TRUE))
 
 
@@ -119,14 +125,17 @@ output$var.test <- DT::renderDT({
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "F检验结果"),
+        list(extend = 'excel', title = "F检验结果")
+        ),
     scrollX = TRUE))
 
 t.test20 <- reactive({
   x <- Y()
   res <- t.test(
-    as.vector(x[, 1]),
-    as.vector(x[, 2]),
+    as.vector(x[, 1])~as.vector(x[, 2]),
     alternative = input$alt.t2,
     var.equal = TRUE
     )
@@ -143,8 +152,7 @@ res.table <- t(
     )
   )
   res1 <- t.test(
-    as.vector(x[, 1]),
-    as.vector(x[, 2]),
+    as.vector(x[, 1])~as.vector(x[, 2]),
     alternative = input$alt.t2,
     var.equal = FALSE
     )
@@ -172,6 +180,10 @@ output$t.test2 <- DT::renderDT({
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "检验结果"),
+        list(extend = 'excel', title = "检验结果")
+        ),
     scrollX = TRUE))
 
