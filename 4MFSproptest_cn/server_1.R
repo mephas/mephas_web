@@ -1,7 +1,7 @@
 #****************************************************************************************************************************************************1.prop1
 
 output$b.test = DT::renderDT({
-validate(need(input$n>=input$x, "Please check your data whether x <= n"))
+validate(need(input$n>=input$x, "请检查数据是否满足 x <= n"))
   res = binom.test(x = input$x, n= input$n, p = input$p, alternative = input$alt)
 
    res.table = t(data.frame(
@@ -20,11 +20,15 @@ validate(need(input$n>=input$x, "Please check your data whether x <= n"))
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "检验结果"),
+        list(extend = 'excel', title = "检验结果")
+        ),
     scrollX = TRUE))
 
 output$b.test1 = DT::renderDT({
-validate(need(input$n>=input$x, "Please check your data whether x <= n"))
+validate(need(input$n>=input$x, "请检查数据是否满足 x <= n"))
   res = prop.test(x = input$x, n= input$n, p = input$p, alternative = input$alt, correct = TRUE)
 
     res.table = t(data.frame(
@@ -42,7 +46,11 @@ validate(need(input$n>=input$x, "Please check your data whether x <= n"))
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "检验结果"),
+        list(extend = 'excel', title = "检验结果")
+        ),
     scrollX = TRUE))
  
 

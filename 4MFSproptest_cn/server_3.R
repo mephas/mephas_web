@@ -5,11 +5,13 @@ N = reactive({ # prepare dataset
 
   X <- as.numeric(unlist(strsplit(input$xx, "[\n,;\t ]")))
   Y <- as.numeric(unlist(strsplit(input$nn, "[\n,;\t ]")))
-  validate(need(length(Y)==length(X), "Please check whether your data groups have equal length "))
+  validate(need(length(Y)==length(X), "请检查两组数据是否一样长。"))
 
   #P <- round(X/Z, 4)
   x <- rbind(X,(Y-X))
-  validate(need((sum((Y-X)<0))==0, "Please check your data whether x <= n"))
+  validate(need((sum((Y-X)<0))==0, "请检查数据是否满足 x <= n"))
+  validate(need(length(unlist(strsplit(input$ln3, "[\n]")))==nrow(x), "请检查数据的命名"))
+  validate(need(length(unlist(strsplit(input$gn, "[\n]")))==ncol(x), "请检查数据的命名"))
   rownames(x) = unlist(strsplit(input$ln3, "[\n]"))
   colnames(x) = unlist(strsplit(input$gn, "[\n]"))
   return(x)
@@ -23,7 +25,11 @@ output$n.t = DT::renderDT({
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据表"),
+        list(extend = 'excel', title = "数据表")
+        ),
     scrollX = TRUE))
 
 output$makeplot3 <- plotly::renderPlotly({  #shinysession 
@@ -36,7 +42,7 @@ output$makeplot3 <- plotly::renderPlotly({  #shinysession
 output$n.test = DT::renderDT({
   x <- as.numeric(unlist(strsplit(input$xx, "[\n,;\t ]")))
   n <- as.numeric(unlist(strsplit(input$nn, "[\n,;\t ]")))
-  validate(need((sum((n-x)<0))==0, "Please check your data whether x <= n"))
+  validate(need((sum((n-x)<0))==0, "请检查数据是否满足 x <= n"))
 
   res = prop.test(x, n)
   res.table = t(data.frame(
@@ -53,6 +59,10 @@ output$n.test = DT::renderDT({
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "检验结果"),
+        list(extend = 'excel', title = "检验结果")
+        ),
     scrollX = TRUE))
 

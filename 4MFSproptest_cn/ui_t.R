@@ -4,7 +4,7 @@
       sidebarPanel(
 
     h4(tags$b("第1步  准备数据")),
-    p(tags$b("Please follow the example to input your data")),
+    # p(tags$b("Please follow the example to input your data")),
 
       p(tags$b("1. 命名样本组（必填）")), 
         tags$textarea(id = "cn4",rows = 5,
@@ -23,12 +23,12 @@
     "320\n1206\n1011\n463\n220"        
     ),
 
-    p(tags$b("4. 各组的实验数/样本数 (n > x)")),     
+    p(tags$b("4. 各组的实验数/样本数（n > x）")),     
     tags$textarea(id = "x44", rows = 5,
     "1742\n5638\n3904\n1555\n626"
     ),
 
-    p("注意: 不可以有缺失值"),
+    p("注意：不可以有缺失值"),
     conditionalPanel(
     condition = "input.explain_on_off",
 
@@ -45,14 +45,14 @@
     ),
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("在这个示例里，年龄段的顺序是递增的"))
+    p(tags$i("在这个示例里，年龄段的顺序是递增的。"))
     ),
 
     hr(),
 
     h4(tags$b("选择假设")),
 
-   p(tags$b("虚假设")), 
+   p(tags$b("零假设")), 
    p("样本比例没有变化"),
     
    p(tags$b("备择假设")), 
@@ -71,7 +71,7 @@
         p(tags$b("数据表")),
         DT::DTOutput("dt4"),
 
-        p(tags$b("单元格/列和 %")),
+        p(tags$b("单元格/列和百分比")),
         DT::DTOutput("dt4.2")
         ),
 
@@ -90,13 +90,13 @@
      HTML(
     "<b> 说明 </b> 
     <ul> 
-    <li> P 值 < 0.05， 则病例对照（行）与因素分组（列）显着相关。（接受备择假设）</li>
-    <li> P 值 >= 0.05， 则病例控制（行）与分组的因子（列）不关联。（接受虚假设）</li>
+    <li> P 值 < 0.05， 则病例对照（行）与因素分组（列）显著相关。（接受备择假设）</li>
+    <li> P 值 >= 0.05， 则病例控制（行）与分组的因子（列）不关联。（接受零假设）</li>
     </ul>"
   ),
 conditionalPanel(
     condition = "input.explain_on_off",
-     p(tags$i("在此默认设置下，我们得出的结论是癌症的比例在不同年龄之间有所不同。(P = 0.01)"))
+     p(tags$i("在此默认设置下，我们得出的结论是癌症的比例在不同年龄之间有所不同。（P值 = 0.01）"))
      )
 
         )

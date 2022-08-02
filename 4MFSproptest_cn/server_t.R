@@ -3,10 +3,12 @@
 T4 = reactive({ # prepare dataset
   X <- as.numeric(unlist(strsplit(input$x4, "[\n,;\t ]")))
   Y <- as.numeric(unlist(strsplit(input$x44, "[\n,;\t ]")))
-  validate(need(length(Y)==length(X), "Please check whether your data groups have equal length "))
+  validate(need(length(Y)==length(X), "请检查两组数据是否一样长。"))
 
   x <- rbind(X,Y-X)
-  validate(need((sum((Y-X)<0))==0, "Please check your data whether x <= n"))
+  validate(need((sum((Y-X)<0))==0, "请检查数据是否满足r x <= n"))
+  validate(need(length(unlist(strsplit(input$rn4, "[\n]")))==nrow(x), "请检查数据的命名"))
+  validate(need(length(unlist(strsplit(input$cn4, "[\n]")))==ncol(x), "请检查数据的命名"))
   x <- as.matrix(x)
   rownames(x) = unlist(strsplit(input$rn4, "[\n]"))
   colnames(x) = unlist(strsplit(input$cn4, "[\n]"))
@@ -21,7 +23,11 @@ output$dt4 = DT::renderDT({
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据表"),
+        list(extend = 'excel', title = "数据表")
+        ),
     scrollX = TRUE))
 
 output$dt4.2 = DT::renderDT({round(prop.table(T4(), 2),6)},
@@ -29,7 +35,11 @@ output$dt4.2 = DT::renderDT({round(prop.table(T4(), 2),6)},
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "百分比表"),
+        list(extend = 'excel', title = "百分比表")
+        ),
     scrollX = TRUE))
 
 
@@ -42,7 +52,7 @@ output$makeplot4 <- plotly::renderPlotly({  #shinysession
 output$c.test4 = DT::renderDT({
   X <- as.numeric(unlist(strsplit(input$x4, "[\n;\t, ]")))
   Y <- as.numeric(unlist(strsplit(input$x44, "[\n;\t, ]")))
-  validate(need((sum((Y-X)<0))==0, "Please check your data whether x <= n"))
+  validate(need((sum((Y-X)<0))==0, "请检查数据是否满足r x <= n"))
 
   score <- as.numeric(unlist(strsplit(input$xs, "[\n;\t, ]")))
 
@@ -60,6 +70,10 @@ output$c.test4 = DT::renderDT({
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "检验结果"),
+        list(extend = 'excel', title = "检验结果")
+        ),
     scrollX = TRUE))
 

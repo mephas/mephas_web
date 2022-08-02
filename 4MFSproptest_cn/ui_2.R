@@ -17,17 +17,17 @@ sidebarLayout(
 
     p(tags$b("请参考示例格式输入数据")),
 
-    p(tags$b("组 1 (病例)")),
-      numericInput("x1", "成功数/事件数 (病例组), x1", value =683, min = 0, max = 10000000, step = 1),
-      numericInput("n1", "实验数/样本数, n1 > x1", value = 3220, min = 1, max = 10000000, step = 1),
+    p(tags$b("组1（病例组）")),
+      numericInput("x1", "成功数/事件数（病例组），x1", value =683, min = 0, max = 10000000, step = 1),
+      numericInput("n1", "实验数/样本数，n1 > x1", value = 3220, min = 1, max = 10000000, step = 1),
     conditionalPanel(
     condition = "input.explain_on_off",
     p(tags$i("第一组的样本是3220名乳腺癌女性。 其中，有683人在30岁之后至少有一胎。"))
     ),
     
-    p(tags$b("Group 2 (控制)")),  
-      numericInput("x2", "成功数/事件数 (控制组), x2", value = 1498, min = 0, max = 10000000, step = 1),
-      numericInput("n2", "实验数/样本数 (总数), n2 > x2", value = 10245, min = 1, max = 10000000, step = 1),
+    p(tags$b("组2（控制组）")),  
+      numericInput("x2", "成功数/事件数（控制组）， x2", value = 1498, min = 0, max = 10000000, step = 1),
+      numericInput("n2", "实验数/样本数（总数），n2 > x2", value = 10245, min = 1, max = 10000000, step = 1),
     conditionalPanel(
     condition = "input.explain_on_off",
     p(tags$i("第2组的样本为10245名无乳腺癌女性。 其中，有1498人在30岁之后至少有一胎。"))
@@ -37,7 +37,7 @@ sidebarLayout(
 
     h4(tags$b("第2步  选择假设")),
 
-     tags$b("虚假设"), 
+     tags$b("零假设"), 
 
       HTML("<p> p<sub>1</sub> = p<sub>2</sub>: 第1组和第2组病例的概率/比例相等。 </p>"),
       
@@ -88,8 +88,8 @@ sidebarLayout(
      HTML(
     "<b> 说明 </b> 
     <ul> 
-    <li> P 值 < 0.05， 则两组的总比例/比率有统计学显著差异。（接受备择假设）</li>
-    <li> P 值 >= 0.05， 则两组的总比例/比率无统计学显著差异。（接受虚假设）</li>
+    <li> P值 < 0.05， 则两组的总比例/比率有统计学显著差异。（接受备择假设）</li>
+    <li> P值 >= 0.05， 则两组的总比例/比率无统计学显著差异。（接受零假设）</li>
     </ul>"
   ),
 conditionalPanel(
