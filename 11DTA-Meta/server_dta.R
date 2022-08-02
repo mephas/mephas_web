@@ -388,43 +388,44 @@ gg_theme   <- reactive({
 })
 output$srocB<-renderPlot({
   plot_id<-"c1c2_estimate"
-  withProgress(message = "c1c2 estimate",value = 0,detail = "take a minutes",
-               {
-                 data_m<-data.frame(sp=sp(),se=se())
-                 p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
-                 p<-p+
-                 geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))+gg_theme()
-                 #p<-p+layer(geom = "point", stat = "identity", position = "identity")
+  sroc_ggplot_over(plot_id,0.5,est.r)
+  # withProgress(message = "c1c2 estimate",value = 0,detail = "take a minutes",
+  #              {
+  #                data_m<-data.frame(sp=sp(),se=se())
+  #                p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
+  #                p<-p+
+  #                geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))+gg_theme()
+  #                #p<-p+layer(geom = "point", stat = "identity", position = "identity")
                  
-                 est2.par<- est.r(0.5,c("mu1","mu2","tau1","tau2","rho")) 
-                 par <- as.matrix(est2.par)
-                 p<-p+mapply(function(i) {
-                   u1 <- par["mu1", i]
-                   u2 <- par["mu2", i]
-                   t1 <- par["tau1", i]
-                   t2 <- par["tau2", i]
-                   if (input$Sauc1 == "sroc"){
-                     r <- par["rho", i]}
-                   else{ r <- -1}
-                   stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(length(input[[paste0("sroc_curve_color",plot_id,i)]])==0,"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(length(input[[paste0("sroc_curve_thick",plot_id,i)]])==0,1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]),aes(linetype="h"))
-                 }
-                 , 1:ncol(par))
-                 sens <- plogis(par[1, ])
-                 spec <- plogis(par[2, ])
+  #                est2.par<- est.r(0.5,c("mu1","mu2","tau1","tau2","rho")) 
+  #                par <- as.matrix(est2.par)
+  #                p<-p+mapply(function(i) {
+  #                  u1 <- par["mu1", i]
+  #                  u2 <- par["mu2", i]
+  #                  t1 <- par["tau1", i]
+  #                  t2 <- par["tau2", i]
+  #                  if (input$Sauc1 == "sroc"){
+  #                    r <- par["rho", i]}
+  #                  else{ r <- -1}
+  #                  stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(length(input[[paste0("sroc_curve_color",plot_id,i)]])==0,"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(length(input[[paste0("sroc_curve_thick",plot_id,i)]])==0,1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]),aes(linetype="h"))
+  #                }
+  #                , 1:ncol(par))
+  #                sens <- plogis(par[1, ])
+  #                spec <- plogis(par[2, ])
                  
-                 p<-p+
-                   sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
-                   ggtitle(plot_id)+
-                   theme(title= element_text(size = 16))+ gg_theme()
+  #                p<-p+
+  #                  sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
+  #                  ggtitle(plot_id)+
+  #                  theme(title= element_text(size = 16))+ gg_theme()
                    
                  
-                 esting$plot_sroc<-p
-                 p})
+  #                esting$plot_sroc<-p
+  #                p})
 })
 output$downloadsauc_gg_estimate<-downloadHandler(
   filename = function(){paste("c1c2_estimate",'.png',sep='')},
   content = function(file){
-    ggsave(file,plot=esting$plot_sroc)
+    ggsave(file,plot=esting_omg$c1c2_estimate)
   })
 #sroc C plot setting=====================
 output$srocCsetting_curve_11<-renderUI({
@@ -439,19 +440,22 @@ output$srocCsetting_curve_01<-renderUI({
 output$srocC_11<-renderPlot({
   withProgress(message = "c1 = 2^(-1/2),c2 = 2^(-1/2)",value = 0,detail = "take a minutes",
                {
-                 sroc_ggplot("c1c2_11",0.5)
+                sroc_ggplot_over("c1c2_11",0.5)
+                 #sroc_ggplot("c1c2_11",0.5)
                })
 })
 output$srocC_10<-renderPlot({
   withProgress(message = "c1 = 1,c2 = 0",value = 0,detail = "take a minutes",
-               {  
-                 sroc_ggplot("c1c2_10",1)
+               { 
+                sroc_ggplot_over("c1c2_10",1)
+                 #sroc_ggplot("c1c2_10",1)
                })
 })
 output$srocC_01<-renderPlot({
   withProgress(message = "c1 = 0,c2 = 1",value = 0,detail = "take a minutes",
                {  
-                 sroc_ggplot("c1c2_01",0)
+                sroc_ggplot_over("c1c2_01",0)
+                 #sroc_ggplot("c1c2_01",0)
                })
 })
 output$download_srocC_11<-downloadHandler(
@@ -472,30 +476,15 @@ output$download_srocC_01<-downloadHandler(
 #sroc D plot setting=====================
 output$srocDsetting_curve<-renderUI(ui.plot_srocline_drop("c1c2_manul",p.seq()))
 output$srocD<-renderPlot({
-  sroc_ggplot(plot_id ="c1c2_manul",input$c1c2_set)
+  sroc_ggplot_over(plot_id ="c1c2_manul",input$c1c2_set)
 })
 output$download_c1c2_manul<-downloadHandler(
   filename = function(){paste("c1c2_estimate",'.png',sep='')},
   content = function(file){
-    ggsave(file,plot=esting_omg$c1c2_manul_plot)
+    ggsave(file,plot=esting_omg$c1c2_manul)
   })
 #sroc Ploting=================================
 sroc_ggplot<-function(plot_id,c1.square){
-  # if(input$batch){
-  #   each_point_color<-
-  #   each_point_radius<-
-  #   each_point_shape<-
-  #   sroc_curve_color<-
-  #   sroc_curve_thick<-
-  #   sroc_curve_shape<-
-  #   sroc_point_color
-  #   sroc_point_radius
-
-
-  # }
-  # else{
-
-  # }
   data<-data.frame(sp=sp(),se=se())
   p<-ggplot(data = data,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
   p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))+gg_theme()
@@ -524,42 +513,42 @@ sroc_ggplot<-function(plot_id,c1.square){
   esting_omg[[plot_id]]<-p
   p
 }
-output$sroctest<-renderPlot({
-  sroc_ggplot_over("mo",0.5,est.r)
-  })
 sroc_ggplot_over<-function(plot_id,c1.square,fun=est.f){
-  # if(input$batch){
-  #   each_point_color<-
-  #   each_point_radius<-
-  #   each_point_shape<-
-  #   sroc_curve_color<-
-  #   sroc_curve_thick<-
-  #   sroc_curve_shape<-
-  #   sroc_point_color
-  #   sroc_point_radius
-  
- 
-  # }
-  # else{
-
-  # }
+   if(input$batch){
+     each_point_color<-ifelse(is.null(input$each_point_color),"#47848C",input$each_point_color)
+     each_point_radius<-ifelse(is.null(input$each_point_radius),3,input$each_point_radius)
+     each_point_shape<-ifelse(is.null(input$each_point_shape),20,input$each_point_shape)
+     sroc_curve_color<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_curve_color),"#39377A",input$sroc_curve_color))
+     sroc_curve_thick<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_curve_thick),1,input$sroc_curve_thick))
+     sroc_curve_shape<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_curve_shape),"solid",input$sroc_curve_shape))
+     sroc_point_color<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_point_color),"#0A99BD",input$sroc_point_color))
+     sroc_point_radius<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_point_radius),5,input$sroc_point_radius))
+     sroc_point_shape<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_point_shape),20,input$sroc_point_shape))
+   }
+   else{ 
+     each_point_color<-ifelse(is.null(input[[paste0("each_point_color",plot_id)]]),"#47848C",input[[paste0("each_point_color",plot_id)]])
+    each_point_radius<-ifelse(is.null(input[[paste0("each_point_radius",plot_id)]]),2,input[[paste0("each_point_radius",plot_id)]])
+     each_point_shape<-ifelse(is.null(input[[paste0("each_point_shape",plot_id)]]),20,input[[paste0("each_point_shape",plot_id)]])
+     sroc_curve_color<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_curve_color",plot_id)]]),"#39377A",input[[paste0("sroc_curve_color",plot_id)]]))
+     sroc_curve_thick<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id)]]),1,input[[paste0("sroc_curve_thick",plot_id)]]))
+     sroc_curve_shape<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id)]]),"solid",input[[paste0("sroc_curve_shape",plot_id)]]))
+     sroc_point_color<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_point_color",plot_id)]]),"#0A99BD",input[[paste0("sroc_point_color",plot_id)]]))
+    sroc_point_radius<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_point_radius",plot_id)]]),3,input[[paste0("sroc_point_radius",plot_id)]]))
+     sroc_point_shape<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_point_shape",plot_id)]]),20,input[[paste0("sroc_point_shape",plot_id)]]))
+   }
   est.par<- fun(c1.square,c("mu1","mu2","tau1","tau2","rho")) 
   par <- as.matrix(est.par)
   spec <- plogis(par[2, ])
   sens <- plogis(par[1, ])
-
-  st<-c(rep(x = 'each study',length(sp())),sapply(p.seq(),function(x)paste("SROC point p=",x)))#,sapply(est.par,function(x)paste("SROC cureve p=",x$p))
+  #st<-c(rep(x = 'each study',length(sp())),sapply(p.seq(),function(x)paste("SROC point p=",x)))#,sapply(est.par,function(x)paste("SROC cureve p=",x$p))
   
-  color<-c(rep(x = '#0A99BD',length(sp())),sapply(p.seq(),function(x)"#0A9900"))
-    u1 <- par["mu1", ]
-    u2 <- par["mu2", ]
-    t1 <- par["tau1", ]
-    t2 <- par["tau2", ]
-  data<-data.frame(study=st,sp=c(sp(),spec),se=c(se(),sens),oo=color)
+  color<-c(rep(x = each_point_color,length(sp())),sroc_point_color)
+  size<-c(rep(x = each_point_radius,length(sp())),sroc_point_radius)
+  shape<-c(rep(x = each_point_shape,length(sp())),sroc_point_shape)
+  data<-data.frame(sp=c(sp(),spec),se=c(se(),sens))
   p<-ggplot(data = data,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
-  p<-p+geom_point(aes(colour=oo),color=color,size=3,shape=20)+gg_theme()
-      
-  p<-p+mapply(function(i) {
+  p<-p+geom_point(colour=color,size=size,shape=shape)+gg_theme()+labs(x=input$xlim,y=input$ylim)
+ p<-p+mapply(function(i) {
     u1 <- par["mu1", i]
     u2 <- par["mu2", i]
     t1 <- par["tau1", i]
@@ -567,7 +556,7 @@ sroc_ggplot_over<-function(plot_id,c1.square,fun=est.f){
     if (input$Sauc1 == "sroc"){
       r <- par["rho", i]}
     else{ r <- -1}
-    stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(length(input[[paste0("sroc_curve_color",plot_id,i)]])==0,"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id,i)]]),1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]),aes(linetype="h"))
+    stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=sroc_curve_color[i],size=sroc_curve_thick[i],linetype = sroc_curve_shape[i],aes(linetype="h"))
   }
   , 1:ncol(par))
  
@@ -575,6 +564,9 @@ sroc_ggplot_over<-function(plot_id,c1.square,fun=est.f){
   esting_omg[[plot_id]]<-p
   p
 }
+observe({
+
+  })%>%bindEvent(input$batch)
 #sauc ploy==========
 output$sauc_gg_estimate<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate")))
 output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_11",0.5,"(B) c1=c2")))
@@ -583,10 +575,10 @@ output$sauc_gg_c01<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1
 
 sauc_ggplot<-function(plot_id,title="(A) C1,C2 estimate"){
   est.sauc2<-sapply(p.10,function(x)esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)%>%t()
-  data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc2[,"sauc"],est.sauc2[,"sauc.lb"],est.sauc2[,"sauc.ub"]),sauctype=c(rep("sauc",10),rep("sauc.lb",10),rep("sauc.ub",10)))
+  data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc2[,"sauc"],est.sauc2[,"sauc.lb"],est.sauc2[,"sauc.ub"]),sauctype=c(rep("sauc",length(p.10)),rep("sauc.lb",length(p.10)),rep("sauc.ub",length(p.10))))
   p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+gg_theme()+
     ylim(0,1)+
-    xlim(0,1)+
+    xlim(0.1,1)+
     ggtitle(title)+
     theme(title= element_text(size = 16))+
     geom_point()+
@@ -595,10 +587,10 @@ sauc_ggplot<-function(plot_id,title="(A) C1,C2 estimate"){
 }
 sauc_ggplot_b<-function(plot_id,c1.square,title="C1,C2"){
   est.sauc<-sapply(p.10,function(x)esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)%>%t()
-  data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc[,"sauc"],est.sauc[,"sauc.lb"],est.sauc[,"sauc.ub"]),sauctype=c(rep("sauc",10),rep("sauc.lb",10),rep("sauc.ub",10)))
+  data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc[,"sauc"],est.sauc[,"sauc.lb"],est.sauc[,"sauc.ub"]),sauctype=c(rep("sauc",length(p.10)),rep("sauc.lb",length(p.10)),rep("sauc.ub",length(p.10))))
   p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+eval(call(input$ggplot_theme))+
     ylim(0,1)+
-    xlim(0,1)+
+    xlim(0.1,1)+
     ggtitle(title)+
     #theme(title= element_text(size = 16))+
     geom_point()+

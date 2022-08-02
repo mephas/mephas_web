@@ -3,10 +3,10 @@ sidebarLayout(
     tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
     tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
     h4(tags$b("Step5. Sensitivity Analysis Setting")),
-    p(tags$b("4. Edit Selection Probabilities")),
+    h4(tags$b("4. Edit Selection Probabilities")),
     HTML('<b>Multiple Selection Probabilities(0&#60;p&#x2266;1)<br>
 
-	     <input type="text" id="plist" value="1,0.8" pattern="^[\\d,.]+$">
+	     <input type="text" id="plist" value="1,0.8,0.6,0.4" pattern="^[\\d,.]+$">
 
 	     </b>'),
     verbatimTextOutput("uiprob"),
@@ -27,30 +27,43 @@ sidebarLayout(
 			   inputId = "batch",
 			   label = "All SROC Setting in batch way?", 
 			   status = "info",
-			   value = FALSE,
+			   value = TRUE,
 
 			  ),
+        h4(textInput("xlim","xlim","1-sp"),textInput("ylim","ylim","se")),
     	conditionalPanel(condition="input.batch==true",
     		shinyWidgets::colorPickr("each_point_color","Each study point colour",selected="#47848C"),
-  			sliderInput("each_point_radius","Each Point Radius",min = 0,max=10,value = 2),
-  			sliderInput("each_point_shape","Each Point Shape",min = 0,max=25,value = 20)
+  			sliderInput("each_point_radius","Each Point Radius",min = 0,max=10,value = 3),
+  			sliderInput("each_point_shape","Each Point Shape",min = 0,max=25,value = 20),
+            shinyWidgets::colorPickr("sroc_point_color","Summary Point Colour",selected="#0A99BD"),
+            sliderInput("sroc_point_radius","Summary Point Radius",min = 0,max=10,value = 5),
+            sliderInput("sroc_point_shape","Summary Point Shape",min = 0,max=25,value = 1),
+            shinyWidgets::colorPickr("sroc_curve_color","SROC Curve color",selected="#39377A"),
+            sliderInput("sroc_curve_thick","SROC Curve thickness",min = 0,max=10,value = 1),
+            sliderTextInput(paste0("sroc_curve_shape"),grid = TRUE,label =  "SROC Curve shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")
+            
     		
     		),
     	conditionalPanel(condition="input.batch==false",
+        h4("c1c2_estimate"),
     	ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve"),
+        h4("c1c2_11"),
     	ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11"),
+        h4("c1c2_10"),
     	ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10"),
+        h4("c1c2_01"),
     	ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01"),
+        h4("c1c2_manul"),
     	ui.plot_baseline_drop("c1c2_manul",plot_title = "C1C2",x_axis = "1-sp",y_axis = "se"),
         ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve"))
     	),
 	conditionalPanel(condition="input.sensisetting=='Reproducible R codes'",
     	
     	),
-	pickerInput(inputId="ggplot_theme",
+	h4(pickerInput(inputId="ggplot_theme",
         label="select plot theme",
         choices=paste0("theme_",c("bw","classic","light","linedraw","minimal","test","void","default")))
-    ),
+    )),
    mainPanel(
     	    tabsetPanel(id="Sensitivity_Panel",
                            tabPanel("SROC",
@@ -74,8 +87,7 @@ sidebarLayout(
                                             # ,flowLayout(ui.plot_baseline_drop("c1c2_manul",plot_title = "C1C2",x_axis = "1-sp",y_axis = "se"),
                                             #            ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve"))
                                             
-                                    ),
-                                    column(width=6,plotOutput("sroctest"))
+                                    )
                                     )),
                            tabPanel("SAUC",
                              column(width=6,plotly::plotlyOutput("sauc_gg_estimate")),

@@ -128,9 +128,9 @@ ui.plot_srocline_drop<-function(plot_id,p.seq){
   lapply(1:length(p.seq), function(i) dropdown(label =paste("p=",p.seq[i])
                                                  ,colorPickr(paste0("sroc_point_color",plot_id,i),label = "Summary Point Colour",selected = "#0A99BD")
                                                  ,sliderInput(paste0("sroc_point_radius",plot_id,i), "Summary Point Radius",min = 0,max=10,value = 3,step = 0.01)
-                                                 ,sliderInput(paste0("sroc_point_shape",plot_id,i),"Each Point Shape",min = 0,max=25,value = 20)
+                                                 ,sliderInput(paste0("sroc_point_shape",plot_id,i),"Summary Point Shape",min = 0,max=25,value = 20)
                                                  ,colorPickr(paste0("sroc_curve_color",plot_id,i),label="SROC Curve color",selected="#39377A")
-                                                 ,sliderInput(paste0("sroc_curve_thick",plot_id,i), "Curve thickness",min = 0,max = 3,value = 1,step = 0.01)
-                                                 ,sliderTextInput(paste0("sroc_curve_shape",plot_id,i),grid = TRUE,label =  "Curve shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")))
+                                                 ,sliderInput(paste0("sroc_curve_thick",plot_id,i), "SROC Curve thickness",min = 0,max = 3,value = 1,step = 0.01)
+                                                 ,sliderTextInput(paste0("sroc_curve_shape",plot_id,i),grid = TRUE,label =  "SROC Curve shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")))
 )
 }
