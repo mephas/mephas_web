@@ -4,7 +4,7 @@ sidebarLayout(
 
 sidebarPanel(
 
-h4(tags$b("单向方差分析(One-way ANOVA)")),
+h4(tags$b("单因素差分析(One-way)")),
 
   h4(tags$b("第1步 准备数据")),
 
@@ -44,7 +44,7 @@ hr(),
 uiOutput("value"),
 hr(),
   h4(tags$b("假设")),
-  p(tags$b("虚假设")),
+  p(tags$b("零假设")),
   p("各组的均值相等"),
   p(tags$b("备择假设")),
   p("至少两个因子群的均值间存在有意差"),
@@ -79,9 +79,9 @@ mainPanel(
     HTML(
     "<b> 说明 </b>
     <ul>
-      <li> 框内的条带为中位数</li>
-      <li> 方框测量了第75和第25个百分位数之间的差值</li>
-      <li> 如果存在离群值，将显示为红色</li>
+      <li> 框内的条带为中位数；</li>
+      <li> 方框测量了第75和第25个百分位数之间的差值；</li>
+      <li> 如果存在离群值，将显示为红色。</li>
     </ul>"
 
     )
@@ -95,18 +95,18 @@ mainPanel(
 
     hr(),
 
-  h4(tags$b("Output 2. ANOVA表")), p(br()),
+  h4(tags$b("Output 2　方差分析表")), p(br()),
 
   DT::DTOutput("anova1"),p(br()),
   HTML(
   "<b> 说明 </b>
   <ul>
-    <li> DF<sub>因子</sub> = [因子组的类别数] -1</li>
-    <li> DF<sub>残留误差</sub> = [样本值的个数] - [因子组的类别数]</li>
-    <li> MS = SS/DF</li>
-    <li> F = MS<sub>因子</sub> / MS<sub>残留误差</sub> </li>
+    <li> DF<sub>因子</sub> = 因子组的类别数 -1。</li>
+    <li> DF<sub>残差</sub> = 样本值的个数 - 因子组的类别数。</li>
+    <li> MS = SS/DF。</li>
+    <li> F = MS<sub>因子</sub> / MS<sub>残留误差</sub>。 </li>
     <li> P值 < 0.05，则因子的总体均值间存在有意差。（接受备择假设）</li>
-    <li> P值 >= 0.05，则因子的总体均值间内没有意差。（接受虚假设）</li>
+    <li> P值 >= 0.05，则因子的总体均值间内没有意差。（接受零假设）</li>
   </ul>"
     ),
     conditionalPanel(
@@ -116,7 +116,7 @@ mainPanel(
         #downloadButton("download1", "Download Results"),
 
     hr(),
-    HTML("<p><b>P < 0.05</b>时、 如果想知道哪些成对因素组明显不同，请使用<b>多重比较</b>。</p>")
+    HTML("<p><b>P值 < 0.05</b>时，如果想知道哪些成对因素组明显不同，请使用<b>多重比较</b>。</p>")
 
 
 

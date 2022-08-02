@@ -44,7 +44,7 @@ hr(),
 uiOutput("value3"),
 hr(),
   h4(tags$b("假设")),
-  p(tags$b("虚假设")),
+  p(tags$b("零假设")),
   p("各组的均值相等"),
   p(tags$b("备择假设")),
   p("至少两个因子群的均值间存在有意差"),
@@ -68,7 +68,7 @@ mainPanel(
         ),
 
     tabPanel("描述性统计", p(br()),
-      p(tags$b("组别描述统计量:")),
+      p(tags$b("组别描述统计量")),
       DT::DTOutput("basnp1.t")#,
          #p(br()),
         #downloadButton("downloadnp1.1", "Download Results")
@@ -91,7 +91,7 @@ mainPanel(
     ),
 
     hr(),
-    HTML("<p><b>P < 0.05</b>时、 如果想知道哪些成对因素组明显不同，请使用<b>多重比较</b>。</p>")
+    HTML("<p><b>P值 < 0.05</b>时， 如果想知道哪些成对因素组明显不同，请使用<b>多重比较</b>。</p>")
 
 
 

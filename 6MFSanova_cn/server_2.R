@@ -10,10 +10,10 @@ Y.0 <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
     X <- as.numeric(unlist(strsplit(input$x, "[,;\n\t ]")))
-    validate( need(sum(!is.na(X))>1, "Please input enough valid numeric data") )
+    validate( need(sum(!is.na(X))>1, "请检查数据输入是否有效。") )
     F1 <- as.factor(unlist(strsplit(input$f1, "[,;\n\t ]")))
     F2 <- as.factor(unlist(strsplit(input$f2, "[,;\n\t ]")))
-    validate( need(length(X)==length(F1)&length(X)==length(F2), "Please make sure two groups have equal length") )    
+    validate( need(length(X)==length(F1)&length(X)==length(F2), "请检查输入的数据和因子数据是否一样长。") )    
     x <- data.frame(X = X, F1 = F1, F2 = F2)
     colnames(x) = names2()
     }
@@ -24,8 +24,8 @@ if(!input$col){
     else{
     csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote, row.names=1, stringsAsFactors=TRUE)  
     }
-    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
-    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(ncol(csv)>0, "请检查数据格式，列数是否有效。") )
+    validate( need(nrow(csv)>1, "请检查数据格式，行数是否有效。") )
 
     x <- csv[,1:3]
     if(input$header==FALSE){
@@ -42,7 +42,7 @@ colnames(Y.0()[unlist(lapply(Y.0(), is.numeric))])
 output$value2 = renderUI({
 selectInput(
   'value2',
-  HTML('アップロードするデータはの数値を選択する'),
+  HTML('请选择需要进行方差分析的数值变量'),
   choices = type.num2()
   )
 })
@@ -92,7 +92,11 @@ output$table <- DT::renderDT({Y()},
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据确认"),
+        list(extend = 'excel', title = "数据确认")
+        ),
       deferRender = TRUE,
       scrollY = 300,
       scroller = TRUE))
@@ -119,7 +123,11 @@ output$bas.t <- DT::renderDT({
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "描述性统计量"),
+        list(extend = 'excel', title = "描述性统计量")
+        ),
     scrollX = TRUE))
 
 
@@ -175,6 +183,10 @@ output$anova <- DT::renderDT({
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "方差分析表"),
+        list(extend = 'excel', title = "方差分析表")
+        ),
     scrollX = TRUE))
 

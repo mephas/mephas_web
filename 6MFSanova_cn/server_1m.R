@@ -58,7 +58,11 @@ output$multiple.t <- DT::renderDT({multiple()},
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "多重比较结果"),
+        list(extend = 'excel', title = "多重比较结果")
+        ),
     scrollX = TRUE))
 
 

@@ -47,7 +47,7 @@ hr(),
 uiOutput("value2"),
 hr(),
   h4(tags$b("假设")),
-  p(tags$b("虚假设")),
+  p(tags$b("零假设")),
   p("1. 控制第一个因子时的总体均值相等。"),
   p("2. 控制第二个因子时的总体均值相等。"),
   p("3. 这两个因子间没有相互作用"),
@@ -114,7 +114,7 @@ mainPanel(
 
     hr(),
 
-  h4(tags$b("Output 2. ANOVA表")), p(br()),
+  h4(tags$b("Output 2. 方差分析表")), p(br()),
 
   #checkboxInput('inter', 'Interaction', TRUE),
   shinyWidgets::prettySwitch(
@@ -128,23 +128,23 @@ mainPanel(
   HTML(
   "<b> 说明 </b>
   <ul>
-    <li> DF<sub>因子</sub> = [因子组的类别数] -1</li>
-    <li> DF<sub>相互作用</sub> = DF<sub>因子1</sub> x DF<sub>因子2</sub></li>
-    <li> DF<sub>残留误差</sub> = [样本值的个数] - [因子组1的类别数] x [因子组2的类别数]</li>
+    <li> DF<sub>因子</sub> = 因子组的类别数 -1。</li>
+    <li> DF<sub>相互作用</sub> = DF<sub>因子1</sub> x DF<sub>因子2</sub>。</li>
+    <li> DF<sub>残差</sub> = 样本值的个数 - 因子组1的类别数 x 因子组2的类别数。</li>
     <li> MS = SS/DF</li>
     <li> F = MS<sub>因子</sub> / MS<sub>残留误差</sub></li>
     <li> P值 < 0.05，则因子的总体均值间存在有意差。（接受备择假设）</li>
-    <li> P值 >= 0.05，则因子的总体均值间内没有意差。（接受虚假设）</li>
+    <li> P值 >= 0.05，则因子的总体均值间内没有意差。（接受零假设）</li>
   </ul>"
     ),
 
     conditionalPanel(
     condition = "input.explain_on_off",
-  p(tags$i("在本例中，饮食类型和性别都会影响SBP（P <0.001），饮食类型也与性别有显著的相关（P <0.001）。"))#,
+  p(tags$i("在本例中，饮食类型和性别都会影响SBP（P值<0.001），饮食类型也与性别有显著的相关（P值<0.001）。"))#,
   ),
 
       hr(),
-    HTML("<p><b>P < 0.05</b>时、 如果想知道哪些成对因素组明显不同，请使用<b>多重比较</b>。</p>")
+    HTML("<p><b>P值 < 0.05</b>时、 如果想知道哪些成对因素组明显不同，请使用<b>多重比较</b>。</p>")
 
   )
 )

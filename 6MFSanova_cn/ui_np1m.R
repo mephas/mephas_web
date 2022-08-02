@@ -8,7 +8,7 @@ h4(tags$b("多重比较")),
 
 hr(),
   h4(tags$b("假设")),
-  p(tags$b("虚假设")),
+  p(tags$b("零假设")),
   p("各组的均值相等"),
   p(tags$b("备择假设")),
   p("至少两个因子群的均值间存在有意差"),
@@ -37,13 +37,13 @@ hr(),
   HTML(
   "<b> 说明 </b>
 
-    <li> <b>Bonferroni</b>调整后的p值 = 最大值(1, pm); m= k(k-1)/2 个对的多重比较</li>
-    <li> <b>Sidak</b>调整后的p值 = 最大值(1, 1 - (1 - p)^m)</li>
-    <li> <b>Holm</b>法调整后的p值 = 最大值[1, p(m+1-i)]；i是排序索引</li>
-    <li> <b>Holm-Sidak</b>调整后的p值 = 最大值[1, 1 - (1 - p)^(m+1-i)]</li>
-    <li> <b>Hochberg</b>法调整后的p值 = 最大值[1, p*i]</li>
-    <li> <b>Benjamini-Hochberg</b>调整后的p值 = 最大值[1, pm/(m+1-i)]</li>
-    <li> <b>Benjamini-Yekutieli</b>调整后的p值 = 最大值[1, pmC/(m+1-i)]; C = 1 + 1/2 + ...+ 1/m</li>
+    <li> <b>Bonferroni</b>调整后的p值 = 最大值(1, pm); m= k(k-1)/2 个对的多重比较。</li>
+    <li> <b>Sidak</b>调整后的p值 = 最大值(1, 1 - (1 - p)^m)。</li>
+    <li> <b>Holm</b>法调整后的p值 = 最大值[1, p(m+1-i)]；i是排序索引。</li>
+    <li> <b>Holm-Sidak</b>调整后的p值 = 最大值[1, 1 - (1 - p)^(m+1-i)]。</li>
+    <li> <b>Hochberg</b>法调整后的p值 = 最大值[1, p*i]。</li>
+    <li> <b>Benjamini-Hochberg</b>调整后的p值 = 最大值[1, pm/(m+1-i)]。</li>
+    <li> <b>Benjamini-Yekutieli</b>调整后的p值 = 最大值[1, pmC/(m+1-i)]; C = 1 + 1/2 + ...+ 1/m。</li>
 
   "
     )
@@ -53,13 +53,13 @@ mainPanel(
 
   h4(tags$b("Output 2. 检验结果")), p(br()),
 
-  p(tags$b("如果p <= 0.025，则拒绝虚假设。")),
+  p(tags$b("如果P值 <= 0.025，则拒绝零假设。")),
 
   DT::DTOutput("dunntest.t"),p(br()),
       conditionalPanel(
     condition = "input.explain_on_off",
   
-    p(tags$i("在此示例中，吸烟组统计学有意，因此我们可以得出结论，在LS-NI，LS-PS和NI-PS组中，FEF没有显着差异。 对于其他组，P <0.025。"))#,
+    p(tags$i("在此示例中，吸烟组统计学有意，因此我们可以得出结论，在LS-NI，LS-PS和NI-PS组中，FEF没有显着差异。 对于其他组，P值 <0.025。"))#,
     )
 
   #downloadButton("downloadnp2.2", "Download Results")

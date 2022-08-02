@@ -9,12 +9,12 @@ Y1.0 <- reactive({
   inFile <- input$file1
   if (is.null(inFile)) {
     X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t ]")))
-    validate( need(sum(!is.na(X))>1, "Please input enough valid numeric data") )
+    validate( need(sum(!is.na(X))>1, "请检查数据输入是否有效。") )
 
     F1 <-as.factor(unlist(strsplit(input$f11, "[,;\n\t ]")))
-    validate( need(length(X)==length(F1), "Please make sure two groups have equal length") )    
+    validate( need(length(X)==length(F1), "请检查输入的数据和因子数据是否一样长。") )    
     x <- data.frame(X = X, F1 = F1)
-    validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
+    validate( need(sum(!is.na(x))>1, "请检查数据输入是否有效。") )
 
     colnames(x) = names1()
     }
@@ -25,8 +25,8 @@ if(!input$col1){
     else{
     csv <- read.csv(inFile$datapath, header = input$header1, sep = input$sep1, row.names=1, quote=input$quote1, stringsAsFactors=TRUE)  
     }
-    validate( need(ncol(csv)>0, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
-    validate( need(nrow(csv)>1, "Please check your data (nrow>2, ncol=1), valid row names, column names, and spectators") )
+    validate( need(ncol(csv)>0, "请检查数据格式，列数是否有效。") )
+    validate( need(nrow(csv)>1, "请检查数据格式，行数是否有效。") )
 
     x <- csv[,1:2]
     if(input$header1==FALSE){
@@ -44,7 +44,7 @@ colnames(Y1.0()[unlist(lapply(Y1.0(), is.numeric))])
 output$value = renderUI({
 selectInput(
   'value',
-  HTML('アップロードするデータの数値を選択する'),
+  HTML('请选择要进行方差分析的变量'),
   choices = type.num()
   )
 })
@@ -79,13 +79,17 @@ output$level.t1 <- DT::renderDT({level1()}, options = list(dom = 't'))
 
 
 
-output$table1 <- DT::renderDT(Y1(),
+output$table1 <- DT::renderDT({Y1()},
     extensions = list(
       'Buttons'=NULL,
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据确认"),
+        list(extend = 'excel', title = "数据确认")
+        ),
       deferRender = TRUE,
       scrollY = 300,
       scroller = TRUE))
@@ -98,12 +102,15 @@ bas1 <- reactive({
   return(round(res,6))
   })
 
-output$bas1.t <- DT::renderDT({
-  bas1()}, 
+output$bas1.t <- DT::renderDT({bas1()}, 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "描述性统计量"),
+        list(extend = 'excel', title = "描述性统计量")
+        ),
     scrollX = TRUE))
 
 
@@ -128,12 +135,15 @@ anova10 <- reactive({
   return(round(res.table,6))
   })
 
-output$anova1 <- DT::renderDT({
-  anova10()}, 
+output$anova1 <- DT::renderDT({anova10()}, 
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "方差分析表"),
+        list(extend = 'excel', title = "方差分析表")
+        ),
     scrollX = TRUE))
 
 
