@@ -31,9 +31,9 @@ p("病例对照（行）与分组因子（列）无显著相关"),
 
 radioButtons("yt4", label = "备择假设", 
 choiceNames = list(
-HTML("病例对照（行）与分组因子（列）显著相关；第1组与第2组的让步比有显著差异"),
-HTML("第1组的让步比高于第2组"),
-HTML("第2组的让步比高于第1组")
+HTML("病例对照（行）与分组因子（列）显著相关；第1组与第2组的优势比（Odds Ratio，OR值）有显著差异"),
+HTML("第1组的优势比高于第2组（OR值>1）"),
+HTML("第2组的优势比高于第1组（OR值<1）")
 ),
 choiceValues = list("two.sided", "greater", "less")
 ),
