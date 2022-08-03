@@ -1,3 +1,10 @@
+#
+# Functions of some Panels
+#
+#
+
+## Panel 1
+
 tabPanel.upload <- function(file ="file", header="header", col="col", sep="sep", quote="quote"){
 
 tabPanel("数据上传", p(br()),
@@ -66,6 +73,7 @@ a(tags$i("从此处可以下载示例数据"),href = "https://github.com/mephas/
   )
 }
 
+## Panel 2
 
 tabPanel.upload.num <- function(file ="file", header="header", col="col", sep="sep"){
 
@@ -122,6 +130,8 @@ a(tags$i("从此处可以下载示例数据"),href = "https://github.com/mephas/
   )
 }
 
+## Panel 3
+
 tabPanel.upload.pr <- function(file ="file", header="header", col="col", sep="sep", quote="quote"){
 
 tabPanel("数据上传", p(br()),
@@ -132,7 +142,7 @@ p(tags$b("测试集应覆盖模型中使用的所有自变量。")),
 
 fileInput(file, "1. 选择CSV/TXT文件", accept = c("text/csv","text/comma-separated-values,text/plain",".csv")),
 
-p(tags$b("2. 是否将第1行用作列名？")), 
+p(tags$b("2. 是否将数据的第1行用作变量名称（列名）？")), 
 #checkboxInput("header", "Yes", TRUE),
 shinyWidgets::prettyToggle(
    inputId = header,
@@ -145,7 +155,7 @@ shinyWidgets::prettyToggle(
    value = TRUE
 ),
 
-p(tags$b("3. 是否将第1列（无重复项）用作行名？")), 
+p(tags$b("3. 是否将数据的第1列用作命名（行名）？")), 
 #checkboxInput("col", "Yes", TRUE),
 shinyWidgets::prettyToggle(
    inputId = col,
@@ -184,8 +194,8 @@ shinyWidgets::prettyRadioButtons(
            "单引号(\')" = "'"),
   selected = '"'),
 
-p("正确的分隔符和引号确保数据输入成功"),
+p("请注意分隔符和引号是否正确，确保数据输入成功。"),
 
-a(tags$i("从此处可以下载示例数据"),href = "https://github.com/mephas/datasets")
+a(tags$i("点击此处可以下载示例数据"),href = "https://github.com/mephas/datasets")
   )
 }

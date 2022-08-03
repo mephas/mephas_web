@@ -2,7 +2,7 @@ tabstop <- function(){
         navbarMenu("", icon = icon("power-off"),
            tabPanel(
                    actionLink(
-                           "close", "Stop", 
+                           "close", "停止", 
                            icon = icon("power-off"),
                            onclick = "setTimeout(function(){window.close();}, 100);"
                    )
@@ -12,7 +12,7 @@ tabstop <- function(){
                           #target = "_blank",
                           #style = "margin-top:-30px; color:DodgerBlue",
                           href = paste0("javascript:history.go(0)"),#,
-                          list(icon("redo"), "Restart"))
+                          list(icon("redo"), "刷新"))
            )
 )
 }
@@ -24,7 +24,7 @@ tablang <- function(name){
                                   target = "_blank",
                                   #style = "margin-top:-30px; color:DodgerBlue",
                                   href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas_web/",name,"/"),#,
-                                  list(icon("EN"), "English"))
+                                  list(icon("EN"), "英文"))
                    ),
                    
                    tabPanel(
@@ -32,7 +32,7 @@ tablang <- function(name){
                                   target = "_blank",
                                   #style = "margin-top:-30px; color:DodgerBlue",
                                   href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas_web/",name,"_jp/"),#
-                                  list(icon("JP"), "Japanese"))
+                                  list(icon("JP"), "日语"))
                     ),
                    tabPanel(
 
@@ -40,7 +40,7 @@ tablang <- function(name){
                                 target = "_blank",
                                 #style = "margin-top:-30px; color:DodgerBlue",
                                 href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas_web/",name,"_cn/"),#
-                                list(icon("CN"), "Chinese"))
+                                list(icon("CN"), "中文"))
                    )
               )       
 }
@@ -52,7 +52,7 @@ tablink <- function(){
                                   #target = "_blank",
                                   #style = "margin-top:-30px; color:DodgerBlue",
                                   href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas/","index_jp.html"),#,
-                                  list(icon("home"), "Home Page"))
+                                  list(icon("home"), "主页"))
                    ),
                    
                    tabPanel(
@@ -68,7 +68,7 @@ tablink <- function(){
                                 #target = "_blank",
                                 #style = "margin-top:-30px; color:DodgerBlue",
                                 href = paste0("https://www.youtube.com/channel/UC7NNDN2iIjWe2NSRKT-7VgA/videos"),#,
-                                list(icon("video"), "Video"))
+                                list(icon("video"), "YouTube参考视频"))
                    )
               )       
 }
@@ -81,9 +81,9 @@ shinyWidgets::switchInput(#
        inputId = "explain_on_off",#
        label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
         inline = TRUE,
-        onLabel = "Show",
-        offLabel = "Hide",
-        size = "mini"
+        onLabel = "隐藏",
+        offLabel = "查看详细",
+        size = "small"
         )
 )
 }
