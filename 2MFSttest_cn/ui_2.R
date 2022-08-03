@@ -112,7 +112,7 @@ HTML(
 "
 <b> 说明 </b>
 <ul>
-<li> 当P < 0.05时，请使用<b>韦尔奇t检验（Welch Two-Sample t-test）</b>的结果
+<li> 当P值 < 0.05时，请使用<b>韦尔奇t检验（Welch Two-Sample t-test）</b>的结果
 <li> 当P >= 0.05时，请使用<b>两样本t检验（Two-Sample t-test）</b>的结果
 </ul>
 "
