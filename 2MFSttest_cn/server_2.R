@@ -13,9 +13,9 @@ Y <- reactive({
     
     validate( need(sum(!is.na(X))>1, "请检查数据是否有效。") )
     validate( need(sum(!is.na(Y))>1, "请检查数据是否有效。") )
-    # validate( need(length(X)==length(Y), "Please make sure two groups have equal length") )
+    # validate( need(length(X)==length(Y), "请输入等长度的两组数据。") )
     
-    x <- data.frame(data=c(X,Y), group=c(rep(1,length(X)), rep(2, length(Y))))
+    x <- data.frame(X = X, Y = Y)
     colnames(x) = names2()
     }
   else {
@@ -53,7 +53,8 @@ output$table2 <-DT::renderDT(Y(),
 
 basic_desc2 <- reactive({
   x <- Y()
-  res <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
+  res1 <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
+  res2 <- as.data.frame(t(psych::describe(x))[-c(1,6,7), ])
   colnames(res) = names(x)
   rownames(res) <- c("Total Number of Valid Values", "Mean" ,"SD", "Median", "Minimum", "Maximum", "Range","Skew","Kurtosis","SE")
   return(round(res,6))
@@ -135,7 +136,8 @@ output$var.test <- DT::renderDT({
 t.test20 <- reactive({
   x <- Y()
   res <- t.test(
-    as.vector(x[, 1])~as.vector(x[, 2]),
+    as.vector(x[, 1]),
+    as.vector(x[, 2]),
     alternative = input$alt.t2,
     var.equal = TRUE
     )
@@ -152,7 +154,8 @@ res.table <- t(
     )
   )
   res1 <- t.test(
-    as.vector(x[, 1])~as.vector(x[, 2]),
+    as.vector(x[, 1]),
+    as.vector(x[, 2]),
     alternative = input$alt.t2,
     var.equal = FALSE
     )
