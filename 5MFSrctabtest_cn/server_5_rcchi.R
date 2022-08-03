@@ -5,12 +5,12 @@ T5 = reactive({ # prepare dataset
   r <- length(unlist(strsplit(input$rn5, "[\n]")))
   c <- length(unlist(strsplit(input$cn5, "[\n]")))
 
-  validate(need(length(x)==r*c, "Please input enough values"))
+  validate(need(length(x)==r*c, "请检查数据输入是否有效。"))
 
   x <- matrix(x,r,c, byrow=TRUE)
 
-  validate(need(length(unlist(strsplit(input$cn5, "[\n]")))==c, "Please input correct column names"))
-  validate(need(length(unlist(strsplit(input$rn5, "[\n]")))==r, "Please input correct row names"))
+  validate(need(length(unlist(strsplit(input$cn5, "[\n]")))==c, "请检查数据的命名"))
+  validate(need(length(unlist(strsplit(input$rn5, "[\n]")))==r, "请检查数据的命名"))
 
   rownames(x) = unlist(strsplit(input$rn5, "[\n]"))
   colnames(x) = unlist(strsplit(input$cn5, "[\n]"))

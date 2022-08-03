@@ -3,11 +3,11 @@
 T3 = reactive({ # prepare dataset
   X <- as.numeric(unlist(strsplit(input$x3, "[,;\n\t ]")))
   Y <- as.numeric(unlist(strsplit(input$x33, "[,;\n\t ]")))
-  validate(need(length(X)==length(Y), "Please input two groups of data with equal length"))
+  validate(need(length(X)==length(Y), "请输入等长度的两组数据。"))
   x <- rbind(X,Y)
   x <- as.matrix(x)
-  validate(need(length(unlist(strsplit(input$cn3, "[\n]")))==ncol(x), "Please input correct column names"))
-  validate(need(length(unlist(strsplit(input$rn3, "[\n]")))==2, "Please input correct row names"))
+  validate(need(length(unlist(strsplit(input$cn3, "[\n]")))==ncol(x), "请检查数据的命名。"))
+  validate(need(length(unlist(strsplit(input$rn3, "[\n]")))==2, "请检查数据的命名。"))
 
   rownames(x) = unlist(strsplit(input$rn3, "[\n]"))
   colnames(x) = unlist(strsplit(input$cn3, "[\n]"))

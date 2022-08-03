@@ -5,11 +5,11 @@ T6 = reactive({ # prepare dataset
   cn = unlist(strsplit(input$cn6, "[\n]"))
 
   x <- as.numeric(unlist(strsplit(input$x6, "[,;\n\t ]")))
-  validate(need(length(x)==length(cn)*length(cn), "Please input enough values"))
+  validate(need(length(x)==length(cn)*length(cn), "请检查数据输入是否有效。"))
   x <- matrix(x,length(cn),length(cn), byrow=TRUE)
 
-  validate(need(length(cn)==ncol(x), "Please input correct names"))
-  validate(need(length(rn)==2, "Please input correct names"))
+  validate(need(length(cn)==ncol(x), "请检查数据的命名。"))
+  validate(need(length(rn)==2, "请检查数据的命名。"))
 
   rownames(x) <- paste0(rn[1], " : ",cn)
   colnames(x) <- paste0(rn[2], " : ",cn)

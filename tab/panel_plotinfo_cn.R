@@ -151,7 +151,7 @@ DT::DTOutput(tab.id3)
 
 tabPanel.countplot2 <- function(plot.id1, plot.id2, width = 700){
 
-tabPanel("条形图", 
+tabPanel("频数直方图", 
 p(br()),
 p(tags$b("列分组")),
 plotly::plotlyOutput(plot.id1, width = width),
@@ -164,9 +164,8 @@ plotly::plotlyOutput(plot.id2, width = width)
 
 tabPanel.countplot1 <- function(plot.id1, width = 700){
 
-tabPanel("条形图", 
+tabPanel("频数直方图", 
 p(br()),
-
 plotly::plotlyOutput(plot.id1, width = width)
 )
 

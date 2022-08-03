@@ -3,10 +3,10 @@
 T9 = reactive({ # prepare dataset
   x1 <- as.numeric(unlist(strsplit(input$x9, "[,;\n\t ]")))
   x2 <- as.numeric(unlist(strsplit(input$x99, "[,;\n\t ]")))
-  validate(need(length(x1)==length(x2), "Please input two groups of data with equal length"))
+  validate(need(length(x1)==length(x2), "请检查两组数据是否一样长。"))
   x <- data.frame(x1=x1,x2=x2)
 
-  validate(need(length(unlist(strsplit(input$cn9, "[\n]")))==2, "Please input correct column names"))
+  validate(need(length(unlist(strsplit(input$cn9, "[\n]")))==2, "请检查数据的命名"))
 
   colnames(x) <- unlist(strsplit(input$cn9, "[\n]"))
   rownames(x) <- paste0("Rater", 1:nrow(x))

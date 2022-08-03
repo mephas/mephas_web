@@ -2,11 +2,11 @@
 
 T2 = reactive({ # prepare dataset
   x <- as.numeric(unlist(strsplit(input$x2, "[,;\n\t ]")))
-  validate(need(length(x)==4, "Please input 4 values"))
+  validate(need(length(x)==4, "请输入4个值。"))
 
   x <- matrix(x,2,2, byrow=TRUE)
-  validate(need(length(unlist(strsplit(input$cn2, "[\n]")))==2, "Please input correct column names"))
-  validate(need(length(unlist(strsplit(input$rn2, "[\n]")))==2, "Please input correct row names"))
+  validate(need(length(unlist(strsplit(input$cn2, "[\n]")))==2, "请检查数据的命名。"))
+  validate(need(length(unlist(strsplit(input$rn2, "[\n]")))==2, "请检查数据的命名。"))
 
   rn = unlist(strsplit(input$rn2, "[\n]"))
   cn = unlist(strsplit(input$cn2, "[\n]"))

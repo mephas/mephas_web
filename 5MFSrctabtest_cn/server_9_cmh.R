@@ -9,7 +9,7 @@ T7 = reactive({ # prepare dataset
   #validate(need(length(rn())==2, "Please input enough names"))
 
   x <- as.numeric(unlist(strsplit(input$x7, "[,;\n\t ]")))
-  validate(need(length(x)==length(cn())*length(rn())*length(kn()), "Please input enough values"))
+  validate(need(length(x)==length(cn())*length(rn())*length(kn()), "请检查数据输入是否有效。"))
   x <- aperm(
     array(x,dim=c(length(cn()),length(rn()),length(kn())), 
     dimnames = list(groups=cn(), status=rn(), confound=kn())),
