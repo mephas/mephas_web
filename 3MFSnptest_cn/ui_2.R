@@ -98,9 +98,12 @@ tabPanel.histplot("makeplot2", "makeplot2.1", "bin2")
 hr(),
 
 h4(tags$b("Output 2. 检验结果")),
-tags$b('威尔科克森秩和检验(Wilcoxon Rank-Sum Test)的结果'), p(br()),
+p(br()),
+tags$b('威尔科克森秩和检验(Wilcoxon Rank-Sum Test)的结果'), 
+p(br()),
 
-DT::DTOutput("mwu.test.t"), p(br()),
+DT::DTOutput("mwu.test.t"), 
+p(br()),
 
 HTML(
 "<b> 说明 </b>
@@ -109,6 +112,8 @@ HTML(
 <li> P值 >= 0.05，则2组中位数无显著差异。（接受零假设）
 </ul>"
 ),
+p(br()),
+
 conditionalPanel(
 condition = "input.explain_on_off",
 p(tags$i("在初始条件下，我们可以得到这两组患者的DRS测量结果没有显著的不同(P = 0.44)。"))

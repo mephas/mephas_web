@@ -97,9 +97,14 @@ tabPanel.histplot("makeplot3", "makeplot3.1", "bin3")
 
 hr(),
 
-h4(tags$b("Output 2. 检验结果")),p(br()),
+h4(tags$b("Output 2. 检验结果")),
+p(br()),
+
 tags$b('威尔科克森符号秩检验(Wilcoxon Signed-Rank Test)的结果'),
+p(br()),
 DT::DTOutput("psr.test.t"),
+p(br()),
+
 HTML(
 "<b> 说明 </b>
 <ul>
@@ -107,6 +112,8 @@ HTML(
 <li> P值 >= 0.05，则2组数据没有统计学差异。(接受零假设)
 </ul>"
 ),
+p(br()),
+
 conditionalPanel(
 condition = "input.explain_on_off",
 p(tags$i("根据初始设定， 我们得到治疗前后没有统计学差异的结论(P = 0.46)。"))

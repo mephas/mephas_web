@@ -30,7 +30,7 @@ HTML(
 }
 
 ##
-tabPanel.msdplot <- function(plot.id, width ="80%"){
+tabPanel.msdplot <- function(plot.id, width = 500){
 
 tabPanel("均值和方差图", 
 

@@ -94,10 +94,16 @@ tabPanel.boxplot("bp"),
 tabPanel.histplot("makeplot", "makeplot.1", "bin")
 
 ),
+
 hr(),
+
 h4(tags$b("Output 2. 检验结果")),
-p(tags$b('威尔科克森符号秩检验结果')), p(br()),
+p(br()),
+
+p(tags$b('威尔科克森符号秩检验结果')), 
+p(br()),
 DT::DTOutput("ws.test.t"),
+p(br()),
 
 HTML(
 "<b> 说明 </b>
@@ -106,6 +112,8 @@ HTML(
 <li> P值 >= 0.05，则总体中位数与指定中位数无统计学显著差异。（接受零假设）
 </ul>"
 ),
+p(br()),
+
 conditionalPanel(
 condition = "input.explain_on_off",
 p(tags$i("根据初始设置, 我们可以得到测量结果显著大于1的结论 (P = 0.006)，表明患者处于抑郁症的困扰。"))

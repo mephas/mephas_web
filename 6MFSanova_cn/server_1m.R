@@ -2,7 +2,7 @@
 output$dt.ref = renderUI({
 selectInput(
 'dt.ref',
-tags$b('针对Dunnett方法，可以从上面的因子群中更改控制因子'),
+tags$b('针对Dunnett方法，可以从上面的因子组中选择作为对照组的因子（reference）'),
 selected = level1()[1],
 choices = level1()
 )
