@@ -93,13 +93,13 @@ hr(),
   HTML(
   "<b> Explanations </b>
 
-    <li> <b>Bonferroni</b> adjusted p-values = max(1, pm); m= k(k-1)/2 multiple pairwise comparisons</li>
-    <li> <b>Sidak</b> adjusted p-values = max(1, 1 - (1 - p)^m)</li>
-    <li> <b>Holm's</b>  adjusted p-values = max[1, p(m+1-i)]; i is ordering index</li>
-    <li> <b>Holm-Sidak</b> adjusted p-values = max[1, 1 - (1 - p)^(m+1-i)]</li>
-    <li> <b>Hochberg's</b> adjusted p-values = max[1, p*i]</li>
-    <li> <b>Benjamini-Hochberg</b> adjusted p-values = max[1, pm/(m+1-i)]</li>
-    <li> <b>Benjamini-Yekutieli</b> adjusted p-values = max[1, pmC/(m+1-i)]; C = 1 + 1/2 + ... + 1/m</li>
+    <li> <b>Bonferroni</b> adjusted p-values = max(1, pm); m= k(k-1)/2 multiple pairwise comparisons
+    <li> <b>Sidak</b> adjusted p-values = max(1, 1 - (1 - p)^m)
+    <li> <b>Holm's</b>  adjusted p-values = max[1, p(m+1-i)]; i is ordering index
+    <li> <b>Holm-Sidak</b> adjusted p-values = max[1, 1 - (1 - p)^(m+1-i)]
+    <li> <b>Hochberg's</b> adjusted p-values = max[1, p*i]
+    <li> <b>Benjamini-Hochberg</b> adjusted p-values = max[1, pm/(m+1-i)]
+    <li> <b>Benjamini-Yekutieli</b> adjusted p-values = max[1, pmC/(m+1-i)]; C = 1 + 1/2 + ... + 1/m
 
   "
     )

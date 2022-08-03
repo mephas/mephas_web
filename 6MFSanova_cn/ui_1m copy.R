@@ -96,13 +96,13 @@ hr(),
       HTML(
   "<b> Explanations </b>
   
-    <li> <b>Bonferroni</b> correction is a generic but very conservative approach</li>
-    <li> <b>Bonferroni-Holm</b> is less conservative and uniformly more powerful than Bonferroni</li>
-    <li> <b>False Discovery Rate-BH</b> is more powerful than the others, developed by Benjamini and Hochberg</li>
-    <li> <b>False Discovery Rate-BY</b> is more powerful than the others, developed by Benjamini and Yekutieli</li>
-    <li> <b>Scheffe</b> procedure controls for the search over any possible contrast</li>
-    <li> <b>Tukey Honest Significant Difference</b> is preferred if there are unequal group sizes among the experimental and control groups</li>
-    <li> <b>Dunnett</b> is useful for compare all treatment groups with a control group</li>
+    <li> <b>Bonferroni</b> correction is a generic but very conservative approach
+    <li> <b>Bonferroni-Holm</b> is less conservative and uniformly more powerful than Bonferroni
+    <li> <b>False Discovery Rate-BH</b> is more powerful than the others, developed by Benjamini and Hochberg
+    <li> <b>False Discovery Rate-BY</b> is more powerful than the others, developed by Benjamini and Yekutieli
+    <li> <b>Scheffe</b> procedure controls for the search over any possible contrast
+    <li> <b>Tukey Honest Significant Difference</b> is preferred if there are unequal group sizes among the experimental and control groups
+    <li> <b>Dunnett</b> is useful for compare all treatment groups with a control group
   "
     )
 
@@ -132,9 +132,9 @@ mainPanel(
     HTML(
     "<b> Explanations </b>
     <ul>
-      <li> The band inside the box is the median</li>
-      <li> The box measures the difference between 75th and 25th percentiles</li>
-      <li> Outliers will be in red, if existing</li>
+      <li> The band inside the box is the median
+      <li> The box measures the difference between 75th and 25th percentiles
+      <li> Outliers will be in red, if existing
     </ul>"
       
     )
@@ -160,13 +160,13 @@ mainPanel(
       HTML(
   "<b> Explanations </b>
   <ul> 
-    <li> In the matrix, P < 0.05 indicates the statistical significant in the pairs</li>
-    <li> In the matrix, P >= 0.05 indicates no statistically significant differences in the pairs</li>
+    <li> In the matrix, P值 < 0.05 indicates the statistical significant in the pairs
+    <li> In the matrix, P >= 0.05 indicates no statistically significant differences in the pairs
   </ul>"
     ),
     conditionalPanel(
     condition = "input.explain_on_off",
-    p(tags$i("In this example, we used Bonferroni-Holm method to explore the possible pairs with P < 0.05. 
+    p(tags$i("In this example, we used Bonferroni-Holm method to explore the possible pairs with P值 < 0.05. 
       HS was significant different from the other groups; 
       LS was significantly different from MS and NS;
       MS was significantly different from NI and PS;
