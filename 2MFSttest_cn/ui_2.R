@@ -93,7 +93,7 @@ tabPanel.boxplot("bp2"),
 
 tabPanel.msdplot("meanp2"),
 
-tabPanel.pdfplot("makeplot2", "makeplot2.3", "makeplot2.4")
+tabPanel.pdfplot("makeplot2", "makeplot2.3", "makeplot2.4", "bin2")
 
 ),
 

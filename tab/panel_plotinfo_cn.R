@@ -43,7 +43,7 @@ plotly::plotlyOutput(plot.id)
 
 
 ##
-tabPanel.pdfplot <- function(plot.id1, plot.id2, plot.id3){
+tabPanel.pdfplot <- function(plot.id1, plot.id2, plot.id3, bin.id){
 
 tabPanel("分布图", 
 
@@ -55,7 +55,9 @@ p(br()),
 
 p(tags$b("直方图")),
 plotly::plotlyOutput(plot.id2),
-sliderInput("bin","直方图的分箱数",min = 0,max = 100,value = 0),
+p(br()),
+
+sliderInput(bin.id,"直方图的分箱数",min = 0,max = 100,value = 0),
 p("当分箱数为0时，绘图将使用默认分箱数。"),
 p(br()),
 
@@ -79,5 +81,57 @@ HTML(
 
 }
 
-
 ####==========================================================================================
+
+tabPanel.histplot <- function(plot.id1, plot.id2){
+
+
+tabPanel("直方图", 
+p(br()),
+
+HTML(
+"<b> 说明 </b>
+<ul>
+<li> 直方图：通过描述某一数值范围内出现的观察值频率，粗略评估给定变量的概率分布
+<li> 密度图：估计数据的概率密度函数
+</ul>
+"
+),
+p(tags$b("直方图")),
+plotly::plotlyOutput("makeplot"),
+
+sliderInput("bin","直方图的分箱数",min = 0,max = 100,value = 0),
+p("当分箱数为0时，绘图将使用默认分箱数。"),
+p(tags$b("密度图")),
+plotly::plotlyOutput("makeplot.1")
+
+)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

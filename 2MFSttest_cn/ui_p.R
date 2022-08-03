@@ -77,7 +77,7 @@ tabPanel.boxplot("bp.p"),
 
 tabPanel.msdplot("meanp.p"),
 
-tabPanel.pdfplot("makeplot.p", "makeplot.p2", "makeplot.p3")
+tabPanel.pdfplot("makeplot.p", "makeplot.p2", "makeplot.p3", "bin.p")
 
 ),
 
