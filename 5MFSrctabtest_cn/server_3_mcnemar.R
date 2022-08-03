@@ -19,10 +19,15 @@ output$dt2 = DT::renderDT({
   addmargins(T2(), 
     margin = seq_along(dim(T2())), 
     FUN = list(Total=sum), quiet = TRUE)},  
+  
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt2.0 = DT::renderDT({
@@ -32,28 +37,44 @@ output$dt2.0 = DT::renderDT({
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt2.1 = DT::renderDT({round(prop.table(T2(), 1),6)}, 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt2.2 = DT::renderDT({round(prop.table(T2(), 2),6)}, 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt2.3 = DT::renderDT({round(prop.table(T2()),6)}, 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 
@@ -84,6 +105,10 @@ output$c.test2 = DT::renderDT({
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 

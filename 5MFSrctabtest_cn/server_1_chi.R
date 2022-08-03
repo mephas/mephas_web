@@ -2,11 +2,11 @@
 
 T1 = reactive({ # prepare dataset
   x <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t ]")))
-  validate(need(length(x)==4, "Please input 4 values"))
+  validate(need(length(x)==4, "请输入4个值"))
   x <- matrix(x,2,2, byrow=TRUE)
 
-  validate(need(length(unlist(strsplit(input$cn1, "[\n]")))==2, "Please input correct column names"))
-  validate(need(length(unlist(strsplit(input$rn1, "[\n]")))==2, "Please input correct row names"))
+  validate(need(length(unlist(strsplit(input$cn1, "[\n]")))==2, "请检查数据的命名"))
+  validate(need(length(unlist(strsplit(input$rn1, "[\n]")))==2, "请检查数据的命名"))
 
   rownames(x) = unlist(strsplit(input$rn1, "[\n]"))
   colnames(x) = unlist(strsplit(input$cn1, "[\n]"))
@@ -17,10 +17,15 @@ output$dt1 = DT::renderDT({
   addmargins(T1(), 
     margin = seq_along(dim(T1())), 
     FUN = list(Total=sum), quiet = TRUE)},
+
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE)
   )
 
@@ -32,28 +37,44 @@ output$dt1.0 = DT::renderDT({
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "检验结果"),
+        list(extend = 'excel',  title = "检验结果")
+        ),
     scrollX = TRUE))
 
 output$dt1.1 = DT::renderDT({round(prop.table(T1(), 1),6)},
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt1.2 = DT::renderDT({round(prop.table(T1(), 2),6)}, 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt1.3 = DT::renderDT({round(prop.table(T1()),6)}, 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 
@@ -90,6 +111,10 @@ output$c.test1 = DT::renderDT({
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 

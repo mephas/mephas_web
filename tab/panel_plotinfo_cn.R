@@ -117,23 +117,96 @@ HTML(
 }
 
 
+####==========================================================================================
 
 
+## RCTab test 
+
+tabPanel.checktab <- function(label, tab.id1, tab.id2){
+
+tabPanel("数据确认", p(br()),
+
+p(tags$b(label)), p(br()), DT::DTOutput(tab.id1), p(br()), 
+
+p(tags$b("期望值")), p(br()), DT::DTOutput(tab.id2))
+
+}
+
+tabPanel.perctab <- function(tab.id1, tab.id2, tab.id3){
+
+tabPanel("百分比表", p(br()),
+
+p(tags$b("单元格/行的合计的百分比（单位：100%）")),p(br()),
+DT::DTOutput(tab.id1),p(br()),
+
+p(tags$b("单元格/列的合计的百分比（单位：100%）")),p(br()),
+DT::DTOutput(tab.id2),p(br()),
+
+p(tags$b("单元格/合计的百分比（单位：100%）")),p(br()),
+DT::DTOutput(tab.id3)
+)
+
+}
 
 
+tabPanel.countplot2 <- function(plot.id1, plot.id2, width = 700){
+
+tabPanel("条形图", 
+p(br()),
+p(tags$b("列分组")),
+plotly::plotlyOutput(plot.id1, width = width),
+p(tags$b("行分组")),
+plotly::plotlyOutput(plot.id2, width = width)
+)
+
+}
 
 
+tabPanel.countplot1 <- function(plot.id1, width = 700){
+
+tabPanel("条形图", 
+p(br()),
+
+plotly::plotlyOutput(plot.id1, width = width)
+)
+
+}
+
+tabsetPanel.kappa <- function(label, tab.id1, tab.id2, tab.id3){
+
+tabsetPanel(
+
+tabPanel("数据确认", p(br()),
+p(tags$b(label)),p(br()),
+DT::DTOutput(tab.id1)),
+
+tabPanel("一致性表", p(br()),
+DT::DTOutput(tab.id2)),
+
+tabPanel("权重表", p(br()),
+DT::DTOutput(tab.id3))
+
+)
+
+}
 
 
+kappa.info <- function(){
 
+HTML(
+"
+<b> Kappa评价和说明 </b> 
+<ul>
+<li> <b>Cohen's Kappa 统计系数>0.75</b>；b>出色的</b>可重复性 
+<li> <b>0.4<=Cohen's Kappa 统计系数<=0.75</b>；<b>良好的</b>可重复性
+<li> <b>00<=Cohen's Kappa 统计系数<0.4</b>；<b>较低的</b>可重复性 
+<li> Cohen’s kappa 考虑了两个评分器之间的偏差，但没有考虑偏差度
+<li> 加权 kappa 通过预定义权重表进行计算，该权重表权衡两个评分器之间的偏差度。偏差越大，加权越高
+</ul>
 
-
-
-
-
-
-
-
+"
+)
+}
 
 
 

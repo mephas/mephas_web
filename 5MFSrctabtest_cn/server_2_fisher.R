@@ -18,41 +18,66 @@ output$dt4 = DT::renderDT({
   addmargins(T4(), 
     margin = seq_along(dim(T4())), 
     FUN = list(Total=sum), quiet = TRUE)},  
+
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt4.0 = DT::renderDT({
   res = chisq.test(T4())
   exp = round(res$expected,6)
   return(exp)}, 
+
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt4.1 = DT::renderDT({round(prop.table(T4(), 1),6)}, 
+
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
-output$dt4.2 = DT::renderDT({round(prop.table(T4(), 2),6)}, #class="row-border", 
+output$dt4.2 = DT::renderDT({round(prop.table(T4(), 2),6)},
+
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
-output$dt4.3 = DT::renderDT({round(prop.table(T4()),6)}, #class="row-border", 
+output$dt4.3 = DT::renderDT({round(prop.table(T4()),6)}, 
+
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 
@@ -78,10 +103,15 @@ output$c.test4 = DT::renderDT({
     rownames(res.table) <- c("Odds Ratio (Group 1 vs Group 2)","P Value", "95% Confidence Interval")
     return(res.table)
     }, 
+    
    #class="row-border", 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 

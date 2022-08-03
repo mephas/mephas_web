@@ -17,7 +17,11 @@ output$dt9 = DT::renderDT({T9()},
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt9.0 =  DT::renderDT({
@@ -31,7 +35,11 @@ output$dt9.0 =  DT::renderDT({
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt9.1 =  DT::renderDT({
@@ -42,7 +50,11 @@ output$dt9.1 =  DT::renderDT({
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$c.test9 = DT::renderDT({
@@ -55,6 +67,10 @@ output$c.test9 = DT::renderDT({
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 

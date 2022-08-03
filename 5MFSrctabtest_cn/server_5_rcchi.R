@@ -24,7 +24,11 @@ output$dt5 = DT::renderDT({
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt5.0 = DT::renderDT({
@@ -34,28 +38,44 @@ output$dt5.0 = DT::renderDT({
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt5.1 = DT::renderDT({round(prop.table(T5(), 1),6)}, 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt5.2 = DT::renderDT({round(prop.table(T5(), 2),6)}, 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 output$dt5.3 = DT::renderDT({round(prop.table(T5()),6)}, 
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
 
@@ -79,6 +99,10 @@ output$c.test5 = DT::renderDT({
   extensions = 'Buttons', 
   options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv',    title = "数据结果"),
+        list(extend = 'excel',  title = "数据结果")
+        ),
     scrollX = TRUE))
 
