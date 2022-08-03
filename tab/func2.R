@@ -32,7 +32,7 @@ desc.factor<-function(data){
       round(table(data[,a, drop=FALSE])),
       round(prop.table(table(data[,a, drop=FALSE])),3)
     )
-    colnames(df)<- c("N", "%")
+    colnames(df)<- c("N", "100%")
   }
   else{
   x.list<-sapply(data[,a, drop=FALSE], function(v){
@@ -49,7 +49,7 @@ desc.factor<-function(data){
   var2<- rownames(x.data)
   var1 <- rep(names(x.list), sapply(x.list, nrow))
   df <- cbind.data.frame(var1,var2, x.data)
-  colnames(df)<- c("Variable","Values", "N", "%")
+  colnames(df)<- c("Variable","Values", "N", "100%")
   rownames(df)<- NULL
   }
   return(df)

@@ -14,5 +14,9 @@ output$dunntest.t <- DT::renderDT({dunntest()
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "检验结果"),
+        list(extend = 'excel', title = "检验结果")
+        ),
     scrollX = TRUE))

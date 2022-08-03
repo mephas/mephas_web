@@ -33,17 +33,19 @@ tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quot
 
 hr(),
 
-h4(tags$b("更改某些变量的类型？")),
+h4(tags$b("根据需要，更改变量的类型")),
+p(br()),
+
 uiOutput("factor1"),
-uiOutput("factor2"),
+# uiOutput("factor2"),
 
-h4(tags$b("是否更改分类变量的参考级别？")),
+# h4(tags$b("是否更改分类变量的参照值（Reference level）")),
 
-uiOutput("lvl"),
+# uiOutput("lvl"),
 
-p(tags$b("2. 输入参考级别，每行为一个变量")),
+# p(tags$b("2. 输入分类变量的参照值（Reference level）")),
 
-tags$textarea(id='ref',""),
+# tags$textarea(id='ref',""),
 hr(),
 
 uiOutput("rmrow"),
@@ -53,68 +55,133 @@ hr(),
 #h4(tags$b(actionLink("Model","Build Model")))
 #h4(tags$b("Build Model in the Next Tab"))
 p(br()),
-actionButton("Model", "构建模型 >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+actionButton("Model", "进入构建模型页面 >>",class="btn btn-primary",icon("location-arrow")),p(br()),
 hr()
 
 ),
 
 ##########----------##########----------##########
 mainPanel(
-h4(tags$b("Output 1. 数据确认")),
-p(tags$b("数据确认")),
-DT::DTOutput("Xdata"),
-
-#p(tags$b("1. Numeric variable information list")),
-#verbatimTextOutput("strnum"),
-
-#p(tags$b("2. Categorical variable information list")),
-#verbatimTextOutput("strfac"),
-p(tags$b("变量的类别")),
-DT::DTOutput("var.type"),
-
-hr(),
-h4(tags$b("Output 2. 描述性结果")),
 
 tabsetPanel(
 
-tabPanel("描述统计量", br(),
+tabPanel("数据确认", p(br()),
 
-p(tags$b("1. 数值变量")),
+p(tags$b("数据确认")),p(br()),
+DT::DTOutput("Xdata"),  
 
-DT::DTOutput("sum"),
+hr(),
 
-p(tags$b("2. 分类变量")),
+p(tags$b("变量的类别")),p(br()),
+DT::DTOutput("var.type")
+
+),
+
+tabPanel("描述统计量", p(br()),
+
+p(tags$b("1. 数值变量")),p(br()),
+
+DT::DTOutput("sum"),p(br()),
+
+p(tags$b("2. 分类变量")),p(br()),
 DT::DTOutput("fsum")
 
 ),
 
-tabPanel("Logit图",br(),
 
-HTML("<p><b>Logit图</b>： 粗略表示任意两个数值变量之间的线性关系。"),
-hr(),
+tabPanel("Logit图",p(br()),
 
-uiOutput('tx'),
-uiOutput('ty'),
-p(tags$b("3.  更改X轴和Y轴标签")),
+# HTML("<p><b>Logit图</b>：。"),
+# hr(),
+
+uiOutput('tx'),p(br()),
+uiOutput('ty'),p(br()),
+p(tags$b("3.  更改X轴和Y轴名称")),
 tags$textarea(id = "xlab", rows = 1, "X"),
-tags$textarea(id = "ylab", rows = 1, "Y"),
+tags$textarea(id = "ylab", rows = 1, "Y"),p(br()),
 
 plotly::plotlyOutput("p1")
 ),
 
-tabPanel("直方图和密度分布图", p(br()),
+tabPanel.pdfplot2("hx", "p2", "p21", "bin")
 
-HTML("<p><b>直方图</b>：通过描述某一数值范围内出现的观察值频率，粗略显示一个变量的概率分布。</p>"),
-HTML("<p><b>密度图</b>：显示变量的分布。</p>"),
-hr(),
 
-uiOutput('hx'),
-p(tags$b("直方图")),
-plotly::plotlyOutput("p2"),
-sliderInput("bin", "直方图的分箱数", min = 0, max = 100, value = 0),
-p("当分箱数为0时，绘图将使用默认分箱数"),
-p(tags$b("密度图")),
-plotly::plotlyOutput("p21"))
+# tabPanel("直方图和概率密度图", p(br()),
+
+# HTML("<p><b>直方图</b>：通过描述某一数值范围内出现的观察值频率，粗略显示一个变量的概率分布</p>"),
+# HTML("<p><b>概率密度图</b>：显示变量的分布</p>"),
+# hr(),
+
+# uiOutput('hx'),
+# p(tags$b("直方图")),
+# plotly::plotlyOutput("p2"),
+# sliderInput("bin", "直方图的分箱数", min = 0, max = 100, value = 0),
+# p("当分箱数为0时，绘图将使用默认分箱数"),
+# p(tags$b("密度图")),
+# plotly::plotlyOutput("p21"))
+
 ))
+
+
+
+# h4(tags$b("Output 1. 数据确认")),
+
+# p(tags$b("数据确认")),
+# DT::DTOutput("Xdata"),
+
+# #p(tags$b("1. Numeric variable information list")),
+# #verbatimTextOutput("strnum"),
+
+# #p(tags$b("2. Categorical variable information list")),
+# #verbatimTextOutput("strfac"),
+# p(tags$b("变量的类别")),
+# DT::DTOutput("var.type"),
+
+# hr(),
+# h4(tags$b("Output 2. 描述性结果")),
+
+# tabsetPanel(
+
+# tabPanel("描述统计量", p(br()),
+
+# p(tags$b("1. 数值变量")),
+
+# DT::DTOutput("sum"),
+
+# p(tags$b("2. 分类变量")),
+# DT::DTOutput("fsum")
+
+# ),
+
+# tabPanel("Logit图",p(br()),
+
+# HTML("<p><b>Logit图</b>： 粗略表示任意两个数值变量之间的线性关系。"),
+# hr(),
+
+# uiOutput('tx'),
+# uiOutput('ty'),
+# p(tags$b("3.  更改X轴和Y轴标签")),
+# tags$textarea(id = "xlab", rows = 1, "X"),
+# tags$textarea(id = "ylab", rows = 1, "Y"),
+
+# plotly::plotlyOutput("p1")
+# ),
+
+# tabPanel("直方图和密度分布图", p(br()),
+
+# HTML("<p><b>直方图</b>：通过描述某一数值范围内出现的观察值频率，粗略显示一个变量的概率分布。</p>"),
+# HTML("<p><b>密度图</b>：显示变量的分布。</p>"),
+# hr(),
+
+# uiOutput('hx'),
+# p(tags$b("直方图")),
+# plotly::plotlyOutput("p2"),
+# sliderInput("bin", "直方图的分箱数", min = 0, max = 100, value = 0),
+# p("当分箱数为0时，绘图将使用默认分箱数"),
+# p(tags$b("密度图")),
+# plotly::plotlyOutput("p21"))
+
+
+# ))
 ##########----------##########----------##########
 )

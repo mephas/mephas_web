@@ -19,8 +19,8 @@ if(input$col){
     else{
     csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote=input$quote, stringsAsFactors=TRUE)
     }
-    validate( need(ncol(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
-    validate( need(nrow(csv)>1, "Please check your data (nrow>1, ncol>1), valid row names, column names, and spectators") )
+    validate( need(ncol(csv)>1, "请检查数据格式，列数是否有效。") )
+    validate( need(nrow(csv)>1, "请检查数据格式，行数是否有效。") )
 
   x <- as.data.frame(csv)
 }
@@ -50,7 +50,7 @@ colnames(DF0()[,var.type.list0()[,1] %in% "integer", drop=FALSE])
 output$factor1 = renderUI({
 selectInput(
   'factor1',
-  HTML('1. 将数值变量转换为分类变量'),
+  HTML('将整数型量转换为分类变量'),
   selected = NULL,
   choices = type.int(),
   multiple = TRUE
@@ -72,15 +72,15 @@ type.fac1 <- reactive({
 colnames(DF1()[,var.type.list1()[,1] %in% c("factor", "binary"),drop=FALSE])
 })
 
-output$factor2 = renderUI({
-selectInput(
-  'factor2',
-  HTML('2. 将分类变量转换为数值变量'),
-  selected = NULL,
-  choices = type.fac1(),
-  multiple = TRUE
-)
-})
+# output$factor2 = renderUI({
+# selectInput(
+#   'factor2',
+#   HTML('2. 将分类变量转换为数值变量'),
+#   selected = NULL,
+#   choices = type.fac1(),
+#   multiple = TRUE
+# )
+# })
 
 DF2 <- reactive({
   df <-DF1() 
@@ -151,7 +151,11 @@ output$Xdata <- DT::renderDT(DF3(),
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "逻辑回归数据结果"),
+        list(extend = 'excel', title = "逻辑回归数据结果")
+        ),
       deferRender = TRUE,
       scrollX=TRUE,
       scrollY = 300,
@@ -161,8 +165,19 @@ type.num3 <- reactive({
 colnames(DF3()[unlist(lapply(DF3(), is.numeric))])
 })
 
+
+# DF3 <- reactive({
+
+# df <- DF3.1()  
+# # df %>% mutate_at(c(type.num3()), ~(scale(.) %>% as.vector))
+# df[,type.num3()] <- sapply(type.num3(), function(x) as.vector(scale(df[,x])))
+
+# return(df)
+
+# })
+
 type.fac3 <- reactive({
-colnames(DF3()[unlist(lapply(DF3(), is.factor))])
+colnames(DF4()[unlist(lapply(DF3(), is.factor))])
 })
 
 #output$strnum <- renderPrint({str(DF3()[,type.num3()])})
@@ -173,26 +188,34 @@ var.type.list3 <- reactive({
   var.class(DF3())
 })
 
-output$var.type <- DT::renderDT(var.type.list3(),
+output$var.type <- DT::renderDT({var.type.list3()},
   extensions = list(
       'Buttons'=NULL,
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "逻辑回归数据结果"),
+        list(extend = 'excel', title = "逻辑回归数据结果")
+        ),
       deferRender = TRUE,
       scrollX = TRUE,
       scrollY = 200,
       scroller = TRUE))
 
 
-output$sum <- DT::renderDT({desc.numeric(DF3())}, 
+output$sum <- DT::renderDT({desc.numeric(DF4())}, 
     extensions = list(
       'Buttons'=NULL,
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "逻辑回归数据结果"),
+        list(extend = 'excel', title = "逻辑回归数据结果")
+        ),
       deferRender = TRUE,
       scrollX = TRUE,
       scrollY = 200,
@@ -204,7 +227,11 @@ output$fsum = DT::renderDT({desc.factor(DF3())},
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "逻辑回归数据结果"),
+        list(extend = 'excel', title = "逻辑回归数据结果")
+        ),
       deferRender = TRUE,
       scrollX = TRUE,
       scrollY = 200,
@@ -232,8 +259,8 @@ choices = type.bi())
  
  ## scatter plot
 output$p1 = plotly::renderPlotly({
-  validate(need(input$tx, "Loading variable"))
-  validate(need(input$ty, "Loading variable"))
+  validate(need(input$tx, "等待加载"))
+  validate(need(input$ty, "等待加载"))
 
 x<-DF3()
 p<-plot_slgt(x, input$tx, input$ty, input$xlab, input$ylab)
@@ -250,13 +277,13 @@ plotly::ggplotly(p)
  })
  
 output$p2 = plotly::renderPlotly({
-    validate(need(input$hx, "Loading variable"))
+    validate(need(input$hx, "等待加载"))
    p<-plot_hist1(DF3(), input$hx, input$bin)
    plotly::ggplotly(p)
    })
 
 output$p21 = plotly::renderPlotly({
-    validate(need(input$hx, "Loading variable"))
+    validate(need(input$hx, "等待加载"))
      p<-plot_density1(DF3(), input$hx)
      plotly::ggplotly(p)
    })

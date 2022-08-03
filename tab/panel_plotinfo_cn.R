@@ -207,7 +207,48 @@ HTML(
 )
 }
 
+####==========================================================================================
 
+
+## logitstic regression
+
+tabPanel.pdfplot2 <- function(ui.id, plot.id2, plot.id3, bin.id, width = 500){
+
+tabPanel("分布图", 
+
+p(br()),
+
+# p(tags$b("正态QQ图")),
+# plotly::plotlyOutput(plot.id1, width = width),
+# p(br()),
+uiOutput(ui.id),
+
+p(tags$b("直方图")),
+plotly::plotlyOutput(plot.id2, width = width),
+p(br()),
+
+sliderInput(bin.id,"直方图的分箱数",min = 0,max = 100,value = 0),
+p("当分箱数为0时，绘图将使用默认分箱数。"),
+p(br()),
+
+
+p(tags$b("概率密度函数图")),
+plotly::plotlyOutput(plot.id3, width = width),
+p(br()),
+
+HTML(
+"
+<b> 说明 </b>
+<ul>
+<li> 直方图：通过描述某一数值范围内出现的观察值频率，粗略评估给定变量的概率分布
+<li> 密度图：估计数据的概率密度函数
+</ul>
+"
+)
+
+)
+
+}
 
 
 

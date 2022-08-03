@@ -11,7 +11,7 @@ type.bi <- reactive({
 output$y = renderUI({
 selectInput(
 'y',
-tags$b('1. 选择因变量（Y，一种二进制型变量）'),
+tags$b('1. 选择因变量（Y，二分类变量）'),
 selected = type.bi()[1],
 choices = type.bi())
 })
@@ -34,7 +34,7 @@ return(df)
 output$x = renderUI({
 shinyWidgets::pickerInput(
 'x',
-tags$b('2. 添加/删除自变量（X）'),
+tags$b('2. 添加/去掉自变量（X）'),
 selected = names(DF4()),
 choices = names(DF4()),
 multiple = TRUE,
@@ -51,7 +51,7 @@ colnames(DF4()[unlist(lapply(DF4(), is.factor))])
 output$conf = renderUI({
 shinyWidgets::pickerInput(
 'conf',
-tags$b('3 （可选）添加变量交互项'),
+tags$b('3 根据需要，选择添加分类变量交互项'),
 choices = type.fac4(),
 multiple = TRUE,
 options = shinyWidgets::pickerOptions(
@@ -69,7 +69,7 @@ output$str <- renderPrint({str(DF3())})
 
 ##3. regression formula
 formula = reactive({
-validate(need(input$x, "Please choose some independent variable"))
+validate(need(input$x, "选择自变量"))
 
 f <- paste0(input$y,' ~ ',paste0(input$x, collapse = "+"), input$intercept)
 
@@ -80,14 +80,14 @@ return(f)
 })
 
 output$formula = renderPrint({
-validate(need(input$x, "Please choose some independent variable"))
+validate(need(input$x, "选择自变量"))
 cat(formula())
 })
 
 ## 4. output results
 ### 4.2. model
 fit = eventReactive(input$B1, {
-validate(need(input$x, "Please choose some independent variable"))
+validate(need(input$x, "选择自变量"))
 glm(as.formula(formula()),family = binomial(link = "logit"), data = DF3())
 })
 
@@ -222,7 +222,11 @@ output$step = renderPrint({step(fit())})
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "逻辑回归结果"),
+        list(extend = 'excel', title = "逻辑回归结果")
+        ),
     scrollX = TRUE))
 # 
 
@@ -242,6 +246,10 @@ return(round(perf2,6))
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "逻辑回归数据结果"),
+        list(extend = 'excel', title = "逻辑回归数据结果")
+        ),
     scrollX = TRUE))
 

@@ -37,7 +37,11 @@ output$pred = DT::renderDT(pred.lm(),
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "逻辑回归预测结果"),
+        list(extend = 'excel', title = "逻辑回归预测结果")
+        ),
     scrollX = TRUE))
 
  output$p.s = plotly::renderPlotly({
@@ -68,6 +72,10 @@ return(round(perf2,6))
     extensions = 'Buttons', 
     options = list(
     dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
+    buttons = 
+      list('copy',
+        list(extend = 'csv', title = "ROC结果"),
+        list(extend = 'excel', title = "ROC结果")
+        ),
     scrollX = TRUE))
 
