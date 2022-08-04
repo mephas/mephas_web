@@ -367,6 +367,58 @@ output$downloadFRP2<-downloadHandler(filename = "FRP2.png",content = function(fi
   dev.off()
 })
 
+
+## lnDOR
+
+ml.lnDOR <- reactive(metabin(TP, with(data(), TP+FN), FP, with(data(), TN+FP), data = data(), sm ="OR", fixed = FALSE))
+tf.lndor <- reactive(trimfill(ml.lnDOR(), fixed = FALSE))
+output$ml.lnDOR_funnel<-renderPlot({funnel(tf.lndor(), xlab = "lnDOR", 
+       #pch = c(shapes, rep(1, sum(tf.lndor[["trimfill"]]))),
+       # bg = data.cc2$cutoff.grp+1,
+       # col = c(data.cc$cutoff.grp+1, rep(1, sum(tf.lndor[["trimfill"]]))),
+       cex = 1.5, studlab = FALSE, backtransf = FALSE,
+       ref = exp(ml.lnDOR()$TE.random),
+       level = 0.95,
+       contour = c(0.9, 0.95, 0.99))}
+)
+
+
+## logit-Sens
+ml.se <-reactive( metabin(TP, with(data(), TP+FN), FN, with(data(), TP+FN), data = data(), sm ="OR", fixed = FALSE))
+tf.se <- reactive(
+{
+tf.se <-trimfill(ml.se(), fixed = FALSE)
+tf.se[["TE"]] <- (tf.se[["TE"]]/2)
+tf.se[["seTE"]] <- (tf.se[["seTE"]]/sqrt(2) )
+return(tf.se)
+}
+)
+
+output$logit.Sens_plot<-renderPlot({funnel(tf.se(), xlab = "logit(sensitivity)",
+       #pch = c(shapes, rep(1, sum(tf.se[["trimfill"]]))),
+       #bg = data.cc2$cutoff.grp+1,
+       cex = 1.5, studlab = FALSE, backtransf = FALSE,
+       ref = exp(ml.se()$TE.random),
+       level = 0.95,
+       contour = c(0.9, 0.95, 0.99)
+)
+})
+
+# ## logit-Spec
+ml.sp <- reactive(metabin(TN, with(data(), TN+FP), FP, with(data(), TN+FP), data = data(), sm ="OR", fixed = FALSE))
+tf.sp <- reactive({
+ tf.sp<- trimfill(ml.sp(), fixed = FALSE)
+tf.sp[["TE"]] <- tf.sp[["TE"]]/2
+tf.sp[["seTE"]] <- tf.sp[["seTE"]]/sqrt(2)
+tf.sp })
+output$logit.Spec_plot<-renderPlot(funnel(tf.sp(), xlab = "logit(specificity)", fixed = FALSE,
+       #pch = c(shapes, rep(1, sum(tf.sp[["trimfill"]]))),
+       #bg = data.cc2$cutoff.grp+1,
+       cex = 1.5, studlab = FALSE, backtransf = FALSE,
+       ref = exp(ml.sp()$TE.random),
+       level = 0.95,
+       contour = c(0.9, 0.95, 0.99)
+))
 #sroc B plot setting=====================
 output$srocBsetting_curve<-renderUI({
   ui.plot_srocline_drop("c1c2_estimate",p.seq())
@@ -580,15 +632,15 @@ sauc_ggplot<-function(plot_id,title="(A) C1,C2 estimate"){
     ylim(0,1)+
     xlim(0.1,1)+
     ggtitle(title)+
-    theme(title= element_text(size = 16))+
+    #theme(title= element_text(size = 16))+
     geom_point()+
     geom_line()
   p
 }
 sauc_ggplot_b<-function(plot_id,c1.square,title="C1,C2"){
   est.sauc<-sapply(p.10,function(x)esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)%>%t()
-  data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc[,"sauc"],est.sauc[,"sauc.lb"],est.sauc[,"sauc.ub"]),sauctype=c(rep("sauc",length(p.10)),rep("sauc.lb",length(p.10)),rep("sauc.ub",length(p.10))))
-  p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+eval(call(input$ggplot_theme))+
+  data<-data.frame(p=c(p.10,p.10,p.10),Sauc=c(est.sauc[,"sauc"],est.sauc[,"sauc.lb"],est.sauc[,"sauc.ub"]),sauctype=c(rep("sauc",length(p.10)),rep("sauc.lb",length(p.10)),rep("sauc.ub",length(p.10))))
+  p<-ggplot(data = data,mapping = aes(x=p,y=Sauc,colour=sauctype))+eval(call(input$ggplot_theme))+
     ylim(0,1)+
     xlim(0.1,1)+
     ggtitle(title)+

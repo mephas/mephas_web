@@ -30,14 +30,14 @@ sidebarLayout(
 			   value = TRUE,
 
 			  ),
-        h4(textInput("xlim","xlim","1-sp"),textInput("ylim","ylim","se")),
+        h4(textInput("xlim","Label of the x-axis","1-Specificity"),textInput("ylim","Label of the y-axis","Sensitivity")),
     	conditionalPanel(condition="input.batch==true",
-    		shinyWidgets::colorPickr("each_point_color","Each study point colour",selected="#47848C"),
+    		shinyWidgets::colorPickr("each_point_color","Each study point colour",selected="#000000"),#47848C
   			sliderInput("each_point_radius","Each Point Radius",min = 0,max=10,value = 3),
-  			sliderInput("each_point_shape","Each Point Shape",min = 0,max=25,value = 20),
+  			sliderInput("each_point_shape","Each Point Shape",min = 0,max=25,value = 1),
             shinyWidgets::colorPickr("sroc_point_color","Summary Point Colour",selected="#0A99BD"),
             sliderInput("sroc_point_radius","Summary Point Radius",min = 0,max=10,value = 5),
-            sliderInput("sroc_point_shape","Summary Point Shape",min = 0,max=25,value = 1),
+            sliderInput("sroc_point_shape","Summary Point Shape",min = 0,max=25,value = 18),
             shinyWidgets::colorPickr("sroc_curve_color","SROC Curve color",selected="#39377A"),
             sliderInput("sroc_curve_thick","SROC Curve thickness",min = 0,max=10,value = 1),
             sliderTextInput(paste0("sroc_curve_shape"),grid = TRUE,label =  "SROC Curve shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")
@@ -95,6 +95,11 @@ sidebarLayout(
                              column(width=6,plotly::plotlyOutput("sauc_gg_c10")),
                              column(width=6,plotly::plotlyOutput("sauc_gg_c01"))
                            ),
+      tabPanel("Funnel plot",
+        p(plotOutput("ml.lnDOR_funnel",width=500),downloadButton("mo"),downloadButton("momof")),plotOutput("logit.Sens_plot",width=500),plotOutput("logit.Spec_plot",width=500)
+
+
+        ),
                            tabPanel("Results",column(width = 12,h4("Logit-transformed Data"),DT::dataTableOutput("LogitData")
                                                      ,h4("Results"),DT::dataTableOutput("Results"))),
                            tabPanel("Plot Summary",

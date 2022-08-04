@@ -10,6 +10,8 @@ if (!requireNamespace("mada", quietly = TRUE)) {install.packages("mada")}; requi
 if (!requireNamespace("dtametasa", quietly = TRUE)) {install.packages("dtametasa")}; require("dtametasa",quietly = TRUE)
 if (!requireNamespace("stats", quietly = TRUE)) {install.packages("stats")}; require("stats",quietly = TRUE)
 library("shinyAce")
+library("bsplus")
+library("htmltools")
 source("function.R")
 #source("./ui_dtameta.R",local = TRUE)
 source("./ui_uni.R",local = TRUE)

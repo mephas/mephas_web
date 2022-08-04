@@ -28,15 +28,30 @@ sidebarLayout(
                  ,mode = "r"
                  ,theme="eclipse"
       ),
-
+      #aceEditor("k","m",mode="html",maxLines=1),aceTooltip("k"),
       numericInput("ci.level", label = "Confidence interval level", value = 0.95, min = 0.01, max = 0.99),
 
       selectInput("ci.method", label = "Methods for confidence interval", 
       choices = list("wald" = "wald", "wilson" = "wilson", "agresti-coull" = "agresti-coull", "jeffreys" = "jeffreys",
         "modified wilson" = "modified wilson", "modified jeffreys" = "modified jeffreys", "clopper-pearson" = "clopper-pearson", 
         "arcsine" = "arcsine", "logit" = "logit", "witting" = "witting"), 
-      selected = "wald")
-      ,
+      selected = "wald"),
+#       selectInput(
+#     inputId = "letter",
+#     label = "Label with popover help",
+#     choices = c("a", "b", "c")
+#   ) %>%
+#   shinyInput_label_embed(
+#     shiny_iconlink() %>%
+#     bs_embed_popover(
+#       title = '<div class="media"><img src="mochi.jpg" height="70" width="90"/></div>',content=HTML('<div class="media"><img src="mochi.jpg" height="70" width="90"/></div>')  #,img(src="mochi.jpg", height = 70, width = 90)'
+#       , placement = "left"
+#     )),
+#      use_bs_tooltip(),
+#    use_bs_popover(),
+#    withMathJax(),img(src="mochi.jpg", height = 70, width = 90),
+# p(HTML("<b>UU</b>"),span(shiny::icon("info-circle"), id = "info_uu"),numericInput('uu', NULL, 10000),
+#                              tippy::tippy_this(elementId = "info_uu",tooltip = "Number of Unique Users of your experiment",placement = "right")),
   icon("keyboard"),
   icon("calendar"),
   icon = icon("calendar"),
