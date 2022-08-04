@@ -822,7 +822,7 @@ output$sauc<-renderPlot({
                  matplot(t(est.sauc2),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                          ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                  title(TeX("$(\\hat{c}_1, \\, \\hat{c}_2)$"), cex.main = title.cex)
-                 axis(1, at = 1:10, labels = p.10)
+                 axis(1, at = 1:length(p.10), labels = p.10)
                  axis(2, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2))
                  abline(h=0.5, col="grey54", lty=2)
                  title("(E)", adj = 0, font.main = 1, cex.main = title.cex)
@@ -835,7 +835,7 @@ output$sauc<-renderPlot({
                  matplot(t(est.sauc2),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                          ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                  title(TeX("$(c_1, \\,c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$"), cex.main = title.cex)
-                 axis(1, at = 1:10, labels = p.10)
+                 axis(1, at = 1:length(p.10), labels = p.10)
                  abline(h=0.5, col="grey54", lty=2)
                  title("(F)", adj = 0, font.main = 1, cex.main = title.cex)
                  title(xlab = "p", line=2, cex = 0.7) 
@@ -843,7 +843,7 @@ output$sauc<-renderPlot({
                  matplot(t(est.sauc2),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                          ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                  title(TeX("$(c_1, \\,c_2) = (1, \\,0)$"), cex.main = title.cex)
-                 axis(1, at = 1:10, labels = p.10)
+                 axis(1, at = 1:length(p.10), labels = p.10)
                  axis(2, at = seq(0.4,1, 0.2), labels = seq(0.4,1, 0.2))
                  abline(h=0.5, col="grey54", lty=2)
                  title("(G)", adj = 0, font.main = 1, cex.main = title.cex)
@@ -857,7 +857,7 @@ output$sauc<-renderPlot({
                  matplot(t(est.sauc2),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                          ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                  title(TeX("$(c_1, \\,c_2) = (0, \\,1)$"), cex.main = title.cex)
-                 axis(1, at = 1:10, labels = p.10)
+                 axis(1, at = 1:length(p.10), labels = p.10)
                  axis(4, at = seq(0.4,1, 0.2), labels = seq(0.4,1, 0.2))
                  abline(h=0.5, col="grey54", lty=2)
                  title("(H)", adj = 0, font.main = 1, cex.main = title.cex)
@@ -877,7 +877,7 @@ output$downloadsauc <- downloadHandler(filename ="dtametasa_fc.png",contentType 
                                          matplot(t(est.r(c1.square = 0.5,par = "sauc.ci",p = p.10)),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                                                  ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                                          title(TeX("$(\\hat{c}_1, \\, \\hat{c}_2)$"), cex.main = title.cex)
-                                         axis(1, at = 1:10, labels = p.10)
+                                         axis(1, at = 1:length(p.10), labels = p.10)
                                          axis(2, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2))
                                          abline(h=0.5, col="grey54", lty=2)
                                          title("(E)", adj = 0, font.main = 1, cex.main = title.cex)
@@ -889,14 +889,14 @@ output$downloadsauc <- downloadHandler(filename ="dtametasa_fc.png",contentType 
                                          matplot(t(est.f(c1.square = 0.5,par = "sauc.ci",p = p.10)),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                                                  ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                                          title(TeX("$(c_1, \\,c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$"), cex.main = title.cex)
-                                         axis(1, at = 1:10, labels = p.10)
+                                         axis(1, at = 1:length(p.10), labels = p.10)
                                          abline(h=0.5, col="grey54", lty=2)
                                          title("(F)", adj = 0, font.main = 1, cex.main = title.cex)
                                          title(xlab = "p", line=2, cex = 0.7)
                                          matplot(t(est.f(c1.square = 1,par = "sauc.ci",p = p.10)),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                                                  ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                                          title(TeX("$(c_1, \\,c_2) = (1, \\,0)$"), cex.main = title.cex)
-                                         axis(1, at = 1:10, labels = p.10)
+                                         axis(1, at = 1:length(p.10), labels = p.10)
                                          axis(2, at = seq(0.4,1, 0.2), labels = seq(0.4,1, 0.2))
                                          abline(h=0.5, col="grey54", lty=2)
                                          title("(G)", adj = 0, font.main = 1, cex.main = title.cex)
@@ -908,7 +908,7 @@ output$downloadsauc <- downloadHandler(filename ="dtametasa_fc.png",contentType 
                                          matplot(t(est.f(c1.square = 0,par = "sauc.ci",p = p.10)),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
                                                  ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
                                          title(TeX("$(c_1, \\,c_2) = (0, \\,1)$"), cex.main = title.cex)
-                                         axis(1, at = 1:10, labels = p.10)
+                                         axis(1, at = 1:length(p.10), labels = p.10)
                                          axis(4, at = seq(0.4,1, 0.2), labels = seq(0.4,1, 0.2))
                                          abline(h=0.5, col="grey54", lty=2)
                                          title("(H)", adj = 0, font.main = 1, cex.main = title.cex)
