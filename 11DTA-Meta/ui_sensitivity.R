@@ -19,6 +19,8 @@ sidebarLayout(
       yes = icon("ok",
                  lib = "glyphicon"))
   	),
+
+    hr(),
     pickerInput(inputId="sensisetting","Setting switch Tab",
     	choices=c("SROC","SAUC","Results","Plot Summary","Reproducible R codes")
     	),
@@ -58,9 +60,24 @@ sidebarLayout(
         ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve"))
     	),
 	conditionalPanel(condition="input.sensisetting=='Reproducible R codes'",
-    	
+    	radioGroupButtons(
+                inputId = "Rmd_document",
+                label = "Choose document type",
+                # choiceNames = c("Correction for sigle study", "Correction for all studies"),
+                # choiceValues = c("single", "all"),
+                choices=c("html","pdf","word"),
+                selected = "html",
+                justified = TRUE,
+                checkIcon = list(
+                  yes = icon("ok", lib = "glyphicon")),
+                direction = "horizontal"
+              ),
+        textInput("Rmd_title","Rmd title","DTA-Meta")
     	),
-	h4(pickerInput(inputId="ggplot_theme",
+    br(),
+    h4(
+        hr(),
+        pickerInput(inputId="ggplot_theme",
         label="select plot theme",
         choices=paste0("theme_",c("bw","classic","light","linedraw","minimal","test","void","default")))
     )),

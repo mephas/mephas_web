@@ -39,8 +39,32 @@ plot(pressure)
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 "
 )})
-rmd_read<-reactive(readLines("momo.Rmd"))
-output$Rmd<-reactive(sprintf(paste(rmd_read(),collapse="\n"),paste(p.seq(),collapse=","),input$Sauc1))
+#rmd_read<-reactive(readLines("ReproduceScript.Rmd"))
+
+output$Rmd<-reactive({
+
+  p<-paste(p.seq(),collapse=",")
+  sauc.type<-input$Sauc1
+  file<-input$filer
+  if(is.null(file)) filename<-"filename"
+  else filename<-basename(input$filer$datapath)
+  # sprintf(,p,sauc.type,filename)
+  # paste(rmd_read(),collapse="\n")
+  val<-0
+  value<-c(input$Rmd_title,input$Rmd_document,p,sauc.type,filename)
+  con_file <- file(description = "ReproduceScript.Rmd", open = "r")
+  lines<-sapply(1:40, function(x) {
+    line <- readLines(con_file, n = 1)
+    if(length(line) == 0) break
+    if(length(grep("%s",line))>0) {
+      val<<-val+1
+      return(sprintf(line,value[val]))
+    }
+    line
+    })
+  close(con_file)
+  paste(lines,collapse="\n")
+  })
 output$rmddownload<-downloadHandler(
   filename = input$rmdname,
   content = function(file){
