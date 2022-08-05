@@ -5,11 +5,11 @@ function(input, output, session) {
 	
 #source("../tab/func.R")
 ##########----------##########----------##########
-source("server_data.R", local=TRUE)$value
+source("server_data.R", local=TRUE, encoding = "utf-8")$value
 
-source("server_model.R", local=TRUE)$value
+source("server_model.R", local=TRUE, encoding = "utf-8")$value
 
-source("server_pr.R", local=TRUE)$value
+source("server_pr.R", local=TRUE, encoding = "utf-8")$value
 
 ##########----------##########----------##########
 

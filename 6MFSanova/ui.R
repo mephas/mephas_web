@@ -64,9 +64,9 @@ The study measured the forced mid-expiatory flow (FEF). We wanted to the know th
 ),
 
 hr(),
-source("ui_1.R", local=TRUE)$value,
+source("ui_1.R", local=TRUE, encoding = "utf-8")$value,
 hr(),
-source("ui_1m.R", local=TRUE)$value,
+source("ui_1m.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 
 ),
@@ -112,9 +112,9 @@ We wanted to know the effect of dietary group and sex on the SBP and whether the
 ),
 
 hr(),
-source("ui_2.R", local=TRUE)$value,
+source("ui_2.R", local=TRUE, encoding = "utf-8")$value,
 hr(),
-source("ui_2m.R", local=TRUE)$value,
+source("ui_2m.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 ),
 #
@@ -157,9 +157,9 @@ We wanted to the know the FEF differences among the 6 groups.
 )
 ),
 hr(),
-source("ui_np1.R", local=TRUE)$value,
+source("ui_np1.R", local=TRUE, encoding = "utf-8")$value,
 hr(),
-source("ui_np1m.R", local=TRUE)$value,
+source("ui_np1m.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 ),
 

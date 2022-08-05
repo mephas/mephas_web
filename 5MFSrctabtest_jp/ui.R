@@ -58,7 +58,7 @@ HTML("
 ),
 hr(),
 
-source("ui_1_chi.R", local=TRUE)$value,
+source("ui_1_chi.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 ),
@@ -98,7 +98,7 @@ HTML("
 ),
 hr(),
 
-source("ui_2_fisher.R", local=TRUE)$value,
+source("ui_2_fisher.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 ),
 
@@ -146,7 +146,7 @@ HTML("
 ),
 hr(),
 
-source("ui_3_mcnemar.R", local=TRUE)$value,
+source("ui_3_mcnemar.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 ),
@@ -186,7 +186,7 @@ HTML("
 ),
 hr(),
 
-source("ui_4_2cchi.R", local=TRUE)$value,
+source("ui_4_2cchi.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 ),
@@ -229,7 +229,7 @@ HTML("
 ),
 
 hr(),
-source("ui_5_rcchi.R", local=TRUE)$value,
+source("ui_5_rcchi.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 ),
 
@@ -265,7 +265,7 @@ HTML(
 ),
 
 hr(),
-source("ui_6_2kappa.R", local=TRUE)$value,
+source("ui_6_2kappa.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 
@@ -310,7 +310,7 @@ HTML(
 ),
 
 hr(),
-source("ui_7_kappa.R", local=TRUE)$value,
+source("ui_7_kappa.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 
@@ -354,7 +354,7 @@ HTML(
 ),
 
 hr(),
-source("ui_8_mh.R", local=TRUE)$value,
+source("ui_8_mh.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 
@@ -396,7 +396,7 @@ HTML(
 ),
 
 hr(),
-source("ui_9_cmh.R", local=TRUE)$value,
+source("ui_9_cmh.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 

@@ -8,10 +8,10 @@ if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shiny
 if (!require("dplyr")) {install.packages("dplyr")}; library("dplyr")
 
 
-source("../tab/tab_cn.R")
-source("../tab/panel_cn.R")
-source("../tab/panel_plotinfo_cn.R")
-source("../tab/func.R")
+source("../tab/tab_cn.R", encoding="utf-8")
+source("../tab/panel_cn.R", encoding="utf-8")
+source("../tab/panel_plotinfo_cn.R", encoding="utf-8")
+source("../tab/func.R", encoding="utf-8")
 
 tagList(
 
@@ -68,7 +68,7 @@ HTML(
 
 hr(),
 
-source("ui_1.R", local=TRUE)$value,
+source("ui_1.R", local=TRUE, encoding="utf-8")$value,
 
 hr()
 
@@ -117,7 +117,7 @@ HTML(
 
 hr(),
 
-source("ui_2.R", local=TRUE)$value,
+source("ui_2.R", local=TRUE, encoding="utf-8")$value,
 
 hr()
 
@@ -176,7 +176,7 @@ HTML(
 
 hr(),
 
-source("ui_p.R", local=TRUE)$value,
+source("ui_p.R", local=TRUE, encoding="utf-8")$value,
 hr()
 
 ),

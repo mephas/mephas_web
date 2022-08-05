@@ -63,9 +63,9 @@ HTML(
 ),
 
 hr(),
-source("ui_1.R", local=TRUE)$value,
+source("ui_1.R", local=TRUE, encoding = "utf-8")$value,
 hr(),
-source("ui_1m.R", local=TRUE)$value,
+source("ui_1m.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 
 ),
@@ -110,9 +110,9 @@ HTML(
 ),
 
 hr(),
-source("ui_2.R", local=TRUE)$value,
+source("ui_2.R", local=TRUE, encoding = "utf-8")$value,
 hr(),
-source("ui_2m.R", local=TRUE)$value,
+source("ui_2m.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 ),
 #
@@ -155,9 +155,9 @@ HTML(
 )
 ),
 hr(),
-source("ui_np1.R", local=TRUE)$value,
+source("ui_np1.R", local=TRUE, encoding = "utf-8")$value,
 hr(),
-source("ui_np1m.R", local=TRUE)$value,
+source("ui_np1m.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 ),
 

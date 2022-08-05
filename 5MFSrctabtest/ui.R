@@ -61,7 +61,7 @@ We wanted to determine if OC use was significantly associated with higher MI inc
 ),
 hr(),
 
-source("ui_1_chi.R", local=TRUE)$value,
+source("ui_1_chi.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 ),
@@ -104,7 +104,7 @@ We wanted to determine if CVD was significantly associated with a high salt diet
 ),
 hr(),
 
-source("ui_2_fisher.R", local=TRUE)$value,
+source("ui_2_fisher.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 ),
 
@@ -156,7 +156,7 @@ In 16 pairs, only group after treatment A were better; in 5 pairs, only group af
 ),
 hr(),
 
-source("ui_3_mcnemar.R", local=TRUE)$value,
+source("ui_3_mcnemar.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 ),
@@ -197,7 +197,7 @@ We wanted to know if the probability of having cancer was different among differ
 ),
 hr(),
 
-source("ui_4_2cchi.R", local=TRUE)$value,
+source("ui_4_2cchi.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 ),
@@ -241,7 +241,7 @@ We wanted to know if the treatments had a significant association with the respo
 ),
 
 hr(),
-source("ui_5_rcchi.R", local=TRUE)$value,
+source("ui_5_rcchi.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 ),
 
@@ -278,7 +278,7 @@ We wanted to check if the two answers were reproducible or whether the two surve
 ),
 
 hr(),
-source("ui_6_2kappa.R", local=TRUE)$value,
+source("ui_6_2kappa.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 
@@ -324,7 +324,7 @@ We wanted to know whether the surveys were good in concordant response.
 ),
 
 hr(),
-source("ui_7_kappa.R", local=TRUE)$value,
+source("ui_7_kappa.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 
@@ -367,7 +367,7 @@ We wanted to know if passive smoking significantly related to cancer risk after 
 ),
 
 hr(),
-source("ui_8_mh.R", local=TRUE)$value,
+source("ui_8_mh.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 
@@ -410,7 +410,7 @@ We wanted to know if ages significantly related to snoring after controlling gen
 ),
 
 hr(),
-source("ui_9_cmh.R", local=TRUE)$value,
+source("ui_9_cmh.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 

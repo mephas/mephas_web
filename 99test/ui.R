@@ -69,7 +69,7 @@ N(0, 1) の形を確認し、 1. Pr(X < x<sub>0</sub>) = 0.025のときのx<sub>
 
 hr(),
 
-source("ui_N.R", local=TRUE)$value,
+source("ui_N.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 ),
@@ -104,7 +104,7 @@ HTML(
 
 hr(),
 
-source("ui_E.R", local=TRUE)$value,
+source("ui_E.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 ),
@@ -139,7 +139,7 @@ HTML(
 
 hr(),
 
-source("ui_G.R", local=TRUE)$value,
+source("ui_G.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 ),
@@ -174,7 +174,7 @@ HTML(
 
 hr(),
 
-source("ui_B.R", local=TRUE)$value,
+source("ui_B.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 ),
@@ -209,7 +209,7 @@ HTML(
 
 hr(),
 
-source("ui_T.R", local=TRUE)$value,
+source("ui_T.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 ),
@@ -244,7 +244,7 @@ HTML(
 
 hr(),
 
-source("ui_Chi.R", local=TRUE)$value,
+source("ui_Chi.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 ),
@@ -278,7 +278,7 @@ HTML(
 
 hr(),
 
-source("ui_F.R", local=TRUE)$value,
+source("ui_F.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 ),

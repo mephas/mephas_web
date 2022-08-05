@@ -49,7 +49,7 @@ HTML(
 )
 ),
 hr(),
-source("ui_bio.R", local=TRUE)$value,
+source("ui_bio.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 
 ),
@@ -79,7 +79,7 @@ HTML(
 )
 ),
 hr(),
-source("ui_poi.R", local=TRUE)$value,
+source("ui_poi.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 
 ),

@@ -9,7 +9,7 @@ library(bitr)
   function(input, output, session) {
 
 #panel 0 num
-    source("0_datainput_server.R", local=TRUE,encoding = "utf-8")$value
+    source("0_datainput_server.R", local=TRUE, encoding = "utf-8")$value
 
     
 ##########----------##########----------##########

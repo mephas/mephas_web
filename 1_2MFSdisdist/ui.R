@@ -49,7 +49,7 @@ HTML(
 )
 ),
 hr(),
-source("ui_bio.R", local=TRUE)$value,
+source("ui_bio.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 
 ),
@@ -80,7 +80,7 @@ What is the probability distribution of the number of deaths over a 6-month peri
 )
 ),
 hr(),
-source("ui_poi.R", local=TRUE)$value,
+source("ui_poi.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 
 ),

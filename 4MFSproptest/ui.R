@@ -62,7 +62,7 @@ Among 40 women who got the treatment, 10 were still infertile. We wanted to know
 
 hr(),
 
-source("ui_1.R", local=TRUE)$value,
+source("ui_1.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 
 ),
@@ -98,7 +98,7 @@ We wanted to know if the underlying probability of having first birth over 30 ye
 ),
 hr(),
 
-source("ui_2.R", local=TRUE)$value,
+source("ui_2.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 
 
@@ -136,7 +136,7 @@ We wanted to know if the probability of having cancer were different among diffe
 ),
 hr(),
 
-source("ui_3.R", local=TRUE)$value,
+source("ui_3.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 ),
 
@@ -172,7 +172,7 @@ In this example, we wanted to know if the rate of having cancer tended from smal
 ),
 hr(),
 
-source("ui_t.R", local=TRUE)$value,
+source("ui_t.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 
 ),

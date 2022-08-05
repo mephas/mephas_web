@@ -61,7 +61,7 @@ HTML(
 
 hr(),
 
-source("ui_1.R", local=TRUE)$value,
+source("ui_1.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 
@@ -105,7 +105,7 @@ HTML(
 
 hr(),
 
-source("ui_2.R", local=TRUE)$value,
+source("ui_2.R", local=TRUE, encoding = "utf-8")$value,
 
 hr()
 
@@ -159,7 +159,7 @@ HTML(
 
 hr(),
 
-source("ui_p.R", local=TRUE)$value,
+source("ui_p.R", local=TRUE, encoding = "utf-8")$value,
 hr()
 
 ),
