@@ -6,7 +6,7 @@ if (!require("DT")) {install.packages("DT")}; library("DT")
 if (!require("plotly")) {install.packages("plotly")}; library("plotly")
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 if (!require("dplyr")) {install.packages("dplyr")}; library("dplyr")
-
+Sys.setlocale(locale = "Chinese")
 
 source("../tab/tab_cn.R", encoding="utf-8")
 source("../tab/panel_cn.R", encoding="utf-8")

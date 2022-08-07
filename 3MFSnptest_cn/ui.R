@@ -11,6 +11,7 @@ source("../tab/tab_cn.R", encoding="utf-8")
 source("../tab/panel_cn.R", encoding="utf-8")
 source("../tab/panel_plotinfo_cn.R", encoding="utf-8")
 source("../tab/func.R", encoding="utf-8")
+Sys.setlocale(locale = "Chinese")
 
 tagList(
 includeCSS("../www/style_cn.css"),
