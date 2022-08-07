@@ -47,12 +47,12 @@ h4(tags$b("第2步 创建生存对象")),
 uiOutput('c'),
 
   selectInput(
-      "time", "2. 选择生存时间类型",
-      c("右删失时间" = "A",
-        "左截断右截尾时间" = "B"
+      "time", "2. 选择时间数据格式",
+      c("时间区间" = "A",
+        "开始时间和结束时间" = "B"
         )),
-  p("右删失时间只需要1个持续时间/后续变量"),
-  p("左截断右截尾时间需要开始时间和结束时间变量"),
+  p("时间区间只有一个时间变量"),
+  p("开始时间和结束时间需要两个时间变变量"),
 
 
 conditionalPanel(
@@ -81,15 +81,15 @@ h4(tags$b("更改某个变量的类型？")),
 
 uiOutput("factor1"),
 
-uiOutput("factor2"),
+# uiOutput("factor2"),
 
-h4(tags$b("是否更改分类变量的参考级别？")),
+# h4(tags$b("是否更改分类变量的参考级别？")),
 
-uiOutput("lvl"),
+# uiOutput("lvl"),
 
-p(tags$b("2. 输入参考级别，每行为一个变量")),
+# p(tags$b("2. 输入参考级别，每行为一个变量")),
 
-tags$textarea(id='ref', column=40, ""),
+# tags$textarea(id='ref', column=40, ""),
 
 hr(),
 
@@ -102,7 +102,7 @@ p(br()),
 #h4(tags$b(actionLink("Parametric Model","Build Parametric Model")))
 #h4(tags$b("Build Model in the Next Tab"))
 
-actionButton("Non-Parametric Model", "构建Kaplan-Meier模型 >>",class="btn btn-primary",icon("location-arrow")),p(br()),
+actionButton("Non-Parametric Model", "Kaplan-Meier估计 >>",class="btn btn-primary",icon("location-arrow")),p(br()),
 actionButton("Semi-Parametric Model", "构建Cox模型 >>",class="btn btn-primary",icon("location-arrow")),p(br()),
 actionButton("Parametric Model", "构建AFT模型 >>",class="btn btn-primary",icon("location-arrow")),p(br()),
 
@@ -160,19 +160,20 @@ tabPanel("生命表",  p(br()),
 DT::DTOutput("kmat")
      ),
 
-tabPanel("直方图和密度分布图", p(br()),
+tabPanel.pdfplot2("hx", "p2", "p21", "bin")
+# tabPanel("直方图和密度分布图", p(br()),
 
-HTML("<p><b>直方图</b>：通过描述某一数值范围内出现的观察值频率，粗略显示一个变量的概率分布。</p>"),
-HTML("<p><b>密度图</b>：显示变量的分布。</p>"),
-hr(),
+# HTML("<p><b>直方图</b>：通过描述某一数值范围内出现的观察值频率，粗略显示一个变量的概率分布。</p>"),
+# HTML("<p><b>密度图</b>：显示变量的分布。</p>"),
+# hr(),
 
-uiOutput('hx'),
-p(tags$b("直方图")),
-plotly::plotlyOutput("p2"),
-sliderInput("bin", "直方图的分箱数", min = 0, max = 100, value = 0),
-p("当分箱数为0时，绘图将使用默认分箱数"),
-p(tags$b("密度图")),
-plotly::plotlyOutput("p21"))
+# uiOutput('hx'),
+# p(tags$b("直方图")),
+# plotly::plotlyOutput("p2"),
+# sliderInput("bin", "直方图的分箱数", min = 0, max = 100, value = 0),
+# p("当分箱数为0时，绘图将使用默认分箱数"),
+# p(tags$b("密度图")),
+# plotly::plotlyOutput("p21"))
 
 )
 

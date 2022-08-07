@@ -38,7 +38,7 @@ colnames(DF0()[unlist(lapply(DF0(), is.numeric))])
 output$factor1 = renderUI({
 selectInput(
   'factor1',
-  HTML('1. 将数值变量转换为分类变量'),
+  HTML('1. 将整数型数值变量转换为分类变量'),
   selected = NULL,
   choices = type.num0(),
   multiple = TRUE
