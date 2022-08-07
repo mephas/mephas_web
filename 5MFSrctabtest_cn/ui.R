@@ -5,10 +5,10 @@ if (!require("DT")) {install.packages("DT")}; library(DT)
 if (!require("plotly")) {install.packages("plotly")}; library("plotly")
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
-source("../tab/tab_cn.R")
-source("../tab/panel_cn.R")
-source("../tab/panel_plotinfo_cn.R")
-source("../tab/func.R")
+source("../tab/tab_cn.R", encoding="utf-8")
+source("../tab/panel_cn.R", encoding="utf-8")
+source("../tab/panel_plotinfo_cn.R", encoding="utf-8")
+source("../tab/func.R", encoding="utf-8")
 
 tagList(
 

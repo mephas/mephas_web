@@ -5,10 +5,10 @@ if (!requireNamespace("plotly",quietly = TRUE)) {install.packages("plotly")}; re
 #if (!require("psych")) {install.packages("psych")}; library("psych")
 #if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
-source("../tab/tab_cn.R")
-source("../tab/panel_cn.R")
-source("../tab/func.R")
-source("../tab/func2.R")
+source("../tab/tab_cn.R", encoding="utf-8")
+source("../tab/panel_cn.R", encoding="utf-8")
+source("../tab/func.R", encoding="utf-8")
+source("../tab/func2.R", encoding="utf-8")
 
 tagList(
 

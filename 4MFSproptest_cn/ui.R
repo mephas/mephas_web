@@ -6,10 +6,10 @@ if (!requireNamespace("ggplot2",quietly = TRUE)) {install.packages("ggplot2")}; 
 if (!requireNamespace("plotly",quietly = TRUE)) {install.packages("plotly")}; require("plotly",quietly = TRUE)
 #if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
-source("../tab/tab_cn.R")
-source("../tab/panel_cn.R")
-source("../tab/panel_plotinfo_cn.R")
-source("../tab/func.R")
+source("../tab/tab_cn.R", encoding="utf-8")
+source("../tab/panel_cn.R", encoding="utf-8")
+source("../tab/panel_plotinfo_cn.R", encoding="utf-8")
+source("../tab/func.R", encoding="utf-8")
 
 tagList(
 
