@@ -5,6 +5,7 @@ if (!requireNamespace("ggplot2",quietly = TRUE)) {install.packages("ggplot2")}; 
 #if (!require("DT")) {install.packages("DT")}; library("DT")
 if (!requireNamespace("plotly",quietly = TRUE)) {install.packages("plotly")}; require("plotly",quietly = TRUE)
 #if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
+Sys.setlocale(locale = "Chinese")
 
 source("../tab/tab_cn.R", encoding="utf-8")
 source("../tab/panel_cn.R", encoding="utf-8")

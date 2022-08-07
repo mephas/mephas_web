@@ -100,7 +100,7 @@ p(tags$b("3.  更改X轴和Y轴名称")),
 tags$textarea(id = "xlab", rows = 1, "X"),
 tags$textarea(id = "ylab", rows = 1, "Y"),p(br()),
 
-plotly::plotlyOutput("p1")
+plotly::plotlyOutput("p1", width = 700)
 ),
 
 tabPanel.pdfplot2("hx", "p2", "p21", "bin")

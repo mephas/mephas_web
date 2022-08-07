@@ -136,7 +136,7 @@ HTML(
 
 </ul>"
 ),
-plotly::plotlyOutput("p.lm"),
+plotly::plotlyOutput("p.lm", width = 700),
 DT::DTOutput("sst")
     )
 

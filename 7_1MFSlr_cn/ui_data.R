@@ -34,28 +34,28 @@ tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quot
 
   ),
 
-hr(),
-  shinyWidgets::prettySwitch(
-   inputId = "transform",
-   label = "是否对数据进行变换？", 
-   status = "info",
-   fill = TRUE
-  ),
+# hr(),
+  # shinyWidgets::prettySwitch(
+  #  inputId = "transform",
+  #  label = "是否对数据进行变换？", 
+  #  status = "info",
+  #  fill = TRUE
+  # ),
 
 hr(),
 
 h4(tags$b("更改某些变量的类型？")),
 
 uiOutput("factor1"),
-uiOutput("factor2"),
+# uiOutput("factor2"),
 
-h4(tags$b("是否更改分类变量的参考级别？")),
+# h4(tags$b("是否更改分类变量的参考级别？")),
 
-uiOutput("lvl"),
+# uiOutput("lvl"),
 
-p(tags$b("2. 输入参考级别，每行为一个变量")),
+# p(tags$b("2. 输入参考级别，每行为一个变量")),
 
-tags$textarea(id='ref',""),
+# tags$textarea(id='ref',""),
 hr(),
 
 uiOutput("rmrow"),
@@ -111,22 +111,24 @@ p(tags$b("3. 更改X轴和Y轴标签")),
 tags$textarea(id = "xlab", rows = 1, "X"),
 tags$textarea(id = "ylab", rows = 1, "Y"),
 
-plotly::plotlyOutput("p1")
+plotly::plotlyOutput("p1", width = 700)
 ),
 
-tabPanel("直方图和密度分布图", p(br()),
+tabPanel.pdfplot2("hx", "p2", "p21", "bin")
 
-HTML("<p><b>直方图</b>：通过描述某一数值范围内出现的观察值频率，粗略显示一个变量的概率分布。</p>"),
-HTML("<p><b>密度图</b>：显示变量的分布。</p>"),
-hr(),
+# tabPanel("直方图和密度分布图", p(br()),
 
-uiOutput('hx'),
-p(tags$b("Histogram")),
-plotly::plotlyOutput("p2"),
-sliderInput("bin", "直方图的分箱数", min = 0, max = 100, value = 0),
-p("当分箱数为0时，绘图将使用默认分箱数"),
-p(tags$b("Density plot")),
-plotly::plotlyOutput("p21"))
+# HTML("<p><b>直方图</b>：通过描述某一数值范围内出现的观察值频率，粗略显示一个变量的概率分布。</p>"),
+# HTML("<p><b>密度图</b>：显示变量的分布。</p>"),
+# hr(),
+
+# uiOutput('hx'),
+# p(tags$b("Histogram")),
+# plotly::plotlyOutput("p2"),
+# sliderInput("bin", "直方图的分箱数", min = 0, max = 100, value = 0),
+# p("当分箱数为0时，绘图将使用默认分箱数"),
+# p(tags$b("Density plot")),
+# plotly::plotlyOutput("p21"))
 
 ))
 ##########----------##########----------##########

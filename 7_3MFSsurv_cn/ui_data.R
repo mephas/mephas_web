@@ -10,7 +10,7 @@ sidebarPanel(
   tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 200px; background: white};")),
   tags$head(tags$style("#kmat1 {overflow-y:scroll; max-height: 200px; background: white};")),
 
-h4(tags$b("准备训练集")),
+h4(tags$b("第1步 准备建模数据")),
 
 tabsetPanel(
 
@@ -40,14 +40,14 @@ tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quot
 tags$i("糖尿病数据只有一个持续时间变量，而Nki70数据有开始时间和结束时间。"),
 hr(),
 
-h4(tags$b("第2步 创建生存对象")),
+h4(tags$b("第2步 定于生存时间")),
 
 #p(tags$b("1. Choose a Time Variable")),
 
 uiOutput('c'),
 
   selectInput(
-      "time", "2. 选择时间数据格式",
+      "time", "2. 选择时间数据定义方式",
       c("时间区间" = "A",
         "开始时间和结束时间" = "B"
         )),
@@ -65,10 +65,10 @@ conditionalPanel(
   uiOutput('t2')
   ),
 
-tags$i("糖尿病数据具有右删失时间，而Nki70数据具有左截断的右删失时间。"),
+tags$i("糖尿病数据的时间是由一个“时间区间”定义，而Nki70的时间变量是由“开始时间”和“结束时间”定义。"),
 
 hr(),
-h4(tags$b("第3步 检查生存对象")),
+h4(tags$b("第3步 检查生存时间")),
 p(tags$b("有效生存对象示例： Surv (time, status)")),
 p(tags$b("或，Surv (start.time, end.time, status)")),
 verbatimTextOutput("surv", placeholder = TRUE),
@@ -77,7 +77,7 @@ verbatimTextOutput("surv", placeholder = TRUE),
 hr(),
 
 
-h4(tags$b("更改某个变量的类型？")),
+h4(tags$b("更改某个自变量的类型？")),
 
 uiOutput("factor1"),
 
@@ -146,13 +146,13 @@ downloadButton("download2", "下载结果（分类变量）")
 tabPanel("生存曲线",  p(br()),
   radioButtons("fun1", "请选择一个图",
   choiceNames = list(
-    HTML("1. 生存概率(存活率)"),
-    HTML("2. 累积事件"),
-    HTML("3. 累积危险")
+    HTML("1. 生存概率"),
+    HTML("2. 累计事件发生率（累计死亡率）"),
+    HTML("3. 累积危险率")
     ),
   choiceValues = list("pct", "event","cumhaz")
   ),
-plotOutput("km.a"),
+plotOutput("km.a", width = 700),
 verbatimTextOutput("kmat1")
      ),
 

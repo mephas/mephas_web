@@ -205,7 +205,7 @@ output$var.type <- DT::renderDT({var.type.list3()},
       scroller = TRUE))
 
 
-output$sum <- DT::renderDT({desc.numeric(DF4())}, 
+output$sum <- DT::renderDT({desc.numeric(DF3())}, 
     extensions = list(
       'Buttons'=NULL,
       'Scroller'=NULL),

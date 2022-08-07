@@ -58,7 +58,7 @@ numericInput("by", HTML("设置时间序列：序列"), value = 1, min = 0),
 p(tags$i("默认设置给出时间序列1,2,...10。")),
 p(tags$b("给定时间的Brier评分")),
 
-plotly::plotlyOutput("bsplot"),
+plotly::plotlyOutput("bsplot", width = 700),
 DT::DTOutput("bstab")
 
 ),
@@ -102,7 +102,7 @@ radioButtons("auc", "选择一个AUC估计量",
   choiceValues = list("a", "b", "c", "d")
   ),
 p(tags$b("给定时间的时间相关AUC")),
-plotly::plotlyOutput("aucplot"),
+plotly::plotlyOutput("aucplot", width = 700),
 DT::DTOutput("auctab")
 
 )

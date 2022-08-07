@@ -1,14 +1,15 @@
-if (!require("psych")) {install.packages("psych")}; library("psych")
+# if (!require("psych")) {install.packages("psych")}; library("psych")
 if (!requireNamespace("shiny", quietly = TRUE)) {install.packages("shiny")}; require("shiny",quietly = TRUE)
 if (!requireNamespace("ggplot2",quietly = TRUE)) {install.packages("ggplot2")}; require("ggplot2",quietly = TRUE)
-if (!require("DT")) {install.packages("DT")}; library(DT)
-if (!require("plotly")) {install.packages("plotly")}; library("plotly")
-if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
+# if (!require("DT")) {install.packages("DT")}; library(DT)
+# if (!require("plotly")) {install.packages("plotly")}; library("plotly")
+# if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
 
 source("../tab/tab_cn.R", encoding="utf-8")
 source("../tab/panel_cn.R", encoding="utf-8")
 source("../tab/panel_plotinfo_cn.R", encoding="utf-8")
 source("../tab/func.R", encoding="utf-8")
+Sys.setlocale(locale = "Chinese")
 
 tagList(
 

@@ -41,11 +41,11 @@ DT::DTOutput("pred")
 ),
 
 tabPanel("预测生存图",p(br()),
-p("第Nge观测预测的生存概率"),
+p("第N个观测预测的生存概率"),
 
 numericInput("line", HTML("选择第N个观察值（新数据的第N行）"), value = 1, min = 1),
 
-plotly::plotlyOutput("p.s"),
+plotly::plotlyOutput("p.s", width = 700),
 DT::DTOutput("pred.n")
 )
 )

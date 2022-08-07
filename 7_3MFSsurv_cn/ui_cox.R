@@ -151,7 +151,7 @@ tabPanel("生存曲线", p(br()),
 "
 ),
 p(tags$b("Cox回归的调整后生存曲线")),
- plotOutput("splot")
+ plotOutput("splot", width = 700)
 
 ),
 
@@ -169,7 +169,7 @@ HTML(
 ),
 numericInput("num", HTML("选择第N个变量"), value = 1, min = 1, step=1),
 
-plotOutput("zphplot"),
+plotOutput("zphplot", width = 700),
 
 DT::DTOutput("zph")
 
@@ -212,16 +212,16 @@ HTML(
 p(tags$b("1. 连续自变量的鞅残差图")), 
 
 uiOutput('var.mr'),
-plotly::plotlyOutput("diaplot1"),
+plotly::plotlyOutput("diaplot1", width = 700),
 
 #p(tags$b("2. 観測IDに対するマルチンゲール残差プロット")), 
 # plotOutput("diaplot1.2"),
 
  p(tags$b("2. 观察ID和异常残差图")),
- plotly::plotlyOutput("diaplot2"),
+ plotly::plotlyOutput("diaplot2", width = 500),
 
  p(tags$b("3. Cox-Snell残差图")),
- plotly::plotlyOutput("csplot.cx")
+ plotly::plotlyOutput("csplot.cx", width = 500)
 )
 
 )

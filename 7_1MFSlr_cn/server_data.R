@@ -26,10 +26,10 @@ if(!input$col){
   x <- as.data.frame(csv)
 }
 
-  if(input$transform) {
-    x <- as.data.frame(t(x))
-    names(x)<- make.names(names(x), unique = TRUE, allow_ = FALSE)
-    }
+  # if(input$transform) {
+  #   x <- as.data.frame(t(x))
+  #   names(x)<- make.names(names(x), unique = TRUE, allow_ = FALSE)
+  #   }
 
   class <- var.class(x)
 
@@ -52,7 +52,7 @@ colnames(DF0()[,var.type.list0()[,1] %in% "integer", drop=FALSE])
 output$factor1 = renderUI({
 selectInput(
   'factor1',
-  HTML('1. 将数值变量转换为分类变量'),
+  HTML('1. 将整数型数值变量转换为分类变量'),
   selected = NULL,
   choices = type.int(),
   multiple = TRUE
