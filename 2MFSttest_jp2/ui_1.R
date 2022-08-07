@@ -3,13 +3,14 @@ sidebarLayout(
 
 sidebarPanel(
 
-  h4(tags$b("Step 1. データの準備")),
+  h4(tags$b("Step 1 データの準備")),
 
   p(tags$b("1. データに名前を付ける (必須)")),
 
   tags$textarea(id = "cn", rows = 1, "Age"),p(br()),
 
   p(tags$b("2. データの入力")),
+  
 
   tabsetPanel(
 
@@ -113,13 +114,13 @@ plotly::plotlyOutput("meanp")),
 HTML(
 "<b> 説明 </b>
 <ul>
-<li> 正規Q-Qプロット：無作為に発生させた独立した標準正規データを縦軸上にプロットし、横軸上の正規分布と比較します。点が線形の場合、データは正規分布していることが示唆されます</li>
+<li> 正規Q–Qプロット：無作為に発生させた独立した標準正規データを縦軸上にプロットし、横軸上の正規分布と比較します。点が線形の場合、データは正規分布していることが示唆されます</li>
 <li> ヒストグラム：ある範囲の値について各観察の頻度を描き、変数の確率分布を大まかに評価する図です</li>
 <li> 密度プロット：データの確率密度関数を推定するプロットです</li>
 </ul>"
 ),
 
-      p(tags$b("正規Q-Qプロット")),
+      p(tags$b("正規Q–Qプロット")),
       plotly::plotlyOutput("makeplot1"),
       p(tags$b("ヒストグラム")),
       plotly::plotlyOutput("makeplot1.2"),
