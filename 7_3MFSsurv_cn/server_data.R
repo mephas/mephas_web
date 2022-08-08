@@ -234,7 +234,11 @@ DF3(),
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据结果"),
+        list(extend = 'excel', title = "数据结果")
+        ),
       deferRender = TRUE,
       scrollX=TRUE,
       scrollY = 300,
@@ -259,7 +263,11 @@ output$sum <- DT::renderDT({sum()},
 extensions = 'Buttons', 
 options = list(
 dom = 'Bfrtip',
-buttons = c('copy', 'csv', 'excel'),
+buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据结果"),
+        list(extend = 'excel', title = "数据结果")
+        ),
 scrollX = TRUE))
 
 fsum = reactive({
@@ -331,7 +339,11 @@ return(round(res,6))
 extensions = 'Buttons', 
 options = list(
 dom = 'Bfrtip',
-buttons = c('copy', 'csv', 'excel'),
+buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据结果"),
+        list(extend = 'excel', title = "数据结果")
+        ),
 scrollX = TRUE)
 )
 

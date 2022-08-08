@@ -38,7 +38,11 @@ pred2()
 extensions = 'Buttons', 
 options = list(
 dom = 'Bfrtip',
-buttons = c('copy', 'csv', 'excel'),
+buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据结果"),
+        list(extend = 'excel', title = "数据结果")
+        ),
 scrollX = TRUE))
 
 BStab <- reactive(
@@ -70,7 +74,11 @@ round(BStab(),6)},
 extensions = 'Buttons', 
 options = list(
 dom = 'Bfrtip',
-buttons = c('copy', 'csv', 'excel'),
+buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据结果"),
+        list(extend = 'excel', title = "数据结果")
+        ),
 scrollX = TRUE))
 
 output$bsplot = plotly::renderPlotly({
@@ -112,7 +120,11 @@ round(AUCtab(),6)},
 extensions = 'Buttons', 
 options = list(
 dom = 'Bfrtip',
-buttons = c('copy', 'csv', 'excel'),
+buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据结果"),
+        list(extend = 'excel', title = "数据结果")
+        ),
 scrollX = TRUE))
 
 output$aucplot = plotly::renderPlotly({

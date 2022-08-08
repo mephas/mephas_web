@@ -150,7 +150,11 @@ output$Xdata <- DT::renderDT(DF3(),
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据结果"),
+        list(extend = 'excel', title = "数据结果")
+        ),
       deferRender = TRUE,
       scrollX = TRUE,
       scrollY = 300,
@@ -178,7 +182,11 @@ output$var.type <- DT::renderDT(var.type.list3(),
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据结果"),
+        list(extend = 'excel', title = "数据结果")
+        ),
       deferRender = TRUE,
       scrollX = TRUE,
       scrollY = 200,
@@ -194,7 +202,11 @@ output$sum <- DT::renderDT({desc.numeric(DF3())},
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据结果"),
+        list(extend = 'excel', title = "数据结果")
+        ),
       deferRender = TRUE,
       scrollX = TRUE,
       scrollY = 200,
@@ -206,7 +218,11 @@ output$fsum = DT::renderDT({desc.factor(DF3())},
       'Scroller'=NULL),
     options = list(
       dom = 'Bfrtip',
-      buttons = c('copy', 'csv', 'excel'),
+      buttons = 
+      list('copy',
+        list(extend = 'csv', title = "数据结果"),
+        list(extend = 'excel', title = "数据结果")
+        ),
       deferRender = TRUE,
       scrollX = TRUE,
       scrollY = 200,
