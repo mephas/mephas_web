@@ -29,7 +29,7 @@ sidebarLayout(
                  ,theme="eclipse"
       ),
       #aceEditor("k","m",mode="html",maxLines=1),aceTooltip("k"),
-      numericInput("ci.level", label = "Confidence interval level", value = 0.95, min = 0.01, max = 0.99),
+      numericInput("ci.level", label = "Confidence interval level", value = 0.95, min = 0.50, max = 0.99),
 
       selectInput("ci.method", label = "Methods for confidence interval", 
       choices = list("wald" = "wald", "wilson" = "wilson", "agresti-coull" = "agresti-coull", "jeffreys" = "jeffreys",

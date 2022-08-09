@@ -88,7 +88,9 @@ observe({
   updateRadioButtons(session,"manualInputTRUE",selected = "Manual input")
   
 })%>%bindEvent(input$filer)
-md <- reactive(mada::madad(data()))
+md <- reactive(madad(data(), correction.control = input$allsingle, 
+  level = input$ci.level, correction =0.5, method=input$ci.method))
+#md <- reactive(mada::madad(data(),level=input$ci.level))
 output$md.text <- renderPrint({ print(md(), digits=3) })
 p.seq<-reactiveVal(NULL)
 output$studyId<-renderUI({
