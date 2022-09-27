@@ -83,7 +83,7 @@ navbarPage(
     headerPanel("Meta-Analysis of Diagnostic Studies"),
     source("./ui_dta.R",local = TRUE)$value),
   tabPanel("Sensitivity Analysis",headerPanel("Sensitivity-Analysis of Diagnostic Studies"),
-  									source("./ui_sensitivity.R",local = TRUE)$value
+  	source("./ui_sensitivity.R",local = TRUE)$value
   									),
   tablang("11DTA-Meta"),
   tabstop(),
