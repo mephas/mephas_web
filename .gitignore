@@ -48,3 +48,4 @@ mephasrun.R
 *.sublime-workspace
 *.txt
 *.txt.gz
+*.exe
