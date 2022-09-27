@@ -85,6 +85,8 @@ navbarPage(
   tabPanel("Sensitivity Analysis",headerPanel("Sensitivity-Analysis of Diagnostic Studies"),
   	source("./ui_sensitivity.R",local = TRUE)$value
   									),
+  tabPanel("DesktopApp",headerPanel("Download DTA Meta Desktop App"),
+    source("./ui_desktopApp.R",local = TRUE)$value),
   tablang("11DTA-Meta"),
   tabstop(),
   tablink(),
