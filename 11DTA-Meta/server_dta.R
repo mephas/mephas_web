@@ -1,5 +1,4 @@
  p.10 <- seq(10,1, -2)/10
-#p.10 <- 0.5
 studyId<-reactiveVal(0)
 data<-reactiveVal(data.frame(study=seq(1:14)
                              ,TP=c(12,10,17,13,4,15,45,18,5,8,5,11,5,7)
@@ -168,40 +167,14 @@ output$Results<-renderDataTable({
   #                                   "$(1, 0)$", rep("", 3),
   #                                   "$(0, 1)$", rep("", 3)),
   #             tb1)
-  datatable(tb1,rownames = tb# c(paste(expression(hat(ca)),expression(hat(c))) ,"0&#60;c^",HTML("&#x2266;"),"h'","m","d","v","u","yo","i","o","h","m","d","v","u")
+  datatable(tb1,rownames = tb
             ,extensions = 'Buttons',
             options=(list(scrollX = TRUE,
                           dom = 'Blfrtip',
                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                           lengthMenu = list(c(12))
             )))})
-#RMD====
 
-#meta forest====================================
-# output$meta_sesp<-renderPlot({
-#   par(mfrow=c(1,2),pty="m")
-#   forest(md(),type="sens",main="Sensitivity")
-#   forest(md(),type="spec",main="Specificity")
-# } )
-# output$meta_se<-renderPlot(expr = {forest(md(),type="sens",main="Sensitivity"
-#                                           ,pch=15,cex=1
-# )})
-# output$meta_sp<-renderPlot({
-#   forest(md(),type="spec",main="Specificity"
-#          ,pch=15,cex=1
-#   )
-# })
-# output$meta_sesp_plot<-renderUI({
-#   flowLayout(style='width:300px',plotOutput("meta_se",height =paste0((md()$nobs*13.5+200),"px"),width = "600px" )
-#              ,plotOutput("meta_sp",height =paste0((md()$nobs*13.5+200),"px"),width = "600px" )
-#   ) })
-# output$meta_sp_plot<-renderUI({
-  
-  
-# })
-# output$meta_LDOR<-renderPlot({
-#   forest(md(),type="DOR",log=TRUE,main="Log diagnostic odds ratio")
-# })
 output$meta_se<-renderPlot({forest(md(),type="sens",main= input$se.title,pch=15,cex=1
                                   )})
 output$meta_sp<-renderPlot({forest(md(),type="spec",main=input$sp.title ,pch=15,cex=1
@@ -238,25 +211,7 @@ output$meta_uni_plot<-renderUI({
  plotOutput("meta_posLR",height = paste0((md()$nobs*13.5+200),"px"),width = "600px")
 
           ) })
-#FRP=====================================
-# output$plot_FRP<-renderPlot({
-#   par(pty="s",mfrow = c(1,2))
-#   plot(1-md()$spec$spec,md()$sens$sens,xlim = c(0,1),ylim=c(0,1),xlab="False positive rate\n(1-Speficity)",ylab = "Sensitivity",pch=16)
-#   if(input$ROCellipse){
-#     ROCellipse(data(),pch = 16,add = TRUE)
-#   }
-#   if(input$mslSROC){
-#     mslSROC(data(),lty = 2,add = TRUE)
-#   }
-#   if (input$rsSROC) {
-#     rsSROC(data(),lty=3,add = TRUE)
-#   }
-#   if(input$mrfit){
-#     mrfit<-reitsma(data())
-#     plot(mrfit,predict=TRUE,cex=2)
-#     points(1-md()$spec$spec,md()$sens$sens,pch=16)
-#   }
-# })
+
 output$plot_ci<-renderPlot({
   # par(pty="s",mfrow = c(1,2))
 md <- madad(data(), correction.control = "all", 
@@ -274,7 +229,6 @@ plot(1-md$spec$spec,md$sens$sens, xlim = c(0,1), ylim=c(0,1), xlab=input$sroc.xl
 })
 
 output$plot_sroc<-renderPlot({
-  # par(pty="s",mfrow = c(1,2))
 
   plot(1-md()$spec$spec,md()$sens$sens, xlim = c(0,1), ylim=c(0,1),
     xlab=input$sroc.xlab, ylab = input$sroc.ylab)
@@ -283,18 +237,11 @@ output$plot_sroc<-renderPlot({
   if(input$mslSROC) mslSROC(data(), lty = 2,add = TRUE, extrapolate = FALSE, correction = 0.5, correction.control = input$allsingle)
   
   if (input$rsSROC) rsSROC(data(), lty=3,add = TRUE, extrapolate = FALSE, correction = 0.5, correction.control = input$allsingle)
-  
-  # if(input$mrfit){
-  #   mrfit<-reitsma(data())
-  #   plot(mrfit,predict=TRUE,cex=2)
-  #   points(1-md()$spec$spec,md()$sens$sens,pch=16)
-  # }
+
 })
 
 
 output$meta_sroc_plot<-renderUI({
-
-
 
   flowLayout(style='width:300px',
 
@@ -443,38 +390,7 @@ gg_theme   <- reactive({
 output$srocB<-renderPlot({
   plot_id<-"c1c2_estimate"
   sroc_ggplot_over(plot_id,0.5,est.r)
-  # withProgress(message = "c1c2 estimate",value = 0,detail = "take a minutes",
-  #              {
-  #                data_m<-data.frame(sp=sp(),se=se())
-  #                p<-ggplot(data = data_m,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
-  #                p<-p+
-  #                geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))+gg_theme()
-  #                #p<-p+layer(geom = "point", stat = "identity", position = "identity")
-                 
-  #                est2.par<- est.r(0.5,c("mu1","mu2","tau1","tau2","rho")) 
-  #                par <- as.matrix(est2.par)
-  #                p<-p+mapply(function(i) {
-  #                  u1 <- par["mu1", i]
-  #                  u2 <- par["mu2", i]
-  #                  t1 <- par["tau1", i]
-  #                  t2 <- par["tau2", i]
-  #                  if (input$Sauc1 == "sroc"){
-  #                    r <- par["rho", i]}
-  #                  else{ r <- -1}
-  #                  stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(length(input[[paste0("sroc_curve_color",plot_id,i)]])==0,"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(length(input[[paste0("sroc_curve_thick",plot_id,i)]])==0,1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]),aes(linetype="h"))
-  #                }
-  #                , 1:ncol(par))
-  #                sens <- plogis(par[1, ])
-  #                spec <- plogis(par[2, ])
-                 
-  #                p<-p+
-  #                  sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t]),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
-  #                  ggtitle(plot_id)+
-  #                  theme(title= element_text(size = 16))+ gg_theme()
-                   
-                 
-  #                esting$plot_sroc<-p
-  #                p})
+
 })
 output$downloadsauc_gg_estimate<-downloadHandler(
   filename = function(){paste("c1c2_estimate",'.png',sep='')},
@@ -581,21 +497,20 @@ sroc_ggplot_over<-function(plot_id,c1.square,fun=est.f){
    }
    else{ 
      each_point_color<-ifelse(is.null(input[[paste0("each_point_color",plot_id)]]),"#47848C",input[[paste0("each_point_color",plot_id)]])
-    each_point_radius<-ifelse(is.null(input[[paste0("each_point_radius",plot_id)]]),2,input[[paste0("each_point_radius",plot_id)]])
+     each_point_radius<-ifelse(is.null(input[[paste0("each_point_radius",plot_id)]]),2,input[[paste0("each_point_radius",plot_id)]])
      each_point_shape<-ifelse(is.null(input[[paste0("each_point_shape",plot_id)]]),20,input[[paste0("each_point_shape",plot_id)]])
      sroc_curve_color<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_curve_color",plot_id)]]),"#39377A",input[[paste0("sroc_curve_color",plot_id)]]))
      sroc_curve_thick<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id)]]),1,input[[paste0("sroc_curve_thick",plot_id)]]))
      sroc_curve_shape<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id)]]),"solid",input[[paste0("sroc_curve_shape",plot_id)]]))
      sroc_point_color<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_point_color",plot_id)]]),"#0A99BD",input[[paste0("sroc_point_color",plot_id)]]))
-    sroc_point_radius<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_point_radius",plot_id)]]),3,input[[paste0("sroc_point_radius",plot_id)]]))
+     sroc_point_radius<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_point_radius",plot_id)]]),3,input[[paste0("sroc_point_radius",plot_id)]]))
      sroc_point_shape<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_point_shape",plot_id)]]),20,input[[paste0("sroc_point_shape",plot_id)]]))
    }
   est.par<- fun(c1.square,c("mu1","mu2","tau1","tau2","rho")) 
   par <- as.matrix(est.par)
   spec <- plogis(par[2, ])
   sens <- plogis(par[1, ])
-  #st<-c(rep(x = 'each study',length(sp())),sapply(p.seq(),function(x)paste("SROC point p=",x)))#,sapply(est.par,function(x)paste("SROC cureve p=",x$p))
-  
+ 
   color<-c(rep(x = each_point_color,length(sp())),sroc_point_color)
   size<-c(rep(x = each_point_radius,length(sp())),sroc_point_radius)
   shape<-c(rep(x = each_point_shape,length(sp())),sroc_point_shape)
