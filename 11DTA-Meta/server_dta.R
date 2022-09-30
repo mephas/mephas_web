@@ -7,6 +7,8 @@ data<-reactiveVal(data.frame(study=seq(1:14)
                              ,TN=c(289,72,85,67,225,403,34,133,34,96,63,610,145,342)))
 esting<-reactiveValues()
 esting_omg<-reactiveValues()
+p.seq<-reactiveVal(NULL)
+#observe====
 observe({
   inFile1 <- input$filer
   separater <- input$Delimiter
@@ -87,11 +89,6 @@ observe({
   updateRadioButtons(session,"manualInputTRUE",selected = "Manual input")
   
 })%>%bindEvent(input$filer)
-md <- reactive(madad(data(), correction.control = input$allsingle, 
-  level = input$ci.level, correction =0.5, method=input$ci.method))
-#md <- reactive(mada::madad(data(),level=input$ci.level))
-output$md.text <- renderPrint({ print(md(), digits=3) })
-p.seq<-reactiveVal(NULL)
 output$studyId<-renderUI({
   radioButtons("momomo","",inline = TRUE,choices = paste0("studyID",seq(studyId(),0)))
 })
@@ -101,11 +98,14 @@ output$uiprob<-renderText({
   probs<-sort(probs,decreasing = TRUE)
   p.seq(probs)
   paste("p=",probs," ",sep = "")})
-logitData<-reactive(logit.data(correction(data(), type = input$allsingle)))%>%bindCache(input$allsingle,studyId())%>%bindEvent(input$calculateStart,input$allsingle)
-###data preculculate=====
 
+#data preculculate=====
+
+md <- reactive(madad(data(), correction.control = input$allsingle, 
+  level = input$ci.level, correction =0.5, method=input$ci.method))
 sp <-reactive(data()$TN/(data()$TN+data()$FP))%>%bindEvent(studyId())
 se <-reactive(data()$TP/(data()$TP+data()$FN))%>%bindEvent(studyId())
+logitData<-reactive(logit.data(correction(data(), type = input$allsingle)))%>%bindCache(input$allsingle,studyId())%>%bindEvent(input$calculateStart,input$allsingle)
 est.add_rc<-function(p,  c1.square=0.5){
   rc<-c(p=p,dtametasa.rc(data(), p,  c1.square0 = 0.5, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
   esting[[paste0(p,input$Sauc1,input$allsingle,studyId())]]<-rc
@@ -123,14 +123,18 @@ est.fc<-function(p.seq,c1.square=0.5){sapply(p.seq,function(p){
   if(length(esting_omg[[paste0(p,c1.square,input$Sauc1,input$allsingle,studyId())]])==0) est.add_fc(p,c1.square)
 })}
 est.r<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
+  print(paste0(x,input$Sauc1,input$allsingle,studyId()))
   validate(need(length(esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]])>0,"Push Above Button[Reload DATA TO Calculation]\nerror 111"))
   esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
 est.f<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
+  print(paste0(x,input$Sauc1,input$allsingle,studyId()))
   validate(need(length(esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]])>0,"Push Above Button[Reload DATA TO Calculation]\nerror 112"))
   esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
-#data input=================e ================================================================
+#1.Meta-Analysis------------------------------------------------------------------------------------------------------------------------
+
+##Data Preview====
 output$RawData<-DT::renderDataTable({
     datatable(data()
               ,extensions = 'Buttons',
@@ -141,6 +145,273 @@ output$RawData<-DT::renderDataTable({
               )))
   
 })
+##Descriptive Statistics====
+output$md.text <- renderPrint({ print(md(), digits=3) })
+##Forest Plots for Se/Sp====
+output$meta_se<-renderPlot({forest(md(),type="sens",main= input$se.title,pch=15,cex=1
+                                  )})
+output$meta_sp<-renderPlot({forest(md(),type="spec",main=input$sp.title ,pch=15,cex=1
+      )
+  })
+
+
+output$meta_sesp_plot<-renderUI({
+
+  flowLayout(style='width:300px',
+
+ plotOutput("meta_se",height =paste0((md()$nobs*13.5+200),"px"),width = "600px" ),
+ plotOutput("meta_sp",height =paste0((md()$nobs*13.5+200),"px"),width = "600px" )
+
+          ) })
+##Forest Plots for Univariate measures====
+output$meta_LDOR<-renderPlot({
+  forest(md(), type="DOR",log=input$uni.log, main= input$u1.title)
+})
+output$meta_negLR<-renderPlot({
+  forest(md(), type="negLR",log=input$uni.log, main=input$u2.title)
+})
+output$meta_posLR<-renderPlot({
+  forest(md(), type="posLR",log=input$uni.log, main=input$u3.title)
+})
+
+output$meta_uni_plot<-renderUI({
+  
+  flowLayout(style='width:300px',
+             
+             plotOutput("meta_LDOR", height = paste0((md()$nobs*13.5+200),"px"),width = "600px"),
+             plotOutput("meta_negLR",height = paste0((md()$nobs*13.5+200),"px"),width = "600px"),
+             plotOutput("meta_posLR",height = paste0((md()$nobs*13.5+200),"px"),width = "600px")
+             
+  ) })
+##SROC====
+output$plot_ci<-renderPlot({
+  # par(pty="s",mfrow = c(1,2))
+  md <- madad(data(), correction.control = "all", 
+              level = input$ci.level, correction =0.5, method=input$ci.method)
+  
+  plot(1-md$spec$spec,md$sens$sens, xlim = c(0,1), ylim=c(0,1), xlab=input$sroc.xlab, ylab = input$sroc.ylab)
+  
+  if(input$ci.plot=="")   {}
+  
+  if(input$ci.plot=="ROCellipse") ROCellipse(data(), lty = 1,  level = input$ci.level, correction =0.5, method=input$ci.method, pch = 16,add = TRUE,xlab=input$sroc.xlab, ylab = input$sroc.ylab)
+  
+  
+  if(input$ci.plot=="crosshair") crosshair(data(), lty = 1, level = input$ci.level, correction =0.5, method=input$ci.method, pch = 16,add = TRUE,xlab=input$sroc.xlab, ylab = input$sroc.ylab)
+  
+})
+
+output$plot_sroc<-renderPlot({
+  
+  plot(1-md()$spec$spec,md()$sens$sens, xlim = c(0,1), ylim=c(0,1),
+       xlab=input$sroc.xlab, ylab = input$sroc.ylab)
+  
+  
+  if(input$mslSROC) mslSROC(data(), lty = 2,add = TRUE, extrapolate = FALSE, correction = 0.5, correction.control = input$allsingle)
+  
+  if (input$rsSROC) rsSROC(data(), lty=3,add = TRUE, extrapolate = FALSE, correction = 0.5, correction.control = input$allsingle)
+  
+})
+
+
+output$meta_sroc_plot<-renderUI({
+  
+  flowLayout(style='width:300px',
+             
+             p(tags$b("1. Confidence interval plot")),
+             
+             radioGroupButtons(
+               inputId = "ci.plot",
+               label = "Type of confidence interval",
+               choiceNames = c("No Confidence Intervals", "Add Confidence Regions", "Add Crosshair Confidence"),
+               choiceValues = c("", "ROCellipse",  "crosshair"),
+               justified = TRUE,
+               width = "100%",
+               direction = "vertical"
+             ),
+             
+             textInput("sroc.xlab", label = "Label for x-axis", value = "1-Specificity"),
+             textInput("sroc.ylab", label = "Label for y-axis", value = "Sensitivity"),
+             
+             plotOutput("plot_ci",  height ="600px", width = "600px"),
+             
+             p(br()),
+             
+             p(tags$b("2. SROC curve")),
+             
+             
+             prettyCheckbox( 
+               inputId = "mslSROC",
+               label = "Moses-Shapiro-Littenberg SROC curve", 
+               value = TRUE,
+               icon = icon("check"),
+               status = "info"),
+             
+             prettyCheckbox( 
+               inputId = "rsSROC",
+               label = "Ruecker-Schumacher (2010) SROC curve", 
+               value = TRUE,
+               icon = icon("check"),
+               status = "info"),
+             
+             plotOutput("plot_sroc",height ="600px", width = "600px")
+  )
+  
+})
+#2.Sensitivity Analysis====
+##SROC====
+###sroc_ggplot_over====
+sroc_ggplot_over<-function(plot_id,c1.square,fun=est.f){
+  if(input$batch){
+    each_point_color<-ifelse(is.null(input$each_point_color),"#47848C",input$each_point_color)
+    each_point_radius<-ifelse(is.null(input$each_point_radius),3,input$each_point_radius)
+    each_point_shape<-ifelse(is.null(input$each_point_shape),20,input$each_point_shape)
+    sroc_curve_color<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_curve_color),"#39377A",input$sroc_curve_color))
+    sroc_curve_thick<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_curve_thick),1,input$sroc_curve_thick))
+    sroc_curve_shape<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_curve_shape),"solid",input$sroc_curve_shape))
+    sroc_point_color<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_point_color),"#0A99BD",input$sroc_point_color))
+    sroc_point_radius<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_point_radius),5,input$sroc_point_radius))
+    sroc_point_shape<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_point_shape),20,input$sroc_point_shape))
+  }
+  else{ 
+    each_point_color<-ifelse(is.null(input[[paste0("each_point_color",plot_id)]]),"#47848C",input[[paste0("each_point_color",plot_id)]])
+    each_point_radius<-ifelse(is.null(input[[paste0("each_point_radius",plot_id)]]),2,input[[paste0("each_point_radius",plot_id)]])
+    each_point_shape<-ifelse(is.null(input[[paste0("each_point_shape",plot_id)]]),20,input[[paste0("each_point_shape",plot_id)]])
+    sroc_curve_color<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_curve_color",plot_id)]]),"#39377A",input[[paste0("sroc_curve_color",plot_id)]]))
+    sroc_curve_thick<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id)]]),1,input[[paste0("sroc_curve_thick",plot_id)]]))
+    sroc_curve_shape<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id)]]),"solid",input[[paste0("sroc_curve_shape",plot_id)]]))
+    sroc_point_color<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_point_color",plot_id)]]),"#0A99BD",input[[paste0("sroc_point_color",plot_id)]]))
+    sroc_point_radius<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_point_radius",plot_id)]]),3,input[[paste0("sroc_point_radius",plot_id)]]))
+    sroc_point_shape<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_point_shape",plot_id)]]),20,input[[paste0("sroc_point_shape",plot_id)]]))
+  }
+  est.par<- fun(c1.square,c("mu1","mu2","tau1","tau2","rho")) 
+  par <- as.matrix(est.par)
+  spec <- plogis(par[2, ])
+  sens <- plogis(par[1, ])
+  
+  color<-c(rep(x = each_point_color,length(sp())),sroc_point_color)
+  size<-c(rep(x = each_point_radius,length(sp())),sroc_point_radius)
+  shape<-c(rep(x = each_point_shape,length(sp())),sroc_point_shape)
+  data<-data.frame(sp=c(sp(),spec),se=c(se(),sens))
+  p<-ggplot(data = data,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
+  p<-p+geom_point(colour=color,size=size,shape=shape)+gg_theme()+labs(x=input$xlim,y=input$ylim)
+  p<-p+mapply(function(i) {
+    u1 <- par["mu1", i]
+    u2 <- par["mu2", i]
+    t1 <- par["tau1", i]
+    t2 <- par["tau2", i]
+    if (input$Sauc1 == "sroc"){
+      r <- par["rho", i]}
+    else{ r <- -1}
+    stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=sroc_curve_color[i],size=sroc_curve_thick[i],linetype = sroc_curve_shape[i],aes(linetype="h"))
+  }
+  , 1:ncol(par))
+  
+  esting_omg[[plot_id]]<-p
+  p
+}
+###sroc B plot setting=====================
+output$srocBsetting_curve<-renderUI({
+  ui.plot_srocline_drop("c1c2_estimate",p.seq())
+})
+output$srocB<-renderPlot({
+  plot_id<-"c1c2_estimate"
+  sroc_ggplot_over(plot_id,0.5,est.r)
+})
+output$downloadsauc_gg_estimate<-downloadHandler(
+  filename = function(){paste("c1c2_estimate",'.png',sep='')},
+  content = function(file){
+    ggsave(file,plot=esting_omg$c1c2_estimate)
+  })
+###sroc C plot setting=====================
+output$srocCsetting_curve_11<-renderUI({
+  ui.plot_srocline_drop("c1c2_11",p.seq())
+})
+output$srocCsetting_curve_10<-renderUI({
+  ui.plot_srocline_drop("c1c2_10",p.seq())
+})
+output$srocCsetting_curve_01<-renderUI({
+  ui.plot_srocline_drop("c1c2_01",p.seq())
+})
+output$srocC_11<-renderPlot({
+  withProgress(message = "c1 = 2^(-1/2),c2 = 2^(-1/2)",value = 0,detail = "take a minutes",
+               {
+                 sroc_ggplot_over("c1c2_11",0.5)
+               })
+})
+output$srocC_10<-renderPlot({
+  withProgress(message = "c1 = 1,c2 = 0",value = 0,detail = "take a minutes",
+               { 
+                 sroc_ggplot_over("c1c2_10",1)
+               })
+})
+output$srocC_01<-renderPlot({
+  withProgress(message = "c1 = 0,c2 = 1",value = 0,detail = "take a minutes",
+               {  
+                 sroc_ggplot_over("c1c2_01",0)
+               })
+})
+output$download_srocC_11<-downloadHandler(
+  filename = function(){paste("c1c2_11",'.png',sep='')},
+  content = function(file){
+    ggsave(file,plot=esting_omg[["c1c2_11"]])
+  })
+output$download_srocC_10<-downloadHandler(
+  filename = function(){paste("c1c2_10",'.png',sep='')},
+  content = function(file){
+    ggsave(file,plot=esting_omg[["c1c2_10"]])
+  })
+output$download_srocC_01<-downloadHandler(
+  filename = function(){paste("c1c2_01",'.png',sep='')},
+  content = function(file){
+    ggsave(file,plot=esting_omg[["c1c2_01"]])
+  })
+###sroc D plot setting=====================
+output$srocDsetting_curve<-renderUI(ui.plot_srocline_drop("c1c2_manul",p.seq()))
+output$srocD<-renderPlot({
+  sroc_ggplot_over(plot_id ="c1c2_manul",input$c1c2_set)
+})
+output$download_c1c2_manul<-downloadHandler(
+  filename = function(){paste("c1c2_estimate",'.png',sep='')},
+  content = function(file){
+    ggsave(file,plot=esting_omg$c1c2_manul)
+  })
+####Old sroc Ploting=================================
+sroc_ggplot<-function(plot_id,c1.square){
+  data<-data.frame(sp=sp(),se=se())
+  p<-ggplot(data = data,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
+  p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))+gg_theme()
+  est.par<- est.f(c1.square,c("mu1","mu2","tau1","tau2","rho")) 
+  par <- as.matrix(est.par)
+  p<-p+mapply(function(i) {
+    u1 <- par["mu1", i]
+    u2 <- par["mu2", i]
+    t1 <- par["tau1", i]
+    t2 <- par["tau2", i]
+    if (input$Sauc1 == "sroc"){
+      r <- par["rho", i]}
+    else{ r <- -1}
+    stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(length(input[[paste0("sroc_curve_color",plot_id,i)]])==0,"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id,i)]]),1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]),aes(linetype="h"))
+  }
+  , 1:ncol(par))
+  sens <- plogis(par[1, ])
+  spec <- plogis(par[2, ])
+  p<-p+
+    sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t],color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]])),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),shape=ifelse(length(input[[paste0("sroc_point_shape",plot_id,t)]])==0,20,as.numeric(input[[paste0("sroc_point_shape",plot_id,t)]])),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
+    ggtitle(plot_id)+
+    #guide_legend(title = "p=")+
+    theme(title= element_text(size = 16)
+          ,legend.position = "right")
+  
+  esting_omg[[plot_id]]<-p
+  p
+}
+
+
+##SAUC====
+##Funnel plot====
+##Results====
+##Plot Summary====
+##Reprooducible R codes====
 #logit===============
 output$LogitData<-renderDataTable(datatable(logitData()%>%round(.,3)
                                             ,extensions = 'Buttons',
@@ -175,116 +446,10 @@ output$Results<-renderDataTable({
                           lengthMenu = list(c(12))
             )))})
 
-output$meta_se<-renderPlot({forest(md(),type="sens",main= input$se.title,pch=15,cex=1
-                                  )})
-output$meta_sp<-renderPlot({forest(md(),type="spec",main=input$sp.title ,pch=15,cex=1
-      )
-  })
 
 
-output$meta_sesp_plot<-renderUI({
-
-  flowLayout(style='width:300px',
-
- plotOutput("meta_se",height =paste0((md()$nobs*13.5+200),"px"),width = "600px" ),
- plotOutput("meta_sp",height =paste0((md()$nobs*13.5+200),"px"),width = "600px" )
-
-          ) })
 
 
-output$meta_LDOR<-renderPlot({
-  forest(md(), type="DOR",log=input$uni.log, main= input$u1.title)
-})
-output$meta_negLR<-renderPlot({
-  forest(md(), type="negLR",log=input$uni.log, main=input$u2.title)
-})
-output$meta_posLR<-renderPlot({
-  forest(md(), type="posLR",log=input$uni.log, main=input$u3.title)
-})
-
-output$meta_uni_plot<-renderUI({
-
-  flowLayout(style='width:300px',
-
- plotOutput("meta_LDOR", height = paste0((md()$nobs*13.5+200),"px"),width = "600px"),
- plotOutput("meta_negLR",height = paste0((md()$nobs*13.5+200),"px"),width = "600px"),
- plotOutput("meta_posLR",height = paste0((md()$nobs*13.5+200),"px"),width = "600px")
-
-          ) })
-
-output$plot_ci<-renderPlot({
-  # par(pty="s",mfrow = c(1,2))
-md <- madad(data(), correction.control = "all", 
-  level = input$ci.level, correction =0.5, method=input$ci.method)
-
-plot(1-md$spec$spec,md$sens$sens, xlim = c(0,1), ylim=c(0,1), xlab=input$sroc.xlab, ylab = input$sroc.ylab)
-
-  if(input$ci.plot=="")   {}
-
-  if(input$ci.plot=="ROCellipse") ROCellipse(data(), lty = 1,  level = input$ci.level, correction =0.5, method=input$ci.method, pch = 16,add = TRUE,xlab=input$sroc.xlab, ylab = input$sroc.ylab)
-  
-
-  if(input$ci.plot=="crosshair") crosshair(data(), lty = 1, level = input$ci.level, correction =0.5, method=input$ci.method, pch = 16,add = TRUE,xlab=input$sroc.xlab, ylab = input$sroc.ylab)
-  
-})
-
-output$plot_sroc<-renderPlot({
-
-  plot(1-md()$spec$spec,md()$sens$sens, xlim = c(0,1), ylim=c(0,1),
-    xlab=input$sroc.xlab, ylab = input$sroc.ylab)
-
-
-  if(input$mslSROC) mslSROC(data(), lty = 2,add = TRUE, extrapolate = FALSE, correction = 0.5, correction.control = input$allsingle)
-  
-  if (input$rsSROC) rsSROC(data(), lty=3,add = TRUE, extrapolate = FALSE, correction = 0.5, correction.control = input$allsingle)
-
-})
-
-
-output$meta_sroc_plot<-renderUI({
-
-  flowLayout(style='width:300px',
-
- p(tags$b("1. Confidence interval plot")),
-
- radioGroupButtons(
-             inputId = "ci.plot",
-             label = "Type of confidence interval",
-             choiceNames = c("No Confidence Intervals", "Add Confidence Regions", "Add Crosshair Confidence"),
-             choiceValues = c("", "ROCellipse",  "crosshair"),
-             justified = TRUE,
-             width = "100%",
-             direction = "vertical"
-          ),
-
- textInput("sroc.xlab", label = "Label for x-axis", value = "1-Specificity"),
- textInput("sroc.ylab", label = "Label for y-axis", value = "Sensitivity"),
-
- plotOutput("plot_ci",  height ="600px", width = "600px"),
-
- p(br()),
-
- p(tags$b("2. SROC curve")),
-
-
- prettyCheckbox( 
-  inputId = "mslSROC",
-  label = "Moses-Shapiro-Littenberg SROC curve", 
-  value = TRUE,
- icon = icon("check"),
- status = "info"),
-
-prettyCheckbox( 
-  inputId = "rsSROC",
-  label = "Ruecker-Schumacher (2010) SROC curve", 
-  value = TRUE,
- icon = icon("check"),
- status = "info"),
-
- plotOutput("plot_sroc",height ="600px", width = "600px")
-  )
-
- })
 
 #Download FRP============================
 output$downloadFRP1<-downloadHandler(filename = "FRP1.png",content = function(file){
@@ -368,10 +533,6 @@ output$logit.Spec_plot<-renderPlot(funnel(tf.sp(), xlab = "logit(specificity)", 
        level = 0.95,
        contour = c(0.9, 0.95, 0.99)
 ))
-#sroc B plot setting=====================
-output$srocBsetting_curve<-renderUI({
-  ui.plot_srocline_drop("c1c2_estimate",p.seq())
-})
 
 #gg theme--------
 gg_theme   <- reactive({
@@ -387,155 +548,8 @@ gg_theme   <- reactive({
     )
 
 })
-output$srocB<-renderPlot({
-  plot_id<-"c1c2_estimate"
-  sroc_ggplot_over(plot_id,0.5,est.r)
 
-})
-output$downloadsauc_gg_estimate<-downloadHandler(
-  filename = function(){paste("c1c2_estimate",'.png',sep='')},
-  content = function(file){
-    ggsave(file,plot=esting_omg$c1c2_estimate)
-  })
-#sroc C plot setting=====================
-output$srocCsetting_curve_11<-renderUI({
-  ui.plot_srocline_drop("c1c2_11",p.seq())
-})
-output$srocCsetting_curve_10<-renderUI({
-  ui.plot_srocline_drop("c1c2_10",p.seq())
-})
-output$srocCsetting_curve_01<-renderUI({
-  ui.plot_srocline_drop("c1c2_01",p.seq())
-})
-output$srocC_11<-renderPlot({
-  withProgress(message = "c1 = 2^(-1/2),c2 = 2^(-1/2)",value = 0,detail = "take a minutes",
-               {
-                sroc_ggplot_over("c1c2_11",0.5)
-                 #sroc_ggplot("c1c2_11",0.5)
-               })
-})
-output$srocC_10<-renderPlot({
-  withProgress(message = "c1 = 1,c2 = 0",value = 0,detail = "take a minutes",
-               { 
-                sroc_ggplot_over("c1c2_10",1)
-                 #sroc_ggplot("c1c2_10",1)
-               })
-})
-output$srocC_01<-renderPlot({
-  withProgress(message = "c1 = 0,c2 = 1",value = 0,detail = "take a minutes",
-               {  
-                sroc_ggplot_over("c1c2_01",0)
-                 #sroc_ggplot("c1c2_01",0)
-               })
-})
-output$download_srocC_11<-downloadHandler(
-  filename = function(){paste("c1c2_11",'.png',sep='')},
-  content = function(file){
-    ggsave(file,plot=esting_omg[["c1c2_11"]])
-  })
-output$download_srocC_10<-downloadHandler(
-  filename = function(){paste("c1c2_10",'.png',sep='')},
-  content = function(file){
-    ggsave(file,plot=esting_omg[["c1c2_10"]])
-  })
-output$download_srocC_01<-downloadHandler(
-  filename = function(){paste("c1c2_01",'.png',sep='')},
-  content = function(file){
-    ggsave(file,plot=esting_omg[["c1c2_01"]])
-  })
-#sroc D plot setting=====================
-output$srocDsetting_curve<-renderUI(ui.plot_srocline_drop("c1c2_manul",p.seq()))
-output$srocD<-renderPlot({
-  sroc_ggplot_over(plot_id ="c1c2_manul",input$c1c2_set)
-})
-output$download_c1c2_manul<-downloadHandler(
-  filename = function(){paste("c1c2_estimate",'.png',sep='')},
-  content = function(file){
-    ggsave(file,plot=esting_omg$c1c2_manul)
-  })
-#sroc Ploting=================================
-sroc_ggplot<-function(plot_id,c1.square){
-  data<-data.frame(sp=sp(),se=se())
-  p<-ggplot(data = data,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
-  p<-p+geom_point(color=input[[paste0("each_point_color",plot_id)]],size=input[[paste0("each_point_radius",plot_id)]],shape=as.numeric(input[[paste0("each_point_shape",plot_id)]]))+gg_theme()
-  est.par<- est.f(c1.square,c("mu1","mu2","tau1","tau2","rho")) 
-  par <- as.matrix(est.par)
-  p<-p+mapply(function(i) {
-    u1 <- par["mu1", i]
-    u2 <- par["mu2", i]
-    t1 <- par["tau1", i]
-    t2 <- par["tau2", i]
-    if (input$Sauc1 == "sroc"){
-      r <- par["rho", i]}
-    else{ r <- -1}
-    stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=ifelse(length(input[[paste0("sroc_curve_color",plot_id,i)]])==0,"#000000",input[[paste0("sroc_curve_color",plot_id,i)]]),size=ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id,i)]]),1,input[[paste0("sroc_curve_thick",plot_id,i)]]),linetype = ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id,i)]]),"solid",input[[paste0("sroc_curve_shape",plot_id,i)]]),aes(linetype="h"))
-  }
-  , 1:ncol(par))
-  sens <- plogis(par[1, ])
-  spec <- plogis(par[2, ])
-  p<-p+
-    sapply(1:ncol(par),function(t)geom_point(mapping=aes(x=1-spec[t],y=sens[t],color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]])),color=ifelse(length(input[[paste0("sroc_point_color",plot_id,t)]])==0,"#000000",input[[paste0("sroc_point_color",plot_id,t)]]),shape=ifelse(length(input[[paste0("sroc_point_shape",plot_id,t)]])==0,20,as.numeric(input[[paste0("sroc_point_shape",plot_id,t)]])),size=ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,t)]]),3,input[[paste0("sroc_point_radius",plot_id,t)]])))+
-    ggtitle(plot_id)+
-    #guide_legend(title = "p=")+
-    theme(title= element_text(size = 16)
-          ,legend.position = "right")
 
-  esting_omg[[plot_id]]<-p
-  p
-}
-sroc_ggplot_over<-function(plot_id,c1.square,fun=est.f){
-   if(input$batch){
-     each_point_color<-ifelse(is.null(input$each_point_color),"#47848C",input$each_point_color)
-     each_point_radius<-ifelse(is.null(input$each_point_radius),3,input$each_point_radius)
-     each_point_shape<-ifelse(is.null(input$each_point_shape),20,input$each_point_shape)
-     sroc_curve_color<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_curve_color),"#39377A",input$sroc_curve_color))
-     sroc_curve_thick<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_curve_thick),1,input$sroc_curve_thick))
-     sroc_curve_shape<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_curve_shape),"solid",input$sroc_curve_shape))
-     sroc_point_color<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_point_color),"#0A99BD",input$sroc_point_color))
-     sroc_point_radius<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_point_radius),5,input$sroc_point_radius))
-     sroc_point_shape<-sapply(p.seq(),function(i)ifelse(is.null(input$sroc_point_shape),20,input$sroc_point_shape))
-   }
-   else{ 
-     each_point_color<-ifelse(is.null(input[[paste0("each_point_color",plot_id)]]),"#47848C",input[[paste0("each_point_color",plot_id)]])
-     each_point_radius<-ifelse(is.null(input[[paste0("each_point_radius",plot_id)]]),2,input[[paste0("each_point_radius",plot_id)]])
-     each_point_shape<-ifelse(is.null(input[[paste0("each_point_shape",plot_id)]]),20,input[[paste0("each_point_shape",plot_id)]])
-     sroc_curve_color<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_curve_color",plot_id)]]),"#39377A",input[[paste0("sroc_curve_color",plot_id)]]))
-     sroc_curve_thick<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_curve_thick",plot_id)]]),1,input[[paste0("sroc_curve_thick",plot_id)]]))
-     sroc_curve_shape<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_curve_shape",plot_id)]]),"solid",input[[paste0("sroc_curve_shape",plot_id)]]))
-     sroc_point_color<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_point_color",plot_id)]]),"#0A99BD",input[[paste0("sroc_point_color",plot_id)]]))
-     sroc_point_radius<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_point_radius",plot_id)]]),3,input[[paste0("sroc_point_radius",plot_id)]]))
-     sroc_point_shape<-sapply(p.seq(),function(i)ifelse(is.null(input[[paste0("sroc_point_shape",plot_id)]]),20,input[[paste0("sroc_point_shape",plot_id)]]))
-   }
-  est.par<- fun(c1.square,c("mu1","mu2","tau1","tau2","rho")) 
-  par <- as.matrix(est.par)
-  spec <- plogis(par[2, ])
-  sens <- plogis(par[1, ])
- 
-  color<-c(rep(x = each_point_color,length(sp())),sroc_point_color)
-  size<-c(rep(x = each_point_radius,length(sp())),sroc_point_radius)
-  shape<-c(rep(x = each_point_shape,length(sp())),sroc_point_shape)
-  data<-data.frame(sp=c(sp(),spec),se=c(se(),sens))
-  p<-ggplot(data = data,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
-  p<-p+geom_point(colour=color,size=size,shape=shape)+gg_theme()+labs(x=input$xlim,y=input$ylim)
- p<-p+mapply(function(i) {
-    u1 <- par["mu1", i]
-    u2 <- par["mu2", i]
-    t1 <- par["tau1", i]
-    t2 <- par["tau2", i]
-    if (input$Sauc1 == "sroc"){
-      r <- par["rho", i]}
-    else{ r <- -1}
-    stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=sroc_curve_color[i],size=sroc_curve_thick[i],linetype = sroc_curve_shape[i],aes(linetype="h"))
-  }
-  , 1:ncol(par))
- 
-
-  esting_omg[[plot_id]]<-p
-  p
-}
-observe({
-
-  })%>%bindEvent(input$batch)
 #sauc ploy==========
 output$sauc_gg_estimate<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate")))
 output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_11",0.5,"(B) c1=c2")))
