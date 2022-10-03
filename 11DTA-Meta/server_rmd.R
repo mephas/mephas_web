@@ -117,8 +117,8 @@ output$htmldownload <- downloadHandler(
     showModal(modalDialog(
       title = "Rmd download",
       easyClose = FALSE,
-      p(tags$strong("Set name below the Website:
-                             "), "Use data-set on the table",br(),
+      p(tags$strong("Set name below :
+                             "), "Click download button",br(),
         tags$i(tags$u("")), "download Result to html as a name:"),
       textInput("htmlname",value = "report.html",label = "file name"),
       br(),downloadButton("htmldownload","download")
