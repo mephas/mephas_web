@@ -100,7 +100,7 @@ output$htmldownload <- downloadHandler(
       easyClose = FALSE,
       p(tags$strong("Set Value On the Website"), "Please edit the data-set",br(),
         tags$i(tags$u("download as"))),
-      textInput("rmdname",value = "report.html",label = "file name"),
+      textInput("rmdname",value = "report.RMD",label = "file name"),
       br(),downloadButton("rmddownload","download")
       ,tags$style("#rmddownload {
                    outline-color:#0000ff;
