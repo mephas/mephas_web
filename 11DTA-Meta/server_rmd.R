@@ -83,14 +83,13 @@ output$htmldownload <- downloadHandler(
     #file.copy("momo.Rmd", tempReport, overwrite = TRUE)
     params <- list(n="mo",p = p.seq(),data=data(),sauc=input$Sauc1)
     
-    progress <- shiny::Progress$new() #过程监视弹窗
+    progress <- shiny::Progress$new()
     on.exit(progress$close())
     progress$set(message = "Result", value = 0)
     progress$inc(0.70, detail = "generating Rmarkdown file")
-    #"momo.Rmd"
-    rmarkdown::render("HTML-Example-IVD.Rmd", output_file = file,
+    rmarkdown::render("./HTML-Example-IVD.Rmd", output_file = file,
                       params = params,
-                      envir = new.env(parent = globalenv())#globalenv()
+                      envir = new.env(parent = globalenv())
     )
   }
 )
