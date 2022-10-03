@@ -88,8 +88,8 @@ output$htmldownload <- downloadHandler(
     progress$set(message = "Result", value = 0)
     progress$inc(0.70, detail = "generating Rmarkdown file")
     rmarkdown::render("./HTML-Example-IVD.Rmd", output_file = file,
-                      params = params,
-                      envir = new.env(parent = globalenv())
+                      params = params#,envir = new.env(parent = globalenv())
+                      
     )
   }
 )
