@@ -65,7 +65,7 @@ observe({
                  est.fc(p.seq(),c1.square = 0.5)
                  est.fc(p.seq(),c1.square = 0)
                })
-})%>%bindEvent(p.seq(),input$Sauc1,input$allsingle,input$calculateStart)
+})%>%bindEvent(p.seq(),input$Sauc1,input$allsingle,studyId())
 observe(est.fc(p.seq(),c1.square =input$c1c2_set))%>%bindEvent(input$c1c2_set,input$Sauc1,input$allsingle,input$calculateStart)
 
 observe({
