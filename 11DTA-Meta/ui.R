@@ -40,7 +40,7 @@ tagList(includeCSS("../www/style.css"),
 
   #shinythemes::themeSelector(),
 navbarPage(
-  theme = shinythemes::shinytheme("cerulean"),
+  theme = shinythemes::shinytheme("flatly"),
   collapsible = TRUE,
   position="fixed-top",
   title = "Meta-Analysis of Diagnostic Test Accuracy",
