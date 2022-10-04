@@ -16,13 +16,14 @@ if (!requireNamespace("shinyAce", quietly = TRUE)) {install.packages("shinyAce")
 #library("htmltools")
 source("function.R")
 #source("./ui_dtameta.R",local = TRUE)
-source("ui_uni.R",local = TRUE)
-source("ui_tab.R")
-source("../tab/panel.R")
-source("../tab/func.R")
-source("./sauc.R")
-source("./llk.o.R")
-source("./dtametasa_fc.R")
+# source("ui_uni.R",local = TRUE)
+source("ui_tab.R",local = TRUE)
+source("../tab/panel.R",local = TRUE)
+source("../tab/func.R",local = TRUE)
+
+source("sauc.R",local = TRUE)
+source("llk.o.R",local = TRUE)
+source("dtametasa_fc.R",local = TRUE)
 
 
 tagList(includeCSS("../www/style.css"),
@@ -34,7 +35,7 @@ inputId = "explain_on_off",#
 label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
 inline = TRUE,
 onLabel = "Close",
-offLabel = "Information",
+offLabel = "Info.",
 size = "mini"
 )
 )
@@ -89,11 +90,11 @@ headerPanel("Meta-Analysis of Diagnostic Test Accuracy"),
 source("ui_dta.R",local = TRUE)$value),
 
 tabPanel("Funnel Plot",
-headerPanel("Funnel Plot of the Diagnistic Studies for Detecting Publication Bias"),
+headerPanel("Funnel Plot for Publication Bias"),
 source("ui_funnel.R",local=TRUE)$value
 ),
 tabPanel("Sensitivity Analysis",
-  headerPanel("Sensitivity-Analysis of the Publicatin Bias"),
+  headerPanel("Sensitivity-Analysis of Publication Bias"),
 source("ui_sensitivity.R",local = TRUE)$value
 ),
 tabPanel("Download App",
