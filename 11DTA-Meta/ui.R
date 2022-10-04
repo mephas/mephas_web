@@ -82,6 +82,10 @@ navbarPage(
   tabPanel("Meta-Analysis",
     headerPanel("Meta-Analysis of Diagnostic Studies"),
     source("./ui_dta.R",local = TRUE)$value),
+  tabPanel("Funnel Plot",
+    headerPanel("Funnel Plot"),
+    source("./ui_funnel.R",local=TRUE)$value
+  ),
   tabPanel("Sensitivity Analysis",headerPanel("Sensitivity-Analysis of Diagnostic Studies"),
   	source("./ui_sensitivity.R",local = TRUE)$value
   									),
