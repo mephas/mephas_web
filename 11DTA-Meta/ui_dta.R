@@ -77,7 +77,7 @@ sidebarLayout(
                       color:white;}"
               
     )
-                         
+   ,verbatimTextOutput("debug")                      
     ),
     mainPanel(
     h4(tags$b("Outputs")),

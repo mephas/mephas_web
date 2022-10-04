@@ -66,8 +66,8 @@ observe({
                  est.fc(p.seq(),c1.square = 0)
                })
 })%>%bindEvent(p.seq(),input$Sauc1,input$allsingle,studyId())
-observe(est.fc(p.seq(),c1.square =input$c1c2_set))%>%bindEvent(input$c1c2_set,input$Sauc1,input$allsingle,input$calculateStart)
-
+observe(est.fc(p.seq(),c1.square =input$c1c2_set))%>%bindEvent(input$c1c2_set,input$Sauc1,input$allsingle,studyId())
+output$debug<-renderText(paste(studyId(),input$Sauc1,input$allsingle,p.seq()))
 observe({
   inFile1 <- input$filer
   separater <- input$Delimiter

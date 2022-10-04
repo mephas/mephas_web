@@ -87,7 +87,7 @@ navbarPage(
   									),
   tabPanel("DesktopApp",headerPanel("Download DTA Meta Desktop App"),
     source("./ui_desktopApp.R",local = TRUE)$value),
-  tablang("11DTA-Meta"),
+  #tablang("11DTA-Meta"),
   tabstop(),
   tablink(),
   
