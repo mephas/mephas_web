@@ -112,11 +112,7 @@ sidebarLayout(
                              column(width=6,plotly::plotlyOutput("sauc_gg_c10")),
                              column(width=6,plotly::plotlyOutput("sauc_gg_c01"))
                            ),
-      tabPanel("Funnel plot",
-        p(plotOutput("ml.lnDOR_funnel",width=500),downloadButton("mo"),downloadButton("momof")),plotOutput("logit.Sens_plot",width=500),plotOutput("logit.Spec_plot",width=500)
 
-
-        ),
                            tabPanel("Results",column(width = 12,h4("Logit-transformed Data"),DT::dataTableOutput("LogitData")
                                                      ,h4("Results"),DT::dataTableOutput("Results"))),
                            tabPanel("Plot Summary",
