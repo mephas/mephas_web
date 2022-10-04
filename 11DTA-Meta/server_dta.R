@@ -1,4 +1,4 @@
- p.10 <- seq(10,1, -2)/10
+p.10 <- seq(10,1, -2)/10
 studyId<-reactiveVal(0)
 data<-reactiveVal(data.frame(study=seq(1:14)
                              ,TP=c(12,10,17,13,4,15,45,18,5,8,5,11,5,7)
@@ -123,12 +123,10 @@ est.fc<-function(p.seq,c1.square=0.5){sapply(p.seq,function(p){
   if(length(esting_omg[[paste0(p,c1.square,input$Sauc1,input$allsingle,studyId())]])==0) est.add_fc(p,c1.square)
 })}
 est.r<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
-  print(paste0(x,input$Sauc1,input$allsingle,studyId()))
   validate(need(length(esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]])>0,"Push Above Button[Reload DATA TO Calculation]\nerror 111"))
   esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
 est.f<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
-  print(paste0(x,input$Sauc1,input$allsingle,studyId()))
   validate(need(length(esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]])>0,"Push Above Button[Reload DATA TO Calculation]\nerror 112"))
   esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
