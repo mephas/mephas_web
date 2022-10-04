@@ -257,6 +257,20 @@ output$meta_sroc_plot<-renderUI({
   )
   
 })
+#gg theme--------
+gg_theme   <- reactive({
+  switch(input$ggplot_theme
+     ,theme_bw = theme_bw()
+     ,theme_classic = theme_classic()
+     ,theme_light = theme_light()
+     ,theme_linedraw = theme_linedraw()
+     ,theme_minimal = theme_minimal()
+     ,theme_test = theme_test()
+     ,theme_void = theme_void()
+     ,theme_default = NULL
+    )
+
+})
 #2.Sensitivity Analysis====
 ##SROC====
 ###sroc_ggplot_over====
@@ -408,18 +422,37 @@ sroc_ggplot<-function(plot_id,c1.square){
 
 
 ##SAUC====
+output$sauc_gg_estimate<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate")))
+output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_11",0.5,"(B) c1=c2")))
+output$sauc_gg_c10<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_10",1,"(C) c1=1,c2=0")))
+output$sauc_gg_c01<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_01",0,"(D) c1=0,c2=1")))
+
+sauc_ggplot<-function(plot_id,title="(A) C1,C2 estimate"){
+  est.sauc2<-sapply(p.10,function(x)esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)%>%t()
+  data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc2[,"sauc"],est.sauc2[,"sauc.lb"],est.sauc2[,"sauc.ub"]),sauctype=c(rep("sauc",length(p.10)),rep("sauc.lb",length(p.10)),rep("sauc.ub",length(p.10))))
+  p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+gg_theme()+
+    ylim(0,1)+
+    xlim(0.1,1)+
+    ggtitle(title)+
+    #theme(title= element_text(size = 16))+
+    geom_point()+
+    geom_line()
+  p
+}
+sauc_ggplot_b<-function(plot_id,c1.square,title="C1,C2"){
+  est.sauc<-sapply(p.10,function(x)esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)%>%t()
+  data<-data.frame(p=c(p.10,p.10,p.10),Sauc=c(est.sauc[,"sauc"],est.sauc[,"sauc.lb"],est.sauc[,"sauc.ub"]),sauctype=c(rep("sauc",length(p.10)),rep("sauc.lb",length(p.10)),rep("sauc.ub",length(p.10))))
+  p<-ggplot(data = data,mapping = aes(x=p,y=Sauc,colour=sauctype))+eval(call(input$ggplot_theme))+
+    ylim(0,1)+
+    xlim(0.1,1)+
+    ggtitle(title)+
+    #theme(title= element_text(size = 16))+
+    geom_point()+
+    geom_line()
+  p
+}
 ##Funnel plot====
 ##Results====
-##Plot Summary====
-##Reprooducible R codes====
-#logit===============
-output$LogitData<-renderDataTable(datatable(logitData()%>%round(.,3)
-                                            ,extensions = 'Buttons',
-                                            options=(list(scrollX = TRUE,
-                                                          dom = 'Blfrtip',
-                                                          buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                                                          lengthMenu = list(c(12))
-                                            ))))
 output$Results<-renderDataTable({
   tb2<-reform.dtametasa(est.rf=est.r,p.seq())
   tb11<-reform.dtametasa(est.f,p.seq())
@@ -445,12 +478,16 @@ output$Results<-renderDataTable({
                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
                           lengthMenu = list(c(12))
             )))})
+output$LogitData<-renderDataTable(datatable(logitData()%>%round(.,3)
+                                            ,extensions = 'Buttons',
+                                            options=(list(scrollX = TRUE,
+                                                          dom = 'Blfrtip',
+                                                          buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                                                          lengthMenu = list(c(12))
+                                            ))))
 
-
-
-
-
-
+##Reprooducible R codes====
+#sever_rmd.R
 #Download FRP============================
 output$downloadFRP1<-downloadHandler(filename = "FRP1.png",content = function(file){
   png(file)
@@ -518,7 +555,7 @@ output$logit.Sens_plot<-renderPlot({funnel(tf.se(), xlab = "logit(sensitivity)",
 )
 })
 
-# ## logit-Spec
+## logit-Spec
 ml.sp <- reactive(metabin(TN, with(data(), TN+FP), FP, with(data(), TN+FP), data = data(), sm ="OR", fixed = FALSE))
 tf.sp <- reactive({
  tf.sp<- trimfill(ml.sp(), fixed = FALSE)
@@ -534,52 +571,7 @@ output$logit.Spec_plot<-renderPlot(funnel(tf.sp(), xlab = "logit(specificity)", 
        contour = c(0.9, 0.95, 0.99)
 ))
 
-#gg theme--------
-gg_theme   <- reactive({
-  switch(input$ggplot_theme
-     ,theme_bw = theme_bw()
-     ,theme_classic = theme_classic()
-     ,theme_light = theme_light()
-     ,theme_linedraw = theme_linedraw()
-     ,theme_minimal = theme_minimal()
-     ,theme_test = theme_test()
-     ,theme_void = theme_void()
-     ,theme_default = NULL
-    )
-
-})
-
-
-#sauc ploy==========
-output$sauc_gg_estimate<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate")))
-output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_11",0.5,"(B) c1=c2")))
-output$sauc_gg_c10<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_10",1,"(C) c1=1,c2=0")))
-output$sauc_gg_c01<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot_b("sauc_c1c2_01",0,"(D) c1=0,c2=1")))
-
-sauc_ggplot<-function(plot_id,title="(A) C1,C2 estimate"){
-  est.sauc2<-sapply(p.10,function(x)esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)%>%t()
-  data<-data.frame(p=c(p.10,p.10,p.10),sauc=c(est.sauc2[,"sauc"],est.sauc2[,"sauc.lb"],est.sauc2[,"sauc.ub"]),sauctype=c(rep("sauc",length(p.10)),rep("sauc.lb",length(p.10)),rep("sauc.ub",length(p.10))))
-  p<-ggplot(data = data,mapping = aes(x=p,y=sauc,colour=sauctype))+gg_theme()+
-    ylim(0,1)+
-    xlim(0.1,1)+
-    ggtitle(title)+
-    #theme(title= element_text(size = 16))+
-    geom_point()+
-    geom_line()
-  p
-}
-sauc_ggplot_b<-function(plot_id,c1.square,title="C1,C2"){
-  est.sauc<-sapply(p.10,function(x)esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]]$sauc.ci)%>%t()
-  data<-data.frame(p=c(p.10,p.10,p.10),Sauc=c(est.sauc[,"sauc"],est.sauc[,"sauc.lb"],est.sauc[,"sauc.ub"]),sauctype=c(rep("sauc",length(p.10)),rep("sauc.lb",length(p.10)),rep("sauc.ub",length(p.10))))
-  p<-ggplot(data = data,mapping = aes(x=p,y=Sauc,colour=sauctype))+eval(call(input$ggplot_theme))+
-    ylim(0,1)+
-    xlim(0.1,1)+
-    ggtitle(title)+
-    #theme(title= element_text(size = 16))+
-    geom_point()+
-    geom_line()
-  p
-}
+##Plot Summary====
 #sroc====================================
 output$srocA<-renderPlot({
   par(mfrow = c(2,2), oma = c(0.2, 3, 0.2, 0.3), mar = c(2, 0.2, 2, 0.2))
