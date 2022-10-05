@@ -6,8 +6,8 @@ tabstop <- function(){
                    actionLink(
                            "close", "Stop", 
                            icon = icon("power-off"),
-                           # onclick = "setTimeout(function(){window.close();}, 100);"
-                           onclick = "stopApp()"
+                           onclick = "setTimeout(function(){window.close();}, 100);"
+                           # onclick = "stopApp()"
                    )
            ),
            tabPanel(
