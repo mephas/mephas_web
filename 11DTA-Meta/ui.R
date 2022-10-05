@@ -20,10 +20,10 @@ source("function.R")
 source("ui_tab.R",local = TRUE)
 source("../tab/panel.R",local = TRUE)
 source("../tab/func.R",local = TRUE)
-
-source("sauc.R",local = TRUE)
-source("llk.o.R",local = TRUE)
-source("dtametasa_fc.R",local = TRUE)
+source("../tab/tab.R",local = TRUE)
+source("sauc.R")
+source("llk.o.R")
+source("dtametasa_fc.R")
 
 
 tagList(includeCSS("../www/style.css"),
