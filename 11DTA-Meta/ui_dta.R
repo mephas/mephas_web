@@ -6,15 +6,16 @@ tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background:
 
 h4(tags$b("Step 1. Data preparation")),
 shinyWidgets::prettyRadioButtons("manualInputTRUE",
-icon = icon("check"),choices = c("Manually input data","Upload file from local"),"1. Choose input way",inline = TRUE),
+icon = icon("check"),choices = c("Manually input data","Upload file from local"),
+"1. Choose input way",inline = TRUE),
 
 conditionalPanel(condition = "input.manualInputTRUE=='Upload file from local'",icon("fa-regular fa-file",lib = "font-awesome"),
 fileInput("filer",label = "csv,txt",accept = c("text/csv"))),
 
-icon("fa-regular fa-keyboard",lib="font-awesome")
-,
+# icon("fa-regular fa-keyboard",lib="font-awesome")
+# ,
 
-shinyWidgets::prettyRadioButtons(
+prettyRadioButtons(
 inputId = "Delimiter",
 label = "2. Which delimiter for data?", 
 status = "info",
