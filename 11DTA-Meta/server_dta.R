@@ -5,7 +5,7 @@ data<-reactiveVal(data.frame(study=seq(1:14)
                              ,FN=c(0,2,1,0,0,2,5,4,0,9,0,2,1,5)
                              ,FP=c(29,14,36,18,21,122,28,69,11,15,7,122,6,25)
                              ,TN=c(289,72,85,67,225,403,34,133,34,96,63,610,145,342)))
-esting<-reactiveValues(NULL)
+esting<-reactiveValues()
 esting_omg<-reactiveValues()
 p.seq<-reactiveVal(NULL)
 #observe====
