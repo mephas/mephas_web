@@ -84,21 +84,21 @@ sidebarLayout(
    mainPanel(
     	    tabsetPanel(id="Sensitivity_Panel",
                            tabPanel("SROC",
-                                    fluidRow(column(width = 6,HTML("$(\\hat{c}_1, \\, \\hat{c}_2)$H<sub>2</sub>O"),h4("c<sub>1</sub>c<sub>2</sub>","estimate",downloadButton("downloadsauc_gg_estimate","Save Image")),
+                                    fluidRow(column(width = 6,h4("c1c2","estimate",downloadButton("downloadsauc_gg_estimate","Save Image")),
                                                     plotOutput("srocB")
                                                     #,flowLayout(ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve"))
                                     )
-                                    ,column(width = 6,h4("c<sub>1</sub>c<sub>2</sub>","c<sub>1</sub>=c<sub>2</sub>",downloadButton("download_srocC_11","Save Image")),
+                                    ,column(width = 6,h4("c1c2","c1=c2",downloadButton("download_srocC_11","Save Image")),
                                             plotOutput("srocC_11")
                                             #,flowLayout(ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11"))
                                             )
-                                    ,column(width = 6,h4("c<sub>1</sub>c<sub>2</sub>","c<sub>1</sub>=1,c<sub>2</sub>=0",downloadButton("download_srocC_10","Save Image")),
+                                    ,column(width = 6,h4("c1c2","c1=1,c2=0",downloadButton("download_srocC_10","Save Image")),
                                             plotOutput("srocC_10")#,flowLayout(ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10"))
                                             )
-                                    ,column(width = 6,h4("c<sub>1</sub>c<sub>2</sub>","c<sub>1</sub>=0,c<sub>2</sub>=1",downloadButton("download_srocC_01","Save Image")),
+                                    ,column(width = 6,h4("c1c2","c1=0,c2=1",downloadButton("download_srocC_01","Save Image")),
                                             plotOutput("srocC_01")#,flowLayout(ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01"))
                                             )
-                                    ,column(width = 6,h4("c<sub>1</sub>c<sub>2</sub>","Manual set",downloadButton("download_c1c2_manul","Save Image")),
+                                    ,column(width = 6,h4("c1c2","Manual set",downloadButton("download_c1c2_manul","Save Image")),
                                             sliderInput("c1c2_set","c1::",0,1,0.5),actionButton("c1c2_set_button","c1c2"),
                                             plotOutput("srocD")
                                             # ,flowLayout(ui.plot_baseline_drop("c1c2_manul",plot_title = "C1C2",x_axis = "1-sp",y_axis = "se"),
