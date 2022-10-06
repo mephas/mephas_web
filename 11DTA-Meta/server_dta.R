@@ -1,17 +1,13 @@
 p.10 <- seq(10,1, -2)/10
 studyId<-reactiveVal(0)
-
-data<-reactiveVal(
-  data.frame(study=seq(1:33)
-    ,TP=c(12,10,17,13,4,15,45,18,5,8,5,11,5,7,10,5,5,55,6,42,5,13,20,7,48,11,15,68,13,8,13,14,8)
-    ,FN=c(0,2,1,0,0,2,5,4,0,9,0,2,1,5,1,5,0,13,2,26,3,0,0,6,2,1,5,13,1,3,1,1,2)
-    ,FP=c(29,14,36,18,21,122,28,69,11,15,7,122,6,25,93,41,15,19,12,19,5,11,24,13,15,14,32,5,5,66,98,0,4)
-    ,TN=c(289,72,85,67,225,403,34,133,34,96,63,610,145,342,296,271,53,913,30,913,37,125,287,72,47,72,170,11,72,323,293,155,60)))
-
+data<-reactiveVal(data.frame(study=seq(1:14)
+                             ,TP=c(12,10,17,13,4,15,45,18,5,8,5,11,5,7)
+                             ,FN=c(0,2,1,0,0,2,5,4,0,9,0,2,1,5)
+                             ,FP=c(29,14,36,18,21,122,28,69,11,15,7,122,6,25)
+                             ,TN=c(289,72,85,67,225,403,34,133,34,96,63,610,145,342)))
 esting<-reactiveValues()
 esting_omg<-reactiveValues()
 p.seq<-reactiveVal(NULL)
-
 #observe====
 observe({
   inFile1 <- input$filer
@@ -23,15 +19,9 @@ observe({
       showModal(modalDialog(
         title = "Error message",
         easyClose = FALSE,
-        p(tags$strong("Please check your data. 
-          1. variable names must contain TP,FN,TN,FP; 
-          2. delimiter for data is correctly selected"), 
-        "Please edit your data set",br(),
-
-          tags$i(tags$u("")), 
-          "If you need more help, please download and refer to the format of the example data",
-          tags$a(href="https://github.com/mephas/datasets/blob/master/dtameta_data/dtameta_example_dat.csv", 
-            "DTA-Meta Example CSV Data",target="_blank") ), 
+        p(tags$strong("Data must contain TP,FN,TN,FP:
+                             "), "Please edit the data-set",br(),
+          tags$i(tags$u("")), "If you need more important, please check",tags$a(href="https://mephas.github.io/helppage/", "DTA-Meta Manual",target="_blank") ), 
         br(),
         modalButton("Close"),
         footer = NULL
@@ -41,7 +31,7 @@ observe({
     data(DATA)
   }
   else{
-    list1<-read.csv(inFile1$datapath, sep = separater, header=TRUE)
+    list1<-read.csv(inFile1$datapath,sep = separater, header=TRUE)
     validate(need(list1$TP & list1$FN & list1$TN & list1$FP,"Data must contain TP,FP,FN,TP"))
     list2<-read.csv(inFile1$datapath,sep = separater, header=FALSE)
     data(list1)
@@ -60,7 +50,7 @@ observe({
   studyId(newID)
 })%>%bindEvent(input$calculateStart)
 observe({
-  withProgress(message = "Calculating",detail = 'This may take a while...', value = 0,
+  withProgress(message = "Calculation one second",detail = 'This may take a while...', value = 0,
                {
                  est.rc(p.10)
                  incProgress(1/4)
