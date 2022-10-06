@@ -3,7 +3,7 @@ if (!requireNamespace("shiny", quietly = TRUE)) {install.packages("shiny")}; req
 if (!requireNamespace("ggplot2",quietly = TRUE)) {install.packages("ggplot2")}; require("ggplot2",quietly = TRUE)
 if (!requireNamespace("shinyWidgets", quietly = TRUE)) {install.packages("shinyWidgets")}; require("shinyWidgets",quietly = TRUE)
 if (!requireNamespace("latex2exp", quietly = TRUE)) {install.packages("latex2exp")}; require("latex2exp",quietly = TRUE)
-# if (!requireNamespace("shinythemes", quietly = TRUE)) {install.packages("shinythemes")}; require("shinythemes",quietly = TRUE)
+if (!requireNamespace("shinythemes", quietly = TRUE)) {install.packages("shinythemes")}; require("shinythemes",quietly = TRUE)
 if (!requireNamespace("DT", quietly = TRUE)) {install.packages("DT")}; require("DT",quietly = TRUE)
 if (!requireNamespace("meta", quietly = TRUE)) {install.packages("meta")}; require("meta",quietly = TRUE)
 if (!requireNamespace("mada", quietly = TRUE)) {install.packages("mada")}; require("mada",quietly = TRUE)
@@ -15,19 +15,17 @@ if (!requireNamespace("shinyAce", quietly = TRUE)) {install.packages("shinyAce")
 #library("bsplus")
 #library("htmltools")
 source("function.R")
-#source("./ui_dtameta.R",local = TRUE)
+# source("./ui_dtameta.R",local = TRUE)
 # source("ui_uni.R",local = TRUE)
-source("ui_tab.R",local = TRUE)
-source("../tab/panel.R",local = TRUE)
-source("../tab/func.R",local = TRUE)
-source("../tab/tab.R",local = TRUE)
+source("ui_tab.R")
+source("../tab/panel.R")
+source("../tab/func.R")
+
 source("sauc.R")
 source("llk.o.R")
 source("dtametasa_fc.R")
 
-
 tagList(includeCSS("../www/style.css"),
-stylink(),
 
 fluidPage(
 shinyWidgets::switchInput(
