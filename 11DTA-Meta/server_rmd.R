@@ -41,7 +41,7 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 )})
 #rmd_read<-reactive(readLines("ReproduceScript.Rmd"))
 
-output$Rmd<-reactive({
+Rmd<-reactive({
 
   p<-paste(p.seq(),collapse=",")
   sauc.type<-input$Sauc1
@@ -53,22 +53,34 @@ output$Rmd<-reactive({
   val<-0
   value<-c(input$Rmd_title,input$Rmd_document,p,sauc.type,filename)
   con_file <- file(description = "ReproduceScript.Rmd", open = "r")
-  lines<-sapply(1:40, function(x) {
+  # lines<-sapply(1:120, function(x) {
+  #   line <- readLines(con_file, n = 1)
+  #   if(length(line) == 0) break
+  #   if(length(grep("%s",line))>0) {
+  #     val<<-val+1
+  #     return(sprintf(line,value[val]))
+  #   }
+  #   line
+  #   })
+  lines<-NULL
+  while(TRUE){
     line <- readLines(con_file, n = 1)
     if(length(line) == 0) break
     if(length(grep("%s",line))>0) {
       val<<-val+1
       return(sprintf(line,value[val]))
     }
-    line
-    })
+    lines<-c(lines,line)
+  }
+  print(lines)
   close(con_file)
   paste(lines,collapse="\n")
   })
+output$rmd<-reactive(Rmd())
 output$rmddownload<-downloadHandler(
   filename = input$rmdname,
   content = function(file){
-    cat(rmd(),file=file)
+    cat(Rmd(),file=file)
   }
 )
 #=======

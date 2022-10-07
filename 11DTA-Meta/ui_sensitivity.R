@@ -155,7 +155,7 @@ sidebarLayout(
                                                   color:white;}"
 
                                           )
-                                     ,verbatimTextOutput("Rmd")
+                                     ,verbatimTextOutput("rmd")
                                      )
     	)
                      
