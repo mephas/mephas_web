@@ -84,11 +84,11 @@ sidebarLayout(
    mainPanel(
     	    tabsetPanel(id="Sensitivity_Panel",
                            tabPanel("SROC",
-                                    fluidRow(column(width = 6,HTML("$(\\hat{c}_1, \\, \\hat{c}_2)$H<sub>2</sub>O"),h4("c<sub>1</sub>c<sub>2</sub>","estimate",downloadButton("downloadsauc_gg_estimate","Save Image")),
+                                    fluidRow(column(width = 6,HTML("<h4>c<sub>1</sub>c<sub>2</sub>"),h4("estimate",downloadButton("downloadsauc_gg_estimate","Save Image")),
                                                     plotOutput("srocB")
                                                     #,flowLayout(ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve"))
                                     )
-                                    ,column(width = 6,h4("c<sub>1</sub>c<sub>2</sub>","c<sub>1</sub>=c<sub>2</sub>",downloadButton("download_srocC_11","Save Image")),
+                                    ,column(width = 6,HTML("<h4>c<sub>1</sub>c<sub>2</sub>","c<sub>1</sub>=c<sub>2</sub>"),downloadButton("download_srocC_11","Save Image"),
                                             plotOutput("srocC_11")
                                             #,flowLayout(ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11"))
                                             )
