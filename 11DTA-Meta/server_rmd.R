@@ -61,18 +61,19 @@ Rmd<-reactive({
   #     return(sprintf(line,value[val]))
   #   }
   #   line
-  #   })
+  #   }) 
   lines<-NULL
+  mo<-NULL
   while(TRUE){
     line <- readLines(con_file, n = 1)
     if(length(line) == 0) break
     if(length(grep("%s",line))>0) {
-      val<<-val+1
-      return(sprintf(line,value[val]))
+      val<-val + 1
+      lines<-c(lines,sprintf(line,value[val]))
+      next
     }
     lines<-c(lines,line)
   }
-  print(lines)
   close(con_file)
   paste(lines,collapse="\n")
   })
