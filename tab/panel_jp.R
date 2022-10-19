@@ -17,7 +17,7 @@ shinyWidgets::prettyToggle(
    status_on = "info",
    status_off = "warning", 
     label_off = "No",
-   icon_off = icon("remove"),
+   icon_off = icon("xmark"),
    value = TRUE
 ),
 
@@ -30,7 +30,7 @@ shinyWidgets::prettyToggle(
    status_on = "info",
    status_off = "warning", 
     label_off = "No",
-   icon_off = icon("remove"),
+   icon_off = icon("xmark"),
    value = TRUE
 ),
 
@@ -84,7 +84,7 @@ shinyWidgets::prettyToggle(
    status_on = "info",
    status_off = "warning", 
     label_off = "No",
-   icon_off = icon("remove"),
+   icon_off = icon("xmark"),
    value = TRUE
 ),
 
@@ -97,7 +97,7 @@ shinyWidgets::prettyToggle(
    status_on = "info",
    status_off = "warning", 
     label_off = "No",
-   icon_off = icon("remove"),
+   icon_off = icon("xmark"),
    value = TRUE
 ),
 
@@ -141,7 +141,7 @@ shinyWidgets::prettyToggle(
    status_on = "info",
    status_off = "warning", 
     label_off = "No",
-   icon_off = icon("remove"),
+   icon_off = icon("xmark"),
    value = TRUE
 ),
 
@@ -154,7 +154,7 @@ shinyWidgets::prettyToggle(
    status_on = "info",
    status_off = "warning", 
     label_off = "No",
-   icon_off = icon("remove"),
+   icon_off = icon("xmark"),
    value = TRUE
 ),
 

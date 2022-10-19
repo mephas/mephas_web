@@ -12,7 +12,7 @@ tabstop <- function(){
                           #target = "_blank",
                           #style = "margin-top:-30px; color:DodgerBlue",
                           href = paste0("javascript:history.go(0)"),#,
-                          list(icon("redo"), "Restart"))
+                          list(icon("rotate"), "Restart"))
            )
 )
 }
@@ -50,7 +50,7 @@ tablink <- function(){
                                   #target = "_blank",
                                   #style = "margin-top:-30px; color:DodgerBlue",
                                   href = paste0("https://alain003.phs.osaka-u.ac.jp/mephas/","index.html"),#,
-                                  list(icon("home"), "Home Page"))
+                                  list(icon("house"), "Home Page"))
                    ),
                    
                    tabPanel(
