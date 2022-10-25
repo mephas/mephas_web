@@ -63,7 +63,6 @@ Rmd<-reactive({
   #   line
   #   }) 
   lines<-NULL
-  mo<-NULL
   while(TRUE){
     line <- readLines(con_file, n = 1)
     if(length(line) == 0) break
