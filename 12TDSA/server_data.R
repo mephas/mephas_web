@@ -37,11 +37,30 @@ observe({
     if(is.null(input$filer))return()
     for(i in 1:data[["excel"]]
 })
+
 output$HRselect<-renderUI({
     if(is.null(data[["excellist"]]))return()
     pickerInput(
         inputId = "HRselect",
         label = "HRselect",
+        choices = data[["excellist"]]
+        #width = "100%"
+        )
+})
+output$OSselect<-renderUI({
+    if(is.null(data[["excellist"]]))return()
+    pickerInput(
+        inputId = "OSselect",
+        label = "OSselect",
+        choices = data[["excellist"]]
+        #width = "100%"
+        )
+})
+output$MCTselect<-renderUI({
+    if(is.null(data[["excellist"]]))return()
+    pickerInput(
+        inputId = "MCTselect",
+        label = "MCTselect",
         choices = data[["excellist"]]
         #width = "100%"
         )
