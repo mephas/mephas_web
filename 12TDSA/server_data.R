@@ -33,16 +33,38 @@ observe({
     #     })
 })%>%bindEvent(input$filer)
 #DATA SELECT===
-observe({
-    if(is.null(input$filer))return()
-    for(i in 1:data[["excel"]]
-})
+# observe({
+#     if(is.null(input$filer))return()
+#     # for(i in 1:data[["excel"]]
+# })
+
 output$HRselect<-renderUI({
     if(is.null(data[["excellist"]]))return()
     pickerInput(
         inputId = "HRselect",
         label = "HRselect",
-        choices = data[["excellist"]]
+        choices = data[["excellist"]],
+        selected=data[["excellist"]][1]
+        #width = "100%"
+        )
+})
+output$OSselect<-renderUI({
+    if(is.null(data[["excellist"]]))return()
+    pickerInput(
+        inputId = "OSselect",
+        label = "OSselect",
+        choices = data[["excellist"]],
+        selected=data[["excellist"]][3]
+        #width = "100%"
+        )
+})
+output$MCTselect<-renderUI({
+    if(is.null(data[["excellist"]]))return()
+    pickerInput(
+        inputId = "MCTselect",
+        label = "MCTselect",
+        choices = data[["excellist"]],
+        selected=data[["excellist"]][2]
         #width = "100%"
         )
 })
@@ -55,13 +77,42 @@ output$HRdataselect<-renderUI({
         #width = "100%"
         )
 })
-output$HRdataselect<-renderUI({
-    if(is.null(input[["HRselect"]]))return()
+# output$HRdataselect<-renderUI({
+#     if(is.null(input[["HRselect"]]))return()
+#     pickerInput(
+#         inputId = "HRdataselect",
+#         label = "HRdataselect",
+#         choices = colnames(data[["excel"]][[match(input$HRselect,data[["excellist"]])]])
+#         #width = "100%"
+#         )
+# })
+output$yearselect<-renderUI({
+    if(is.null(input[["OSselect"]]))return()
+    sele<- sort(unique(data[["excel"]][[match(input$OSselect,data[["excellist"]])]][["t"]]))
     pickerInput(
-        inputId = "HRdataselect",
-        label = "HRdataselect",
-        choices = colnames(data[["excel"]][[match(input$HRselect,data[["excellist"]])]])
+        inputId = "yearselect",
+        label = "year select",
+        choices =sele
         #width = "100%"
         )
 })
-
+output$mergedata<-renderDataTable({
+    osyear<-data[["excel"]][[match(input$OSselect,data[["excellist"]])]][data[["excel"]][[match(input$OSselect,data[["excellist"]])]]["t"]==as.numeric(input$yearselect),]
+    merge(osyear, data[["excel"]][[match(input$HRselect,data[["excellist"]])]])
+})
+tdsam<-reactive({
+    #validate(need(data[["excel"]][[match(input$HRselect,data[["excellist"]])]] & data[["excel"]][[match(input$OSselect,data[["excellist"]])]] & data[["excel"]][[match(input$MCTselect,data[["excellist"]])]],"Input Data"))
+    tdsameta(
+        data[["excel"]][[match(input$HRselect,data[["excellist"]])]],
+        data[["excel"]][[match(input$OSselect,data[["excellist"]])]],
+        data[["excel"]][[match(input$MCTselect,data[["excellist"]])]],
+        prob=c(1,0.8,0.6),s1.med.mct = s1_mct,s0.med.mct = s0_mct,period = input$period,med.year = mct_mo,
+        tK=input$yearselect
+        )
+})
+output$TDSAMeta<-renderDataTable({
+    tdsam()@par
+})
+output$TDSAMetaSROC<-renderPlot({
+    TDSAMeta::SROC(tdsam()@par)
+})

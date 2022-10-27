@@ -19,9 +19,11 @@ checkIcon = list(
 yes = icon("ok", lib = "glyphicon")),
 direction = "horizontal"
 ),
-uiOutput("HRselect"),uiOutput("HRdataselect")
+uiOutput("HRselect"),uiOutput("OSselect"),uiOutput("MCTselect"),uiOutput("HRdataselect"),uiOutput("yearselect")
+
 ),
 mainPanel(
-dataTableOutput("data")
+dataTableOutput("data"),
+dataTableOutput("mergedata")
 )
 )
