@@ -88,16 +88,16 @@ output$HRdataselect<-renderUI({
 # })
 output$yearselect<-renderUI({
     if(is.null(input[["OSselect"]]))return()
-    sele<- sort(unique(data[["excel"]][[match(input$OSselect,data[["excellist"]])]][["t"]]))
+    sele<- sort(unique(data[["excel"]][[match(input$OSselect,data[["excellist"]])]][["t"]]))/as.numeric(input$period)
     pickerInput(
         inputId = "yearselect",
-        label = "year select",
+        label = "time select",
         choices =sele
         #width = "100%"
         )
 })
 output$mergedata<-renderDataTable({
-    osyear<-data[["excel"]][[match(input$OSselect,data[["excellist"]])]][data[["excel"]][[match(input$OSselect,data[["excellist"]])]]["t"]==as.numeric(input$yearselect),]
+    osyear<-data[["excel"]][[match(input$OSselect,data[["excellist"]])]][data[["excel"]][[match(input$OSselect,data[["excellist"]])]]["t"]==as.numeric(input$yearselect)*as.numeric(input$period),]
     merge(osyear, data[["excel"]][[match(input$HRselect,data[["excellist"]])]])
 })
 tdsam<-reactive({
@@ -106,8 +106,9 @@ tdsam<-reactive({
         data[["excel"]][[match(input$HRselect,data[["excellist"]])]],
         data[["excel"]][[match(input$OSselect,data[["excellist"]])]],
         data[["excel"]][[match(input$MCTselect,data[["excellist"]])]],
-        prob=c(1,0.8,0.6),s1.med.mct = s1_mct,s0.med.mct = s0_mct,period = input$period,med.year = mct_mo,
-        tK=input$yearselect
+        tK=as.numeric(input$yearselect),
+        prob=c(1,0.8,0.6),
+        s1.med.mct = s1_mct,s0.med.mct = s0_mct,med.year = mct_mo,period = as.numeric(input$period)
         )
 })
 output$TDSAMeta<-renderDataTable({
