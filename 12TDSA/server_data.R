@@ -1,5 +1,10 @@
 data<-reactiveValues()
-# c("study",)
+probs<-reactive(round(as.numeric(unlist(strsplit(input$prob, "[,;\n\t\r]"))),2))
+output$probability<-renderText({
+
+    validate(need(identical(probs()<=1&probs()>0,rep(TRUE,length(probs()))),paste("Each value must be from 0 to 1.\nEach value must be separated by a space or a comma.",paste(probs(),collapse = ","))))
+    return()
+})
 #DATA INPUT====
 output$data<-renderDataTable({
     if(is.null(input$dataselect))return()
@@ -24,13 +29,7 @@ observe({
     if(extend=="txt"||extend=="csv"){
         data[["excel"]]<-c(data[["excel"]],list(read.csv(input$filer$datapath,sep = ",", header=TRUE)))
         data[["excellist"]]<-c(data[["excellist"]],paste0(extend,length(data[["excellist"]])))
-
-    }        
-    # i<-0
-    #     sapply(data[["excel"]],function(x){
-    #         i<-i+1
-    #         paste(data[["excellist"]][[i]],"$",colnames(x))
-    #     })
+    }
 })%>%bindEvent(input$filer)
 #DATA SELECT===
 # observe({
@@ -101,13 +100,13 @@ output$mergedata<-renderDataTable({
     merge(osyear, data[["excel"]][[match(input$HRselect,data[["excellist"]])]])
 })
 tdsam<-reactive({
-    #validate(need(data[["excel"]][[match(input$HRselect,data[["excellist"]])]] & data[["excel"]][[match(input$OSselect,data[["excellist"]])]] & data[["excel"]][[match(input$MCTselect,data[["excellist"]])]],"Input Data"))
+    validate(need(identical(probs()<=1&probs()>0,rep(TRUE,length(probs()))),paste("Each value must be from 0 to 1.\nEach value must be separated by a space or a comma.",paste(probs(),collapse = ","))))
     tdsameta(
         data[["excel"]][[match(input$HRselect,data[["excellist"]])]],
         data[["excel"]][[match(input$OSselect,data[["excellist"]])]],
         data[["excel"]][[match(input$MCTselect,data[["excellist"]])]],
         tK=as.numeric(input$yearselect),
-        prob=c(1,0.8,0.6),
+        prob=probs(),
         s1.med.mct = s1_mct,s0.med.mct = s0_mct,med.year = mct_mo,period = as.numeric(input$period)
         )
 })
@@ -115,5 +114,5 @@ output$TDSAMeta<-renderDataTable({
     tdsam()@par
 })
 output$TDSAMetaSROC<-renderPlot({
-    TDSAMeta::SROC(tdsam()@par)
+    plot(tdsam())
 })
