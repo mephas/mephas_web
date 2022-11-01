@@ -742,7 +742,7 @@ output$downloadsrocA<-downloadHandler(filename = "SROC.png",contentType = "image
   
   dev.off()
 })
-###sauc---------------
+#SAUC Old---------------
 output$sauc<-renderPlot({
   title.cex <- 1.5
   withProgress(message = 'Calculation in progress(2/2)',
