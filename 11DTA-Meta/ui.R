@@ -109,8 +109,8 @@ tabPanel(
     <h4><b> 1. Functionalities  </b></h4>
     <ul>
     <li> To upload data files, preview data set, and check the correctness of data input
-    <li> Two models are available: $($1$($ bivariate random-effect model $($Reitsma et al. 2005$)$ or 
-    $($2$($ HSROC model $($Rutter and Gatsonis, 2001$)$
+    <li> Two models are available: $($1$)$ bivariate random-effect model $($Reitsma et al. 2005$)$ or 
+    $($2$)$ HSROC model $($Rutter and Gatsonis, 2001$)$
     <li> To produce summary ROC $($SROC$)$ curves and summary AUC $($SAUC$)$
     <li> To detect the publication bias in the results
     <li> To do sensitivity analysis for the publication bias
@@ -175,7 +175,7 @@ tabPanel(
 
     <h4><i>Case Example</i></h4>
 
-    <i> We used the meta-analysis for diagnosing intravascular device-related bloodstream infection. $($Safdar et al. 2005$($ 
+    <i> We used the meta-analysis for diagnosing intravascular device-related bloodstream infection. $($Safdar et al. 2005$)$ 
 
     </i>
 
@@ -279,6 +279,14 @@ where $\\boldsymbol{c} = (c_1, c_2)^T$ is a contrast vector.
 From equation \\eqref{eq:b12}, it holds that
 \\begin{align}
 t_i = \\dfrac{\\boldsymbol{c}^T \\boldsymbol{y}_i}{\\sqrt{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}}
+\\sim 
+N 
+\\left (
+\\dfrac{\\boldsymbol{c}^T\\boldsymbol{\\mu}}{\\sqrt{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}},
+1 + \\dfrac{\\boldsymbol{c}^T\\boldsymbol{\\Omega}\\boldsymbol{c}}{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}
+\\right ). 
+\\label{eq:t2} 
+\\end{align}
 $(c_1, c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$ gives the $t$-statistic of the lnDOR.
 By taking different contrast vectors, the $t$-type statistic can determine a variety of selective publication mechanisms.
 For example, 
