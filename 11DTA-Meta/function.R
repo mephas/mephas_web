@@ -17,7 +17,8 @@ logit.data <- function(data){
              v2 = v2)
   
 }
-correction <- function(data,value = 0.5,type = c("single", "all")){  
+
+correction <- function(data, value = 0.5,type = c("single", "all")){  
   type <- match.arg(type)
   
   if(type == "all"){
@@ -43,6 +44,8 @@ correction <- function(data,value = 0.5,type = c("single", "all")){
   }
   return(data)
 }
+
+
 .reform.est <- function(est,p.seq)
 {
   est <- est[-c(1, 20,21),]
@@ -69,6 +72,7 @@ correction <- function(data,value = 0.5,type = c("single", "all")){
   tb
   
 }
+
 reform.dtametasa<-function(est.rf,p.seq,c1.square=0.5){
   #est.rf<-match.fun(est.rf)
   sauc.ci <- sprintf("%.3f (%.3f, %.3f)", est.rf(c1.square,par ="sauc.ci","sauc"),est.rf(c1.square,par ="sauc.ci","sauc.lb"),est.rf(c1.square,par ="sauc.ci","sauc.ub"))
@@ -85,6 +89,8 @@ reform.dtametasa<-function(est.rf,p.seq,c1.square=0.5){
 
   # sapply(object,function(x)c(x$alpha,x$mu1.c1["mu1"],x$mu2.ci["mu2"],x$par[c("tau1","tau2","rho")]))%>%round(.,3)%>%t())
 }
+
+
 data_ErrorMessage<-function(){
   showModal(modalDialog(
     title = "Error message",
@@ -134,3 +140,4 @@ ui.plot_srocline_drop<-function(plot_id,p.seq){
                                                  ,sliderTextInput(paste0("sroc_curve_shape",plot_id,i),grid = TRUE,label =  "SROC Curve shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")))
 )
 }
+

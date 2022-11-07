@@ -1,25 +1,27 @@
 
 sidebarLayout(
+
 sidebarPanel(
+
 tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
 tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
 
-h4(tags$b("Step 1. Data preparation")),
-shinyWidgets::prettyRadioButtons("manualInputTRUE",
-icon = icon("check"),choices = c("Manually input data","Upload file from local"),
-"1. Choose input way",inline = TRUE),
+h3(tags$b("Data preparation")),
+p(br()),
 
-conditionalPanel(condition = "input.manualInputTRUE=='Upload file from local'",icon("fa-regular fa-file",lib = "font-awesome"),
-fileInput("filer",label = "csv,txt",accept = c("text/csv"))),
-
-# icon("fa-regular fa-keyboard",lib="font-awesome")
-# ,
+prettyRadioButtons(
+inputId = "manualInputTRUE",
+label = "1. Choose input way",
+icon = icon("check"),
+choices = c("Manually input data", "Upload file from local"),
+fill = TRUE
+),
 
 prettyRadioButtons(
 inputId = "Delimiter",
-label = "2. Which delimiter for data?", 
-status = "info",
-fill = TRUE,
+label = "2. Choose delimiter that separates the values", 
+# status = "info",
+# fill = TRUE,
 icon = icon("check"),
 choiceNames = list(
 HTML("Comma (,): default in csv file"),
@@ -27,12 +29,20 @@ HTML("One Tab (->|): default in txt file"),
 HTML("Semicolon (;)"),
 HTML("One Space (_)")
 ),
-choiceValues = list(",", "\t", ";", " ")
-)
-,
+choiceValues = list(",", "\t", ";", " "),
+fill = TRUE
+),
 
-p(tags$b("3. Edit Data"))
-,
+conditionalPanel(
+	condition = "input.manualInputTRUE=='Upload file from local'",
+	icon("file-excel"),
+	fileInput("filer",
+		label = "Upload your csv and txt files, and data will be shown in the box", 
+		accept = c("text/csv"))),
+
+
+tags$b("3. Edit data here"),
+p(br()),
 
 aceEditor("manualInput"
 ,value = "study,TP,FN,FP,TN\n1,12,0,29,289\n2,10,2,14,72\n3,17,1,36,85\n4,13,0,18,67\n5,4,0,21,225\n6,15,2,122,403\n7,45,5,28,34\n8,18,4,69,133\n9,5,0,11,34\n10,8,9,15,96\n11,5,0,7,63\n12,11,2,122,610\n13,5,1,6,145\n14,7,5,25,342
@@ -42,24 +52,54 @@ aceEditor("manualInput"
 ,theme="eclipse"
 ),
 
-actionButton("calculateStart",tags$b(HTML("Reload Data and Update the Calculation")),icon = icon("fa-solid fa-wave-square",lib = "font-awesome")),
+p(br()),
+actionButton("calculateStart",
+	tags$b(HTML("Update data and results")),
+	icon = icon("rotate-right")),
 
+p(br()),
+
+prettyRadioButtons(
+inputId = "allsingle",
+label = "Continuity correction type",
+choiceNames = c("Correction for single study", "Correction for all studies"),
+choiceValues = c("single", "all"),
+selected = "single",
+# status = "info",
+fill = TRUE,
+icon = icon("check")
+),
+
+
+p(br()),
+hr(),
+
+h3(tags$b("Confidence Intervals (CIs)")),
+p(br()),
 #aceEditor("k","m",mode="html",maxLines=1),aceTooltip("k"),
-numericInput("ci.level", label = "Select confidence interval level", value = 0.95, min = 0.50, max = 0.99),
 
-selectInput("ci.method", label = "Select methods for confidence interval", 
-choices = list(
-"wald" = "wald", 
-"wilson" = "wilson", 
-"agresti-coull" = "agresti-coull", 
-"jeffreys" = "jeffreys",
-"modified wilson" = "modified wilson", 
-"modified jeffreys" = "modified jeffreys", 
-"clopper-pearson" = "clopper-pearson", 
-"arcsine" = "arcsine", 
-"logit" = "logit",
-"witting" = "witting"), 
-selected = "wald"),
+sliderInput("ci.level", 
+	label = "Significance level of CIs", 
+	value = 0.95, 
+	min = 0.50, max = 0.99, step = 0.01),
+p(br()),
+
+selectInput("ci.method", label = "Select methods of confidence interval", 
+	choices = list(
+	"Wald" = "wald", 
+	"Wilson" = "wilson", 
+	"Agresti-Coull" = "agresti-coull", 
+	"Jeffreys" = "jeffreys",
+	"Modified Wilson" = "modified wilson", 
+	"Modified Jeffreys" = "modified jeffreys", 
+	"Clopper-Pearson" = "clopper-pearson", 
+	"Arcsine transformation" = "arcsine", 
+	"Logit transformation" = "logit",
+	"Witting" = "witting"), 
+	selected = "wald")
+,
+
+
 #       selectInput(
 #     inputId = "letter",
 #     label = "Label with popover help",
@@ -77,20 +117,9 @@ selected = "wald"),
 # p(HTML("<b>UU</b>"),span(shiny::icon("info-circle"), id = "info_uu"),numericInput('uu', NULL, 10000),
 #                              tippy::tippy_this(elementId = "info_uu",tooltip = "Number of Unique Users of your experiment",placement = "right")),
 
-icon("keyboard"),
-icon("calendar"),
-icon = icon("calendar"),
-radioGroupButtons(
-inputId = "allsingle",
-label = "Continuity correction type",
-choiceNames = c("Correction for single study", "Correction for all studies"),
-choiceValues = c("single", "all"),
-selected = "single",
-justified = TRUE,
-checkIcon = list(
-yes = icon("ok", lib = "glyphicon")),
-direction = "vertical"
-),
+# icon("keyboard"),
+# icon("calendar"),
+# icon = icon("calendar"),
 
 tags$style("#calculateStart {background:#4169e1;
 color:white;}
@@ -102,42 +131,202 @@ border-radius:3%;
 color:white;}"
 
 )
-,verbatimTextOutput("debug")                      
+# ,verbatimTextOutput("debug")                      
 ),
 mainPanel(
-h4(tags$b("Outputs")),
 
+h4(tags$b("Data Preview")),
 tabsetPanel(
-tabPanel("Data Preview", p(br()),
-DT::dataTableOutput("RawData")),
 
-tabPanel("Descriptive Statistics", p(br()),
-verbatimTextOutput("md.text")),
+tabPanel(
+	"Input Data", p(br()),
+	DTOutput("RawData")
+	),
+	
+tabPanel(
+	"After continuity correction",p(br()),
+	DTOutput("CorData")
+	),
 
-tabPanel("Forest Plots for Se/Sp", p(br()),
-uiOutput("meta_sesp_plot"),
-textInput("se.title", label = "Input title for plot 1", value = "Sensitivity"),
-textInput("sp.title", label = "Input title for plot 2", value = "Specificity")
+tabPanel(
+	"After logit transformation",p(br()),
+	DTOutput("LogData")
+	)
 
 ),
 
-tabPanel(title = "Forest plots for univariate measures",p(br()),
-uiOutput("meta_uni_plot"),
-awesomeCheckbox(
-inputId = "uni.log",
-label = "Log-transformed results", 
-value = TRUE
+
+# DTOutput("CorData"),
+hr(),
+
+h4(tags$b("Outputs")),
+tabsetPanel(
+
+tabPanel(
+	"Studies distribution and CIs", p(br()),
+
+	awesomeCheckbox( 
+	   inputId = "studypp",
+	   label = "Only points of studies", 
+	   value = TRUE
+	   ),
+
+	awesomeCheckbox( 
+	   inputId = "ROCellipse",
+	   label = "Add CI region", 
+	   value = FALSE
+	   ),
+	 
+	 awesomeCheckbox( 
+	   inputId = "Crosshair",
+	   label = "Add crosshair CI", 
+	   value = FALSE
+	 ),
+
+# prettyCheckbox( 
+# 	   inputId = "mslSROC",
+# 	   label = "Add Moses-Shapiro-Littenberg SROC curve", 
+# 	   value = FALSE,
+# 	   icon = icon("check")
+# 	   ),
+	 
+# 	 prettyCheckbox( 
+# 	   inputId = "rsSROC",
+# 	   label = "Add Ruecker-Schumacher (2010) SROC curve", 
+# 	   value = TRUE,
+# 	   icon = icon("check")
+# 	 ), 
+	 p(br()),
+
+
+  splitLayout(
+   textInput("ci.xlab", label = "Label for x-axis", value = "1-Specificity"),
+   textInput("ci.ylab", label = "Label for y-axis", value = "Sensitivity"),
+	), 
+  p(br()),
+
+  plotOutput("plot_ci",  height ="600px", width = "600px")
+
 ),
-textInput("u1.title", label = "Input title for plot 1", value = "Log diagnostic odds ratio"),
-textInput("u2.title", label = "Input title for plot 2", value = "Log negative LR"),
-textInput("u3.title", label = "Input title for plot 3", value = "Log positive LR")),
 
-tabPanel(title = "SROC",
+tabPanel(
+	"Descriptive Statistics for the Sensitivity and Specificity", p(br()),
+	h4("Estimates"), p(br()),
+	DTOutput("se_sp"), p(br()),
+	
 
-uiOutput("meta_sroc_plot")
+	h4("Test of equality"), p(br()),
+	DTOutput("se_sp_test"), p(br()),
+
+	h4("Forest plots"), p(br()),
+	splitLayout(
+	  textInput("se.title", label = "Change title for the plot", value = "Sensitivity"),
+	  textInput("sp.title", label = "Change title for the plot", value = "Specificity")
+	), p(br()),
+
+	uiOutput("meta_sesp_plot")
+
+	),
+
+tabPanel(
+	"Descriptive Statistics for the Diagnostic Odds Ratio", p(br()),
+	h4("Estimates"), p(br()),
+	DTOutput("dor"), p(br()),
+
+	h4("Forest plots"), p(br()),
+
+	awesomeCheckbox(
+		inputId = "uni.log1",
+		label = "Log-transformed results", 
+		value = TRUE
+	),
+
+	textInput("u1.title", label = "Change title for the plot", value = "Log diagnostic odds ratio"),
+	p(br()),
+
+	uiOutput("meta_dor_plot")
+
+	),
+
+tabPanel(
+	"Descriptive Statistics for the Likelihood Ratios", p(br()),
+	h4("Estimates"), p(br()),
+	DTOutput("uni.measure"), p(br()),
+
+	# h4("Test of equality"), p(br()),
+	# # DTOutput("se_sp_test"), p(br()),
+
+	h4("Forest plots"), p(br()),
+
+	awesomeCheckbox(
+		inputId = "uni.log2",
+		label = "Log-transformed results", 
+		value = TRUE
+	),
+
+	splitLayout(
+		textInput("u2.title", label = "Change title for the plot", value = "Log negative LR"),
+		textInput("u3.title", label = "Change title for the plot", value = "Log positive LR")
+		), 
+	p(br()),
+
+	uiOutput("meta_uni_plot")
+
 )
 
-))
+# tabPanel(
+# 	"Studies distribution and CIs", p(br()),
+
+# 	prettyCheckbox( 
+# 	   inputId = "studypp",
+# 	   label = "Only points of studies", 
+# 	   value = TRUE,
+# 	   icon = icon("check")
+# 	   ),
+
+# 	prettyCheckbox( 
+# 	   inputId = "ROCellipse",
+# 	   label = "Add CI region", 
+# 	   value = FALSE,
+# 	   icon = icon("check")
+# 	   ),
+	 
+# 	 prettyCheckbox( 
+# 	   inputId = "Crosshair",
+# 	   label = "Add crosshair CI", 
+# 	   value = FALSE,
+# 	   icon = icon("check")
+# 	 ),
+
+# # prettyCheckbox( 
+# # 	   inputId = "mslSROC",
+# # 	   label = "Add Moses-Shapiro-Littenberg SROC curve", 
+# # 	   value = FALSE,
+# # 	   icon = icon("check")
+# # 	   ),
+	 
+# # 	 prettyCheckbox( 
+# # 	   inputId = "rsSROC",
+# # 	   label = "Add Ruecker-Schumacher (2010) SROC curve", 
+# # 	   value = TRUE,
+# # 	   icon = icon("check")
+# # 	 ), 
+# 	 p(br()),
+
+
+#   splitLayout(
+#    textInput("ci.xlab", label = "Label for x-axis", value = "1-Specificity"),
+#    textInput("ci.ylab", label = "Label for y-axis", value = "Sensitivity"),
+# 	), 
+#   p(br()),
+
+#   plotOutput("plot_ci",  height ="600px", width = "600px")
+
+
+# )
+
+)
+)
 # mainPanel(
 #   tabsetPanel(tabPanel("Meta-Analysis",
 #                        fluidRow(column(width=12,h3("Raw Input Data"),DT::dataTableOutput("RawData")),
