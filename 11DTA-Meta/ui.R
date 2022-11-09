@@ -60,7 +60,13 @@ withMathJax(),
 tags$div(tags$script("
                 MathJax.Hub.Config({
                 tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-                });
+                
+                ,
+                TeX:{
+        equationNumbers:{
+            autoNumber:'AMS'  
+        }}
+    });
                 
                 ")),
   includeCSS("../www/style.css"),
@@ -104,7 +110,7 @@ tabPanel(
   condition = "input.explain_on_off",
     HTML(
     "
-    <b>Meta-analysis of diagnostic test accuracy (DTA meta$)$ </b> is used to summaries results of multiple diagnostic studies
+    <b>Meta-analysis of diagnostic test accuracy $($DTA meta$)$ </b> is used to summaries results of multiple diagnostic studies
 
     <h4><b> 1. Functionalities  </b></h4>
     <ul>
@@ -244,7 +250,7 @@ Given $(\\mu_{1i}, \\mu_{2i})$, it is assumed that
 \\end{align}
 
 where $s_{1i}^2$ and $s_{2i}^2$ are the observed variances of $y_{1i}$ and $y_{2i}$ within each study.
-The models (\\ref{eq:b1}) and (\\ref{eq:b2}) leads to the marginal model:
+The models (\\eqref{eq:b1}) and (\\eqref{eq:b2}) leads to the marginal model:
 \\begin{align}
 \\boldsymbol{y}_i | \\boldsymbol{\\Sigma}_i 
 \\sim N_2 
@@ -262,7 +268,7 @@ Accordingly, the SAUC is defined by
 \\begin{align}
 SAUC(\\boldsymbol{\\mu}, \\boldsymbol{\\Omega}) 
 = \\int_{0}^{1}SROC(x; \\boldsymbol{\\mu}, \\boldsymbol{\\Omega})dx.
-\\label{eq:sauc}
+\\label{sauc}
 \\end{align}
 The HSROC curve is given by the SROC curve \\eqref{eq:sroc} with $\\rho=-1$.
 Suppose that all the studies for meta-analysis took a common cutoff value to define the outcomes, 
@@ -291,7 +297,22 @@ $(c_1, c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$ gives the $t$-statistic of the lnDOR.
 By taking different contrast vectors, the $t$-type statistic can determine a variety of selective publication mechanisms.
 For example, 
 $(c_1, c_2) = (1, 0)$ and $(c_1, c_2) = (0, 1)$ in equation \\eqref{eq:t2} indicate that the selective publication mechanisms are determined by the significance of sensitivity and specificity, respectively.
-Given a value of marginal probability of selective publication, $p=P(\\mathrm{select})$,
+Given a value of marginal probability of selective publication, $p=P(\\mathrm{select})$.
+\\begin{align}
+\\ell_O(\\boldsymbol{\\mu},\\boldsymbol{\\Omega}, \\boldsymbol{c}, \\beta)
+& = \\ell_O(\\boldsymbol{\\mu},\\boldsymbol{\\Omega}, \\boldsymbol{c}, \\beta, \\alpha_p) \\nonumber \\\\ 
+& = \\sum_{i=1}^{N} \\left\\{ 
+-\\frac{1}{2} (\\boldsymbol{y}_i-\\boldsymbol{\\mu})^T(\\boldsymbol{\\Sigma}_i+\\boldsymbol{\\Omega})^{-1}(\\boldsymbol{y}_i-\\boldsymbol{\\mu})) 
+-\\frac{1}{2}\\log |\\boldsymbol{\\Sigma}_i+\\boldsymbol{\\Omega}| 
+\\right \\}  \\nonumber \\\\ 
+& + \\sum_{i=1}^{N} \\log \\Phi \\left({ \\beta 
+\\frac{\\boldsymbol{c}^T\\boldsymbol{y}_i}{\\sqrt{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}}} 
++ \\alpha_p
+\\right)
+- \\sum_{i=1}^{N}  \\log \\Phi \\left\\{ \\dfrac{\\beta \\dfrac{\\boldsymbol{c}^T\\boldsymbol{\\mu}}{ \\sqrt{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}} +  \\alpha_p}
+{  \\sqrt{1+\\beta^2 \\left( 1+\\dfrac{\\boldsymbol{c}^T\\boldsymbol{\\Omega}\\boldsymbol{c}}{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}} \\right) }}  \\right \\}.
+\\label{eq:llkp}
+\\end{align}
 The parameters can be estimated by maximizing the conditional log-likelihood \\eqref{eq:llkp}.
 
 The contrast vector $\\boldsymbol{c}$ can be regarded as unknown parameters to be estimated.
