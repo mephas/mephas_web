@@ -11,8 +11,8 @@ ml.lnDOR <- reactive({
 
 
 output$ml.lnDOR.bias <- renderPrint({
-  ml.lnDOR()
-  #metabias(ml.lnDOR(), method.bias = input$method.bias)
+  #ml.lnDOR()
+  meta::metabias(ml.lnDOR(), method.bias = input$method.bias,correct=TRUE)
 
   })
 
