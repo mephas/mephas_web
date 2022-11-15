@@ -41,7 +41,7 @@ plotOutput("ml.lnDOR_funnel",height ="600px", width = "600px"), p(br()),
 
 tags$b("Test of Asymmetry"), p(br()),
 
-TextOutput("ml.lnDOR.bias")
+verbatimTextOutput("ml.lnDOR.bias")
 ),
 
 tabPanel("Funnel plot of logit-Sens and logit-Spec", p(br()),
