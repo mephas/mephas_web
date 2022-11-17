@@ -1,8 +1,8 @@
 #****************************************************************************************************************************************************1.5. T
 output$t.plot <- renderPlot({
   ggplot(data = data.frame(x = c(-input$t.xlim, input$t.xlim)), aes(x)) + 
-  stat_function(fun = "dt", args = list(df = input$t.df)) + 
-  stat_function(fun = "dnorm", args = list(mean = 0, sd = 1), color = "cornflowerblue") +
+  stat_function(fun = dt, args = list(df = input$t.df)) + 
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color = "cornflowerblue") +
   ylab("Density") + 
   xlim(-input$t.xlim, input$t.xlim)+
   geom_vline(aes(xintercept=0), color="red", linetype="dashed", size=0.5)+
@@ -17,7 +17,7 @@ output$t.rate <- renderPrint({
 output$t.plot.cdf <- plotly::renderPlotly({
 x0<- qt(input$t.pr, df = input$t.df)
 p<-ggplot(data = data.frame(x = c(-input$t.xlim, input$t.xlim)), mapping = aes(x = x)) +
-  stat_function(fun = "pt", args = list(df = input$t.df)) + 
+  stat_function(fun = pt, args = list(df = input$t.df)) + 
   xlim(-input$t.xlim, input$t.xlim)+
   ylab("Cumulative Density Function") + 
   theme_minimal() + 

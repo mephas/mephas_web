@@ -1,7 +1,7 @@
 #****************************************************************************************************************************************************1.2. Exp distribution
 output$e.plot <- renderPlot({
   ggplot(data = data.frame(x = c(0, input$e.xlim)), aes(x)) +
-  stat_function(fun = "dexp", args = list(rate = input$r)) + 
+  stat_function(fun = dexp, args = list(rate = input$r)) + 
   ylab("Density") +
   xlim(0, input$e.xlim)+
   #scale_y_continuous(breaks = NULL) + 
@@ -19,7 +19,7 @@ output$e.plot.cdf <- plotly::renderPlotly({
 x0<- qexp(input$e.pr, rate = input$r)
 mean <- 1/input$r
 p<-ggplot(data = data.frame(x = c(0, input$e.xlim)), mapping = aes(x = x)) +
-  stat_function(fun = "pexp", args = list(rate = input$r)) + 
+  stat_function(fun = pexp, args = list(rate = input$r)) + 
   xlim(0, input$e.xlim)+
   ylab("Cumulative Density Function") + 
   theme_minimal() + 

@@ -1,7 +1,7 @@
 #****************************************************************************************************************************************************1.7. F
 output$f.plot <- renderPlot({
   ggplot(data = data.frame(x = c(0, input$f.xlim)), aes(x)) +
-  stat_function(fun = "df", n= 100, args = list(df1 = input$df11, df2 = input$df21)) + 
+  stat_function(fun = df, n= 100, args = list(df1 = input$df11, df2 = input$df21)) + 
   ylab("Density") +
   xlim(0, input$f.xlim)+
   #scale_y_continuous(breaks = NULL) + 
@@ -14,7 +14,7 @@ output$f.plot.cdf <- plotly::renderPlotly({
 x0<- qf(input$f.pr, df1 = input$df11, df2 = input$df21)
 mean <- input$df21/(input$df21-2)
 p<-ggplot(data = data.frame(x = c(0, input$f.xlim)), mapping = aes(x = x)) +
-  stat_function(fun = "pf", n= 100, args = list(df1 = input$df11, df2 = input$df21)) + 
+  stat_function(fun = pf, n= 100, args = list(df1 = input$df11, df2 = input$df21)) + 
   xlim(0, input$f.xlim)+
   ylab("Cumulative Density Function") + 
   theme_minimal() + 

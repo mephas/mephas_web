@@ -1,7 +1,7 @@
 #****************************************************************************************************************************************************1.3. gamma
 output$g.plot <- renderPlot({
   ggplot(data = data.frame(x = c(0, input$g.xlim)), aes(x)) +
-  stat_function(fun = "dgamma", args = list(shape = input$g.shape, scale=input$g.scale)) + 
+  stat_function(fun = dgamma, args = list(shape = input$g.shape, scale=input$g.scale)) + 
   xlim(0, input$g.xlim)+
   ylab("Density") +
   theme_minimal() + 
@@ -18,7 +18,7 @@ output$g.plot.cdf <- plotly::renderPlotly({
 x0<- qgamma(input$g.pr, shape = input$g.shape, scale=input$g.scale)
 mean <- input$g.shape*input$g.scale
 p<-ggplot(data = data.frame(x = c(0, input$g.xlim)), mapping = aes(x = x)) +
-  stat_function(fun = "pgamma", args = list(shape = input$g.shape, scale=input$g.scale)) + 
+  stat_function(fun = pgamma, args = list(shape = input$g.shape, scale=input$g.scale)) + 
   xlim(0, input$g.xlim)+
   ylab("Cumulative Density Function") + 
   theme_minimal() + 

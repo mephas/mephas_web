@@ -14,7 +14,7 @@ output$norm.plot <- renderPlot({
   #}
 
   ggplot(data = data.frame(x = c(-(input$xlim), input$xlim)), aes(x)) +
-  stat_function(fun = "dnorm", args = list(mean = input$mu, sd = input$sigma)) + 
+  stat_function(fun = dnorm, args = list(mean = input$mu, sd = input$sigma)) + 
   #scale_y_continuous(breaks = NULL) +
   stat_function(fun = mynorm, geom = "area", fill="cornflowerblue", alpha = 0.3) + 
   #stat_function(fun = myprob, geom = "area", fill="red", alpha = 0.1) + 
@@ -31,7 +31,7 @@ output$norm.plot.cdf <- plotly::renderPlotly({
 x0<- qnorm(input$pr, mean = input$mu, sd = input$sigma, lower.tail = TRUE, log.p = FALSE)
 mean <- input$mu
 p<-ggplot(data = data.frame(x = c(-input$xlim, input$xlim)), mapping = aes(x = x)) +
-  stat_function(fun = "pnorm", args = list(mean = input$mu, sd = input$sigma))+
+  stat_function(fun = pnorm, args = list(mean = input$mu, sd = input$sigma))+
   xlim(-input$xlim, input$xlim)+
   ylab("Cumulative Density Function") + 
   theme_minimal() + 
