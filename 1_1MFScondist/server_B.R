@@ -6,7 +6,7 @@ output$b.plot <- renderPlot({
 mean <- input$b.shape/(input$b.scale+input$b.shape)
 
   ggplot(data = data.frame(x = c(0, input$b.xlim)), aes(x)) +
-  stat_function(fun = "dbeta", args = list(shape1 = input$b.shape, shape2=input$b.scale)) + 
+  stat_function(fun = dbeta, args = list(shape1 = input$b.shape, shape2=input$b.scale)) + 
   ylab("Density") +
   xlim(0, input$b.xlim)+
   theme_minimal() + 
@@ -25,7 +25,7 @@ output$b.plot.cdf <- plotly::renderPlotly({
 x0<- qbeta(input$b.pr, shape1 = input$b.shape, shape2=input$b.scale)
 mean <- input$b.shape/(input$b.scale+input$b.shape)
 p<-ggplot(data = data.frame(x = c(0, input$b.xlim)), mapping = aes(x = x)) +
-  stat_function(fun = "pbeta", args = list(shape1 = input$b.shape, shape2=input$b.scale)) + 
+  stat_function(fun = pbeta, args = list(shape1 = input$b.shape, shape2=input$b.scale)) + 
   xlim(0, input$b.xlim)+
   ylab("Cumulative Density Function") + 
   theme_minimal() + 
