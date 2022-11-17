@@ -119,7 +119,7 @@ sroc_ggplot_over <- function(plot_id,c1.square,fun=est.f){
     if (input$Sauc1 == "sroc"){
       r <- par["rho", i]}
     else{ r <- -1}
-    stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=sroc_curve_color[i],size=sroc_curve_thick[i],linetype = sroc_curve_shape[i],aes(linetype="h"))
+    stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)),color=sroc_curve_color[i],linewidth=sroc_curve_thick[i],linetype = sroc_curve_shape[i],aes(linetype="h"))
   }
   , 1:ncol(par))
   
