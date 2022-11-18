@@ -97,14 +97,14 @@ output$yearselect<-renderUI({
 })
 output$mergedata<-renderDataTable({
     osyear<-data[["excel"]][[match(input$OSselect,data[["excellist"]])]][data[["excel"]][[match(input$OSselect,data[["excellist"]])]]["t"]==as.numeric(input$yearselect)*as.numeric(input$period),]
-    merge(osyear, data[["excel"]][[match(input$HRselect,data[["excellist"]])]])
+    merge(osyear, data[["excel"]][[match(input$HRselect,data[["excellist"]])]],all=TRUE)
 })
 tdsam<-reactive({
     validate(need(identical(probs()<=1&probs()>0,rep(TRUE,length(probs()))),paste("Each value must be from 0 to 1.\nEach value must be separated by a space or a comma.",paste(probs(),collapse = ","))))
     tdsameta(
-        data[["excel"]][[match(input$HRselect,data[["excellist"]])]],
+        list(data[["excel"]][[match(input$HRselect,data[["excellist"]])]],
         data[["excel"]][[match(input$OSselect,data[["excellist"]])]],
-        data[["excel"]][[match(input$MCTselect,data[["excellist"]])]],
+        data[["excel"]][[match(input$MCTselect,data[["excellist"]])]]),
         tK=as.numeric(input$yearselect),
         prob=probs(),
         s1.med.mct = s1_mct,s0.med.mct = s0_mct,med.year = mct_mo,period = as.numeric(input$period)
