@@ -99,7 +99,7 @@ navbarPage(
 
   ########## ----------##########----------##########
 
-
+id="Main_Panel",
 ## tabPanel 1 starts
 tabPanel(
   "Diagnostic Studies",

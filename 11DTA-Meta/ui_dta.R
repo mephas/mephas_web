@@ -134,7 +134,6 @@ color:white;}"
 # ,verbatimTextOutput("debug")                      
 ),
 mainPanel(
-verbatimTextOutput("uiprint"),
 h4(tags$b("Data Preview")),
 tabsetPanel(
 

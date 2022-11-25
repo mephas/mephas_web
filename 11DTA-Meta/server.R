@@ -34,10 +34,20 @@ output$uiprint<-renderPrint({
   session$onRestored(function(){
     print("restored")
   })
-  session$onFlushed(function(session){
+  onFlushed(function(){
     print("flushed")
+
+     #updateTabsetPanel(session,"Main_Panel",selected = "Meta-Analysis")
+
   })
   session$onFlush(function(){
     print("flush")
+  })
+  observe({
+    if(length(getQueryString()$main_tab)>0){
+    #if(getQueryString()$main_tab=="Diagnostic Studies"){
+
+    updateTabsetPanel(session,"Main_Panel",selected =getQueryString()$main_tab)
+}#}
   })
 }
