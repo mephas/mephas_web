@@ -99,6 +99,7 @@ windowTitle="DTAmetasa",
 header = list(
   switchInput(
   inputId = "explain_on_off",#
+  value = TRUE,
   label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
   inline = TRUE,
   onLabel = "Close",
@@ -136,9 +137,18 @@ headerPanel("Summary of Diagnostic Studies"),
     <li>Forest plots of Sens, Spec, DOR, LRs </li>
     </ul>
 
+    <h4><b>R packages used in the calculation:</b></h4>
+    <ul>
+    <li>mada: Meta-Analysis of Diagnostic Accuracy. R package version 0.5.11, 
+    <a href="https://CRAN.R-project.org/package=mada" target="_blank">https://CRAN.R-project.org/package=mada</a></li>
+    </ul>
 
-    <h4><i>Example: real-word meta-analysis of diagnostic studies</i></h4>
-    The example insert is the meta-analysis for diagnosing intravascular device-related bloodstream infection. (Refer Safdar et al. 2005 for details)
+    <h4><i><b>Example: real-word meta-analysis of diagnostic studies</b></i></h4>
+    <p>The example insert is the meta-analysis for diagnosing intravascular device-related bloodstream infection.</p>
+
+    <p>Reference: <i>Safdar N, Fine JP, Maki DG. 
+    Meta-analysis: methods for diagnosing intravascular device–related bloodstream infection. Ann Intern Med. 2005;142(6):451-466. 
+    doi:10.7326/0003-4819-142-6-200503150-00011</i></p>
     '
 
     )
@@ -158,41 +168,32 @@ hr()
 ## tabPanel 1.2 starts
 tabPanel("Meta-Analysis",
 
-headerPanel("Meta-Analysis of Diagnostic Test Accuracy"),
+headerPanel("Reitsma's Model of Meta-Analysis of Diagnostic Test Accuracy"),
 
   ## Explanations
 conditionalPanel(condition = "input.explain_on_off",
-    HTML(
-    "
-    <b>Meta-analysis of diagnostic test accuracy $($DTA meta$)$ </b> is used to summaries results of multiple diagnostic studies
+HTML(
+"
+This panel is used for meta-analysis of diagnostic studies without accounting for the possibility of publication bias
 
-    <h4><b> 1. Functionalities  </b></h4>
-    <ul>
-    <li> To upload data files, preview data set, and check the correctness of data input
-    <li> Two models are available: $($1$)$ bivariate random-effect model $($Reitsma et al. 2005$)$ or 
-    $($2$)$ HSROC model $($Rutter and Gatsonis, 2001$)$
-    <li> To produce summary ROC $($SROC$)$ curves and summary AUC $($SAUC$)$
-    <li> To detect the publication bias in the results
-    <li> To do sensitivity analysis for the publication bias
-    </ul>
+<h4><b> 1. About the Reitsma's model</b></h4>
+<ul>
+<li> Meta-analysis is conducted by the Reitsma's model, which is the random effects model based on the bivariate normal distribution</li>
+<li> The parameters of interest are: the summarized sensitivity and specificity, and the correlation betwween them</li>
+</ul>
+<p>Reference: <i>Reitsma JB, Glas AS, Rutjes AWS, Scholten RJPM, Bossuyt PM, Zwinderman AH. 
+Bivariate analysis of sensitivity and specificity produces informative summary measures in diagnostic reviews. J Clin Epidemiol. 2005;58(10):982-990. 
+doi:10.1016/j.jclinepi.2005.02.022</i></p>
 
-    <h4><b> 2. The format of your data</b></h4>
+<h4><b> 2. You can get the following results:</b></h4>
+<ul>
+<li> The estimated summary ROC (SROC) curve</li>
+<li> The estimates from the Reitsma's model</li>
+</ul>
+See more details in <b>Help and Install App</b> panel.
+"
 
-    <ul>
-    <li> The variables in your data must contains names as <b>TP, FP, TN, FN </b>, indicating true positive, false positive, true negative, false negative, respectively.  
-    </ul>
-
-    <h4><i>Case Example</i></h4>
-
-    <i> We used the meta-analysis for diagnosing intravascular device-related bloodstream infection. $($Safdar et al. 2005$)$ 
-
-    </i>
-
-    <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give the analytical results. </h4>
-    
-    "
-
-    )
+)
 
     # p("This page can make",tags$strong(" SROC Plot")," and",tags$strong(" SAUC Plot")),
     # HTML('<b>&#9312;Set Header TP,FN,FP,TN</b>'),br(),
@@ -205,72 +206,132 @@ hr()
 ),
 
 
-tabPanel("Sensitivity Analysis for Publication Bias",
+tabPanel("Analysis for Publication Bias",
 
 headerPanel("Likelihood-based Sensitivity Analysis for Publication Bias"),
   
 conditionalPanel(condition = "input.explain_on_off",
-     
 HTML(
       "
-<h4><b>Suppose that $N$ diagnostic studies are published and included in meta-analysis.</b></h4>
-We use a bivariate normal model $($hereinafter referred to as the Reitsma model$)$
-for sensitivity and specificity and define $\\mu_{1i}$ and $\\mu_{2i}$ as the logit-transformed true sensitivity and specificity of the $i$th study.
-The Reitsma model assumes that $(\\mu_{1i}, \\mu_{2i})^T$ is normally distributed:
-\\begin{align}
-	\\binom{\\mu_{1i}}{\\mu_{2i}}
-	\\sim 
-	N\\left ( \\binom{\\mu_1}{\\mu_2}, \\boldsymbol{\\Omega} \\right ) 
-	\\mathrm{~with~}
-	\\boldsymbol{\\Omega} = 
-	\\begin{pmatrix}
-	\\tau_1^2 & \\tau_{12} \\\\
-	\\tau_{12} & \\tau_2^2
-	\\end{pmatrix},
-	\\label{eq:b1}
-\\end{align}
+<h4>Show results</h4>
 
-where $\\mu_1$ and $\\mu_2$ are the common means of the logit-transformed sensitivity and specificity,
-$\\tau_1^2~(\\tau_1>0)$ and $\\tau_2^2~(\\tau_2>0)$ are their between-study variances, 
-$\\tau_{12} = \\rho\\tau_{1}\\tau_{2}$ is the covariance between $\\mu_{1i}$ and $\\mu_{2i}$,
-and $\\rho~(-1 \\le \\rho \\le 1)$ is the correlation coefficient.
-Let $y_{1i}$ and $y_{2i}$ be the logit-transformed observed sensitivity $($ $\\mathrm{\\hat{se}}_i$ $)$ and specificity $($$\\mathrm{\\hat{sp}}_i$$)$.
-Given $(\\mu_{1i}, \\mu_{2i})$, it is assumed that
-\\begin{align}
-	\\binom{y_{1i}}{y_{2i}} 
-	\\sim 
-	N \\left (\\binom{\\mu_{1i}}{\\mu_{2i}}, \\boldsymbol{\\Sigma}_i  \\right )
-	\\mathrm{~with~}
-	\\boldsymbol{\\Sigma}_i 
-	= \\begin{pmatrix}
-	s_{1i}^2 & 0\\\\
-	 0 & s_{2i}^2
-	\\end{pmatrix},
-	\\label{eq:b2}
-\\end{align}
+"
+    )
+  ),
+  hr(),
+  source("ui_sensitivity.R", local = TRUE, encoding = "UTF-8")$value,
+  hr()
+  # )
+),
 
-where $s_{1i}^2$ and $s_{2i}^2$ are the observed variances of $y_{1i}$ and $y_{2i}$ within each study.
-The models (\\eqref{eq:b1}) and (\\eqref{eq:b2}) leads to the marginal model:
+## tabPanel 2.2 starts
+tabPanel("Funnel Plots for Publication Bias",
+
+
+headerPanel("Funnel Plots for Publication Bias"),
+
+conditionalPanel(
+    condition = "input.explain_on_off",
+    HTML(
+      "
+<h4>Show results</h4>
+
+"
+    )
+  ),
+  hr(),
+  source("ui_funnel.R", local = TRUE, encoding = "UTF-8")$value,
+  hr()
+), 
+
+
+
+## tabPanel 2 ends
+
+## tabPanel 3 ends
+tabPanel("Help and Download",
+
+conditionalPanel(condition = "input.explain_on_off",
+     
+HTML(
+"
+<h4><b>Models in this App</b></h4>
+
+<h4><b> 1. Reitsma's model</b></h4>
+Suppose that $N~(i=1, \\dots, N)$ diagnostic studies are included in meta-analysis. In other words, there are $N$ rows in the input data.
+<br></br>
+
+Given $(\\mu_{1i}, \\mu_{2i})$, it is assumed that:
+\\begin{align}
+  \\binom{y_{1i}}{y_{2i}} 
+  \\sim 
+  N \\left (\\binom{\\mu_{1i}}{\\mu_{2i}}, \\boldsymbol{\\Sigma}_i  \\right )
+  \\mathrm{~with~}
+  \\boldsymbol{\\Sigma}_i 
+  = \\begin{pmatrix}
+  s_{1i}^2 & 0\\\\
+   0 & s_{2i}^2
+  \\end{pmatrix},
+  \\label{eq:b2}
+\\end{align}
+where,
+<ul>
+<li>$y_{1i}$ and $y_{2i}$: the logit-transformed observed sensitivity (Sens) and specificity (Spec) from the data</li>
+<li>$s_{1i}^2$ and $s_{2i}^2$: the observed variances of $y_{1i}$ and $y_{2i}$ within each study</li>
+<li>$\\mu_{1i}$ and $\\mu_{2i}$: the logit-transformed true Sens and Spec of the $i$th study</li>
+</ul>
+
+It is assumed that $(\\mu_{1i}, \\mu_{2i})^T$ is normally distributed:
+\\begin{align}
+  \\binom{\\mu_{1i}}{\\mu_{2i}}
+  \\sim 
+  N\\left ( \\binom{\\mu_1}{\\mu_2}, \\boldsymbol{\\Omega} \\right ) 
+  \\mathrm{~with~}
+  \\boldsymbol{\\Omega} = 
+  \\begin{pmatrix}
+  \\tau_1^2 & \\tau_{12} \\\\
+  \\tau_{12} & \\tau_2^2
+  \\end{pmatrix},
+  \\label{eq:b1}
+\\end{align}
+where,
+<ul>
+<li>$\\mu_1$ and $\\mu_2$: the common means of the logit-transformed sensitivity and specificity</li>
+<li>$\\tau_1^2$ and $\\tau_2^2$: between-study variances</li>
+<li>$\\tau_{12} = \\rho\\tau_{1}\\tau_{2}$ is the covariance between $\\mu_{1i}$ and $\\mu_{2i}$, $\\rho~(-1 \\le \\rho \\le 1)$ is the correlation coefficient</li>
+</ul>
+
+
+The models \\eqref{eq:b1} and \\eqref{eq:b2} leads to the Reitsma's model:
 \\begin{align}
 \\boldsymbol{y}_i | \\boldsymbol{\\Sigma}_i 
 \\sim N_2 
 \\left (\\boldsymbol{\\mu}, \\boldsymbol{\\Omega} + \\boldsymbol{\\Sigma}_i  \\right ),
 \\label{eq:b12}
 \\end{align}
-where $\\boldsymbol{y}_i = (y_{1i},y_{2i})^T$, $\\boldsymbol{\\mu} = (\\mu_1,\\mu_2)^T$, and $N_2$ denotes the bivariate normal distribution.
-SROC curve is defined by
+where,
+<ul>
+<li>$\\boldsymbol{y}_i = (y_{1i},y_{2i})^T$, $\\boldsymbol{\\mu} = (\\mu_1,\\mu_2)^T$</li>
+</ul>
+
+The SROC curve:
 \\begin{align}
 SROC(x; \\boldsymbol{\\mu}, \\boldsymbol{\\Omega}) 
 = \\mathrm{logit}^{-1} \\left[ \\mu_1 - \\dfrac{\\tau_{12}}{\\tau_2^2}\\{\\mathrm{logit}(x)+\\mu_2\\} \\right].
 \\label{eq:sroc}
 \\end{align}
-Accordingly, the SAUC is defined by 
+
+
+The SAUC: 
 \\begin{align}
 SAUC(\\boldsymbol{\\mu}, \\boldsymbol{\\Omega}) 
 = \\int_{0}^{1}SROC(x; \\boldsymbol{\\mu}, \\boldsymbol{\\Omega})dx.
 \\label{sauc}
 \\end{align}
+
 The HSROC curve is given by the SROC curve \\eqref{eq:sroc} with $\\rho=-1$.
+
+.
 Suppose that all the studies for meta-analysis took a common cutoff value to define the outcomes, 
 then selection function on the $t$-statistic of the lnDOR is applicable to model the selective publication mechanism. 
 
@@ -318,43 +379,12 @@ The parameters can be estimated by maximizing the conditional log-likelihood \\e
 The contrast vector $\\boldsymbol{c}$ can be regarded as unknown parameters to be estimated.
 
 "
-    )
-    ,uiOutput("explainSensi")
+)
+# uiOutput("explainSensi")
   ),
-  hr(),
-  source("ui_sensitivity.R", local = TRUE, encoding = "UTF-8")$value,
-  hr()
-  # )
-),
-
-## tabPanel 2.2 starts
-tabPanel("Funnel Plots for Publication Bias",
 
 
-headerPanel("Funnel Plots for Publication Bias"),
-
-conditionalPanel(
-    condition = "input.explain_on_off",
-    HTML(
-      "
-<h4>Show results</h4>
-
-"
-    )
-  ),
-  hr(),
-  source("ui_funnel.R", local = TRUE, encoding = "UTF-8")$value,
-  hr()
-), 
-
-
-
-## tabPanel 2 ends
-
-## tabPanel 3 ends
-tabPanel(
-  "Download App",
-  headerPanel("Download and Install App in Desktop"),
+  headerPanel("Download and Install App in your desktop"),
   hr(),
   source("ui_desktopApp.R",local = TRUE)$value,
   hr()

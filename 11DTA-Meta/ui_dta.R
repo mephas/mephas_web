@@ -3,9 +3,6 @@ sidebarLayout(
 
 sidebarPanel(
 
-tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
-tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
-
 h3(tags$b("Prepare data for meta-analysis")),
 p(br()),
 
@@ -183,7 +180,7 @@ hr(),
 h4(tags$b("Outputs: Descriptive Statistics")),
 tabsetPanel(
 
-tabPanel("Sensitivity (Sens) and Specificity (Spec)", p(br()),
+tabPanel("Study points of Sensitivity (Sens) and Specificity (Spec) and CIs", p(br()),
 tags$b("1. Configurations of the following plot"), p(br()),
 	awesomeCheckbox( 
 	   inputId = "studypp",

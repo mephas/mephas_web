@@ -15,10 +15,9 @@
 output$reitsma <- renderPrint({
   fit <- reitsma(data(), 
   correction.control = input$allsingle, 
-  level = input$ci.level, correction = 0.5, 
-  method=input$res.method,
-  alphasens = as.numeric(input$alpha), 
-  alphafpr = as.numeric(input$alpha) 
+  level = input$ci.level, 
+  correction = 0.5, 
+  method=input$res.method
   )
 
   fit$call <- NULL
@@ -50,9 +49,7 @@ output$plot_sroc<-renderPlot({
   fit <- reitsma(data(), 
   correction.control = input$allsingle, 
   level = input$ci.level, correction = 0.5, 
-  method=input$res.method,
-  alphasens = as.numeric(input$alpha), 
-  alphafpr = as.numeric(input$alpha) 
+  method=input$res.method
   )
       lines(sroc(fit))
 

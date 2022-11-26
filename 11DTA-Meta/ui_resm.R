@@ -1,71 +1,79 @@
 sidebarLayout(
 
+# tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
+
 sidebarPanel(
+	tags$head(tags$style("#reitsma {background: white; color: #5A5A5A};")),
 
-h3(tags$b("Settings of Bivariate Random Effects Model")),
 
-selectInput("alpha", label = "1. Transformation of Sens and Spec", 
+h3(tags$b("Reitsma's model")),
+
+# selectInput("alpha", label = "1. Transformation of Sens and Spec", 
+# 	choices = list(
+# 	"Logit" = 1, 
+# 	"2-log" = 0, 
+# 	"1.4" = 1.4, 
+# 	"1.8" = 1.8), 
+# 	selected = 1),
+
+selectInput("res.method", label = "Choose optimization methods for estimating the parameters", 
 	choices = list(
-	"Logit" = 1, 
-	"2-log" = 0, 
-	"1.4" = 1.4, 
-	"1.8" = 1.8), 
-	selected = 1),
-
-selectInput("res.method", label = "2. Optimization methods", 
-	choices = list(
-	"Restricted maximum likelihood" = "reml", 
-	"Maximum likelihood" = "ml", 
-	"Method of moment" = "mm",
-	"Variance components" = "vc",
-	"Fixed-effects model" = "fixed"), 
+	"Restricted maximum likelihood (ReML)" = "reml", 
+	"Maximum likelihood (ML)" = "ml", 
+	"Method of moment (MM)" = "mm",
+	"Variance components" = "vc"),
+	# "Fixed-effects model" = "fixed"), 
 	selected = "reml"),
+
+helpText(HTML('
+Note: the often used methods are "ReML" and "ML"
+')),
 
 hr(),
 
-h3(tags$b("Settings of Summary ROC Plot")), p(br()),
+h3(tags$b("Summary ROC (SROC) Plot")), p(br()),
 
-h4(tags$b("SROC from Bivariate Random Effects Model (BREM)")), p(br()),
+(tags$b("1. Configuration of SROC Plot based on the Reitsma's model")), p(br()),
 
-	awesomeCheckbox( 
-	   inputId = "studypp2",
-	   label = "Add study points", 
-	   value = TRUE
-	 ),
+awesomeCheckbox( 
+   inputId = "studypp2",
+   label = "Add study points", 
+   value = TRUE
+ ),
 
-	awesomeCheckbox( 
-	   inputId = "reitmaSROC",
-	   label = "Add the SROC curve of BREM", 
-	   value = TRUE
-	 ),
+awesomeCheckbox( 
+   inputId = "reitmaSROC",
+   label = "Add the SROC curve", 
+   value = TRUE
+ ),
 
-	awesomeCheckbox( 
-	   inputId = "res.pt",
-	   label = "Add Summary points in the BREM's SROC curve", 
-	   value = TRUE
-	 ),
+awesomeCheckbox( 
+   inputId = "res.pt",
+   label = "Add estimated summary point", 
+   value = TRUE
+ ),
 
-	awesomeCheckbox( 
-	   inputId = "res.ci",
-	   label = "Add CI in the BREM's SROC curve", 
-	   value = TRUE
-	 ),
+awesomeCheckbox( 
+   inputId = "res.ci",
+   label = "Add CI region of the summary point", 
+   value = TRUE
+ ),
 
-	p(br()),
+p(br()),
 
-	h4(tags$b("Other SROC plots")), p(br()),
+(tags$b("2. Other SROC plots")), p(br()),
 
-	awesomeCheckbox( 
-	   inputId = "mslSROC",
-	   label = "Add Moses-Shapiro-Littenberg SROC curve", 
-	   value = FALSE
-	   ),
-	 
-	 awesomeCheckbox( 
-	   inputId = "rsSROC",
-	   label = "Add Ruecker-Schumacher (2010) SROC curve", 
-	   value = FALSE
-	 ),
+awesomeCheckbox( 
+   inputId = "mslSROC",
+   label = "Add Moses-Shapiro-Littenberg SROC curve", 
+   value = FALSE
+   ),
+ 
+ awesomeCheckbox( 
+   inputId = "rsSROC",
+   label = "Add Ruecker-Schumacher (2010) SROC curve", 
+   value = FALSE
+ ),
 
  textInput("sroc.xlab", label = "Label for x-axis", value = "1-Specificity"),
  textInput("sroc.ylab", label = "Label for y-axis", value = "Sensitivity")
@@ -75,27 +83,36 @@ h4(tags$b("SROC from Bivariate Random Effects Model (BREM)")), p(br()),
 
 mainPanel(
 
-h4(tags$b("Output")), p(br()),
+h4(tags$b("Output: Reitsma's model")), p(br()),
 
 tabsetPanel(
 
-tabPanel(
-	"SROC Analysis", p(br()),
+tabPanel("SROC Plot", p(br()),
 
-	h4(tags$b("Summary ROC Plot")), p(br()),
+	(tags$b("Summary ROC (SROC) Plot")), p(br()),
 
 	 plotOutput("plot_sroc",  height ="600px", width = "600px")
 
 	# verbatimTextOutput("reitsma")
 	),
 
-tabPanel(
-	"Random Effects Model", p(br()),
+tabPanel("Reitsma's Model", p(br()),
 
-	h4(tags$b("Detailed estimates from the model")), p(br()),
+	(tags$b("Estimates from the model")), p(br()),
 
-	verbatimTextOutput("reitsma")
-	)
+	verbatimTextOutput("reitsma"),
+
+helpText(HTML('
+Note: 
+<ul>
+<li><b>tsens.:</b> the estimated summarized sensitivity in the logit-scale</li>
+<li><b>tfpr.:</b> the estimated summarized 1-specificity (false positive rate) in the logit-scale</li>
+<li><b>sensitivity:</b> the estimated summarized sensitivity</li>
+<li><b>false pos. rate::</b> the estimated summarized 1-specificity (false positive rate)</li>
+</ul>
+'))
+
+)
 
 )
 
