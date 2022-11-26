@@ -99,7 +99,7 @@ windowTitle="DTAmetasa",
 header = list(
   switchInput(
   inputId = "explain_on_off",#
-  value = TRUE,
+  value = FALSE,
   label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
   inline = TRUE,
   onLabel = "Close",
