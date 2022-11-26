@@ -111,13 +111,13 @@ header = list(
 ## Tab1
 tabPanel("Diagnostic Studies",
   
-headerPanel("Summary of Diagnostic Test Accuracy"),
+headerPanel("Summary of Diagnostic Studies"),
 
   ## Explanations
   conditionalPanel(condition = "input.explain_on_off",
     HTML(
     "
-    <b>Meta-analysis of diagnostic test accuracy $($DTA meta$)$ </b> is used to summaries results of multiple diagnostic studies
+    This panel is used for summarizing the diagnostic studies
 
     <h4><b> 1. Functionalities  </b></h4>
     <ul>
@@ -144,7 +144,7 @@ headerPanel("Summary of Diagnostic Test Accuracy"),
     <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give the analytical results. </h4>
     "
 
-    ),
+    )
 
     # p("This page can make",tags$strong(" SROC Plot")," and",tags$strong(" SAUC Plot")),
     # HTML('<b>&#9312;Set Header TP,FN,FP,TN</b>'),br(),
