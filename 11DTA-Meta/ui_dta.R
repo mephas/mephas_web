@@ -6,7 +6,7 @@ sidebarPanel(
 tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
 tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
 
-h3(tags$b("Data preparation")),
+h3(tags$b("Prepare data for meta-analysis")),
 p(br()),
 
 prettyRadioButtons(
@@ -36,12 +36,14 @@ fill = TRUE
 conditionalPanel(
 	condition = "input.manualInputTRUE=='Upload file from local'",
 	icon("file-excel"),
+	helpText("Note: please make sure the variable names contain TP, FN, FP, TN"),
 	fileInput("filer",
 		label = "Upload your csv and txt files, and data will be shown in the box", 
 		accept = c("text/csv"))),
 
 
 tags$b("3. Edit data here"),
+helpText("Note: please make sure the variable names contain TP, FN, FP, TN"),
 p(br()),
 
 aceEditor("manualInput"
@@ -69,6 +71,14 @@ selected = "single",
 fill = TRUE,
 icon = icon("check")
 ),
+helpText(HTML('
+Note: 
+if there were 0 values in TN, FN, FP, TN, continuity correction is made.
+<ol>
+<li><b>Correction for single study:</b> TN, FN, FP, TN are added 0.5 only for the studies that have 0 inputs</li>
+<li><b>Correction for all study:</b> the whole data are added 0.5 for all studies if there were 0 inputs</li>
+</ol>
+')),
 
 
 p(br()),
@@ -86,7 +96,7 @@ p(br()),
 
 selectInput("ci.method", label = "Select methods of confidence interval", 
 	choices = list(
-	"Wald" = "wald", 
+	"Wald (default)" = "wald", 
 	"Wilson" = "wilson", 
 	"Agresti-Coull" = "agresti-coull", 
 	"Jeffreys" = "jeffreys",
@@ -99,6 +109,9 @@ selectInput("ci.method", label = "Select methods of confidence interval",
 	selected = "wald")
 ,
 
+helpText(HTML('
+Note: different methods for calculating the variances of Sens and Spec 
+')),
 
 #       selectInput(
 #     inputId = "letter",
@@ -143,13 +156,22 @@ tabPanel(
 	),
 	
 tabPanel(
-	"After continuity correction",p(br()),
+	"Data after continuity correction",p(br()),
+
 	DTOutput("CorData")
 	),
 
 tabPanel(
-	"After logit transformation",p(br()),
-	DTOutput("LogData")
+	"Data after logit transformation",p(br()),
+	DTOutput("LogData"),
+helpText(HTML('
+Note: logit transformation is $\\mathrm{logit}(x)=\\log(\\dfrac{x}{1-x})$
+<ul>
+<li><b>Sens</b>: sensitivity$=\\dfrac{TP}{TP+FN}$; <b>Spec</b>: specificity$=\\dfrac{TN}{TN+FP}$</li>
+<li><b>y1</b>: $\\mathrm{logit}(\\mathrm{Sens})$; <b>y2</b>: $\\mathrm{logit}(\\mathrm{Spec})$</li>
+<li><b>v1</b>: variance of y1; <b>v2</b>: variance of y2</li>
+</ul>
+'))
 	)
 
 ),
@@ -158,12 +180,11 @@ tabPanel(
 # DTOutput("CorData"),
 hr(),
 
-h4(tags$b("Outputs")),
+h4(tags$b("Outputs: Descriptive Statistics")),
 tabsetPanel(
 
-tabPanel(
-	"Studies distribution and CIs", p(br()),
-
+tabPanel("Sensitivity (Sens) and Specificity (Spec)", p(br()),
+tags$b("1. Configurations of the following plot"), p(br()),
 	awesomeCheckbox( 
 	   inputId = "studypp",
 	   label = "Only points of studies", 
@@ -182,94 +203,107 @@ tabPanel(
 	   value = FALSE
 	 ),
 
-# prettyCheckbox( 
-# 	   inputId = "mslSROC",
-# 	   label = "Add Moses-Shapiro-Littenberg SROC curve", 
-# 	   value = FALSE,
-# 	   icon = icon("check")
-# 	   ),
-	 
-# 	 prettyCheckbox( 
-# 	   inputId = "rsSROC",
-# 	   label = "Add Ruecker-Schumacher (2010) SROC curve", 
-# 	   value = TRUE,
-# 	   icon = icon("check")
-# 	 ), 
-	 p(br()),
-
-
   splitLayout(
    textInput("ci.xlab", label = "Label for x-axis", value = "1-Specificity"),
    textInput("ci.ylab", label = "Label for y-axis", value = "Sensitivity"),
 	), 
   p(br()),
 
+tags$b("2. Scatter plot of the Sens and Spec of each sttudy"), p(br()),
   plotOutput("plot_ci",  height ="600px", width = "600px")
 
 ),
 
-tabPanel(
-	"Descriptive Statistics for the Sensitivity and Specificity", p(br()),
-	h4("Estimates"), p(br()),
-	DTOutput("se_sp"), p(br()),
+tabPanel("Sens and Spec", p(br()),
+	
+tags$b("1. Estimates"), p(br()),
+DTOutput("se_sp"), p(br()),	
+helpText(HTML('
+Note: 
+<ul>
+<li><b>Sens</b>: sensitivity$=\\dfrac{TP}{TP+FN}$</li>
+<li><b>Sens.CI.lower</b>: lower bound of CI; <b>Sens.CI.upper</b>: upper bound of CI</li>
+<li><b>Spec</b>: specificity$=\\dfrac{TN}{TN+FP}$</li>
+<li><b>Spec.CI.lower</b>: lower bound of CI; <b>Spec.CI.upper</b>: upper bound of CI</li>
+</ul>
+')),
+hr(),
 	
 
-	h4("Test of equality"), p(br()),
-	DTOutput("se_sp_test"), p(br()),
+tags$b("2. Test of equality"), p(br()),
+DTOutput("se_sp_test"), hr(),
 
-	h4("Forest plots"), p(br()),
-	splitLayout(
-	  textInput("se.title", label = "Change title for the plot", value = "Sensitivity"),
-	  textInput("sp.title", label = "Change title for the plot", value = "Specificity")
-	), p(br()),
+tags$b("3. Forest plots"), p(br()),
+splitLayout(
+  textInput("se.title", label = "Change title for the plot", value = "Sensitivity"),
+  textInput("sp.title", label = "Change title for the plot", value = "Specificity")
+), p(br()),
 
-	uiOutput("meta_sesp_plot")
+uiOutput("meta_sesp_plot")
 
-	),
-
-tabPanel(
-	"Descriptive Statistics for the Diagnostic Odds Ratio", p(br()),
-	h4("Estimates"), p(br()),
-	DTOutput("dor"), p(br()),
-
-	h4("Forest plots"), p(br()),
-
-	awesomeCheckbox(
-		inputId = "uni.log1",
-		label = "Log-transformed results", 
-		value = TRUE
-	),
-
-	textInput("u1.title", label = "Change title for the plot", value = "Log diagnostic odds ratio"),
-	p(br()),
-
-	uiOutput("meta_dor_plot")
-
-	),
+),
 
 tabPanel(
-	"Descriptive Statistics for the Likelihood Ratios", p(br()),
-	h4("Estimates"), p(br()),
-	DTOutput("uni.measure"), p(br()),
+"Diagnostic Odds Ratio (DOR)", p(br()),
+tags$b("1. Estimates"), p(br()),
+DTOutput("dor"), p(br()),
 
-	# h4("Test of equality"), p(br()),
-	# # DTOutput("se_sp_test"), p(br()),
+helpText(HTML('
+Note: 
+<ul>
+<li><b>DOR</b>: diagnostic odds ratio</li>
+<li><b>DOR.CI.lower</b>: lower bound of CI; <b>DOR.CI.upper</b>: upper bound of CI</li>
+<li><b>lnDOR.se</b>: standard error of log-transformed DOR</li>
+</ul>
+')),hr(),
 
-	h4("Forest plots"), p(br()),
+tags$b("2. Forest plots"), p(br()),
 
-	awesomeCheckbox(
-		inputId = "uni.log2",
-		label = "Log-transformed results", 
-		value = TRUE
-	),
+awesomeCheckbox(
+inputId = "uni.log1",
+label = "Show log-transformed results", 
+value = TRUE
+),
 
-	splitLayout(
-		textInput("u2.title", label = "Change title for the plot", value = "Log negative LR"),
-		textInput("u3.title", label = "Change title for the plot", value = "Log positive LR")
-		), 
-	p(br()),
+textInput("u1.title", label = "Change title for the plot", value = "Log diagnostic odds ratio"),
+p(br()),
 
-	uiOutput("meta_uni_plot")
+uiOutput("meta_dor_plot")
+
+),
+
+tabPanel(
+"Likelihood Ratios (LRs)", p(br()),
+tags$b("1. Estimates"), p(br()),
+DTOutput("uni.measure"), p(br()),
+
+helpText(HTML('
+Note: 
+<ul>
+<li><b>PosLR</b>: positive likelihood ratio</li>
+<li><b>PosLR.CI.lower</b>: lower bound of CI; <b>PosLR.CI.upper</b>: upper bound of CI</li>
+<li><b>lnPosLR.se</b>: standard error of log-transformed positive likelihood ratio</li>
+<li><b>NegLR</b>: negative likelihood ratio</li>
+<li><b>NegLR.CI.lower</b>: lower bound of CI; <b>NegLR.CI.upper</b>: upper bound of CI</li>
+<li><b>lnNegLR.se</b>: standard error of log-transformed negative likelihood ratio</li>
+</ul>
+')),hr(),
+
+tags$b("2. Forest plots"), p(br()),
+
+awesomeCheckbox(
+	inputId = "uni.log2",
+	label = "Show log-transformed results", 
+	value = TRUE
+),
+
+splitLayout(
+	textInput("u2.title", label = "Change title for the plot", value = "Log negative LR"),
+	textInput("u3.title", label = "Change title for the plot", value = "Log positive LR")
+	), 
+p(br()),
+
+uiOutput("meta_uni_plot")
 
 )
 

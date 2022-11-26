@@ -53,7 +53,7 @@ tagList(
 withMathJax(),
 tags$div(tags$script("
                 MathJax.Hub.Config({
-                tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+                tex2jax: {inlineMath: [['$','$']]}
                 
                 ,
                 TeX:{
@@ -116,33 +116,30 @@ headerPanel("Summary of Diagnostic Studies"),
   ## Explanations
   conditionalPanel(condition = "input.explain_on_off",
     HTML(
-    "
+    '
     This panel is used for summarizing the diagnostic studies
 
-    <h4><b> 1. Functionalities  </b></h4>
-    <ul>
-    <li> To upload data files, preview data set, and check the correctness of data input
-    <li> Two models are available: $($1$)$ bivariate random-effect model $($Reitsma et al. 2005$)$ or 
-    $($2$)$ HSROC model $($Rutter and Gatsonis, 2001$)$
-    <li> To produce summary ROC $($SROC$)$ curves and summary AUC $($SAUC$)$
-    <li> To detect the publication bias in the results
-    <li> To do sensitivity analysis for the publication bias
-    </ul>
-
-    <h4><b> 2. The format of your data</b></h4>
+    <h4><b>The format of data</b></h4>
 
     <ul>
-    <li> The variables in your data must contains names as <b>TP, FP, TN, FN </b>, indicating true positive, false positive, true negative, false negative, respectively.  
+    <li>The variable names must contain <b>TP, FP, TN, FN</b>, denoting <b>True Positive, False Positive, True Negative, False Negative</b></li>
+    <li>The order of <b>TP, FP, TN, FN</b> do not matter</li>
+    <li>No missing values in the data</li>
+    <li>Re-click "Update data and results" button, after you revised the data</li>
     </ul>
 
-    <h4><i>Case Example</i></h4>
+    <h4><b>You can get the following results:</b></h4>
+    <ul>
+    <li>The scatter plot of the studies with the corresponding confidence interval</li>
+    <li>The descriptive statistics of <b>sensitivity (Sens), specificity (Spec), diagnostic odds ratio (DOR), and likelihood ratios (LRs)</b> of each study</li>
+    <li>Test of equality of Sens and Spec </li>
+    <li>Forest plots of Sens, Spec, DOR, LRs </li>
+    </ul>
 
-    <i> We used the meta-analysis for diagnosing intravascular device-related bloodstream infection. $($Safdar et al. 2005$)$ 
 
-    </i>
-
-    <h4> Please follow the <b>Steps</b>, and <b>Outputs</b> will give the analytical results. </h4>
-    "
+    <h4><i>Example: real-word meta-analysis of diagnostic studies</i></h4>
+    The example insert is the meta-analysis for diagnosing intravascular device-related bloodstream infection. (Refer Safdar et al. 2005 for details)
+    '
 
     )
 

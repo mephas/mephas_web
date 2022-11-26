@@ -21,16 +21,17 @@ observe({
       showModal(modalDialog(
         title = "Error message",
         easyClose = FALSE,
-        p(tags$strong("Please check your data. 
+        p(tags$strong("Please check your data: 
           1. variable names must contain TP,FN,TN,FP; 
           2. delimiter is correctly selected"), 
 
         br(),
 
-          tags$i(tags$u("")), 
-          "If you need more help, please download and refer to the format of the example data: ",
-          tags$a(href="https://github.com/mephas/datasets/blob/master/dtameta_data/dtameta_example_dat.csv", 
-            "DTA-Meta Example CSV Data",target="_blank") ), 
+          # tags$i(tags$u("")), 
+          "If you need more help, please refresh and refer to the format of the example data",
+          # tags$a(href="https://github.com/mephas/datasets/blob/master/dtameta_data/dtameta_example_dat.csv", 
+          #   "DTA-Meta Example CSV Data",target="_blank") 
+          ), 
         br(),
         modalButton("Close"),
         footer = NULL
