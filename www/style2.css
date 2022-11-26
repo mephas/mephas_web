@@ -1,0 +1,34 @@
+
+
+body {
+	padding-top: 0px;
+}
+
+.shiny-output-error-validation {
+	color: #4169e1; 
+	font-weight: bold;
+}
+
+.shiny-output-error { 
+	color: #4169e1; 
+	font-weight: bold;
+}
+
+.shiny-output-error:before { 
+	visibility: visible; 
+	content: 'OOps! Something went wrong. Please check your inputs......  '; 
+	color: #ff6347;
+}
+ 
+.selectize-control.single .selectize-dropdown{ 
+	color: grey;
+	font-weight: bold;
+}
+
+.selectize-input { 
+	font-weight: bold;
+}
+
+.selected {
+	font-weight: bold !important;
+}

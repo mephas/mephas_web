@@ -24,7 +24,7 @@ if (!requireNamespace("mada", quietly = TRUE)) install.packages("mada")
 require("mada",quietly = TRUE)
 
 if (!requireNamespace("mvmeta", quietly = TRUE)) install.packages("mvmeta") 
-require("mvmeta",quietly = TRUE)
+require("mvmets",quietly = TRUE)
 
 if (!requireNamespace("dtametasa", quietly = TRUE)) install.packages("dtametasa") 
 require("dtametasa",quietly = TRUE)
@@ -35,17 +35,23 @@ require("stats",quietly = TRUE)
 if (!requireNamespace("shinyAce", quietly = TRUE)) install.packages("shinyAce") 
 require("shinyAce",quietly = TRUE)
 
+# if (!requireNamespace("plotly", quietly = TRUE)) install.packages("plotly") 
+# require("plotly",quietly = TRUE)
 
 
-source("Rfuns/function.R")
-source("Rfuns/ui_tab.R")
-source("Rfuns/sauc.R")
-source("Rfuns/llk.o.R")
-source("Rfuns/dtametasa_fc.R")
 
+#library("bsplus")
+#library("htmltools")
+source("function.R")
+# source("./ui_dtameta.R",local = TRUE)
+# source("ui_uni.R",local = TRUE)
+source("ui_tab.R")
 source("../tab/panel.R")
+#source("../tab/func.R")
 
-
+source("sauc.R")
+source("llk.o.R")
+source("dtametasa_fc.R")
 
 ####--------------------------------------Preamble
 
@@ -63,9 +69,7 @@ tags$div(tags$script("
     });
                 
                 ")),
-  includeCSS("../www/style2.css"),
-
-# tags$style(type="text/css", "body {padding-top: -2000px;}"),
+  includeCSS("../www/style.css"),
 
 #                 "<script type='text/x-mathjax-config'>
 #   MathJax.Hub.Config({
@@ -75,27 +79,7 @@ tags$div(tags$script("
 #     }
 #   });
 # </script>",
-
-# fluidPage(
-# switchInput(
-# inputId = "explain_on_off",#
-# label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
-# inline = TRUE,
-# onLabel = "Close",
-# offLabel = "Details",
-# size = "default"
-# )
-# ),
-
-#shinythemes::themeSelector(),
-navbarPage(
-  theme = shinytheme("flatly"),
-  collapsible = TRUE,
-  position="static-top",
-  title = "DTAmetasa",
-  windowTitle="DTAmetasa",
-
-
+fluidPage(
 switchInput(
 inputId = "explain_on_off",#
 label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
@@ -103,17 +87,22 @@ inline = TRUE,
 onLabel = "Close",
 offLabel = "Details",
 size = "default"
+)
 ),
 
-
+#shinythemes::themeSelector(),
+navbarPage(
+  theme = shinytheme("flatly"),
+  collapsible = TRUE,
+  position="fixed-top",
+  title = "Meta-Analysis of Diagnostic Test Accuracy",
 
   ########## ----------##########----------##########
 
-# id="Main_Panel",
+id="Main_Panel",
 ## tabPanel 1 starts
 tabPanel(
   "Diagnostic Studies",
-  
   headerPanel("Summary of Diagnostic Test Accuracy"),
 
   ## Explanations
@@ -372,14 +361,5 @@ tabPanel(
 #tablang("11DTA-Meta"),
 tabstop(),
 tablink()
-
-# switchInput(
-#   inputId = "explain_on_off",#
-#   label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
-#   inline = TRUE,
-#   onLabel = "Close",
-#   offLabel = "Details",
-#   size = "default"
-# )
 
 ))
