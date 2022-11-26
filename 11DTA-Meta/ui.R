@@ -1,39 +1,39 @@
 
 if (!requireNamespace("shiny", quietly = TRUE)) install.packages("shiny") 
-require("shiny",quietly = TRUE)
+library("shiny",quietly = TRUE)
 
 if (!requireNamespace("ggplot2",quietly = TRUE)) install.packages("ggplot2")
-require("ggplot2",quietly = TRUE)
+library("ggplot2",quietly = TRUE)
 
 if (!requireNamespace("shinyWidgets", quietly = TRUE)) install.packages("shinyWidgets") 
-require("shinyWidgets",quietly = TRUE)
+library("shinyWidgets",quietly = TRUE)
 
 if (!requireNamespace("latex2exp", quietly = TRUE)) install.packages("latex2exp") 
-require("latex2exp",quietly = TRUE)
+library("latex2exp",quietly = TRUE)
 
 if (!requireNamespace("shinythemes", quietly = TRUE)) install.packages("shinythemes")
-require("shinythemes",quietly = TRUE)
+library("shinythemes",quietly = TRUE)
 
 if (!requireNamespace("DT", quietly = TRUE)) install.packages("DT") 
-require("DT",quietly = TRUE)
+library("DT",quietly = TRUE)
 
 if (!requireNamespace("meta", quietly = TRUE)) install.packages("meta") 
-require("meta",quietly = TRUE)
+library("meta",quietly = TRUE)
 
 if (!requireNamespace("mada", quietly = TRUE)) install.packages("mada") 
-require("mada",quietly = TRUE)
+library("mada",quietly = TRUE)
 
 if (!requireNamespace("mvmeta", quietly = TRUE)) install.packages("mvmeta") 
-require("mvmeta",quietly = TRUE)
+library("mvmeta",quietly = TRUE)
 
 if (!requireNamespace("dtametasa", quietly = TRUE)) install.packages("dtametasa") 
-require("dtametasa",quietly = TRUE)
+library("dtametasa",quietly = TRUE)
 
 if (!requireNamespace("stats", quietly = TRUE)) install.packages("stats") 
-require("stats",quietly = TRUE)
+library("stats",quietly = TRUE)
 
 if (!requireNamespace("shinyAce", quietly = TRUE)) install.packages("shinyAce") 
-require("shinyAce",quietly = TRUE)
+library("shinyAce",quietly = TRUE)
 
 
 
@@ -63,7 +63,7 @@ tags$div(tags$script("
     });
                 
                 ")),
-  includeCSS("../www/style2.css"),
+includeCSS("../www/style2.css"),
 
 # tags$style(type="text/css", "body {padding-top: -2000px;}"),
 
@@ -89,36 +89,32 @@ tags$div(tags$script("
 
 #shinythemes::themeSelector(),
 navbarPage(
-  theme = shinytheme("flatly"),
-  collapsible = TRUE,
-  position="static-top",
-  title = "DTAmetasa",
-  windowTitle="DTAmetasa",
 
+theme = shinytheme("flatly"),
+collapsible = TRUE,
+position="static-top",
+title = "DTAmetasa",
+windowTitle="DTAmetasa",
 
-switchInput(
-inputId = "explain_on_off",#
-label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
-inline = TRUE,
-onLabel = "Close",
-offLabel = "Details",
-size = "default"
-),
+header = list(
+  switchInput(
+  inputId = "explain_on_off",#
+  label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
+  inline = TRUE,
+  onLabel = "Close",
+  offLabel = "Details",
+  size = "default"
+  )),
 
+########## ----------##########----------##########
 
-
-  ########## ----------##########----------##########
-
-# id="Main_Panel",
-## tabPanel 1 starts
-tabPanel(
-  "Diagnostic Studies",
+## Tab1
+tabPanel("Diagnostic Studies",
   
-  headerPanel("Summary of Diagnostic Test Accuracy"),
+headerPanel("Summary of Diagnostic Test Accuracy"),
 
   ## Explanations
-  conditionalPanel(
-  condition = "input.explain_on_off",
+  conditionalPanel(condition = "input.explain_on_off",
     HTML(
     "
     <b>Meta-analysis of diagnostic test accuracy $($DTA meta$)$ </b> is used to summaries results of multiple diagnostic studies
@@ -153,7 +149,7 @@ tabPanel(
     # p("This page can make",tags$strong(" SROC Plot")," and",tags$strong(" SAUC Plot")),
     # HTML('<b>&#9312;Set Header TP,FN,FP,TN</b>'),br(),
     # HTML("&#10103;<b>When Change the Data, Click Reload DATA TO Calculation</b>"),br(),
-    downloadButton("ManualPDF_download","Download Manual")
+    # downloadButton("ManualPDF_download","Download Manual")
     ),
 
 hr(),
@@ -163,13 +159,12 @@ hr()
 ## tabPanel 1 ends
 
 ## tabPanel 1.2 starts
-tabPanel(
-  "Meta-Analysis",
-  headerPanel("Meta-Analysis of Diagnostic Test Accuracy"),
+tabPanel("Meta-Analysis",
+
+headerPanel("Meta-Analysis of Diagnostic Test Accuracy"),
 
   ## Explanations
-  conditionalPanel(
-  condition = "input.explain_on_off",
+conditionalPanel(condition = "input.explain_on_off",
     HTML(
     "
     <b>Meta-analysis of diagnostic test accuracy $($DTA meta$)$ </b> is used to summaries results of multiple diagnostic studies
@@ -211,18 +206,15 @@ hr(),
 source("ui_resm.R",local = TRUE)$value,
 hr()
 ),
-## tabPanel 1 ends
 
 
-## tabPanel 2.1 starts
+tabPanel("Sensitivity Analysis for Publication Bias",
 
-tabPanel(
-  "Sensitivity Analysis for Publication Bias",
-  headerPanel("Likelihood-based Sensitivity Analysis for Publication Bias"),
-  conditionalPanel(
-    condition = "input.explain_on_off",
+headerPanel("Likelihood-based Sensitivity Analysis for Publication Bias"),
+  
+conditionalPanel(condition = "input.explain_on_off",
      
-    HTML(
+HTML(
       "
 <h4><b>Suppose that $N$ diagnostic studies are published and included in meta-analysis.</b></h4>
 We use a bivariate normal model $($hereinafter referred to as the Reitsma model$)$
@@ -339,10 +331,12 @@ The contrast vector $\\boldsymbol{c}$ can be regarded as unknown parameters to b
 ),
 
 ## tabPanel 2.2 starts
-  tabPanel(
-  "Funnel Plots for Publication Bias",
-  headerPanel("Funnel Plots for Publication Bias"),
-  conditionalPanel(
+tabPanel("Funnel Plots for Publication Bias",
+
+
+headerPanel("Funnel Plots for Publication Bias"),
+
+conditionalPanel(
     condition = "input.explain_on_off",
     HTML(
       "

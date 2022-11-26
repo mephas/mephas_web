@@ -27,21 +27,21 @@ texttoui<-reactiveVal("")
 output$uiprint<-renderPrint({
   session
 })
-  onRestore(function() {
-    print("restore")
-  })
-  session$onRestored(function(){
-    print("restored")
-  })
-  onFlushed(function(){
-    print("flushed")
+  # onRestore(function() {
+  #   print("restore")
+  # })
+  # session$onRestored(function(){
+  #   print("restored")
+  # })
+  # onFlushed(function(){
+  #   print("flushed")
 
-     #updateTabsetPanel(session,"Main_Panel",selected = "Meta-Analysis")
+  #    #updateTabsetPanel(session,"Main_Panel",selected = "Meta-Analysis")
 
-  })
-  session$onFlush(function(){
-    print("flush")
-  })
+  # })
+  # session$onFlush(function(){
+  #   print("flush")
+  # })
   observe({
     if(length(getQueryString()$main_tab)>0){
     #if(getQueryString()$main_tab=="Diagnostic Studies"){
