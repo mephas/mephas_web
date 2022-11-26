@@ -58,8 +58,9 @@ awesomeCheckbox(
    label = "Add CI region of the summary point", 
    value = TRUE
  ),
-
+helpText(HTML("Note: see the equation \\eqref{eq:sroc} of SROC in <b>Help and Download</b> panel")),
 p(br()),
+
 
 (tags$b("2. Other SROC plots")), p(br()),
 
@@ -102,15 +103,15 @@ tabPanel("Reitsma's Model", p(br()),
 
 	verbatimTextOutput("reitsma"),
 
-helpText(HTML('
-Note: 
+helpText(HTML("
+Note: see the details of the Reitsma's model \\eqref{eq:b2} in <b>Help and Download</b> panel
 <ul>
-<li><b>tsens.:</b> the estimated summarized sensitivity in the logit-scale</li>
-<li><b>tfpr.:</b> the estimated summarized 1-specificity (false positive rate) in the logit-scale</li>
-<li><b>sensitivity:</b> the estimated summarized sensitivity</li>
-<li><b>false pos. rate::</b> the estimated summarized 1-specificity (false positive rate)</li>
+<li><b>tsens.:</b> the estimated summarized sensitivity in the logit-scale, $\\mu_1$ in the Reitsma's model</li>
+<li><b>tfpr.:</b> the estimated summarized 1-specificity (false positive rate) in the logit-scale, $-\\mu_2$ in the Reitsma's model</li>
+<li><b>sensitivity:</b> the estimated summarized sensitivity, logit-scaled $\\mu_1$ in the Reitsma's model</li>
+<li><b>false pos. rate::</b> the estimated summarized 1-specificity (false positive rate), logit-scaled $\\mu_2$ in the Reitsma's model</li>
 </ul>
-'))
+"))
 
 )
 

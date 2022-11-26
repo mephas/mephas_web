@@ -47,8 +47,8 @@ verbatimTextOutput("ml.lnDOR.bias")
 tabPanel("Funnel plot of logit-Sens and logit-Spec", p(br()),
 
 splitLayout(
-    plotOutput("logit.Sens_plot",height ="600px", width = "600px"),
-    plotOutput("logit.Spec_plot",height ="600px", width = "600px")
+    plotOutput("logit.Sens_plot",height ="500px", width = "500px"),
+    plotOutput("logit.Spec_plot",height ="500px", width = "500px")
 )
 
 )

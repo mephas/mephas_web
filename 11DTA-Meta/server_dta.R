@@ -449,7 +449,7 @@ gg_theme   <- reactive({
 # }
 
 p.10 <- reactive(seq(1,0.1,-input$plistsauc))
-output$p.10list<-renderText(paste0("p = ",p.10()))
+output$p10list<-renderText(paste0("p = ",p.10()))
 ##SAUC====
 output$sauc_gg_estimate<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate",est.rf=est.r)))
 output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_11", "$(c_1, \\,c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$",0.5)))

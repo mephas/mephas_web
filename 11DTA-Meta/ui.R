@@ -320,7 +320,7 @@ SROC(x; \\boldsymbol{\\mu}, \\boldsymbol{\\Omega})
 = \\mathrm{logit}^{-1} \\left[ \\mu_1 - \\dfrac{\\tau_{12}}{\\tau_2^2}\\{\\mathrm{logit}(x)+\\mu_2\\} \\right].
 \\label{eq:sroc}
 \\end{align}
-
+The HSROC curve is given by the SROC curve \\eqref{eq:sroc} with $\\rho=-1$.
 
 The SAUC: 
 \\begin{align}
@@ -329,9 +329,7 @@ SAUC(\\boldsymbol{\\mu}, \\boldsymbol{\\Omega})
 \\label{sauc}
 \\end{align}
 
-The HSROC curve is given by the SROC curve \\eqref{eq:sroc} with $\\rho=-1$.
 
-.
 Suppose that all the studies for meta-analysis took a common cutoff value to define the outcomes, 
 then selection function on the $t$-statistic of the lnDOR is applicable to model the selective publication mechanism. 
 
@@ -346,12 +344,6 @@ where $\\boldsymbol{c} = (c_1, c_2)^T$ is a contrast vector.
 From equation \\eqref{eq:b12}, it holds that
 \\begin{align}
 t_i = \\dfrac{\\boldsymbol{c}^T \\boldsymbol{y}_i}{\\sqrt{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}}
-\\sim 
-N 
-\\left (
-\\dfrac{\\boldsymbol{c}^T\\boldsymbol{\\mu}}{\\sqrt{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}},
-1 + \\dfrac{\\boldsymbol{c}^T\\boldsymbol{\\Omega}\\boldsymbol{c}}{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}
-\\right ). 
 \\label{eq:t2} 
 \\end{align}
 $(c_1, c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$ gives the $t$-statistic of the lnDOR.
