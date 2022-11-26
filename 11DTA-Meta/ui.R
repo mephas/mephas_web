@@ -120,7 +120,7 @@ headerPanel("Summary of Diagnostic Studies"),
     '
     This panel is used for summarizing the diagnostic studies
 
-    <h4><b>The format of data</b></h4>
+    <h4><b>1. The format of data</b></h4>
 
     <ul>
     <li>The variable names must contain <b>TP, FP, TN, FN</b>, denoting <b>True Positive, False Positive, True Negative, False Negative</b></li>
@@ -129,18 +129,12 @@ headerPanel("Summary of Diagnostic Studies"),
     <li>Re-click "Update data and results" button, after you revised the data</li>
     </ul>
 
-    <h4><b>You can get the following results:</b></h4>
+    <h4><b>2. You can get the following results:</b></h4>
     <ul>
     <li>The scatter plot of the studies with the corresponding confidence interval</li>
     <li>The descriptive statistics of <b>sensitivity (Sens), specificity (Spec), diagnostic odds ratio (DOR), and likelihood ratios (LRs)</b> of each study</li>
     <li>Test of equality of Sens and Spec </li>
     <li>Forest plots of Sens, Spec, DOR, LRs </li>
-    </ul>
-
-    <h4><b>R packages used in the calculation:</b></h4>
-    <ul>
-    <li>mada: Meta-Analysis of Diagnostic Accuracy. R package version 0.5.11, 
-    <a href="https://CRAN.R-project.org/package=mada" target="_blank">https://CRAN.R-project.org/package=mada</a></li>
     </ul>
 
     <h4><i><b>Example: real-word meta-analysis of diagnostic studies</b></i></h4>
@@ -213,8 +207,31 @@ headerPanel("Likelihood-based Sensitivity Analysis for Publication Bias"),
 conditionalPanel(condition = "input.explain_on_off",
 HTML(
       "
-<h4>Show results</h4>
+This panel is used for sensitivity analysis on the estimates of meta-analysis of diagnostic test accuracy.
+<br></br> 
+Publication bias (PB) is the threat to the validity of the estimates. 
+The method in this panel provides a method to quantify the magnitude of the potential PB. 
+<h4><b>1. The input parameter</b></h4>
+<ul>
+<li><b>Marginal selection probability ($p$)</b>: the expected proportion of published studies from the population; while $1-p$ indicated the expected proportion of the unpublished</li>
+</ul>
 
+<h4><b>2. Other parameters</b></h4>
+Contrast $c_1, c_2$: it defines the mechanism of selective publication process in the diagnostic studies 
+<ul>
+<li>$c_1=c_2$: the selective publication mechanism is explained by both Sens and Spec; in other words, the $t$-type statistic of lnDOR influences PB</li>
+<li>$c_1=1, c_2=0$: the selective publication mechanism is explained in by Sens only; in other words, the $t$-type statistic of Sens influences PB</li>
+<li>$c_1=0, c_2=1$: the selective publication mechanism is explained in by Spec only; in other words, the $t$-type statistic of Spec influences PB</li>
+<li>$\\hat c_1, \\hat c_2$: the selective publication mechanism is estimated from data</li>
+</ul>
+
+<h4><b> 3. You can get the following results:</b></h4>
+<ul>
+<li> The bias adjusted SROC curve, given the input marginal selection probability</li>
+<li> The bias adjusted SAUC, given the input marginal selection probability</li>
+<li> The bias adjusted $\\mu_1, \\mu_2, \\tau_1, \\tau_2, \\rho$, given the input marginal selection probability</li>
+</ul>
+See more details in <b>Help and Install App</b> panel.
 "
     )
   ),
@@ -234,7 +251,12 @@ conditionalPanel(
     condition = "input.explain_on_off",
     HTML(
       "
-<h4>Show results</h4>
+This panel presents funnel plot for detecting the potential publication bias.
+<h4><b> You can get the following results:</b></h4>
+<ul>
+<li> The funnel plot with trim-and-fill for lnDOR, logit-scaled Sens and Sens</li>
+<li> The test asymmetry of the funnel plot</li>
+</ul>
 
 "
     )
@@ -330,15 +352,13 @@ SAUC(\\boldsymbol{\\mu}, \\boldsymbol{\\Omega})
 \\end{align}
 
 
-Suppose that all the studies for meta-analysis took a common cutoff value to define the outcomes, 
-then selection function on the $t$-statistic of the lnDOR is applicable to model the selective publication mechanism. 
-
-We consider a more general form of selection function on the $t$-type statistic of the linear combination of the logit-transformed sensitivity and specificity:
+<h4><b> 2. Likelihood based sensitivity analysis method</b></h4>
+Publication bias is the phenomenon that studies with significant results are more likely to be published or selected for meta-analysis.
+Fro meta-analysis of DTA, We consider the selection function on the $t$-type statistic of the linear combination of the logit-transformed sensitivity and specificity:
 
 \\begin{align*}
 \\boldsymbol{c}^T \\boldsymbol{y}_i = c_1y_{1i}+c_2y_{2i},
 \\end{align*}
-
 where $\\boldsymbol{c} = (c_1, c_2)^T$ is a contrast vector.
 
 From equation \\eqref{eq:b12}, it holds that
@@ -350,26 +370,14 @@ $(c_1, c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$ gives the $t$-statistic of the lnDOR.
 By taking different contrast vectors, the $t$-type statistic can determine a variety of selective publication mechanisms.
 For example, 
 $(c_1, c_2) = (1, 0)$ and $(c_1, c_2) = (0, 1)$ in equation \\eqref{eq:t2} indicate that the selective publication mechanisms are determined by the significance of sensitivity and specificity, respectively.
-Given a value of marginal probability of selective publication, $p=P(\\mathrm{select})$.
-\\begin{align}
-\\ell_O(\\boldsymbol{\\mu},\\boldsymbol{\\Omega}, \\boldsymbol{c}, \\beta)
-& = \\ell_O(\\boldsymbol{\\mu},\\boldsymbol{\\Omega}, \\boldsymbol{c}, \\beta, \\alpha_p) \\nonumber \\\\ 
-& = \\sum_{i=1}^{N} \\left\\{ 
--\\frac{1}{2} (\\boldsymbol{y}_i-\\boldsymbol{\\mu})^T(\\boldsymbol{\\Sigma}_i+\\boldsymbol{\\Omega})^{-1}(\\boldsymbol{y}_i-\\boldsymbol{\\mu})) 
--\\frac{1}{2}\\log |\\boldsymbol{\\Sigma}_i+\\boldsymbol{\\Omega}| 
-\\right \\}  \\nonumber \\\\ 
-& + \\sum_{i=1}^{N} \\log \\Phi \\left({ \\beta 
-\\frac{\\boldsymbol{c}^T\\boldsymbol{y}_i}{\\sqrt{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}}} 
-+ \\alpha_p
-\\right)
-- \\sum_{i=1}^{N}  \\log \\Phi \\left\\{ \\dfrac{\\beta \\dfrac{\\boldsymbol{c}^T\\boldsymbol{\\mu}}{ \\sqrt{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}} +  \\alpha_p}
-{  \\sqrt{1+\\beta^2 \\left( 1+\\dfrac{\\boldsymbol{c}^T\\boldsymbol{\\Omega}\\boldsymbol{c}}{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}} \\right) }}  \\right \\}.
-\\label{eq:llkp}
-\\end{align}
-The parameters can be estimated by maximizing the conditional log-likelihood \\eqref{eq:llkp}.
-
 The contrast vector $\\boldsymbol{c}$ can be regarded as unknown parameters to be estimated.
+Given a value of marginal probability of selective publication, $p=P(\\mathrm{select})$, the parameters in the Reitsma's model can be estimated by the new likelihood.
 
+<h4><b>R packages used in the calculation:</b></h4>
+<ul>
+<li>mada: Meta-Analysis of Diagnostic Accuracy. R package version 0.5.11, 
+<a href='https://CRAN.R-project.org/package=mada' target='_blank'>https://CRAN.R-project.org/package=mada</a></li>
+</ul>
 "
 )
 # uiOutput("explainSensi")

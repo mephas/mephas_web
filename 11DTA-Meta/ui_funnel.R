@@ -2,10 +2,9 @@ sidebarLayout(
 
 
 sidebarPanel(
-tags$head(tags$style("#strnum {overflow-y:scroll; max-height: 200px; background: white};")),
-tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
+tags$head(tags$style("#ml_lnDOR_bias {background: white};")),
 
-h3(tags$b("Settings of plot")),
+h3(tags$b("Configuration of the funnel plot")),
 p(br()),
 
 selectInput("cont", label = "Add CI contour of the original studies", 
@@ -15,7 +14,7 @@ selectInput("cont", label = "Add CI contour of the original studies",
     selected = "yes"),
 
 hr(),
-h3(tags$b("Test methods for detecting publication bias")),
+h3(tags$b("Test for detecting publication bias")),
 p(br()),
 
 selectInput("method.bias", label = "Choose test methods", 
@@ -41,7 +40,7 @@ plotOutput("ml.lnDOR_funnel",height ="600px", width = "600px"), p(br()),
 
 tags$b("Test of Asymmetry"), p(br()),
 
-verbatimTextOutput("ml.lnDOR.bias")
+verbatimTextOutput("ml_lnDOR_bias")
 ),
 
 tabPanel("Funnel plot of logit-Sens and logit-Spec", p(br()),

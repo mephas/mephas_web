@@ -13,7 +13,7 @@ border-radius:3%;
 color:white;}"
 ),
 
-h3(tags$b("1. Assign marginal selection probabilities for SROC")), 
+h3(tags$b("Assign marginal selection probabilities for SROC")), 
 p(br()),
 HTML(
 '<b>1. Input marginal selection probabilities ($0 \\le p\\le 1$)<br></br>
@@ -44,7 +44,7 @@ lib = "glyphicon"))
 helpText(HTML("Note: the HSROC curve is given by the SROC curve with $\\rho=-1$")),
 
 hr(),
-h3(tags$b("2. Assign a sequence of marginal selection probabilities for SAUC")), 
+h3(tags$b("Assign a sequence of marginal selection probabilities for SAUC")), 
 p(br()),
 sliderInput("plistsauc","1. Choose the size the gap in the sequence",0,1,0.1,step=0.01),
 verbatimTextOutput("p10list"), 
