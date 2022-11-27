@@ -102,8 +102,8 @@ header = list(
   value = FALSE,
   label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
   inline = TRUE,
-  onLabel = "Close",
-  offLabel = "Details",
+  onLabel = "Hide",
+  offLabel = "Help",
   size = "default"
   )),
 
@@ -244,7 +244,6 @@ See more details in <b>Help and Install App</b> panel.
 ## tabPanel 2.2 starts
 tabPanel("Funnel Plots for Publication Bias",
 
-
 headerPanel("Funnel Plots for Publication Bias"),
 
 conditionalPanel(
@@ -272,7 +271,16 @@ This panel presents funnel plot for detecting the potential publication bias.
 
 ## tabPanel 3 ends
 tabPanel("Help and Download",
-
+fluidRow(column(12,
+headerPanel("Download and Install App in your desktop"),
+p(br()),
+downloadButton("desktopApp_Download","Download App"),
+helpText("You can get an EXE installation file. Currently, it only supports the Windows system.")
+)),
+hr(),
+wellPanel(
+HTML("<h4><b>Help and Reference</b></h4>"),
+helpText('Note: click the "Help" button in the top'),
 conditionalPanel(condition = "input.explain_on_off",
      
 HTML(
@@ -371,6 +379,7 @@ By taking different contrast vectors, the $t$-type statistic can determine a var
 For example, 
 $(c_1, c_2) = (1, 0)$ and $(c_1, c_2) = (0, 1)$ in equation \\eqref{eq:t2} indicate that the selective publication mechanisms are determined by the significance of sensitivity and specificity, respectively.
 The contrast vector $\\boldsymbol{c}$ can be regarded as unknown parameters to be estimated.
+
 Given a value of marginal probability of selective publication, $p=P(\\mathrm{select})$, the parameters in the Reitsma's model can be estimated by the new likelihood.
 
 <h4><b>R packages used in the calculation:</b></h4>
@@ -380,15 +389,9 @@ Given a value of marginal probability of selective publication, $p=P(\\mathrm{se
 </ul>
 "
 )
-# uiOutput("explainSensi")
-  ),
-
-
-  headerPanel("Download and Install App in your desktop"),
-  hr(),
-  source("ui_desktopApp.R",local = TRUE)$value,
-  hr()
-  ),
+)),
+hr()
+),
 
 #tablang("11DTA-Meta"),
 tabstop(),
