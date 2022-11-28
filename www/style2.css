@@ -19,14 +19,14 @@ h1,h2,h3,h4{
 }
 
 .shiny-output-error { 
-	visibility: hidden; 
+	visibility: visible; 
 	color: #4169e1; 
 	font-weight: bold;
 }
 
 .shiny-output-error:before { 
-	visibility: hidden; 
-	content: 'OOps! Something went wrong. Please check your inputs......  '; 
+	visibility: visible; 
+	content: ''; 
 	color: #ff6347;
 }
  

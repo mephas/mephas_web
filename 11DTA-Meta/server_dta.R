@@ -459,7 +459,8 @@ output$sauc_gg_cset<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c
 
 sauc_ggplot<-function(plot_id, title="(A) $(\\hat{c}_1, \\, \\hat{c}_2)$",c1.square=0.5,est.rf=est.f){
 
-  est.sauc2<-est.rf(c1.square,par="sauc.ci",p=p.10())%>%t()
+  est.sauc2<-est.rf(c1.square,par="sauc.ci",p=p.10())
+  est.sauc2<-t(est.sauc2)
   data<-data.frame(
 
     p=c(p.10(),p.10(),p.10()),

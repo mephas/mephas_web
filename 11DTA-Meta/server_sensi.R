@@ -51,18 +51,18 @@ est.fc<-function(p.seq,c1.square=0.5){sapply(p.seq,function(p){
 
 est.r<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
   validate(need(length(esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]])>0,
-  	"Error 111: Click button again, or reload data for calculation"))
+  	"Please click to calculate SAUC."))
   esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
 
 est.f<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
   validate(need(length(esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]])>0,
-  	"Error 112: Click button again, or reload data for calculation"))
+  	"Please click to calculate SAUC."))
   esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
 est.m<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
   validate(need(length(esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]])>0,
-  	"Error 113: Click button again, or reload data for calculation"))
+  	"Please click to calculate SAUC."))
   esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
 
