@@ -81,7 +81,7 @@ h4(prettyCheckbox(
 )),
 
 h4(prettyCheckbox(
-  inputId = "batch.sig", label = "Configure each SROC separately?",
+  inputId = "batch_sig", label = "Configure each SROC separately?",
   shape = "round", outline = TRUE, status = "info", value=FALSE
 )),
 
@@ -105,7 +105,7 @@ sliderInput("sroc_curve_thick","SROC curve's thickness",min = 0,max=10,value = 1
 sliderTextInput(paste0("sroc_curve_shape"),grid = TRUE,label = "SROC curve's shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")
 ),
 
-conditionalPanel(condition="input.batch.sig",
+conditionalPanel(condition="input.batch_sig",
 h4("For the plot of $(\\hat c_1, \\hat c_2)$ "),
 ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve"),
 h4("For the plot of $c_1 = c_2$"),
