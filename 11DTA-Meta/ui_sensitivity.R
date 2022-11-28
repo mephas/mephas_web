@@ -23,12 +23,8 @@ p(br()),
 verbatimTextOutput("uiprob"), 
 
 helpText(HTML("Note: the marginal selection probability ($p$) is the sensitivity parameter.
-<p>It indicate the expected proportion of the published studies from the population.</p>
-E.g., there are 33 studies in the meta-analysis, when p=0.9:
-<ul>
-<li>90% studies (33 studies) were published from the population (33/0.93$\\approx$ 7 studies)</li>
-<li>10% studies (37$\\times$ 0.1 $\\approx$ 4 studies) were not published and caused the potential publication bias</li>
-</ul>
+It indicate the expected proportion of the published studies from the population.
+See more details in Help above
 ")),
 
 radioGroupButtons(
@@ -81,13 +77,18 @@ conditionalPanel(condition="input.sensisetting=='SROC in ggplots'",
 
 h4(prettyCheckbox(
   inputId = "batch", label = "Configure all SROC in the batch way?",
-  shape = "round", outline = TRUE, status = "info", value=TRUE
+  shape = "round", outline = TRUE, status = "info", value=FALSE
+)),
+
+h4(prettyCheckbox(
+  inputId = "batch.sig", label = "Configure each SROC separately?",
+  shape = "round", outline = TRUE, status = "info", value=FALSE
 )),
 
 h4(textInput("xlim","1. Label of the x-axis","1-Specificity")),
 h4(textInput("ylim","2. Label of the y-axis","Sensitivity")),
 
-conditionalPanel(condition="input.batch==true",
+conditionalPanel(condition="input.batch",
 h4(tags$b("3. Points of each study in the data")),
 colorPickr("each_point_color",  "Points' color",selected="#000000"),#47848C
 sliderInput("each_point_radius","Points' radius",min = 0,max=10,value = 3),
@@ -102,10 +103,9 @@ h4(tags$b("5. Estimated SROC accounting for PB")),
 colorPickr("sroc_curve_color","SROC curve's color",selected="#39377A"),
 sliderInput("sroc_curve_thick","SROC curve's thickness",min = 0,max=10,value = 1),
 sliderTextInput(paste0("sroc_curve_shape"),grid = TRUE,label = "SROC curve's shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")
-
-
 ),
-conditionalPanel(condition="input.batch==false",
+
+conditionalPanel(condition="input.batch.sig",
 h4("For the plot of $(\\hat c_1, \\hat c_2)$ "),
 ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve"),
 h4("For the plot of $c_1 = c_2$"),
@@ -116,7 +116,10 @@ h4("For the plot of $(c_1, c_2)=(0,1)$"),
 ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01"),
 h4("For the plot of user-specified $c_1^2, c_2^2$"),
 # ui.plot_baseline_drop("c1c2_manul",plot_title = "Specified $c_1^2$", x_axis = "1-Specificity",y_axis = "Sensitivity"),
-ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve"))
+ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve")
+)
+
+
 )
 ),
 
@@ -182,12 +185,14 @@ plotOutput("srocD", width = "500px", height = "500px")
 
 tabPanel("SROC", p(br()),
 
-tags$b("Sensitivity analysis on SROC curves under four scenarios of selective publication mechanisms"),
+h4("Sensitivity analysis on SROC curves under four scenarios of selective publication mechanisms"),
 p(br()),
 plotOutput("srocA" , width = "900px", height = "900px")
 ),
 
 tabPanel("Dynamic SAUC in plotly",
+helpText("Note: click the button to start calculation at the first time."),
+
 column(width=6,
 HTML("<h4>A. c<sub>1</sub>, c<sub>2</sub> are estimated</h4>"),
 plotly::plotlyOutput("sauc_gg_estimate", width = "500px", height = "500px")
@@ -206,12 +211,15 @@ plotly::plotlyOutput("sauc_gg_c01", width = "500px", height = "500px")
 ),
 column(width=6,
 HTML("<h4>E. c<sub>1</sub>, c<sub>2</sub> are specified</h4>"),
-actionButton("c1c2_set_button",HTML("After c<sub>1</sub> is set, click to update SAUC"),icon=icon("rotate-right")),
+actionButton("c1c2_set_button",
+    HTML("After c<sub>1</sub> is set, click to update SAUC"),
+    icon=icon("rotate-right")),
 plotly::plotlyOutput("sauc_gg_cset", width = "500px", height = "500px")
 )
 ),
 
 tabPanel("SAUC", p(br()),
+helpText("Note: click the button to start calculation at the first time."),
 
 h4("Sensitivity analysis on SAUC under four scenarios of selective publication mechanisms"),
 p(br()),

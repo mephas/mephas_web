@@ -58,7 +58,7 @@ awesomeCheckbox(
    label = "Add CI region of the summary point", 
    value = TRUE
  ),
-helpText(HTML("Note: see the equation \\eqref{eq:sroc} of SROC in <b>Help and Download</b> panel")),
+helpText(HTML("Note: see the equation of SROC in <b>Help and Download</b> panel")),
 p(br()),
 
 
@@ -104,7 +104,7 @@ tabPanel("Reitsma's Model", p(br()),
 	verbatimTextOutput("reitsma"),
 
 helpText(HTML("
-Note: see the details of the Reitsma's model \\eqref{eq:b2} in <b>Help and Download</b> panel
+Note: see the details of the Reitsma's model in <b>Help and Download</b> panel
 <ul>
 <li><b>tsens.:</b> the estimated summarized sensitivity in the logit-scale, $\\mu_1$ in the Reitsma's model</li>
 <li><b>tfpr.:</b> the estimated summarized 1-specificity (false positive rate) in the logit-scale, $-\\mu_2$ in the Reitsma's model</li>

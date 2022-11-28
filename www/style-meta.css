@@ -1,0 +1,35 @@
+
+
+body {
+	padding-top: 70px;
+}
+
+.shiny-output-error-validation {
+	color: #4169e1; 
+	font-weight: bold;
+}
+
+.shiny-output-error { 
+	color: #4169e1; 
+	content: 'Please click to the button to calculate SAUC'; 
+	font-weight: bold;
+}
+
+.shiny-output-error:before { 
+	visibility: visible; 
+	content: ' '; 
+	color: #ff6347;
+}
+ 
+.selectize-control.single .selectize-dropdown{ 
+	color: grey;
+	font-weight: bold;
+}
+
+.selectize-input { 
+	font-weight: bold;
+}
+
+.selected {
+	font-weight: bold !important;
+}

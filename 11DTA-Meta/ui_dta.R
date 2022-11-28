@@ -3,6 +3,17 @@ sidebarLayout(
 
 sidebarPanel(
 
+tags$style("#calculateStart {background:#4169e1;
+color:white;}
+#calculateStart:hover {
+outline-color:#0000ff;
+border-color: #000000;
+background: #413E3D;
+border-radius:3%;
+color:white;}"
+
+),
+
 h3(tags$b("Prepare data for meta-analysis")),
 p(br()),
 
@@ -21,8 +32,8 @@ label = "2. Choose delimiter that separates the values",
 # fill = TRUE,
 icon = icon("check"),
 choiceNames = list(
-HTML("Comma (,): default in csv file"),
-HTML("One Tab (->|): default in txt file"),
+HTML("Comma (,) which is default in *.csv file"),
+HTML("One Tab (->|) which is default in *.txt txt file"),
 HTML("Semicolon (;)"),
 HTML("One Space (_)")
 ),
@@ -70,10 +81,10 @@ icon = icon("check")
 ),
 helpText(HTML('
 Note: 
-if there were 0 values in TN, FN, FP, TN, continuity correction is made.
+if there were 0 inputs in TN, FN, FP, or TN, continuity correction should be made.
 <ol>
 <li><b>Correction for single study:</b> TN, FN, FP, TN are added 0.5 only for the studies that have 0 inputs</li>
-<li><b>Correction for all study:</b> the whole data are added 0.5 for all studies if there were 0 inputs</li>
+<li><b>Correction for all studies:</b> the whole data are added 0.5 for all studies if there were 0 inputs</li>
 </ol>
 ')),
 
@@ -82,6 +93,7 @@ p(br()),
 hr(),
 
 h3(tags$b("Confidence Intervals (CIs)")),
+helpText("Note: the following configurations control CIs in all the results in this panel"),
 p(br()),
 #aceEditor("k","m",mode="html",maxLines=1),aceTooltip("k"),
 
@@ -107,7 +119,7 @@ selectInput("ci.method", label = "Select methods of confidence interval",
 ,
 
 helpText(HTML('
-Note: different methods for calculating the variances of Sens and Spec 
+Note: different methods cause a little change in the variances of Sens and Spec 
 ')),
 
 #       selectInput(
@@ -131,16 +143,7 @@ Note: different methods for calculating the variances of Sens and Spec
 # icon("calendar"),
 # icon = icon("calendar"),
 
-tags$style("#calculateStart {background:#4169e1;
-color:white;}
-#calculateStart:hover {
-outline-color:#0000ff;
-border-color: #000000;
-background: #413E3D;
-border-radius:3%;
-color:white;}"
 
-)
 # ,verbatimTextOutput("debug")                      
 ),
 mainPanel(
@@ -159,7 +162,7 @@ tabPanel(
 	),
 
 tabPanel(
-	"Data after logit transformation",p(br()),
+	"Data after logit-transformation",p(br()),
 	DTOutput("LogData"),
 helpText(HTML('
 Note: logit transformation is $\\mathrm{logit}(x)=\\log(\\dfrac{x}{1-x})$

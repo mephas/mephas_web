@@ -107,8 +107,7 @@ header = list(
   size = "default"
   )),
 
-########## ----------##########----------##########
-
+########## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## Tab1
 tabPanel("Diagnostic Studies",
   
@@ -120,13 +119,13 @@ headerPanel("Summary of Diagnostic Studies"),
     '
     This panel is used for summarizing the diagnostic studies
 
-    <h4><b>1. The format of data</b></h4>
+    <h4><b>1. The format of input data</b></h4>
 
     <ul>
-    <li>The variable names must contain <b>TP, FP, TN, FN</b>, denoting <b>True Positive, False Positive, True Negative, False Negative</b></li>
-    <li>The order of <b>TP, FP, TN, FN</b> do not matter</li>
+    <li>The variable names must contain <b>TP, FP, TN</b>,  and <b>FN</b>, denoting <b>True Positive, False Positive, True Negative</b>,  and <b>False Negative</b></li>
+    <li>The order of <b>TP, FP, TN, FN</b> does not matter</li>
     <li>No missing values in the data</li>
-    <li>Re-click "Update data and results" button, after you revised the data</li>
+    <li>Re-click the "Update data and results" button, after you revised the data</li>
     </ul>
 
     <h4><b>2. You can get the following results:</b></h4>
@@ -157,9 +156,8 @@ hr(),
 source("ui_dta.R",local = TRUE)$value,
 hr()
 ),
-## tabPanel 1 ends
 
-## tabPanel 1.2 starts
+########## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 tabPanel("Meta-Analysis",
 
 headerPanel("Reitsma's Model of Meta-Analysis of Diagnostic Test Accuracy"),
@@ -173,7 +171,7 @@ This panel is used for meta-analysis of diagnostic studies without accounting fo
 <h4><b> 1. About the Reitsma's model</b></h4>
 <ul>
 <li> Meta-analysis is conducted by the Reitsma's model, which is the random effects model based on the bivariate normal distribution</li>
-<li> The parameters of interest are: the summarized sensitivity and specificity, and the correlation betwween them</li>
+<li> The parameters of interest are: the summarized sensitivity and specificity, and the correlation between them</li>
 </ul>
 <p>Reference: <i>Reitsma JB, Glas AS, Rutjes AWS, Scholten RJPM, Bossuyt PM, Zwinderman AH. 
 Bivariate analysis of sensitivity and specificity produces informative summary measures in diagnostic reviews. J Clin Epidemiol. 2005;58(10):982-990. 
@@ -184,7 +182,7 @@ doi:10.1016/j.jclinepi.2005.02.022</i></p>
 <li> The estimated summary ROC (SROC) curve</li>
 <li> The estimates from the Reitsma's model</li>
 </ul>
-See more details in <b>Help and Install App</b> panel.
+See more details in the <b>Help and Install App</b> panel.
 "
 
 )
@@ -195,11 +193,11 @@ See more details in <b>Help and Install App</b> panel.
     # downloadButton("ManualPDF_download","Download Manual")
     ),
 hr(),
-source("ui_resm.R",local = TRUE)$value,
+source("ui_resm.R", local = TRUE)$value,
 hr()
 ),
 
-
+########## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 tabPanel("Analysis for Publication Bias",
 
 headerPanel("Likelihood-based Sensitivity Analysis for Publication Bias"),
@@ -215,13 +213,20 @@ The method in this panel provides a method to quantify the magnitude of the pote
 <ul>
 <li><b>Marginal selection probability ($p$)</b>: the expected proportion of published studies from the population; while $1-p$ indicated the expected proportion of the unpublished</li>
 </ul>
+For example, there are 33 studies in the <i><b>Example</b></i>. 
+When we assign $p=0.9$, we expect 
+<ul>
+<li>90% studies (33 studies) were published from the population ($33/0.93$\\approx 7$ studies)</li>
+<li>10% studies ($37 \\times 0.1 \\approx 4$ studies) were not published and caused the potential publication bias</li>
+</ul>
+When we assign $p=1$, we expect there was no unpublished studies.
 
 <h4><b>2. Other parameters</b></h4>
 Contrast $c_1, c_2$: it defines the mechanism of selective publication process in the diagnostic studies 
 <ul>
-<li>$c_1=c_2$: the selective publication mechanism is explained by both Sens and Spec; in other words, the $t$-type statistic of lnDOR influences PB</li>
-<li>$c_1=1, c_2=0$: the selective publication mechanism is explained in by Sens only; in other words, the $t$-type statistic of Sens influences PB</li>
-<li>$c_1=0, c_2=1$: the selective publication mechanism is explained in by Spec only; in other words, the $t$-type statistic of Spec influences PB</li>
+<li>$c_1=c_2$: the selective publication mechanism is influenced by both Sens and Spec; precisely, the $t$-type statistic of lnDOR influences PB</li>
+<li>$c_1=1, c_2=0$: the selective publication mechanism is influenced in by Sens only; precisely, the $t$-type statistic of Sens influences PB</li>
+<li>$c_1=0, c_2=1$: the selective publication mechanism is influenced in by Spec only; precisely, the $t$-type statistic of Spec influences PB</li>
 <li>$\\hat c_1, \\hat c_2$: the selective publication mechanism is estimated from data</li>
 </ul>
 
@@ -241,7 +246,7 @@ See more details in <b>Help and Install App</b> panel.
   # )
 ),
 
-## tabPanel 2.2 starts
+########## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 tabPanel("Funnel Plots for Publication Bias",
 
 headerPanel("Funnel Plots for Publication Bias"),
@@ -250,7 +255,7 @@ conditionalPanel(
     condition = "input.explain_on_off",
     HTML(
       "
-This panel presents funnel plot for detecting the potential publication bias.
+This panel presents funnel plots for detecting potential publication bias.
 <h4><b> You can get the following results:</b></h4>
 <ul>
 <li> The funnel plot with trim-and-fill for lnDOR, logit-scaled Sens and Sens</li>
@@ -265,22 +270,18 @@ This panel presents funnel plot for detecting the potential publication bias.
   hr()
 ), 
 
-
-
-## tabPanel 2 ends
-
-## tabPanel 3 ends
+########## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 tabPanel("Help and Download",
 fluidRow(column(12,
-headerPanel("Download and Install App in your desktop"),
+headerPanel("Download and Install App in Your Desktop"),
 p(br()),
 downloadButton("desktopApp_Download","Download App"),
-helpText("You can get an EXE installation file. Currently, it only supports the Windows system.")
+helpText("You can get an *.exe installation file. Currently, it only supports the Windows system.")
 )),
 hr(),
 wellPanel(
 HTML("<h4><b>Help and Reference</b></h4>"),
-helpText('Note: click the "Help" button in the top'),
+helpText('Note: click the "Help" button on the top'),
 conditionalPanel(condition = "input.explain_on_off",
      
 HTML(
@@ -362,7 +363,7 @@ SAUC(\\boldsymbol{\\mu}, \\boldsymbol{\\Omega})
 
 <h4><b> 2. Likelihood based sensitivity analysis method</b></h4>
 Publication bias is the phenomenon that studies with significant results are more likely to be published or selected for meta-analysis.
-Fro meta-analysis of DTA, We consider the selection function on the $t$-type statistic of the linear combination of the logit-transformed sensitivity and specificity:
+For meta-analysis of DTA, We consider the selection function on the $t$-type statistic of the linear combination of the logit-transformed sensitivity and specificity:
 
 \\begin{align*}
 \\boldsymbol{c}^T \\boldsymbol{y}_i = c_1y_{1i}+c_2y_{2i},

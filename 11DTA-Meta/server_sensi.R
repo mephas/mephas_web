@@ -255,7 +255,7 @@ bindEvent(p.seq(),input$Sauc1,input$allsingle,studyId())
 
 
 observe({
-  withProgress(message = "Calculating SAUC",detail = 'This may take a while...', value = 0,
+  withProgress(message = "Calculating SAUC",detail = 'Please wait...', value = 0,
                {
                  est.rc(p.10())
                  incProgress(1/4)
@@ -270,7 +270,7 @@ observe({
 
 observe(est.fc(p.seq(),c1.square =input$c1c2_set))%>%bindEvent(input$c1c2_set,input$Sauc1,input$allsingle,studyId())
 observe({
-  withProgress(message = "Calculating SAUC manual",detail = 'This may take a while...', value = 0,{
+  withProgress(message = "Calculating SAUC",detail = 'Please wait...', value = 0,{
 est.fc(p.10(),c1.square =input$c1c2_set)
   }
   )
