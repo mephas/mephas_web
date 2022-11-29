@@ -49,20 +49,26 @@ est.fc<-function(p.seq,c1.square=0.5){sapply(p.seq,function(p){
   if(length(esting_omg[[paste0(p,c1.square,input$Sauc1,input$allsingle,studyId())]])==0) est.add_fc(p,c1.square)
 })}
 
-est.r<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
+est.r<-function(c1.square=0.5,...,par="par",p=p.seq()){
+  validate(need(length(p)>0,"Selection probabilities is missing"))
+  sapply(p,function(x){
   validate(need(length(esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]])>0,
   	"Please click to calculate SAUC."))
   esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
 
-est.f<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
+est.f<-function(c1.square=0.5,...,par="par",p=p.seq()){
+  validate(need(length(p)>0,"Selection probabilities is missing"))
+  sapply(p,function(x){
   validate(need(length(esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]])>0,
   	"Please click to calculate SAUC."))
   esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
-est.m<-function(c1.square=0.5,...,par="par",p=p.seq()){sapply(p,function(x){
+est.m<-function(c1.square=0.5,...,par="par",p=p.seq()){
+  validate(need(length(p)>0,"Selection probabilities is missing"))
+  sapply(p,function(x){
   validate(need(length(esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]])>0,
-  	"Please click to calculate SAUC."))
+  	"Please click Above button."))
   esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
 
@@ -98,6 +104,7 @@ sroc_ggplot_over <- function(plot_id,c1.square,fun=est.f){
   }
 
   est.par<- fun(c1.square,c("mu1","mu2","tau1","tau2","rho")) 
+  #validate(need(length(est.par)>0,"Input marginal selection probabilities is missing."))
   par <- as.matrix(est.par)
   spec <- plogis(par[2, ])
   sens <- plogis(par[1, ])
@@ -135,7 +142,7 @@ output$uiprob <- renderText({
 
   probs<-as.numeric(unlist(strsplit(input$plist, "[ |,;\n\t\r]")))
   probs<-probs[!is.na(probs)]
-  validate(need(length(probs)>0, paste("Input marginal selection probabilities is missing, now it uses the previous value though.",paste("p=",p.seq()," ",collapse = ""))))
+  #validate(need(length(probs)>0, paste("Input marginal selection probabilities is missing, now it uses the previous value though.",paste("p=",p.seq()," ",collapse = ""))))
   validate(need(identical(probs<=1&probs>0,rep(TRUE,length(probs))),
   	paste("Each value must be from 0 to 1.\n Each value must be separated by a comma (,) ",
   		paste(probs,collapse = ","))))
@@ -245,7 +252,6 @@ observe({
   # withProgress(message = "Calculating",detail = 'This may take a while...', value = 0,
                # {
 
-# print("mo")
                  est.rc(p.seq())
                  est.fc(p.seq(),c1.square = 1)
                  est.fc(p.seq(),c1.square = 0.5)

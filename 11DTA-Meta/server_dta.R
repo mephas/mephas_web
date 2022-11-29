@@ -653,7 +653,7 @@ SROCA <- reactive({
  sroc.type = input$Sauc1
 
   par(mfrow = c(2,2), oma = c(3, 3, 0.2, 0.3), mar = c(2, 0.2, 2, 0.2))
-
+#validate(need(length(p.seq())>0,"Input marginal selection probabilities is missing."))
   # withProgress(message = 'Calculating SAUC (1/2)',
   #              detail = 'This may take a while...', value = 0,
   #              {
@@ -682,8 +682,8 @@ SROCA <- reactive({
                  
                  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1),
                       xlab = "", ylab = "Sensitivity")
-                      print(est2.par)
-                 SROC(est2.par, addon  = TRUE, sroc.type = sroc.type)            
+                
+                try(SROC(est2.par, addon  = TRUE, sroc.type = sroc.type))            
                  legend("bottomright",
                         bty='n',
                         legend = c(sprintf("p = %.1f, SAUC = %.3f", p.seq(), sauc2)),
@@ -699,7 +699,7 @@ SROCA <- reactive({
                  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1), 
                       xlab = "",
                       yaxt = "n")
-                 SROC(est11.par, addon = TRUE,sroc.type =  sroc.type)
+                 try(SROC(est11.par, addon = TRUE,sroc.type =  sroc.type))
                  legend("bottomright", 
                         bty='n',
                         legend = c(sprintf("p = %.2f, SAUC = %.3f", p.seq(), sauc11)), 
@@ -713,7 +713,7 @@ SROCA <- reactive({
                  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1), 
                       xlab = "",
                       ylab = "")
-                 SROC(est10.par, addon = TRUE, sroc.type = sroc.type)
+                 try(SROC(est10.par, addon = TRUE, sroc.type = sroc.type))
                  legend("bottomright", 
                         bty='n',
                         legend = c(sprintf("p = %.2f, SAUC = %.3f", p.seq(), sauc10)), 
@@ -730,7 +730,7 @@ SROCA <- reactive({
                       xlab = "",
                       yaxt = "n")
 
-                 SROC(est01.par, addon = TRUE, sroc.type = sroc.type)
+                 try(SROC(est01.par, addon = TRUE, sroc.type = sroc.type))
                  legend("bottomright", 
                         bty='n',
                         legend = c(sprintf("p = %.2f, SAUC = %.3f", p.seq(), sauc01)), 
