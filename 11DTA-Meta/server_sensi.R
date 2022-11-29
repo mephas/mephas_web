@@ -135,9 +135,9 @@ output$uiprob <- renderText({
 
   probs<-as.numeric(unlist(strsplit(input$plist, "[ |,;\n\t\r]")))
   probs<-probs[!is.na(probs)]
-  validate(need(length(probs)>0, paste("Input marginal selection probabilities is missing, now it uses the previous value though",paste("p=",p.seq()," ",collapse = ""))))
+  validate(need(length(probs)>0, paste("Input marginal selection probabilities is missing, now it uses the previous value though.",paste("p=",p.seq()," ",collapse = ""))))
   validate(need(identical(probs<=1&probs>0,rep(TRUE,length(probs))),
-  	paste("Each value must be from 0 to 1.\n Each value must be separated by a comma (,)",
+  	paste("Each value must be from 0 to 1.\n Each value must be separated by a comma (,) ",
   		paste(probs,collapse = ","))))
 
   probs<-sort(probs,decreasing = TRUE)
