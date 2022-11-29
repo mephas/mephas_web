@@ -95,7 +95,7 @@ collapsible = TRUE,
 position="static-top",
 title = "DTAmetasa",
 windowTitle="DTAmetasa",
-
+id="Main_Panel",
 header = list(
   switchInput(
   inputId = "explain_on_off",#
