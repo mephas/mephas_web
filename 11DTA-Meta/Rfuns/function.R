@@ -73,13 +73,13 @@ correction <- function(data, value = 0.5,type = c("single", "all")){
   
 }
 
-reform.dtametasa<-function(est.rf,p.seq,c1.square=0.5){
+reform.dtametasa<-function(fun=est.rf,p.seq,c1.square=0.5,fix.c=TRUE){
   #est.rf<-match.fun(est.rf)
-  sauc.ci <- sprintf("%.3f (%.3f, %.3f)", est.rf(c1.square,par ="sauc.ci","sauc"),est.rf(c1.square,par ="sauc.ci","sauc.lb"),est.rf(c1.square,par ="sauc.ci","sauc.ub"))
-  se.ci   <- sprintf("%.3f (%.3f, %.3f)", est.rf(c1.square,par ="mu1.ci","sens"),est.rf(c1.square,par ="mu1.ci","se.lb"),est.rf(c1.square,par ="mu1.ci","se.ub"))
-  sp.ci   <- sprintf("%.3f (%.3f, %.3f)", est.rf(c1.square,par ="mu2.ci","spec"),est.rf(c1.square,par ="mu2.ci","sp.lb"),est.rf(c1.square,par ="mu2.ci","sp.ub"))
-  b.ci    <- sprintf("%.3f (%.3f, %.3f)", est.rf(c1.square,par ="beta.ci","beta"),est.rf(c1.square,par ="beta.ci","beta.lb"),est.rf(c1.square,par ="beta.ci","beta.ub"))
-  par<-est.rf(c1.square,c("mu1","mu2","tau1","tau2","rho"))
+  sauc.ci <- sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="sauc.ci","sauc"),fun(c1.square,fix.c,par ="sauc.ci","sauc.lb"),fun(c1.square,fix.c,par ="sauc.ci","sauc.ub"))
+  se.ci   <- sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="mu1.ci","sens"),fun(c1.square,fix.c,par ="mu1.ci","se.lb"),fun(c1.square,fix.c,par ="mu1.ci","se.ub"))
+  sp.ci   <- sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="mu2.ci","spec"),fun(c1.square,fix.c,par ="mu2.ci","sp.lb"),fun(c1.square,fix.c,par ="mu2.ci","sp.ub"))
+  b.ci    <- sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="beta.ci","beta"),fun(c1.square,fix.c,par ="beta.ci","beta.lb"),fun(c1.square,fix.c,par ="beta.ci","beta.ub"))
+  par<-fun(c1.square,fix.c,c("mu1","mu2","tau1","tau2","rho"))
   tb <- data.frame(p.seq=p.seq, 
                    sauc.ci= sauc.ci, 
                    se.ci = se.ci,

@@ -42,6 +42,7 @@ source("Rfuns/ui_tab.R")
 source("Rfuns/sauc.R")
 source("Rfuns/llk.o.R")
 source("Rfuns/dtametasa_fc.R")
+source("Rfuns/dtametasa.rf.R")
 
 source("../tab/panel.R")
 

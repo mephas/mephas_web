@@ -26,67 +26,67 @@ esting  <-reactiveValues()
 
 esting_omg<-reactiveValues()
 ## RC FC function
-
-est.add_rc<-function(p,  c1.square=0.5){
-  rc<-c(p=p, dtametasa.rc(data.cc(), p, c1.square0 = 0.5, beta.interval = c(0,2), 
-  	sauc.type =  input$Sauc1,correct.type = input$allsingle))
-
-  esting[[paste0(p,input$Sauc1,input$allsingle,studyId())]]<-rc
-  rc
+alpha<-reactive({
+  if(length(input$alpha)==0)return (c(-3,3))
+  input$alpha
+})
+beta0<-reactive({
+  if(length(input$beta0)==0)return (1)
+  input$beta0
+})
+beta<-reactive({
+  if(length(input$beta)==0)return (c(0,2))
+  input$beta
+})
+c0<-reactive({
+  if(length(input$c0)==0)return(0.5)
+  input$c0
+})
+est.add_rf<-function(p,c1.square=0.5,fix.c=TRUE){
+  rf<-c(p=p,dtametasa(data.cc(),
+  p,
+  fix.c=fix.c,
+  c1.square=c1.square,
+  beta0=beta0(),
+  beta.interval=beta(),
+  alpha.interval=alpha(),
+  #ci.level = input$ci.level,
+  sauc.type =  input$Sauc1,correct.type = input$allsingle))
+  esting_omg[[paste0(p,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]]<-rf
+  rf
 }
-
-est.add_fc<-function(p,  c1.square=0.5){
-  fc<- c(p=p,dtametasa_fc(data.cc(), p,  c1.square=c1.square, beta.interval = c(0,2), sauc.type =  input$Sauc1,correct.type = input$allsingle))
-  esting_omg[[paste0(p,c1.square,input$Sauc1,input$allsingle,studyId())]]<-fc
-  fc
-}
-
-est.rc<-function(p.seq){sapply(p.seq,function(p){
-  if(length(esting[[paste0(p,input$Sauc1,input$allsingle,studyId())]])==0) est.add_rc(p)
+est.rfc<-function(p.seq,c1.square,fix.c=TRUE){
+  sapply(p.seq,function(p){
+  if(length(esting_omg[[paste0(p,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]])==0) est.add_rf(p,c1.square,fix.c)
 })}
-
-est.fc<-function(p.seq,c1.square=0.5){sapply(p.seq,function(p){
-  if(length(esting_omg[[paste0(p,c1.square,input$Sauc1,input$allsingle,studyId())]])==0) est.add_fc(p,c1.square)
-})}
-
-est.r<-function(c1.square=0.5,...,par="par",p=p.seq()){
+est.rf<-function(c1.square=0.5,fix.c=TRUE,...,par="par",p=p.seq()){
   validate(need(length(p)>0,"Selection probabilities is missing"))
   sapply(p,function(x){
-  validate(need(length(esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]])>0,
+  validate(need(length(esting_omg[[paste0(x,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]])>0,
   	"Please click to calculate SAUC."))
-  esting[[paste0(x,input$Sauc1,input$allsingle,studyId())]][[par]][...]
+  esting_omg[[paste0(x,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
-
-est.f<-function(c1.square=0.5,...,par="par",p=p.seq()){
+est.m<-function(c1.square=0.5,fix.c=TRUE,...,par="par",p=p.seq()){
   validate(need(length(p)>0,"Selection probabilities is missing"))
   sapply(p,function(x){
-  validate(need(length(esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]])>0,
-  	"Please click to calculate SAUC."))
-  esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]][[par]][...]
-})}
-est.m<-function(c1.square=0.5,...,par="par",p=p.seq()){
-  validate(need(length(p)>0,"Selection probabilities is missing"))
-  sapply(p,function(x){
-  validate(need(length(esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]])>0,
+  validate(need(length(esting_omg[[paste0(x,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]])>0,
   	"Please click Above button."))
-  esting_omg[[paste0(x,c1.square,input$Sauc1,input$allsingle,studyId())]][[par]][...]
+  esting_omg[[paste0(x,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
 
 
 output$beta0<-renderUI({
-  dropdownButton(
-
+  list(
     tags$h3("List of Input"),
-    sliderInput("beta0",label = h4("Beta range"), min = input$beta[1], 
+    sliderInput("beta0",label = h4("start value of beta"), min = input$beta[1], 
         max = input$beta[2], value = 1),
-    sliderInput("c0",label = h4("C0"), min = 0, 
-        max = 1, value = 0.5)
-  )
-})
+    sliderInput("c0",label = h4("start value of estimate c1,c2"), min = 0, 
+        max = 1, value = 0.5))}
+)
 
 ## SROC plot function 
 
-sroc_ggplot_over <- function(plot_id,c1.square,fun=est.f){
+sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf){
 
   if(input$batch){
     each_point_color<-ifelse(is.null(input$each_point_color),"#47848C",input$each_point_color)
@@ -112,7 +112,7 @@ sroc_ggplot_over <- function(plot_id,c1.square,fun=est.f){
     sroc_point_shape<-sapply(1:length(p.seq()),function(i)ifelse(is.null(input[[paste0("sroc_point_shape",plot_id,i)]]),20,input[[paste0("sroc_point_shape",plot_id,i)]]))
   }
 
-  est.par<- fun(c1.square,c("mu1","mu2","tau1","tau2","rho")) 
+  est.par<- fun(c1.square,fix.c=fix.c,c("mu1","mu2","tau1","tau2","rho")) 
   #validate(need(length(est.par)>0,"Input marginal selection probabilities is missing."))
   par <- as.matrix(est.par)
   spec <- plogis(par[2, ])
@@ -151,7 +151,7 @@ output$uiprob <- renderText({
 
   probs<-as.numeric(unlist(strsplit(input$plist, "[ |,;\n\t\r]")))
   probs<-probs[!is.na(probs)]
-  validate(need(length(probs)>0, paste("Input marginal selection probabilities is missing, now it uses the previous value though.",paste("p=",p.seq()," ",collapse = ""))))
+  #validate(need(length(probs)>0, paste("Input marginal selection probabilities is missing, now it uses the previous value though.",paste("p=",p.seq()," ",collapse = ""))))
   validate(need(identical(probs<=1&probs>0,rep(TRUE,length(probs))),
   	paste("Each value must be from 0 to 1.\n Each value must be separated by a comma (,) ",
   		paste(probs,collapse = ","))))
@@ -181,7 +181,7 @@ output$srocBsetting_curve<-renderUI({
 
 output$srocB<-renderPlot({
 # srocB()
-sroc_ggplot_over("c1c2_estimate", 0.5, est.r)
+sroc_ggplot_over("c1c2_estimate", c0(),fix.c=FALSE)
 })
 
 output$downloadsauc_gg_estimate<-downloadHandler(
@@ -210,15 +210,15 @@ output$srocCsetting_curve_01<-renderUI({
 
 output$srocC_11<-renderPlot({
 # srocC_11()
-sroc_ggplot_over("c1 c2_11",0.5)
+sroc_ggplot_over("c1c2_11",0.5)
 })
 output$srocC_10<-renderPlot({
 # srocC_10()
-sroc_ggplot_over("c1 c2_10",1)
+sroc_ggplot_over("c1c2_10",1)
 })
 output$srocC_01<-renderPlot({
 # srocC_01()
-sroc_ggplot_over("c1 c2_01",0)
+sroc_ggplot_over("c1c2_01",0)
 })
 
 
@@ -256,15 +256,15 @@ output$download_c1c2_manul<-downloadHandler(
     ggsave(file,plot=esting_omg$c1c2_manul)
   })
 
-
 observe({
+  
   # withProgress(message = "Calculating",detail = 'This may take a while...', value = 0,
                # {
 
-                 est.rc(p.seq())
-                 est.fc(p.seq(),c1.square = 1)
-                 est.fc(p.seq(),c1.square = 0.5)
-                 est.fc(p.seq(),c1.square = 0)
+                 est.rfc(p.seq(),c1.square=c0(),fix.c=FALSE)
+                 est.rfc(p.seq(),c1.square = 1)
+                 est.rfc(p.seq(),c1.square = 0.5)
+                 est.rfc(p.seq(),c1.square = 0)
                # })
 })%>%
 bindEvent(p.seq(),input$Sauc1,input$allsingle,studyId())
@@ -273,21 +273,21 @@ bindEvent(p.seq(),input$Sauc1,input$allsingle,studyId())
 observe({
   withProgress(message = "Calculating SAUC",detail = 'Please wait...', value = 0,
                {
-                 est.rc(p.10())
+                 est.rfc(p.10(),c0(),fix.c=FALSE)
                  incProgress(1/4)
-                 est.fc(p.10(),c1.square = 1)
+                 est.rfc(p.10(),c1.square = 1)
                  incProgress(1/4)
-                 est.fc(p.10(),c1.square = 0.5)
+                 est.rfc(p.10(),c1.square = 0.5)
                  incProgress(1/4)
-                 est.fc(p.10(),c1.square = 0)
+                 est.rfc(p.10(),c1.square = 0)
                  incProgress(1/4)
                })
 })%>%bindEvent(input$calculateSAUC)
 
-observe(est.fc(p.seq(),c1.square =input$c1c2_set))%>%bindEvent(input$c1c2_set,input$Sauc1,input$allsingle,studyId())
+observe(est.rfc(p.seq(),c1.square =input$c1c2_set))%>%bindEvent(input$c1c2_set,input$Sauc1,input$allsingle,studyId())
 observe({
   withProgress(message = "Calculating SAUC",detail = 'Please wait...', value = 0,{
-est.fc(p.10(),c1.square =input$c1c2_set)
+est.rfc(p.10(),c1.square =input$c1c2_set)
   }
   )
   

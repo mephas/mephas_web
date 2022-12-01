@@ -451,15 +451,15 @@ gg_theme   <- reactive({
 p.10 <- reactive(seq(1,0.1,-input$plistsauc))
 output$p10list<-renderText(paste0("p = ",p.10()))
 ##SAUC====
-output$sauc_gg_estimate<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate",est.rf=est.r)))
+output$sauc_gg_estimate<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate",c1.square=c0(),fix.c=FALSE)))
 output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_11", "$(c_1, \\,c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$",0.5)))
 output$sauc_gg_c10<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_10", "$(c_1,\\, c_2) = (1,\\, 0)$",1)))
 output$sauc_gg_c01<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_01", "$(c_1,\\, c_2) = (0,\\, 1)$",0)))
 output$sauc_gg_cset<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_set", "$(c_1,\\, c_2) = (0,\\, 1)$",input$c1c2_set,est.rf=est.m)))
 
-sauc_ggplot<-function(plot_id, title="(A) $(\\hat{c}_1, \\, \\hat{c}_2)$",c1.square=0.5,est.rf=est.f){
+sauc_ggplot<-function(plot_id, title="(A) $(\\hat{c}_1, \\, \\hat{c}_2)$",c1.square=0.5,fix.c=TRUE,fun=est.rf){
 
-  est.sauc2<-est.rf(c1.square,par="sauc.ci",p=p.10())
+  est.sauc2<-fun(c1.square,fix.c,par="sauc.ci",p=p.10())
   est.sauc2<-t(est.sauc2)
   data<-data.frame(
 
@@ -484,7 +484,7 @@ sauc_ggplot<-function(plot_id, title="(A) $(\\hat{c}_1, \\, \\hat{c}_2)$",c1.squ
 ##Results====
 output$Results.est<-renderDataTable({
 
-  tb <-reform.dtametasa(est.rf=est.r,p.seq())
+  tb <-reform.dtametasa(fun=est.rf,p.seq(),fix.c=FALSE)
   # tb11<-reform.dtametasa(est.f,p.seq())
   # tb10<-reform.dtametasa(est.f,p.seq(),1)
   # tb01<-reform.dtametasa(est.f,p.seq(),0)
@@ -514,7 +514,7 @@ output$Results.est<-renderDataTable({
 output$Results11<-renderDataTable({
 
   # tb2 <-reform.dtametasa(est.rf=est.r,p.seq())
-  tb <-reform.dtametasa(est.f,p.seq())
+  tb <-reform.dtametasa(est.rf,p.seq())
   # tb10<-reform.dtametasa(est.f,p.seq(),1)
   # tb01<-reform.dtametasa(est.f,p.seq(),0)
   # tb1 <- rbind(tb2, tb11, tb10, tb01)
@@ -544,7 +544,7 @@ output$Results10<-renderDataTable({
 
   # tb2 <-reform.dtametasa(est.rf=est.r,p.seq())
   # tb11<-reform.dtametasa(est.f,p.seq())
-  tb <-reform.dtametasa(est.f,p.seq(),1)
+  tb <-reform.dtametasa(est.rf,p.seq(),1)
   # tb01<-reform.dtametasa(est.f,p.seq(),0)
   # tb1 <- rbind(tb2, tb11, tb10, tb01)
   # tb1[c(1,5,9,13), 5] <- ""
@@ -574,7 +574,7 @@ output$Results01<-renderDataTable({
   # tb2 <-reform.dtametasa(est.rf=est.r,p.seq())
   # tb11<-reform.dtametasa(est.f,p.seq())
   # tb10<-reform.dtametasa(est.f,p.seq(),1)
-  tb <-reform.dtametasa(est.f,p.seq(),0)
+  tb <-reform.dtametasa(est.rf,p.seq(),0)
   colnames(tb) <- c("p", "SAUC(95%CI)", "Sens(95%CI)", "Spec(95%CI)", "beta(95%CI)","mu1","mu2","tau1","tau2","rho")
     # TeX("$\\beta$(95%CI)"), TeX("$\\mu_1$"), TeX("$\\mu_2$"), TeX("$\\tau_1$"), TeX("$\\tau_2$"), TeX("$\\rho$"))
   # tb1 <- rbind(tb2, tb11, tb10, tb01)
@@ -660,24 +660,24 @@ SROCA <- reactive({
                  legend.cex <- 1.5
                  col <- gray.colors(length(p.seq()), gamma = 1, start = 0, end = 0.5)
                  title.cex <- 1.7
-                 est2.par  <-est.r(0.5,c("mu1","mu2","tau1","tau2","rho"))
-                 sauc2  <- est.r(0.5,par="sauc.ci","sauc")
+                 est2.par  <-est.rf(c0(),FALSE,c("mu1","mu2","tau1","tau2","rho"))
+                 sauc2  <- est.rf(c0(),FALSE,par="sauc.ci","sauc")
 
                  # incProgress(1/4)
                  ##B=======#   
                  ## ESITMATION WHEN c1 = c2
-                 est11.par <- est.f(c1.square=0.5,c("mu1","mu2","tau1","tau2","rho"))
-                 sauc11 <- est.f(c1.square=0.5,c("sauc"),par = "sauc.ci")##est11()[2,]
+                 est11.par <- est.rf(c1.square=0.5,TRUE,c("mu1","mu2","tau1","tau2","rho"))
+                 sauc11 <- est.rf(c1.square=0.5,TRUE,c("sauc"),par = "sauc.ci")##est11()[2,]
 
 
                  # incProgress(2/4)
-                 est10.par<-est.f(c1.square=1,c("mu1","mu2","tau1","tau2","rho"))#est10()[15:19,]
+                 est10.par<-est.rf(c1.square=1,TRUE,c("mu1","mu2","tau1","tau2","rho"))#est10()[15:19,]
                  
                  # incProgress(3/4)
-                 est01.par <- est.f(c1.square=0,c("mu1","mu2","tau1","tau2","rho"))#est01()[15:19,]
+                 est01.par <- est.rf(c1.square=0,TRUE,c("mu1","mu2","tau1","tau2","rho"))#est01()[15:19,]
                  
-                 sauc10 <- est.f(c1.square=1, c("sauc"),par = "sauc.ci")#est10()[2,]
-                 sauc01 <- est.f(c1.square=0, c("sauc"),par = "sauc.ci")#est01()[2,]
+                 sauc10 <- est.rf(c1.square=1,TRUE, c("sauc"),par = "sauc.ci")#est10()[2,]
+                 sauc01 <- est.rf(c1.square=0,TRUE, c("sauc"),par = "sauc.ci")#est01()[2,]
 
                  
                  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1),
@@ -846,7 +846,7 @@ title.cex <- 1.7
   #              {
  par(mfrow = c(2,2), oma = c(3, 3, 0.2, 0.3), mar = c(2, 0.2, 2, 0.2))
  # par(mfrow = c(2,2), oma = c(0.2, 3, 0.2, 0.3), mar = c(3, 2, 2, 0.2))
- est.sauc2<-est.r(0.5,par="sauc.ci",p=p.10())
+ est.sauc2<-est.rf(0.5,FALSE,par="sauc.ci",p=p.10())
  matplot(t(est.sauc2),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
          ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
  title(TeX("$(\\hat{c}_1, \\, \\hat{c}_2)$"), cex.main = title.cex)
@@ -861,7 +861,7 @@ title.cex <- 1.7
  
  # incProgress(1/4)
  ## F(B)
- est.sauc2<-est.f(c1.square=0.5,par = "sauc.ci",p=p.10())
+ est.sauc2<-est.rf(c1.square=0.5,TRUE,par = "sauc.ci",p=p.10())
  matplot(t(est.sauc2),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
          ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
  title(TeX("$(c_1, \\,c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$"), cex.main = title.cex)
@@ -872,7 +872,7 @@ title.cex <- 1.7
   legend("bottomright", bty='n',legend = c("SAUC", "95%CI"), col = 1:2, lty = 1:2, cex = legend.cex)
 
 
- est.sauc2<-est.f(c1.square=1,par = "sauc.ci",p=p.10())
+ est.sauc2<-est.rf(c1.square=1,TRUE,par = "sauc.ci",p=p.10())
  matplot(t(est.sauc2),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
          ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
  title(TeX("$(c_1, \\,c_2) = (1, \\,0)$"), cex.main = title.cex)
@@ -888,7 +888,7 @@ legend("bottomright", bty='n',legend = c("SAUC", "95%CI"), col = 1:2, lty = 1:2,
  # incProgress(1/4)
  ## H(D)
  
- est.sauc2<-est.f(c1.square=0,par = "sauc.ci",p=p.10())
+ est.sauc2<-est.rf(c1.square=0,TRUE,par = "sauc.ci",p=p.10())
  matplot(t(est.sauc2),ylim=c(0,1), type = "b",lty = c(1,2,2), pch=20, col = c(1, 2,2),
          ylab = "SAUC", xlab = "", xaxt = "n", yaxt = "n")
  title(TeX("$(c_1, \\,c_2) = (0, \\,1)$"), cex.main = title.cex)
