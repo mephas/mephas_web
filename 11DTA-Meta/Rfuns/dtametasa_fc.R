@@ -48,7 +48,7 @@ dtametasa_fc<-function (data, p, c1.square = 0.5, beta0 = 1, reitsma.par0 = NULL
   opt <- try(nlminb(start6, fn, lower = c(-5, -5, eps, eps, 
                                           -1, beta.interval[1]), upper = c(5, 5, 3, 3, 1, beta.interval[2])), 
              silent = TRUE)
-  print(opt)
+  
   if (!inherits(opt, "try-error")) {
     u1 <- opt$par[1]
     se <- plogis(u1)

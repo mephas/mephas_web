@@ -73,7 +73,16 @@ est.m<-function(c1.square=0.5,...,par="par",p=p.seq()){
 })}
 
 
+output$beta0<-renderUI({
+  dropdownButton(
 
+    tags$h3("List of Input"),
+    sliderInput("beta0",label = h4("Beta range"), min = input$beta[1], 
+        max = input$beta[2], value = 1),
+    sliderInput("c0",label = h4("C0"), min = 0, 
+        max = 1, value = 0.5)
+  )
+})
 
 ## SROC plot function 
 

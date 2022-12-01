@@ -117,9 +117,21 @@ ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01"),
 h4("For the plot of user-specified $c_1^2, c_2^2$"),
 # ui.plot_baseline_drop("c1c2_manul",plot_title = "Specified $c_1^2$", x_axis = "1-Specificity",y_axis = "Sensitivity"),
 ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve")
-)
-
-
+)),
+h4(prettyCheckbox(
+  inputId = "SettingParamater", label = "Configure More detail Caluculation Setting?",
+  shape = "round", outline = TRUE, status = "info", value=FALSE
+)),
+conditionalPanel(condition="input.SettingParamater",
+sliderInput("alpha", label = h4("Alpha lange"), min = -10, 
+        max = 10, value = c(-3, 3))
+,
+sliderInput("beta", label = h4("Beta lange"), min = 0, 
+        max = 10, value = c(0,2))
+,uiOutput("beta0"),
+actionButton("calculateSAUC",
+tags$b(HTML("Click to calculate SAUC")),
+icon = icon("rotate-right"))
 )
 ),
 
