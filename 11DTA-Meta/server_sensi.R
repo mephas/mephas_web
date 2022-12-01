@@ -77,10 +77,9 @@ est.m<-function(c1.square=0.5,fix.c=TRUE,...,par="par",p=p.seq()){
 
 output$beta0<-renderUI({
   list(
-    tags$h3("List of Input"),
-    sliderInput("beta0",label = h4("start value of beta"), min = input$beta[1], 
+    sliderInput("beta0",label = HTML("Initial value of $\\beta$"), min = input$beta[1], 
         max = input$beta[2], value = 1),
-    sliderInput("c0",label = h4("start value of estimate c1,c2"), min = 0, 
+    sliderInput("c0",label = HTML("Initial value of $c_1^2$"), min = 0, 
         max = 1, value = 0.5))}
 )
 

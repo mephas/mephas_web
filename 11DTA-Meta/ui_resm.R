@@ -5,7 +5,6 @@ sidebarLayout(
 sidebarPanel(
 	tags$head(tags$style("#reitsma {background: white; color: #5A5A5A};")),
 
-
 h3(tags$b("Reitsma's model")),
 
 # selectInput("alpha", label = "1. Transformation of Sens and Spec", 
@@ -23,7 +22,7 @@ selectInput("res.method", label = "Choose optimization methods for estimating th
 	"Method of moment (MM)" = "mm",
 	"Variance components" = "vc"),
 	# "Fixed-effects model" = "fixed"), 
-	selected = "reml"),
+	selected = "ml"),
 
 helpText(HTML('
 Note: the often used methods are "ReML" and "ML"
@@ -31,13 +30,13 @@ Note: the often used methods are "ReML" and "ML"
 
 hr(),
 
-h3(tags$b("Summary ROC (SROC) Plot")), p(br()),
+h3(tags$b("Summary ROC (SROC) Plot")), 
 
-(tags$b("1. Configuration of SROC Plot based on the Reitsma's model")), p(br()),
+tags$b("1. Configuration of SROC plot from the Reitsma's model"), 
 
 awesomeCheckbox( 
    inputId = "studypp2",
-   label = "Add study points", 
+   label = "Add ROC points of studies", 
    value = TRUE
  ),
 
@@ -62,7 +61,7 @@ helpText(HTML("Note: see the equation of SROC in <b>Help and Download</b> panel"
 p(br()),
 
 
-(tags$b("2. Other SROC plots")), p(br()),
+tags$b("2. Other SROC plots"), 
 
 awesomeCheckbox( 
    inputId = "mslSROC",
@@ -74,7 +73,10 @@ awesomeCheckbox(
    inputId = "rsSROC",
    label = "Add Ruecker-Schumacher (2010) SROC curve", 
    value = FALSE
- ),
+ ), 
+ p(br()),
+
+tags$b("3. Other configurations"), 
 
  textInput("sroc.xlab", label = "Label for x-axis", value = "1-Specificity"),
  textInput("sroc.ylab", label = "Label for y-axis", value = "Sensitivity")

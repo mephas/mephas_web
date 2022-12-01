@@ -13,8 +13,8 @@ border-radius:3%;
 color:white;}"
 ),
 
-h3(tags$b("Assign marginal selection probabilities for SROC")), 
-p(br()),
+h3(tags$b("Marginal selection probabilities for SROC")), 
+
 HTML(
 '<b>1. Input marginal selection probabilities ($0 \\le p\\le 1$)<br></br>
 <input type="text" id="plist" value="1,0.8,0.6,0.4" pattern="^[\\d,　.]+$">
@@ -40,27 +40,27 @@ lib = "glyphicon"))
 helpText(HTML("Note: the HSROC curve is given by the SROC curve with $\\rho=-1$")),
 
 hr(),
-h3(tags$b("Assign a sequence of marginal selection probabilities for SAUC")), 
-p(br()),
-sliderInput("plistsauc","1. Choose the size the gap in the sequence",0,1,0.1,step=0.01),
+h3(tags$b("Marginal selection probabilities for SAUC")), 
+
+sliderInput("plistsauc","1. Choose the increment of sequence",0,1,0.1,step=0.01),
 verbatimTextOutput("p10list"), 
 p(br()),
 h4(prettyCheckbox(
-  inputId = "SettingParamater", label = "Configure More detail Caluculation Setting?",
+  inputId = "SettingParamater", label = tags$b("2. More configurations in the optimization"),
   shape = "round", outline = TRUE, status = "info", value=FALSE
 )),
 conditionalPanel(condition="input.SettingParamater",
-sliderInput("alpha", label = h4("Alpha range"), min = -10, 
+sliderInput("beta", label = HTML("Range of $\\beta$"), min = 0, 
+        max = 10, value = c(0,2)),
+sliderInput("alpha", label = HTML("Range of $\\alpha$"), min = -10, 
         max = 10, value = c(-3, 3))
-,
-sliderInput("beta", label = h4("Beta range"), min = 0, 
-        max = 10, value = c(0,2))
-,uiOutput("beta0")),
-p(br()),
+,uiOutput("beta0")
+
+),
 actionButton("calculateSAUC",
 tags$b(HTML("Click to calculate SAUC")),
 icon = icon("rotate-right")),
-helpText("Note: it may take a while"),
+helpText("Note: it may take some time. If you change the parameters above, please click to re-calculate"),
 p(br()),
 
 hr(),
@@ -87,6 +87,9 @@ conditionalPanel(condition="input.sensisetting=='SROC in ggplots'",
 # # checkIcon = list("TRUE" = icon("ok", lib = "glyphicon"), "FALSE" = icon("remove", lib = "glyphicon"))
 # ),
 
+(textInput("xlim","3. Label of the x-axis","1-Specificity")),
+(textInput("ylim","4. Label of the y-axis","Sensitivity")),
+
 h4(prettyCheckbox(
   inputId = "batch", label = "Configure all SROC in the batch way?",
   shape = "round", outline = TRUE, status = "info", value=FALSE
@@ -97,36 +100,35 @@ h4(prettyCheckbox(
   shape = "round", outline = TRUE, status = "info", value=FALSE
 )),
 
-h4(textInput("xlim","1. Label of the x-axis","1-Specificity")),
-h4(textInput("ylim","2. Label of the y-axis","Sensitivity")),
+
 
 conditionalPanel(condition="input.batch",
-h4(tags$b("3. Points of each study in the data")),
+(tags$b("5. Points of each study in the data")),
 colorPickr("each_point_color",  "Points' color",selected="#000000"),#47848C
 sliderInput("each_point_radius","Points' radius",min = 0,max=10,value = 3),
 sliderInput("each_point_shape", "Points' shape",min = 0,max=25,value = 1),
 p(br()),
-h4(tags$b("4. Estimated summary point accounting for PB")),
+(tags$b("6. Estimated summary point accounting for PB")),
 colorPickr("sroc_point_color",  "Point's color",selected="#0A99BD"),
 sliderInput("sroc_point_radius","Point radius",min = 0,max=10,value = 5),
 sliderInput("sroc_point_shape", "Point shape",min = 0,max=25,value = 18),
 p(br()),
-h4(tags$b("5. Estimated SROC accounting for PB")),
+(tags$b("7. Estimated SROC accounting for PB")),
 colorPickr("sroc_curve_color","SROC curve's color",selected="#39377A"),
 sliderInput("sroc_curve_thick","SROC curve's thickness",min = 0,max=10,value = 1),
 sliderTextInput(paste0("sroc_curve_shape"),grid = TRUE,label = "SROC curve's shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")
 ),
 
 conditionalPanel(condition="input.batch_sig",
-h4("For the plot of $(\\hat c_1, \\hat c_2)$ "),
+tags$b("3. For the plot of $(\\hat c_1, \\hat c_2)$ "),
 ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve"),
-h4("For the plot of $c_1 = c_2$"),
+tags$b("4. For the plot of $c_1 = c_2$"),
 ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11"),
-h4("For the plot of $(c_1, c_2)=(1,0)$"),
+tags$b("5. For the plot of $(c_1, c_2)=(1,0)$"),
 ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10"),
-h4("For the plot of $(c_1, c_2)=(0,1)$"),
+tags$b("6. For the plot of $(c_1, c_2)=(0,1)$"),
 ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01"),
-h4("For the plot of user-specified $c_1^2, c_2^2$"),
+tags$b("7. For the plot of user-specified $c_1^2, c_2^2$"),
 # ui.plot_baseline_drop("c1c2_manul",plot_title = "Specified $c_1^2$", x_axis = "1-Specificity",y_axis = "Sensitivity"),
 ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve")
 ))

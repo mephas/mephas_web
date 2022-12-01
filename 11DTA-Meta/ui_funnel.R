@@ -5,7 +5,6 @@ sidebarPanel(
 tags$head(tags$style("#ml_lnDOR_bias {background: white};")),
 
 h3(tags$b("Configuration of the funnel plot")),
-p(br()),
 
 selectInput("cont", label = "Add CI contour of the original studies", 
     choices = list(
@@ -14,9 +13,7 @@ selectInput("cont", label = "Add CI contour of the original studies",
     selected = "yes"),
 
 hr(),
-h3(tags$b("Test for detecting publication bias")),
-p(br()),
-
+h3(tags$b("Test on the asymmetry of the funnel plot")),
 selectInput("method.bias", label = "Choose test methods", 
     choices = list(
     "Egger's method" = "Egger", 

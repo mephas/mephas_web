@@ -15,7 +15,6 @@ color:white;}"
 ),
 
 h3(tags$b("Prepare data for meta-analysis")),
-p(br()),
 
 prettyRadioButtons(
 inputId = "manualInputTRUE",
@@ -44,7 +43,7 @@ fill = TRUE
 conditionalPanel(
 	condition = "input.manualInputTRUE=='Upload file from local'",
 	icon("file-excel"),
-	helpText("Note: please make sure the variable names contain TP, FN, FP, TN"),
+	helpText("Note: you can revise the data directly, and please make sure the variable names contain TP, FN, FP, TN"),
 	fileInput("filer",
 		label = "Upload your csv and txt files, and data will be shown in the box", 
 		accept = c("text/csv"))),
@@ -52,7 +51,6 @@ conditionalPanel(
 
 tags$b("3. Edit data here"),
 helpText("Note: please make sure the variable names contain TP, FN, FP, TN"),
-p(br()),
 
 aceEditor("manualInput"
 ,value = "study,TP,FN,FP,TN\n1,12,0,29,289\n2,10,2,14,72\n3,17,1,36,85\n4,13,0,18,67\n5,4,0,21,225\n6,15,2,122,403\n7,45,5,28,34\n8,18,4,69,133\n9,5,0,11,34\n10,8,9,15,96\n11,5,0,7,63\n12,11,2,122,610\n13,5,1,6,145\n14,7,5,25,342
@@ -88,22 +86,11 @@ if there were 0 inputs in TN, FN, FP, or TN, continuity correction should be mad
 </ol>
 ')),
 
-
-p(br()),
 hr(),
 
-h3(tags$b("Confidence Intervals (CIs)")),
-helpText("Note: the following configurations control CIs in all the results in this panel"),
-p(br()),
-#aceEditor("k","m",mode="html",maxLines=1),aceTooltip("k"),
+h3(tags$b("Variance")),
 
-sliderInput("ci.level", 
-	label = "Significance level of CIs", 
-	value = 0.95, 
-	min = 0.50, max = 0.99, step = 0.01),
-p(br()),
-
-selectInput("ci.method", label = "Select methods of confidence interval", 
+selectInput("ci.method", label = "Select methods of variance", 
 	choices = list(
 	"Wald (default)" = "wald", 
 	"Wilson" = "wilson", 
@@ -117,10 +104,22 @@ selectInput("ci.method", label = "Select methods of confidence interval",
 	"Witting" = "witting"), 
 	selected = "wald")
 ,
-
 helpText(HTML('
-Note: different methods cause a little change in the variances of Sens and Spec 
+Note: different methods cause some change in the variances and confidence intervals in the summary 
 ')),
+
+hr(),
+h3(tags$b("Confidence Intervals (CIs)")),
+
+sliderInput("ci.level", 
+	label = "Significance level of CIs", 
+	value = 0.95, 
+	min = 0.50, max = 0.99, step = 0.01),
+helpText("Note: this control CIs in the plots and tables"),
+
+
+
+
 
 #       selectInput(
 #     inputId = "letter",
@@ -183,23 +182,23 @@ hr(),
 h4(tags$b("Outputs: Descriptive Statistics")),
 tabsetPanel(
 
-tabPanel("Study points of Sensitivity (Sens) and Specificity (Spec) and CIs", p(br()),
+tabPanel("ROC scatter plot", p(br()),
 tags$b("1. Configurations of the following plot"), p(br()),
 	awesomeCheckbox( 
 	   inputId = "studypp",
-	   label = "Only points of studies", 
+	   label = "Add ROC scatter point of studies", 
 	   value = TRUE
 	   ),
 
 	awesomeCheckbox( 
 	   inputId = "ROCellipse",
-	   label = "Add CI region", 
+	   label = "Add CI region for each study", 
 	   value = FALSE
 	   ),
 	 
 	 awesomeCheckbox( 
 	   inputId = "Crosshair",
-	   label = "Add crosshair CI", 
+	   label = "Add crosshair CI for each study", 
 	   value = FALSE
 	 ),
 
@@ -207,16 +206,14 @@ tags$b("1. Configurations of the following plot"), p(br()),
    textInput("ci.xlab", label = "Label for x-axis", value = "1-Specificity"),
    textInput("ci.ylab", label = "Label for y-axis", value = "Sensitivity"),
 	), 
-  p(br()),
-
 tags$b("2. Scatter plot of the Sens and Spec of each sttudy"), p(br()),
   plotOutput("plot_ci",  height ="600px", width = "600px")
 
 ),
 
-tabPanel("Sens and Spec", p(br()),
+tabPanel("Summary of Sens and Spec", p(br()),
 	
-tags$b("1. Estimates"), p(br()),
+tags$b("1. Summary of sensitivity (Sens) and specificity (Sepc)"), p(br()),
 DTOutput("se_sp"), p(br()),	
 helpText(HTML('
 Note: 
@@ -229,7 +226,6 @@ Note:
 ')),
 hr(),
 	
-
 tags$b("2. Test of equality"), p(br()),
 DTOutput("se_sp_test"), hr(),
 
@@ -244,8 +240,8 @@ uiOutput("meta_sesp_plot")
 ),
 
 tabPanel(
-"Diagnostic Odds Ratio (DOR)", p(br()),
-tags$b("1. Estimates"), p(br()),
+"Summary of DOR", p(br()),
+tags$b("1. Summary of the diagnostic odds ratio (DOR)"), p(br()),
 DTOutput("dor"), p(br()),
 
 helpText(HTML('
@@ -258,7 +254,6 @@ Note:
 ')),hr(),
 
 tags$b("2. Forest plots"), p(br()),
-
 awesomeCheckbox(
 inputId = "uni.log1",
 label = "Show log-transformed results", 
@@ -273,8 +268,8 @@ uiOutput("meta_dor_plot")
 ),
 
 tabPanel(
-"Likelihood Ratios (LRs)", p(br()),
-tags$b("1. Estimates"), p(br()),
+"Summary of LRs", p(br()),
+tags$b("1. Summary of the positive or negative likelihood ratios (LRs)"), p(br()),
 DTOutput("uni.measure"), p(br()),
 
 helpText(HTML('

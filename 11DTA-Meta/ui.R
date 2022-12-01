@@ -167,7 +167,7 @@ headerPanel("Reitsma's Model of Meta-Analysis of Diagnostic Test Accuracy"),
 conditionalPanel(condition = "input.explain_on_off",
 HTML(
 "
-This panel is used for meta-analysis of diagnostic studies without accounting for the possibility of publication bias
+This panel is used for meta-analysis of diagnostic studies without accounting for publication bias
 
 <h4><b> 1. About the Reitsma's model</b></h4>
 <ul>
@@ -206,10 +206,8 @@ headerPanel("Likelihood-based Sensitivity Analysis for Publication Bias"),
 conditionalPanel(condition = "input.explain_on_off",
 HTML(
       "
-This panel is used for sensitivity analysis on the estimates of meta-analysis of diagnostic test accuracy.
-<br></br> 
-Publication bias (PB) is the threat to the validity of the estimates. 
-The method in this panel provides a method to quantify the magnitude of the potential PB. 
+<p>This panel is used for sensitivity analysis on the estimates of meta-analysis of diagnostic test accuracy.</p>
+<p>Publication bias (PB) is the threat to the validity of the estimates. The method in this panel provides a method to quantify the magnitude of the potential PB.</p> 
 <h4><b>1. The input parameter</b></h4>
 <ul>
 <li><b>Marginal selection probability ($p$)</b>: the expected proportion of published studies from the population; while $1-p$ indicated the expected proportion of the unpublished</li>
@@ -231,7 +229,15 @@ Contrast $c_1, c_2$: it defines the mechanism of selective publication process i
 <li>$\\hat c_1, \\hat c_2$: the selective publication mechanism is estimated from data</li>
 </ul>
 
-<h4><b> 3. You can get the following results:</b></h4>
+<h4><b>3. Optional parameters in the optimization</b></h4>
+<ul>
+<li><b>Initial value of $\\beta$</b>: the initial value of $\\beta$ in the optimization</li>
+<li><b>Initial value of $c_1^2$</b>: the initial value of $c_1^2$ in the optimization</li>
+<li><b>Range of $\\beta$</b>: lower and upper constraint of $\\beta$ in the optimization</li>
+<li><b>Range of $\\alpha$</b>: lower and upper constraint of $\\alpha$ in the optimization</li>
+</ul>
+
+<h4><b> 4. You can get the following results:</b></h4>
 <ul>
 <li> The bias adjusted SROC curve, given the input marginal selection probability</li>
 <li> The bias adjusted SAUC, given the input marginal selection probability</li>
@@ -256,7 +262,8 @@ conditionalPanel(
     condition = "input.explain_on_off",
     HTML(
       "
-This panel presents funnel plots for detecting potential publication bias.
+<p>This panel presents funnel plots for detecting potential publication bias on lnDOR, logit-scaled Sens and Spec.</p>
+<p> Funnel plot method is not suggested unless all the studies adopt the common cutoff values for diagnosis </p>
 <h4><b> You can get the following results:</b></h4>
 <ul>
 <li> The funnel plot with trim-and-fill for lnDOR, logit-scaled Sens and Sens</li>
@@ -364,26 +371,33 @@ SAUC(\\boldsymbol{\\mu}, \\boldsymbol{\\Omega})
 
 <h4><b> 2. Likelihood based sensitivity analysis method</b></h4>
 Publication bias is the phenomenon that studies with significant results are more likely to be published or selected for meta-analysis.
-For meta-analysis of DTA, We consider the selection function on the $t$-type statistic of the linear combination of the logit-transformed sensitivity and specificity:
-
+In meta-analysis of DTA, we consider to model the selective publication of each study by the selection function 
 \\begin{align*}
-\\boldsymbol{c}^T \\boldsymbol{y}_i = c_1y_{1i}+c_2y_{2i},
+P(\\text{Publish}|t_i)=\\Phi(\\alpha+\\beta\\times t_i\\},
 \\end{align*}
+which is the probit model on the $t$-type statistic of the linear combination of the logit-transformed sensitivity and specificity:
+$
+\\boldsymbol{c}^T \\boldsymbol{y}_i = c_1y_{1i}+c_2y_{2i},
+$
 where $\\boldsymbol{c} = (c_1, c_2)^T$ is a contrast vector.
-
-From equation \\eqref{eq:b12}, it holds that
-\\begin{align}
-t_i = \\dfrac{\\boldsymbol{c}^T \\boldsymbol{y}_i}{\\sqrt{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}}
-\\label{eq:t2} 
-\\end{align}
-$(c_1, c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$ gives the $t$-statistic of the lnDOR.
+The $t$-type statistic of the linear combination is 
+$
+t_i = \\dfrac{\\boldsymbol{c}^T \\boldsymbol{y}_i}{\\sqrt{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}}.
+$
+<br>
+When $(c_1, c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$, it gives the $t$-statistic of the lnDOR.
 By taking different contrast vectors, the $t$-type statistic can determine a variety of selective publication mechanisms.
 For example, 
-$(c_1, c_2) = (1, 0)$ and $(c_1, c_2) = (0, 1)$ in equation \\eqref{eq:t2} indicate that the selective publication mechanisms are determined by the significance of sensitivity and specificity, respectively.
-The contrast vector $\\boldsymbol{c}$ can be regarded as unknown parameters to be estimated.
+$(c_1, c_2) = (1, 0)$ and $(c_1, c_2) = (0, 1)$ indicate that the selective publication mechanisms are determined by the significance of sensitivity and specificity, respectively.
+The contrast vector $\\boldsymbol{c}$ can be regarded as unknown parameters to be estimated or specified by user.
 
-Given a value of marginal probability of selective publication, $p=P(\\mathrm{select})$, the parameters in the Reitsma's model can be estimated by the new likelihood.
+<br>
+In the sensitivity analysis, we introduce the marginal probability of selective publication, $p=P(\\mathrm{select})=E\\{P(\\text{Publish}|t_i)\\}$.
+The estimating model based on the joint distribution of observed data involving the selection probabilities can be constructed. 
+Given various specified values of $p$, the bias-adjusted SROC curves and SAUC can be estimated from the maximum likelihood estimation.
 
+<br>
+<hr>
 <h4><b>R packages used in the calculation:</b></h4>
 <ul>
 <li>mada: Meta-Analysis of Diagnostic Accuracy. R package version 0.5.11, 
