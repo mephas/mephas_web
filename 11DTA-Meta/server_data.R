@@ -10,10 +10,8 @@ observe({
   inFile1 <- input$filer
 
   separater <- input$Delimiter
-  print(inFile1)
   if (is.null(inFile1)||input$manualInputTRUE=='Manually input data'){
     
-    print(input$manualInput)
     DATA<-try(read.table(text=input$manualInput,sep = separater,header = TRUE),silent=TRUE)
     #validate(need(DATA$TP & DATA$FN & DATA$TN & DATA$FP,"Data must contain TP,FN,TN,FP"))
     if(inherits(DATA, "try-error")){
