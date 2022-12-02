@@ -46,7 +46,7 @@ conditionalPanel(
 	helpText("Note: you can revise the data directly, and please make sure the variable names contain TP, FN, FP, TN"),
 	fileInput("filer",
 		label = "Upload your csv and txt files, and data will be shown in the box", 
-		accept = c("application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv"))),
+		accept = "application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv")),
 
 
 tags$b("3. Edit data here"),
