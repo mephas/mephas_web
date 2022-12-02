@@ -111,7 +111,17 @@ dtametasa <- function(
     se.ldor2 <- c11 * v1 + c22 * v2
     se.ldor <- sqrt(se.ldor2)
     sq <- sqrt(1 + b^2 * (1 + t.ldor/se.ldor2))
-    hes <- numDeriv::hessian(fn, opt$par)
+    hes <- try(numDeriv::hessian(fn, opt$par),silent = TRUE)
+    if(inherits(hes)){
+        opt<-list()
+        opt$par<-c(NA,NA,NA,NA,NA,NA,NA)
+        names(opt$par)<-c("mu1", "mu2", "tau1", 
+                          "tau2", "rho", "beta", "c1")
+        opt$sauc.ci<-c(NA,NA,NA)
+        
+        class(opt) <- "dtametasa"
+      return(opt)
+    }
     rownames(hes) <- colnames(hes) <- c("mu1", "mu2", "tau1", 
                                         "tau2", "rho", "beta", "c1")[1:ncol(hes)]
     if (p == 1) 
