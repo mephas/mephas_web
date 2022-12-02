@@ -1,27 +1,6 @@
 
 # output$debug<-renderText(paste(studyId(),input$Sauc1,input$allsingle,p.seq()))
 
-observe({
-  inFile1 <- input$filer
-  separater <- input$Delimiter
-  list1<-read.csv(inFile1$datapath,sep = separater, header=TRUE)
-  if(is.null(list1$TP) || is.null(list1$FN)|| is.null(list1$TN) || is.null(list1$FP)){
-    data_ErrorMessage()
-    return()
-    }
-  list2<-read.csv(inFile1$datapath,sep = separater, header=FALSE)
-  y<-""
-  for (i in 1:length(list2)){
-    if (i==length(list2)) {
-      y<-paste(y,list2[[i]],sep = "")
-      break()
-    }
-    y<-paste(y,list2[[i]],separater,sep = "")
-  }
-  updateAceEditor(session,"manualInput",value =paste(y,collapse ="\n"))
-  updateRadioButtons(session,"manualInputTRUE",selected = "Manual input")
-  
-})%>%bindEvent(input$filer)
 
 
 output$studyId<-renderUI({
