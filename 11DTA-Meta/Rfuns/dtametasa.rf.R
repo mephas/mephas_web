@@ -112,7 +112,7 @@ dtametasa <- function(
     se.ldor <- sqrt(se.ldor2)
     sq <- sqrt(1 + b^2 * (1 + t.ldor/se.ldor2))
     hes <- try(numDeriv::hessian(fn, opt$par),silent = TRUE)
-    if(inherits(hes)){
+    if(inherits(hes,"try-error")){
         opt<-list()
         opt$par<-c(NA,NA,NA,NA,NA,NA,NA)
         names(opt$par)<-c("mu1", "mu2", "tau1", 
