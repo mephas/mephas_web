@@ -55,7 +55,7 @@ observe({
         modalButton("Close"),
         footer = NULL
       ))
-      # return()
+       return()
     }
 
     data(DATA)
