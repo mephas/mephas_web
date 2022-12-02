@@ -13,9 +13,28 @@ observe({
   
   if (is.null(inFile1)||input$manualInputTRUE=='Manually input data'){
     
-    DATA<-read.table(text=input$manualInput,sep = separater,header = TRUE)
+    print(input$manualInput)
+    DATA<-try(read.table(text=input$manualInput,sep = separater,header = TRUE),silent=TRUE)
     #validate(need(DATA$TP & DATA$FN & DATA$TN & DATA$FP,"Data must contain TP,FN,TN,FP"))
-    
+    if(inherits(DATA, "try-error")){
+      showModal(modalDialog(
+        title = "Error message",
+        easyClose = FALSE,
+        p(tags$strong(DATA), 
+
+        br(),
+
+          # tags$i(tags$u("")), 
+          #"If you need more help, please refresh and refer to the format of the example data",
+          # tags$a(href="https://github.com/mephas/datasets/blob/master/dtameta_data/dtameta_example_dat.csv", 
+          #   "DTA-Meta Example CSV Data",target="_blank") 
+          ), 
+        br(),
+        modalButton("Close"),
+        footer = NULL
+      ))
+      return()
+    }
     if(is.null(DATA$TP) || is.null(DATA$FN)|| is.null(DATA$TN) || is.null(DATA$FP)){
       
       showModal(modalDialog(
