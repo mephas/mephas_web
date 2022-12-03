@@ -79,10 +79,11 @@ reform.dtametasa<-function(fun=est.rf,p.seq,c1.square=0.5,fix.c=TRUE){
   se.ci   <- try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="mu1.ci","sens"),fun(c1.square,fix.c,par ="mu1.ci","se.lb"),fun(c1.square,fix.c,par ="mu1.ci","se.ub")))
   sp.ci   <- try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="mu2.ci","spec"),fun(c1.square,fix.c,par ="mu2.ci","sp.lb"),fun(c1.square,fix.c,par ="mu2.ci","sp.ub")))
   b.ci    <- try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="beta.ci","beta"),fun(c1.square,fix.c,par ="beta.ci","beta.lb"),fun(c1.square,fix.c,par ="beta.ci","beta.ub")))
-  if(inherits(sauc.ci,'try-error')) sauc.ci<-c(NA,NA,NA)
-  if(inherits(se.ci,'try-error')) se.ci<-c(NA,NA,NA)
-  if(inherits(sp.ci,'try-error')) sp.ci<-c(NA,NA,NA)
-  if(inherits(b.ci,'try-error')) b.ci<-c(NA,NA,NA)
+  print(typeof(sauc.ci))
+  if(inherits(sauc.ci,'try-error')) sauc.ci<-rep("NA (NA,NA)",length(p.seq))
+  if(inherits(se.ci,'try-error')) se.ci<-rep("NA (NA,NA)",length(p.seq))
+  if(inherits(sp.ci,'try-error')) sp.ci<-rep("NA (NA,NA)",length(p.seq))
+  if(inherits(b.ci,'try-error')) b.ci<-rep("NA (NA,NA)",length(p.seq))
   par<-fun(c1.square,fix.c,c("mu1","mu2","tau1","tau2","rho"))
   tb <- data.frame(p.seq=p.seq, 
                    sauc.ci= sauc.ci, 
