@@ -75,15 +75,31 @@ correction <- function(data, value = 0.5,type = c("single", "all")){
 
 reform.dtametasa<-function(fun=est.rf,p.seq,c1.square=0.5,fix.c=TRUE){
   #est.rf<-match.fun(est.rf)
-  sauc.ci <- try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="sauc.ci","sauc"),fun(c1.square,fix.c,par ="sauc.ci","sauc.lb"),fun(c1.square,fix.c,par ="sauc.ci","sauc.ub")))
-  se.ci   <- try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="mu1.ci","sens"),fun(c1.square,fix.c,par ="mu1.ci","se.lb"),fun(c1.square,fix.c,par ="mu1.ci","se.ub")))
-  sp.ci   <- try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="mu2.ci","spec"),fun(c1.square,fix.c,par ="mu2.ci","sp.lb"),fun(c1.square,fix.c,par ="mu2.ci","sp.ub")))
-  b.ci    <- try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="beta.ci","beta"),fun(c1.square,fix.c,par ="beta.ci","beta.lb"),fun(c1.square,fix.c,par ="beta.ci","beta.ub")))
-  print(typeof(sauc.ci))
-  if(inherits(sauc.ci,'try-error')) sauc.ci<-rep("NA (NA,NA)",length(p.seq))
-  if(inherits(se.ci,'try-error')) se.ci<-rep("NA (NA,NA)",length(p.seq))
-  if(inherits(sp.ci,'try-error')) sp.ci<-rep("NA (NA,NA)",length(p.seq))
-  if(inherits(b.ci,'try-error')) b.ci<-rep("NA (NA,NA)",length(p.seq))
+  sauc.ci<-sapply(p.seq,function(p){
+    sauc<-try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="sauc.ci","sauc",p=p),fun(c1.square,fix.c,par ="sauc.ci","sauc.lb",p=p),fun(c1.square,fix.c,par ="sauc.ci","sauc.ub",p=p)))
+    if(inherits(sauc,"try-error"))return("NA (NA,NA)")
+    sauc
+  })
+  #sauc.ci <- try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="sauc.ci","sauc"),fun(c1.square,fix.c,par ="sauc.ci","sauc.lb"),fun(c1.square,fix.c,par ="sauc.ci","sauc.ub")))
+  se.ci   <- sapply(p.seq,function(p){
+    se<-try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="mu1.ci","sens",p=p),fun(c1.square,fix.c,par ="mu1.ci","se.lb",p=p),fun(c1.square,fix.c,par ="mu1.ci","se.ub",p=p)))
+    if(inherits(se,"try-error"))return("NA (NA,NA)")
+    se
+  })
+  sp.ci   <- sapply(p.seq,function(p){
+    sp<-try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="mu2.ci","spec",p=p),fun(c1.square,fix.c,par ="mu2.ci","sp.lb",p=p),fun(c1.square,fix.c,par ="mu2.ci","sp.ub",p=p)))
+    if(inherits(sp,"try-error"))return("NA (NA,NA)")
+    sp
+  })
+  b.ci    <- sapply(p.seq,function(p){
+    b<-try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="beta.ci","beta",p=p),fun(c1.square,fix.c,par ="beta.ci","beta.lb",p=p),fun(c1.square,fix.c,par ="beta.ci","beta.ub",p=p)))
+    if(inherits(b,"try-error"))return("NA (NA,NA)")
+    b
+  })
+  # if(inherits(sauc.ci,'try-error')) sauc.ci<-rep("NA (NA,NA)",length(p.seq))
+  # if(inherits(se.ci,'try-error')) se.ci<-rep("NA (NA,NA)",length(p.seq))
+  # if(inherits(sp.ci,'try-error')) sp.ci<-rep("NA (NA,NA)",length(p.seq))
+  # if(inherits(b.ci,'try-error')) b.ci<-rep("NA (NA,NA)",length(p.seq))
   par<-fun(c1.square,fix.c,c("mu1","mu2","tau1","tau2","rho"))
   tb <- data.frame(p.seq=p.seq, 
                    sauc.ci= sauc.ci, 
