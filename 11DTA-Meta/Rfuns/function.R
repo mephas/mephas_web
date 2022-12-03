@@ -75,10 +75,14 @@ correction <- function(data, value = 0.5,type = c("single", "all")){
 
 reform.dtametasa<-function(fun=est.rf,p.seq,c1.square=0.5,fix.c=TRUE){
   #est.rf<-match.fun(est.rf)
-  sauc.ci <- sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="sauc.ci","sauc"),fun(c1.square,fix.c,par ="sauc.ci","sauc.lb"),fun(c1.square,fix.c,par ="sauc.ci","sauc.ub"))
-  se.ci   <- sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="mu1.ci","sens"),fun(c1.square,fix.c,par ="mu1.ci","se.lb"),fun(c1.square,fix.c,par ="mu1.ci","se.ub"))
-  sp.ci   <- sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="mu2.ci","spec"),fun(c1.square,fix.c,par ="mu2.ci","sp.lb"),fun(c1.square,fix.c,par ="mu2.ci","sp.ub"))
-  b.ci    <- sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="beta.ci","beta"),fun(c1.square,fix.c,par ="beta.ci","beta.lb"),fun(c1.square,fix.c,par ="beta.ci","beta.ub"))
+  sauc.ci <- try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="sauc.ci","sauc"),fun(c1.square,fix.c,par ="sauc.ci","sauc.lb"),fun(c1.square,fix.c,par ="sauc.ci","sauc.ub")))
+  se.ci   <- try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="mu1.ci","sens"),fun(c1.square,fix.c,par ="mu1.ci","se.lb"),fun(c1.square,fix.c,par ="mu1.ci","se.ub")))
+  sp.ci   <- try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="mu2.ci","spec"),fun(c1.square,fix.c,par ="mu2.ci","sp.lb"),fun(c1.square,fix.c,par ="mu2.ci","sp.ub")))
+  b.ci    <- try(sprintf("%.3f (%.3f, %.3f)", fun(c1.square,fix.c,par ="beta.ci","beta"),fun(c1.square,fix.c,par ="beta.ci","beta.lb"),fun(c1.square,fix.c,par ="beta.ci","beta.ub")))
+  if(inherits(sauc.ci,'try-error')) sauc.ci<-c(NA,NA,NA)
+  if(inherits(se.ci,'try-error')) se.ci<-c(NA,NA,NA)
+  if(inherits(sp.ci,'try-error')) sp.ci<-c(NA,NA,NA)
+  if(inherits(b.ci,'try-error')) b.ci<-c(NA,NA,NA)
   par<-fun(c1.square,fix.c,c("mu1","mu2","tau1","tau2","rho"))
   tb <- data.frame(p.seq=p.seq, 
                    sauc.ci= sauc.ci, 
