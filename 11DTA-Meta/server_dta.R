@@ -542,10 +542,10 @@ output$Results10<-renderDataTable({
 
   datatable(tb, #rownames = tb
             ,extensions = 'Buttons',
-            options=(list(scrollX = TRUE,
+            options=list(scrollX = TRUE,
                           dom = 'Blfrtip',
                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))
-            ))
+            )
   })
 
 output$Results01<-renderDataTable({
@@ -571,10 +571,10 @@ output$Results01<-renderDataTable({
   #             tb1)
   datatable(tb, #rownames = tb
             ,extensions = 'Buttons',
-            options=(list(scrollX = TRUE,
+            options=list(scrollX = TRUE,
                           dom = 'Blfrtip',
                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))
-            ))
+            )
   })
 # output$LogitData<-renderDataTable(datatable(logitData()%>%round(.,3)
 #                                             ,extensions = 'Buttons',
