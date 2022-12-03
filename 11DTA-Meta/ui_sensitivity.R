@@ -39,26 +39,36 @@ lib = "glyphicon"))
 ), 
 helpText(HTML("Note: the HSROC curve is given by the SROC curve with $\\rho=-1$")),
 
+prettyCheckbox(
+  inputId = "SettingParamater", label = tags$b("3. More configurations in the optimization"),
+  shape = "round", outline = TRUE, status = "info", value=FALSE
+),
+conditionalPanel(condition="input.SettingParamater",
+sliderInput("beta", label = HTML("Range of $\\beta$"), min = 0, 
+        max = 5, value = c(0,2), step=1, round = TRUE),
+sliderInput("alpha", label = HTML("Range of $\\alpha$"), min = -10, 
+        max = 10, value = c(-3, 3)),
+sliderInput("c0",label = HTML("Initial value for estimating $c_1^2$"), min = 0.1, 
+        max = 0.9, value = 0.5, step=0.1),
+helpText(HTML("Note: $c_2^2=1-c_!^2$"))
+# uiOutput("beta0")
+
+),
+actionButton("calculateSROC",
+tags$b(HTML("Click to get SROC curve")),
+icon = icon("rotate-right")),
+
 hr(),
 h3(tags$b("Marginal selection probabilities for SAUC")), 
 
 sliderInput("plistsauc","1. Choose the increment of sequence",0,1,0.1,step=0.01),
 verbatimTextOutput("p10list"), 
 p(br()),
-h4(prettyCheckbox(
-  inputId = "SettingParamater", label = tags$b("2. More configurations in the optimization"),
-  shape = "round", outline = TRUE, status = "info", value=FALSE
-)),
-conditionalPanel(condition="input.SettingParamater",
-sliderInput("beta", label = HTML("Range of $\\beta$"), min = 0, 
-        max = 10, value = c(0,2)),
-sliderInput("alpha", label = HTML("Range of $\\alpha$"), min = -10, 
-        max = 10, value = c(-3, 3))
-,uiOutput("beta0")
 
-),
+
+
 actionButton("calculateSAUC",
-tags$b(HTML("Click to calculate SAUC")),
+tags$b(HTML("Click to get SAUC")),
 icon = icon("rotate-right")),
 helpText("Note: it may take some time. If you change the parameters above, please click to re-calculate"),
 p(br()),
@@ -162,8 +172,11 @@ mainPanel(
 
 tabsetPanel(id="Sensitivity_Panel",
 
-
 tabPanel("SROC in ggplots",
+h4("Sensitivity analysis on SROC curves under four scenarios of selective publication mechanisms"),
+helpText(HTML("Note: there may be issues of non-convergence in the results; in such case, some results are missing. 
+    <br>
+    For the detailed estimates, please check the results table in the <b>Results Table</b>.")),
 fluidRow(
 column(width = 6,
 HTML("<h4>A. c<sub>1</sub>, c<sub>2</sub> are estimated</h4>"),
@@ -197,12 +210,17 @@ plotOutput("srocD", width = "500px", height = "500px")
 tabPanel("SROC", p(br()),
 
 h4("Sensitivity analysis on SROC curves under four scenarios of selective publication mechanisms"),
+helpText(HTML("Note: there may be issues of non-convergence in the results; in such case, some results are missing. 
+    <br>
+    For the detailed estimates, please check the results table in the <b>Results Table</b>.")),
 p(br()),
 plotOutput("srocA" , width = "900px", height = "900px")
 ),
 
 tabPanel("Dynamic SAUC in plotly",
-helpText("Note: click the button to start calculation at the first time."),
+helpText("Note: click the button to start calculation at the first time.
+    <br>
+    There may be issues of non-convergence in the results; in such case, some results are missing."),
 
 column(width=6,
 HTML("<h4>A. c<sub>1</sub>, c<sub>2</sub> are estimated</h4>"),
@@ -231,8 +249,8 @@ plotly::plotlyOutput("sauc_gg_cset", width = "500px", height = "500px")
 
 tabPanel("SAUC", p(br()),
 helpText("Note: click the button to start calculation at the first time."),
-
 h4("Sensitivity analysis on SAUC under four scenarios of selective publication mechanisms"),
+helpText(HTML("Note: there may be issues of non-convergence in the results; in such case, some results are missing.")),
 p(br()),
 plotOutput("sauc", width = "900px", height = "900px")
 ),

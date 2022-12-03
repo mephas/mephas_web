@@ -58,7 +58,7 @@
 
   a.p <- function(a) {sum(1/f.b(a), na.rm = TRUE) - n/p}
 
-  if (!show.warn.message) a.opt.try <- suppressWarnings(try(uniroot(a.p, alpha.interval, extendInt=alpha.root.extendInt), silent = TRUE)) else a.opt.try <- try(uniroot(a.p, alpha.interval, extendInt=alpha.root.extendInt), silent = FALSE)
+  a.opt.try <- try(uniroot(a.p, alpha.interval, extendInt=alpha.root.extendInt), silent = show.warn.message) 
 
   a.opt <- a.opt.try$root
 

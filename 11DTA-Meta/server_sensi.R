@@ -27,20 +27,26 @@ esting  <-reactiveValues()
 esting_omg<-reactiveValues()
 ## RC FC function
 alpha<-reactive({
-  if(length(input$alpha)==0)return (c(-3,3))
-  input$alpha
+  if(length(input$alpha)==0)return (c(-3,3)) else return(input$alpha)
 })
-beta0<-reactive({
-  if(length(input$beta0)==0)return (1)
-  input$beta0
-})
+
+# beta0<-reactive({
+#   if(length(input$beta0)==0) return (1)
+#   input$beta0
+# })
+
+
 beta<-reactive({
-  if(length(input$beta)==0)return (c(0,2))
-  input$beta
+  if(length(input$beta)==0) return (c(0,2)) else return(input$beta)
 })
+
+beta0<-reactive({
+  if(length(input$beta)==0) return (1) else return(runif(1, input$beta[1], input$beta[2]))
+})
+
+
 c0<-reactive({
-  if(length(input$c0)==0)return(0.5)
-  input$c0
+  if(length(input$c0)==0) return(0.5) else return(input$c0)
 })
 est.add_rf<-function(p,c1.square=0.5,fix.c=TRUE){
   rf<-c(p=p,dtametasa(data.cc(),
@@ -75,13 +81,13 @@ est.m<-function(c1.square=0.5,fix.c=TRUE,...,par="par",p=p.seq()){
 })}
 
 
-output$beta0<-renderUI({
-  list(
-    sliderInput("beta0",label = HTML("Initial value of $\\beta$"), min = input$beta[1], 
-        max = input$beta[2], value = 1),
-    sliderInput("c0",label = HTML("Initial value of $c_1^2$"), min = 0, 
-        max = 1, value = 0.5))}
-)
+# output$beta0<-renderUI({
+#   list(
+#     # sliderInput("beta0",label = HTML("Initial value of $\\beta$"), min = input$beta[1], 
+#     #     max = input$beta[2], value = 1),
+#     sliderInput("c0",label = HTML("Initial value of $c_1^2$"), min = 0.1, 
+#         max = -.9, value = 0.5, step=0.1))}
+# )
 
 ## SROC plot function 
 
@@ -221,21 +227,21 @@ sroc_ggplot_over("c1c2_01",0)
 })
 
 
-output$download_srocC_11<-downloadHandler(
-  filename = function(){paste("c1c2_11",'.png',sep='')},
-  content = function(file){
-    ggsave(file,plot=esting_omg[["c1c2_11"]])
-  })
-output$download_srocC_10<-downloadHandler(
-  filename = function(){paste("c1c2_10",'.png',sep='')},
-  content = function(file){
-    ggsave(file,plot=esting_omg[["c1c2_10"]])
-  })
-output$download_srocC_01<-downloadHandler(
-  filename = function(){paste("c1c2_01",'.png',sep='')},
-  content = function(file){
-    ggsave(file,plot=esting_omg[["c1c2_01"]])
-  })
+# output$download_srocC_11<-downloadHandler(
+#   filename = function(){paste("c1c2_11",'.png',sep='')},
+#   content = function(file){
+#     ggsave(file,plot=esting_omg[["c1c2_11"]])
+#   })
+# output$download_srocC_10<-downloadHandler(
+#   filename = function(){paste("c1c2_10",'.png',sep='')},
+#   content = function(file){
+#     ggsave(file,plot=esting_omg[["c1c2_10"]])
+#   })
+# output$download_srocC_01<-downloadHandler(
+#   filename = function(){paste("c1c2_01",'.png',sep='')},
+#   content = function(file){
+#     ggsave(file,plot=esting_omg[["c1c2_01"]])
+#   })
 
 
 ###sroc D plot setting=====================
@@ -249,11 +255,11 @@ output$srocD<-renderPlot({
  sroc_ggplot_over(plot_id ="c1c2_manul",input$c1c2_set)
 })
 
-output$download_c1c2_manul<-downloadHandler(
-  filename = function(){paste("c1c2_estimate",'.png',sep='')},
-  content = function(file){
-    ggsave(file,plot=esting_omg$c1c2_manul)
-  })
+# output$download_c1c2_manul<-downloadHandler(
+#   filename = function(){paste("c1c2_estimate",'.png',sep='')},
+#   content = function(file){
+#     ggsave(file,plot=esting_omg$c1c2_manul)
+#   })
 
 observe({
   
