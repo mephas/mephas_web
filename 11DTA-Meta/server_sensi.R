@@ -272,7 +272,7 @@ observe({
                  est.rfc(p.seq(),c1.square = 0)
                # })
 })%>%
-bindEvent(p.seq(),input$Sauc1,input$allsingle,studyId(),input$calculateSROC)
+bindEvent(input$Sauc1,input$allsingle,input$calculateSROC)
 
 
 observe({
