@@ -486,7 +486,7 @@ output$Results.est<-renderDataTable({
             ,extensions = 'Buttons',
             options=(list(scrollX = TRUE,
                           dom = 'Blfrtip',
-                          buttons = c('copy',list( extend='csv', title = "Estimates from sensitivity analysis"), list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='pdf', title = "Estimates from sensitivity analysis"), , list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='print', title = "Estimates from sensitivity analysis")))
+                          buttons = c('copy',list( extend='csv', title = "Estimates from sensitivity analysis"), list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='pdf', title = "Estimates from sensitivity analysis"),  list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='print', title = "Estimates from sensitivity analysis")))
             ))
   })
 
@@ -515,7 +515,7 @@ output$Results11<-renderDataTable({
             ,extensions = 'Buttons',
             options=(list(scrollX = TRUE,
                           dom = 'Blfrtip',
-                          buttons = list('copy',list( extend='csv', title = "Estimates from sensitivity analysis"), list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='pdf', title = "Estimates from sensitivity analysis"), , list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='print', title = "Estimates from sensitivity analysis")))
+                          buttons = list('copy',list( extend='csv', title = "Estimates from sensitivity analysis"), list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='pdf', title = "Estimates from sensitivity analysis"),  list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='print', title = "Estimates from sensitivity analysis")))
             ))
   })
 
@@ -544,7 +544,7 @@ output$Results10<-renderDataTable({
             ,extensions = 'Buttons',
             options=list(scrollX = TRUE,
                           dom = 'Blfrtip',
-                          buttons = list('copy',list( extend='csv', title = "Estimates from sensitivity analysis"), list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='pdf', title = "Estimates from sensitivity analysis"), , list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='print', title = "Estimates from sensitivity analysis")))
+                          buttons = list('copy',list( extend='csv', title = "Estimates from sensitivity analysis"), list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='pdf', title = "Estimates from sensitivity analysis"),  list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='print', title = "Estimates from sensitivity analysis")))
             )
   })
 
@@ -573,7 +573,7 @@ output$Results01<-renderDataTable({
             ,extensions = 'Buttons',
             options=list(scrollX = TRUE,
                           dom = 'Blfrtip',
-                          buttons = c('copy',list( extend='csv', title = "Estimates from sensitivity analysis"), list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='pdf', title = "Estimates from sensitivity analysis"), , list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='print', title = "Estimates from sensitivity analysis")))
+                          buttons = c('copy',list( extend='csv', title = "Estimates from sensitivity analysis"), list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='pdf', title = "Estimates from sensitivity analysis"),  list( extend='excel', title = "Estimates from sensitivity analysis"), list( extend='print', title = "Estimates from sensitivity analysis")))
             )
   })
 # output$LogitData<-renderDataTable(datatable(logitData()%>%round(.,3)
