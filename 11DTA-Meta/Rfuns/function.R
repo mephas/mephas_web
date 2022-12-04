@@ -167,3 +167,30 @@ ui.plot_srocline_drop<-function(plot_id,p.seq){
 )
 }
 
+
+
+GLMMmodel <- function(data){
+  
+  data$n1 <- data$TP+data$FN 
+  data$n0 <- data$FP+data$TN 
+  data$true1 <- data$TP 
+  data$true0 <- data$TN 
+  data$recordid <- 1:nrow(data)
+
+  
+  Y = reshape(data, 
+              direction="long", 
+              varying=list(c("n1", "n0"), 
+                           c("true1", "true0")), 
+              timevar="sens", 
+              times=c(1,0), 
+              v.names=c("n","true"))
+  Y = Y[order(Y$id),] 
+  Y$spec<- 1-Y$sens
+  
+  fit <- glmer(formula=cbind(true, n - true) ~ 0 + sens + spec + (0+sens + spec|recordid), 
+               data=Y, family=binomial, nAGQ=1, verbose=0)
+  summary(fit)
+  
+  
+}

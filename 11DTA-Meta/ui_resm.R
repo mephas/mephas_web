@@ -3,7 +3,8 @@ sidebarLayout(
 # tags$head(tags$style("#strfac {overflow-y:scroll; max-height: 100px; background: white};")),
 
 sidebarPanel(
-	tags$head(tags$style("#reitsma {background: white; color: #5A5A5A};")),
+tags$style("#reitsma {background: white; color: #5A5A5A};"),
+tags$style("#glmm {background: white; color: #5A5A5A};"),
 
 h3(tags$b("Reitsma's model")),
 
@@ -33,7 +34,8 @@ hr(),
 
 h3(tags$b("Summary ROC (SROC) Plot")), 
 
-tags$b("1. Configuration of SROC plot from the Reitsma's model"), 
+tags$b("1. Configuration of SROC plot"), 
+
 
 awesomeCheckbox( 
    inputId = "studypp2",
@@ -41,9 +43,12 @@ awesomeCheckbox(
    value = TRUE
  ),
 
+p(br()),
+tags$b("Reitsma's model"), 
+
 awesomeCheckbox( 
    inputId = "reitmaSROC",
-   label = "Add the SROC curve", 
+   label = "Add the Reitsma's SROC curve", 
    value = TRUE
  ),
 
@@ -58,6 +63,22 @@ awesomeCheckbox(
    label = "Add CI region of the summary point", 
    value = TRUE
  ),
+
+tags$b("GLM model"), 
+
+
+awesomeCheckbox( 
+   inputId = "glmmSROC",
+   label = "Add the GLMM SROC curve", 
+   value = FALSE
+ ),
+
+awesomeCheckbox( 
+   inputId = "glmm.pt",
+   label = "Add the GLMM SROC curve", 
+   value = FALSE
+ ),
+
 helpText(HTML("<i>Note:</i>
    see the equation of SROC in <b>Help and Download</b> panel")),
 p(br()),
@@ -101,11 +122,37 @@ tabPanel("SROC Plot", p(br()),
 	# verbatimTextOutput("reitsma")
 	),
 
+
 tabPanel("Reitsma's Model", p(br()),
 
 	(tags$b("Estimates from the model")), p(br()),
 
 	verbatimTextOutput("reitsma"),
+   (tags$b("Estimates table")),
+   DTOutput("reitsma.dt"),
+
+
+helpText(HTML("
+<i>Note:</i>
+see the details of the Reitsma's model in <b>Help and Download</b> panel
+<ul>
+<li><b>tsens.:</b> the estimated summarized sensitivity in the logit-scale, $\\mu_1$ in the Reitsma's model</li>
+<li><b>tfpr.:</b> the estimated summarized 1-specificity (false positive rate) in the logit-scale, $-\\mu_2$ in the Reitsma's model</li>
+<li><b>sensitivity:</b> the estimated summarized sensitivity, logit-scaled $\\mu_1$ in the Reitsma's model</li>
+<li><b>false pos. rate::</b> the estimated summarized 1-specificity (false positive rate), logit-scaled $\\mu_2$ in the Reitsma's model</li>
+</ul>
+"))
+
+),
+
+tabPanel("GLM Model", p(br()),
+
+   (tags$b("Estimates from the model")), p(br()),
+
+   verbatimTextOutput("glmm"),
+   (tags$b("Estimates table")),
+   DTOutput("glmm.dt"),
+
 
 helpText(HTML("
 <i>Note:</i>
