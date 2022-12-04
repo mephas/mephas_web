@@ -116,9 +116,9 @@ data_ErrorMessage<-function(){
   showModal(modalDialog(
     title = "Error message",
     easyClose = FALSE,
-    p(tags$strong("Data must contain TP,FN,TN,FP:
-                             "), "Please edit the data-set",br(),
-      tags$i(tags$u("")), "If you need more important, please check",tags$a(href="https://mephas.github.io/helppage/", "DTA-Meta Manual",target="_blank") ), 
+    p(tags$strong("Data must be named as TP,FN,TN,FP"), "Please edit the data-set",br()
+      # tags$i(tags$u("")), "If you need more important, please check",tags$a(href="https://mephas.github.io/helppage/", "DTA-Meta Manual",target="_blank") 
+      ), 
     br(),
     modalButton("Close"),
     footer = NULL
@@ -127,8 +127,8 @@ data_ErrorMessage<-function(){
 ui.plot_baseset_drop<-function(id){
 dropdown(width = 300,
   shinyWidgets::colorPickr(paste0("each_point_color",id),"Point colour",selected="#47848C"),
-  sliderInput(paste0("each_point_radius",id),"Point radius",min = 0,max=10,value = 3),
-  sliderInput(paste0("each_point_shape",id),"Point shape",min = 0,max=25,value = 20),
+  sliderInput(paste0("each_point_radius",id),"Point radius",min = 0,max=10,value = 2, step=0.1),
+  sliderInput(paste0("each_point_shape",id),"Point shape",min = 0,max=25,value = 1, step=1),
   shinyWidgets::switchInput(#
     inputId = paste0("setting_each_point",id),#
     label = "<i class=\"fa fa-book\"></i>", # Explanation in Details
@@ -141,8 +141,11 @@ dropdown(width = 300,
                    sliderInput(paste0("each_point_transparency",id),"Point Transparency",min = 0,max=1,value = 1)
   )
   ,
-  label = "Diagnostic studies"
+  label = "Diagnostic studies",
+  circle = FALSE,
+    icon = icon("gear")#, width = "300px"
 )}
+
 ui.plot_baseline_drop<-function(id,plot_title="title",x_axis="",y_axis=waiver()){
   dropdown(label = paste(id,"Plot outline"),
     textInput(paste0("plot_title",id),"title",plot_title),
@@ -152,12 +155,14 @@ ui.plot_baseline_drop<-function(id,plot_title="title",x_axis="",y_axis=waiver())
 }
 ui.plot_srocline_drop<-function(plot_id,p.seq){
   dropdown(label = "SROC",width = 300,
+    circle = FALSE,
+    icon = icon("gear"),
   lapply(1:length(p.seq), function(i) dropdown(label =paste("p=",p.seq[i])
                                                  ,colorPickr(paste0("sroc_point_color",plot_id,i),label = "Summary point's colour",selected = "#0A99BD")
-                                                 ,sliderInput(paste0("sroc_point_radius",plot_id,i), "Summary point's radius",min = 0,max=10,value = 3,step = 0.01)
-                                                 ,sliderInput(paste0("sroc_point_shape",plot_id,i),"Summary point's shape",min = 0,max=25,value = 20)
+                                                 ,sliderInput(paste0("sroc_point_radius",plot_id,i), "Summary point's radius",min = 0,max=10,value = 2,step = 0.1)
+                                                 ,sliderInput(paste0("sroc_point_shape",plot_id,i),"Summary point's shape",min = 0,max=25,value = 18)
                                                  ,colorPickr(paste0("sroc_curve_color",plot_id,i),label="SROC curve's color",selected="#39377A")
-                                                 ,sliderInput(paste0("sroc_curve_thick",plot_id,i), "SROC curve's thickness",min = 0,max = 3,value = 1,step = 0.01)
+                                                 ,sliderInput(paste0("sroc_curve_thick",plot_id,i), "SROC curve's thickness",min = 0,max = 3,value = 0.5,step = 0.1)
                                                  ,sliderTextInput(paste0("sroc_curve_shape",plot_id,i),grid = TRUE,label =  "SROC curve's type",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")))
 )
 }

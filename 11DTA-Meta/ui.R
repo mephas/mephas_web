@@ -199,7 +199,7 @@ hr()
 ),
 
 ########## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-tabPanel("Analysis for Publication Bias",
+tabPanel("Analysis of Publication Bias",
 
 headerPanel("Likelihood-based Sensitivity Analysis for Publication Bias"),
   
@@ -254,9 +254,9 @@ See more details in <b>Help and Install App</b> panel.
 ),
 
 ########## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-tabPanel("Funnel Plots for Publication Bias",
+tabPanel("Detection of Publication Bias",
 
-headerPanel("Funnel Plots for Publication Bias"),
+headerPanel("Funnel Plots for Detecting the Significance of Publication Bias"),
 
 conditionalPanel(
     condition = "input.explain_on_off",
