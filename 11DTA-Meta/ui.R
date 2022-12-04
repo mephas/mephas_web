@@ -163,27 +163,39 @@ hr()
 ########## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 tabPanel("Meta-Analysis",
 
-headerPanel("Reitsma's Model of Meta-Analysis of Diagnostic Test Accuracy"),
+headerPanel("Reitsma's Model and GLM model of Meta-Analysis of Diagnostic Test Accuracy"),
 
   ## Explanations
 conditionalPanel(condition = "input.explain_on_off",
 HTML(
 "
-This panel is used for meta-analysis of diagnostic studies without accounting for publication bias
+<p>This panel is used for meta-analysis of diagnostic studies without accounting for publication bias.</p>
+<p>Two bivariate models are available: <b>linear mixed model (LMM, or Reitsma's model)</b> and <b>generalized linear mixed model (GLMMM, or GLM model)</b></p>
 
 <h4><b> 1. About the Reitsma's model</b></h4>
 <ul>
-<li> Meta-analysis is conducted by the Reitsma's model, which is the random effects model based on the bivariate normal distribution</li>
-<li> The parameters of interest are: the summarized sensitivity and specificity, and the correlation between them</li>
+<li> This is the random effects model based on the bivariate normal distribution</li>
+<li> The parameters of interest are: the summarized sensitivity and specificity, and the SAUC</li>
+<li> When data are sparse (have many 0 values), this model is not recommended</li>
 </ul>
 <p>Reference: <i>Reitsma JB, Glas AS, Rutjes AWS, Scholten RJPM, Bossuyt PM, Zwinderman AH. 
 Bivariate analysis of sensitivity and specificity produces informative summary measures in diagnostic reviews. J Clin Epidemiol. 2005;58(10):982-990. 
 doi:10.1016/j.jclinepi.2005.02.022</i></p>
 
+<h4><b> 2. About GLM model</b></h4>
+<ul>
+<li> This model is a mixture of binomial model and normal model</li>
+<li> The parameters of interest are: the summarized sensitivity and specificity, the the SAUC</li>
+<li> When data are sparse (have many 0 values), this model is recommended</li>
+<li> When data are not sparse, this model has similar results with Reitsma's model</li>
+</ul>
+<p>Reference: <i>1. Chu H, Cole SR. Bivariate meta-analysis of sensitivity and specificity with sparse data: a generalized linear mixed model approach. J Clin Epidemiol. 2006;59(12):1331-1332. doi:10.1016/j.jclinepi.2006.06.011</i></p>
+
 <h4><b> 2. You can get the following results:</b></h4>
 <ul>
 <li> The estimated summary ROC (SROC) curve</li>
 <li> The estimates from the Reitsma's model</li>
+<li> The estimates from the GLM model</li>
 </ul>
 See more details in the <b>Help and Install App</b> panel.
 "
@@ -299,9 +311,14 @@ HTML(
 <h4><b>Models in this App</b></h4>
 
 <h4><b> 1. Reitsma's model</b></h4>
-Suppose that $N~(i=1, \\dots, N)$ diagnostic studies are included in meta-analysis. In other words, there are $N$ rows in the input data.
-<br></br>
-
+<p>Suppose that $N~(i=1, \\dots, N)$ diagnostic studies are included in meta-analysis. In other words, there are $N$ rows in the input data.
+The observed data are the number of true positives (TP), true negative (TN), false positives (FP), and false negatives (FN), so sensitivity (Sens) and specificity (Spec) can be estimated from data.</p>
+<p>In the within-study level, we denote that,</p>
+<ul>
+<li>$y_{1i}$ and $y_{2i}$: the logit-Sens and logit-Spec after continuity correction</li>
+<li>$s_{1i}^2$ and $s_{2i}^2$: the observed variances of $y_{1i}$ and $y_{2i}$ within each study</li>
+<li>$\\mu_{1i}$ and $\\mu_{2i}$: the logit-transformed true Sens and Spec of the $i$th study</li>
+</ul>
 Given $(\\mu_{1i}, \\mu_{2i})$, it is assumed that:
 \\begin{align}
   \\binom{y_{1i}}{y_{2i}} 
@@ -315,13 +332,12 @@ Given $(\\mu_{1i}, \\mu_{2i})$, it is assumed that:
   \\end{pmatrix},
   \\label{eq:b2}
 \\end{align}
-where,
+<p>In the within-study level, we denote that,</p>
 <ul>
-<li>$y_{1i}$ and $y_{2i}$: the logit-transformed observed sensitivity (Sens) and specificity (Spec) from the data</li>
-<li>$s_{1i}^2$ and $s_{2i}^2$: the observed variances of $y_{1i}$ and $y_{2i}$ within each study</li>
-<li>$\\mu_{1i}$ and $\\mu_{2i}$: the logit-transformed true Sens and Spec of the $i$th study</li>
+<li>$\\mu_1$ and $\\mu_2$: the common means of the logit-transformed sensitivity and specificity</li>
+<li>$\\tau_1^2$ and $\\tau_2^2$: between-study variances</li>
+<li>$\\tau_{12} = \\rho\\tau_{1}\\tau_{2}$ is the covariance between $\\mu_{1i}$ and $\\mu_{2i}$, $\\rho~(-1 \\le \\rho \\le 1)$ is the correlation coefficient</li>
 </ul>
-
 It is assumed that $(\\mu_{1i}, \\mu_{2i})^T$ is normally distributed:
 \\begin{align}
   \\binom{\\mu_{1i}}{\\mu_{2i}}
@@ -335,26 +351,41 @@ It is assumed that $(\\mu_{1i}, \\mu_{2i})^T$ is normally distributed:
   \\end{pmatrix},
   \\label{eq:b1}
 \\end{align}
-where,
-<ul>
-<li>$\\mu_1$ and $\\mu_2$: the common means of the logit-transformed sensitivity and specificity</li>
-<li>$\\tau_1^2$ and $\\tau_2^2$: between-study variances</li>
-<li>$\\tau_{12} = \\rho\\tau_{1}\\tau_{2}$ is the covariance between $\\mu_{1i}$ and $\\mu_{2i}$, $\\rho~(-1 \\le \\rho \\le 1)$ is the correlation coefficient</li>
-</ul>
-
-
-The models \\eqref{eq:b1} and \\eqref{eq:b2} leads to the Reitsma's model:
+<p>The combination of \\eqref{eq:b2} and \\eqref{eq:b1} leads to the Reitsma's model:</p>
 \\begin{align}
 \\boldsymbol{y}_i | \\boldsymbol{\\Sigma}_i 
 \\sim N_2 
 \\left (\\boldsymbol{\\mu}, \\boldsymbol{\\Omega} + \\boldsymbol{\\Sigma}_i  \\right ),
 \\label{eq:b12}
 \\end{align}
-where,
-<ul>
-<li>$\\boldsymbol{y}_i = (y_{1i},y_{2i})^T$, $\\boldsymbol{\\mu} = (\\mu_1,\\mu_2)^T$</li>
-</ul>
+where,$\\boldsymbol{y}_i = (y_{1i},y_{2i})^T$, $\\boldsymbol{\\mu} = (\\mu_1,\\mu_2)^T$
+<p>Reitsma's model requires the number of diseased and non-diseased to be large.</p>
 
+<h4><b> 2. Generalized linear mixed (GLM) model</b></h4>
+<p>GLM model differs Reitsma's model in the within-study level.</p>
+Suppose,</p>
+<ul>
+<li>$n_{00i}, n_{11i}, n_{01i}, n_{10i}$: TP, TN, FP, FN; $N_{1i}=n_{11i}+n_{10i}, N_{0i}=n_{00i}+n_{01i}$</li>
+<li>$s_{1i}^2$ and $s_{2i}^2$: the observed variances of $y_{1i}$ and $y_{2i}$ within each study</li>
+<li>$\\mu_{1i}$ and $\\mu_{2i}$: the logit-transformed true Sens and Spec of the $i$th study</li>
+</ul>
+<p>In the within-study level, it is assumed that:,</p>
+\\begin{align}
+n_{00i}\\sim \\text{Binomial}(N_{0i}, \\text{Spec}_i); ~~~~ n_{11i}\\sim \\text{Binomial}(N_{1i}, \\text{Sens}_i)
+\\label{eq:b3}
+\\end{align}
+<p>In the between-study level, we denote that:</p>
+<ul>
+<li>$\\mu_{1i}=\\text{logit}(\\text{Sens}_i)$ and $\\mu_{2i}=\\text{logit}(\\text{Spec}_i)$</li>
+<li>$\\mu_1$ and $\\mu_2$: the common means of the logit-Sens and logit-Spec</li>
+<li>$\\tau_1^2$ and $\\tau_2^2$: between-study variances</li>
+<li>$\\tau_{12} = \\rho\\tau_{1}\\tau_{2}$ is the covariance between $\\mu_{1i}$ and $\\mu_{2i}$, $\\rho~(-1 \\le \\rho \\le 1)$ is the correlation coefficient</li>
+</ul>
+<p>In the between-study level, $\\mu_{1i}, \\mu_{2i}$ have the same distribution with \\ref{eq:b2}</p>
+<p>The combination of \\eqref{eq:b3} and \\eqref{eq:b1} leads to the GLM model.</p>
+<p>GLM model does not require continuity correction.</p>
+
+<h4><b> 3. SROC and SAUC</b></h4>
 The SROC curve:
 \\begin{align}
 SROC(x; \\boldsymbol{\\mu}, \\boldsymbol{\\Omega}) 
@@ -371,7 +402,7 @@ SAUC(\\boldsymbol{\\mu}, \\boldsymbol{\\Omega})
 \\end{align}
 
 
-<h4><b> 2. Likelihood based sensitivity analysis method</b></h4>
+<h4><b> 4. Likelihood based sensitivity analysis method</b></h4>
 Publication bias is the phenomenon that studies with significant results are more likely to be published or selected for meta-analysis.
 In meta-analysis of DTA, we consider to model the selective publication of each study by the selection function 
 \\begin{align*}
@@ -384,7 +415,7 @@ $
 where $\\boldsymbol{c} = (c_1, c_2)^T$ is a contrast vector.
 The $t$-type statistic of the linear combination is 
 $
-t_i = \\dfrac{\\boldsymbol{c}^T \\boldsymbol{y}_i}{\\sqrt{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}}.
+t_i = {\\boldsymbol{c}^T \\boldsymbol{y}_i}/{\\sqrt{\\boldsymbol{c}^T\\boldsymbol{\\Sigma}_i\\boldsymbol{c}}}.
 $
 <br>
 When $(c_1, c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$, it gives the $t$-statistic of the lnDOR.

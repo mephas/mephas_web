@@ -1,4 +1,4 @@
-data=read.csv("anti-ccp.csv")
+data=read.csv("data-IVD.csv")
 
 library(lme4)
 ###
@@ -29,7 +29,7 @@ GLMMmodel <- function(data){
 }
 
 fit.glmm <- GLMMmodel(data)
-
+sqrt(fit.glmm$vcov)
 SAUC(par)
 
 lsens = fit.glmm$coeff[1,1] 
