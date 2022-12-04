@@ -1,4 +1,5 @@
 X=read.csv("anti-ccp.csv")
+
 library(lme4)
 ###
 
@@ -52,4 +53,13 @@ sesp <- rbind.data.frame(
   plogis(Sens),plogis(Spec)
   )
 
+fit.reitsma <- reitsma(X, method = "ml")
+
+par2 <- c(fit.reitsma$coeff[1], -fit.reitsma$coeff[2], 
+          sqrt(fit.reitsma$Psi[1,1]), sqrt(fit.reitsma$Psi[2,2]), -fit.reitsma$Psi[1,2]/sqrt(fit.reitsma$Psi[1,1]*fit.reitsma$Psi[2,2]))
+  
+plot(NULL, xlim=c(0,1), ylim=c(0,1), xlab="FPR", ylab="TPR")
+
+SROC(par, addon = TRUE)
+SROC(par2, addon = TRUE)
 
