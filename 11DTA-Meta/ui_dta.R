@@ -300,7 +300,7 @@ awesomeCheckbox(
 ),
 
 splitLayout(
-	textInput("u2.title", label = "Change title for the plot", value = "Log negative LR")
+	textInput("u2.title", label = "Change title for the plot", value = "Log negative LR"),
 	textInput("u3.title", label = "Change title for the plot", value = "Log positive LR")
 	), 
 p(br()),
