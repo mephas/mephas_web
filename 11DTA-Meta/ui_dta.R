@@ -209,7 +209,7 @@ tags$b("1. Configurations of the following plot"), p(br()),
 	   value = FALSE
 	 ),
 
-  splitLayout(
+  flowLayout(
 	pickerInput("ci.xlab", label = "Label for x-axis", choices = c("1-Specificity","FPR")),
 	pickerInput("ci.ylab", label = "Label for y-axis", choices = c("Sensitivity","TPR"))
 	), 
