@@ -434,37 +434,17 @@ Given various specified values of $p$, the bias-adjusted SROC curves and SAUC ca
 <h4><b>R packages used in this Application:</b></h4>
 <ul>
 <li>mada,
-DescTools,
 DT,
-exactRankTests,
-dunn.test,
-ROCR,
 ggplot2,
-magrittr,
-psych,
-pls,
-plotly
-reshape,
-scales,
+plotly,
 shiny,
 shinythemes,
 shinyWidgets,
-survival,
-survminer,
-survAUC,
-spls,
-stargazer,
 mvmeta,
 mada,
 shinyAce,
 latex2exp,
 base,
-methods,
-graphics,
-grDevices,
-stats,
-utils
-<a href='https://cran.r-project.org/' target='_blank'>https://CRAN.R-project.org/package</a></li>
 </ul>
 
 
@@ -524,4 +504,4 @@ tablink()
 #     \\textit{utils}          & https://CRAN.R-project.org/package=utils       
 # \\end{tabular}
     
-# \\end{table}
+# \\end{table}<a href='https://cran.r-project.org/' target='_blank'>https://CRAN.R-project.org/package</a></li>
