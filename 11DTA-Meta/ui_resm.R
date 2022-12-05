@@ -77,10 +77,8 @@ awesomeCheckbox(
  p(br()),
 
 tags$b("3. Other configurations"), 
-
- textInput("sroc.xlab", label = "Label for x-axis", value = "1-Specificity"),
- textInput("sroc.ylab", label = "Label for y-axis", value = "Sensitivity")
-
+	pickerInput("sroc.xlab", label = "Label for x-axis", choices = c("1-Specificity","FPR")),
+	pickerInput("sroc.ylab", label = "Label for y-axis", choices = c("Sensitivity","TPR"))
 
 ),
 

@@ -109,13 +109,14 @@ Note: different methods cause some change in the variances and confidence interv
 ')),
 
 hr(),
+conditionalPanel(condition="input.ROCellipse |input.Crosshair",
 h3(tags$b("Confidence Intervals (CIs)")),
 
 sliderInput("ci.level", 
 	label = "Significance level of CIs", 
 	value = 0.95, 
 	min = 0.50, max = 0.99, step = 0.01),
-helpText("Note: this control CIs in the plots and tables"),
+helpText("Note: this control CIs in the plots and tables")),
 
 
 
@@ -203,8 +204,8 @@ tags$b("1. Configurations of the following plot"), p(br()),
 	 ),
 
   splitLayout(
-   textInput("ci.xlab", label = "Label for x-axis", value = "1-Specificity"),
-   textInput("ci.ylab", label = "Label for y-axis", value = "Sensitivity"),
+	pickerInput("ci.xlab", label = "Label for x-axis", choices = c("1-Specificity","FPR")),
+	pickerInput("ci.ylab", label = "Label for y-axis", choices = c("Sensitivity","TPR"))
 	), 
 tags$b("2. Scatter plot of the Sens and Spec of each sttudy"), p(br()),
   plotOutput("plot_ci",  height ="600px", width = "600px")
@@ -293,7 +294,7 @@ awesomeCheckbox(
 ),
 
 splitLayout(
-	textInput("u2.title", label = "Change title for the plot", value = "Log negative LR"),
+	textInput("u2.title", label = "Change title for the plot", value = "Log negative LR")
 	textInput("u3.title", label = "Change title for the plot", value = "Log positive LR")
 	), 
 p(br()),
