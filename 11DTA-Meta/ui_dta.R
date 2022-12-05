@@ -43,14 +43,18 @@ fill = TRUE
 conditionalPanel(
 	condition = "input.manualInputTRUE=='Upload file from local'",
 	icon("file-excel"),
-	helpText("Note: you can revise the data directly, and please make sure the variable names contain TP, FN, FP, TN"),
+	helpText(HTML("<i>Note:</i> you can revise the data directly, 
+		and please make sure the variable names contain <b>TP, FN, FP, TN</b>")),
 	fileInput("filer",
 		label = "Upload your csv and txt files, and data will be shown in the box", 
 		accept = "application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv")),
 
 
 tags$b("3. Edit data here"),
-helpText("Note: please make sure the variable names contain TP, FN, FP, TN"),
+helpText(HTML("<i>Note:</i> 
+	please make sure the data are named as <b>TP, FN, FP, TN</b>.
+	<br></br>
+	If you upload your data, please click the button to load your data")),
 
 aceEditor("manualInput"
 ,value = "study,TP,FN,FP,TN\n1,12,0,29,289\n2,10,2,14,72\n3,17,1,36,85\n4,13,0,18,67\n5,4,0,21,225\n6,15,2,122,403\n7,45,5,28,34\n8,18,4,69,133\n9,5,0,11,34\n10,8,9,15,96\n11,5,0,7,63\n12,11,2,122,610\n13,5,1,6,145\n14,7,5,25,342
@@ -78,8 +82,8 @@ fill = TRUE,
 icon = icon("check")
 ),
 helpText(HTML('
-Note: 
-if there were 0 inputs in TN, FN, FP, or TN, continuity correction should be made.
+<i>Note:</i>
+if there were 0 inputs in TN, FN, FP, or TN, continuity correction will be made.
 <ol>
 <li><b>Correction for single study:</b> TN, FN, FP, TN are added 0.5 only for the studies that have 0 inputs</li>
 <li><b>Correction for all studies:</b> the whole data are added 0.5 for all studies if there were 0 inputs</li>
@@ -105,7 +109,8 @@ selectInput("ci.method", label = "Select methods of variance",
 	selected = "wald")
 ,
 helpText(HTML('
-Note: different methods cause some change in the variances and confidence intervals in the summary 
+<i>Note:</i> 
+different methods cause some change in the variances and CIs in the summary 
 ')),
 
 hr(),
@@ -116,7 +121,7 @@ sliderInput("ci.level",
 	label = "Significance level of CIs", 
 	value = 0.95, 
 	min = 0.50, max = 0.99, step = 0.01),
-helpText("Note: this control CIs in the plots and tables")),
+helpText(HTML("<i>Note:</i> this control CIs in the plots and tables")),
 
 
 
@@ -165,7 +170,8 @@ tabPanel(
 	"Data after logit-transformation",p(br()),
 	DTOutput("LogData"),
 helpText(HTML('
-Note: logit transformation is $\\mathrm{logit}(x)=\\log(\\dfrac{x}{1-x})$
+<i>Note:</i> 
+logit transformation is $\\mathrm{logit}(x)=\\log(\\dfrac{x}{1-x})$
 <ul>
 <li><b>Sens</b>: sensitivity$=\\dfrac{TP}{TP+FN}$; <b>Spec</b>: specificity$=\\dfrac{TN}{TN+FP}$</li>
 <li><b>y1</b>: $\\mathrm{logit}(\\mathrm{Sens})$; <b>y2</b>: $\\mathrm{logit}(\\mathrm{Spec})$</li>

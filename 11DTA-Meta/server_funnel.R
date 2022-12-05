@@ -16,6 +16,12 @@ output$ml_lnDOR_bias <- renderPrint({
 
   })
 
+# output$ml_lnDOR_bias_plot <- renderPlot({
+#   #ml.lnDOR()
+#   metabias(ml.lnDOR(), method.bias = input$method.bias, plotit =TRUE)
+
+#   })
+
 
 
 output$ml.lnDOR_funnel<-renderPlot({

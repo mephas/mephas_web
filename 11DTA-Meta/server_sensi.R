@@ -41,13 +41,17 @@ beta<-reactive({
 })
 
 beta0<-reactive({
-  if(length(input$beta)==0) return (1) else return(runif(1, input$beta[1], input$beta[2]))
+  if(length(input$beta)==0) return (1) else {
+    set.seed(123)
+    return(runif(1, input$beta[1], input$beta[2]))
+  }
 })
 
 
 c0<-reactive({
   if(length(input$c0)==0) return(0.5) else return(input$c0)
 })
+
 est.add_rf<-function(p,c1.square=0.5,fix.c=TRUE){
   rf<-c(p=p,dtametasa(data.cc(),
   p,
@@ -82,12 +86,13 @@ est.m<-function(c1.square=0.5,fix.c=TRUE,...,par="par",p=p.seq()){
 
 
 # output$beta0<-renderUI({
-#   list(
-#     # sliderInput("beta0",label = HTML("Initial value of $\\beta$"), min = input$beta[1], 
-#     #     max = input$beta[2], value = 1),
-#     sliderInput("c0",label = HTML("Initial value of $c_1^2$"), min = 0.1, 
-#         max = -.9, value = 0.5, step=0.1))}
-# )
+#   # list(
+#     sliderInput("beta0", label = HTML("Initial value of beta"), min = input$beta[1], 
+#         max = input$beta[2], value = 1)
+#     # sliderInput("c0",label = HTML("Initial value of $c_1^2$"), min = 0.1, 
+#     #     max = -.9, value = 0.5, step=0.1))
+# })
+
 
 ## SROC plot function 
 
@@ -184,17 +189,21 @@ output$srocBsetting_curve<-renderUI({
 
 # srocB <- eventReactive(input$sroc.saplot, {sroc_ggplot_over("c1c2_estimate", 0.5, est.r)})
 
-output$srocB<-renderPlot({
-# srocB()
-sroc_ggplot_over("c1c2_estimate", c0(),fix.c=FALSE)
-})
+# output$srocB<-renderPlot({
+# # srocB()
+# sroc_ggplot_over("c1c2_estimate", c0(),fix.c=FALSE)
+# })
 
-output$downloadsauc_gg_estimate<-downloadHandler(
+output$srocB<-plotly::renderPlotly(
+  {plotly::ggplotly(sroc_ggplot_over("c1c2_estimate", c0(),fix.c=FALSE))}
+)
 
-  filename = function(){paste("c1c2_estimate",'.png',sep='')},
-  content = function(file){
-    ggsave(file,plot=esting_omg$c1c2_estimate)
-  })
+# output$downloadsauc_gg_estimate<-downloadHandler(
+
+#   filename = function(){paste("c1c2_estimate",'.png',sep='')},
+#   content = function(file){
+#     ggsave(file,plot=esting_omg$c1c2_estimate)
+#   })
 ###sroc C plot setting=====================
 
 
@@ -226,6 +235,15 @@ output$srocC_01<-renderPlot({
 sroc_ggplot_over("c1c2_01",0)
 })
 
+output$srocC_11<-plotly::renderPlotly(
+  {plotly::ggplotly(sroc_ggplot_over("c1c2_11",0.5))}
+)
+output$srocC_10<-plotly::renderPlotly(
+  {plotly::ggplotly(sroc_ggplot_over("c1c2_10",1))}
+)
+output$srocC_01<-plotly::renderPlotly(
+  {plotly::ggplotly(sroc_ggplot_over("c1c2_01",0))}
+)
 
 # output$download_srocC_11<-downloadHandler(
 #   filename = function(){paste("c1c2_11",'.png',sep='')},
@@ -250,11 +268,14 @@ output$srocDsetting_curve<-renderUI(ui.plot_srocline_drop("c1c2_manul",p.seq()))
 
 # srocD <- eventReactive(input$sroc.saplot, {sroc_ggplot_over(plot_id ="c1c2_manul",input$c1c2_set)})
 
-output$srocD<-renderPlot({
- # srocD()             
- sroc_ggplot_over(plot_id ="c1c2_manul",input$c1c2_set)
-})
+# output$srocD<-renderPlot({
+#  # srocD()             
+#  sroc_ggplot_over(plot_id ="c1c2_manul",input$c1c2_set)
+# })
 
+output$srocD<-plotly::renderPlotly(
+  {plotly::ggplotly(sroc_ggplot_over(plot_id ="c1c2_manul",input$c1c2_set))}
+)
 # output$download_c1c2_manul<-downloadHandler(
 #   filename = function(){paste("c1c2_estimate",'.png',sep='')},
 #   content = function(file){

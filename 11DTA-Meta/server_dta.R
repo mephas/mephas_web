@@ -430,11 +430,11 @@ gg_theme   <- reactive({
 p.10 <- reactive(seq(1,0.1,-input$plistsauc))
 output$p10list<-renderText(paste0("p = ",p.10()))
 ##SAUC====
-output$sauc_gg_estimate<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate",c1.square=c0(),fix.c=FALSE)))
-output$sauc_gg_c11<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_11", "$(c_1, \\,c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$",0.5)))
-output$sauc_gg_c10<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_10", "$(c_1,\\, c_2) = (1,\\, 0)$",1)))
-output$sauc_gg_c01<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_01", "$(c_1,\\, c_2) = (0,\\, 1)$",0)))
-output$sauc_gg_cset<-plotly::renderPlotly(plotly::ggplotly(sauc_ggplot("sauc_c1c2_set", "$(c_1,\\, c_2) = (0,\\, 1)$",input$c1c2_set,fun=est.m)))
+output$sauc_gg_estimate<-plotly::renderPlotly({plotly::ggplotly(sauc_ggplot("sauc_c1c2_estimate",c1.square=c0(),fix.c=FALSE))})
+output$sauc_gg_c11<-plotly::renderPlotly({plotly::ggplotly(sauc_ggplot("sauc_c1c2_11", "$(c_1, \\,c_2) = (1/\\sqrt{2}, 1/\\sqrt{2})$",0.5))})
+output$sauc_gg_c10<-plotly::renderPlotly({plotly::ggplotly(sauc_ggplot("sauc_c1c2_10", "$(c_1,\\, c_2) = (1,\\, 0)$",1))})
+output$sauc_gg_c01<-plotly::renderPlotly({plotly::ggplotly(sauc_ggplot("sauc_c1c2_01", "$(c_1,\\, c_2) = (0,\\, 1)$",0))})
+output$sauc_gg_cset<-plotly::renderPlotly({plotly::ggplotly(sauc_ggplot("sauc_c1c2_set", "$(c_1,\\, c_2) = (0,\\, 1)$",input$c1c2_set,fun=est.m))})
 
 sauc_ggplot<-function(plot_id, title="(A) $(\\hat{c}_1, \\, \\hat{c}_2)$",c1.square=0.5,fix.c=TRUE,fun=est.rf){
 
