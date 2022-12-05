@@ -69,18 +69,18 @@ est.rfc<-function(p.seq,c1.square,fix.c=TRUE){
   sapply(p.seq,function(p){
   if(length(esting_omg[[paste0(p,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]])==0) est.add_rf(p,c1.square,fix.c)
 })}
-est.rf<-function(c1.square=0.5,fix.c=TRUE,...,par="par",p=p.seq()){
+est.rf<-function(c1.square=0.5,fix.c=TRUE,...,par="par",p=p.seq(),informMessage="Please click to calculate SAUC."){
   validate(need(p,"Selection probabilities is missing"))
   sapply(p,function(x){
   validate(need(esting_omg[[paste0(x,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]],
-  	"Please click to calculate SAUC."))
+  	informMessage))
   esting_omg[[paste0(x,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
-est.m<-function(c1.square=0.5,fix.c=TRUE,...,par="par",p=p.seq()){
+est.m<-function(c1.square=0.5,fix.c=TRUE,...,par="par",p=p.seq(),informMessage="Please click to calculate SAUC."){
   validate(need(p,"Selection probabilities is missing"))
   sapply(p,function(x){
   validate(need(length(esting_omg[[paste0(x,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]])>0,
-  	"Please click Above button."))
+  	informMessage))
   esting_omg[[paste0(x,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
 
@@ -96,7 +96,7 @@ est.m<-function(c1.square=0.5,fix.c=TRUE,...,par="par",p=p.seq()){
 
 ## SROC plot function 
 
-sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf){
+sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf,informMessage="Please click to calculate SROC."){
 
   if(input$batch){
     each_point_color<-ifelse(is.null(input$each_point_color),"#47848C",input$each_point_color)
@@ -122,7 +122,7 @@ sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf){
     sroc_point_shape<-sapply(1:length(p.seq()),function(i)ifelse(is.null(input[[paste0("sroc_point_shape",plot_id,i)]]),20,input[[paste0("sroc_point_shape",plot_id,i)]]))
   }
 
-  est.par<- fun(c1.square,fix.c=fix.c,c("mu1","mu2","tau1","tau2","rho")) 
+  est.par<- fun(c1.square,fix.c=fix.c,c("mu1","mu2","tau1","tau2","rho"),informMessage=informMessage) 
   #validate(need(length(est.par)>0,"Input marginal selection probabilities is missing."))
   par <- as.matrix(est.par)
   spec <- plogis(par[2, ])

@@ -639,24 +639,24 @@ SROCA <- reactive({
                  legend.cex <- 1.5
                  col <- gray.colors(length(p.seq()), gamma = 1, start = 0, end = 0.5)
                  title.cex <- 1.7
-                 est2.par  <-est.rf(c0(),FALSE,c("mu1","mu2","tau1","tau2","rho"))
-                 sauc2  <- est.rf(c0(),FALSE,par="sauc.ci","sauc")
+                 est2.par  <-est.rf(c0(),FALSE,c("mu1","mu2","tau1","tau2","rho"),informMessage="Please click to calculate SROC.")
+                 sauc2  <- est.rf(c0(),FALSE,par="sauc.ci","sauc",informMessage="Please click to calculate SROC.")
 
                  # incProgress(1/4)
                  ##B=======#   
                  ## ESITMATION WHEN c1 = c2
-                 est11.par <- est.rf(c1.square=0.5,TRUE,c("mu1","mu2","tau1","tau2","rho"))
-                 sauc11 <- est.rf(c1.square=0.5,TRUE,c("sauc"),par = "sauc.ci")##est11()[2,]
+                 est11.par <- est.rf(c1.square=0.5,TRUE,c("mu1","mu2","tau1","tau2","rho"),informMessage="Please click to calculate SROC.")
+                 sauc11 <- est.rf(c1.square=0.5,TRUE,c("sauc"),par = "sauc.ci",informMessage="Please click to calculate SROC.")##est11()[2,]
 
 
                  # incProgress(2/4)
-                 est10.par<-est.rf(c1.square=1,TRUE,c("mu1","mu2","tau1","tau2","rho"))#est10()[15:19,]
+                 est10.par<-est.rf(c1.square=1,TRUE,c("mu1","mu2","tau1","tau2","rho"),informMessage="Please click to calculate SROC.")#est10()[15:19,]
                  
                  # incProgress(3/4)
-                 est01.par <- est.rf(c1.square=0,TRUE,c("mu1","mu2","tau1","tau2","rho"))#est01()[15:19,]
+                 est01.par <- est.rf(c1.square=0,TRUE,c("mu1","mu2","tau1","tau2","rho"),informMessage="Please click to calculate SROC.")#est01()[15:19,]
                  
-                 sauc10 <- est.rf(c1.square=1,TRUE, c("sauc"),par = "sauc.ci")#est10()[2,]
-                 sauc01 <- est.rf(c1.square=0,TRUE, c("sauc"),par = "sauc.ci")#est01()[2,]
+                 sauc10 <- est.rf(c1.square=1,TRUE, c("sauc"),par = "sauc.ci",informMessage="Please click to calculate SROC.")#est10()[2,]
+                 sauc01 <- est.rf(c1.square=0,TRUE, c("sauc"),par = "sauc.ci",informMessage="Please click to calculate SROC.")#est01()[2,]
 
                  
                  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1),
