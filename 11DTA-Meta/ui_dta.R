@@ -121,7 +121,7 @@ sliderInput("ci.level",
 	label = "Significance level of CIs", 
 	value = 0.95, 
 	min = 0.50, max = 0.99, step = 0.01),
-helpText(HTML("<i>Note:</i> this control CIs in the plots and tables"))),
+helpText(HTML("<i>Note:</i> this control CIs in the plots and tables")))
 
 
 
