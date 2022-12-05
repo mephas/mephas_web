@@ -431,11 +431,43 @@ Given various specified values of $p$, the bias-adjusted SROC curves and SAUC ca
 
 <br>
 <hr>
-<h4><b>R packages used in the calculation:</b></h4>
+<h4><b>R packages used in this Application:</b></h4>
 <ul>
-<li>mada: Meta-Analysis of Diagnostic Accuracy. R package version 0.5.11, 
-<a href='https://CRAN.R-project.org/package=mada' target='_blank'>https://CRAN.R-project.org/package=mada</a></li>
+<li>mada,
+DescTools,
+DT,
+exactRankTests,
+dunn.test,
+ROCR,
+ggplot2,
+magrittr,
+psych,
+pls,
+plotly
+reshape,
+scales,
+shiny,
+shinythemes,
+shinyWidgets,
+survival,
+survminer,
+survAUC,
+spls,
+stargazer,
+mvmeta,
+mada,
+shinyAce,
+latex2exp,
+base,
+methods,
+graphics,
+grDevices,
+stats,
+utils
+<a href='https://cran.r-project.org/' target='_blank'>https://CRAN.R-project.org/package</a></li>
 </ul>
+
+
 "
 )
 )),
@@ -456,3 +488,40 @@ tablink()
 # )
 
 ))
+# : Meta-Analysis of Diagnostic Accuracy. R package version 0.5.11, 
+# \\begin{table}[]
+# \\begin{tabular}{ll}
+#     Package   name           & Link                                              \\\\hline
+#     \\textit{DescTools}      & https://CRAN.R-project.org/package=DescTools      \\
+#     \\textit{DT}             & https://CRAN.R-project.org/package=DT             \\
+#     \\textit{exactRankTests} & https://CRAN.R-project.org/package=exactRankTests \\
+#     \\textit{dunn.test}      & https://CRAN.R-project.org/package=dunn.test      \\
+#     \\textit{ROCR}           & https://CRAN.R-project.org/package=ROCR           \\
+#     \\textit{ggplot2}        & https://CRAN.R-project.org/package=ggplot2        \\
+#     \\textit{magrittr}       & https://CRAN.R-project.org/package=magrittr       \\
+#     \\textit{psych}          & https://CRAN.R-project.org/package=psych          \\
+#     \\textit{pls}            & https://CRAN.R-project.org/package=pls            \\
+#     \\textit{plotly}         & https://CRAN.R-project.org/package=plotly         \\
+#     \\textit{reshape}        & https://CRAN.R-project.org/package=reshape        \\
+#     \\textit{scales}         & https://CRAN.R-project.org/package=scales         \\
+#     \\textit{shiny}          & https://CRAN.R-project.org/package=shiny          \\
+#     \\textit{shinythemes}    & https://CRAN.R-project.org/package=shinythemes    \\
+#     \\textit{shinyWidgets}   & https://CRAN.R-project.org/package=shinyWidgets   \\
+#     \\textit{survival}       & https://CRAN.R-project.org/package=survival       \\
+#     \\textit{survminer}      & https://CRAN.R-project.org/package=survminer      \\
+#     \\textit{survAUC}        & https://CRAN.R-project.org/package=survAUC        \\
+#     \\textit{spls}           & https://CRAN.R-project.org/package=spls           \\
+#     \\textit{stargazer}      & https://CRAN.R-project.org/package=stargazer      \\
+#     \\textit{mvmeta}         & https://CRAN.R-project.org/package=mvmeta         \\
+#     \\textit{mada}           & https://CRAN.R-project.org/package=mada           \\
+#     \\textit{shinyAce}       & https://CRAN.R-project.org/package=shinyAce       \\
+#     \\textit{latex2exp}      & https://CRAN.R-project.org/package=latex2exp      \\
+#     \\textit{base}           & https://CRAN.R-project.org/package=base           \\
+#     \\textit{methods}        & https://CRAN.R-project.org/package=stargazer      \\
+#     \\textit{graphics}       & https://CRAN.R-project.org/package=graphics       \\
+#     \\textit{grDevices}      & https://CRAN.R-project.org/package=grDevices      \\
+#     \\textit{stats}          & https://CRAN.R-project.org/package=stats          \\
+#     \\textit{utils}          & https://CRAN.R-project.org/package=utils       
+# \\end{tabular}
+    
+# \\end{table}

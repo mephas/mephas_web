@@ -70,14 +70,14 @@ est.rfc<-function(p.seq,c1.square,fix.c=TRUE){
   if(length(esting_omg[[paste0(p,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]])==0) est.add_rf(p,c1.square,fix.c)
 })}
 est.rf<-function(c1.square=0.5,fix.c=TRUE,...,par="par",p=p.seq()){
-  validate(need(length(p)>0,"Selection probabilities is missing"))
+  validate(need(p,"Selection probabilities is missing"))
   sapply(p,function(x){
-  validate(need(length(esting_omg[[paste0(x,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]])>0,
+  validate(need(esting_omg[[paste0(x,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]],
   	"Please click to calculate SAUC."))
   esting_omg[[paste0(x,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]][[par]][...]
 })}
 est.m<-function(c1.square=0.5,fix.c=TRUE,...,par="par",p=p.seq()){
-  validate(need(length(p)>0,"Selection probabilities is missing"))
+  validate(need(p,"Selection probabilities is missing"))
   sapply(p,function(x){
   validate(need(length(esting_omg[[paste0(x,fix.c,c1.square,beta0(),paste0(beta(),collapse=""),paste0(alpha(),collapse=""),input$Sauc1,input$allsingle,studyId())]])>0,
   	"Please click Above button."))
