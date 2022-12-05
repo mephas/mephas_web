@@ -104,8 +104,7 @@ selectInput("ci.method", label = "Select methods of variance",
 	"Modified Jeffreys" = "modified jeffreys", 
 	"Clopper-Pearson" = "clopper-pearson", 
 	"Arcsine transformation" = "arcsine", 
-	"Logit transformation" = "logit",
-	"Witting" = "witting"), 
+	"Logit transformation" = "logit"), 
 	selected = "wald")
 ,
 helpText(HTML('
@@ -114,14 +113,15 @@ different methods cause some change in the variances and CIs in the summary
 ')),
 
 hr(),
-conditionalPanel(condition="input.ROCellipse |input.Crosshair",
+# conditionalPanel(condition="input.ROCellipse |input.Crosshair",
 h3(tags$b("Confidence Intervals (CIs)")),
 
 sliderInput("ci.level", 
 	label = "Significance level of CIs", 
 	value = 0.95, 
 	min = 0.50, max = 0.99, step = 0.01),
-helpText(HTML("<i>Note:</i> this control CIs in the plots and tables")))
+helpText(HTML("<i>Note:</i> this control CIs in the plots and tables"))
+# )
 
 
 
