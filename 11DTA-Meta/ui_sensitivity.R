@@ -169,6 +169,7 @@ conditionalPanel(condition="input.batch",
 colorPickr("each_point_color",  "Points' color",selected="#000000"),#47848C
 sliderInput("each_point_radius","Points' radius",min = 0,max=10,value = 2, step=0.1),
 sliderInput("each_point_shape", "Points' shape",min = 0, max=25,value = 1, step=1),
+uiOutput("each_point_id"),
 p(br()),
 (tags$b("6. Estimated summary point accounting for PB")),
 colorPickr("sroc_point_color",  "Point's color",selected="#0A99BD"),

@@ -132,9 +132,8 @@ sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf,informMessa
   size<-c(rep( each_point_radius,length(sp())),sroc_point_radius)
   shape<-c(rep( each_point_shape,length(sp())),sroc_point_shape)
 
-  data<-data.frame(sp=c(sp(),spec),se=c(se(),sens))
-
-  p<-ggplot(data = data,mapping = aes(x=1-sp,y=se))+ ylim(0,1)+ xlim(0,1)
+  data<-data.frame(sp=c(sp(),spec),se=c(se(),sens),ID=c(1:length(sp()),paste("P=",p.seq())))
+  p<-ggplot(data = data,mapping = aes(x=1-sp,y=se,ID=ID))+ ylim(0,1)+ xlim(0,1)
   p<-p+geom_point(colour=color,size=size,shape=shape)+gg_theme()+labs(x=input$xlim,y=input$ylim)
 
   p<-p+mapply(function(i) {
@@ -145,11 +144,11 @@ sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf,informMessa
     if (input$Sauc1 == "sroc"){
       r <- par["rho", i]}
     else{ r <- -1}
-    stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)), color=sroc_curve_color[i], linewidth=sroc_curve_thick[i],linetype = sroc_curve_shape[i],aes(linetype="h"))
+    stat_function(fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)), color=sroc_curve_color[i], linewidth=sroc_curve_thick[i],linetype = sroc_curve_shape[i])
   }
   , 1:ncol(par))
   
-  esting_omg[[plot_id]]<-p
+   esting_omg[[plot_id]]<-p
   p
 }
 
@@ -186,7 +185,9 @@ output$uiprob <- renderText({
 output$srocBsetting_curve<-renderUI({
   ui.plot_srocline_drop("c1c2_estimate",p.seq())
 })
-
+output$each_point_id<-renderUI({
+  
+})
 # srocB <- eventReactive(input$sroc.saplot, {sroc_ggplot_over("c1c2_estimate", 0.5, est.r)})
 
 # output$srocB<-renderPlot({
@@ -284,14 +285,17 @@ output$srocD<-plotly::renderPlotly(
 
 observe({
   
-  # withProgress(message = "Calculating",detail = 'This may take a while...', value = 0,
-               # {
+  withProgress(message = "Calculating SROC",detail = 'This may take a while...', value = 0,
+               {
 
                  est.rfc(p.seq(),c1.square=c0(),fix.c=FALSE)
+                 incProgress(1/4)
                  est.rfc(p.seq(),c1.square = 1)
+                 incProgress(1/4)
                  est.rfc(p.seq(),c1.square = 0.5)
+                 incProgress(1/4)
                  est.rfc(p.seq(),c1.square = 0)
-               # })
+               })
 })%>%
 bindEvent(input$Sauc1,input$allsingle,input$calculateSROC)
 
