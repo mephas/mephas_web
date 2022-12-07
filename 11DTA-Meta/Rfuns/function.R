@@ -112,11 +112,11 @@ reform.dtametasa<-function(fun=est.rf,p.seq,c1.square=0.5,fix.c=TRUE,informMessa
 }
 
 
-data_ErrorMessage<-function(){
+data_ErrorMessage<-function(message="Data must be named as TP,FN,TN,FP"){
   showModal(modalDialog(
     title = "Error message",
     easyClose = FALSE,
-    p(tags$strong("Data must be named as TP,FN,TN,FP"), "Please edit the data-set",br()
+    p(tags$strong(message), "Please edit the data-set",br()
       # tags$i(tags$u("")), "If you need more important, please check",tags$a(href="https://mephas.github.io/helppage/", "DTA-Meta Manual",target="_blank") 
       ), 
     br(),

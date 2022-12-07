@@ -33,6 +33,10 @@ observe({
       ))
       return()
     }
+    if(length(DATA$tp)>0) DATA$TP<-DATA$tp
+    if(length(DATA$fn)>0) DATA$FN<-DATA$fn
+    if(length(DATA$fp)>0) DATA$FP<-DATA$fp
+    if(length(DATA$tn)>0) DATA$TN<-DATA$tn
     if(is.null(DATA$TP) || is.null(DATA$FN)|| is.null(DATA$TN) || is.null(DATA$FP)){
       
       showModal(modalDialog(
@@ -55,14 +59,21 @@ observe({
       ))
        return()
     }
-
+    tp<-try(DATA$TP+1,silent=TRUE)
+    tn<-try(DATA$TN+1,silent=TRUE)
+    fn<-try(DATA$FN+1,silent=TRUE)
+    fp<-try(DATA$FP+1,silent=TRUE)
+    if(inherits(tp,"try-error")||inherits(tn,"try-error")||inherits(fp,"try-error")||inherits(fn,"try-error")){
+      ifelse(inherits(tp,"try-error"),"tp")
+      data_ErrorMessage(paste(paste(ifelse(inherits(tp,"try-error"),"TP",""),ifelse(inherits(tn,"try-error"),"TN",""),
+      ifelse(inherits(fp,"try-error"),"FP",""),ifelse(inherits(fn,"try-error"),"FN",""),sep=" "),"contains invalid value"))
+      return()
+    }
     data(DATA)
   }
   else{
-    print(tools::file_ext(inFile1$datapath)=="xlsx")
     if(tools::file_ext(inFile1$datapath)=="xlsx"){
       list1<-readxl::read_excel(inFile1$datapath,1)
-      
     }
     else{
       list1<-read.csv(inFile1$datapath, sep = separater, header=TRUE)
