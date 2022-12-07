@@ -4,15 +4,17 @@ body {
 	padding-top: 70px;
 }
 
-header{ 
+title{ 
 	font-weight: normal;
 }
 
-.headerStyle {
-/*  display: block;*/
-  font-size: 24pt;
-  color: red;
-}
+.title-panel h1 {
+                    font-size: 24pt;
+                    margin: 0;
+                    margin-right: 12px;
+                    line-height: 1.2;
+                    font-weight: normal;
+                }
 
 .shiny-output-error-validation {
 	color: #4169e1; 

@@ -11,14 +11,14 @@ border-color: #000000;
 background: #413E3D;
 border-radius:3%;
 color:white;}"
-
 ),
 
-h3(tags$b("Prepare data for meta-analysis")),
+h3(("Prepare data")),
 
 prettyRadioButtons(
 inputId = "manualInputTRUE",
-label = "1. Choose input way",
+label = h5("1. Choose input way"),
+shape = "square",
 icon = icon("check"),
 choices = c("Manually input data", "Upload file from local"),
 fill = TRUE
@@ -26,13 +26,12 @@ fill = TRUE
 
 prettyRadioButtons(
 inputId = "Delimiter",
-label = "2. Choose delimiter that separates the values", 
-# status = "info",
-# fill = TRUE,
+label = h5("2. Choose delimiter that separates the values"), 
+shape = "square",
 icon = icon("check"),
 choiceNames = list(
-HTML("Comma (,) which is default in *.csv file"),
-HTML("One Tab (->|) which is default in *.txt txt file"),
+HTML("Comma (,) default in *.csv file"),
+HTML("One Tab (->|) default in *.txt file"),
 HTML("Semicolon (;)"),
 HTML("One Space (_)")
 ),
@@ -50,12 +49,7 @@ conditionalPanel(
 		accept = "application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv")),
 
 
-tags$b("3. Edit data here"),
-helpText(HTML("<i>Note:</i> 
-	please make sure the data are named as <b>TP, FN, FP, TN</b>.
-	<br></br>
-	If you upload your data, please click the button to load your data")),
-
+h5("3. Edit data here"),
 aceEditor("manualInput"
 ,value = "study,TP,FN,FP,TN\n1,12,0,29,289\n2,10,2,14,72\n3,17,1,36,85\n4,13,0,18,67\n5,4,0,21,225\n6,15,2,122,403\n7,45,5,28,34\n8,18,4,69,133\n9,5,0,11,34\n10,8,9,15,96\n11,5,0,7,63\n12,11,2,122,610\n13,5,1,6,145\n14,7,5,25,342
 15,10,1,93,296\n16,5,5,41,271\n17,5,0,15,53\n18,55,13,19,913\n19,6,2,12,30\n20,42,26,19,913\n21,5,3,5,37\n22,13,0,11,125\n23,20,0,24,287\n24,7,6,13,72\n25,48,2,15,47\n26,11,1,14,72
@@ -63,17 +57,16 @@ aceEditor("manualInput"
 ,mode = "r"
 ,theme="eclipse"
 ),
-
-p(br()),
 actionButton("calculateStart",
-	tags$b(HTML("Update data and results")),
+	(HTML("Update data and results")),
 	icon = icon("rotate-right")),
-
-p(br()),
+helpText(HTML("<i>Note:</i> 
+please make sure the data are named as <b>TP, FN, FP, TN</b>.
+	<p>If you upload your data, please click the button to load your data.</p>")),
 
 prettyRadioButtons(
 inputId = "allsingle",
-label = "Continuity correction type",
+label = h5("4. Continuity correction type"),
 choiceNames = c("Correction for single study", "Correction for all studies"),
 choiceValues = c("single", "all"),
 selected = "single",
@@ -86,17 +79,16 @@ helpText(HTML('
 if there were 0 inputs in TN, FN, FP, or TN, continuity correction will be made.
 <ol>
 <li><b>Correction for single study:</b> TN, FN, FP, TN are added 0.5 only for the studies that have 0 inputs</li>
-<li><b>Correction for all studies:</b> the whole data are added 0.5 for all studies if there were 0 inputs</li>
+<li><b>Correction for all studies:</b> TN, FN, FP, TN are added 0.5 for all studies if there were 0 inputs</li>
 </ol>
 ')),
-
 hr(),
 
-h3(tags$b("Variance")),
+h3(("Variance")),
 
-selectInput("ci.method", label = "Select methods of variance", 
+selectInput("ci.method", label = h5("Select methods of variance"), 
 	choices = list(
-	"Wald (default)" = "wald", 
+	"Wald" = "wald", 
 	"Wilson" = "wilson", 
 	"Agresti-Coull" = "agresti-coull", 
 	"Jeffreys" = "jeffreys",
@@ -107,21 +99,21 @@ selectInput("ci.method", label = "Select methods of variance",
 	"Logit transformation" = "logit"), 
 	selected = "wald")
 ,
-helpText(HTML('
-<i>Note:</i> 
-different methods cause some change in the variances and CIs in the summary 
-')),
+# helpText(HTML('
+# <i>Note:</i> 
+# different methods cause some change in the variances and CIs in the summary. 
+# ')),
 
 hr(),
 # conditionalPanel(condition="input.ROCellipse |input.Crosshair",
-h3(tags$b("Confidence Intervals (CIs)")),
+h3(("Confidence Intervals (CIs)")),
 
 sliderInput("ci.level", 
-	label = "Significance level of CIs", 
+	label = h5("Significance level of CIs"), 
 	value = 0.95, 
 	min = 0.50, max = 0.99, step = 0.01),
 helpText(HTML("<i>Note:</i> this control CIs in the plots and tables"))
-# )
+
 
 
 
@@ -152,7 +144,7 @@ helpText(HTML("<i>Note:</i> this control CIs in the plots and tables"))
 # ,verbatimTextOutput("debug")                      
 ),
 mainPanel(
-h4(tags$b("Data Preview")),
+h4(("Data Preview")),
 tabsetPanel(
 
 tabPanel(
@@ -162,7 +154,6 @@ tabPanel(
 	
 tabPanel(
 	"Data after continuity correction",p(br()),
-
 	DTOutput("CorData")
 	),
 
@@ -186,11 +177,11 @@ logit transformation is $\\mathrm{logit}(x)=\\log(\\dfrac{x}{1-x})$
 # DTOutput("CorData"),
 hr(),
 
-h4(tags$b("Outputs: Descriptive Statistics")),
+h4(("Descriptive Statistics")),
 tabsetPanel(
 
 tabPanel("ROC scatter plot", p(br()),
-tags$b("1. Configurations of the following plot"), p(br()),
+h5("1. Configurations of the following plot"), 
 	awesomeCheckbox( 
 	   inputId = "studypp",
 	   label = "Add ROC scatter point of studies", 
@@ -210,18 +201,18 @@ tags$b("1. Configurations of the following plot"), p(br()),
 	 ),
 
   flowLayout(
-	pickerInput("ci.xlab", label = "Label for x-axis", choices = c("1-Specificity","FPR")),
-	pickerInput("ci.ylab", label = "Label for y-axis", choices = c("Sensitivity","TPR"))
+	pickerInput("ci.xlab", label = h5("Label for x-axis"), choices = c("1-Specificity","FPR")),
+	pickerInput("ci.ylab", label = h5("Label for y-axis"), choices = c("Sensitivity","TPR"))
 	), 
-tags$b("2. Scatter plot of the Sens and Spec of each sttudy"), p(br()),
+h5("2. ROC scatter plot of the Sens and Spec of each study"),
   plotOutput("plot_ci",  height ="600px", width = "600px")
 
 ),
 
 tabPanel("Summary of Sens and Spec", p(br()),
 	
-tags$b("1. Summary of sensitivity (Sens) and specificity (Sepc)"), p(br()),
-DTOutput("se_sp"), p(br()),	
+h5("1. Summary of sensitivity (Sens) and specificity (Sepc)"), 
+DTOutput("se_sp"), 
 helpText(HTML('
 Note: 
 <ul>
@@ -230,26 +221,24 @@ Note:
 <li><b>Spec</b>: specificity$=\\dfrac{TN}{TN+FP}$</li>
 <li><b>Spec.CI.lower</b>: lower bound of CI; <b>Spec.CI.upper</b>: upper bound of CI</li>
 </ul>
-')),
-hr(),
+')),hr(),
 	
-tags$b("2. Test of equality"), p(br()),
+h5("2. Test of equality"), 
 DTOutput("se_sp_test"), hr(),
 
-tags$b("3. Forest plots"), p(br()),
+h5("3. Forest plots"), 
 splitLayout(
-  textInput("se.title", label = "Change title for the plot", value = "Sensitivity"),
-  textInput("sp.title", label = "Change title for the plot", value = "Specificity")
-), p(br()),
-
+  textInput("se.title", label = h5("Change the title"), value = "Sensitivity"),
+  textInput("sp.title", label = h5("Change the title"), value = "Specificity")
+), 
 uiOutput("meta_sesp_plot")
 
 ),
 
 tabPanel(
 "Summary of DOR", p(br()),
-tags$b("1. Summary of the diagnostic odds ratio (DOR)"), p(br()),
-DTOutput("dor"), p(br()),
+h5("1. Summary of the diagnostic odds ratio (DOR)"), 
+DTOutput("dor"),
 
 helpText(HTML('
 Note: 
@@ -260,15 +249,15 @@ Note:
 </ul>
 ')),hr(),
 
-tags$b("2. Forest plots"), p(br()),
+h5("2. Forest plots"), 
+splitLayout(
 awesomeCheckbox(
 inputId = "uni.log1",
 label = "Show log-transformed results", 
 value = TRUE
 ),
-
-textInput("u1.title", label = "Change title for the plot", value = "Log diagnostic odds ratio"),
-p(br()),
+textInput("u1.title", label = h5("Change the title"), value = "Log diagnostic odds ratio"),
+),
 
 uiOutput("meta_dor_plot")
 
@@ -276,8 +265,8 @@ uiOutput("meta_dor_plot")
 
 tabPanel(
 "Summary of LRs", p(br()),
-tags$b("1. Summary of the positive or negative likelihood ratios (LRs)"), p(br()),
-DTOutput("uni.measure"), p(br()),
+h5("1. Summary of the positive or negative likelihood ratios (LRs)"), 
+DTOutput("uni.measure"), 
 
 helpText(HTML('
 Note: 
@@ -291,22 +280,18 @@ Note:
 </ul>
 ')),hr(),
 
-tags$b("2. Forest plots"), p(br()),
+h5("2. Forest plots"), 
 
 awesomeCheckbox(
 	inputId = "uni.log2",
 	label = "Show log-transformed results", 
 	value = TRUE
 ),
-
 splitLayout(
-	textInput("u2.title", label = "Change title for the plot", value = "Log negative LR"),
-	textInput("u3.title", label = "Change title for the plot", value = "Log positive LR")
+	textInput("u2.title", label = h5("Change the title"), value = "Log negative LR"),
+	textInput("u3.title", label = h5("Change the title"), value = "Log positive LR")
 	), 
-p(br()),
-
 uiOutput("meta_uni_plot")
-
 )
 
 # tabPanel(
