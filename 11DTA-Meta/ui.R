@@ -93,7 +93,7 @@ includeCSS("../www/style2.css"),
 #shinythemes::themeSelector(),
 navbarPage(
 
-theme = shinytheme("flatly"),
+theme = shinytheme("readable"),
 collapsible = TRUE,
 position="static-top",
 title = "DTAmetasa",

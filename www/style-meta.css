@@ -4,6 +4,16 @@ body {
 	padding-top: 70px;
 }
 
+header{ 
+	font-weight: normal;
+}
+
+.headerStyle {
+/*  display: block;*/
+  font-size: 24pt;
+  color: red;
+}
+
 .shiny-output-error-validation {
 	color: #4169e1; 
 	font-weight: bold;
