@@ -186,7 +186,7 @@ output$srocBsetting_curve<-renderUI({
   ui.plot_srocline_drop("c1c2_estimate",p.seq())
 })
 output$each_point_id<-renderUI({
-  
+
 })
 # srocB <- eventReactive(input$sroc.saplot, {sroc_ggplot_over("c1c2_estimate", 0.5, est.r)})
 
@@ -287,7 +287,6 @@ observe({
   
   withProgress(message = "Calculating SROC",detail = 'This may take a while...', value = 0,
                {
-
                  est.rfc(p.seq(),c1.square=c0(),fix.c=FALSE)
                  incProgress(1/4)
                  est.rfc(p.seq(),c1.square = 1)
@@ -297,7 +296,7 @@ observe({
                  est.rfc(p.seq(),c1.square = 0)
                })
 })%>%
-bindEvent(input$Sauc1,input$allsingle,input$calculateSROC)
+bindEvent(input$calculateSROC)
 
 
 observe({
