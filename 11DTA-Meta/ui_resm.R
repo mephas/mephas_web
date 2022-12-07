@@ -16,7 +16,7 @@ h3(tags$b("Reitsma's model")),
 # 	"1.8" = 1.8), 
 # 	selected = 1),
 
-selectInput("res.method", label = "Choose optimization methods for estimating the parameters", 
+selectInput("res.method", label = h5("Choose optimization methods for estimating the parameters"), 
 	choices = list(
 	"Restricted maximum likelihood (ReML)" = "reml", 
 	"Maximum likelihood (ML)" = "ml", 
@@ -34,7 +34,7 @@ hr(),
 
 h3(tags$b("Summary ROC (SROC) Plot")), 
 
-tags$b("1. Configuration of SROC plot"), 
+tags$h5("1. Configuration of SROC plot"), 
 
 
 awesomeCheckbox( 
@@ -84,7 +84,7 @@ helpText(HTML("<i>Note:</i>
 p(br()),
 
 
-tags$b("2. Other SROC plots"), 
+tags$h5("2. Other SROC plots"), 
 
 awesomeCheckbox( 
    inputId = "mslSROC",
@@ -99,7 +99,7 @@ awesomeCheckbox(
  ), 
  p(br()),
 
-tags$b("3. Other configurations"), 
+tags$h5("3. Other configurations"), 
 	pickerInput("sroc.xlab", label = "Label for x-axis", choices = c("1-Specificity","FPR")),
 	pickerInput("sroc.ylab", label = "Label for y-axis", choices = c("Sensitivity","TPR"))
 

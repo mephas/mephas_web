@@ -67,6 +67,7 @@ please make sure the data are named as <b>TP, FN, FP, TN</b>.
 prettyRadioButtons(
 inputId = "allsingle",
 label = h5("4. Continuity correction type"),
+shape = "square",
 choiceNames = c("Correction for single study", "Correction for all studies"),
 choiceValues = c("single", "all"),
 selected = "single",

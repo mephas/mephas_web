@@ -6,7 +6,7 @@ tags$head(tags$style("#ml_lnDOR_bias {background: white};")),
 
 h3(tags$b("Configuration of the trim-and-fill plot")),
 
-selectInput("cont", label = "Add CI contour of the original studies", 
+selectInput("cont", label = h5("Add CI contour of the original studies"), 
     choices = list(
     "No contour" = "no", 
     "90%, 95%, 99% CI" = "yes"), 
@@ -14,7 +14,7 @@ selectInput("cont", label = "Add CI contour of the original studies",
 
 hr(),
 h3(tags$b("Test on the asymmetry of the funnel plot")),
-selectInput("method.bias", label = "Choose test methods", 
+selectInput("method.bias", label = h5("Choose test methods"), 
     choices = list(
         "Deek's method" = "Deek",
     "Egger's method" = "Egger", 

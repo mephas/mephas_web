@@ -26,8 +26,8 @@ color:white;}"
 h3(tags$b("Marginal selection probabilities for SROC")), 
 
 HTML(
-'<b>1. Input marginal selection probabilities ($0 \\le p\\le 1$)<br></br>
-<input type="text" id="plist" value="1,0.8,0.6,0.4" pattern="^[\\d,　.]+$">
+'<h5>1. Input marginal selection probabilities ($0 \\le p\\le 1$)</h5>
+<b><input type="text" id="plist" value="1,0.8,0.6,0.4" pattern="^[\\d,　.]+$">
 </b>'), 
 p(br()),
 verbatimTextOutput("uiprob"), 
@@ -40,7 +40,7 @@ See more details in Help above
 
 radioGroupButtons(
 inputId = "Sauc1",
-label = "2. Choose SROC type",
+label = h5("2. Choose SROC type"),
 choices = list("SROC" ="sroc", "HSROC"="hsroc"),
 selected = "sroc",
 justified = TRUE,
@@ -59,7 +59,7 @@ helpText(HTML("<i>Note:</i>
 
 materialSwitch(
    inputId = "SettingParamater",
-   label = tags$b("3. More configurations in the optimization"),
+   label = h5("3. More configurations in the optimization"),
     status = "primary",
    value = FALSE,
    right = TRUE
@@ -102,7 +102,7 @@ helpText(HTML("<i>Note:</i>
 hr(),
 h3(tags$b("Marginal selection probabilities for SAUC")), 
 
-sliderInput("plistsauc","1. Choose the increment of sequence",0,1,0.1,step=0.01),
+sliderInput("plistsauc",h5("1. Choose the increment of sequence"),0,1,0.1,step=0.01),
 verbatimTextOutput("p10list"), 
 p(br()),
 
@@ -119,12 +119,12 @@ h3(tags$b("Configurations of the dynamic plots")),
 p(br()),
 pickerInput(
 inputId="sensisetting",
-"1. Choose SROC or SAUC plots",
+h5("1. Choose SROC or SAUC plots"),
 choices=c("Dynamic SROC in plotly","Dynamic SAUC in plotly")
 ),
 pickerInput(
 inputId="ggplot_theme",
-label="2. Select ggplot theme",
+label=h5("2. Select ggplot theme"),
 choices=paste0("theme_",c("bw","classic","light","linedraw","minimal","test","void","default"))
 ),
 hr(),
@@ -138,8 +138,8 @@ conditionalPanel(condition="input.sensisetting=='Dynamic SROC in plotly'",
 # # checkIcon = list("TRUE" = icon("ok", lib = "glyphicon"), "FALSE" = icon("remove", lib = "glyphicon"))
 # ),
 
-(textInput("xlim","3. Label of the x-axis","1-Specificity")),
-(textInput("ylim","4. Label of the y-axis","Sensitivity")),
+(textInput("xlim",h5("3. Label of the x-axis","1-Specificity"))),
+(textInput("ylim",h5("4. Label of the y-axis","Sensitivity"))),
 
 h4(prettyCheckbox(
   inputId = "batch", label = "Edit all SROC in the batch way?",
@@ -183,15 +183,15 @@ sliderTextInput(paste0("sroc_curve_shape"),grid = TRUE,label = "SROC curve's sha
 ),
 
 conditionalPanel(condition="!input.batch",
-tags$b("3. For the plot of $(\\hat c_1, \\hat c_2)$ "),
+tags$h5("3. For the plot of $(\\hat c_1, \\hat c_2)$ "),
 ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve"),
-tags$b("4. For the plot of $c_1 = c_2$"),
+tags$h5("4. For the plot of $c_1 = c_2$"),
 ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11"),
-tags$b("5. For the plot of $(c_1, c_2)=(1,0)$"),
+tags$h5("5. For the plot of $(c_1, c_2)=(1,0)$"),
 ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10"),
-tags$b("6. For the plot of $(c_1, c_2)=(0,1)$"),
+tags$h5("6. For the plot of $(c_1, c_2)=(0,1)$"),
 ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01"),
-tags$b("7. For the plot of user-specified $c_1^2, c_2^2$"),
+tags$h5("7. For the plot of user-specified $c_1^2, c_2^2$"),
 # ui.plot_baseline_drop("c1c2_manul",plot_title = "Specified $c_1^2$", x_axis = "1-Specificity",y_axis = "Sensitivity"),
 ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve")
 ))
