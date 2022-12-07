@@ -313,7 +313,7 @@ observe({
                })
 })%>%bindEvent(input$calculateSAUC)
 
-observe(est.rfc(p.seq(),c1.square =input$c1c2_set))%>%bindEvent(input$c1c2_set,input$Sauc1,input$allsingle,studyId())
+observe(est.rfc(p.seq(),c1.square =input$c1c2_set))%>%bindEvent(input$c1c2_set,studyId())
 observe({
   withProgress(message = "Calculating SAUC",detail = 'Please wait...', value = 0,{
 est.rfc(p.10(),c1.square =input$c1c2_set)
