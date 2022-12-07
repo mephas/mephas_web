@@ -67,7 +67,7 @@ observe({
       ifelse(inherits(tp,"try-error"),"tp")
       data_ErrorMessage(paste(paste(ifelse(inherits(tp,"try-error"),"TP",""),ifelse(inherits(tn,"try-error"),"TN",""),
       ifelse(inherits(fp,"try-error"),"FP",""),ifelse(inherits(fn,"try-error"),"FN",""),sep=" "),"contains invalid value"))
-      return()
+      return()#NA未対応
     }
     data(DATA)
   }
