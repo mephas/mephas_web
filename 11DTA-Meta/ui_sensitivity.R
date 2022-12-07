@@ -32,11 +32,11 @@ HTML(
 p(br()),
 verbatimTextOutput("uiprob"), 
 
-helpText(HTML("<i>Note:</i>
-the marginal selection probability ($p$) is the sensitivity parameter.
-It indicate the expected proportion of the published studies from the population.
-See more details in Help above
-")),
+# helpText(HTML("<i>Note:</i>
+# the marginal selection probability ($p$) is the sensitivity parameter.
+# It indicate the expected proportion of the published studies from the population.
+# See more details in Help above
+# ")),
 
 prettyRadioButtons(
 inputId = "Sauc1",
