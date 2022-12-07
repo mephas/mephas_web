@@ -16,6 +16,10 @@ h5 {
 }
 
 
+.well {
+	background-color:#FEFCFF;
+}
+
 .shiny-output-error-validation {
 /*	visibility: hidden; */
 	color: #4169e1; 
