@@ -107,7 +107,7 @@ header = list(
   inline = TRUE,
   onLabel = "Hide",
   offLabel = "Help",
-  size = "default"
+  size = "small"
   )),
 
 ########## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -229,17 +229,17 @@ HTML(
 For example, there are 33 studies in the <i><b>Example</b></i>. 
 When we assign $p=0.9$, we expect 
 <ul>
-<li>90% studies (33 studies) were published from the population ($33/0.93$\\approx 7$ studies)</li>
-<li>10% studies ($37 \\times 0.1 \\approx 4$ studies) were not published and caused the potential publication bias</li>
+<li>90% studies (33 studies) were published from the population ($33/0.93 \\approx 7$ studies)</li>
+<li>10% studies ($37 \\times 0.1 \\approx 4$ studies) were not published or missing not at random</li>
 </ul>
 When we assign $p=1$, we expect there was no unpublished studies.
 
 <h4><b>2. Other parameters</b></h4>
-Contrast $c_1, c_2$: it defines the mechanism of selective publication process in the diagnostic studies 
+Contrast $c_1, c_2$: it defines the mechanism of selective publication process  
 <ul>
-<li>$c_1=c_2$: the selective publication mechanism is influenced by both Sens and Spec; precisely, the $t$-type statistic of lnDOR influences PB</li>
-<li>$c_1=1, c_2=0$: the selective publication mechanism is influenced in by Sens only; precisely, the $t$-type statistic of Sens influences PB</li>
-<li>$c_1=0, c_2=1$: the selective publication mechanism is influenced in by Spec only; precisely, the $t$-type statistic of Spec influences PB</li>
+<li>$c_1=c_2$: the selective publication mechanism is influenced by both Sens and Spec; (the $t$-type statistic of lnDOR influences PB)</li>
+<li>$c_1=1, c_2=0$: the selective publication mechanism is influenced in by Sens only; (the $t$-type statistic of Sens influences PB)</li>
+<li>$c_1=0, c_2=1$: the selective publication mechanism is influenced in by Spec only; (the $t$-type statistic of Spec influences PB)</li>
 <li>$\\hat c_1, \\hat c_2$: the selective publication mechanism is estimated from data</li>
 </ul>
 

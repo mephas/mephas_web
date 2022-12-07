@@ -183,27 +183,46 @@ tabsetPanel(
 
 tabPanel("ROC scatter plot", p(br()),
 h5("1. Configurations of the following plot"), 
-	awesomeCheckbox( 
-	   inputId = "studypp",
-	   label = "Add ROC scatter point of studies", 
-	   value = TRUE
-	   ),
+	# awesomeCheckbox( 
+	#    inputId = "studypp",
+	#    label = "Add ROC scatter point of studies", 
+	#    value = TRUE
+	#    ),
 
-	awesomeCheckbox( 
-	   inputId = "ROCellipse",
-	   label = "Add CI region for each study", 
-	   value = FALSE
-	   ),
+prettyCheckbox( 
+   inputId = "ROCellipse",
+   label = "Add CI region for each study", 
+   value = FALSE,
+   shape = "square",
+   fill = TRUE,
+   icon = icon("check"),
+   status = "primary"
+ ),
+prettyCheckbox( 
+   inputId = "Crosshair",
+   label = "Add crosshair CI for each study", 
+   value = FALSE,
+   shape = "square",
+   fill = TRUE,
+   icon = icon("check"),
+   status = "primary"
+ ),
+
+	# awesomeCheckbox( 
+	#    inputId = "ROCellipse",
+	#    label = "Add CI region for each study", 
+	#    value = FALSE
+	#    ),
 	 
-	 awesomeCheckbox( 
-	   inputId = "Crosshair",
-	   label = "Add crosshair CI for each study", 
-	   value = FALSE
-	 ),
+	 # awesomeCheckbox( 
+	 #   inputId = "Crosshair",
+	 #   label = "Add crosshair CI for each study", 
+	 #   value = FALSE
+	 # ),
 
   flowLayout(
-	pickerInput("ci.xlab", label = h5("Label for x-axis"), choices = c("1-Specificity","FPR")),
-	pickerInput("ci.ylab", label = h5("Label for y-axis"), choices = c("Sensitivity","TPR"))
+	selectInput("ci.xlab", label = h5("Label for x-axis"), choices = c("1-Specificity","FPR"), selected = "1-Specificity"),
+	selectInput("ci.ylab", label = h5("Label for y-axis"), choices = c("Sensitivity","TPR"), selected = "Sensitivity")
 	), 
 h5("2. ROC scatter plot of the Sens and Spec of each study"),
   plotOutput("plot_ci",  height ="600px", width = "600px")

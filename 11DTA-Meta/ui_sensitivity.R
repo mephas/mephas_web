@@ -38,15 +38,14 @@ It indicate the expected proportion of the published studies from the population
 See more details in Help above
 ")),
 
-radioGroupButtons(
+prettyRadioButtons(
 inputId = "Sauc1",
 label = h5("2. Choose SROC type"),
 choices = list("SROC" ="sroc", "HSROC"="hsroc"),
 selected = "sroc",
-justified = TRUE,
-checkIcon = list(
-yes = icon("ok",
-lib = "glyphicon"))
+shape = "square",
+icon = icon("check"),
+fill = TRUE
 ), 
 helpText(HTML("<i>Note:</i> 
     the HSROC curve is given by the SROC curve with $\\rho=-1$")),
@@ -57,12 +56,12 @@ helpText(HTML("<i>Note:</i>
 #   shape = "round", outline = TRUE, status = "info", value=FALSE
 # ),
 
-materialSwitch(
-   inputId = "SettingParamater",
-   label = h5("3. More configurations in the optimization"),
-    status = "primary",
-   value = FALSE,
-   right = TRUE
+prettySwitch(
+inputId = "SettingParamater",
+label = ("3. More configurations in the optimization"),
+value = FALSE,
+fill = TRUE,
+status = "primary"
 ),
 
 conditionalPanel(condition="input.SettingParamater",
@@ -91,43 +90,39 @@ helpText(HTML("<i>Note:</i> $c_2^2=1-c_!^2$.
 
 ),
 
-p(br()),
 actionButton("calculateSROC",
-tags$b(HTML("Click to get SROC")),
+(HTML("Click to get SROC")),
 icon = icon("rotate-right")),
 helpText(HTML("<i>Note:</i>
     it may take some time. If you change the parameters above, please click the button to re-calculate")),
 
 
 hr(),
-h3(tags$b("Marginal selection probabilities for SAUC")), 
+h3(("Marginal selection probabilities for SAUC")), 
 
-sliderInput("plistsauc",h5("1. Choose the increment of sequence"),0,1,0.1,step=0.01),
+sliderInput("plistsauc",h5("Choose the increment of sequence"),0,1,0.1,step=0.01),
 verbatimTextOutput("p10list"), 
-p(br()),
 
 
 actionButton("calculateSAUC",
-tags$b(HTML("Click to get SAUC")),
+(HTML("Click to get SAUC")),
 icon = icon("rotate-right")),
 helpText(HTML("<i>Note:</i>
     it may take some time. If you change the parameters above, please click the button to re-calculate")),
-p(br()),
+
 
 hr(),
-h3(tags$b("Configurations of the dynamic plots")), 
-p(br()),
-pickerInput(
+h3(("Configurations of the dynamic plots")), 
+selectInput(
 inputId="sensisetting",
 h5("1. Choose SROC or SAUC plots"),
 choices=c("Dynamic SROC in plotly","Dynamic SAUC in plotly")
 ),
-pickerInput(
+selectInput(
 inputId="ggplot_theme",
 label=h5("2. Select ggplot theme"),
 choices=paste0("theme_",c("bw","classic","light","linedraw","minimal","test","void","default"))
 ),
-hr(),
 conditionalPanel(condition="input.sensisetting=='Dynamic SROC in plotly'",
 # radioGroupButtons(
 # inputId = "batch",
@@ -138,13 +133,15 @@ conditionalPanel(condition="input.sensisetting=='Dynamic SROC in plotly'",
 # # checkIcon = list("TRUE" = icon("ok", lib = "glyphicon"), "FALSE" = icon("remove", lib = "glyphicon"))
 # ),
 
-(textInput("xlim",h5("3. Label of the x-axis","1-Specificity"))),
-(textInput("ylim",h5("4. Label of the y-axis","Sensitivity"))),
+selectInput("xlim", label = h5("3. Label for x-axis"), choices = c("1-Specificity","FPR"), selected = "1-Specificity"),
+selectInput("ylim",label = h5("4. Label for y-axis"), choices = c("Sensitivity","TPR"), selected = "Sensitivity"),
 
-h4(prettyCheckbox(
+prettySwitch(
   inputId = "batch", label = "Edit all SROC in the batch way?",
-  shape = "round", outline = TRUE, status = "info", value=TRUE
-)),
+  value = TRUE,
+   fill = TRUE,
+   status = "primary"
+),
 
 # h4(prettyCheckbox(
 #   inputId = "batch_sig", label = "Configure each SROC separately?",
@@ -165,33 +162,33 @@ h4(prettyCheckbox(
 # conditionalPanel(condition="input.batch=='a'"),
 
 conditionalPanel(condition="input.batch",
-(tags$h5("5. Points of each study in the data")),
+(h5("5. Points of each study in the data")),
 colorPickr("each_point_color",  "Points' color",selected="#000000"),#47848C
 sliderInput("each_point_radius","Points' radius",min = 0,max=10,value = 2, step=0.1),
 sliderInput("each_point_shape", "Points' shape",min = 0, max=25,value = 1, step=1),
 uiOutput("each_point_id"),
-p(br()),
-(tags$h5("6. Estimated summary point accounting for PB")),
+
+(h5("6. Estimated summary point accounting for PB")),
 colorPickr("sroc_point_color",  "Point's color",selected="#0A99BD"),
 sliderInput("sroc_point_radius","Point radius",min = 0,max=10,value = 2, step=0.1),
 sliderInput("sroc_point_shape", "Point shape", min = 0,max=25,value = 18,step=1),
-p(br()),
-(tags$h5("7. Estimated SROC accounting for PB")),
+
+(h5("7. Estimated SROC accounting for PB")),
 colorPickr("sroc_curve_color","SROC curve's color",selected="#39377A"),
 sliderInput("sroc_curve_thick","SROC curve's thickness",min = 0,max=10,value = 0.5, step=0.1),
 sliderTextInput(paste0("sroc_curve_shape"),grid = TRUE,label = "SROC curve's shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")
 ),
 
 conditionalPanel(condition="!input.batch",
-tags$h5("3. For the plot of $(\\hat c_1, \\hat c_2)$ "),
+h5("3. For the plot of $(\\hat c_1, \\hat c_2)$ "),
 ui.plot_baseset_drop("c1c2_estimate"),uiOutput("srocBsetting_curve"),
-tags$h5("4. For the plot of $c_1 = c_2$"),
+h5("4. For the plot of $c_1 = c_2$"),
 ui.plot_baseset_drop("c1c2_11"),uiOutput("srocCsetting_curve_11"),
-tags$h5("5. For the plot of $(c_1, c_2)=(1,0)$"),
+h5("5. For the plot of $(c_1, c_2)=(1,0)$"),
 ui.plot_baseset_drop("c1c2_10"),uiOutput("srocCsetting_curve_10"),
-tags$h5("6. For the plot of $(c_1, c_2)=(0,1)$"),
+h5("6. For the plot of $(c_1, c_2)=(0,1)$"),
 ui.plot_baseset_drop("c1c2_01"),uiOutput("srocCsetting_curve_01"),
-tags$h5("7. For the plot of user-specified $c_1^2, c_2^2$"),
+h5("7. For the plot of user-specified $c_1^2, c_2^2$"),
 # ui.plot_baseline_drop("c1c2_manul",plot_title = "Specified $c_1^2$", x_axis = "1-Specificity",y_axis = "Sensitivity"),
 ui.plot_baseset_drop("c1c2_manul"),uiOutput("srocDsetting_curve")
 ))
@@ -226,11 +223,10 @@ mainPanel(
 tabsetPanel(id="Sensitivity_Panel",
 
 tabPanel("Dynamic SROC in plotly",
-h4("Sensitivity analysis on SROC curves under four scenarios of selective publication mechanisms"),
+h5("Sensitivity analysis on SROC curves under four scenarios of selective publication mechanisms"),
 helpText(HTML("<i>Note:</i>
     there may be issues of non-convergence in the results; in such case, some results are missing. 
-    <br></br>
-    For the detailed estimates, please check the results table in the <b>Results Table</b>.")),
+    <p>For the detailed estimates, please check the results table in the <b>Results Table</b>.</p>")),
 fluidRow(
 column(width = 6,
 HTML("<h4>A. c<sub>1</sub>, c<sub>2</sub> are estimated</h4>"),
@@ -269,20 +265,19 @@ plotly::plotlyOutput("srocD", width = "500px", height = "500px")
 
 tabPanel("SROC", p(br()),
 
-h4("Sensitivity analysis on SROC curves under four scenarios of selective publication mechanisms"),
+h5("Sensitivity analysis on SROC curves under four scenarios of selective publication mechanisms"),
 helpText(HTML("<i>Note:</i>
     there may be issues of non-convergence in the results; in such case, some results are missing. 
-    <br></br>
-    For the detailed estimates, please check the results table in the <b>Results Table</b>.")),
+   <p>For the detailed estimates, please check the results table in the <b>Results Table</b>.</p>")),
 p(br()),
 plotOutput("srocA" , width = "900px", height = "900px")
 ),
 
 tabPanel("Dynamic SAUC in plotly",
+h5("Sensitivity analysis on SAUC under four scenarios of selective publication mechanisms"),
 helpText(HTML("<i>Note:</i>
     click the button to start calculation at the first time.
-    <br></br>
-    There may be issues of non-convergence in the results; in such case, some results are missing.")),
+    <p>There may be issues of non-convergence in the results; in such case, some results are missing.</p>")),
 
 column(width=6,
 HTML("<h4>A. c<sub>1</sub>, c<sub>2</sub> are estimated</h4>"),
@@ -311,16 +306,13 @@ plotly::plotlyOutput("sauc_gg_cset", width = "500px", height = "500px")
 
 tabPanel("SAUC", p(br()),
 # helpText(HTML("Note: click the button to start calculation at the first time.")),
-h4("Sensitivity analysis on SAUC under four scenarios of selective publication mechanisms"),
+h5("Sensitivity analysis on SAUC under four scenarios of selective publication mechanisms"),
 helpText(HTML("Note: there may be issues of non-convergence in the results; in such case, some results are missing.")),
 p(br()),
 plotOutput("sauc", width = "900px", height = "900px")
 ),
 
-tabPanel("Results Table",
-p(br()),
-h4("Summary of the estimates"),
-p(br()),
+tabPanel("Estimates Table",
 HTML("<h4>A. c<sub>1</sub>, c<sub>2</sub> are estimated</h4>"),
 dataTableOutput("Results.est"),
 p(br()),

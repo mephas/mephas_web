@@ -4,7 +4,7 @@ sidebarLayout(
 sidebarPanel(
 tags$head(tags$style("#ml_lnDOR_bias {background: white};")),
 
-h3(tags$b("Configuration of the trim-and-fill plot")),
+h3(("Configuration of the trim-and-fill plot")),
 
 selectInput("cont", label = h5("Add CI contour of the original studies"), 
     choices = list(
@@ -13,7 +13,7 @@ selectInput("cont", label = h5("Add CI contour of the original studies"),
     selected = "yes"),
 
 hr(),
-h3(tags$b("Test on the asymmetry of the funnel plot")),
+h3(("Test on the asymmetry of the funnel plot")),
 selectInput("method.bias", label = h5("Choose test methods"), 
     choices = list(
         "Deek's method" = "Deek",
@@ -29,15 +29,15 @@ helpText(HTML("<i>Note:</i>
 
 mainPanel(
 
-h3(tags$b("Trim-and-fill Plot")),
+h4(("Trim-and-fill Plot")),
 
 tabsetPanel(
 
-tabPanel("Trim-and-fill plot on lnDOR", p(br()),
+tabPanel("Trim-and-fill plot on lnDOR", 
 
-plotOutput("ml.lnDOR_funnel",height ="600px", width = "600px"), p(br()),
+plotOutput("ml.lnDOR_funnel",height ="600px", width = "600px"), 
 hr(),
-tags$b("Test of Asymmetry"), p(br()),
+h5("Test of Asymmetry"),
 verbatimTextOutput("ml_lnDOR_bias"),p(br()),
 plotOutput("ml_lnDOR_bias_plot",height ="600px", width = "600px"),
 

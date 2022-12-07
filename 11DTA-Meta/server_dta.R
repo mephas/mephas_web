@@ -284,12 +284,12 @@ output$plot_ci<-renderPlot({
 
   md <- md()
   
-  plot(NULL, 
+  plot(1-sp(), se(), 
       xlim = c(0, 1), ylim=c(0,1), 
       lty = 1, pch = 16,
       xlab=input$ci.xlab, ylab = input$ci.ylab) 
   
-  if(input$studypp) points(1-sp(), se(), pch = 16)
+  # if(input$studypp) points(1-sp(), se(), pch = 16)
 
   if(input$ROCellipse) ROCellipse(data.cc(), 
     lty = 2,  level = input$ci.level, correction =0.5, method=input$ci.method, 

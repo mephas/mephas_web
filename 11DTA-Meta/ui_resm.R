@@ -6,7 +6,7 @@ sidebarPanel(
 tags$style("#reitsma {background: white; color: #5A5A5A};"),
 tags$style("#glmm {background: white; color: #5A5A5A};"),
 
-h3(tags$b("Reitsma's model")),
+h3(("Reitsma's model")),
 
 # selectInput("alpha", label = "1. Transformation of Sens and Spec", 
 # 	choices = list(
@@ -32,88 +32,170 @@ the often used methods are "ReML" and "ML"
 
 hr(),
 
-h3(tags$b("Summary ROC (SROC) Plot")), 
+h3(("Summary ROC (SROC) Plot")), 
 
-tags$h5("1. Configuration of SROC plot"), 
+h5("1. Configuration of SROC plot"), 
 
 
-awesomeCheckbox( 
+prettyCheckbox( 
    inputId = "studypp2",
    label = "Add ROC points of studies", 
-   value = TRUE
+   value = TRUE,
+   shape = "square",
+   fill = TRUE,
+   icon = icon("check"),
+   status = "primary"
  ),
 
-p(br()),
-tags$b("Reitsma's model"), 
-
-awesomeCheckbox( 
-   inputId = "reitmaSROC",
-   label = "Add the Reitsma's SROC curve", 
-   value = TRUE
- ),
-
-awesomeCheckbox( 
-   inputId = "res.pt",
-   label = "Add estimated summary point", 
-   value = TRUE
- ),
-
-awesomeCheckbox( 
-   inputId = "res.ci",
-   label = "Add CI region of the summary point", 
-   value = TRUE
- ),
-
-tags$b("GLM model"), 
-
-
-awesomeCheckbox( 
-   inputId = "glmmSROC",
-   label = "Add the GLMM SROC curve", 
-   value = FALSE
- ),
-
-awesomeCheckbox( 
-   inputId = "glmm.pt",
-   label = "Add the GLMM SROC curve", 
-   value = FALSE
- ),
-
+h5("2. SROC curve by two models"), 
 helpText(HTML("<i>Note:</i>
    see the equation of SROC in <b>Help and Download</b> panel")),
-p(br()),
+
+# tags$b("Reitsma's model"), 
+
+prettySwitch( 
+   inputId = "reitmaSROC",
+   label = "Add the Reitsma's SROC curve", 
+   value = FALSE,
+   fill = TRUE,
+   status = "primary"
+ ),
+
+# materialSwitch(
+#    inputId = "reitmaSROC",
+#    label = ("Add the Reitsma's SROC curve"),
+#    status = "primary",
+#    value = TRUE,
+#    right = TRUE,
+#    inline = TRUE
+# ),
+
+conditionalPanel(condition="input.reitmaSROC",
+   prettyCheckbox( 
+   inputId = "res.pt",
+   label = "Add estimated summary point", 
+   value = TRUE,
+   shape = "square",
+   fill = TRUE,
+   icon = icon("check"),
+   status = "primary"
+ ),
+   prettyCheckbox( 
+   inputId = "res.ci",
+   label = "Add CI region of the summary point", 
+   value = FALSE,
+   shape = "square",
+   fill = TRUE,
+   icon = icon("check"),
+   status = "primary"
+ )
+# awesomeCheckbox( 
+#    inputId = "res.pt",
+#    label = "Add estimated summary point", 
+#    value = TRUE
+#  ),
+
+# awesomeCheckbox( 
+#    inputId = "res.ci",
+#    label = "Add CI region of the summary point", 
+#    value = FALSE
+#  )
+),
+
+# h5("GLM model"), 
+
+prettySwitch( 
+   inputId = "glmmSROC",
+   label = "Add the GLMM SROC curve", 
+   value = FALSE,
+   fill = TRUE,
+   status = "primary"
+ ),
+
+# materialSwitch(
+#    inputId = "glmmSROC",
+#    label = ("Add the GLM model's SROC curve"),
+#    status = "primary",
+#    value = FALSE,
+#    right = TRUE,
+#    inline = TRUE
+# ),
+conditionalPanel(condition="input.glmmSROC",
+
+# awesomeCheckbox( 
+#    inputId = "glmm.pt",
+#    label = "Add the GLMM SROC curve", 
+#    value = FALSE
+#  )
+prettyCheckbox( 
+   inputId = "glmm.pt",
+   label = "Add the GLMM SROC curve", 
+   value = FALSE,
+   shape = "square",
+   fill = TRUE,
+   icon = icon("check"),
+   status = "primary"
+ )
+),
 
 
-tags$h5("2. Other SROC plots"), 
 
-awesomeCheckbox( 
+prettySwitch( 
+   inputId = "othersroc",
+   label = "Add other SROC curve", 
+   value = FALSE,
+   fill = TRUE,
+   status = "primary"
+ ),
+conditionalPanel(condition="input.othersroc",
+
+   prettyCheckbox( 
    inputId = "mslSROC",
    label = "Add Moses-Shapiro-Littenberg SROC curve", 
-   value = FALSE
-   ),
- 
- awesomeCheckbox( 
+   value = FALSE,
+   shape = "square",
+   fill = TRUE,
+   icon = icon("check"),
+   status = "primary"
+ ),
+   prettyCheckbox( 
    inputId = "rsSROC",
    label = "Add Ruecker-Schumacher (2010) SROC curve", 
-   value = FALSE
+   value = FALSE,
+   shape = "square",
+   fill = TRUE,
+   icon = icon("check"),
+   status = "primary"
+ )
+# awesomeCheckbox( 
+#    inputId = "mslSROC",
+#    label = "Add Moses-Shapiro-Littenberg SROC curve", 
+#    value = FALSE
+#    ),
+ 
+#  awesomeCheckbox( 
+#    inputId = "rsSROC",
+#    label = "Add Ruecker-Schumacher (2010) SROC curve", 
+#    value = FALSE
+#  )
  ), 
- p(br()),
+# hr(),
 
-tags$h5("3. Other configurations"), 
-	pickerInput("sroc.xlab", label = "Label for x-axis", choices = c("1-Specificity","FPR")),
-	pickerInput("sroc.ylab", label = "Label for y-axis", choices = c("Sensitivity","TPR"))
+# h5("3. Other configurations"), 
+	selectInput("sroc.xlab", label = h5("3. Label for x-axis"), choices = c("1-Specificity","FPR"), selected = "1-Specificity"),
+	selectInput("sroc.ylab", label = h5("4. Label for y-axis"), choices = c("Sensitivity","TPR"), selected = "Sensitivity")
 
 ),
 
 mainPanel(
 
-h4(tags$b("Output: Reitsma's model")), p(br()),
+h4(("Meta-analysis")), 
 
 tabsetPanel(
 
 tabPanel("SROC Plot", p(br()),
 
-	(tags$b("Summary ROC (SROC) Plot")), p(br()),
+	h5(("Summary ROC (SROC) Plot")), 
 
 	 plotOutput("plot_sroc",  height ="600px", width = "600px")
 
@@ -123,8 +205,8 @@ tabPanel("SROC Plot", p(br()),
 
 tabPanel("Reitsma's Model", p(br()),
 
-	(tags$b("Estimates from the model")), p(br()),
-
+	h5(("Estimates from the model")), 
+   DTOutput("reitsma.dt"),
 	verbatimTextOutput("reitsma"),
 
    helpText(HTML("
@@ -138,17 +220,15 @@ tabPanel("Reitsma's Model", p(br()),
 </ul>
 <p>See the details of the Reitsma's model in <b>Help and Download</b> panel
 </p>
-")),
-
-   (tags$b("Estimates table")),
-   DTOutput("reitsma.dt")
+"))
+   
 
 ),
 
 tabPanel("GLM Model", p(br()),
 
-   (tags$b("Estimates from the model")), p(br()),
-
+   h5(("Estimates from the model")), 
+   DTOutput("glmm.dt"),
    verbatimTextOutput("glmm"),
    helpText(HTML("
 <i>Note:</i>
@@ -161,13 +241,7 @@ see the details of the GLM model in <b>Help and Download</b> panel
 <li><b>spec:</b> the estimated summarized specificity in the logit-scale</li>
 </ul>
 <p>See the details of the GLM model in <b>Help and Download</b> panel
-")),
-
-   (tags$b("Estimates table")),
-   DTOutput("glmm.dt")
-
-
-
+"))
 
 )
 

@@ -3,7 +3,7 @@
 body {
 	padding-top: 0px;
 	font-family: 'Helvetica', 'Arial', sans-serif;
-	font-size: 16px;
+	font-size: 15px;
 }
 
 h1,h2,h3,h4,h5{ 
@@ -11,8 +11,25 @@ h1,h2,h3,h4,h5{
 	font-weight: normal;
 }
 
+h1{
+	font-size: 26pt;
+}
+
+h2{
+	font-size: 24pt;
+}
+
+h3{
+	font-size: 22px;
+}
+
+h4{
+	font-size: 18px;
+}
+
 h5 {
 	color: #6599FF;
+	font-size: 16px;
 }
 
 
@@ -40,16 +57,18 @@ h5 {
  
 .selectize-control.single .selectize-dropdown{ 
 	color: grey;
-	font-weight: bold;
+	font-weight: normal;
 }
 
 .selectize-input { 
-	font-weight: bold;
+	font-weight: normal;
 }
 
 .selected {
-	font-weight: bold !important;
+	font-weight: normal!important;
 }
+
+.help-block {color: #7393B3 !important;}
 
 /*.shiny-progress {
   height: 70px;
