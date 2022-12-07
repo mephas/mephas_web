@@ -22,7 +22,6 @@ p.seq   <-reactiveVal(NULL)
 studyId <-reactiveVal(0)
 
 
-esting  <-reactiveValues()
 
 esting_omg<-reactiveValues()
 ## RC FC function
@@ -121,7 +120,7 @@ sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf,informMessa
     sroc_point_radius<-sapply(1:length(p.seq()),function(i)ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,i)]]),3,input[[paste0("sroc_point_radius",plot_id,i)]]))
     sroc_point_shape<-sapply(1:length(p.seq()),function(i)ifelse(is.null(input[[paste0("sroc_point_shape",plot_id,i)]]),20,input[[paste0("sroc_point_shape",plot_id,i)]]))
   }
-
+  each_point_id<-ifelse(length(input[["each_point_id"]])==0,c(1:length(sp()),paste("P=",p.seq())),c(data()[[(input[["each_point_id"]])]],paste("P=",p.seq())))
   est.par<- fun(c1.square,fix.c=fix.c,c("mu1","mu2","tau1","tau2","rho"),informMessage=informMessage) 
   #validate(need(length(est.par)>0,"Input marginal selection probabilities is missing."))
   par <- as.matrix(est.par)
@@ -132,8 +131,8 @@ sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf,informMessa
   size<-c(rep( each_point_radius,length(sp())),sroc_point_radius)
   shape<-c(rep( each_point_shape,length(sp())),sroc_point_shape)
 
-  data<-data.frame(sp=c(sp(),spec),se=c(se(),sens),ID=c(1:length(sp()),paste("P=",p.seq())))
-  p<-ggplot(data = data,mapping = aes(x=1-sp,y=se,ID=ID))+ ylim(0,1)+ xlim(0,1)
+  data<-data.frame(sp=c(sp(),spec),se=c(se(),sens),ID=each_point_id)
+  p<-ggplot(data = data,mapping = aes(x=1-sp,y=se,studyID=ID))+ ylim(0,1)+ xlim(0,1)
   p<-p+geom_point(colour=color,size=size,shape=shape)+gg_theme()+labs(x=input$xlim,y=input$ylim)
 
   p<-p+mapply(function(i) {
@@ -186,7 +185,7 @@ output$srocBsetting_curve<-renderUI({
   ui.plot_srocline_drop("c1c2_estimate",p.seq())
 })
 output$each_point_id<-renderUI({
-
+  pickerInput("each_point_id",("each point id"),colnames(data()))
 })
 # srocB <- eventReactive(input$sroc.saplot, {sroc_ggplot_over("c1c2_estimate", 0.5, est.r)})
 

@@ -165,18 +165,18 @@ h4(prettyCheckbox(
 # conditionalPanel(condition="input.batch=='a'"),
 
 conditionalPanel(condition="input.batch",
-(tags$b("5. Points of each study in the data")),
+(tags$h5("5. Points of each study in the data")),
 colorPickr("each_point_color",  "Points' color",selected="#000000"),#47848C
 sliderInput("each_point_radius","Points' radius",min = 0,max=10,value = 2, step=0.1),
 sliderInput("each_point_shape", "Points' shape",min = 0, max=25,value = 1, step=1),
 uiOutput("each_point_id"),
 p(br()),
-(tags$b("6. Estimated summary point accounting for PB")),
+(tags$h5("6. Estimated summary point accounting for PB")),
 colorPickr("sroc_point_color",  "Point's color",selected="#0A99BD"),
 sliderInput("sroc_point_radius","Point radius",min = 0,max=10,value = 2, step=0.1),
 sliderInput("sroc_point_shape", "Point shape", min = 0,max=25,value = 18,step=1),
 p(br()),
-(tags$b("7. Estimated SROC accounting for PB")),
+(tags$h5("7. Estimated SROC accounting for PB")),
 colorPickr("sroc_curve_color","SROC curve's color",selected="#39377A"),
 sliderInput("sroc_curve_thick","SROC curve's thickness",min = 0,max=10,value = 0.5, step=0.1),
 sliderTextInput(paste0("sroc_curve_shape"),grid = TRUE,label = "SROC curve's shape",choices = c("blank","solid","dashed","dotted","dotdash","longdash","twodash"),selected = "solid")
