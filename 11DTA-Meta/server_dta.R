@@ -251,8 +251,8 @@ output$meta_sesp_plot<-renderUI({
 
   splitLayout(
 
-  plotOutput("meta_se", height =paste0((md()$nobs*13.5+200),"px"),width = "600px" ),
-  plotOutput("meta_sp", height =paste0((md()$nobs*13.5+200),"px"),width = "600px" )
+  plotOutput("meta_se", height =paste0((md()$nobs*13.5+200),"px"),width = "500px" ),
+  plotOutput("meta_sp", height =paste0((md()$nobs*13.5+200),"px"),width = "500px" )
 
   ) 
 })
