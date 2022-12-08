@@ -285,7 +285,7 @@ uiOutput("meta_dor_plot")
 
 tabPanel(
 "Summary of LRs", p(br()),
-h5("1. Summary of the positive or negative likelihood ratios (LRs)"), 
+h5("1. Summary of the positive or negative likelihood ratios"), 
 DTOutput("uni.measure"), 
 
 helpText(HTML('
