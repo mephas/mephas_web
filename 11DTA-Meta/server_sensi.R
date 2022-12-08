@@ -143,9 +143,8 @@ sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf,informMessa
 
   data<-data.frame(sp=c(sp(),spec),se=c(se(),sens),ID=each_point_id)
   #colnames(data)<-c("sp","se",ifelse(length(input[["each_point_id"]])>0,input[["each_point_id"]],"ID"))
-  p<-ggplot(data = data,mapping = aes(x=1-sp,y=se,study=ID))+ ylim(0,1)+ xlim(0,1)
-  p<-p+geom_point(colour=color,size=size,shape=shape)+gg_theme()+labs(x=input$xlim,y=input$ylim)
-
+   p<-ggplot(data = data,mapping = aes(x=1-sp,y=se,study=ID))+ ylim(0,1)+ xlim(0,1)
+   p<-p+geom_point(colour=color,size=size,shape=shape)+gg_theme()+labs(x=input$xlim,y=input$ylim)
   p<-p+mapply(function(i) {
     u1 <- par["mu1", i]
     u2 <- par["mu2", i]
@@ -155,7 +154,7 @@ sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf,informMessa
       r <- par["rho", i]}
     else{ r <- -1}
     P<-p.seq()[i]
-    datastat<-data.frame(u1=u1,u2=u2)
+    
     stat_function(mapping=aes(P=P,u1=u1,u2=u2,t1=t1,t2=t2),inherit.aes=FALSE,fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)), color=sroc_curve_color[i], linewidth=sroc_curve_thick[i],linetype = sroc_curve_shape[i])
   }
   , 1:ncol(par))
@@ -325,7 +324,7 @@ observe({
                })
 })%>%bindEvent(input$calculateSAUC)
 
-observe(est.rfc(p.seq(),c1.square =input$c1c2_set))%>%bindEvent(input$c1c2_set,studyId())
+observe(est.rfc(p.seq(),c1.square =input$c1c2_set))%>%bindEvent(input$c1c2_set)
 observe({
   withProgress(message = "Calculating SAUC",detail = 'Please wait...', value = 0,{
 est.rfc(p.10(),c1.square =input$c1c2_set)

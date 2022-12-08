@@ -135,7 +135,7 @@ observe({
     y<-paste(y,list2[[i]],separater,sep = "")
   }
   updateAceEditor(session,"manualInput",value =paste(y,collapse ="\n"))
-  updateRadioButtons(session,"manualInputTRUE",selected = "Manual input")
+  #updateRadioButtons(session,"manualInputTRUE",selected = "Manual input")
   
 })%>%bindEvent(input$filer)
 
