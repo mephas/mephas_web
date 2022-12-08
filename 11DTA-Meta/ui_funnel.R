@@ -47,7 +47,7 @@ tabPanel("Trim-and-fill plot on logit-Sens and logit-Spec", p(br()),
 
 splitLayout(
     plotOutput("logit.Sens_plot",height ="500px", width = "500px"),
-    plotOutput("logit.Spec_plot",height ="500px", width = "500px"),
+    plotOutput("logit.Spec_plot",height ="500px", width = "500px")
 ),
 helpText(HTML("<i>Note:</i>
     these 2 plots are presented to show the whether the publication bias could be detected on sensitivity or specificity only."))

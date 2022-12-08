@@ -149,7 +149,7 @@ h4(("Data Preview")),
 tabsetPanel(
 
 tabPanel(
-	"Input Data", p(br()),
+	"Check input Data", p(br()),
 	DTOutput("RawData")
 	),
 	
@@ -276,7 +276,7 @@ inputId = "uni.log1",
 label = "Show log-transformed results", 
 value = TRUE
 ),
-textInput("u1.title", label = h5("Change the title"), value = "Log diagnostic odds ratio"),
+textInput("u1.title", label = h5("Change the title"), value = "Log diagnostic odds ratio")
 ),
 
 uiOutput("meta_dor_plot")

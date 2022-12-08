@@ -23,13 +23,13 @@ color:white;}"
 ),
 
 #----------------------------------------------------------------------------------------
-h3(tags$b("Marginal selection probabilities for SROC")), 
+h3(("Sensitivity analysis on SROC")), 
 
 HTML(
-'<h5>1. Input marginal selection probabilities ($0 \\le p\\le 1$)</h5>
-<b><input type="text" id="plist" value="1,0.8,0.6,0.4" pattern="^[\\d,　.]+$">
+'<h5>1. Input marginal selection probability ($0 \\le p\\le 1$)</h5>
+<b><input type="text" id="plist" value="1,0.8,0.6" pattern="^[\\d,　.]+$">
 </b>'), 
-p(br()),
+p("Check inputs"),
 verbatimTextOutput("uiprob"), 
 
 # helpText(HTML("<i>Note:</i>
@@ -52,7 +52,7 @@ helpText(HTML("<i>Note:</i>
 
 # prettyCheckbox(
 #   inputId = "SettingParamater", 
-#   label = tags$b("3. More configurations in the optimization"),
+#   label = ("3. More configurations in the optimization"),
 #   shape = "round", outline = TRUE, status = "info", value=FALSE
 # ),
 
@@ -70,9 +70,13 @@ helpText(HTML("<i>Note:</i>
     The following parameters are in the selection function.
     See more details in <b>Help and Download</b> panel")),
 sliderInput("beta", label = HTML("Estimating range of $\\beta$"), min = 0, 
-        max = 5, value = c(0,2), step=0.1),
+        max = 4, value = c(0,2), step=0.05),
 helpText(HTML("<i>Note:</i> 
     $\\beta$ will be estimated within this range")),
+sliderInput("beta0", label = HTML("Initial value of $\\beta$"), min = 0, 
+        max = 2, value = 1, step=0.05),
+helpText(HTML("<i>Note:</i> 
+    $\\beta$'s range is too large or initial value may make cause non-convergence")),
 # uiOutput("beta0"),
 # helpText(HTML("<i>Note:</i> 
 #     the start values for estimating $\\beta$")),
@@ -85,7 +89,7 @@ sliderInput("c0",label = HTML("Initial value for estimating $c_1^2$"), min = 0.1
         max = 0.9, value = 0.5, step=0.1),
 
 helpText(HTML("<i>Note:</i> $c_2^2=1-c_!^2$. 
-    The start values for estimating $c_1$"))
+    The start values for estimating $c_1, c_2$"))
 # uiOutput("beta0")
 
 ),
@@ -94,13 +98,15 @@ actionButton("calculateSROC",
 (HTML("Click to get SROC")),
 icon = icon("rotate-right")),
 helpText(HTML("<i>Note:</i>
-    it may take some time. If you change the parameters above, please click the button to re-calculate")),
+    it may take more time if you input many $p$'s. 
+    If you change the parameters, please click the button to re-calculate")),
 
 
 hr(),
-h3(("Marginal selection probabilities for SAUC")), 
+h3(("Sensitivity analysis on SAUC")), 
 
-sliderInput("plistsauc",h5("Choose the increment of sequence"),0,1,0.1,step=0.01),
+sliderInput("plistsauc",HTML("<h5>Set the increment of the sequence of $p$</h5>"),0,1,0.1,step=0.01),
+p("Check inputs"),
 verbatimTextOutput("p10list"), 
 
 
@@ -108,7 +114,7 @@ actionButton("calculateSAUC",
 (HTML("Click to get SAUC")),
 icon = icon("rotate-right")),
 helpText(HTML("<i>Note:</i>
-    it may take some time. If you change the parameters above, please click the button to re-calculate")),
+    it may take more time if the sequence of $p$ is long. If you change the parameters above, please click the button to re-calculate")),
 
 
 hr(),
@@ -116,14 +122,23 @@ h3(("Configurations of the dynamic plots")),
 selectInput(
 inputId="sensisetting",
 h5("1. Choose SROC or SAUC plots"),
-choices=c("Dynamic SROC in plotly","Dynamic SAUC in plotly")
+choices=c("Neither","Dynamic SROC","Dynamic SAUC")
 ),
+# selectInput(
+# inputId="ggplot_theme",
+# label=h5("2. Select ggplot theme"),
+# choices=paste0("theme_",c("bw","classic","light","linedraw","minimal","test","void","default"))
+# ),
+
+conditionalPanel(condition="input.sensisetting=='Dynamic SAUC'",
 selectInput(
-inputId="ggplot_theme",
+inputId="ggplot_theme2",
 label=h5("2. Select ggplot theme"),
 choices=paste0("theme_",c("bw","classic","light","linedraw","minimal","test","void","default"))
+)
 ),
-conditionalPanel(condition="input.sensisetting=='Dynamic SROC in plotly'",
+
+conditionalPanel(condition="input.sensisetting=='Dynamic SROC'",
 # radioGroupButtons(
 # inputId = "batch",
 # label = h4("Configure all SROC in the batch way?"), 
@@ -132,7 +147,11 @@ conditionalPanel(condition="input.sensisetting=='Dynamic SROC in plotly'",
 # justified = TRUE
 # # checkIcon = list("TRUE" = icon("ok", lib = "glyphicon"), "FALSE" = icon("remove", lib = "glyphicon"))
 # ),
-
+selectInput(
+inputId="ggplot_theme",
+label=h5("2. Select ggplot theme"),
+choices=paste0("theme_",c("bw","classic","light","linedraw","minimal","test","void","default"))
+),
 selectInput("xlim", label = h5("3. Label for x-axis"), choices = c("1-Specificity","FPR"), selected = "1-Specificity"),
 selectInput("ylim",label = h5("4. Label for y-axis"), choices = c("Sensitivity","TPR"), selected = "Sensitivity"),
 
@@ -222,7 +241,7 @@ mainPanel(
 
 tabsetPanel(id="Sensitivity_Panel",
 
-tabPanel("Dynamic SROC in plotly",
+tabPanel("Dynamic SROC",
 h5("Sensitivity analysis on SROC curves under four scenarios of selective publication mechanisms"),
 helpText(HTML("<i>Note:</i>
     there may be issues of non-convergence in the results; in such case, some results are missing. 
@@ -273,7 +292,7 @@ p(br()),
 plotOutput("srocA" , width = "900px", height = "900px")
 ),
 
-tabPanel("Dynamic SAUC in plotly",
+tabPanel("Dynamic SAUC",
 h5("Sensitivity analysis on SAUC under four scenarios of selective publication mechanisms"),
 helpText(HTML("<i>Note:</i>
     click the button to start calculation at the first time.
@@ -333,7 +352,7 @@ dataTableOutput("Results01")
                
                # tabPanel("Download Plot", p(br()),
 
-               #  tags$b("Sensitivity analysis on SROC curves under four scenarios of selective publication mechanisms"),
+               #  ("Sensitivity analysis on SROC curves under four scenarios of selective publication mechanisms"),
                #  p(br()),
                #  plotOutput("srocA" , width = "700px", height = "700px"),
                #  # downloadButton("downloadsrocA","Save Image"),

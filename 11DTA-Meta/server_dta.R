@@ -386,7 +386,21 @@ gg_theme   <- reactive({
      ,theme_bw = theme_bw()
      ,theme_classic = theme_classic()
      ,theme_light = theme_light()
-     ,theme_linedraw = theme_linedraw()
+     # ,theme_linedraw = theme_linedraw()
+     ,theme_minimal = theme_minimal()
+     ,theme_test = theme_test()
+     ,theme_void = theme_void()
+     ,theme_default = NULL
+    )
+
+})
+
+gg_theme2   <- reactive({
+  switch(input$ggplot_theme2
+     ,theme_bw = theme_bw()
+     ,theme_classic = theme_classic()
+     ,theme_light = theme_light()
+     # ,theme_linedraw = theme_linedraw()
      ,theme_minimal = theme_minimal()
      ,theme_test = theme_test()
      ,theme_void = theme_void()
@@ -448,10 +462,10 @@ sauc_ggplot<-function(plot_id, title="(A) $(\\hat{c}_1, \\, \\hat{c}_2)$",c1.squ
     )
 
   ggplot(data = data,mapping = aes(x=p,y=SAUC,colour=sauctype))+
-  gg_theme()+
+  gg_theme2()+
   theme(legend.position = "none")+
     ylim(0,1)+
-    xlim(0,1)+scale_x_reverse()+
+    scale_x_reverse(limits = c(1, 0))+
     ggtitle(title)+
     #theme(title= element_text(size = 16))+
     geom_point()+

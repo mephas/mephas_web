@@ -1,4 +1,4 @@
-
+suppressWarnings({
 if (!requireNamespace("shiny", quietly = TRUE)) install.packages("shiny") 
 library("shiny",quietly = TRUE)
 
@@ -37,6 +37,7 @@ library("shinyAce",quietly = TRUE)
 
 if (!requireNamespace("lme4", quietly = TRUE)) install.packages("lme4") 
 library("lme4",quietly = TRUE)
+})
 
 
 source("Rfuns/function.R")

@@ -40,10 +40,12 @@ beta<-reactive({
 })
 
 beta0<-reactive({
-  if(length(input$beta)==0) return (1) else {
+  if(length(input$beta)==0 || input$beta0<input$beta[1] || input$beta0>input$beta[2]) {
     set.seed(123)
     return(runif(1, input$beta[1], input$beta[2]))
   }
+  else return(input$beta0)
+  
 })
 
 
@@ -124,9 +126,9 @@ sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf,informMessa
   #each_point_id<-c(data()[[(input[["each_point_id"]])]],paste("P=",p.seq()))
   if(length(input[["each_point_id"]])>0){
      if(typeof(data()[[input[["each_point_id"]]]])=="double"){
-        each_point_id<-c(sprintf("%.2f",data()[[input[["each_point_id"]]]]),paste("P=",p.seq()))
-      }else{ 
-      each_point_id<-c(data()[[input[["each_point_id"]]]],paste("P=",p.seq()))
+        each_point_id<-c(sprintf("%.2f",data()[[input[["each_point_id"]]]]),paste("p=",p.seq()))
+      }else { 
+      each_point_id<-c(data()[[input[["each_point_id"]]]],paste("p=",p.seq()))
       }
   }else {
      each_point_id<-c(1:length(sp()),paste("P=",p.seq()))
@@ -144,8 +146,10 @@ sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf,informMessa
   data<-data.frame(sp=c(sp(),spec),se=c(se(),sens),ID=each_point_id)
   #colnames(data)<-c("sp","se",ifelse(length(input[["each_point_id"]])>0,input[["each_point_id"]],"ID"))
    p<-ggplot(data = data,mapping = aes(x=1-sp,y=se,study=ID))+ ylim(0,1)+ xlim(0,1)
-   p<-p+geom_point(colour=color,size=size,shape=shape)+gg_theme()+labs(x=input$xlim,y=input$ylim)
-  p<-p+mapply(function(i) {
+   # p<-p+geom_point(colour=color,size=size,shape=shape)+gg_theme()+labs(x=input$xlim,y=input$ylim)
+  p<-suppressWarnings({p+mapply(function(i) {
+  # p<-p+mapply(function(i) {
+
     u1 <- par["mu1", i]
     u2 <- par["mu2", i]
     t1 <- par["tau1", i]
@@ -153,13 +157,19 @@ sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf,informMessa
     if (input$Sauc1 == "sroc"){
       r <- par["rho", i]}
     else{ r <- -1}
-    P<-p.seq()[i]
+    p<-p.seq()[i]
     
-    stat_function(mapping=aes(P=P,u1=u1,u2=u2,t1=t1,t2=t2),inherit.aes=FALSE,fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)), color=sroc_curve_color[i], linewidth=sroc_curve_thick[i],linetype = sroc_curve_shape[i])
+    stat_function(mapping=aes("p"=p,"u1"=u1,"u2"=u2),
+      inherit.aes=FALSE,
+      fun = function(x) plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)), color=sroc_curve_color[i], linewidth=sroc_curve_thick[i],linetype = sroc_curve_shape[i])
+
+    # stat_function(mapping=aes(P=P,u1=u1,u2=u2,t1=t1,t2=t2),inherit.aes=FALSE,fun = function(x)plogis(u1 - (t1 * t2 * r/(t2^2))*(qlogis(x) + u2)), color=sroc_curve_color[i], linewidth=sroc_curve_thick[i],linetype = sroc_curve_shape[i])
   }
   , 1:ncol(par))
+})
   
-   esting_omg[[plot_id]]<-p
+  p<-p+geom_point(colour=color,size=size,shape=shape)+gg_theme()+labs(x=input$xlim,y=input$ylim)
+  esting_omg[[plot_id]]<-p
   p
 }
 
