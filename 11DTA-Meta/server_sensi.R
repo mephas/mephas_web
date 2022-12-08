@@ -120,7 +120,17 @@ sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf,informMessa
     sroc_point_radius<-sapply(1:length(p.seq()),function(i)ifelse(is.null(input[[paste0("sroc_point_radius",plot_id,i)]]),3,input[[paste0("sroc_point_radius",plot_id,i)]]))
     sroc_point_shape<-sapply(1:length(p.seq()),function(i)ifelse(is.null(input[[paste0("sroc_point_shape",plot_id,i)]]),20,input[[paste0("sroc_point_shape",plot_id,i)]]))
   }
-  each_point_id<-ifelse(length(input[["each_point_id"]])==0,c(1:length(sp()),paste("P=",p.seq())),c(data()[[(input[["each_point_id"]])]],paste("P=",p.seq())))
+  #each_point_id<-ifelse(length(input[["each_point_id"]])>0,c(data()[[(input[["each_point_id"]])]],paste("P=",p.seq())),c(1:length(sp()),paste("P=",p.seq())))
+  #each_point_id<-c(data()[[(input[["each_point_id"]])]],paste("P=",p.seq()))
+  if(length(input[["each_point_id"]])>0){
+     if(typeof(data()[[input[["each_point_id"]]]])=="double"){
+        each_point_id<-c(sprintf("%.2f",data()[[input[["each_point_id"]]]]),paste("P=",p.seq()))
+      }else{ 
+      each_point_id<-c(data()[[input[["each_point_id"]]]],paste("P=",p.seq()))
+      }
+  }else {
+     each_point_id<-c(1:length(sp()),paste("P=",p.seq()))
+  }
   est.par<- fun(c1.square,fix.c=fix.c,c("mu1","mu2","tau1","tau2","rho"),informMessage=informMessage) 
   #validate(need(length(est.par)>0,"Input marginal selection probabilities is missing."))
   par <- as.matrix(est.par)
@@ -132,7 +142,8 @@ sroc_ggplot_over <- function(plot_id,c1.square,fix.c=TRUE,fun=est.rf,informMessa
   shape<-c(rep( each_point_shape,length(sp())),sroc_point_shape)
 
   data<-data.frame(sp=c(sp(),spec),se=c(se(),sens),ID=each_point_id)
-  p<-ggplot(data = data,mapping = aes(x=1-sp,y=se,studyID=ID))+ ylim(0,1)+ xlim(0,1)
+  #colnames(data)<-c("sp","se",ifelse(length(input[["each_point_id"]])>0,input[["each_point_id"]],"ID"))
+  p<-ggplot(data = data,mapping = aes(x=1-sp,y=se,study=ID))+ ylim(0,1)+ xlim(0,1)
   p<-p+geom_point(colour=color,size=size,shape=shape)+gg_theme()+labs(x=input$xlim,y=input$ylim)
 
   p<-p+mapply(function(i) {
