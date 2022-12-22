@@ -5,5 +5,5 @@ output$ManualPDF_download<-downloadHandler("DTAmanual.pdf"
                                              ,contentType = "application/pdf")
 output$desktopApp_Download<-downloadHandler("Setup.exe",
                                             content = function(file){
-                                              file.copy("./DTAmetasa-setup-0.1.0.exe",file)}
+                                              file.copy("./Dtametasa-setup-0.1.0.exe",file)}
                                               )
