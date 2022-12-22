@@ -448,6 +448,13 @@ latex2exp,
 base,
 </ul>
 
+<hr>
+<h4><b>References:</b></h4>
+<li>
+   Rutter, Carolyn M. and Gatsonis, Constantine A. A hierarchical regression approach to meta-analysis of diagnostic test accuracy evaluations. Stat Med. 2001; 19:2865--2884
+ <li> Reitsma, Johannes B. and Glas, Afina S. and Rutjes, Anne W.S. and Scholten, Rob J.P.M. and Bossuyt, Patrick M. and Zwinderman, Aeilko H. Bivariate analysis of sensitivity and specificity produces informative summary measures in diagnostic reviews. J Clin Epidemiol. 2005; 10:982--990
+   <li>Zhou, Yi and Huang, Ao and Hattori, Satoshi. A likelihood based sensitivity analysis for publication bias on summary ROC in meta-analysis of diagnostic test accuracy. arXiv. 2021; 2106.04253:1--19
+   <li>Chu, Haitao and Guo, Hongfei and Zhou, Yijie. Bivariate random effects meta-analysis of diagnostic studies using generalized linear mixed models. Med Decis Making. 2010; 30:499-508
 
 "
 )
