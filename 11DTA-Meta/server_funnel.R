@@ -5,7 +5,12 @@ ml.lnDOR <- reactive({
 
   metabin(TP, with(data.cc(), TP+FN), FP, with(data.cc(), TN+FP), 
     data = data.cc(), sm ="OR", 
-    fixed = FALSE)
+    common = FALSE,
+    random = TRUE,
+    method = "Inverse",
+    backtransf = FALSE,
+    method.tau = "DL"
+    )
 
   })
 
@@ -50,7 +55,12 @@ funnel(tf.lndor, xlab = "lnDOR",
 output$logit.Sens_plot<-renderPlot({
 
 ml.se <- metabin(TP, with(data.cc(), TP+FN), FN, with(data.cc(), TP+FN), 
-    data = data.cc(), sm ="OR", fixed = FALSE)
+    data = data.cc(), sm ="OR", common = FALSE,
+    random = TRUE,
+    method = "Inverse",
+    backtransf = FALSE,
+    method.tau = "DL"
+    )
 
 tf.se <-trimfill(ml.se, fixed = FALSE)
 tf.se[["TE"]] <- (tf.se[["TE"]]/2)
@@ -75,7 +85,12 @@ funnel(tf.se, xlab = "logit(sensitivity)",
 output$logit.Spec_plot<-renderPlot({
 
 ml.sp <- metabin(TN, with(data.cc(), TN+FP), FP, with(data.cc(), TN+FP), 
-  data = data.cc(), sm ="OR", fixed = FALSE)
+  data = data.cc(), sm ="OR", common = FALSE,
+    random = TRUE,
+    method = "Inverse",
+    backtransf = FALSE,
+    method.tau = "DL"
+    )
 
 tf.sp<- trimfill(ml.sp, fixed = FALSE)
 tf.sp[["TE"]] <- tf.sp[["TE"]]/2
