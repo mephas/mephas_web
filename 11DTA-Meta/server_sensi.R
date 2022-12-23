@@ -185,7 +185,6 @@ output$uiprob <- renderText({
   validate(need(identical(probs<=1&probs>0,rep(TRUE,length(probs))),
   	paste("Each value must be from 0 to 1.\n Each value must be separated by a comma (,) ",
   		paste(probs,collapse = ","))))
-
   probs<-sort(probs,decreasing = TRUE)
   p.seq(probs)
   paste("p=",probs," ",sep = "")

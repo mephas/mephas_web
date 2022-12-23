@@ -26,12 +26,13 @@ color:white;}"
 h3(("Sensitivity analysis on SROC")), 
 
 HTML(
-'<h5>1. Input marginal selection probability ($0 \\le p\\le 1$)</h5>
+'<h5>1. Input marginal selection probability ($0 < p\\le 1$)</h5>
 <b><input type="text" id="plist" value="1,0.8,0.6" pattern="^[\\d, .]+$">
 </b>'), 
 p("Check inputs"),
 verbatimTextOutput("uiprob"), 
 p("The number of potentially unpublished studies ($N$);"),
+p("$N=(1-p) \\times (\\text{number of studies in data})/p$"),
 verbatimTextOutput("uin"),
 tags$style("#uin {background:white;
 color:Black;}"),
