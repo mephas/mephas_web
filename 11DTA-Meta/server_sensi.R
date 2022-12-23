@@ -192,7 +192,11 @@ output$uiprob <- renderText({
 
   })
 
-
+output$uin<-renderText({
+  if(length(p.seq)==0)return()
+paste("( p =",p.seq(),", N =",round((1-p.seq())*nrow(data())/p.seq()),")",collapse = " ")
+  
+})
 
 ## SROC
 

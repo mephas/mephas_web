@@ -31,7 +31,10 @@ HTML(
 </b>'), 
 p("Check inputs"),
 verbatimTextOutput("uiprob"), 
-
+p("The number of potentially unpublished studies ($N$);"),
+verbatimTextOutput("uin"),
+tags$style("#uin {background:white;
+color:Black;}"),
 # helpText(HTML("<i>Note:</i>
 # the marginal selection probability ($p$) is the sensitivity parameter.
 # It indicate the expected proportion of the published studies from the population.
