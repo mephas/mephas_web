@@ -3,6 +3,7 @@ sidebarPanel(
 
 tags$head(tags$style("#uiprob {background: white; color: #5A5A5A};")),
 tags$head(tags$style("#p10list {background: white; color: #5A5A5A};")),
+tags$style("#uin {background:white; color:#5A5A5A;}"),
 tags$style("#calculateSAUC {background:#4169e1;
 color:white;}
 #calculateStart:hover {
@@ -22,6 +23,7 @@ border-radius:3%;
 color:white;}"
 ),
 
+
 #----------------------------------------------------------------------------------------
 h3(("Sensitivity analysis on SROC")), 
 
@@ -31,11 +33,10 @@ HTML(
 </b>'), 
 p("Check inputs"),
 verbatimTextOutput("uiprob"), 
-p("The number of potentially unpublished studies ($N$);"),
-p("$N=(1-p) \\times (\\text{number of studies in data})/p$"),
+p("The number of potentially unpublished studies ($N$)"),
 verbatimTextOutput("uin"),
-tags$style("#uin {background:white;
-color:Black;}"),
+helpText(HTML("<i>Note:</i> $N=\\frac{(1-p)}{p} \\times (\\text{number of studies in the data})$")),
+
 # helpText(HTML("<i>Note:</i>
 # the marginal selection probability ($p$) is the sensitivity parameter.
 # It indicate the expected proportion of the published studies from the population.
