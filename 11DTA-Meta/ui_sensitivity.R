@@ -29,7 +29,7 @@ h3(("Sensitivity analysis on SROC")),
 
 HTML(
 '<h5>1. Input marginal selection probability ($0 < p\\le 1$)</h5>
-<b><input type="text" id="plist" value="1,0.8,0.6" pattern="^[\\d, .]+$">
+<b><input type="text" id="plist" value="1,0.8,0.6,0.4" pattern="^[\\d, .]+$">
 </b>'), 
 p("Check inputs"),
 verbatimTextOutput("uiprob"), 
