@@ -676,7 +676,7 @@ SROCA <- reactive({
                  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1),
                       xlab = "", ylab = "Sensitivity")
                 
-                try(SROC(est2.par, addon  = TRUE, sroc.type = sroc.type))            
+                try(SROC(est2.par, addon  = TRUE, sroc.type = sroc.type,sp.pch = 18,sp.cex = 2))            
                  legend("bottomright",
                         bty='n',
                         legend = c(sprintf("p = %.1f, SAUC = %.3f", p.seq(), sauc2)),
@@ -692,7 +692,7 @@ SROCA <- reactive({
                  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1), 
                       xlab = "",
                       yaxt = "n")
-                 try(SROC(est11.par, addon = TRUE,sroc.type =  sroc.type))
+                 try(SROC(est11.par, addon = TRUE,sroc.type =  sroc.type,sp.pch = 18,sp.cex = 2))
                  legend("bottomright", 
                         bty='n',
                         legend = c(sprintf("p = %.2f, SAUC = %.3f", p.seq(), sauc11)), 
@@ -706,7 +706,7 @@ SROCA <- reactive({
                  plot(1-sp(), se(), type = "p", ylim = c(0,1), xlim = c(0,1), 
                       xlab = "",
                       ylab = "")
-                 try(SROC(est10.par, addon = TRUE, sroc.type = sroc.type))
+                 try(SROC(est10.par, addon = TRUE, sroc.type = sroc.type,sp.pch = 18,sp.cex = 2))
                  legend("bottomright", 
                         bty='n',
                         legend = c(sprintf("p = %.2f, SAUC = %.3f", p.seq(), sauc10)), 
@@ -723,7 +723,7 @@ SROCA <- reactive({
                       xlab = "",
                       yaxt = "n")
 
-                 try(SROC(est01.par, addon = TRUE, sroc.type = sroc.type))
+                 try(SROC(est01.par, addon = TRUE, sroc.type = sroc.type,sp.pch = 18,sp.cex = 2))
                  legend("bottomright", 
                         bty='n',
                         legend = c(sprintf("p = %.2f, SAUC = %.3f", p.seq(), sauc01)), 
