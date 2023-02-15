@@ -3,7 +3,7 @@ if (!requireNamespace("shiny", quietly = TRUE)) {install.packages("shiny")}; req
 if (!requireNamespace("ggplot2",quietly = TRUE)) {install.packages("ggplot2")}; require("ggplot2",quietly = TRUE)
 if (!require("psych")) {install.packages("psych")}; library("psych")
 # if (!require("DescTools")) {install.packages("DescTools")}; library("DescTools")
-# if (!require("dunn.test")) {install.packages("dunn.test")}; library("dunn.test")
+if (!require("dunn.test")) {install.packages("dunn.test")}; library("dunn.test")
 # if (!require("DT")) {install.packages("DT")}; library("DT")
 # if (!require("plotly")) {install.packages("plotly")}; library("plotly")
 if (!require("shinyWidgets")) {install.packages("shinyWidgets")}; library("shinyWidgets")
