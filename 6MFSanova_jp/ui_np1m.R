@@ -52,8 +52,8 @@ hr(),
 mainPanel(
 
   h4(tags$b("Output 2. 検定結果")), p(br()),
-
-  p(tags$b("p <= 0.025の場合、帰無仮説を棄却します。")),
+  p(tags$b("調整されたp値表")),
+  HTML("<p><b>Adjusted P < 0.05</b>の場合、帰無仮説を棄却します。少なくとも2群の間で平均値に有意差があります。</p>"),
 
   DT::DTOutput("dunntest.t"),p(br()),
       conditionalPanel(
