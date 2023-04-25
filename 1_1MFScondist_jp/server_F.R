@@ -10,7 +10,7 @@ output$f.plot <- renderPlot({
   geom_vline(aes(xintercept=input$df21/(input$df21-2)), color="red", linetype="dashed", size=0.5)+
   geom_vline(aes(xintercept=qf(input$f.pr, df1 = input$df11, df2 = input$df21)), colour = "red")})
 
-output$f.plot.cdf <- plotly::renderPlotly({
+output$f.plot.cdf <- renderPlot({#plotly::renderPlotly({
 x0<- qf(input$f.pr, df1 = input$df11, df2 = input$df21)
 mean <- input$df21/(input$df21-2)
 p<-ggplot(data = data.frame(x = c(0, input$f.xlim)), mapping = aes(x = x)) +
@@ -21,7 +21,7 @@ p<-ggplot(data = data.frame(x = c(0, input$f.xlim)), mapping = aes(x = x)) +
   geom_vline(aes(xintercept=mean), color="red", linetype="dashed", size=0.3)+
   geom_vline(aes(xintercept=x0), color="red", size=0.3)
 
-plotly::ggplotly(p)
+# plotly::ggplotly(p)
 })
 
 output$f.info = renderText({

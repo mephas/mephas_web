@@ -9,7 +9,7 @@ output$x.plot <- renderPlot({
   ggtitle("") + #ylim(0, input$x.ylim) +
   geom_vline(aes(xintercept=qchisq(input$x.pr, df = input$x.df)), colour = "red")})
 
-output$x.plot.cdf <- plotly::renderPlotly({
+output$x.plot.cdf <- renderPlot({#plotly::renderPlotly({
 x0<- qchisq(input$x.pr, df = input$x.df)
 mean <- input$x.df
 p<-ggplot(data = data.frame(x = c(0, input$x.xlim)), mapping = aes(x = x)) +
@@ -20,7 +20,7 @@ p<-ggplot(data = data.frame(x = c(0, input$x.xlim)), mapping = aes(x = x)) +
   geom_vline(aes(xintercept=mean), color="red", linetype="dashed", size=0.3)+
   geom_vline(aes(xintercept=x0), color="red", size=0.3)
 
-plotly::ggplotly(p)
+# plotly::ggplotly(p)
 })
 
 output$x.info = renderText({

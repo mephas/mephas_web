@@ -86,7 +86,7 @@ mainPanel(
         #p(tags$b("The position of Red-line, x<sub>0</sub>")),
         #tableOutput("b")
    hr(),
-   plotOutput("b.plot.cdf")  
+   plotOutput("b.plot.cdf") # plotly::plotlyOutput("b.plot.cdf")
 		),
 
 		conditionalPanel(
