@@ -15,7 +15,7 @@ output$e.rate <- renderPrint({
   cat(paste0("Input: Rate = ", 1/input$e.mean))
   })
 
-output$e.plot.cdf <- plotly::renderPlotly({
+output$e.plot.cdf <- renderPlot({
 x0<- qexp(input$e.pr, rate = input$r)
 mean <- 1/input$r
 p<-ggplot(data = data.frame(x = c(0, input$e.xlim)), mapping = aes(x = x)) +
@@ -26,7 +26,7 @@ p<-ggplot(data = data.frame(x = c(0, input$e.xlim)), mapping = aes(x = x)) +
   geom_vline(aes(xintercept=mean), color="red", linetype="dashed", size=0.3)+
   geom_vline(aes(xintercept=x0), color="red", size=0.3)
 
-plotly::ggplotly(p)
+# plotly::ggplotly(p)
 })
 
 output$e.info = renderText({
