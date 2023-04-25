@@ -79,7 +79,8 @@ sidebarLayout(
         #p(tags$b("The position of Red-line, x<sub>0</sub>")),
         #tableOutput("x")
      hr(),
-     plotly::plotlyOutput("x.plot.cdf")   
+    #  plotly::plotlyOutput("x.plot.cdf")
+	   plotOutput("x.plot.cdf")
     ),
 
 		conditionalPanel(
