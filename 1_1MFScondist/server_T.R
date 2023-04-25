@@ -14,7 +14,7 @@ output$t.rate <- renderPrint({
   cat(paste0("Input: DF (v) = ", 2*input$t.sd^2/(input$t.sd^2-1)))
   })
 
-output$t.plot.cdf <- plotly::renderPlotly({
+output$t.plot.cdf <- renderPlot({#plotly::renderPlotly({
 x0<- qt(input$t.pr, df = input$t.df)
 p<-ggplot(data = data.frame(x = c(-input$t.xlim, input$t.xlim)), mapping = aes(x = x)) +
   stat_function(fun = pt, args = list(df = input$t.df)) + 
@@ -24,7 +24,7 @@ p<-ggplot(data = data.frame(x = c(-input$t.xlim, input$t.xlim)), mapping = aes(x
   geom_vline(aes(xintercept=0), color="red", linetype="dashed", size=0.3)+
   geom_vline(aes(xintercept=x0), color="red", size=0.3)
 
-plotly::ggplotly(p)
+# plotly::ggplotly(p)
 })
 
 output$t.info = renderText({
