@@ -18,7 +18,7 @@ sidebarLayout(
 	    condition = "input.InputSrc_t == 'MathDist'",
 	    HTML("<b>1. パラメータの設定(T(v))</b>"),
 	    #HTML("<h4><b>Step 1. Set Parameters for T(v)</h4></b>"),
- 		numericInput("t.df", HTML("v > 0：自由度 (形に関連)"), value = 4, min = 0),
+ 		numericInput("t.df", HTML("v > 0:自由度 (形に関連)"), value = 4, min = 0),
  		hr(),
 numericInput("t.sd", HTML("またはSDから率を計算するためにSDを入力"), value = 0.5, min = 0),
 verbatimTextOutput("t.rate"),

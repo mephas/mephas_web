@@ -21,7 +21,7 @@ output$b.rate <- renderPrint({
   })
 
 
-output$b.plot.cdf <- plotly::renderPlotly({
+output$b.plot.cdf <- renderPlot({
 x0<- qbeta(input$b.pr, shape1 = input$b.shape, shape2=input$b.scale)
 mean <- input$b.shape/(input$b.scale+input$b.shape)
 p<-ggplot(data = data.frame(x = c(0, input$b.xlim)), mapping = aes(x = x)) +
@@ -31,8 +31,8 @@ p<-ggplot(data = data.frame(x = c(0, input$b.xlim)), mapping = aes(x = x)) +
   theme_minimal() + 
   geom_vline(aes(xintercept=mean), color="red", linetype="dashed", size=0.3)+
   geom_vline(aes(xintercept=x0), color="red", size=0.3)
-
-plotly::ggplotly(p)
+p
+# plotly::ggplotly(p)
 })
 
 

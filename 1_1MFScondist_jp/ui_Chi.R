@@ -20,7 +20,7 @@ sidebarLayout(
 	    condition = "input.InputSrc_x == 'MathDist'",
 	    HTML("<b>1. パラメータの設定(Chi(v))</b>"),
 	    #HTML("<h4><b>Step 1. Set Parameters for Chi(v)</b></h4>"),
- 		numericInput("x.df", HTML("v > 0：自由度 = 平均 = 分散/2"), value = 4, min = 0),
+ 		numericInput("x.df", HTML("v > 0:自由度 = 平均 = 分散/2"), value = 4, min = 0),
 		hr(),
 
 		numericInput("x.xlim", "x軸の範囲（> 0）を変更します。", value = 8, min = 1)

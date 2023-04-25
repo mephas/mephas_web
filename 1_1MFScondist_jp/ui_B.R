@@ -20,8 +20,8 @@ sidebarLayout(
 	    condition = "input.InputSrc_b == 'MathDist'",
 	    HTML("<b>1. パラメータの設定((&#945, &#946))</b>"),
 	    #HTML("<h4><b>Step 1. Set Parameters for Beta(&#945, &#946)</h4></b>"),
-		numericInput("b.shape", HTML("&#945 > 0：形のパラメータ"), value = 12, min = 0),
-		  numericInput("b.scale", HTML("&#946 > 0：形のパラメータ"), value = 12, min = 0),
+		numericInput("b.shape", HTML("&#945 > 0:形のパラメータ"), value = 12, min = 0),
+		  numericInput("b.scale", HTML("&#946 > 0:形のパラメータ"), value = 12, min = 0),
 		  hr(),
 		  numericInput("b.mean", HTML("または平均とSD (平均 = SD) からk と &#952を計算するために平均を入力"), value = 0.5, min = 0),
 			numericInput("b.sd", HTML("SDを入力"), value = 0.1, min = 0),
@@ -86,7 +86,7 @@ mainPanel(
         #p(tags$b("The position of Red-line, x<sub>0</sub>")),
         #tableOutput("b")
    hr(),
-   plotly::plotlyOutput("b.plot.cdf")  
+   plotOutput("b.plot.cdf")  
 		),
 
 		conditionalPanel(

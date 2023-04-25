@@ -18,8 +18,8 @@ sidebarLayout(
 	    condition = "input.InputSrc_f == 'MathDist'",
 	    HTML("<b>1. パラメータの設定</b>"),
 	    #HTML("<h4><b>Step 1. Set Parameters</b></h4>"),
-		numericInput("df11", HTML("v1 > 0：自由度1"), value = 100, min = 0),
-		numericInput("df21", HTML("v2 > 0：自由度2"), value = 100, min = 0),
+		numericInput("df11", HTML("v1 > 0:自由度1"), value = 100, min = 0),
+		numericInput("df21", HTML("v2 > 0:自由度2"), value = 100, min = 0),
 		HTML("<li> Mean = v2 / (v2 - 2), for v2 > 2
 			<li> Variance = [ 2 * v2^2 * ( v1 + v2 - 2 ) ] / [ v1 * ( v2 - 2 )^2 * ( v2 - 4 ) ] for v2 > 4"),
 		hr(),
