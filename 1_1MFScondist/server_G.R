@@ -14,7 +14,7 @@ output$g.rate <- renderPrint({
   cat(paste0("Input: shape (k) = ", (input$g.mean/input$g.sd)^2, " and  scale (theta) = ", input$g.sd^2/input$g.mean))
   })
 
-output$g.plot.cdf <- plotly::renderPlotly({
+output$g.plot.cdf <- renderPlot({#plotly::renderPlotly({
 x0<- qgamma(input$g.pr, shape = input$g.shape, scale=input$g.scale)
 mean <- input$g.shape*input$g.scale
 p<-ggplot(data = data.frame(x = c(0, input$g.xlim)), mapping = aes(x = x)) +
@@ -24,8 +24,8 @@ p<-ggplot(data = data.frame(x = c(0, input$g.xlim)), mapping = aes(x = x)) +
   theme_minimal() + 
   geom_vline(aes(xintercept=mean), color="red", linetype="dashed", size=0.3)+
   geom_vline(aes(xintercept=x0), color="red", size=0.3)
-
-plotly::ggplotly(p)
+p
+# plotly::ggplotly(p)
 })
 
 output$g.info = renderText({
