@@ -23,7 +23,8 @@ p<-ggplot(data = data.frame(x = c(-input$t.xlim, input$t.xlim)), mapping = aes(x
   theme_minimal() + 
   geom_vline(aes(xintercept=0), color="red", linetype="dashed", size=0.3)+
   geom_vline(aes(xintercept=x0), color="red", size=0.3)
-
+  
+p
 # plotly::ggplotly(p)
 })
 
