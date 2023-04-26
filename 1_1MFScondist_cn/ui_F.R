@@ -78,7 +78,8 @@ mainPanel(
         plotOutput("f.plot", click = "plot_click7"),
         verbatimTextOutput("f.info"),
      hr(),
-     plotly::plotlyOutput("f.plot.cdf") 
+    #  plotly::plotlyOutput("f.plot.cdf") 
+	plotOutput("f.plot.cdf")
         #HTML("<p><b>The position of Red-line, x<sub>0</sub></b></p>"),
         #p(tags$b("The position of Red-line, x0")),
         #tableOutput("f")

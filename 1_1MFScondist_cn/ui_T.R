@@ -88,7 +88,9 @@ tabPanel.upload.num(file ="t.file", header="t.header", col="t.col", sep="t.sep")
         #p(tags$b("The position of Red-line, x<sub>0</sub>")),
         #tableOutput("t")
         hr(),
-      plotly::plotlyOutput("t.plot.cdf")  
+    #   plotly::plotlyOutput("t.plot.cdf")  
+    	plotlyOutput("t.plot.cdf")  
+
 		),
 
 		conditionalPanel(

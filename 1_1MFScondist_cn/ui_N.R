@@ -85,7 +85,8 @@ sidebarLayout(
 		  p(tags$b("红线和蓝色区域")),
 		  tableOutput("xs"),
 		  hr(),
-		  plotly::plotlyOutput("norm.plot.cdf")
+		#   plotly::plotlyOutput("norm.plot.cdf")
+		plotOutput("norm.plot.cdf")
 
 		),
 

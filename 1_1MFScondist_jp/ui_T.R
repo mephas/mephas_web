@@ -47,7 +47,7 @@ p("SD = v/(v-2)"),
 	    tabsetPanel(
 	       tabPanel("手入力",p(br()),
 		p("データポイントは「,」「;」「Enter」「Tab」で区切ることができます。"),
-		p(tags$b("データはCSV（1列）からコピーされ、ボックスに貼り付けられます")),
+		p(tags$b("データはCSV(1列)からコピーされ、ボックスに貼り付けられます")),
         		
     		tags$textarea(
         id = "x.t", #p
@@ -87,7 +87,8 @@ tabPanel.upload.num(file ="t.file", header="t.header", col="t.col", sep="t.sep")
         #p(tags$b("The position of Red-line, x<sub>0</sub>")),
         #tableOutput("t")
         hr(),
-      plotly::plotlyOutput("t.plot.cdf")  
+    #   plotly::plotlyOutput("t.plot.cdf") 
+	 plotOutput("t.plot.cdf") 
 		),
 
 		conditionalPanel(

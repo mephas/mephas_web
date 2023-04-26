@@ -26,7 +26,7 @@ sidebarLayout(
       p("Mean = SD = 1/Rate"),
 	    hr(),
 
-	    numericInput("e.xlim", "2. x軸の範囲（> 0）を変更します。", value = 5, min = 1)
+	    numericInput("e.xlim", "2. x軸の範囲(> 0)を変更します。", value = 5, min = 1)
 
 	  ),
 	  #condiPa 2
@@ -45,7 +45,7 @@ sidebarLayout(
 	    tabsetPanel(
       	      tabPanel("手入力",p(br()),
 		p("データポイントは「,」「;」「Enter」「Tab」で区切ることができます。"),
-		p(tags$b("データはCSV（1列）からコピーされ、ボックスに貼り付けられます")),    	        
+		p(tags$b("データはCSV(1列)からコピーされ、ボックスに貼り付けられます")),    	        
     tags$textarea(
       	          id = "x.e", #p
       	          rows = 10,
@@ -79,7 +79,8 @@ sidebarLayout(
   		  #p(tags$b("赤線の位置、 x<sub>0</sub>")),
   		  #verbatimTextOutput("e"),
       hr(),
-      plotly::plotlyOutput("e.plot.cdf")        
+    #   plotly::plotlyOutput("e.plot.cdf") 
+	       plotOutput("e.plot.cdf") 
   		),
   		conditionalPanel(
   		  condition = "input.InputSrc_e == 'SimuDist'",

@@ -79,7 +79,8 @@ sidebarLayout(
   		  #p(tags$b("The position of Red-line, x<sub>0</sub>")),
   		  #verbatimTextOutput("e"),
       hr(),
-      plotly::plotlyOutput("e.plot.cdf")        
+    #   plotly::plotlyOutput("e.plot.cdf")
+	       plotOutput("e.plot.cdf") 
   		),
   		conditionalPanel(
   		  condition = "input.InputSrc_e == 'SimuDist'",

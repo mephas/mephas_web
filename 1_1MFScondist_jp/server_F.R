@@ -21,6 +21,7 @@ p<-ggplot(data = data.frame(x = c(0, input$f.xlim)), mapping = aes(x = x)) +
   geom_vline(aes(xintercept=mean), color="red", linetype="dashed", size=0.3)+
   geom_vline(aes(xintercept=x0), color="red", size=0.3)
 
+p
 # plotly::ggplotly(p)
 })
 

@@ -26,7 +26,7 @@ sidebarLayout(
 	    hr(),
 	   	numericInput("n", HTML("3. 青色の領域 = Pr(Mean-n*SD < X < Mean+n*SD)"), value = 1, min = 0, max = 10),
 	    hr(),
-	    numericInput("xlim", "4. （0に対して対称となる）x軸の範囲を変更します。", value = 5)
+	    numericInput("xlim", "4. (0に対して対称となる)x軸の範囲を変更します。", value = 5)
 	    #numericInput("ylim", "Range of y-axis > 0", value = 0.5, min = 0.1, max = 1),
 	  ),
 	  #condiPa 1 end
@@ -85,7 +85,8 @@ sidebarLayout(
 		  p(tags$b("赤線の位置と青色の領域")),
 		  tableOutput("xs"),
 		  hr(),
-		  plotly::plotlyOutput("norm.plot.cdf")
+		#   plotly::plotlyOutput("norm.plot.cdf")
+		plotOutput("norm.plot.cdf")
 
 		),
 
