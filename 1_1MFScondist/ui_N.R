@@ -85,8 +85,8 @@ sidebarLayout(
 		  p(tags$b("The position of the red line and the blue ares")),
 		  tableOutput("xs"),
 		  hr(),
-		  plotly::plotlyOutput("norm.plot.cdf")
-
+		#   plotly::plotlyOutput("norm.plot.cdf")
+plotOutput("norm.plot.cdf")
 		),
 
 		conditionalPanel(

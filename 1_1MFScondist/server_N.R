@@ -27,7 +27,7 @@ output$norm.plot <- renderPlot({
 })
 
 
-output$norm.plot.cdf <- plotly::renderPlotly({
+output$norm.plot.cdf <- renderPlot({#plotly::renderPlotly({
 x0<- qnorm(input$pr, mean = input$mu, sd = input$sigma, lower.tail = TRUE, log.p = FALSE)
 mean <- input$mu
 p<-ggplot(data = data.frame(x = c(-input$xlim, input$xlim)), mapping = aes(x = x)) +
@@ -37,8 +37,8 @@ p<-ggplot(data = data.frame(x = c(-input$xlim, input$xlim)), mapping = aes(x = x
   theme_minimal() + 
   geom_vline(aes(xintercept=mean), color="red", linetype="dashed", size=0.3)+
   geom_vline(aes(xintercept=x0), color="red", size=0.3)
-
-plotly::ggplotly(p)
+p
+# plotly::ggplotly(p)
 })
 
 
