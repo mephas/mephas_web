@@ -120,6 +120,7 @@ We hope to use MephasGEO to find differentially expressed genes.
              
              hr(),
              
+    options(shiny.useragg = FALSE),
              source("0_datainput_ui.R", local=TRUE, encoding = "utf-8")$value,
              hr()
     ),

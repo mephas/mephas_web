@@ -11,7 +11,7 @@ library(gplots)
 #panel 0 num
     source("0_datainput_server.R", local=TRUE,encoding = "utf-8")$value
 
-    options(shiny.useragg = FALSE)
+    
 ##########----------##########----------##########
 
 observe({
