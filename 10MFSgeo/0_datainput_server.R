@@ -50,7 +50,7 @@ data.geodownload <- reactive({
   progress$set(message = "Step 1: ", value = 0)
   progress$inc(0.70, detail = "Downloading GEO data")
   
-  
+  gse<-NULL
   if (is.null(geoID)){
     return(NULL)
   }else{
@@ -83,6 +83,7 @@ data.geodownload <- reactive({
 
    
   }
+  print(gse)
   #从注释文件里获取平台信息并存入v中
   a<-sapply(gse, annotation)
   names(a) <- a
