@@ -49,7 +49,7 @@ data.geodownload <- reactive({
   on.exit(progress$close())
   progress$set(message = "Step 1: ", value = 0)
   progress$inc(0.70, detail = "Downloading GEO data")
-  print(geoID)
+
   gse<-NULL
   if (is.null(geoID)){
     return(NULL)
