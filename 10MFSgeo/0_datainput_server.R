@@ -49,14 +49,14 @@ data.geodownload <- reactive({
   on.exit(progress$close())
   progress$set(message = "Step 1: ", value = 0)
   progress$inc(0.70, detail = "Downloading GEO data")
-
-  gse<-NULL
+  
+  
   if (is.null(geoID)){
     return(NULL)
   }else{
     #尝试100次下载
     for (i in 1:2) {
-      results <- tryCatch({
+      results = tryCatch({
         gse <- getGEO(geoID,destdir = "./tmp",getGPL = FALSE) #这里会不会出问题？因为geoid本身有设定值 可能一上来就下载文件
       },
       error = function(e) {
@@ -83,6 +83,7 @@ data.geodownload <- reactive({
 
    
   }
+  
   #从注释文件里获取平台信息并存入v中
   a<-sapply(gse, annotation)
   names(a) <- a
@@ -303,7 +304,7 @@ data.update<-reactive({
   if(!is.null(idss)){
     dataExpr<-changeToGeneid(dataExpr,idss)
   }else{
-    print("wrong in idss")
+    base::print("wrong in idss")
   }
   
   progress$inc(0.20, detail = "Log transform and normalization")
@@ -622,8 +623,8 @@ data.pathway<-reactive({
   #基因名称转换，返回的是数据框
   
   if(!is.null(orga)){
-    geneup <- bitr(geneup, fromType="SYMBOL", toType="ENTREZID", OrgDb=orga.go)
-    genedown <- bitr(genedown, fromType="SYMBOL", toType="ENTREZID", OrgDb=orga.go)
+    geneup <- clusterProfiler::bitr(geneup, fromType="SYMBOL", toType="ENTREZID", OrgDb=orga.go)
+    genedown <- clusterProfiler::bitr(genedown, fromType="SYMBOL", toType="ENTREZID", OrgDb=orga.go)
     
 	progress$inc(0.20, detail = "doing GO analysis.(upregulation)")
     #GO
@@ -1988,8 +1989,8 @@ geneup = rownames(all.diff[grep(\"UP\",all.diff$change),])
 genedown = rownames(all.diff[grep(\"DOWN\",all.diff$change),])
 
 
-geneup = bitr(geneup, fromType=\"SYMBOL\", toType=\"ENTREZID\", OrgDb=\"",v$orgapack,"\")
-genedown = bitr(genedown, fromType=\"SYMBOL\", toType=\"ENTREZID\", OrgDb=\"",v$orgapack,"\")
+geneup = clusterProfiler::bitr(geneup, fromType=\"SYMBOL\", toType=\"ENTREZID\", OrgDb=\"",v$orgapack,"\")
+genedown = clusterProfiler::bitr(genedown, fromType=\"SYMBOL\", toType=\"ENTREZID\", OrgDb=\"",v$orgapack,"\")
 
 ENTREZ.ID.UP = geneup$ENTREZID
 ENTREZ.ID.DOWN = genedown$ENTREZID ")
