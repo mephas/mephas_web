@@ -57,7 +57,7 @@ data.geodownload <- reactive({
     #尝试100次下载
     for (i in 1:2) {
       results = tryCatch({
-        gse <- getGEO(geoID,destdir = "./tmp",getGPL = FALSE) #这里会不会出问题？因为geoid本身有设定值 可能一上来就下载文件
+        gse <-- getGEO(geoID,destdir = "./tmp",getGPL = FALSE) #这里会不会出问题？因为geoid本身有设定值 可能一上来就下载文件
       },
       error = function(e) {
       },
