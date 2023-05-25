@@ -50,19 +50,24 @@ data.geodownload <- reactive({
   progress$set(message = "Step 1: ", value = 0)
   progress$inc(0.70, detail = "Downloading GEO data")
 
-  gse<-getGEO(geoID,destdir = "./tmp",getGPL = FALSE)
+  gse<-NULL
   if (is.null(geoID)){
     return(NULL)
   }else{
     #尝试100次下载
     for (i in 1:2) {
-      results <- tryCatch({
-        gse <- getGEO(geoID,destdir = "./tmp",getGPL = FALSE) #这里会不会出问题？因为geoid本身有设定值 可能一上来就下载文件
-      },
-      error = function(e) {
-      },
-      finally = {
-      })
+      # results <- tryCatch({
+      #   gse <- getGEO(geoID,destdir = "./tmp",getGPL = FALSE) #这里会不会出问题？因为geoid本身有设定值 可能一上来就下载文件
+      # },
+      # error = function(e) {
+      # },
+      # finally = {
+      # })
+      gse <- tryCatch({
+  getGEO(geoID, destdir = "./tmp", getGPL = FALSE)
+}, error = function(e) {
+  NULL
+})
       if (!is.null(gse)) {
         break
       }
