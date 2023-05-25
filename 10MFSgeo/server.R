@@ -2,7 +2,7 @@ library(shiny)
 library(multcomp)
 library(clusterProfiler)
 library(gplots)
-# library(bitr)
+#library(bitr)
 
 #shinyServer(
   
