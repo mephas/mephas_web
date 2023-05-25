@@ -50,7 +50,7 @@ data.geodownload <- reactive({
   progress$set(message = "Step 1: ", value = 0)
   progress$inc(0.70, detail = "Downloading GEO data")
 
-  gse<-NULL
+  gse<-getGEO(geoID,destdir = "./tmp",getGPL = FALSE)
   if (is.null(geoID)){
     return(NULL)
   }else{
