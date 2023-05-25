@@ -83,7 +83,6 @@ data.geodownload <- reactive({
 
    
   }
-  print(gse)
   #从注释文件里获取平台信息并存入v中
   a<-sapply(gse, annotation)
   names(a) <- a
