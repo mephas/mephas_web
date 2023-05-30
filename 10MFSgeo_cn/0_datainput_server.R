@@ -304,7 +304,7 @@ data.update<-reactive({
   if(!is.null(idss)){
     dataExpr<-changeToGeneid(dataExpr,idss)
   }else{
-    print("wrong in idss")
+    base::print("wrong in idss")
   }
   
   progress$inc(0.20, detail = "Log transform and normalization")
