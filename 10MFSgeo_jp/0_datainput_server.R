@@ -1104,7 +1104,7 @@ observeEvent(input$uploadB1,{
   
   output$dataPCA2 <- renderPlot({# 用来生成PCA2
     par()
-    fviz_pca_ind(v$dataPCA,
+    factoextra::fviz_pca_ind(v$dataPCA,
                  col.ind = v$group.list, # 颜色对应group信息（这里不对。应该调整顺序
                  #palette = c("#00AFBB",  "#FC4E07"),
                  addEllipses = TRUE, # Concentration ellipses
