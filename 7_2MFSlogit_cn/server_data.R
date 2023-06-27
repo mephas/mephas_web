@@ -52,7 +52,7 @@ selectInput(
   'factor1',
   HTML('将整数型量转换为分类变量'),
   selected = NULL,
-  choices = type.int(),
+  choices = colnames(DF0()),#type.int()
   multiple = TRUE
 )
 })

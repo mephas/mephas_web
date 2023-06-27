@@ -5,16 +5,13 @@
 ##' @param data input data frame
 ##' @export
 var.class <- function(data){
-  print("var.")
   x <- sapply(data, class)
-  print(x)
   x[sapply(data, function(v){
     if(inherits(v,"factor"))return(FALSE)
     x <- unique(v)
     length(x) - sum(is.na(x)) == 2L
   })] <- "binary"
   x <- as.data.frame(x)
-  print(x)
   colnames(x) <- "Variable Type"
   return(x)
 }
@@ -38,7 +35,7 @@ desc.factor<-function(data){
     colnames(df)<- c("N", "100%")
   }
   else{
-  x.list<-sapply(data[,a, drop=FALSE], function(v){
+  x.list<-lapply(data[,a, drop=FALSE], function(v){
     cbind(
       round(table(v)),
       round(prop.table(table(v)),6)
@@ -50,10 +47,7 @@ desc.factor<-function(data){
     x.data <- rbind(x.data,x.list[[i]])
   }
   var2<- rownames(x.data)
-  print(var2)
   var1 <- rep(names(x.list), sapply(x.list, nrow))
-  print(var1)
-  print(x.data)
   df <- cbind.data.frame(var1,var2, x.data)
   colnames(df)<- c("Variable","Values", "N", "100%")
   rownames(df)<- NULL

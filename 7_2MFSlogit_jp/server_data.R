@@ -65,7 +65,6 @@ return(df)
 
 
 var.type.list1 <- reactive({
-  print(DF1())
   var.class(DF1())
 })
 
