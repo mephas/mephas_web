@@ -52,7 +52,7 @@ selectInput(
   'factor1',
   HTML('1. 整数変数をカテゴリ変数に変換する'),
   selected = NULL,
-  choices = type.int(),
+  choices = colnames(DF0()),#type.int()
   multiple = TRUE
 )
 })
@@ -65,6 +65,7 @@ return(df)
 
 
 var.type.list1 <- reactive({
+  print(DF1())
   var.class(DF1())
 })
 
