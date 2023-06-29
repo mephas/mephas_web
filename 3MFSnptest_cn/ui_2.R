@@ -66,7 +66,7 @@ hr(),
 
 h4(tags$b("第3步  选择P值的计算方法")),
 radioButtons("alt.md2",
-label = "数据是什么样的", selected = "c",
+label = "数据是什么样的", selected = "a",
 choiceNames = list(
 HTML("近似正态分布P值：样本量大"),
 HTML("渐近正态分布P值：样本量大"),

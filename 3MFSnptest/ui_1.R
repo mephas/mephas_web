@@ -66,7 +66,7 @@ sidebarPanel(
 
   h4(tags$b("Step 4. Decide the P Value method")),
   radioButtons("alt.md",
-    label = "What is the data like", selected = "c",
+    label = "What is the data like", selected = "a",
     choiceNames = list(
       HTML("Approximate normal distributed P value: sample size is large"),
       HTML("Asymptotic normal distributed P value: sample size is large"),

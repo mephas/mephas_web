@@ -66,7 +66,7 @@ p(tags$i("在初始设定里，我们想要知道这组患者是否被抑郁症�
 
 h4(tags$b("第4步  测定P值的方法")),
 radioButtons("alt.md",
-label = "数据是什么样的", selected = "c",
+label = "数据是什么样的", selected = "a",
 choiceNames = list(
 HTML("近似正态分布P值：样本量大"),
 HTML("渐近正态分布P值：样本量大"),

@@ -66,7 +66,7 @@ sidebarPanel(
 
   h4(tags$b("Step 4. P値を決める方法を選ぶ")),
   radioButtons("alt.md",
-    label = "どのようなデータか", selected = "c",
+    label = "どのようなデータか", selected = "a",
     choiceNames = list(
       HTML("P値はほぼ正規分布（Approximate normal distributed P value）：標本サイズが大きい"),
       HTML("P値は漸近的に正規分布（Asymptotic normal distributed P value）：標本サイズが大きい"),

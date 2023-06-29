@@ -66,7 +66,7 @@ radioButtons("alt.wsr2", label = "Alternative hypothesis",
 
   h4(tags$b("Step 3. Decide P Value method")),
   radioButtons("alt.md2",
-    label = "What is the data like", selected = "c",
+    label = "What is the data like", selected = "a",
     choiceNames = list(
       HTML("Approximate normal distributed P value: sample size is large"),
       HTML("Asymptotic normal distributed P value: sample size is large"),
