@@ -7,7 +7,7 @@
 var.class <- function(data){
   x <- sapply(data, class)
   x[sapply(data, function(v){
-    if(inherits(v,"factor"))return(FALSE)
+    # if(inherits(v,"factor")) return(FALSE)
     x <- unique(v)
     length(x) - sum(is.na(x)) == 2L
   })] <- "binary"
