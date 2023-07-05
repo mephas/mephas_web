@@ -26,6 +26,7 @@ B <- reactive({
     }
     validate( need(ncol(csv)>0, "请检查数据格式，列数是否有效。") )
     validate( need(nrow(csv)>1, "请检查数据格式，行数是否有效。") )
+        validate(need(nrow(csv)>60, "Please check your data N>60 Too big"))
 
     x <- csv[,1:2]
     if(input$header2==FALSE){
