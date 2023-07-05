@@ -1,5 +1,6 @@
 if (!requireNamespace("shiny", quietly = TRUE)) {install.packages("shiny")}; require("shiny",quietly = TRUE)
 if (!requireNamespace("ggplot2",quietly = TRUE)) {install.packages("ggplot2")}; require("ggplot2",quietly = TRUE)
+if (!requireNamespace("sjPlot",quietly = TRUE)) {install.packages("sjPlot")}; require("sjPlot",quietly = TRUE)
 #if (!require("plotly")) {install.packages("plotly")}; library("plotly")
 #if (!require("psych")) {install.packages("psych")}; library("psych")
 #if (!require("stargazer")) {install.packages("stargazer")}; library("stargazer")
