@@ -92,9 +92,9 @@ glm(as.formula(formula()),family = binomial(link = "logit"), data = DF3())
 })
 
 
-output$plot_model<-renderPlot({
-  plot_model(fit(),vline.color="gray",show.values=TRUE,value.offset=.3,value.size=3)
-})
+# output$plot_model<-renderPlot({
+#   plot_model(fit(),vline.color="gray",show.values=TRUE,value.offset=.3,value.size=3)
+# })
 
 output$fit1 = renderPrint({ 
 stargazer::stargazer(
