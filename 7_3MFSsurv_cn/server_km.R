@@ -2,8 +2,8 @@
 
 
 DF4 <- reactive({
-  if (input$time=="B") {df <-DF3()[ ,-which(names(DF3()) %in% c(input$c,input$t1,input$t2))]}
-  else {df <-DF3()[ ,-which(colnames(DF3()) %in% c(input$c,input$t))]}
+  if (input$time=="B") {df <-DF3()[ ,-which(names(DF3()) %in% c(input$c,input$t1,input$t2)), drop=FALSE]}
+  else {df <-DF3()[ ,-which(colnames(DF3()) %in% c(input$c,input$t)), drop=FALSE]}
 return(df)
   })
 
