@@ -89,7 +89,7 @@ tabPanel.upload.num(file ="t.file", header="t.header", col="t.col", sep="t.sep")
         #tableOutput("t")
         hr(),
     #   plotly::plotlyOutput("t.plot.cdf")  
-    	plotlyOutput("t.plot.cdf")  
+    	plotly::plotlyOutput("t.plot.cdf")  
 
 		),
 
