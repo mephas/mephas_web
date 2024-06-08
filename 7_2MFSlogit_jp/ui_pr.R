@@ -86,7 +86,7 @@ p(tags$b("感度と特異度のテーブル")),
 DT::DTOutput("sst.s")
 )
 )
-,
-plotOutput("plot_model")
+# ,
+# plotOutput("plot_model")
 )
 )

@@ -66,7 +66,7 @@ findIdPack <- function(gpl,v){#, gpl.platform=NULL,handin=NULL){
     }else{
       # 不存在注释包时 希望让客户选择注释id
       #geneid <- Table(gpl.platform)[, c("ID",handin)]
-      print("wrong in annotation") # 需要进行进一步调整
+      base::print("wrong in annotation") # 需要进行进一步调整
       geneid <- NULL
       v$platformdb<-NULL
     }
@@ -127,10 +127,10 @@ log2Transform <- function(expr,v){
     expr[which(expr <= 0)] <- NaN
     expr <- log2(expr)
     v$log2<-TRUE
-    print("log2 transform finished")
+    base::print("log2 transform finished")
   }else{
     v$log2<-FALSE
-    print("log2 transform not needed")
+    base::print("log2 transform not needed")
   }
   return(expr)
 }
