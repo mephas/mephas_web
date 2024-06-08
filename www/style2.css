@@ -3,15 +3,17 @@
 body {
 	padding-top: 0px;
 	/* font-family: 'Helvetica', 'Arial', sans-serif; */
-	font-family: 'Web-font';
-	src: url(https://fonts.google.com/noto/specimen/Noto+Sans+JP);
+	font-family: 'Helvetica', Arial, sans-serif;
 	font-size: 15px;
+	
 }
 
 h1,h2,h3,h4,h5{ 
 	/* font-family: 'Helvetica', 'Arial', sans-serif; */
-	font-family: 'Web-font';
-	src: url(https://fonts.google.com/noto/specimen/Noto+Sans+JP);
+	/* font-family: 'Web-font';
+	src: url(https://fonts.google.com/noto/specimen/Noto+Sans+JP); */
+	
+	font-family: 'Helvetica', Arial, sans-serif;
 	font-weight: normal;
 }
 
@@ -33,7 +35,7 @@ h4{
 }
 
 h5 {
-	color: #1e50a2;
+	color: #0e387a;
 	/* color: #6599FF; */
 	font-size: 16px;
 }
@@ -91,8 +93,32 @@ h5 {
 
 .navbar { 
 	background-color: #FEFCFF;
-	font-family: 'Web-font';
-	src: url(https://fonts.google.com/noto/specimen/Noto+Sans+JP);
+	font-family: 'Helvetica', Arial, sans-serif;
+	/* src: url(https://fonts.google.com/noto/specimen/Noto+Sans+JP); */
 	 font-size: 16px;
 	 color: #ff6347;
 	}
+.navbar-header{
+	
+	color: #ff6347;
+}
+.navbar-default  {
+	 /* Change this to your desired background color */
+  }
+  .navbar-default .navbar-brand {
+	color: #2057af; /* Change this to your desired text color */
+	font-family: 'Helvetica', Arial, sans-serif;
+  }
+  .navbar-default .navbar-nav > li > a {
+	color:  #14499e; /* Change this to your desired nav item text color */
+	font-family: 'Helvetica', Arial, sans-serif;
+  }
+  .navbar-default .navbar-nav > li > a:hover {
+	/* color: #ff6347; Change this to your desired hover color */
+  }
+  .navbar-default .navbar-nav > .active > a,
+  .navbar-default .navbar-nav > .active > a:focus,
+  .navbar-default .navbar-nav > .active > a:hover {
+	color: white; /* Text color of the active nav item */
+	background-color: #074c7a; /* Background color of the active nav item */
+  }
