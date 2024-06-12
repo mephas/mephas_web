@@ -5,6 +5,15 @@ body {
 	font-family: 'Helvetica', Arial, sans-serif;
 }
 
+h1 {
+	color: #0e387a;
+	/* color: #6599FF; */
+}
+
+h2 {
+	color: #0e387a;
+	/* color: #6599FF; */
+}
 .shiny-output-error-validation {
 	color: #4169e1; 
 	font-weight: bold;
