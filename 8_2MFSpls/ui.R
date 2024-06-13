@@ -19,7 +19,7 @@ tabOF(),
 
 navbarPage(
 
-theme = shinythemes::shinytheme("cerulean"),
+#theme = shinythemes::shinytheme("cerulean"),
 #title = a("Dimensional Analysis 2", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
 title = "Dimensional Analysis 2",
 collapsible = TRUE,
