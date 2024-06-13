@@ -20,7 +20,7 @@ tabOF(),
 ##########--------------------##########--------------------##########
 
 navbarPage(
-theme = shinythemes::shinytheme("cerulean"),
+#theme = shinythemes::shinytheme("cerulean"),
 #title = a("Test for Contingency Table", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
 title = "列联表检验",
 collapsible = TRUE,
