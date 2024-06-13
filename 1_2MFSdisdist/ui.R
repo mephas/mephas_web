@@ -16,7 +16,7 @@ tabOF(),
 ##########--------------------##########--------------------##########
 
 navbarPage(
-theme = shinythemes::shinytheme("cerulean"),
+#theme = shinythemes::shinytheme("cerulean"),
 #title = a("Discrete Probability Distribution", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
 title = "Discrete Probability Distribution",
 collapsible = TRUE,
