@@ -18,7 +18,7 @@ tabOF(),
 
 ##########--------------------##########--------------------##########
 navbarPage(
-theme = shinythemes::shinytheme("cerulean"),
+#theme = shinythemes::shinytheme("cerulean"),
 #title = a("Parametric T Test for Means", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
 title = "Parametric T Test for Means",
 collapsible = TRUE,
