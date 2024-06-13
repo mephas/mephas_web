@@ -19,7 +19,7 @@ tabOF(),
 ##########--------------------##########--------------------##########
 
 navbarPage(
-theme = shinythemes::shinytheme("cerulean"),
+#theme = shinythemes::shinytheme("cerulean"),
 #title = a("Test for Binomial Proportions", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
 title = "Test for Binomial Proportions",
 collapsible = TRUE,
