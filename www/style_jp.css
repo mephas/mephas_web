@@ -11,6 +11,16 @@ Japanese style sheet
 body {
 	padding-top: 70px;
 }
+h1 {
+	color: #0e387a;
+	/* color: #6599FF; */
+}
+
+h4 {
+	color: #0e387a;
+	/* color: #6599FF; */
+}
+
 .navbar .navbar-nav { font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック',sans-serif;}
 .navbar.navbar-default.navbar-static-top{ font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック',sans-serif;}
 .navbar .navbar-header { font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック',sans-serif;}
