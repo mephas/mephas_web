@@ -16,7 +16,7 @@ tabOF(),
 ##########--------------------##########--------------------##########
 
 navbarPage(
-theme = shinythemes::shinytheme("cerulean"),
+#theme = shinythemes::shinytheme("cerulean"),
 #title = a("離散確率分布", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
 title = "離散確率分布",
 collapsible = TRUE,
