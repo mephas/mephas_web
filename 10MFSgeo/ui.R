@@ -71,7 +71,7 @@ tagList(
   tabOF(),
   
   navbarPage(
-    theme = shinythemes::shinytheme("cerulean"),
+    #theme = shinythemes::shinytheme("cerulean"),
     #title = a("MephasGEO", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
     title ="MephasGEO",
     collapsible = TRUE,
