@@ -20,7 +20,7 @@ tabOF(),
 ##########--------------------##########--------------------##########
 
 navbarPage(
-theme = shinythemes::shinytheme("cerulean"),
+#theme = shinythemes::shinytheme("cerulean"),
 #title = a("线性回归", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
 title = "线性回归", 
 collapsible = TRUE,
