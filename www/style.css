@@ -47,6 +47,7 @@ h4 {
 	 /* Change this to your desired background color */
   }
   .navbar-default .navbar-brand {
+	  background-color:#87cefa;
 	color: #2057af; /* Change this to your desired text color */
 	font-family: 'Helvetica', Arial, sans-serif;
   }
