@@ -31,7 +31,7 @@ source("../tab/func.R")
   tabOF(),
   
   navbarPage(
-    theme = shinythemes::shinytheme("cerulean"),
+    #theme = shinythemes::shinytheme("cerulean"),
     #title = a("Cluster analysis", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
     
     title ="Cluster analysis",
