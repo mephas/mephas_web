@@ -21,7 +21,7 @@ tabOF(),
 ##########--------------------##########--------------------##########
 
 navbarPage(
-theme = shinythemes::shinytheme("cerulean"),
+#theme = shinythemes::shinytheme("cerulean"),
 #title = a("ロジスティック回帰", href = "https://alain003.phs.osaka-u.ac.jp/mephas/", style = "color:white;"),
 title = "ロジスティック回帰",
 collapsible = TRUE,
