@@ -716,7 +716,7 @@ observeEvent(input$gsegoButton,{
   output$gpl.id <- renderUI({
       selectInput( ##type(list) length
         'gpl_id_choose',
-        h5('选择平台信息（GPL）'),
+        h5('Select platform information（GPL）'),
         selected = v$choiceGpl[1],
         choices = c(v$choiceGpl),
         multiple = FALSE,
