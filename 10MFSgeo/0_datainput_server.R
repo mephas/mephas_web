@@ -1090,7 +1090,7 @@ observeEvent(input$uploadB1,{
     if(!is.null(v$hc)){
 	 par(mar=c(5,5,5,50))
      fviz_dend(v$hc,k =length(levels(v$group.list)),
-                cex = 0.5, 
+                #cex = 0.5, 
                           k_colors = c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
                             "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"),
                 color_labels_by_k = TRUE, 
