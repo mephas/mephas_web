@@ -27,8 +27,8 @@ tabsetPanel(
 	     shinyWidgets::awesomeCheckboxGroup(
    inputId = "separater_data1",
    label = "区切り文字", 
-    choices = c("カンマ", "行替え", "タブ","スペース","コロン","セミコロン"),
-	
+    choiceNames = c("カンマ", "行替え", "タブ","スペース","コロン","セミコロン"),
+	choiceValues=c(",","\n","\t"," ",":",";"),
    selected = c("カンマ", "行替え", "タブ","スペース","コロン","セミコロン"),
    inline = TRUE
 ),
