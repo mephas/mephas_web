@@ -6,7 +6,7 @@ names1 <- reactive({
   }) 
 separater_1<-reactive({
   
-  match_sep<- input$separater_data1 %in% c("カンマ", "行替え", "タブ","スペース","コロン","セミコロン")
+  match_sep<- c("カンマ", "行替え", "タブ","スペース","コロン","セミコロン") %in% input$separater_data1
   	separater<-paste0(c(",","\n","\t"," ",":",";")[match_sep],collapse="")
   paste0("[",separater,"]")
 })
