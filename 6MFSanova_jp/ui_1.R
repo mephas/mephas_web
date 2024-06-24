@@ -24,6 +24,13 @@ tabsetPanel(
 
     p(tags$b("例のようにデータを入力してください")),
 	p("データポイントは「,」「;」「Enter」「Tab」で区切ることができます。"),
+	     awesomeCheckboxGroup(
+   inputId = "separater_data1",
+   label = "Checkboxes", 
+    choices = c(",", "\n", "tab","space),
+   selected = "A",
+   inline = TRUE
+),
 	p(tags$b("データはCSV（1列）からコピーされ、ボックスに貼り付けられます")), 
     p(tags$b("サンプル値")),
       tags$textarea(id = "x1",rows = 10,
