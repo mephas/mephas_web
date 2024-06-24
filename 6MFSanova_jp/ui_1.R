@@ -27,9 +27,9 @@ tabsetPanel(
 	     shinyWidgets::awesomeCheckboxGroup(
    inputId = "separater_data1",
    label = "区切り文字", 
-    choiceNames = list("カンマ", "行替え", "タブ","スペース","コロン","セミコロン"),
+    choiceNames = c("カンマ", "行替え", "タブ","スペース","コロン","セミコロン"),
 
-   selected = list("カンマ", "行替え", "タブ","スペース","コロン","セミコロン"),
+   selected = c("カンマ", "行替え", "タブ","スペース","コロン","セミコロン"),
    inline = TRUE
 ),
 	p(tags$b("データはCSV（1列）からコピーされ、ボックスに貼り付けられます")), 
