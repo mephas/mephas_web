@@ -11,7 +11,7 @@ Y1.0 <- reactive({
     X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t ]")))
     validate( need(sum(!is.na(X))>1, "Please input enough valid numeric data") )
 
-    F1 <-as.factor(unlist(strsplit(input$f11, "[,;\n\t ]")))
+    F1 <-as.factor(unlist(strsplit(input$f11, "[,;\n\t]")))
     validate( need(length(X)==length(F1), "Please make sure two groups have equal length") )    
     x <- data.frame(X = X, F1 = F1)
     validate( need(sum(!is.na(x))>1, "Please input enough valid numeric data") )
