@@ -28,7 +28,7 @@ tabsetPanel(
    inputId = "separater_data1",
    label = "区切り文字", 
     choiceNames = list("カンマ", "行替え", "タブ","スペース","コロン","セミコロン"),
-	choiceValues=list(",","\n","\t"," ",":",";"),
+
    selected = list("カンマ", "行替え", "タブ","スペース","コロン","セミコロン"),
    inline = TRUE
 ),
