@@ -7,7 +7,7 @@ names1 <- reactive({
 
 Y1.0 <- reactive({
   inFile <- input$file1
-  match_sep<- input$seprate_data1 %in% c("カンマ", "行替え", "タブ","スペース","コロン","セミコロン")
+  match_sep<- input$separater_data1 %in% c("カンマ", "行替え", "タブ","スペース","コロン","セミコロン")
   	separater<-paste0(c(",","\n","\t"," ",":",";")[match_sep],collapse="")
   separater<-paste0("[",separater,"]")
   if (is.null(inFile)) {
