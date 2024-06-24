@@ -7,8 +7,8 @@ names1 <- reactive({
 
 Y1.0 <- reactive({
   inFile <- input$file1
-  match_sep<- 
-  	separater<-c(",","\n","\t"," ",":",";")
+  match_sep<- input$seprate_data1 %in% c("カンマ", "行替え", "タブ","スペース","コロン","セミコロン")
+  	separater<-c(",","\n","\t"," ",":",";")[match_sep]
   separater<-paste0(input$separate_data1)
   if (is.null(inFile)) {
     X <- as.numeric(unlist(strsplit(input$x1, "[,;\n\t ]")))
