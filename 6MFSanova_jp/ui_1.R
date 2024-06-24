@@ -26,7 +26,7 @@ tabsetPanel(
 	p("データポイントは「,」「;」「Enter」「Tab」で区切ることができます。"),
 	     awesomeCheckboxGroup(
    inputId = "separater_data1",
-   label = "Checkboxes", 
+   label = "区切り文字", 
     choices = c(",", "\n", "tab","space),
    selected = "A",
    inline = TRUE
