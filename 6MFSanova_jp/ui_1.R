@@ -24,7 +24,7 @@ tabsetPanel(
 
     p(tags$b("例のようにデータを入力してください")),
 	p("データポイントは「,」「;」「Enter」「Tab」で区切ることができます。"),
-	     awesomeCheckboxGroup(
+	     shinyWidgets::awesomeCheckboxGroup(
    inputId = "separater_data1",
    label = "区切り文字", 
     choices = c(",", "\n", "tab","space),
