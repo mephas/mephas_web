@@ -75,16 +75,17 @@ HTML(
 <li> T test of each variable and P < 0.05 indicates this variable is statistically significant to the model</li>
 <li> Observations mean the number of samples</li>
 <li> Akaike Inf. Crit. = AIC = -2 (log likelihood) + 2k; k is the number of variables + constant</li>
+<li> If you want the estimates of Odds Ratio, please take exp() on the estimated coefficients (95% confidence interval), and T statistic and P values are the same.</li>
 </ul>
 "
 ),
 
 fluidRow(
-column(6, htmlOutput("fit1"),
+column(6, htmlOutput("fit1"), br(),
     downloadButton("downloadfit1", "Save into CSV"),
     downloadButton("downloadfit.latex1", "Save LaTex codes")
 ),
-column(6, htmlOutput("fit2"),
+column(6, htmlOutput("fit2"), br(),
     downloadButton("downloadfit2", "Save into CSV"),
     downloadButton("downloadfit.latex2", "Save LaTex codes")
 )

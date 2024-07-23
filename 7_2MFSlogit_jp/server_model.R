@@ -92,15 +92,11 @@ glm(as.formula(formula()),family = binomial(link = "logit"), data = DF3())
 })
 
 
-# output$plot_model<-renderPlot({
-#   plot_model(fit(),vline.color="gray",show.values=TRUE,value.offset=.3,value.size=3)
-# })
-
 output$fit1 = renderPrint({ 
 stargazer::stargazer(
 fit(),
 header=FALSE,
-dep.var.caption="Logistic Regression",
+dep.var.caption="Logistic regression with estimates of log odds ratios",
 dep.var.labels = paste0("Y = ",input$y),
 type = "html",
 style = "all",
@@ -113,7 +109,7 @@ model.names = FALSE)
 
 output$downloadfit1 <- downloadHandler(
     filename = function() {
-      paste("logit-fit", Sys.Date(), ".csv", sep="")
+      paste("logit-fit-", Sys.Date(), ".csv", sep="")
     },
     content = function(file) {
       coef <- summary(fit())$coefficients
@@ -123,14 +119,14 @@ output$downloadfit1 <- downloadHandler(
 
 output$downloadfit.latex1 <- downloadHandler(
     filename = function() {
-      paste("logit-fit-", Sys.Date(), ".txt", sep="")
+      paste("logit-fit1-", Sys.Date(), ".txt", sep="")
     },
     content = function(file) {
 sink(file)
 stargazer::stargazer(
 fit(),
 header=FALSE,
-dep.var.caption="Logistic Regression",
+dep.var.caption="Logistic regression with estimates of log odds ratios",
 dep.var.labels = paste0("Y = ",input$y),
 type = "html",
 style = "all",
@@ -147,14 +143,17 @@ output$fit2 = renderPrint({
 stargazer::stargazer(
 fit(),
 header=FALSE,
-dep.var.caption="Logistic Regression in Odds Ratio",
+dep.var.caption="Logistic regression with estimates of odds ratios",
 dep.var.labels = paste("Y = ",input$y),
 type = "html",
-style = "default",
+style = "all",
 apply.coef = exp,
-apply.ci = NULL,
 align = TRUE,
-ci = FALSE,
+ci.custom = list(exp(cbind(fit()$coefficients-1.96*summary(fit())$coefficients[,2], fit()$coefficients+1.96*summary(fit())$coefficients[,2]))),
+p = list(summary(fit())$coefficients[,4]),
+t = list(summary(fit())$coefficients[,3]),
+p.auto=F,
+t.auto = F,
 single.row = TRUE,
 title=paste(Sys.time()),
 model.names = FALSE
@@ -163,10 +162,11 @@ model.names = FALSE
 
 output$downloadfit2 <- downloadHandler(
     filename = function() {
-      paste("logit-fit2", Sys.Date(), ".csv", sep="")
+      paste("logit-fit2-", Sys.Date(), ".csv", sep="")
     },
     content = function(file) {
-      coef <- summary(fit2())$coefficients
+      coef <- summary(fit())$coefficients[,-2]
+      coef[,1] <- exp(coef[,1])
       write.csv(coef, file)
     }
   )
@@ -180,14 +180,17 @@ sink(file)
 stargazer::stargazer(
 fit(),
 header=FALSE,
-dep.var.caption="Logistic Regression in Odds Ratio",
+dep.var.caption="Logistic regression with estimates of odds ratios",
 dep.var.labels = paste("Y = ",input$y),
 type = "html",
-style = "default",
+style = "all",
 apply.coef = exp,
-apply.ci = NULL,
 align = TRUE,
-ci = FALSE,
+ci.custom = list(exp(cbind(fit()$coefficients-1.96*summary(fit())$coefficients[,2], fit()$coefficients+1.96*summary(fit())$coefficients[,2]))),
+p = list(summary(fit())$coefficients[,4]),
+t = list(summary(fit())$coefficients[,3]),
+p.auto=F,
+t.auto = F,
 single.row = TRUE,
 title=paste(Sys.time()),
 model.names = FALSE
