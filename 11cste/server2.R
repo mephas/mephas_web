@@ -1,0 +1,268 @@
+
+## survival outcomes
+
+dataeg2 <- reactive({
+  switch(input$edata2,
+    "data2" = data2
+  )
+})
+
+output$file2 <- renderUI({
+fileInput("file", "Choose CSV/TXT file", 
+  accept = c("text/csv","text/comma-separated-values,text/plain",".csv"))
+})
+
+output$header2 <- renderUI({
+  prettyToggle(
+     inputId = "header2",
+     label_on = "Yes", 
+     icon_on = icon("check"),
+     status_on = "info",
+     status_off = "warning", 
+     label_off = "No",
+     icon_off = icon("xmark"),
+     value = TRUE
+   )
+})
+
+output$col2 <- renderUI({prettyToggle(
+     inputId = "col2",
+     label_on = "Yes", 
+     icon_on = icon("check"),
+     status_on = "info",
+     status_off = "warning", 
+     label_off = "No",
+     icon_off = icon("xmark"),
+     value = FALSE
+   )
+})
+
+output$sep2 <- renderUI({prettyRadioButtons(
+     inputId = "sep2",
+     label = "Separator for data", 
+     status = "info",
+     fill = TRUE,
+     icon = icon("check"),
+     choiceNames = list(
+       HTML("Comma (,): CSV default"),
+       HTML("One Tab (->|): TXT default"),
+       HTML("Semicolon (;)"),
+       HTML("One Space (_)")
+     ),
+     choiceValues = list(",", "\t", ";", " ")
+   )
+})
+
+output$info2 <- renderUI({prettyRadioButtons(
+     inputId = "quote2",
+     label = "Quote for characters", 
+     status = "info",
+     fill = TRUE,
+     icon = icon("check"),
+     choices = c("None" = "",
+                 "Double Quote" = '"',
+                 "Single Quote" = "'"),
+     selected = '"')
+})
+
+data_2 <- reactive({
+  inFile <- input$file2
+  if (is.null(inFile)) {
+    x <- as.data.frame(dataeg2())
+  } else {
+    if (!input$col2) {
+      csv <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2, quote = input$quote2, stringsAsFactors = TRUE)
+    } else {
+      csv <- read.csv(inFile$datapath, header = input$header2, sep = input$sep2, quote = input$quote2, row.names = 1, stringsAsFactors = TRUE)
+    }
+    validate(need(ncol(csv) > 1, "Please check the validation of your data"))
+    validate(need(nrow(csv) > 1, "Please check the validation of your data"))
+
+    x <- as.data.frame(csv)
+  }
+  return(x)
+})
+
+output$data.pre2 <- renderDT(
+data_2(),
+extensions = 'Scroller', 
+options = list(
+  deferRender = TRUE,
+  scrollX = TRUE,
+  scrollY = 400,
+  scroller = TRUE))
+
+## numaric variables list
+type.num2 <- reactive({
+  colnames(data_2()[unlist(lapply(data_2(), is.numeric))])
+})
+## binary variables
+var.type.list2 <- reactive({
+  var.class(data_2())
+})
+## binary variables list
+type.bin2 <- reactive({
+  colnames(data_2()[,var.type.list2()[,1] %in% "binary", drop=FALSE])
+  })
+output$z2 <- renderUI({
+  pickerInput(
+    "z2",
+    label= NULL,
+    choices = type.bin2(),
+    width = "100%",
+    multiple = TRUE
+  )
+})
+type.bin.d <- reactive({
+  type.bin2()[!(type.bin2() %in% c(input$z2))]
+})
+output$d2 <- renderUI({
+  pickerInput(
+    "d2",
+    label= NULL,
+    choices = type.bin.d(),
+    width = "100%"
+  )
+})
+type.num.t <- reactive({
+  type.num2()[!(type.num2() %in% c(input$z2, input$d2))]
+})
+output$t2 <- renderUI({
+  pickerInput(
+    "t2",
+    label= NULL,
+    choices = type.num.t(),
+    width = "100%"
+  )
+})
+type.num.x2 <- reactive({
+  type.num2()[!(type.num2() %in% c(input$z2, input$d2, input$t2))]
+})
+output$x2 <- renderUI({
+  pickerInput(
+    "x2",
+    label= NULL,
+    choices = type.num.x2(),
+    width = "100%")
+})
+output$alpha2 <- renderUI({
+numericInput(
+  "alpha2", 
+  label= NULL,
+  0.05, min = 0, max = 0.5, step = 0.01
+  )
+})
+output$c2 <- renderUI({
+  textInput('c2', label = NULL, "1, 0")
+})
+output$kh2 <- renderUI({
+numericInput(
+  "kh2", 
+  label= NULL,
+  0.4, min = 0.001, max = 0.999, step = 0.1
+  )
+})
+output$m2 <- renderUI({
+numericInput(
+  "m2", 
+  label= NULL,
+  100, min = 50, max = 1000, step = 100
+  )
+})
+
+
+Y2 <- reactive({(subset(data_2(), select=input$t2, drop = FALSE))})
+Z2 <- reactive({(subset(data_2(), select=input$z2, drop = FALSE))})
+S2 <- reactive({(subset(data_2(), select=input$d2, drop = FALSE))})
+X2 <- reactive({(subset(data_2(), select=input$x2, drop = FALSE))})
+
+fit2 <- eventReactive(input$B2,{
+fit <- cste_surv(x = unlist(X2()), y = unlist(Y2()), z = as.matrix(Z2()), s = unlist(S2()), h = input$kh2)
+return(fit)
+})
+
+res2 <- eventReactive(input$B2,{
+
+progress <- Progress$new(session, min=0, max=input$m2)
+on.exit(progress$close())
+
+progress$set(message = 'Calculating',
+               detail = ''
+               )
+
+c <- as.numeric(unlist(strsplit(input$c2,",")))
+
+if (length(c) != length(input$z2)) c <- c(1,rep(0, length(input$z2)-1)) else c <- c
+res <- cste_surv_SCB(unlist(c),
+  x = unlist(X2()), y = unlist(Y2()), z = as.matrix(Z2()), s = unlist(S2()), 
+  h = input$kh2, m = input$m2, alpha = input$alpha2)  
+return(res)
+
+})
+
+## plot for surv
+res.plot2 <- eventReactive(input$B2,{
+res <- res2()
+ord = order(unlist(X2()))
+x <- unlist(X2())
+# plot(x[ord], res[ord,2],
+# col = '#F8766D', type = "l", ylim=c(-4,2.5),
+# lwd = 2.5, lty = 3,
+# ylab=expression(beta[1](x)), xlab = expression(X))
+# lines(x[ord], res[ord,1], lwd = 2,
+# col = '#00BFC4', lty = 2)
+# lines(x[ord], res[ord,3], lwd = 2,
+# col = '#00BFC4', lty = 2)
+# # lines(x[ord], beta[ord,1], col='blue')
+# legend("topright",
+# legend = c("Estimates", "95% SCB"),
+# lwd = c(2.5,2), lty = c(3, 2),
+# col = c('#F8766D','#00BFC4','blue'))
+# abline(h = 0, col= "grey", type = 2)
+
+df <- data.frame(x = x[ord], y = res[ord,2], lb = res[ord,1], ub = res[ord,3])
+ggplot(df, mapping = aes(x = x, y = y)) + 
+  scale_x_continuous(limits = range(df$x), name = "X") +
+  scale_y_continuous(limits = range(c(df$ub, df$lb)), name = latex2exp::TeX("CSTE = $c^T \\beta(X)$")) +
+  geom_hline(yintercept=0, colour = "#53868B", lty=2)+
+  geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.2) +
+  geom_line(aes(colour = "Fitted"))+
+  theme(panel.background = element_rect(fill = "white", colour = "grey50"),
+        panel.grid.major = element_line(colour = "grey87"),
+        legend.key = element_rect (fill = "white"))+
+  scale_colour_manual("CSTE Curve", 
+                      breaks = c("Fitted"),
+                      values = c("#F8766D"),
+                      guide = guide_legend(override.aes = list(lty = c(1))))+
+  scale_fill_manual(" ", 
+                    breaks = c("Confidence band"),
+                    values = c("#87cefa"),
+                    guide = guide_legend(override.aes = list(color = c("#87cefa"))))
+
+})
+
+output$res.plot2 <-  renderPlot({
+  res.plot2()
+})
+output$makeplot2 <- renderPlotly({
+  ggplotly(res.plot2())%>%
+  layout(xaxis=list(title= "X"), yaxis=list(title = "CSTE"))
+  })
+
+
+res.table2 <- eventReactive(input$B2,{
+
+res <- as.data.frame(t(res2()))
+res <- round(res, 3)
+colnames(res) <- 1:ncol(res)
+rownames(res) <- c("Lower bound", "CSTE", "Upper bound")
+return(res)
+  
+  })
+
+output$res.table2 <- renderDT(
+{
+ res.table2() 
+},
+options = list(scrollX = TRUE,dom = 't'))
+
