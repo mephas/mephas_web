@@ -222,32 +222,8 @@ if(!input$clamb){
   shinyjs::enable("start")
   shinyjs::enable("slider")
 }
-# })
-
-# yy1 <- unlist(Y())[unlist(Z())==1]
-# xx1 <- as.matrix(X())[unlist(Z())==1,]
-# ini_guess <- as.vector(summary(ppr(yy1~xx1,nterms=2))$alpha)
-
 })
 
-
-# res <- eventReactive(input$B,{
-# # if(input$kh==0) kh <- 0.1 else kh <- input$kh
-
-# progress <- Progress$new(session, min=0, max=input$knot)
-# on.exit(progress$close())
-
-# progress$set(message = 'Calculating',
-#             detail = ''
-#                )
-# # if(input$knot==1) kh <- 0.1 else kh <- input$kh
-# validate(need(!inherits(fit(), "try-error"), "All betas are 0. Decrease lambda."))
-
-# res <- cste_bin_SCB(as.matrix(X()), fit(), h = input$kh, alpha = input$alpha)
-
-# return(res)
-
-# })
 
 
 output$kh <- renderUI({
@@ -341,7 +317,7 @@ output$click_info <- renderText({
 res.table12 <- eventReactive(input$Bplot1,{
 validate(need(estdf(), "Model estimation failed"))
 df = round(as.data.frame(t(estdf())),3)
-df = df[c(4,2,1,3),]
+df = df[c(4,2,3,1),]
 rownames(df) <- c("Upper Bound","CSTE","Lower Bound","X*beta1")
 colnames(df) <- 1:nrow(estdf())
 return(df)
@@ -402,7 +378,146 @@ output$res.bic <- renderDT(
   )
 )
 
-## Prediction
+## Estimate for a variable--------------------------------------
+output$x1a <- renderUI({
+  pickerInput(
+    "x1a",
+    label= NULL,
+    choices = type.num.x1(),
+    width = "100%",
+    multiple = FALSE,
+    options = pickerOptions(
+      actionsBox = TRUE, 
+      dropdownAlignRight = "auto",
+      dropupAuto = FALSE)
+  )
+})
+output$ylim1a = renderUI({
+  sliderTextInput(
+    "ylim1a", 
+    label= NULL,
+  choices = seq(-50,50,1),
+  selected=c(-5,5),
+  grid = TRUE,
+  width ="100%"
+  )
+})
+output$xlim1a = renderUI({
+  sliderTextInput(
+    "xlim1a", 
+    label= NULL,
+  choices = seq(-50,50,1),
+  selected=c(0,0),
+  grid = TRUE,
+  width ="100%"
+  )
+})
+
+estdf_a=reactiveVal()
+res.plota <- eventReactive(input$Bplot1a,{
+
+validate(need(fit(), "Model estimation failed"))
+fit = fit()
+x = as.matrix(X())
+## CSTE for certain variables
+u1 <- pu(x, fit$beta1)$u
+u2 <- pu(x, fit$beta2)$u
+sbk <- prev_fit_cste(u1, u2, fit)
+
+h <- input$kh
+newx <- seq(min(u1)+h, max(u1)-h, length = 100)
+or_x <- pu_inv(x, fit$beta1, newx)
+fit.x <- sapply(newx, function(xx) coef(glm(sbk$y~1, weights=dnorm((xx - sbk$u1)/h)/h , family="binomial", offset=sbk$fit_g2)))
+
+# estimate sigma_b^2(x)
+fit_sb <- predict(sbk$fit_sigma_b, newx)$y
+# estimate sigma^2(x)
+fit_s <- predict(sbk$fit_sigma_x, newx)$y
+
+# calculate inflation factor 
+alpha <- input$alpha
+Ck_d <- 1/(2*sqrt(pi))
+Ck_n <- 1/(4*sqrt(pi))
+Ck <- Ck_n/Ck_d
+mu2k <- 1/(2*sqrt(2))
+ah <- sqrt(-2 * log(h))
+Qh <- ah + (log(sqrt(Ck)/(2*pi)) - log(-log(sqrt(1 - alpha))))/ah
+
+# estimate density of u1
+h_x <- bw.nrd0(sbk$u1)
+f_x <- sapply(newx, function(xx) mean(dnorm((xx - u1)/h_x)/h_x))
+# calculate variance
+D <- fit_sb * f_x
+v_sq <- Ck_d * f_x * fit_s
+id_rm <- D < 0 | v_sq <0
+g_sigma <- sbk$n^(-0.5) * h^(-0.5) * sqrt(v_sq[!id_rm]) / D[!id_rm]
+
+
+# calculate SCC
+L <- fit.x[!id_rm] - Qh * g_sigma
+U <- fit.x[!id_rm] + Qh * g_sigma
+
+# for each covariate
+est.coef = c(fit$beta1)
+names(est.coef) = input$x1
+col.avg = colMeans(x)
+
+df <- data.frame(x = or_x[!id_rm], y = fit.x[!id_rm], lb = L, ub = U)
+estdf_a(df)
+
+rm.cov = which(input$x1 == input$x1a)
+if(input$xlim1a[1]==input$xlim1a[2]) xlim = range(x[, rm.cov]) * est.coef[rm.cov] + sum(col.avg[-rm.cov] * est.coef[-rm.cov]) else xlim=input$xlim1a
+
+ggplot(df, mapping = aes(x = x, y = y)) + 
+  scale_x_continuous(limits = xlim, name = latex2exp::TeX("$X\\hat{\\beta}_1$")) +
+  scale_y_continuous(limits = input$ylim1a,
+    name = latex2exp::TeX("$CSTE = g_1(X\\hat{\\beta}_1)$")) +
+  geom_hline(yintercept=0, colour = "#53868B", lty=2)+
+  geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.2) +
+  geom_line(aes(colour = "Fitted"))+
+  theme(panel.background = element_rect(fill = "white", colour = "grey50"),
+        panel.grid.major = element_line(colour = "grey87"),
+        legend.key = element_rect (fill = "white"))+
+  scale_colour_manual("CSTE Curve", 
+                      breaks = c("Fitted"),
+                      values = c("#F8766D"),
+                      guide = guide_legend(override.aes = list(lty = c(1))))+
+  scale_fill_manual(" ", 
+                    breaks = c("Confidence band"),
+                    values = c("#87cefa"),
+                    guide = guide_legend(override.aes = list(color = c("#87cefa"))))
+
+})
+
+output$res.plota <-  renderPlot({
+  res.plota()
+})
+output$click_infoa <- renderText({
+    req(input$plot_clicka)  # Wait for the click input
+    paste("Clicked at: (", round(input$plot_clicka$x, 3), ", ", round(input$plot_clicka$y, 3), ")", sep = "")
+  })
+
+res.table12a <- eventReactive(input$Bplot1a,{
+validate(need(estdf_a(), "Model estimation failed"))
+df = round(as.data.frame(t(estdf_a())),3)
+df = df[c(4,2,3,1),]
+rownames(df) <- c("Upper Bound","CSTE","Lower Bound","X*beta1")
+colnames(df) <- 1:nrow(estdf_a())
+return(df)
+  
+})
+
+output$res.table12a <- renderDT(
+datatable(
+  res.table12a(), 
+  extensions = 'FixedColumns',
+  options = list(
+    dom = 't',
+    scrollX = TRUE,
+    fixedColumns = TRUE
+  ))
+)
+## Prediction------------------------------------------------------
 
 dataeg3 <- reactive({
   switch(input$edata3,

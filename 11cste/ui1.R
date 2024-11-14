@@ -52,12 +52,6 @@ conditionalPanel(condition="input.upload",
       status = "primary")
    # p("Correct separator and quote ensure the successful data input")
 ),
-materialSwitch(
-   inputId = "pview",
-   label = h4("Show/Hide data preview"),
-   value = TRUE,
-   status = "primary"
-   ),
 hr(),
 
 h4("Select variables"),              
@@ -167,6 +161,12 @@ actionButton("B3", HTML('Step 3. Predict CSTE for New data'),
 mainPanel(
 conditionalPanel(condition="input.pview",
 h3("Data preview"),
+materialSwitch(
+   inputId = "pview",
+   label = h4("Show/Hide data preview"),
+   value = TRUE,
+   status = "primary"
+   ),
 tabsetPanel(
    tabPanel(
    "Analytical data", br(), DTOutput("data.pre")
@@ -215,34 +215,29 @@ tabsetPanel(
       textOutput("click_info"),
       DTOutput("res.table12"))
 
-   )
-   )
-   ),
-   # uiOutput("ylim2"),
-   # actionButton("Bplot2", HTML('Plot the optimal model'), 
-   #           class =  "btn-primary",
-   #           icon  = icon("chart-column")),
-   # wellPanel(plotOutput("res.opt.plot"))  
-           
-   # tabPanel(
-   # "CSTE Dynamic Curve", br(), 
-   # wellPanel(plotlyOutput("makeplot")) 
-   #         ),
-  # tabPanel(
-  #  "Optimal model", br(), 
-  #  wellPanel(plotlyOutput("makeplotopt")),
-  #  "Optimal Tuning Parameter", br(),
-  #  wellPanel(plotlyOutput("makeplotbic")),
-  #  HTML('Note: the optimal tuning parameter is chosen by the dashed line with the minimum BIC value.'),
-  #  HTML('The results are not intended as definitive analyses.'),
-  #  wellPanel(DTOutput("res.tablebic")),
-  #  HTML('Note: missing BIC indicates all the coefficients are estimated as 0.')
-  #          ),
+   ))),
+  tabPanel(
+   "CSTE Curve for a single variable", br(),
+   h4("CSTE curve for a single variable"),
+   conditionalPanel("input.Bplot1",
+   tags$b("Choose a single variable"),
+   uiOutput("x1a"),
+   tags$b("Set the range for y-axis"),
+   uiOutput("ylim1a"),
+   tags$b("Set the range for x-axis"),
+   uiOutput("xlim1a"),
+   actionButton("Bplot1a", HTML('Step 2. Show/Update the estimated CSTE curve'), 
+             class =  "btn-primary",
+             icon  = icon("chart-column")),
+   wellPanel(
+      plotOutput("res.plota", click = "plot_clicka"),
+      textOutput("click_infoa"),
+      DTOutput("res.table12a")
+      )
+)),
+
   tabPanel(
    "Predicted CSTE Curve and Results", br(),
-   wellPanel(
-      h4("The predicted location of x-axis for new subject"),
-      DTOutput("res.tablep")),
 
    conditionalPanel(condition="input.B3",
    h4("Predicted CSTE curve"),
@@ -250,24 +245,21 @@ tabsetPanel(
    uiOutput("ylim12"),
    tags$b("Set the range for x-axis"),
    uiOutput("xlim12"),
-   actionButton("B32", HTML('Show/Update Predicted CSTE curve'), 
+   actionButton("B32", HTML('Step 4. Show/Update Predicted CSTE curve'), 
              class =  "btn-primary",
              icon  = icon("chart-column")), 
    wellPanel(
       plotOutput("res.plotp",click = "plot_click2"),
       textOutput("click_info2") 
-           ))
-   
-  # tabPanel(
-  #  "Predicted CSTE Dynamic Curve", br(), 
-  #  wellPanel(plotlyOutput("makeplotp")) 
-  #          ),
-  # tabPanel("Predicts", br(), )
-  )
-
-
+           ),
+   wellPanel(
+      h4("The predicted location of x-axis for new subject"),
+      DTOutput("res.tablep")
+      )
+)
 )
 ##########----------##########----------##########
 
+)
 )
 )
