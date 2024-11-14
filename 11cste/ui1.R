@@ -34,6 +34,7 @@ materialSwitch(
    status = "primary"
    ),
 conditionalPanel(condition="input.upload",         
+   wellPanel(
    tags$b("Upload user data"),
    p("The new data will cover the example data."),
    p("Please refer to the example data's format."),
@@ -51,7 +52,7 @@ conditionalPanel(condition="input.upload",
       value = FALSE,
       status = "primary")
    # p("Correct separator and quote ensure the successful data input")
-),
+)),
 hr(),
 
 h4("Select variables"),              
@@ -159,14 +160,14 @@ actionButton("B3", HTML('Step 3. Predict CSTE for New data'),
 
 ##########----------##########----------##########
 mainPanel(
-conditionalPanel(condition="input.pview",
 h3("Data preview"),
 materialSwitch(
    inputId = "pview",
-   label = h4("Show/Hide data preview"),
+   label = h5("Show/Hide data preview"),
    value = TRUE,
    status = "primary"
    ),
+conditionalPanel(condition="input.pview",
 tabsetPanel(
    tabPanel(
    "Analytical data", br(), DTOutput("data.pre")
