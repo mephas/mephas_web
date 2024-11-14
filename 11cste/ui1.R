@@ -207,34 +207,36 @@ tabsetPanel(
    uiOutput("ylim1"),
    tags$b("Set the range for x-axis"),
    uiOutput("xlim1"),
+   p("Click the button to create plot after model is built."),
    actionButton("Bplot1", HTML('Step 2. Show/Update the estimated CSTE curve'), 
              class =  "btn-primary",
              icon  = icon("chart-column")),
    wellPanel(
       plotOutput("res.plot", click = "plot_click"),
+      downloadButton("downloadPlot1", "Download Plot as PNG"),
       textOutput("click_info"),
       DTOutput("res.table12"))
 
    ))),
-  tabPanel(
-   "CSTE Curve for a single variable", br(),
-   h4("CSTE curve for a single variable"),
-   conditionalPanel("input.Bplot1",
-   tags$b("Choose a single variable"),
-   uiOutput("x1a"),
-   tags$b("Set the range for y-axis"),
-   uiOutput("ylim1a"),
-   tags$b("Set the range for x-axis"),
-   uiOutput("xlim1a"),
-   actionButton("Bplot1a", HTML('Step 2. Show/Update the estimated CSTE curve'), 
-             class =  "btn-primary",
-             icon  = icon("chart-column")),
-   wellPanel(
-      plotOutput("res.plota", click = "plot_clicka"),
-      textOutput("click_infoa"),
-      DTOutput("res.table12a")
-      )
-)),
+#   tabPanel(
+#    "CSTE Curve for a single variable", br(),
+#    h4("CSTE curve for a single variable"),
+#    conditionalPanel("input.Bplot1",
+#    tags$b("Choose a single variable"),
+#    uiOutput("x1a"),
+#    tags$b("Set the range for y-axis"),
+#    uiOutput("ylim1a"),
+#    tags$b("Set the range for x-axis"),
+#    uiOutput("xlim1a"),
+#    actionButton("Bplot1a", HTML('Step 2. Show/Update the estimated CSTE curve'), 
+#              class =  "btn-primary",
+#              icon  = icon("chart-column")),
+#    wellPanel(
+#       plotOutput("res.plota", click = "plot_clicka"),
+#       textOutput("click_infoa"),
+#       DTOutput("res.table12a")
+#       )
+# )),
 
   tabPanel(
    "Predicted CSTE Curve and Results", br(),
@@ -250,6 +252,7 @@ tabsetPanel(
              icon  = icon("chart-column")), 
    wellPanel(
       plotOutput("res.plotp",click = "plot_click2"),
+      downloadButton("downloadPlot2", "Download Plot as PNG"),
       textOutput("click_info2") 
            ),
    wellPanel(
