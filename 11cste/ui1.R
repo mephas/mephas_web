@@ -15,7 +15,6 @@ HTML("Data requirements:
 </ul>"),
 
 h3("Model Estimation"),
-
 prettyRadioButtons(
    inputId = "edata",
    label =  h4("Example data"),
@@ -26,7 +25,6 @@ prettyRadioButtons(
     status = "primary"
 ),
 
-# tabPanel.upload(file ="file", header="header", col="col", sep="sep", quote="quote")
 materialSwitch(
    inputId = "upload",
    label = h4("I need to upload user data"),
@@ -35,11 +33,9 @@ materialSwitch(
    ),
 conditionalPanel(condition="input.upload",         
    wellPanel(
-   tags$b("Upload user data"),
    p("The new data will cover the example data."),
    p("Please refer to the example data's format."),
    uiOutput("file"),
-   
    p(tags$b("Show 1st row as column names?")), 
    uiOutput("header"),
    p(tags$b("Use 1st column as row names? (No duplicates)")), 

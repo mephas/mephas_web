@@ -80,6 +80,7 @@ data_2 <- reactive({
 
     x <- as.data.frame(csv)
   }
+  if(input$rmdt_sv) x <- as.data.frame(dataeg2())
   return(x)
 })
 
@@ -109,6 +110,7 @@ output$z2 <- renderUI({
     "z2",
     label= NULL,
     choices = type.bin2(),
+    selected=type.bin2()[1:2],
     width = "100%",
     multiple = TRUE
   )
@@ -145,28 +147,39 @@ output$x2 <- renderUI({
     choices = type.num.x2(),
     width = "100%")
 })
-output$alpha2 <- renderUI({
-numericInput(
-  "alpha2", 
-  label= NULL,
-  0.05, min = 0, max = 0.5, step = 0.01
-  )
-})
+
 output$c2 <- renderUI({
   textInput('c2', label = NULL, "1, 0")
 })
+
+output$alpha2 <- renderUI({
+sliderTextInput(
+  "alpha2", 
+  label= NULL,
+  choices = c(0.1,0.05,0.01),
+  selected=0.05,
+  grid = TRUE,
+  width ="100%"
+  )
+})
 output$kh2 <- renderUI({
-numericInput(
+sliderTextInput(
   "kh2", 
   label= NULL,
-  0.4, min = 0.001, max = 0.999, step = 0.1
+  choices = seq(0.05,1,0.01),
+  selected=0.5,
+  grid = TRUE,
+  width ="100%"
   )
 })
 output$m2 <- renderUI({
-numericInput(
+sliderTextInput(
   "m2", 
   label= NULL,
-  100, min = 50, max = 1000, step = 100
+  choices = seq(50,1000,50),
+  selected=100,
+  grid = TRUE,
+  width ="100%"
   )
 })
 
@@ -176,32 +189,41 @@ Z2 <- reactive({(subset(data_2(), select=input$z2, drop = FALSE))})
 S2 <- reactive({(subset(data_2(), select=input$d2, drop = FALSE))})
 X2 <- reactive({(subset(data_2(), select=input$x2, drop = FALSE))})
 
-fit2 <- eventReactive(input$B2,{
-fit <- cste_surv(x = unlist(X2()), y = unlist(Y2()), z = as.matrix(Z2()), s = unlist(S2()), h = input$kh2)
-return(fit)
-})
 
-res2 <- eventReactive(input$B2,{
+  # fit2 <- eventReactive(input$B2,{
+  # validate(need(z2(), "Choose Treatment variable"))
 
-progress <- Progress$new(session, min=0, max=input$m2)
-on.exit(progress$close())
+  # fit <- cste_surv(x = unlist(X2()), y = unlist(Y2()), z = as.matrix(Z2()), s = unlist(S2()), h = input$kh2)
+  # return(fit)
+  # })
+res2 = reactiveVal()
 
-progress$set(message = 'Calculating',
-               detail = ''
-               )
+shinyjs::enable("start1")
+shinyjs::enable("slider1")
+  observeEvent(input$B2,{
 
-c <- as.numeric(unlist(strsplit(input$c2,",")))
+  validate(need(input$z2, "Choose Treatment variable"))
+  validate(need(input$c2, "Please check the contrast vector"))
 
-if (length(c) != length(input$z2)) c <- c(1,rep(0, length(input$z2)-1)) else c <- c
-res <- cste_surv_SCB(unlist(c),
-  x = unlist(X2()), y = unlist(Y2()), z = as.matrix(Z2()), s = unlist(S2()), 
-  h = input$kh2, m = input$m2, alpha = input$alpha2)  
-return(res)
+  if(is.null(input$alpha2)) aa=0.05 else aa = input$alpha2
+  if(is.null(input$m2)) mm=50 else mm = input$m2
+  if(is.null(input$kh2)) hh=0.5 else hh = input$kh2
 
-})
+  c <- as.numeric(unlist(strsplit(input$c2,",")))
+  if (length(c) != length(input$z2)) c <- c(1,rep(0, length(input$z2)-1)) else c <- c
+  res <- cste_surv_SCB(unlist(c),
+    x = unlist(X2()), y = unlist(Y2()), z = as.matrix(Z2()), s = unlist(S2()), 
+    h = hh, m = mm, alpha = aa)  
+  res2(res)
+# browser()
+  })
+shinyjs::enable("start1")
+shinyjs::enable("slider1")
 
 ## plot for surv
 res.plot2 <- eventReactive(input$B2,{
+
+validate(need(res2(), "Model estimation failed"))
 res <- res2()
 ord = order(unlist(X2()))
 x <- unlist(X2())
@@ -244,25 +266,44 @@ ggplot(df, mapping = aes(x = x, y = y)) +
 output$res.plot2 <-  renderPlot({
   res.plot2()
 })
-output$makeplot2 <- renderPlotly({
-  ggplotly(res.plot2())%>%
-  layout(xaxis=list(title= "X"), yaxis=list(title = "CSTE"))
-  })
 
+output$downloadPlot1_sv <- downloadHandler(
+    filename = function() {
+      paste("plot-cste-surv-estimate-", Sys.Date(), ".png", sep = "")
+    },
+    content = function(file) {
+      # Create the plot and save it as PNG
+      ggsave(file, plot = res.plot2(), device = "png", width = 8, height = 6)
+    }
+  )
+output$click_info_sv <- renderText({
+    req(input$plot_click_sv)  # Wait for the click input
+    paste("Clicked at: (", round(input$plot_click_sv$x, 3), ", ", round(input$plot_click_sv$y, 3), ")", sep = "")
+  })
 
 res.table2 <- eventReactive(input$B2,{
 
+validate(need(res2(), "Model estimation error"))
 res <- as.data.frame(t(res2()))
 res <- round(res, 3)
 colnames(res) <- 1:ncol(res)
 rownames(res) <- c("Lower bound", "CSTE", "Upper bound")
-return(res)
-  
+return(res[c(3,2,1),])
   })
 
 output$res.table2 <- renderDT(
-{
- res.table2() 
-},
-options = list(scrollX = TRUE,dom = 't'))
-
+datatable(
+  res.table2(), 
+  extensions = c('Buttons','FixedColumns'),
+  options = list(
+    # dom = 't',
+    dom = 'Bfrtip',
+    buttons = list(list(
+        extend = 'csv',  # 'csv' button
+        filename = 'cste-estimate-result',  # Custom file name
+        text = 'Download CSV'  # Button label (optional)
+      )),
+    fixedColumns = TRUE,
+    scrollX = TRUE
+  ))
+)

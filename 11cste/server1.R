@@ -189,40 +189,39 @@ X <- reactive({(subset(data(), select=input$x1, drop = FALSE))})
 fit <- reactiveVal()
 parfit = reactiveVal()
 
-  shinyjs::enable("start")
-  shinyjs::enable("slider")
-observeEvent(input$B,{
+shinyjs::enable("start")
+shinyjs::enable("slider")
+  observeEvent(input$B,{
 
-if(input$scale) x <- normalize(as.matrix(X())) else x <- as.matrix(X())
-if(is.null(input$knot)) nkt = 2 else nkt = input$knot
+  if(input$scale) x <- normalize(as.matrix(X())) else x <- as.matrix(X())
+  if(is.null(input$knot)) nkt = 2 else nkt = input$knot
 
-# withProgress(message = "Estimating (please hold on...)", value = 0.5, {
-if(!input$clamb){
+  # withProgress(message = "Estimating (please hold on...)", value = 0.5, {
+  if(!input$clamb){
 
-  fit(suppressWarnings(try(cste_bin(x = x, y = unlist(Y()), z = unlist(Z()), 
-    beta_ini = NULL,
-    lam = 0, 
-    nknots = nkt, 
-    max.iter= 1000, eps = 0.001))))
-    shinyjs::enable("start")
-    shinyjs::enable("slider")
+    fit(suppressWarnings(try(cste_bin(x = x, y = unlist(Y()), z = unlist(Z()), 
+      beta_ini = NULL,
+      lam = 0, 
+      nknots = nkt, 
+      max.iter= 1000, eps = 0.001))))
+    # browser()
+  } else {
+
+    if(is.null(input$maxtune)) maxtune = c(0.001,0.005) else maxtune = input$maxtune
+    if(is.null(input$seqtune)) seqtune = 0.001 else seqtune = input$seqtune
   # browser()
-} else {
+    par = suppressWarnings(try(select_cste_bin(x = x, y = unlist(Y()), z = unlist(Z()), 
+      beta_ini = NULL,
+      lam_seq = seq(from=maxtune[1],to=maxtune[2],by=seqtune), 
+      nknots = nkt, 
+      max.iter =1000, eps = 0.001)))
+    fit(par$optimal)
+    parfit(par)
 
-  if(is.null(input$maxtune)) maxtune = c(0.001,0.005) else maxtune = input$maxtune
-  if(is.null(input$seqtune)) seqtune = 0.001 else seqtune = input$seqtune
-# browser()
-  par = suppressWarnings(try(select_cste_bin(x = x, y = unlist(Y()), z = unlist(Z()), 
-    beta_ini = NULL,
-    lam_seq = seq(from=maxtune[1],to=maxtune[2],by=seqtune), 
-    nknots = nkt, 
-    max.iter =1000, eps = 0.001)))
-  fit(par$optimal)
-  parfit(par)
-
-}
-})
-
+  }
+  })
+shinyjs::enable("start")
+shinyjs::enable("slider")
 
 
 
@@ -268,8 +267,7 @@ sliderTextInput(
   )
 })
 
-  shinyjs::enable("start")
-  shinyjs::enable("slider")
+
 ## plot for bin
 res = reactiveVal()
 estdf = reactiveVal()
