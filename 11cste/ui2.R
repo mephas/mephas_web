@@ -50,7 +50,16 @@ conditionalPanel(condition="input.upload_sv",
       status = "primary")    
 )),
 hr(),
-   h4("Select variables"),               
+   h4("Select variables"),  
+   tags$b("Single treatment variable or multiple treatment variables"),
+   # uiOutput("ztype"),
+   radioGroupButtons(
+   inputId = "ztype",
+   label = NULL,
+   choices = list("Single treatment variable"=FALSE, "Multiple treatment variables"=TRUE),
+   selected=TRUE,
+   justified = TRUE
+),         
    tags$b("Treatments (choose one or more binary variables)"),
    uiOutput("z2"),
    tags$b("Censoring indicator (choose one binary variable)"),
@@ -59,22 +68,22 @@ hr(),
    uiOutput("t2"),
    tags$b("Covariates (choose one or more numerical variables)"),
    uiOutput("x2"),
+   conditionalPanel(condition="input.ztype=='TRUE'",
    tags$b("Contrast vector: input the values of vector in the linear combination of beta(x), e.g, c1*beta1(x)+c2*beta2(x)"),
-   uiOutput("c2"),
-   materialSwitch(
-   inputId = "advance_sv",
-   label = h4("Advanced settings"),
-   value = TRUE,
-   status = "primary"
-   ),
-   conditionalPanel(condition="input.advance_sv",
+   uiOutput("c2")),
+   # materialSwitch(
+   # inputId = "advance_sv",
+   # label = h4("Advanced settings"),
+   # value = TRUE,
+   # status = "primary"
+   # ),
+   # conditionalPanel(condition="input.advance_sv",
    tags$b("Significant level for confidence interval"),
    uiOutput("alpha2"),
    tags$b("Resampling times for confidence interval"),
    uiOutput("m2"),
    tags$b("Kernel bands in estimation"),
-   uiOutput("kh2")
-   ),
+   uiOutput("kh2"),
    
 hr(),
 actionButton("B2", HTML('Step 1. Estimate the CSTE Curve'), 
@@ -107,10 +116,24 @@ HTML("
 "),
 tabsetPanel(
   tabPanel("CSTE Curve with Estimates", br(), 
-   h4("CSTE curve"),
-   wellPanel(withSpinner(plotOutput("res.plot2"),type=4)),
    h4("CSTE Estimates"),
-   wellPanel(withSpinner(DTOutput("res.table2"), type=4))       
+   wellPanel(
+      withSpinner(DTOutput("res.table2"),type=4)
+      ),
+   h4("CSTE curve"),
+   conditionalPanel("input.B2",
+   wellPanel(
+      actionButton("Bplot1_sv", HTML('Step 2. Show/Update the estimated CSTE curve'), 
+             class =  "btn-primary",
+             icon  = icon("chart-column")),
+      plotOutput("res.plot2", click = "plot_click_sv"),
+      downloadButton("downloadPlot1_sv", "Download Plot as PNG"),
+      textOutput("click_info_sv"))
+   )
+   # h4("CSTE Estimates"),
+   # wellPanel(
+   #    withSpinner(DTOutput("res.table2"),type=4)
+   #    )       
            )
   # tabPanel(
   #  "CSTE Dynamic Plot", br(), 

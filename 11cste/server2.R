@@ -102,6 +102,16 @@ var.type.list2 <- reactive({
   var.class(data_2())
 })
 ## binary variables list
+# output$ztype <- renderUI({
+# radioGroupButtons(
+#    inputId = "ztype",
+#    label = NULL,
+#    choices = list("Single treatment variable"=FALSE, "Multiple treatment variables"=TRUE),
+#    selected=FALSE,
+#    justified = TRUE
+# )
+# })
+
 type.bin2 <- reactive({
   colnames(data_2()[,var.type.list2()[,1] %in% "binary", drop=FALSE])
   })
@@ -110,9 +120,9 @@ output$z2 <- renderUI({
     "z2",
     label= NULL,
     choices = type.bin2(),
-    selected=type.bin2()[1:2],
+    selected= (if(input$ztype=="TRUE") type.bin2()[1:2] else type.bin2()[1]),
     width = "100%",
-    multiple = TRUE
+    multiple = (if(input$ztype=="TRUE") TRUE else FALSE)
   )
 })
 type.bin.d <- reactive({
@@ -176,8 +186,8 @@ output$m2 <- renderUI({
 sliderTextInput(
   "m2", 
   label= NULL,
-  choices = seq(50,1000,50),
-  selected=100,
+  choices = seq(50,500,50),
+  selected=50,
   grid = TRUE,
   width ="100%"
   )
@@ -202,28 +212,73 @@ shinyjs::enable("start1")
 shinyjs::enable("slider1")
   observeEvent(input$B2,{
 
+  # browser()
   validate(need(input$z2, "Choose Treatment variable"))
-  validate(need(input$c2, "Please check the contrast vector"))
+  # validate(need(input$ztype=="TRUE" & is.null(input$c2), "Please check the contrast vector for the multiple treatments"))
+# validate(need(length(input$c2) == length(input$z2), "Please check the length of contrast vector"))
+  if(length(input$z2)==1) c2=1 else c2 <- as.numeric(unlist(strsplit(input$c2,",")))
+  validate(need(length(c2) == length(input$z2), "Please check the length of contrast vector"))
+
 
   if(is.null(input$alpha2)) aa=0.05 else aa = input$alpha2
   if(is.null(input$m2)) mm=50 else mm = input$m2
   if(is.null(input$kh2)) hh=0.5 else hh = input$kh2
 
-  c <- as.numeric(unlist(strsplit(input$c2,",")))
-  if (length(c) != length(input$z2)) c <- c(1,rep(0, length(input$z2)-1)) else c <- c
-  res <- cste_surv_SCB(unlist(c),
+  
+  # if (length(c) != length(input$z2)) c <- c(1,rep(0, length(input$z2)-1)) else c <- c
+  # browser()
+  res <- cste_surv_SCB(unlist(c2),
     x = unlist(X2()), y = unlist(Y2()), z = as.matrix(Z2()), s = unlist(S2()), 
     h = hh, m = mm, alpha = aa)  
+
+
   res2(res)
 # browser()
   })
 shinyjs::enable("start1")
 shinyjs::enable("slider1")
 
-## plot for surv
-res.plot2 <- eventReactive(input$B2,{
+res.table2 <- eventReactive(input$B2,{
 
-validate(need(res2(), "Model estimation failed"))
+validate(need(input$z2, "Choose Treatment variable"))
+# validate(need(input$ztype=="TRUE" & is.null(input$c2), "Please check the contrast vector for the multiple treatments"))
+
+if(length(input$z2)==1) c2=1 else c2 <- as.numeric(unlist(strsplit(input$c2,",")))
+validate(need(length(c2) == length(input$z2), "Please check the length of contrast vector"))
+# validate(need(length(input$c2) == length(input$z2), "Please check the length of contrast vector"))
+
+validate(need(res2(), "Model estimation error"))
+res <- as.data.frame(t(res2()))
+res <- round(res, 3)
+colnames(res) <- 1:ncol(res)
+rownames(res) <- c("Lower bound", "CSTE", "Upper bound")
+return(res[c(3,2,1),])
+  })
+
+output$res.table2 <- renderDT(
+datatable(
+  res.table2(), 
+  extensions = c('Buttons','FixedColumns'),
+  options = list(
+    # dom = 't',
+    dom = 'Bfrtip',
+    buttons = list(list(
+        extend = 'csv',  # 'csv' button
+        filename = 'cste-estimate-result',  # Custom file name
+        text = 'Download CSV'  # Button label (optional)
+      )),
+    fixedColumns = TRUE,
+    scrollX = TRUE
+  ))
+)
+
+## plot for surv
+res.plot2 <- eventReactive(input$Bplot1_sv,{
+# validate(need(input$z2, "Choose Treatment variable"))
+# validate(need(input$c2, "Please check the contrast vector"))
+# c2 <- as.numeric(unlist(strsplit(input$c2,",")))
+# validate(need(length(c2) == length(input$z2), "Please check the length of contrast vector"))
+validate(need(res2(), "Model estimation failed; please check the input of variables"))
 res <- res2()
 ord = order(unlist(X2()))
 x <- unlist(X2())
@@ -281,29 +336,3 @@ output$click_info_sv <- renderText({
     paste("Clicked at: (", round(input$plot_click_sv$x, 3), ", ", round(input$plot_click_sv$y, 3), ")", sep = "")
   })
 
-res.table2 <- eventReactive(input$B2,{
-
-validate(need(res2(), "Model estimation error"))
-res <- as.data.frame(t(res2()))
-res <- round(res, 3)
-colnames(res) <- 1:ncol(res)
-rownames(res) <- c("Lower bound", "CSTE", "Upper bound")
-return(res[c(3,2,1),])
-  })
-
-output$res.table2 <- renderDT(
-datatable(
-  res.table2(), 
-  extensions = c('Buttons','FixedColumns'),
-  options = list(
-    # dom = 't',
-    dom = 'Bfrtip',
-    buttons = list(list(
-        extend = 'csv',  # 'csv' button
-        filename = 'cste-estimate-result',  # Custom file name
-        text = 'Download CSV'  # Button label (optional)
-      )),
-    fixedColumns = TRUE,
-    scrollX = TRUE
-  ))
-)

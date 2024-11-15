@@ -186,7 +186,7 @@ tabsetPanel(
    tabPanel(
    "CSTE Curve with Estimates", br(), 
    wellPanel(
-      h4("CSTE Estimates"),
+      h4("Estimated coefficients for variables"),
       withSpinner(DTOutput("res.table"), type=4),
       conditionalPanel("input.clamb",
       DTOutput("res.bic")
@@ -212,6 +212,7 @@ tabsetPanel(
       plotOutput("res.plot", click = "plot_click"),
       downloadButton("downloadPlot1", "Download Plot as PNG"),
       textOutput("click_info"),
+      h4("Estimated CSTE with confidence bounds"),
       DTOutput("res.table12"))
 
    ))),
