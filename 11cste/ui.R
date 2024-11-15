@@ -10,6 +10,7 @@
 if(!requireNamespace("CSTE",quietly=TRUE)) devtools::install_github("mephas/CSTEforShiny")
 library("CSTE",quietly=TRUE)
 if(!requireNamespace("magrittr",quietly=TRUE)) install.packages("magrittr")
+library("magrittr",quietly=TRUE)
 if(!requireNamespace("shinyWidgets",quietly=TRUE)) install.packages("shinyWidgets")
 library("shinyWidgets",quietly=TRUE)
 if(!requireNamespace("shiny",quietly=TRUE)) install.packages("shiny")

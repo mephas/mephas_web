@@ -207,7 +207,7 @@ X2 <- reactive({(subset(data_2(), select=input$x2, drop = FALSE))})
   # return(fit)
   # })
 res2 = reactiveVal()
-
+c2text = reactiveVal()
 shinyjs::enable("start1")
 shinyjs::enable("slider1")
   observeEvent(input$B2,{
@@ -224,7 +224,7 @@ shinyjs::enable("slider1")
   if(is.null(input$m2)) mm=50 else mm = input$m2
   if(is.null(input$kh2)) hh=0.5 else hh = input$kh2
 
-  
+  c2text(c2)
   # if (length(c) != length(input$z2)) c <- c(1,rep(0, length(input$z2)-1)) else c <- c
   # browser()
   res <- cste_surv_SCB(unlist(c2),
@@ -272,12 +272,41 @@ datatable(
   ))
 )
 
+output$actionButtonBplot1_sv <- renderUI({
+    req(res2())  # Ensure model_result is not NULL
+    actionButton("Bplot1_sv", HTML('Step 2. Show/Update the estimated CSTE curve'), 
+             class =  "btn-primary",
+             icon  = icon("chart-column"))
+  })
+
+output$ylim1_sv = renderUI({
+  sliderTextInput(
+    "ylim1_sv", 
+    label= NULL,
+  choices = seq(-50,50,1),
+  selected=c(0,0),
+  grid = TRUE,
+  width ="100%"
+  )
+})
+output$xlim1_sv = renderUI({
+  sliderTextInput(
+    "xlim1_sv", 
+    label= NULL,
+  choices = seq(-50,50,1),
+  selected=c(0,0),
+  grid = TRUE,
+  width ="100%"
+  )
+})
+
 ## plot for surv
 res.plot2 <- eventReactive(input$Bplot1_sv,{
 # validate(need(input$z2, "Choose Treatment variable"))
 # validate(need(input$c2, "Please check the contrast vector"))
 # c2 <- as.numeric(unlist(strsplit(input$c2,",")))
 # validate(need(length(c2) == length(input$z2), "Please check the length of contrast vector"))
+req(res2())
 validate(need(res2(), "Model estimation failed; please check the input of variables"))
 res <- res2()
 ord = order(unlist(X2()))
@@ -296,17 +325,21 @@ x <- unlist(X2())
 # lwd = c(2.5,2), lty = c(3, 2),
 # col = c('#F8766D','#00BFC4','blue'))
 # abline(h = 0, col= "grey", type = 2)
-
 df <- data.frame(x = x[ord], y = res[ord,2], lb = res[ord,1], ub = res[ord,3])
+
+if(input$xlim1_sv[1]==input$xlim1_sv[2]) xlim = range(df$x) else xlim=input$xlim1_sv
+if(input$ylim1_sv[1]==input$ylim1_sv[2]) ylim = range(c(df$ub, df$lb)) else ylim=input$ylim1_sv
+
 ggplot(df, mapping = aes(x = x, y = y)) + 
-  scale_x_continuous(limits = range(df$x), name = "X") +
-  scale_y_continuous(limits = range(c(df$ub, df$lb)), name = latex2exp::TeX("CSTE = $c^T \\beta(X)$")) +
+  scale_x_continuous(limits = xlim, name = "X") +
+  scale_y_continuous(limits = ylim, name = latex2exp::TeX("CSTE = $c^T \\beta(X)$")) +
   geom_hline(yintercept=0, colour = "#53868B", lty=2)+
   geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.2) +
   geom_line(aes(colour = "Fitted"))+
   theme(panel.background = element_rect(fill = "white", colour = "grey50"),
         panel.grid.major = element_line(colour = "grey87"),
-        legend.key = element_rect (fill = "white"))+
+        legend.key = element_rect (fill = "white"),
+        legend.position = "bottom")+
   scale_colour_manual("CSTE Curve", 
                       breaks = c("Fitted"),
                       values = c("#F8766D"),
@@ -336,3 +369,7 @@ output$click_info_sv <- renderText({
     paste("Clicked at: (", round(input$plot_click_sv$x, 3), ", ", round(input$plot_click_sv$y, 3), ")", sep = "")
   })
 
+output$c2text <- renderText({
+    req(c2text())  # Wait for the click input
+    paste("The contrast vector is (", paste0(as.character(c2text()), collapse = ","),")")
+  })

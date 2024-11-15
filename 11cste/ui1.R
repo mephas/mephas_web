@@ -15,6 +15,26 @@ HTML("Data requirements:
 </ul>"),
 
 h3("Model Estimation"),
+
+radioGroupButtons(
+   inputId = "upload",
+   label = h4("Use example data or upload user data"),
+   choices = list("Example data"="A","Upload new data"="B"),
+   justified = TRUE,
+   status="primary",
+   checkIcon = list(
+      yes = icon("ok", 
+    lib = "glyphicon"))
+),
+wellPanel(
+# prettySwitch(
+#    inputId = "upload",
+#    label = h4("I need to upload user data"),
+#    value = FALSE,
+#    status = "primary",
+#    fill=TRUE
+#    ),
+conditionalPanel(condition="input.upload=='A'",   
 prettyRadioButtons(
    inputId = "edata",
    label =  h4("Example data"),
@@ -23,18 +43,11 @@ prettyRadioButtons(
    selected = "data1",
     icon = icon("database"),
     status = "primary"
-),
-
-materialSwitch(
-   inputId = "upload",
-   label = h4("I need to upload user data"),
-   value = FALSE,
-   status = "primary"
-   ),
-conditionalPanel(condition="input.upload",         
-   wellPanel(
+)),
+conditionalPanel(condition="input.upload=='B'", 
+h4("Upload new data"),        
    p("The new data will cover the example data."),
-   p("Please refer to the example data's format."),
+   p("Please refer to the format of example data."),
    uiOutput("file"),
    p(tags$b("Show 1st row as column names?")), 
    uiOutput("header"),
@@ -108,30 +121,43 @@ hr(),
 
 conditionalPanel(condition="input.Bplot1",
 h3("Model Prediction"),
-materialSwitch(
-   inputId = "prdct",
-   label = h4("Model prediction after model estimation"),
-   value = FALSE,
-   status = "primary"
-   ),
-conditionalPanel(condition="input.prdct",
+radioGroupButtons(
+   inputId = "uploadprd",
+   label = h4("Use example data or upload user data"),
+   choices = list("Example data"="A","Upload new data"="B"),
+   justified = TRUE,
+   status="primary",
+   checkIcon = list(
+      yes = icon("ok", 
+    lib = "glyphicon"))
+),
+# conditionalPanel(condition="input.prdct=='A'",
+# materialSwitch(
+#    inputId = "prdct",
+#    label = h4("I have new subjects' data"),
+#    value = FALSE,
+#    status = "primary"
+#    )),
+wellPanel(
+conditionalPanel(condition="input.uploadprd=='A'",
 prettyRadioButtons(
 inputId = "edata3",
-label =  h4("Example predictive covariates"),
+label =  h4("Example of predictive covariates"),
 choices =  list(
  "Data3: 20 covariates" = "data3"),
 selected = "data3",
  icon = icon("database"),
  status = "primary"
-),
+)),
 
-materialSwitch(
-   inputId = "uploadprd",
-   label = h4("Upload predictive covariates data"),
-   value = FALSE,
-   status = "primary"
-   ),
-conditionalPanel(condition="input.uploadprd", 
+# materialSwitch(
+#    inputId = "uploadprd",
+#    label = h4("Upload predictive covariates data"),
+#    value = FALSE,
+#    status = "primary"
+#    ),
+conditionalPanel(condition="input.uploadprd=='B'", 
+   h4("Upload user predictive covariates"),
    p(("The new data will cover the example data.")),
    p(("Please refer to the analytical data's format.")),
    uiOutput("filep"),
@@ -147,11 +173,12 @@ conditionalPanel(condition="input.uploadprd",
       value = FALSE,
       status = "primary")
    # p("Correct separator and quote ensure the successful data input")
-),
+)),
 actionButton("B3", HTML('Step 3. Predict CSTE for New data'), 
              class =  "btn-primary",
-             icon  = icon("chart-column"))
-))
+             icon  = icon("chart-column")),
+p("Results are shown in the second panel")
+)
 ),
 
 ##########----------##########----------##########
@@ -185,37 +212,39 @@ HTML("
 tabsetPanel(
    tabPanel(
    "CSTE Curve with Estimates", br(), 
+   h4("Estimated coefficients for variables"),
    wellPanel(
-      h4("Estimated coefficients for variables"),
       withSpinner(DTOutput("res.table"), type=4),
       conditionalPanel("input.clamb",
       DTOutput("res.bic")
-      ),
+      )),
 
    h4("CSTE curve"),
    conditionalPanel("input.B",
-   
+
+   wellPanel(h5("Figure options (optional settings)"),
    tags$b("Kernel bandwidth for B-spline method in the confidence intervals"),
    # helpText(HTML("0 indicates to use the estimated kernel bandwidth")),
    uiOutput("kh"),
    tags$b("Significant level for confidence interval"),
    uiOutput("alpha"),
-   tags$b("Set the range for y-axis"),
+   tags$b("Reset the range for y-axis"),
    uiOutput("ylim1"),
-   tags$b("Set the range for x-axis"),
-   uiOutput("xlim1"),
-   p("Click the button to create plot after model is built."),
-   actionButton("Bplot1", HTML('Step 2. Show/Update the estimated CSTE curve'), 
-             class =  "btn-primary",
-             icon  = icon("chart-column")),
+   tags$b("Reset the range for x-axis"),
+   uiOutput("xlim1")),
+   uiOutput("actionButtonBplot1"),
+   # p("Click the button to create plot after model is built."),
+   # actionButton("Bplot1", HTML('Step 2. Show/Update the estimated CSTE curve'), 
+   #           class =  "btn-primary",
+   #           icon  = icon("chart-column")),
    wellPanel(
       plotOutput("res.plot", click = "plot_click"),
       downloadButton("downloadPlot1", "Download Plot as PNG"),
-      textOutput("click_info"),
-      h4("Estimated CSTE with confidence bounds"),
-      DTOutput("res.table12"))
+      textOutput("click_info")),
+   h4("Estimated CSTE with confidence bounds"),
+   wellPanel(DTOutput("res.table12"))
 
-   ))),
+   )),
 #   tabPanel(
 #    "CSTE Curve for a single variable", br(),
 #    h4("CSTE curve for a single variable"),
@@ -238,13 +267,14 @@ tabsetPanel(
 
   tabPanel(
    "Predicted CSTE Curve and Results", br(),
-
+p("Click 'Step 3.' to start prediction "),
    conditionalPanel(condition="input.B3",
    h4("Predicted CSTE curve"),
-   tags$b("Set the range for y-axis"),
+   wellPanel(h5("Figure options (optional settings)"),
+   tags$b("Reset the range for y-axis"),
    uiOutput("ylim12"),
-   tags$b("Set the range for x-axis"),
-   uiOutput("xlim12"),
+   tags$b("Reset the range for x-axis"),
+   uiOutput("xlim12")),
    actionButton("B32", HTML('Step 4. Show/Update Predicted CSTE curve'), 
              class =  "btn-primary",
              icon  = icon("chart-column")), 

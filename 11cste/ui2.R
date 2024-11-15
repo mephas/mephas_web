@@ -16,24 +16,36 @@ HTML("Data requirements:
 </ul>"),
 
 h3("Model Estimation"),
+radioGroupButtons(
+   inputId = "upload_sv",
+   label = h4("Use example data or upload user data"),
+   choices = list("Example data"="A","Upload new data"="B"),
+   justified = TRUE,
+   status="primary",
+   checkIcon = list(
+      yes = icon("ok", 
+    lib = "glyphicon"))
+),
+wellPanel(
+conditionalPanel(condition="input.upload_sv=='A'",   
 prettyRadioButtons(
    inputId = "edata2",
-   label =  "Example datasets",
+   label =  h4("Example data"),
    choices =  list(
     "Data2: time-to-event outcome " = "data2"),
    selected = "data2",
     icon = icon("database"),
     status = "primary"
-),
+)),
 
-materialSwitch(
-   inputId = "upload_sv",
-   label = h4("I need to upload user data"),
-   value = FALSE,
-   status = "primary"
-   ),
-conditionalPanel(condition="input.upload_sv",   
-   wellPanel(      
+# materialSwitch(
+#    inputId = "upload_sv",
+#    label = h4("I need to upload user data"),
+#    value = FALSE,
+#    status = "primary"
+#    ),
+conditionalPanel(condition="input.upload_sv=='B'",      
+h4("Upload new data"),  
    p(("The new data will cover the example data.")),
    p(("Please refer to the example data's format.")),
    uiOutput("file2"),
@@ -50,6 +62,7 @@ conditionalPanel(condition="input.upload_sv",
       status = "primary")    
 )),
 hr(),
+
    h4("Select variables"),  
    tags$b("Single treatment variable or multiple treatment variables"),
    # uiOutput("ztype"),
@@ -58,7 +71,11 @@ hr(),
    label = NULL,
    choices = list("Single treatment variable"=FALSE, "Multiple treatment variables"=TRUE),
    selected=TRUE,
-   justified = TRUE
+   status = "primary",
+   justified = TRUE,
+    checkIcon = list(
+      yes = icon("ok", 
+    lib = "glyphicon"))
 ),         
    tags$b("Treatments (choose one or more binary variables)"),
    uiOutput("z2"),
@@ -107,7 +124,7 @@ DTOutput("data.pre2")
 ),    
 
 hr(),
-h4("Results"),
+h3("Results"),
 HTML(" 
 <ul>
 <li>CSTE Curve: the estimated CSTE curve</li>
@@ -122,13 +139,20 @@ tabsetPanel(
       ),
    h4("CSTE curve"),
    conditionalPanel("input.B2",
+   wellPanel(h5("Figure options (optional settings)"),
+      tags$b("Reset the range for y-axis"),
+   uiOutput("ylim1_sv"),
+   tags$b("Reset the range for x-axis"),
+   uiOutput("xlim1_sv")),
+      uiOutput("actionButtonBplot1_sv"),
    wellPanel(
-      actionButton("Bplot1_sv", HTML('Step 2. Show/Update the estimated CSTE curve'), 
-             class =  "btn-primary",
-             icon  = icon("chart-column")),
+      # actionButton("Bplot1_sv", HTML('Step 2. Show/Update the estimated CSTE curve'), 
+      #        class =  "btn-primary",
+      #        icon  = icon("chart-column")),
       plotOutput("res.plot2", click = "plot_click_sv"),
       downloadButton("downloadPlot1_sv", "Download Plot as PNG"),
-      textOutput("click_info_sv"))
+      textOutput("click_info_sv"),
+      textOutput("c2text"))
    )
    # h4("CSTE Estimates"),
    # wellPanel(

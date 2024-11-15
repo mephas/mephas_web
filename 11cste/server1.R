@@ -267,6 +267,12 @@ sliderTextInput(
   )
 })
 
+output$actionButtonBplot1 <- renderUI({
+    req(fit())  # Ensure model_result is not NULL
+    actionButton("Bplot1", HTML('Step 2. Show/Update the estimated CSTE curve'), 
+             class =  "btn-primary",
+             icon  = icon("chart-column"))
+  })
 
 ## plot for bin
 res = reactiveVal()
@@ -291,7 +297,8 @@ ggplot(df, mapping = aes(x = x, y = y)) +
   theme(panel.background = element_rect(fill = "white", colour = "grey50"),
         panel.grid.major = element_line(colour = "grey87"),
         legend.key = element_rect (fill = "white"),
-        legend.position = c(0.85, 0.85))+
+        legend.position = "bottom"
+        )+
   scale_colour_manual("CSTE Curve", 
                       breaks = c("Fitted"),
                       values = c("#F8766D"),
@@ -704,7 +711,7 @@ p <- ggplot(df, mapping = aes(x = x, y = y)) +
   theme(panel.background = element_rect(fill = "white", colour = "grey50"),
         panel.grid.major = element_line(colour = "grey87"),
         legend.key = element_rect (fill = "white"),
-        legend.position = c(0.85, 0.85))+
+        legend.position = "bottom")+
   scale_colour_manual("CSTE Curve", 
                       breaks = c("Fitted", "Predicted"),
                       values = c("#F8766D", "#6495ed"),
