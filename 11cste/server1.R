@@ -197,7 +197,7 @@ shinyjs::enable("slider")
   if(is.null(input$knot)) nkt = 2 else nkt = input$knot
 
   # withProgress(message = "Estimating (please hold on...)", value = 0.5, {
-  if(!input$clamb){
+  if(input$clamb=="FALSE"){
 
     fit(suppressWarnings(try(cste_bin(x = x, y = unlist(Y()), z = unlist(Z()), 
       beta_ini = NULL,

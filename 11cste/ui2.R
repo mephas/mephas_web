@@ -69,8 +69,8 @@ hr(),
    radioGroupButtons(
    inputId = "ztype",
    label = NULL,
-   choices = list("Single treatment variable"=FALSE, "Multiple treatment variables"=TRUE),
-   selected=TRUE,
+   choices = list("Single treatment variable"="FALSE", "Multiple treatment variables"="TRUE"),
+   selected="TRUE",
    status = "primary",
    justified = TRUE,
     checkIcon = list(

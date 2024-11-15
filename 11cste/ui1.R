@@ -65,6 +65,19 @@ h4("Upload new data"),
 hr(),
 
 h4("Select variables"),              
+tags$b("Whether to do variable selection"),
+   # uiOutput("ztype"),
+   radioGroupButtons(
+   inputId = "clamb",
+   label = NULL,
+   choices = list("Without selection"="FALSE", "Variable selection"="TRUE"),
+   selected="FALSE",
+   status = "primary",
+   justified = TRUE,
+    checkIcon = list(
+      yes = icon("ok", 
+    lib = "glyphicon"))
+),
 tags$b("Treatment (choose one binary variable)"),
 uiOutput("z1"),
 tags$b("Outcome (choose one binary variable)"),
@@ -76,8 +89,16 @@ awesomeCheckbox(
    label = tags$b("I need to standardize covariates"), 
    value = FALSE,
    status = "primary"),
-
-
+conditionalPanel("input.clamb=='TRUE'",
+   tags$b("Set the maximum value of tuning parameters"),
+   uiOutput("maxtune"),
+   tags$b("Set the increment of sequence for the tuning parameters"),
+   uiOutput("seqtune"),
+# actionButton("B4", HTML('Estimate the optimal model'), 
+#           class =  "btn-primary",
+#           icon  = icon("chart-column"))
+# uiOutput("kh")
+),
 materialSwitch(
    inputId = "advance",
    label = h4("Advanced settings"),
@@ -98,22 +119,13 @@ uiOutput("knot")
    # uiOutput("kh")),
 
 
-materialSwitch(
-inputId = "clamb",
-label = h4("I need variable selection"), 
-value = FALSE,
-status = "primary"),
+# materialSwitch(
+# inputId = "clamb",
+# label = h4("I need variable selection"), 
+# value = FALSE,
+# status = "primary"),
 # uiOutput("scale"),
-conditionalPanel("input.clamb",
-   tags$b("Set the maximum value of tuning parameters"),
-   uiOutput("maxtune"),
-   tags$b("Set the increment of sequence for the tuning parameters"),
-   uiOutput("seqtune"),
-# actionButton("B4", HTML('Estimate the optimal model'), 
-#           class =  "btn-primary",
-#           icon  = icon("chart-column"))
-# uiOutput("kh")
-),
+
 actionButton("B", HTML('Step 1. Model estimation'), 
              class =  "btn-primary",
              icon  = icon("chart-column")),
