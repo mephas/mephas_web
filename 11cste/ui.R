@@ -38,7 +38,7 @@ library("latex2exp",quietly=TRUE)
 # tagList(
 navbarPage(
 theme = shinytheme("cerulean"), #united #simplex
-title = ("CSTE (Covariate Specific Treatment Effect Curve ver 1.0.0)"),
+title = ("CSTEapp (ver 1.0.0)"),
 # collapsible = TRUE,
 # id = "navibar",
 # position = "static-top",

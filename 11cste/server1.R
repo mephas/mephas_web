@@ -189,10 +189,11 @@ X <- reactive({(subset(data(), select=input$x1, drop = FALSE))})
 fit <- reactiveVal()
 parfit = reactiveVal()
 
-shinyjs::enable("start")
-shinyjs::enable("slider")
-  observeEvent(input$B,{
 
+observeEvent(input$B,{
+
+    shinyjs::disable("B")
+    shinyjs::disable("Bplot1")
   if(input$scale) x <- normalize(as.matrix(X())) else x <- as.matrix(X())
   if(is.null(input$knot)) nkt = 2 else nkt = input$knot
 
@@ -219,9 +220,10 @@ shinyjs::enable("slider")
     parfit(par)
 
   }
+  shinyjs::enable("B")
+  shinyjs::enable("Bplot1")
   })
-shinyjs::enable("start")
-shinyjs::enable("slider")
+
 
 
 
@@ -281,15 +283,19 @@ res.plot <- eventReactive(input$Bplot1,{
 
 # validate(need(fit()), "Error")
 if(input$scale) x <- normalize(as.matrix(X())) else x <- as.matrix(X())
+if(is.null(input$ylim1)) ylim1 <- c(-5,5) else ylim1 <- input$ylim1
+if(is.null(input$kh)) kh <- 0.01 else kh <- input$kh
+if(is.null(input$alpha)) alpha <- 0.05 else alpha <- input$alpha
 
-res <- cste_bin_SCB(x, fit(), h = input$kh, alpha = input$alpha)
+res <- cste_bin_SCB(x, fit(), h = kh, alpha = alpha)
 res(res)
 df <- data.frame(x = res$or_x, y = res$fit_x, lb = res$lower_bound, ub = res$upper_bound)
 estdf(df)
-if(input$xlim1[1]==input$xlim1[2]) xlim = range(df$x) else xlim=input$xlim1
+if((input$xlim1[1]==input$xlim1[2])||is.null(input$xlim1)) xlim = range(df$x) else xlim=input$xlim1
+
 ggplot(df, mapping = aes(x = x, y = y)) + 
   scale_x_continuous(limits = xlim, name = latex2exp::TeX("$X\\hat{\\beta}_1$")) +
-  scale_y_continuous(limits = input$ylim1,
+  scale_y_continuous(limits = ylim1,
     name = latex2exp::TeX("$CSTE = g_1(X\\hat{\\beta}_1)$")) +
   geom_hline(yintercept=0, colour = "#53868B", lty=2)+
   geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.2) +

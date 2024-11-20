@@ -7,10 +7,10 @@ sidebarLayout(
 sidebarPanel(
 
 h3("Data Preparation"),
-HTML("Data requirements: 
+HTML("Data structure: 
    <ul>
-<li>Outcome: single binary variable</li>
-<li>2-arm treatment: single binary variable</li>
+<li>Outcome: a binary variable valued 1/0</li>
+<li>Treatment: a binary variable valued 1/0 to indicate treatment/control</li>
 <li>Covariate: single or multiple variables</li>
 </ul>"),
 
@@ -37,7 +37,7 @@ wellPanel(
 conditionalPanel(condition="input.upload=='A'",   
 prettyRadioButtons(
    inputId = "edata",
-   label =  h4("Example data"),
+   label =  NULL,
    choices =  list(
     "Data1: binary outcome" = "data1"),
    selected = "data1",
@@ -45,7 +45,7 @@ prettyRadioButtons(
     status = "primary"
 )),
 conditionalPanel(condition="input.upload=='B'", 
-h4("Upload new data"),        
+# h4("Upload new data"),        
    p("The new data will cover the example data."),
    p("Please refer to the format of example data."),
    uiOutput("file"),
@@ -226,16 +226,23 @@ tabsetPanel(
    "CSTE Curve with Estimates", br(), 
    h4("Estimated coefficients for variables"),
    wellPanel(
-      withSpinner(DTOutput("res.table"), type=4),
+      withSpinner(DTOutput("res.table"), type = 4, color = "#3498db", size = 1, caption = "Estimating, please wait..."),
       conditionalPanel("input.clamb",
       DTOutput("res.bic")
       )),
 
    h4("CSTE curve"),
    conditionalPanel("input.B",
-
-   wellPanel(h5("Figure options (optional settings)"),
-   tags$b("Kernel bandwidth for B-spline method in the confidence intervals"),
+   uiOutput("actionButtonBplot1"),
+   wellPanel(
+   materialSwitch(
+   inputId = "figop",
+   label = h5("Figure options (optional settings)"),
+   value = FALSE,
+   status = "primary"
+   ),
+   conditionalPanel(condition="input.figop",
+   tags$b("Kernel bandwidth for B-spline method in the confidence intervals, which controls the smoothness of the curve)"),
    # helpText(HTML("0 indicates to use the estimated kernel bandwidth")),
    uiOutput("kh"),
    tags$b("Significant level for confidence interval"),
@@ -244,15 +251,14 @@ tabsetPanel(
    uiOutput("ylim1"),
    tags$b("Reset the range for x-axis"),
    uiOutput("xlim1")),
-   uiOutput("actionButtonBplot1"),
    # p("Click the button to create plot after model is built."),
    # actionButton("Bplot1", HTML('Step 2. Show/Update the estimated CSTE curve'), 
    #           class =  "btn-primary",
    #           icon  = icon("chart-column")),
-   wellPanel(
-      plotOutput("res.plot", click = "plot_click"),
-      downloadButton("downloadPlot1", "Download Plot as PNG"),
-      textOutput("click_info")),
+   plotOutput("res.plot", click = "plot_click"),
+   downloadButton("downloadPlot1", "Download Plot as PNG"),
+   textOutput("click_info")),
+
    h4("Estimated CSTE with confidence bounds"),
    wellPanel(DTOutput("res.table12"))
 
@@ -279,21 +285,28 @@ tabsetPanel(
 
   tabPanel(
    "Predicted CSTE Curve and Results", br(),
-p("Click 'Step 3.' to start prediction "),
+   p("Click 'Step 3.' to start prediction "),
    conditionalPanel(condition="input.B3",
    h4("Predicted CSTE curve"),
-   wellPanel(h5("Figure options (optional settings)"),
-   tags$b("Reset the range for y-axis"),
-   uiOutput("ylim12"),
-   tags$b("Reset the range for x-axis"),
-   uiOutput("xlim12")),
    actionButton("B32", HTML('Step 4. Show/Update Predicted CSTE curve'), 
              class =  "btn-primary",
              icon  = icon("chart-column")), 
    wellPanel(
-      plotOutput("res.plotp",click = "plot_click2"),
-      downloadButton("downloadPlot2", "Download Plot as PNG"),
-      textOutput("click_info2") 
+   materialSwitch(
+   inputId = "figop_pred",
+   label = h5("Figure options (optional settings)"),
+   value = FALSE,
+   status = "primary"
+   ),
+   conditionalPanel(condition="input.figop_pred",
+   tags$b("Reset the range for y-axis"),
+   uiOutput("ylim12"),
+   tags$b("Reset the range for x-axis"),
+   uiOutput("xlim12")),
+   
+   plotOutput("res.plotp",click = "plot_click2"),
+   downloadButton("downloadPlot2", "Download Plot as PNG"),
+   textOutput("click_info2") 
            ),
    wellPanel(
       h4("The predicted location of x-axis for new subject"),

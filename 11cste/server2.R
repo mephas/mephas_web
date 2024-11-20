@@ -235,11 +235,12 @@ shinyjs::enable("slider1")
   res2(res)
 # browser()
   })
-shinyjs::enable("start1")
-shinyjs::enable("slider1")
+
 
 res.table2 <- eventReactive(input$B2,{
 
+shinyjs::disable("B2")
+shinyjs::disable("Bplot1_sv")
 validate(need(input$z2, "Choose Treatment variable"))
 # validate(need(input$ztype=="TRUE" & is.null(input$c2), "Please check the contrast vector for the multiple treatments"))
 
@@ -253,6 +254,9 @@ res <- round(res, 3)
 colnames(res) <- 1:ncol(res)
 rownames(res) <- c("Lower bound", "CSTE", "Upper bound")
 return(res[c(3,2,1),])
+
+shinyjs::enable("B2")
+shinyjs::enable("Bplot1_sv")
   })
 
 output$res.table2 <- renderDT(
@@ -327,8 +331,8 @@ x <- unlist(X2())
 # abline(h = 0, col= "grey", type = 2)
 df <- data.frame(x = x[ord], y = res[ord,2], lb = res[ord,1], ub = res[ord,3])
 
-if(input$xlim1_sv[1]==input$xlim1_sv[2]) xlim = range(df$x) else xlim=input$xlim1_sv
-if(input$ylim1_sv[1]==input$ylim1_sv[2]) ylim = range(c(df$ub, df$lb)) else ylim=input$ylim1_sv
+if((input$xlim1_sv[1]==input$xlim1_sv[2])||is.null(input$xlim1_sv)) xlim = range(df$x) else xlim=input$xlim1_sv
+if((input$ylim1_sv[1]==input$ylim1_sv[2])||is.null(input$ylim1_sv)) ylim = range(c(df$ub, df$lb)) else ylim=input$ylim1_sv
 
 ggplot(df, mapping = aes(x = x, y = y)) + 
   scale_x_continuous(limits = xlim, name = "X") +

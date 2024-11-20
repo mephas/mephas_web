@@ -1,17 +1,17 @@
-### Introduction of _CSTE_ (ver 1.0.0)
+### Introduction of _CSTEapp_ (ver 1.0.0)
 
-_CSTE_ provides a uniform statistical inferential tool for estimating individualized treatment rule.
+_CSTEapp_ provides a uniform statistical inferential tool for estimating individualized treatment rule.
 
-_CSTE_ estimates differences of average outcomes between different treatment groups conditional on patients characteristics and provides the corresponding simultaneous confidence bands. Based on the CSTE curve and the simultaneous confidence bands, one can decide the subgroups of patients that benefit from each treatment and then make individualized treatment selections.
+_CSTEapp_ estimates differences of average outcomes between different treatment groups conditional on patients characteristics and provides the corresponding simultaneous confidence bands. Based on the CSTE curve and the simultaneous confidence bands, one can decide the subgroups of patients that benefit from each treatment and then make individualized treatment selections.
 
-**The current _CSTE_ can analyze the following types of datasets:**
+**The current _CSTEapp_ can analyze the following types of datasets:**
 
 *   Datasets with binary outcomes, 2-arm treatments, and single or multiple (even high-dimensional) covariates.[\[1-2\]](#1)
     
 *   Datasets with right censored time-to-event outcomes, multi-arm treatments, and a single covariate of the biomarker.[\[3-4\]](#4)
     
 
-_CSTE_ will consider more types of datasets in the future.
+_CSTEapp_ will consider more types of datasets in the future.
 
 ### R package
 
@@ -29,11 +29,6 @@ CSTE: Covariate Specific Treatment Effect (CSTE) Curve ([https://CRAN.R-project.
 
 \[4\] Ma Y, Zhou XH. Treatment selection in a randomized clinical trial via covariate-specific treatment effect curves. Statistical Methods in Medical Research. 2017 Feb;26(1):124–41. [http://journals.sagepub.com/doi/10.1177/0962280214541724](http://journals.sagepub.com/doi/10.1177/0962280214541724)
 
------
-
-#### Contact
-
-yzhou\_at\_pku.edu.cn
 
 -----
 
@@ -61,9 +56,9 @@ yzhou\_at\_pku.edu.cn
     <td class="tg-0pky">First release</td>
   </tr>
   <tr>
-    <td class="tg-0pky">2024-05-02</td>
+    <td class="tg-0pky">2024-11-20</td>
     <td class="tg-0pky">1.0.0</td>
-    <td class="tg-0pky">Update</td>
+    <td class="tg-0pky">Update interface and functions</td>
   </tr>
 </tbody>
 </table>
