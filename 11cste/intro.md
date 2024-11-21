@@ -1,21 +1,56 @@
-### Introduction of _CSTEapp_ (ver 1.0.0)
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-_CSTEapp_ provides a uniform statistical inferential tool for estimating individualized treatment rule.
+<div style="margin-left: 15%; margin-right: 15%;">
 
-_CSTEapp_ estimates differences of average outcomes between different treatment groups conditional on patients characteristics and provides the corresponding simultaneous confidence bands. Based on the CSTE curve and the simultaneous confidence bands, one can decide the subgroups of patients that benefit from each treatment and then make individualized treatment selections.
+### Introduction of **CSTEapp** (ver 1.0.0)
 
-**The current _CSTEapp_ can analyze the following types of datasets:**
+**CSTEapp** provides a uniform statistical inferential tool, **the Covariate-Specific Treatment Effect (CSTE) curve** for estimating individualized treatment rule.
 
-*   Datasets with binary outcomes, 2-arm treatments, and single or multiple (even high-dimensional) covariates.[\[1-2\]](#1)
+**CSTEapp** estimates differences of average outcomes between different treatment groups conditional on patients characteristics and provides the corresponding simultaneous confidence bands. Based on the CSTE curve and the simultaneous confidence bands, one can decide the subgroups of patients that benefit from each treatment and then make individualized treatment selections.
+
+### Data structure suitable in the **CSTEapp**
+
+*   **Binary outcomes**: Dataset with one binary outcome variable, one binary treatment variable, and single or multiple (even high-dimensional) covariates (e.g., subjects vital information).[\[1-2\]](#1)
     
-*   Datasets with right censored time-to-event outcomes, multi-arm treatments, and a single covariate of the biomarker.[\[3-4\]](#4)
+*   **Survival outcomes**: Datasets with right censored time-to-event outcomes (one time variable and one censoring indicator), one or more binary treatment variable (dummy variables implying multiple treatments), and a single covariate (e.g., the measurements of the biomarker).[\[3-4\]](#4)
     
+**CSTEapp** will consider more types of datasets in the future.
 
-_CSTEapp_ will consider more types of datasets in the future.
+--------
 
+### How to read the CSTE curve and choose the optimal treatment
+
+
+*   Given the observed covariates, estimate **the CSTE curve** and the corresponding **simultaneous confidence bands (SCB)** at a certain (usually 0.05) confidence level.   
+
+*   Based on the SCB, identify the cutoff points of **the positive and negative regions** of the CSTE.  
+    
+*   For a new patient with their covariates (say, $\boldsymbol X=\tilde{\boldsymbol x}$):
+
+    - in the case of binary outcomes, select the optimal treatment for this patient based on the regions where the predicted $\tilde{\boldsymbol x}^\top\hat{\boldsymbol\beta}_1$ (to be shown at the $x$-axis) falls into; 
+
+    - in the case of survival outcomes, select the optimal treatment for this patient based on the regions where the new $\tilde{\boldsymbol x}$ (to be shown at the $x$-axis) falls into.
+
+
+#### An artificial example
+
+<img src="eg.png" alt="Graph" style="width:70%; height:auto;">
+
+Suppose this CSTE curve was simulated for binary outcomes $Y$, **where $Y=1$ indicated deterioration in health and $Y=0$ otherwise**; **$Z=1$ indicated assignment of the new treatment and $Z=0$ the old treatment**.
+
+*   If data ($\tilde{\boldsymbol x}^\top\hat{\boldsymbol\beta}_1$) falls into the region $(-1,a]$ or $[d,0.25)$, we have 95\% confidence to conclude that the patient will **benefit from the new treatment**; 
+
+
+*   If $\tilde{\boldsymbol x}^\top\hat{\boldsymbol\beta}_1$ falls into $[b,c]$, we have 95\% confidence to conclude that the patient will **benefit from the old treatment**; 
+
+*   If $\tilde{\boldsymbol x}^\top\hat{\boldsymbol\beta}_1$ falls into $[a,b]$ or $[c,d]$, **no significant difference** is discovered between these two treatments.
+
+
+--------
 ### R package
 
-CSTE: Covariate Specific Treatment Effect (CSTE) Curve ([https://CRAN.R-project.org/package=CSTE](https://CRAN.R-project.org/package=CSTE))
+**CSTE**: Covariate Specific Treatment Effect (CSTE) Curve ([https://CRAN.R-project.org/package=CSTE](https://CRAN.R-project.org/package=CSTE))
 
 --------
 
@@ -63,3 +98,4 @@ CSTE: Covariate Specific Treatment Effect (CSTE) Curve ([https://CRAN.R-project.
 </tbody>
 </table>
 
+</div>

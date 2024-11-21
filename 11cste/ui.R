@@ -35,7 +35,8 @@ if(!requireNamespace("latex2exp",quietly=TRUE)) install.packages("latex2exp")
 library("latex2exp",quietly=TRUE)
 # Define UI for application that draws a histogram
 # fluidPage(
-# tagList(
+tagList(
+withMathJax(),
 navbarPage(
 theme = shinytheme("cerulean"), #united #simplex
 title = ("CSTEapp (ver 1.0.0)"),
@@ -43,7 +44,8 @@ title = ("CSTEapp (ver 1.0.0)"),
 # id = "navibar",
 # position = "static-top",
   tabPanel("Wiki",
-  includeMarkdown("intro.md")
+  HTML("")
+  # includeMarkdown("intro.md")
 # HTML('
 
 # <h3 id="introduction-of-cste-ver-1-0-0-">Introduction of <em>CSTE</em> (ver 1.0.0)</h3>
@@ -99,10 +101,10 @@ title = ("CSTEapp (ver 1.0.0)"),
 # ')
 ),
 
-tabPanel("Binary outcome",
+tabPanel("Binary outcomes",
 source("ui1.R",local = T, encoding = "UTF-8")$value
 ),
-tabPanel("Time-to-event outcome",
+tabPanel("Survival outcomes",
 source("ui2.R",local = T, encoding = "UTF-8")$value
 ),
 
@@ -127,5 +129,5 @@ navbarMenu("Close and more", icon = icon("power-off"),
 hr()
 )
 # includeMarkdown("cste.md"),
-# )
+)
 # )

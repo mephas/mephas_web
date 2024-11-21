@@ -99,7 +99,7 @@ hr(),
    uiOutput("alpha2"),
    tags$b("Resampling times for confidence interval"),
    uiOutput("m2"),
-   tags$b("Kernel bands in estimation"),
+   tags$b("Kernel bands in estimation (influence the smoothness of the curve)"),
    uiOutput("kh2")),
    
 hr(),
@@ -132,39 +132,49 @@ HTML("
 </ul>
 "),
 tabsetPanel(
+
   tabPanel("CSTE Curve with Estimates", br(), 
    h4("CSTE Estimates"),
    wellPanel(
       withSpinner(DTOutput("res.table2"),type = 4, color = "#3498db", size = 1, caption = "Estimating, please wait..."),
       ),
+
    h4("CSTE curve"),
    conditionalPanel("input.B2",
    uiOutput("actionButtonBplot1_sv"),
    wellPanel(
-   materialSwitch(
-      inputId = "figop_sv",
-      label = h5("Figure options (optional settings)"),
-      value = FALSE,
-      status = "primary"
-      ),
-   conditionalPanel(condition="input.figop_sv",
-   tags$b("Reset the range for y-axis"),
-   uiOutput("ylim1_sv"),
-   tags$b("Reset the range for x-axis"),
-   uiOutput("xlim1_sv")),
-      # actionButton("Bplot1_sv", HTML('Step 2. Show/Update the estimated CSTE curve'), 
-      #        class =  "btn-primary",
-      #        icon  = icon("chart-column")),
-   plotOutput("res.plot2", click = "plot_click_sv"),
-   downloadButton("downloadPlot1_sv", "Download Plot as PNG"),
-   textOutput("click_info_sv"),
-   textOutput("c2text"))
+
+   tabsetPanel(
+    tabPanel("Static curve",
+      materialSwitch(
+         inputId = "figop_sv",
+         label = h5("Figure options (optional settings)"),
+         value = FALSE,
+         status = "primary"
+         ),
+      conditionalPanel(condition="input.figop_sv",
+      tags$b("Reset the range for y-axis"),
+      uiOutput("ylim1_sv"),
+      tags$b("Reset the range for x-axis"),
+      uiOutput("xlim1_sv")),
+
+         # actionButton("Bplot1_sv", HTML('Step 2. Show/Update the estimated CSTE curve'), 
+         #        class =  "btn-primary",
+         #        icon  = icon("chart-column")),
+      plotOutput("res.plot2", click = "plot_click_sv"),
+      downloadButton("downloadPlot1_sv", "Download Plot as PNG"),
+      textOutput("click_info_sv"),
+      textOutput("c2text")),
+
+    tabPanel("Dynamic curve",
+      plotlyOutput("makeplot2"))
+   
    )
    # h4("CSTE Estimates"),
    # wellPanel(
    #    withSpinner(DTOutput("res.table2"),type=4)
    #    )       
-           )
+   )
   # tabPanel(
   #  "CSTE Dynamic Plot", br(), 
   #  wellPanel(plotlyOutput("makeplot2")) 
@@ -176,4 +186,6 @@ tabsetPanel(
 )
 ##########----------##########----------##########
 
+)
+)
 )

@@ -293,27 +293,31 @@ df <- data.frame(x = res$or_x, y = res$fit_x, lb = res$lower_bound, ub = res$upp
 estdf(df)
 if((input$xlim1[1]==input$xlim1[2])||is.null(input$xlim1)) xlim = range(df$x) else xlim=input$xlim1
 
-ggplot(df, mapping = aes(x = x, y = y)) + 
+suppressWarnings(
+  ggplot(df, mapping = aes(x = x)) + 
   scale_x_continuous(limits = xlim, name = latex2exp::TeX("$X\\hat{\\beta}_1$")) +
   scale_y_continuous(limits = ylim1,
     name = latex2exp::TeX("$CSTE = g_1(X\\hat{\\beta}_1)$")) +
   geom_hline(yintercept=0, colour = "#53868B", lty=2)+
-  geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.2) +
-  geom_line(aes(colour = "Fitted"))+
+  # geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.2) +
+  geom_line(aes(y=y,  colour = "Fitted"), na.rm = TRUE)+
+  geom_line(aes(y=ub, colour = "Confidence band"), na.rm = TRUE)+
+  geom_line(aes(y=lb, colour = "Confidence band"), na.rm = TRUE)+
   theme(panel.background = element_rect(fill = "white", colour = "grey50"),
         panel.grid.major = element_line(colour = "grey87"),
         legend.key = element_rect (fill = "white"),
         legend.position = "bottom"
         )+
   scale_colour_manual("CSTE Curve", 
-                      breaks = c("Fitted"),
-                      values = c("#F8766D"),
-                      guide = guide_legend(override.aes = list(lty = c(1))))+
-  scale_fill_manual(" ", 
-                    breaks = c("Confidence band"),
-                    values = c("#87cefa"),
-                    guide = guide_legend(override.aes = list(color = c("#87cefa"))))
+                      breaks = c("Fitted","Confidence band"),
+                      values = c("#F8766D","#87cefa"),
+                      guide = guide_legend(override.aes = list(lty = c(1,1))))
+  # scale_fill_manual(" ", 
+  #                   breaks = c("Confidence band"),
+  #                   values = c("#87cefa"),
+  #                   guide = guide_legend(override.aes = list(color = c("#87cefa"))))
 
+)
 })
 
 output$res.plot <-  renderPlot({
@@ -333,13 +337,17 @@ output$click_info <- renderText({
     req(input$plot_click)  # Wait for the click input
     paste("Clicked at: (", round(input$plot_click$x, 3), ", ", round(input$plot_click$y, 3), ")", sep = "")
   })
-# output$makeplot <- renderPlotly({
-#   ggplotly(res.plot())%>%
-#   layout(xaxis=list(title= "X beta_1"), yaxis=list(title = "CSTE"))
-#   })
+
+output$makeplot <- renderPlotly({
+  req(res.plot())
+  ggplotly(res.plot())%>%
+  layout(xaxis=list(title= "X hat(beta)[1]"), 
+    yaxis=list(title = "CSTE"))
+  })
 
 res.table12 <- eventReactive(input$Bplot1,{
 validate(need(estdf(), "Model estimation failed"))
+req(estdf())
 df = round(as.data.frame(t(estdf())),3)
 df = df[c(4,2,3,1),]
 rownames(df) <- c("Upper Bound","CSTE","Lower Bound","X*beta1")
@@ -706,12 +714,14 @@ validate(need(newx,
 
 df = plotpar[["df"]]
 df2 = plotpar[["df2"]]
-p <- ggplot(df, mapping = aes(x = x, y = y)) + 
+p <- ggplot(df, mapping = aes(x = x)) + 
   scale_x_continuous(limits = input$xlim12 , name = latex2exp::TeX("$X\\hat{\\beta}_1$")) +
   scale_y_continuous(limits = input$ylim12, name = latex2exp::TeX("$CSTE = g_1(X\\hat{\\beta}_1)$")) +
   geom_hline(yintercept=0, colour = "#53868B", lty=2)+
-  geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.1) +
-  geom_line(aes(colour = "Fitted"))+
+  # geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.1) +
+  geom_line(aes(y = y, colour = "Fitted"), na.rm = TRUE)+
+  geom_line(aes(y=ub, colour = "Confidence band"), na.rm = TRUE)+
+  geom_line(aes(y=lb, colour = "Confidence band"), na.rm = TRUE)+
   geom_vline(data = df2, aes(xintercept = x, colour = "Predicted",group = id), lty=2)+
   # geom_point(data = df2, mapping = aes(x = x, y = y, colour = "Predicted", group = id), shape = 1, size=2)+
   theme(panel.background = element_rect(fill = "white", colour = "grey50"),
@@ -719,13 +729,13 @@ p <- ggplot(df, mapping = aes(x = x, y = y)) +
         legend.key = element_rect (fill = "white"),
         legend.position = "bottom")+
   scale_colour_manual("CSTE Curve", 
-                      breaks = c("Fitted", "Predicted"),
-                      values = c("#F8766D", "#6495ed"),
-                      guide = guide_legend(override.aes = list(lty = c(1, 2))))+
-  scale_fill_manual(" ", 
-                    breaks = c("Confidence band"),
-                    values = c("#87cefa"),
-                    guide = guide_legend(override.aes = list(color = c("#87cefa"))))
+                      breaks = c("Fitted", "Confidence band", "Predicted"),
+                      values = c("#F8766D", "#87cefa", "#6495ed"),
+                      guide = guide_legend(override.aes = list(lty = c(1, 1,2))))
+  # scale_fill_manual(" ", 
+  #                   breaks = c("Confidence band"),
+  #                   values = c("#87cefa"),
+  #                   guide = guide_legend(override.aes = list(color = c("#87cefa"))))
 
 return(p)
 })
@@ -749,10 +759,11 @@ output$click_info2 <- renderText({
     paste("Clicked at: (", round(input$plot_click2$x, 3), ", ", round(input$plot_click2$y, 3), ")", sep = "")
   })
 
-# output$makeplotp <- renderPlotly({
-#   ggplotly(res.plotp())%>%
-#   layout(xaxis=list(title= "X beta_1"), yaxis=list(title = "CSTE"))
-#   })
+output$makeplotp <- renderPlotly({
+  req(res.plotp())
+  ggplotly(res.plotp())%>%
+  layout(xaxis=list(title= "X beta_1"), yaxis=list(title = "CSTE"))
+  })
 
 res.tablep <- eventReactive(input$B3,{
 newx = tryCatch(subset(datap(), select=input$x1, drop = FALSE),

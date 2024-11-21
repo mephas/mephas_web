@@ -230,39 +230,45 @@ tabsetPanel(
       conditionalPanel("input.clamb",
       DTOutput("res.bic")
       )),
-
-   h4("CSTE curve"),
+ 
+ h4("CSTE curve"),
    conditionalPanel("input.B",
    uiOutput("actionButtonBplot1"),
    wellPanel(
-   materialSwitch(
-   inputId = "figop",
-   label = h5("Figure options (optional settings)"),
-   value = FALSE,
-   status = "primary"
-   ),
-   conditionalPanel(condition="input.figop",
-   tags$b("Kernel bandwidth for B-spline method in the confidence intervals, which controls the smoothness of the curve)"),
-   # helpText(HTML("0 indicates to use the estimated kernel bandwidth")),
-   uiOutput("kh"),
-   tags$b("Significant level for confidence interval"),
-   uiOutput("alpha"),
-   tags$b("Reset the range for y-axis"),
-   uiOutput("ylim1"),
-   tags$b("Reset the range for x-axis"),
-   uiOutput("xlim1")),
-   # p("Click the button to create plot after model is built."),
-   # actionButton("Bplot1", HTML('Step 2. Show/Update the estimated CSTE curve'), 
-   #           class =  "btn-primary",
-   #           icon  = icon("chart-column")),
-   plotOutput("res.plot", click = "plot_click"),
-   downloadButton("downloadPlot1", "Download Plot as PNG"),
-   textOutput("click_info")),
+    
+    tabsetPanel(
+    tabPanel("Static curve",
+      materialSwitch(
+      inputId = "figop",
+      label = h5("Figure options (optional settings)"),
+      value = FALSE,
+      status = "primary"
+      ),
+      conditionalPanel(condition="input.figop",
+      tags$b("Kernel bandwidth for B-spline method in the confidence intervals, which controls the smoothness of the curve)"),
+      # helpText(HTML("0 indicates to use the estimated kernel bandwidth")),
+      uiOutput("kh"),
+      tags$b("Significant level for confidence interval"),
+      uiOutput("alpha"),
+      tags$b("Reset the range for y-axis"),
+      uiOutput("ylim1"),
+      tags$b("Reset the range for x-axis"),
+      uiOutput("xlim1")),
+      # p("Click the button to create plot after model is built."),
+      # actionButton("Bplot1", HTML('Step 2. Show/Update the estimated CSTE curve'), 
+      #           class =  "btn-primary",
+      #           icon  = icon("chart-column")),
+      plotOutput("res.plot", click = "plot_click"),
+      downloadButton("downloadPlot1", "Download Plot as PNG"),
+      textOutput("click_info")),
+    tabPanel("Dynamic curve",
+      plotlyOutput("makeplot"))
+      ),
 
-   h4("Estimated CSTE with confidence bounds"),
-   wellPanel(DTOutput("res.table12"))
+      h4("Estimated CSTE with confidence bounds"),
+      wellPanel(DTOutput("res.table12"))
 
-   )),
+      ))),
 #   tabPanel(
 #    "CSTE Curve for a single variable", br(),
 #    h4("CSTE curve for a single variable"),
@@ -292,23 +298,28 @@ tabsetPanel(
              class =  "btn-primary",
              icon  = icon("chart-column")), 
    wellPanel(
-   materialSwitch(
-   inputId = "figop_pred",
-   label = h5("Figure options (optional settings)"),
-   value = FALSE,
-   status = "primary"
-   ),
-   conditionalPanel(condition="input.figop_pred",
-   tags$b("Reset the range for y-axis"),
-   uiOutput("ylim12"),
-   tags$b("Reset the range for x-axis"),
-   uiOutput("xlim12")),
+
+   tabsetPanel(
+    tabPanel("Static curve",
+      materialSwitch(
+      inputId = "figop_pred",
+      label = h5("Figure options (optional settings)"),
+      value = FALSE,
+      status = "primary"
+      ),
+      conditionalPanel(condition="input.figop_pred",
+      tags$b("Reset the range for y-axis"),
+      uiOutput("ylim12"),
+      tags$b("Reset the range for x-axis"),
+      uiOutput("xlim12")),
+      
+      plotOutput("res.plotp",click = "plot_click2"),
+      downloadButton("downloadPlot2", "Download Plot as PNG"),
+      textOutput("click_info2")),
+    tabPanel("Dynamic curve",
+      plotlyOutput("makeplotp"))
+    ),
    
-   plotOutput("res.plotp",click = "plot_click2"),
-   downloadButton("downloadPlot2", "Download Plot as PNG"),
-   textOutput("click_info2") 
-           ),
-   wellPanel(
       h4("The predicted location of x-axis for new subject"),
       DTOutput("res.tablep")
       )

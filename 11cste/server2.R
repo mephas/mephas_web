@@ -186,7 +186,7 @@ output$m2 <- renderUI({
 sliderTextInput(
   "m2", 
   label= NULL,
-  choices = seq(50,500,50),
+  choices = seq(10,200,10),
   selected=50,
   grid = TRUE,
   width ="100%"
@@ -334,24 +334,26 @@ df <- data.frame(x = x[ord], y = res[ord,2], lb = res[ord,1], ub = res[ord,3])
 if((input$xlim1_sv[1]==input$xlim1_sv[2])||is.null(input$xlim1_sv)) xlim = range(df$x) else xlim=input$xlim1_sv
 if((input$ylim1_sv[1]==input$ylim1_sv[2])||is.null(input$ylim1_sv)) ylim = range(c(df$ub, df$lb)) else ylim=input$ylim1_sv
 
-ggplot(df, mapping = aes(x = x, y = y)) + 
+ggplot(df, mapping = aes(x = x)) + 
   scale_x_continuous(limits = xlim, name = "X") +
   scale_y_continuous(limits = ylim, name = latex2exp::TeX("CSTE = $c^T \\beta(X)$")) +
   geom_hline(yintercept=0, colour = "#53868B", lty=2)+
-  geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.2) +
-  geom_line(aes(colour = "Fitted"))+
+  # geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.2) +
+  geom_line(aes(y = y, colour = "Fitted"), na.rm = TRUE)+
+  geom_line(aes(y=ub, colour = "Confidence band"), na.rm = TRUE)+
+  geom_line(aes(y=lb, colour = "Confidence band"), na.rm = TRUE)+
   theme(panel.background = element_rect(fill = "white", colour = "grey50"),
         panel.grid.major = element_line(colour = "grey87"),
         legend.key = element_rect (fill = "white"),
         legend.position = "bottom")+
   scale_colour_manual("CSTE Curve", 
-                      breaks = c("Fitted"),
-                      values = c("#F8766D"),
-                      guide = guide_legend(override.aes = list(lty = c(1))))+
-  scale_fill_manual(" ", 
-                    breaks = c("Confidence band"),
-                    values = c("#87cefa"),
-                    guide = guide_legend(override.aes = list(color = c("#87cefa"))))
+                      breaks = c("Fitted","Confidence band"),
+                      values = c("#F8766D","#87cefa"),
+                      guide = guide_legend(override.aes = list(lty = c(1,1))))
+  # scale_fill_manual(" ", 
+  #                   breaks = c("Confidence band"),
+  #                   values = c("#87cefa"),
+  #                   guide = guide_legend(override.aes = list(color = c("#87cefa"))))
 
 })
 
@@ -376,4 +378,10 @@ output$click_info_sv <- renderText({
 output$c2text <- renderText({
     req(c2text())  # Wait for the click input
     paste("The contrast vector is (", paste0(as.character(c2text()), collapse = ","),")")
+  })
+
+output$makeplot2 <- renderPlotly({
+  req(res.plot2())
+  ggplotly(res.plot2())%>%
+  layout(xaxis=list(title= "X"), yaxis=list(title = "CSTE"))
   })
