@@ -44,8 +44,8 @@ title = ("CSTEapp (ver 1.0.0)"),
 # id = "navibar",
 # position = "static-top",
   tabPanel("Wiki",
-  HTML("")
-  # includeMarkdown("intro.md")
+  # HTML("")
+  includeMarkdown("intro.md")
 # HTML('
 
 # <h3 id="introduction-of-cste-ver-1-0-0-">Introduction of <em>CSTE</em> (ver 1.0.0)</h3>
