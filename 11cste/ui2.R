@@ -142,7 +142,7 @@ tabsetPanel(
 
    h4("CSTE curve"),
    conditionalPanel("input.B2",
-   uiOutput("actionButtonBplot1_sv"),
+   # uiOutput("actionButtonBplot1_sv"),
    wellPanel(
 
    tabsetPanel(
