@@ -131,7 +131,7 @@ actionButton("B", HTML('Step 1. Model estimation'),
              icon  = icon("chart-column")),
 hr(),
 
-conditionalPanel(condition="input.Bplot1",
+conditionalPanel(condition="input.BB",
 h3("Model Prediction"),
 radioGroupButtons(
    inputId = "uploadprd",
@@ -230,29 +230,49 @@ tabsetPanel(
       conditionalPanel("input.clamb",
       DTOutput("res.bic")
       )),
- 
- h4("CSTE curve"),
+
+   # actionButton("BB", HTML('Step 2. Estimate the CSTE curve'), 
+   #           class =  "btn-primary",
+   #           icon  = icon("chart-column")), 
+   
+   h4("Estimated CSTE with confidence bounds"),
    conditionalPanel("input.B",
-   uiOutput("actionButtonBplot1"),
+   uiOutput("actionButtonBplot2"),
    wellPanel(
-    
-    tabsetPanel(
-    tabPanel("Static curve",
       materialSwitch(
-      inputId = "figop",
-      label = h5("Figure options (optional settings)"),
+      inputId = "tabop",
+      label = h5("Advanced options for bounds (optional settings)"),
       value = FALSE,
       status = "primary"
       ),
-      conditionalPanel(condition="input.figop",
+      conditionalPanel(condition="input.tabop",
       tags$b("Kernel bandwidth for B-spline method in the confidence intervals, which controls the smoothness of the curve)"),
       # helpText(HTML("0 indicates to use the estimated kernel bandwidth")),
       uiOutput("kh"),
       tags$b("Significant level for confidence interval"),
       uiOutput("alpha"),
+      p("After setting, please re-click the button of Step 2")),
+      DTOutput("res.table12")),
+ 
+   h4("CSTE curve"),
+   conditionalPanel("input.BB",
+   # uiOutput("actionButtonBplot1"),
+   wellPanel(
+    
+    tabsetPanel(
+    tabPanel("Static curve",
+      
+      materialSwitch(
+      inputId = "figop",
+      label = h5("Figure options for the axes of coordinates (optional settings)"),
+      value = FALSE,
+      status = "primary"
+      ),
+      # uiOutput("actionButtonBplot1"),
+      conditionalPanel(condition="input.figop",
       tags$b("Reset the range for y-axis"),
       uiOutput("ylim1"),
-      tags$b("Reset the range for x-axis"),
+      tags$b("Reset the range for x-axis (if same values are taken, the default range is used)"),
       uiOutput("xlim1")),
       # p("Click the button to create plot after model is built."),
       # actionButton("Bplot1", HTML('Step 2. Show/Update the estimated CSTE curve'), 
@@ -263,12 +283,11 @@ tabsetPanel(
       textOutput("click_info")),
     tabPanel("Dynamic curve",
       plotlyOutput("makeplot"))
-      ),
+      )
+      ))
+   )
 
-      h4("Estimated CSTE with confidence bounds"),
-      wellPanel(DTOutput("res.table12"))
-
-      ))),
+   ),
 #   tabPanel(
 #    "CSTE Curve for a single variable", br(),
 #    h4("CSTE curve for a single variable"),
@@ -294,9 +313,9 @@ tabsetPanel(
    p("Click 'Step 3.' to start prediction "),
    conditionalPanel(condition="input.B3",
    h4("Predicted CSTE curve"),
-   actionButton("B32", HTML('Step 4. Show/Update Predicted CSTE curve'), 
-             class =  "btn-primary",
-             icon  = icon("chart-column")), 
+   # actionButton("B32", HTML('Show/Update Predicted CSTE curve'), 
+   #           class =  "btn-primary",
+   #           icon  = icon("chart-column")), 
    wellPanel(
 
    tabsetPanel(
@@ -319,7 +338,7 @@ tabsetPanel(
     tabPanel("Dynamic curve",
       plotlyOutput("makeplotp"))
     ),
-   
+
       h4("The predicted location of x-axis for new subject"),
       DTOutput("res.tablep")
       )

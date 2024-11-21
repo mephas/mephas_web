@@ -207,11 +207,14 @@ X2 <- reactive({(subset(data_2(), select=input$x2, drop = FALSE))})
   # return(fit)
   # })
 res2 = reactiveVal()
+res2plot = reactiveVal()
 c2text = reactiveVal()
-shinyjs::enable("start1")
-shinyjs::enable("slider1")
-  observeEvent(input$B2,{
+plotparsv = reactiveValues()
 
+observeEvent(input$B2,{
+
+shinyjs::disable("B2")
+# shinyjs::disable("Bplot1_sv")
   # browser()
   validate(need(input$z2, "Choose Treatment variable"))
   # validate(need(input$ztype=="TRUE" & is.null(input$c2), "Please check the contrast vector for the multiple treatments"))
@@ -231,8 +234,18 @@ shinyjs::enable("slider1")
     x = unlist(X2()), y = unlist(Y2()), z = as.matrix(Z2()), s = unlist(S2()), 
     h = hh, m = mm, alpha = aa)  
 
+res2(res)
 
-  res2(res)
+ord = order(unlist(X2()))
+x <- unlist(X2())
+df <- data.frame(x = x[ord], y = res[ord,2], lb = res[ord,1], ub = res[ord,3])
+res2plot(df)
+
+plotparsv[["xlm"]] <- range(c(df$x))
+plotparsv[["ylm"]] <- range(c(df$ub, df$lb))
+
+shinyjs::enable("B2")
+# shinyjs::enable("Bplot1_sv")
 # browser()
   })
 
@@ -240,7 +253,7 @@ shinyjs::enable("slider1")
 res.table2 <- eventReactive(input$B2,{
 
 shinyjs::disable("B2")
-shinyjs::disable("Bplot1_sv")
+# shinyjs::disable("Bplot1_sv")
 validate(need(input$z2, "Choose Treatment variable"))
 # validate(need(input$ztype=="TRUE" & is.null(input$c2), "Please check the contrast vector for the multiple treatments"))
 
@@ -249,14 +262,15 @@ validate(need(length(c2) == length(input$z2), "Please check the length of contra
 # validate(need(length(input$c2) == length(input$z2), "Please check the length of contrast vector"))
 
 validate(need(res2(), "Model estimation error"))
-res <- as.data.frame(t(res2()))
+res <- rbind.data.frame(unlist(X2()),as.data.frame(t(res2())))
+# browser()
 res <- round(res, 3)
 colnames(res) <- 1:ncol(res)
-rownames(res) <- c("Lower bound", "CSTE", "Upper bound")
-return(res[c(3,2,1),])
+rownames(res) <- c("X", "Lower bound", "CSTE", "Upper bound")
+return(res[c(4,3,2,1),])
 
 shinyjs::enable("B2")
-shinyjs::enable("Bplot1_sv")
+# shinyjs::enable("Bplot1_sv")
   })
 
 output$res.table2 <- renderDT(
@@ -276,19 +290,19 @@ datatable(
   ))
 )
 
-output$actionButtonBplot1_sv <- renderUI({
-    req(res2())  # Ensure model_result is not NULL
-    actionButton("Bplot1_sv", HTML('Step 2. Show/Update the estimated CSTE curve'), 
-             class =  "btn-primary",
-             icon  = icon("chart-column"))
-  })
+# output$actionButtonBplot1_sv <- renderUI({
+#     req(res2())  # Ensure model_result is not NULL
+#     actionButton("Bplot1_sv", HTML('Show/Update the estimated CSTE curve'), 
+#              class =  "btn-info",
+#              icon  = icon("chart-column"))
+#   })
 
 output$ylim1_sv = renderUI({
   sliderTextInput(
     "ylim1_sv", 
     label= NULL,
-  choices = seq(-50,50,1),
-  selected=c(0,0),
+  choices = seq(-5+round(plotparsv[["ylm"]][1]*2), 5+round(plotparsv[["ylm"]][2]*2),0.5),
+  selected= round(plotparsv[["ylm"]]),
   grid = TRUE,
   width ="100%"
   )
@@ -297,24 +311,24 @@ output$xlim1_sv = renderUI({
   sliderTextInput(
     "xlim1_sv", 
     label= NULL,
-  choices = seq(-50,50,1),
-  selected=c(0,0),
+  choices = seq(-5+round(plotparsv[["xlm"]][1]*2), 5+round(plotparsv[["xlm"]][2]*2),0.5),
+  selected= round(plotparsv[["xlm"]]),
   grid = TRUE,
   width ="100%"
   )
 })
 
 ## plot for surv
-res.plot2 <- eventReactive(input$Bplot1_sv,{
+res.plot2 <- reactive({
 # validate(need(input$z2, "Choose Treatment variable"))
 # validate(need(input$c2, "Please check the contrast vector"))
 # c2 <- as.numeric(unlist(strsplit(input$c2,",")))
 # validate(need(length(c2) == length(input$z2), "Please check the length of contrast vector"))
 req(res2())
 validate(need(res2(), "Model estimation failed; please check the input of variables"))
-res <- res2()
-ord = order(unlist(X2()))
-x <- unlist(X2())
+# res <- res2()
+# ord = order(unlist(X2()))
+# x <- unlist(X2())
 # plot(x[ord], res[ord,2],
 # col = '#F8766D', type = "l", ylim=c(-4,2.5),
 # lwd = 2.5, lty = 3,
@@ -329,11 +343,13 @@ x <- unlist(X2())
 # lwd = c(2.5,2), lty = c(3, 2),
 # col = c('#F8766D','#00BFC4','blue'))
 # abline(h = 0, col= "grey", type = 2)
-df <- data.frame(x = x[ord], y = res[ord,2], lb = res[ord,1], ub = res[ord,3])
+# df <- data.frame(x = x[ord], y = res[ord,2], lb = res[ord,1], ub = res[ord,3])
 
-if((input$xlim1_sv[1]==input$xlim1_sv[2])||is.null(input$xlim1_sv)) xlim = range(df$x) else xlim=input$xlim1_sv
-if((input$ylim1_sv[1]==input$ylim1_sv[2])||is.null(input$ylim1_sv)) ylim = range(c(df$ub, df$lb)) else ylim=input$ylim1_sv
-
+df = res2plot()
+# if((input$xlim1_sv[1]==input$xlim1_sv[2])||is.null(input$xlim1_sv)) xlim = range(df$x) else xlim=input$xlim1_sv
+# if((input$ylim1_sv[1]==input$ylim1_sv[2])||is.null(input$ylim1_sv)) ylim = range(c(df$ub, df$lb)) else ylim=input$ylim1_sv
+xlim = input$xlim1_sv
+ylim = input$ylim1_sv
 ggplot(df, mapping = aes(x = x)) + 
   scale_x_continuous(limits = xlim, name = "X") +
   scale_y_continuous(limits = ylim, name = latex2exp::TeX("CSTE = $c^T \\beta(X)$")) +

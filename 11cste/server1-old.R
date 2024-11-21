@@ -193,7 +193,7 @@ parfit = reactiveVal()
 observeEvent(input$B,{
 
     shinyjs::disable("B")
-    shinyjs::disable("BB")
+    shinyjs::disable("Bplot1")
   if(input$scale) x <- normalize(as.matrix(X())) else x <- as.matrix(X())
   if(is.null(input$knot)) nkt = 2 else nkt = input$knot
 
@@ -221,24 +221,66 @@ observeEvent(input$B,{
 
   }
   shinyjs::enable("B")
-  shinyjs::enable("BB")
+  shinyjs::enable("Bplot1")
   })
 
-output$actionButtonBplot2 <- renderUI({
+
+output$actionButtonBplot1 <- renderUI({
     req(fit())  # Ensure model_result is not NULL
-    actionButton("BB", HTML('Step 2. Estimate the CSTE curve'), 
+    actionButton("Bplot1", HTML('Step 2. Show/Update the estimated CSTE curve'), 
              class =  "btn-primary",
              icon  = icon("chart-column"))
+  })
+
+## plot for bin
+res = reactiveVal()
+estdf = reactiveVal()
+plotpar1 =reactiveValues()
+res.plot <- eventReactive(input$Bplot1,{
+
+# validate(need(fit()), "Error")
+if(input$scale) x <- normalize(as.matrix(X())) else x <- as.matrix(X())
+
+
+res <- cste_bin_SCB(x, fit(), h = kh, alpha = alpha)
+res(res)
+df <- data.frame(x = res$or_x, y = res$fit_x, lb = res$lower_bound, ub = res$upper_bound)
+estdf(df)
+if((input$xlim1[1]==input$xlim1[2])||is.null(input$xlim1)) xlim = range(df$x) else xlim=input$xlim1
+
+plotpar1[["xlm"]] <- range(c(df$x, df2$x))
+plotpar1[["ylm"]] <- range(c(df$ub, df$lb, df2$y))
+
 })
 
 
-## Estimated table for CSTE
 output$kh <- renderUI({
 sliderTextInput(
   "kh", 
   label= NULL,
   choices = seq(0.001,0.1,0.001),
   selected=0.01,
+  grid = TRUE,
+  width ="100%"
+  )
+})
+
+output$ylim1 = renderUI({
+  sliderTextInput(
+    "ylim1", 
+    label= NULL,
+  choices = seq(round(plotpar1[["ylm"]][1]*2), round(plotpar1[["ylm"]][2]*2),1),
+  selected= c(-5,5),
+  grid = TRUE,
+  width ="100%"
+  )
+})
+output$xlim1 = renderUI({
+  sliderTextInput(
+    "xlim1", 
+    label= NULL,
+  choices = seq(round(plotpar1[["xlm"]][1]*2), round(plotpar1[["xlm"]][2]*2),1),
+  selected= round(plotpar1[["xlm"]]),
   grid = TRUE,
   width ="100%"
   )
@@ -254,30 +296,65 @@ sliderTextInput(
   )
 })
 
-res = reactiveVal()
-estdf = reactiveVal()
-plotpar1 =reactiveValues()
-
-observeEvent(input$BB,{
-req(fit())
-if(is.null(input$kh)) kh = 0.01 else kh = input$kh
-if(is.null(input$alpha)) alpha = 0.05 else alpha = input$alpha
 
 
-if(input$scale) x <- normalize(as.matrix(X())) else x <- as.matrix(X())
-res <- cste_bin_SCB(x, fit(), h = kh, alpha = alpha)
-res(res)
+output$res.plot <-  renderPlot({
+  # res.plot()
+  req(estdf())
+# if(is.null(input$ylim1)) ylim1 <- c(-5,5) else ylim1 <- input$ylim1
+if(is.null(input$kh)) kh <- 0.01 else kh <- input$kh
+if(is.null(input$alpha)) alpha <- 0.05 else alpha <- input$alpha
 
-df <- data.frame(x = res$or_x, y = res$fit_x, lb = res$lower_bound, ub = res$upper_bound)
-estdf(df)
-# if((input$xlim1[1]==input$xlim1[2])||is.null(input$xlim1)) xlim = range(df$x) else xlim=input$xlim1
+  df = estdf()
+  suppressWarnings(
+  ggplot(df, mapping = aes(x = x)) + 
+  scale_x_continuous(limits = input$xlim1, name = latex2exp::TeX("$X\\hat{\\beta}_1$")) +
+  scale_y_continuous(limits = input$ylim1,
+    name = latex2exp::TeX("$CSTE = g_1(X\\hat{\\beta}_1)$")) +
+  geom_hline(yintercept=0, colour = "#53868B", lty=2)+
+  # geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.2) +
+  geom_line(aes(y=y,  colour = "Fitted"), na.rm = TRUE)+
+  geom_line(aes(y=ub, colour = "Confidence band"), na.rm = TRUE)+
+  geom_line(aes(y=lb, colour = "Confidence band"), na.rm = TRUE)+
+  theme(panel.background = element_rect(fill = "white", colour = "grey50"),
+        panel.grid.major = element_line(colour = "grey87"),
+        legend.key = element_rect (fill = "white"),
+        legend.position = "bottom"
+        )+
+  scale_colour_manual("CSTE Curve", 
+                      breaks = c("Fitted","Confidence band"),
+                      values = c("#F8766D","#87cefa"),
+                      guide = guide_legend(override.aes = list(lty = c(1,1))))
+  # scale_fill_manual(" ", 
+  #                   breaks = c("Confidence band"),
+  #                   values = c("#87cefa"),
+  #                   guide = guide_legend(override.aes = list(color = c("#87cefa"))))
 
-plotpar1[["xlm"]] <- range(c(df$x))
-plotpar1[["ylm"]] <- range(c(df$ub, df$lb))
-
+)
 })
+output$downloadPlot1 <- downloadHandler(
+    filename = function() {
+      paste("plot-cste-estimate-", Sys.Date(), ".png", sep = "")
+    },
+    content = function(file) {
+      # Create the plot and save it as PNG
+      ggsave(file, plot = res.plot(), device = "png", width = 8, height = 6)
+    }
+  )
 
-res.table12 <- eventReactive(input$BB,{
+output$click_info <- renderText({
+    req(input$plot_click)  # Wait for the click input
+    paste("Clicked at: (", round(input$plot_click$x, 3), ", ", round(input$plot_click$y, 3), ")", sep = "")
+  })
+
+output$makeplot <- renderPlotly({
+  req(res.plot())
+  ggplotly(res.plot())%>%
+  layout(xaxis=list(title= "X hat(beta)[1]"), 
+    yaxis=list(title = "CSTE"))
+  })
+
+res.table12 <- eventReactive(input$Bplot1,{
 validate(need(estdf(), "Model estimation failed"))
 req(estdf())
 df = round(as.data.frame(t(estdf())),3)
@@ -353,131 +430,6 @@ output$res.bic <- renderDT(
     scrollX = TRUE
   )
 )
-
-
-output$ylim1 = renderUI({
-  sliderTextInput(
-    "ylim1", 
-    label= NULL,
-  choices = seq(-5+round(plotpar1[["ylm"]][1]*2), 5+round(plotpar1[["ylm"]][2]*2),1),
-  selected= c(-5,5),
-  grid = TRUE,
-  width ="100%"
-  )
-})
-output$xlim1 = renderUI({
-  sliderTextInput(
-    "xlim1", 
-    label= NULL,
-  choices = seq(-5+round(plotpar1[["xlm"]][1]*2), 5+round(plotpar1[["xlm"]][2]*2),1),
-  selected= round(plotpar1[["xlm"]]),
-  grid = TRUE,
-  width ="100%"
-  )
-})
-
-
-
-# output$actionButtonBplot1 <- renderUI({
-#     req(fit())  # Ensure model_result is not NULL
-#     actionButton("Bplot1", HTML('Show/Update the estimated CSTE curve'), 
-#              class =  "btn-secondary",
-#              icon  = icon("chart-column") )
-#   })
-
-res.plot = reactiveVal()
-observe({
-
-req(estdf())
-# if(is.null(input$ylim1)) ylim1 <- c(-5,5) else ylim1 <- input$ylim1
-if(is.null(input$kh)) kh <- 0.01 else kh <- input$kh
-if(is.null(input$alpha)) alpha <- 0.05 else alpha <- input$alpha
-
-  df = estdf()
-  res.plot(suppressWarnings(
-  ggplot(df, mapping = aes(x = x)) + 
-  scale_x_continuous(limits = input$xlim1, name = latex2exp::TeX("$X\\hat{\\beta}_1$")) +
-  scale_y_continuous(limits = input$ylim1,
-    name = latex2exp::TeX("$CSTE = g_1(X\\hat{\\beta}_1)$")) +
-  geom_hline(yintercept=0, colour = "#53868B", lty=2)+
-  # geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.2) +
-  geom_line(aes(y=y,  colour = "Fitted"), na.rm = TRUE)+
-  geom_line(aes(y=ub, colour = "Confidence band"), na.rm = TRUE)+
-  geom_line(aes(y=lb, colour = "Confidence band"), na.rm = TRUE)+
-  theme(panel.background = element_rect(fill = "white", colour = "grey50"),
-        panel.grid.major = element_line(colour = "grey87"),
-        legend.key = element_rect (fill = "white"),
-        legend.position = "bottom"
-        )+
-  scale_colour_manual("CSTE Curve", 
-                      breaks = c("Fitted","Confidence band"),
-                      values = c("#F8766D","#87cefa"),
-                      guide = guide_legend(override.aes = list(lty = c(1,1))))
-  # scale_fill_manual(" ", 
-  #                   breaks = c("Confidence band"),
-  #                   values = c("#87cefa"),
-  #                   guide = guide_legend(override.aes = list(color = c("#87cefa"))))
-
-))
-
-})
-
-output$res.plot <-  renderPlot({
-  res.plot()
-#   req(estdf())
-# # if(is.null(input$ylim1)) ylim1 <- c(-5,5) else ylim1 <- input$ylim1
-# if(is.null(input$kh)) kh <- 0.01 else kh <- input$kh
-# if(is.null(input$alpha)) alpha <- 0.05 else alpha <- input$alpha
-
-#   df = estdf()
-#   suppressWarnings(
-#   ggplot(df, mapping = aes(x = x)) + 
-#   scale_x_continuous(limits = input$xlim1, name = latex2exp::TeX("$X\\hat{\\beta}_1$")) +
-#   scale_y_continuous(limits = input$ylim1,
-#     name = latex2exp::TeX("$CSTE = g_1(X\\hat{\\beta}_1)$")) +
-#   geom_hline(yintercept=0, colour = "#53868B", lty=2)+
-#   # geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.2) +
-#   geom_line(aes(y=y,  colour = "Fitted"), na.rm = TRUE)+
-#   geom_line(aes(y=ub, colour = "Confidence band"), na.rm = TRUE)+
-#   geom_line(aes(y=lb, colour = "Confidence band"), na.rm = TRUE)+
-#   theme(panel.background = element_rect(fill = "white", colour = "grey50"),
-#         panel.grid.major = element_line(colour = "grey87"),
-#         legend.key = element_rect (fill = "white"),
-#         legend.position = "bottom"
-#         )+
-#   scale_colour_manual("CSTE Curve", 
-#                       breaks = c("Fitted","Confidence band"),
-#                       values = c("#F8766D","#87cefa"),
-#                       guide = guide_legend(override.aes = list(lty = c(1,1))))
-#   # scale_fill_manual(" ", 
-#   #                   breaks = c("Confidence band"),
-#   #                   values = c("#87cefa"),
-#   #                   guide = guide_legend(override.aes = list(color = c("#87cefa"))))
-
-# )
-})
-output$downloadPlot1 <- downloadHandler(
-    filename = function() {
-      paste("plot-cste-estimate-", Sys.Date(), ".png", sep = "")
-    },
-    content = function(file) {
-      # Create the plot and save it as PNG
-      ggsave(file, plot = res.plot(), device = "png", width = 8, height = 6)
-    }
-  )
-
-output$click_info <- renderText({
-    req(input$plot_click)  # Wait for the click input
-    paste("Clicked at: (", round(input$plot_click$x, 3), ", ", round(input$plot_click$y, 3), ")", sep = "")
-  })
-
-output$makeplot <- renderPlotly({
-  req(res.plot())
-  ggplotly(res.plot())%>%
-  layout(xaxis=list(title= "X hat(beta)[1]"), 
-    yaxis=list(title = "CSTE"))
-  })
-
 
 ## Estimate for a variable--------------------------------------
 # output$x1a <- renderUI({
@@ -763,7 +715,7 @@ output$xlim12 = renderUI({
   )
 })
 
-res.plotp <- reactive({
+res.plotp <- eventReactive(input$B32,{
   
   newx = tryCatch(subset(datap(), select=input$x1, drop = FALSE),
   error = function(e) NULL)

@@ -136,6 +136,7 @@ tabsetPanel(
   tabPanel("CSTE Curve with Estimates", br(), 
    h4("CSTE Estimates"),
    wellPanel(
+      p("The rownames correspond to subject ID."),
       withSpinner(DTOutput("res.table2"),type = 4, color = "#3498db", size = 1, caption = "Estimating, please wait..."),
       ),
 
