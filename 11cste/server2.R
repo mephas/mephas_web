@@ -8,7 +8,7 @@ dataeg2 <- reactive({
 })
 
 output$file2 <- renderUI({
-fileInput("file", "Choose CSV/TXT file", 
+fileInput("file2", "Choose CSV/TXT file", 
   accept = c("text/csv","text/comma-separated-values,text/plain",".csv"))
 })
 
@@ -85,7 +85,7 @@ data_2 <- reactive({
 })
 
 output$data.pre2 <- renderDT(
-data_2(),
+{data_2()},
 extensions = 'Scroller', 
 options = list(
   deferRender = TRUE,
@@ -212,10 +212,10 @@ c2text = reactiveVal()
 plotparsv = reactiveValues()
 
 observeEvent(input$B2,{
-
+# browser()
 shinyjs::disable("B2")
 # shinyjs::disable("Bplot1_sv")
-  # browser()
+
   validate(need(input$z2, "Choose Treatment variable"))
   # validate(need(input$ztype=="TRUE" & is.null(input$c2), "Please check the contrast vector for the multiple treatments"))
 # validate(need(length(input$c2) == length(input$z2), "Please check the length of contrast vector"))
@@ -230,7 +230,7 @@ shinyjs::disable("B2")
   c2text(c2)
   # if (length(c) != length(input$z2)) c <- c(1,rep(0, length(input$z2)-1)) else c <- c
   # browser()
-  res <- cste_surv_SCB(unlist(c2),
+  res <- cste_surv_SCB((c2),
     x = unlist(X2()), y = unlist(Y2()), z = as.matrix(Z2()), s = unlist(S2()), 
     h = hh, m = mm, alpha = aa)  
 
