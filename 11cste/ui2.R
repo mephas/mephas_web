@@ -142,7 +142,7 @@ tabsetPanel(
 
    h4("CSTE curve"),
    conditionalPanel("input.B2",
-   # uiOutput("actionButtonBplot1_sv"),
+   
    wellPanel(
 
    tabsetPanel(
@@ -153,6 +153,7 @@ tabsetPanel(
          value = FALSE,
          status = "primary"
          ),
+      uiOutput("actionButtonBplot1_sv"),
       conditionalPanel(condition="input.figop_sv",
       tags$b("Reset the range for y-axis"),
       uiOutput("ylim1_sv"),

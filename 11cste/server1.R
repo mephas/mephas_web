@@ -359,7 +359,7 @@ output$ylim1 = renderUI({
   sliderTextInput(
     "ylim1", 
     label= NULL,
-  choices = seq(-5+round(plotpar1[["ylm"]][1]*2), 5+round(plotpar1[["ylm"]][2]*2),1),
+  choices = round(seq(-5+round(plotpar1[["ylm"]][1]*2), 5+round(plotpar1[["ylm"]][2]*2),0.2),2),
   selected= c(-5,5),
   grid = TRUE,
   width ="100%"
@@ -369,35 +369,34 @@ output$xlim1 = renderUI({
   sliderTextInput(
     "xlim1", 
     label= NULL,
-  choices = seq(-5+round(plotpar1[["xlm"]][1]*2), 5+round(plotpar1[["xlm"]][2]*2),1),
+  choices = round(seq(-5+round(plotpar1[["xlm"]][1]*2), 5+round(plotpar1[["xlm"]][2]*2),0.2),2),
   selected= round(plotpar1[["xlm"]]),
   grid = TRUE,
   width ="100%"
   )
 })
 
+output$actionButtonBplot1 <- renderUI({
+    req(fit())  # Ensure model_result is not NULL
+    actionButton("Bplot1", HTML('Show/Update the estimated CSTE curve'), 
+             class =  "btn-secondary",
+             icon  = icon("chart-column") )
+  })
 
-
-# output$actionButtonBplot1 <- renderUI({
-#     req(fit())  # Ensure model_result is not NULL
-#     actionButton("Bplot1", HTML('Show/Update the estimated CSTE curve'), 
-#              class =  "btn-secondary",
-#              icon  = icon("chart-column") )
-#   })
-
-res.plot = reactiveVal()
-observe({
+res.plot = eventReactive(input$Bplot1,{
 
 req(estdf())
-# if(is.null(input$ylim1)) ylim1 <- c(-5,5) else ylim1 <- input$ylim1
+if(is.null(input$ylim1)||input$ylim1[1]==input$ylim1[2]) ylim1 <- c(-5,5) else ylim1=input$ylim1
+if(is.null(input$xlim1)||input$xlim1[1]==input$xlim1[2]) xlim1 <- plotpar1[["xlm"]] else xlim1=input$xlim1
+
 if(is.null(input$kh)) kh <- 0.01 else kh <- input$kh
 if(is.null(input$alpha)) alpha <- 0.05 else alpha <- input$alpha
 
   df = estdf()
-  res.plot(suppressWarnings(
+  suppressWarnings(
   ggplot(df, mapping = aes(x = x)) + 
-  scale_x_continuous(limits = input$xlim1, name = latex2exp::TeX("$X\\hat{\\beta}_1$")) +
-  scale_y_continuous(limits = input$ylim1,
+  scale_x_continuous(limits = xlim1, name = latex2exp::TeX("$X\\hat{\\beta}_1$")) +
+  scale_y_continuous(limits = ylim1,
     name = latex2exp::TeX("$CSTE = g_1(X\\hat{\\beta}_1)$")) +
   geom_hline(yintercept=0, colour = "#53868B", lty=2)+
   # geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.2) +
@@ -418,7 +417,7 @@ if(is.null(input$alpha)) alpha <- 0.05 else alpha <- input$alpha
   #                   values = c("#87cefa"),
   #                   guide = guide_legend(override.aes = list(color = c("#87cefa"))))
 
-))
+)
 
 })
 
@@ -746,7 +745,7 @@ output$ylim12 = renderUI({
   sliderTextInput(
     "ylim12", 
     label= NULL,
-  choices = seq(-5+round(plotpar[["ylm"]][1]*2), 5+round(plotpar[["ylm"]][2]*2),0.5),
+  choices = round(seq(-5+round(plotpar[["ylm"]][1]*2), 5+round(plotpar[["ylm"]][2]*2),0.2),2),
   selected= round(plotpar[["ylm"]]),
   grid = TRUE,
   width ="100%"
@@ -756,25 +755,28 @@ output$xlim12 = renderUI({
   sliderTextInput(
     "xlim12", 
     label= NULL,
-  choices = seq(-5+round(plotpar[["xlm"]][1]*2), 5+round(plotpar[["xlm"]][2]*2),0.5),
+  choices = round(seq(-5+round(plotpar[["xlm"]][1]*2), 5+round(plotpar[["xlm"]][2]*2),0.2),2),
   selected= round(plotpar[["xlm"]]),
   grid = TRUE,
   width ="100%"
   )
 })
 
-res.plotp <- reactive({
+res.plotp <- eventReactive(input$Bplot1p,{
   
   newx = tryCatch(subset(datap(), select=input$x1, drop = FALSE),
   error = function(e) NULL)
   validate(need(newx, 
   "Please check whether the variables of the new data are the same with the modeling data"))
 
+if(is.null(input$ylim12)||input$ylim12[1]==input$ylim12[2]) ylim12 <- c(-5,5) else ylim12=input$ylim12
+if(is.null(input$xlim12)||input$xlim12[1]==input$xlim12[2]) xlim12 <- plotpar[["xlm"]] else xlim12=input$xlim12
+
 df = plotpar[["df"]]
 df2 = plotpar[["df2"]]
-p <- ggplot(df, mapping = aes(x = x)) + 
-  scale_x_continuous(limits = input$xlim12 , name = latex2exp::TeX("$X\\hat{\\beta}_1$")) +
-  scale_y_continuous(limits = input$ylim12, name = latex2exp::TeX("$CSTE = g_1(X\\hat{\\beta}_1)$")) +
+ggplot(df, mapping = aes(x = x)) + 
+  scale_x_continuous(limits = xlim12 , name = latex2exp::TeX("$X\\hat{\\beta}_1$")) +
+  scale_y_continuous(limits = ylim12, name = latex2exp::TeX("$CSTE = g_1(X\\hat{\\beta}_1)$")) +
   geom_hline(yintercept=0, colour = "#53868B", lty=2)+
   # geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.1) +
   geom_line(aes(y = y, colour = "Fitted"), na.rm = TRUE)+
@@ -795,7 +797,7 @@ p <- ggplot(df, mapping = aes(x = x)) +
   #                   values = c("#87cefa"),
   #                   guide = guide_legend(override.aes = list(color = c("#87cefa"))))
 
-return(p)
+
 })
 
 output$res.plotp <-  renderPlot({

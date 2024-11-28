@@ -256,7 +256,7 @@ tabsetPanel(
  
    h4("CSTE curve"),
    conditionalPanel("input.BB",
-   # uiOutput("actionButtonBplot1"),
+   
    wellPanel(
     
     tabsetPanel(
@@ -268,7 +268,7 @@ tabsetPanel(
       value = FALSE,
       status = "primary"
       ),
-      # uiOutput("actionButtonBplot1"),
+      uiOutput("actionButtonBplot1"),
       conditionalPanel(condition="input.figop",
       tags$b("Reset the range for y-axis"),
       uiOutput("ylim1"),
@@ -313,9 +313,7 @@ tabsetPanel(
    p("Click 'Step 3.' to start prediction "),
    conditionalPanel(condition="input.B3",
    h4("Predicted CSTE curve"),
-   # actionButton("B32", HTML('Show/Update Predicted CSTE curve'), 
-   #           class =  "btn-primary",
-   #           icon  = icon("chart-column")), 
+    
    wellPanel(
 
    tabsetPanel(
@@ -326,6 +324,9 @@ tabsetPanel(
       value = FALSE,
       status = "primary"
       ),
+      actionButton("Bplot1p", HTML('Show/Update Predicted CSTE curve'), 
+             class =  "btn-secondary",
+             icon  = icon("chart-column")),
       conditionalPanel(condition="input.figop_pred",
       tags$b("Reset the range for y-axis"),
       uiOutput("ylim12"),

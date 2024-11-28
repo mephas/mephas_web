@@ -290,18 +290,18 @@ datatable(
   ))
 )
 
-# output$actionButtonBplot1_sv <- renderUI({
-#     req(res2())  # Ensure model_result is not NULL
-#     actionButton("Bplot1_sv", HTML('Show/Update the estimated CSTE curve'), 
-#              class =  "btn-info",
-#              icon  = icon("chart-column"))
-#   })
+output$actionButtonBplot1_sv <- renderUI({
+    req(res2())  # Ensure model_result is not NULL
+    actionButton("Bplot1_sv", HTML('Show/Update the estimated CSTE curve'), 
+             class =  "btn-secondary",
+             icon  = icon("chart-column"))
+  })
 
 output$ylim1_sv = renderUI({
   sliderTextInput(
     "ylim1_sv", 
     label= NULL,
-  choices = seq(-5+round(plotparsv[["ylm"]][1]*2), 5+round(plotparsv[["ylm"]][2]*2),0.5),
+  choices = round(seq(-5+round(plotparsv[["ylm"]][1]*2), 5+round(plotparsv[["ylm"]][2]*2),0.2),2),
   selected= round(plotparsv[["ylm"]]),
   grid = TRUE,
   width ="100%"
@@ -311,7 +311,7 @@ output$xlim1_sv = renderUI({
   sliderTextInput(
     "xlim1_sv", 
     label= NULL,
-  choices = seq(-5+round(plotparsv[["xlm"]][1]*2), 5+round(plotparsv[["xlm"]][2]*2),0.5),
+  choices = round(seq(-5+round(plotparsv[["xlm"]][1]*2), 5+round(plotparsv[["xlm"]][2]*2),0.2),2),
   selected= round(plotparsv[["xlm"]]),
   grid = TRUE,
   width ="100%"
@@ -319,7 +319,7 @@ output$xlim1_sv = renderUI({
 })
 
 ## plot for surv
-res.plot2 <- reactive({
+res.plot2 <- eventReactive(input$Bplot1_sv,{
 # validate(need(input$z2, "Choose Treatment variable"))
 # validate(need(input$c2, "Please check the contrast vector"))
 # c2 <- as.numeric(unlist(strsplit(input$c2,",")))
@@ -346,10 +346,10 @@ validate(need(res2(), "Model estimation failed; please check the input of variab
 # df <- data.frame(x = x[ord], y = res[ord,2], lb = res[ord,1], ub = res[ord,3])
 
 df = res2plot()
-# if((input$xlim1_sv[1]==input$xlim1_sv[2])||is.null(input$xlim1_sv)) xlim = range(df$x) else xlim=input$xlim1_sv
-# if((input$ylim1_sv[1]==input$ylim1_sv[2])||is.null(input$ylim1_sv)) ylim = range(c(df$ub, df$lb)) else ylim=input$ylim1_sv
-xlim = input$xlim1_sv
-ylim = input$ylim1_sv
+if((input$xlim1_sv[1]==input$xlim1_sv[2])||is.null(input$xlim1_sv)) xlim = range(df$x) else xlim=input$xlim1_sv
+if((input$ylim1_sv[1]==input$ylim1_sv[2])||is.null(input$ylim1_sv)) ylim = c(-5,5) else ylim=input$ylim1_sv
+# xlim = input$xlim1_sv
+# ylim = input$ylim1_sv
 ggplot(df, mapping = aes(x = x)) + 
   scale_x_continuous(limits = xlim, name = "X") +
   scale_y_continuous(limits = ylim, name = latex2exp::TeX("CSTE = $c^T \\beta(X)$")) +
