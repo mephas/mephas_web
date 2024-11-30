@@ -214,7 +214,7 @@ plotparsv = reactiveValues()
 observeEvent(input$B2,{
 # browser()
 shinyjs::disable("B2")
-# shinyjs::disable("Bplot1_sv")
+shinyjs::disable("Bplot1_sv")
 
   validate(need(input$z2, "Choose Treatment variable"))
   # validate(need(input$ztype=="TRUE" & is.null(input$c2), "Please check the contrast vector for the multiple treatments"))
@@ -227,16 +227,17 @@ shinyjs::disable("B2")
   if(is.null(input$m2)) mm=50 else mm = input$m2
   if(is.null(input$kh2)) hh=0.5 else hh = input$kh2
 
+# browser()
   c2text(c2)
-  # if (length(c) != length(input$z2)) c <- c(1,rep(0, length(input$z2)-1)) else c <- c
-  # browser()
+  
+  X2 = (X2() - min(X2())) / (max(X2()) - min(X2()))
   res <- cste_surv_SCB((c2),
-    x = unlist(X2()), y = unlist(Y2()), z = as.matrix(Z2()), s = unlist(S2()), 
+    x = unlist(X2), y = unlist(Y2()), z = as.matrix(Z2()), s = unlist(S2()), 
     h = hh, m = mm, alpha = aa)  
 
 res2(res)
 
-ord = order(unlist(X2()))
+ord = order(unlist(X2))
 x <- unlist(X2())
 df <- data.frame(x = x[ord], y = res[ord,2], lb = res[ord,1], ub = res[ord,3])
 res2plot(df)
@@ -245,7 +246,7 @@ plotparsv[["xlm"]] <- range(c(df$x))
 plotparsv[["ylm"]] <- range(c(df$ub, df$lb))
 
 shinyjs::enable("B2")
-# shinyjs::enable("Bplot1_sv")
+shinyjs::enable("Bplot1_sv")
 # browser()
   })
 
@@ -301,7 +302,7 @@ output$ylim1_sv = renderUI({
   sliderTextInput(
     "ylim1_sv", 
     label= NULL,
-  choices = round(seq(-5+round(plotparsv[["ylm"]][1]*2), 5+round(plotparsv[["ylm"]][2]*2),0.2),2),
+  choices = round(seq(max(round(-5+plotparsv[["ylm"]][1]*2),-100), min(5+round(plotparsv[["ylm"]][2]*2),100),0.2),2),
   selected= round(plotparsv[["ylm"]]),
   grid = TRUE,
   width ="100%"

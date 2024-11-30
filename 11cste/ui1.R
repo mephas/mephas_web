@@ -86,7 +86,7 @@ tags$b("Covariates (choose one or more numerical variables)"),
 uiOutput("x1"),
 awesomeCheckbox(
    inputId = "scale",
-   label = tags$b("I need to standardize covariates"), 
+   label = tags$b("I need min-max standardization of covariates"), 
    value = FALSE,
    status = "primary"),
 conditionalPanel("input.clamb=='TRUE'",
@@ -228,7 +228,8 @@ tabsetPanel(
    wellPanel(
       withSpinner(DTOutput("res.table"), type = 4, color = "#3498db", size = 1, caption = "Estimating, please wait..."),
       conditionalPanel("input.clamb",
-      DTOutput("res.bic")
+      DTOutput("res.bic"),
+      p("If no results, you may need to decrease the tuning parameter.")
       )),
 
    # actionButton("BB", HTML('Step 2. Estimate the CSTE curve'), 

@@ -70,7 +70,7 @@ output$info <- renderUI({prettyRadioButtons(
 data <- reactive({
   inFile <- input$file
   if (is.null(inFile)) {
-    x <- as.data.frame(dataeg())
+    x <- (dataeg())
   } else {
     if (!input$col) {
       csv <- read.csv(inFile$datapath, header = input$header, sep = input$sep, quote = input$quote, stringsAsFactors = TRUE)
@@ -80,9 +80,9 @@ data <- reactive({
     validate(need(ncol(csv) > 1, "Please check the validation of your data"))
     validate(need(nrow(csv) > 1, "Please check the validation of your data"))
 
-    x <- as.data.frame(csv)
+    x <- (csv)
   }
-  if(input$rmdt) x <- as.data.frame(dataeg())
+  if(input$rmdt) x <- (dataeg())
   return(x)
 })
 
@@ -194,7 +194,7 @@ observeEvent(input$B,{
 
     shinyjs::disable("B")
     shinyjs::disable("BB")
-  if(input$scale) x <- normalize(as.matrix(X())) else x <- as.matrix(X())
+  if(input$scale) x <- (X())%>%mutate_all(~ ( . - min(.) ) / ( max(.) - min(.) )) else x <- (X())
   if(is.null(input$knot)) nkt = 2 else nkt = input$knot
 
   # withProgress(message = "Estimating (please hold on...)", value = 0.5, {
@@ -211,11 +211,11 @@ observeEvent(input$B,{
     if(is.null(input$maxtune)) maxtune = c(0.001,0.005) else maxtune = input$maxtune
     if(is.null(input$seqtune)) seqtune = 0.001 else seqtune = input$seqtune
   # browser()
-    par = suppressWarnings(try(select_cste_bin(x = x, y = unlist(Y()), z = unlist(Z()), 
+    par = suppressWarnings(tryCatch(select_cste_bin(x = x, y = unlist(Y()), z = unlist(Z()), 
       beta_ini = NULL,
       lam_seq = seq(from=maxtune[1],to=maxtune[2],by=seqtune), 
       nknots = nkt, 
-      max.iter =1000, eps = 0.001)))
+      max.iter =1000, eps = 0.001), error = function(e) list(optimal = NULL, bic = NA, lam_seq = NA)))
     fit(par$optimal)
     parfit(par)
 
@@ -264,7 +264,7 @@ if(is.null(input$kh)) kh = 0.01 else kh = input$kh
 if(is.null(input$alpha)) alpha = 0.05 else alpha = input$alpha
 
 
-if(input$scale) x <- normalize(as.matrix(X())) else x <- as.matrix(X())
+if(input$scale) x <- (X())%>%mutate_all(~ ( . - min(.) ) / ( max(.) - min(.) )) else x <- X()
 res <- cste_bin_SCB(x, fit(), h = kh, alpha = alpha)
 res(res)
 
@@ -359,7 +359,7 @@ output$ylim1 = renderUI({
   sliderTextInput(
     "ylim1", 
     label= NULL,
-  choices = round(seq(-5+round(plotpar1[["ylm"]][1]*2), 5+round(plotpar1[["ylm"]][2]*2),0.2),2),
+  choices = round(seq(max(round(-5+plotpar1[["ylm"]][1]*2),-100), min(5+round(plotpar1[["ylm"]][2]*2),100),0.2),2),
   selected= c(-5,5),
   grid = TRUE,
   width ="100%"
@@ -688,7 +688,7 @@ output$infop <- renderUI({prettyRadioButtons(
 datap <- reactive({
   inFile <- input$filep
   if (is.null(inFile)) {
-    x <- as.data.frame(dataeg3())
+    x <- (dataeg3())
   } else {
     if (!input$colp) {
       csv <- read.csv(inFile$datapath, header = input$headerp, sep = input$sepp, quote = input$quotep, stringsAsFactors = TRUE)
@@ -700,7 +700,7 @@ datap <- reactive({
 
     x <- as.data.frame(csv)
   }
-  if(input$prmdt) x <- as.data.frame(dataeg3())
+  if(input$prmdt) x <- (dataeg3())
   return(x)
 })
 
@@ -745,7 +745,7 @@ output$ylim12 = renderUI({
   sliderTextInput(
     "ylim12", 
     label= NULL,
-  choices = round(seq(-5+round(plotpar[["ylm"]][1]*2), 5+round(plotpar[["ylm"]][2]*2),0.2),2),
+  choices = round(seq(max(round(-5+plotpar[["ylm"]][1]*2),-100), min(5+round(plotpar[["ylm"]][2]*2),100),0.2),2),
   selected= round(plotpar[["ylm"]]),
   grid = TRUE,
   width ="100%"
