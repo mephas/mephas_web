@@ -238,7 +238,7 @@ sliderTextInput(
   "kh", 
   label= NULL,
   choices = seq(0.001,0.1,0.001),
-  selected=0.01,
+  selected=0.05,
   grid = TRUE,
   width ="100%"
   )
@@ -260,7 +260,7 @@ plotpar1 =reactiveValues()
 
 observeEvent(input$BB,{
 req(fit())
-if(is.null(input$kh)) kh = 0.01 else kh = input$kh
+if(is.null(input$kh)) kh = 0.05 else kh = input$kh
 if(is.null(input$alpha)) alpha = 0.05 else alpha = input$alpha
 
 
@@ -389,7 +389,7 @@ req(estdf())
 if(is.null(input$ylim1)||input$ylim1[1]==input$ylim1[2]) ylim1 <- c(-5,5) else ylim1=input$ylim1
 if(is.null(input$xlim1)||input$xlim1[1]==input$xlim1[2]) xlim1 <- plotpar1[["xlm"]] else xlim1=input$xlim1
 
-if(is.null(input$kh)) kh <- 0.01 else kh <- input$kh
+if(is.null(input$kh)) kh <- 0.05 else kh <- input$kh
 if(is.null(input$alpha)) alpha <- 0.05 else alpha <- input$alpha
 
   df = estdf()
@@ -729,7 +729,8 @@ if(input$scale) newX <- normalize(as.matrix(newx)) else newX <- as.matrix(newx)
 newor <- newX %*%matrix(beta, ncol=1)
 res <- res()
 # browser()
-df <- data.frame(x = res$or_x, y = res$fit_x, lb = res$lower_bound, ub = res$upper_bound)
+# df <- data.frame(x = res$or_x, y = res$fit_x, lb = res$lower_bound, ub = res$upper_bound)
+df = estdf()
 plotpar[["df"]] =df 
 df2<- data.frame(id = seq_along(newor), x = newor)#, y = pred$g1
 plotpar[["df2"]]=df2
