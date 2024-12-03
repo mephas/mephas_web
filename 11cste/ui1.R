@@ -86,7 +86,7 @@ tags$b("Covariates (choose one or more numerical variables)"),
 uiOutput("x1"),
 awesomeCheckbox(
    inputId = "scale",
-   label = tags$b("I need min-max standardization of covariates"), 
+   label = tags$b("I need standardization of covariates (standard scaling)"), 
    value = FALSE,
    status = "primary"),
 conditionalPanel("input.clamb=='TRUE'",

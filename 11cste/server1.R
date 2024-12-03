@@ -194,7 +194,7 @@ observeEvent(input$B,{
 
     shinyjs::disable("B")
     shinyjs::disable("BB")
-  if(input$scale) x <- (X())%>%mutate_all(~ ( . - min(.) ) / ( max(.) - min(.) )) else x <- (X())
+  if(input$scale) x <- scale(X()) else x <- (X())
   if(is.null(input$knot)) nkt = 2 else nkt = input$knot
 
   # withProgress(message = "Estimating (please hold on...)", value = 0.5, {
@@ -264,7 +264,7 @@ if(is.null(input$kh)) kh = 0.05 else kh = input$kh
 if(is.null(input$alpha)) alpha = 0.05 else alpha = input$alpha
 
 
-if(input$scale) x <- (X())%>%mutate_all(~ ( . - min(.) ) / ( max(.) - min(.) )) else x <- X()
+if(input$scale) x <- scale(X()) else x <- X()
 res <- cste_bin_SCB(x, fit(), h = kh, alpha = alpha)
 res(res)
 
@@ -725,7 +725,7 @@ validate(need(newx,
 # pred <- predict_cste_bin(fit(), newX)
 beta <- fit()$beta1
 # newx = subset(datap(), select=input$x1, drop = FALSE)
-if(input$scale) newX <- normalize(as.matrix(newx)) else newX <- as.matrix(newx)
+if(input$scale) newX <- scale(as.matrix(newx)) else newX <- as.matrix(newx)
 newor <- newX %*%matrix(beta, ncol=1)
 res <- res()
 # browser()
@@ -832,7 +832,7 @@ newx = tryCatch(subset(datap(), select=input$x1, drop = FALSE),
 validate(need(newx, 
   "Please check whether the variables of the new data are the same with the modeling data"))
 
-if(input$scale) newX <- normalize(as.matrix(newx)) else newX <- as.matrix(newx)
+if(input$scale) newX <- scale(as.matrix(newx)) else newX <- as.matrix(newx)
 
   beta <- fit()$beta1
   res <- data.frame(
