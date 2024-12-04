@@ -14,7 +14,6 @@ HTML("Data structure:
 <li>Covariate: single or multiple variables</li>
 </ul>"),
 
-h3("Model Estimation"),
 
 radioGroupButtons(
    inputId = "upload",
@@ -63,6 +62,8 @@ conditionalPanel(condition="input.upload=='B'",
    # p("Correct separator and quote ensure the successful data input")
 )),
 hr(),
+
+h3("Model Estimation"),
 
 h4("Select variables"),              
 tags$b("Whether to do variable selection"),

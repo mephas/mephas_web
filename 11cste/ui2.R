@@ -15,7 +15,7 @@ HTML("Data structure:
 <li>Covariate: single variable of biomarker</li>
 </ul>"),
 
-h3("Model Estimation"),
+
 radioGroupButtons(
    inputId = "upload_sv",
    label = h4("Use example data or upload user data"),
@@ -63,6 +63,7 @@ conditionalPanel(condition="input.upload_sv=='B'",
 )),
 hr(),
 
+h3("Model Estimation"),
    h4("Select variables"),  
    tags$b("Single treatment variable or multiple treatment variables"),
    # uiOutput("ztype"),
