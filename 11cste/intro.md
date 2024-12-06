@@ -7,7 +7,7 @@
 
 **CSTEapp** provides a uniform statistical inferential tool, **the Covariate-Specific Treatment Effect (CSTE) curve** for estimating individualized treatment rule.
 
-**CSTEapp** estimates differences of average outcomes between different treatment groups conditional on patients characteristics and provides the corresponding simultaneous confidence bands. Based on the CSTE curve and the simultaneous confidence bands, one can decide the subgroups of patients that benefit from each treatment and then make individualized treatment selections.
+**CSTEapp** estimates differences of average outcomes between different treatment groups conditional on patients characteristics and provides the corresponding simultaneous confidence intervals. Based on the CSTE curve and the simultaneous confidence intervals, one can decide the subgroups of patients that benefit from each treatment and then make individualized treatment selections.
 
 ### Data structure suitable in the **CSTEapp**
 
@@ -22,7 +22,7 @@
 ### How to read the CSTE curve and choose the optimal treatment
 
 
-*   Given the observed covariates, estimate **the CSTE curve** and the corresponding **simultaneous confidence bands (SCB)** at a certain (usually 0.05) confidence level.   
+*   Given the observed covariates, estimate **the CSTE curve** and the corresponding **simultaneous confidence intervals** at a certain (usually 0.05) confidence level.   
 
 *   Based on the SCB, identify the cutoff points of **the positive and negative regions** of the CSTE.  
     

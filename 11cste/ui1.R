@@ -237,7 +237,7 @@ tabsetPanel(
    #           class =  "btn-primary",
    #           icon  = icon("chart-column")), 
    
-   h4("Estimated CSTE with confidence bounds"),
+   h4("Estimated CSTE with confidence intervals"),
    conditionalPanel("input.B",
    uiOutput("actionButtonBplot2"),
    wellPanel(
@@ -251,7 +251,7 @@ tabsetPanel(
       tags$b("Kernel bandwidth for B-spline method in the confidence intervals, which controls the smoothness of the curve)"),
       # helpText(HTML("0 indicates to use the estimated kernel bandwidth")),
       uiOutput("kh"),
-      tags$b("Significant level for confidence interval"),
+      tags$b("Significant level for confidence intervals"),
       uiOutput("alpha"),
       p("After setting, please re-click the button of Step 2")),
       DTOutput("res.table12")),

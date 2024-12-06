@@ -96,9 +96,9 @@ h3("Model Estimation"),
    status = "primary"
    ),
    conditionalPanel(condition="input.advance_sv",
-   tags$b("Significant level for confidence interval"),
+   tags$b("Significant level for confidence intervals"),
    uiOutput("alpha2"),
-   tags$b("Resampling times for confidence interval"),
+   tags$b("Resampling times for confidence intervals"),
    uiOutput("m2"),
    tags$b("Kernel bands in estimation (influence the smoothness of the curve)"),
    uiOutput("kh2")),
@@ -129,7 +129,7 @@ h3("Results"),
 HTML(" 
 <ul>
 <li>CSTE Curve: the estimated CSTE curve</li>
-<li>Estimates: the estimated CSTE with confidence bands</li>
+<li>Estimates: the estimated CSTE with confidence intervals</li>
 </ul>
 "),
 tabsetPanel(
