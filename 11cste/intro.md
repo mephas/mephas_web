@@ -37,7 +37,7 @@
 
 <img src="eg.png" alt="Graph" style="width:70%; height:auto;">
 
-Suppose this CSTE curve was simulated for binary outcomes $Y$, **where $Y=1$ indicated deterioration in health and $Y=0$ otherwise**;  **$Z=1$ indicated assignment of the new treatment and $Z=0$ the old treatment**.
+Suppose this CSTE curve was simulated for binary outcomes $Y$, **where $Y=1$ indicated deterioration in health and $Y=0$ otherwise**, and $Z=1$ **indicated assignment of the new treatment and** $Z=0$ **the old treatment**.
 
 *   If data ($\tilde{\boldsymbol x}^\top\hat{\boldsymbol\beta}_1$) falls into the region $(-1,a]$ or $[d,0.25)$, we have 95\% confidence to conclude that the patient will **benefit from the new treatment**; 
 
