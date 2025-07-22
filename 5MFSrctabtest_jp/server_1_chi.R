@@ -18,10 +18,34 @@ output$dt1 = DT::renderDT({
     margin = seq_along(dim(T1())), 
     FUN = list(Total=sum), quiet = TRUE)},
     extensions = 'Buttons', 
+    # options = list(
+    # dom = 'Bfrtip',
+    # buttons = c('copy', 'csv', 'excel'),
+    # scrollX = TRUE)
     options = list(
-    dom = 'Bfrtip',
-    buttons = c('copy', 'csv', 'excel'),
-    scrollX = TRUE)
+        dom = 'Bfrtip',
+        buttons = list(
+          list(
+            extend = "copy",
+            text = "Copy",
+            customize = JS(
+            "function (data) {",
+            "  // You can modify data before it is copied",
+            "  return data.replace(/^.*My Panel Title.*\\n/, '');",  # adjust string
+            "}"
+          )
+          ),
+          list(
+            extend = "csv",
+            filename = "my_custom_filename",
+            text = "Download CSV"
+          ),
+          list(
+            extend = "excel",
+            filename = "my_custom_filename",
+            text = "Download Excel"
+          )
+        ))
   )
 
 output$dt1.0 = DT::renderDT({
