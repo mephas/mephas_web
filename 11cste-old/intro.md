@@ -95,11 +95,6 @@ Suppose this CSTE curve was simulated for binary outcomes $Y$, **where** $Y=1$ *
     <td class="tg-0pky">1.0.0</td>
     <td class="tg-0pky">Update interface and functions</td>
   </tr>
-  <tr>
-    <td class="tg-0pky">2025-7-27</td>
-    <td class="tg-0pky">1.0.1</td>
-    <td class="tg-0pky">Update functions for survival outcomes. Allowing multiple arms denoted by single treatment. </td>
-  </tr>
 </tbody>
 </table>
 
