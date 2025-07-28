@@ -401,15 +401,15 @@ if(is.null(input$alpha)) alpha <- 0.05 else alpha <- input$alpha
   geom_hline(yintercept=0, colour = "#53868B", lty=2)+
   # geom_ribbon(mapping=aes(ymin=ub,ymax=lb, fill="Confidence band"), colour="#87cefa", alpha=0.2) +
   geom_line(aes(y=y,  colour = "Fitted"), na.rm = TRUE)+
-  geom_line(aes(y=ub, colour = "Simultaneous confidence band"), na.rm = TRUE)+
-  geom_line(aes(y=lb, colour = "Simultaneous confidence band"), na.rm = TRUE)+
+  geom_line(aes(y=ub, colour = "Simultaneous \nconfidence \nband"), na.rm = TRUE)+
+  geom_line(aes(y=lb, colour = "Simultaneous \nconfidence \nband"), na.rm = TRUE)+
   theme(panel.background = element_rect(fill = "white", colour = "grey50"),
         panel.grid.major = element_line(colour = "grey87"),
         legend.key = element_rect (fill = "white"),
         legend.position = "bottom"
         )+
   scale_colour_manual("CSTE Curve", 
-                      breaks = c("Fitted","Simultaneous confidence band"),
+                      breaks = c("Fitted","Simultaneous \nconfidence \nband"),
                       values = c("#F8766D","#87cefa"),
                       guide = guide_legend(override.aes = list(lty = c(1,1))))
   # scale_fill_manual(" ", 
