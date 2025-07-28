@@ -343,7 +343,7 @@ tabsetPanel(
     ),
 
       h4("The predicted location of x-axis for new subject"),
-      helpText(HTML("The order indicates values from left to right. E.g., Order1 indicates the leftmost values."))
+      helpText(HTML("The order indicates values from left to right. E.g., Order1 indicates the leftmost values.")),
       DTOutput("res.tablep")
       )
 )
