@@ -120,8 +120,8 @@ output$z2 <- renderUI({
   pickerInput(
     "z2",
     label= NULL,
-    choices = type.num2(),
-    selected= (if(input$ztype!="C") type.bin2()[1:2] else type.num2()[1]),
+    choices = (if(input$ztype=="B") type.num2() else type.bin2()),
+    selected= (if(input$ztype=="A") type.bin2()[1] else if(input$ztype=="B") type.num2()[1]  else type.bin2()[1:2]),
     width = "100%",
     multiple = (if(input$ztype=="C") TRUE else FALSE)
   )
